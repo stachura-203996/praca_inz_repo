@@ -1,4 +1,4 @@
-package com.stachura.praca_inz.backend.rest;
+package com.stachura.praca_inz.backend.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
