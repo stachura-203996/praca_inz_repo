@@ -18,10 +18,10 @@ public class Device implements Serializable {
     @Column(name = "ID", updatable = false, nullable = false)
     private Long id = null;
 
-    @Column(name = "REGISTRATION_NUMBER")
-    private String registrationNumber;
+    @Column(name = "SERIAL_NUMBER")
+    private String serialNumber;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
-    private Company company;
+    private Warehouse warehouse;
 }

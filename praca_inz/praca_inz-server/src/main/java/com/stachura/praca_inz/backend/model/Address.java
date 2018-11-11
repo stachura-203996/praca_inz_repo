@@ -17,12 +17,19 @@ public class Address implements Serializable {
     @Column(name = "ID", updatable = false, nullable = false)
     private Long id = null;
 
+    @Column(name = "CITY")
+    private String city;
+
     @Column(name = "STREET")
     private String street;
 
-    @Column(name = "HOUSE_NUMBER")
-    private String houseNumber;
+    @Column(name = "BUILDING_NUMBER")
+    private String buildingNumber;
+
+    @Column(name = "FLAT_NUMBER")
+    private String flatNumber;
 
     @Column(name = "ZIP_CODE")
     private String zipCode;
+
 }

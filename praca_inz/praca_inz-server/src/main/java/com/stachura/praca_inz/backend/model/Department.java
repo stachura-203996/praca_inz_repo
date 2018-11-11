@@ -24,9 +24,6 @@ public class Department implements Serializable {
     @Column(name = "NAME", nullable = false)
     private String name;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "department", fetch = FetchType.LAZY, orphanRemoval = true)
-    @JsonManagedReference
-    private Set<Employee> employees = new HashSet<>();
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "department", fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonManagedReference
@@ -36,12 +33,7 @@ public class Department implements Serializable {
     @JsonBackReference
     private Company company;
 
-    public void setEmployees(Set<Employee> employees) {
-        this.employees.clear();
-        if (employees != null) {
-            this.employees.addAll(employees);
-        }
-    }
+
 
     public void setOffices(Set<Office> offices) {
         this.offices.clear();

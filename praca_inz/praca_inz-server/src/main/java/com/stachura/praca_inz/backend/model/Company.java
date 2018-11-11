@@ -25,13 +25,18 @@ public class Company implements Serializable {
     @Column(name = "NAME", nullable = false)
     private String name;
 
+    @Column(name = "DESCRIPTION", nullable = false)
+    private String description;
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "MAIN_OFFICE_ADRESS_ID")
+    private Address address;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "company", fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonManagedReference
     private Set<Department> departments = new HashSet<>();
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "company", fetch = FetchType.LAZY, orphanRemoval = true)
-    @JsonManagedReference
-    private Set<Device> devices = new HashSet<>();
+
 
     public void setDepartments(Set<Department> departments) {
         this.departments.clear();
@@ -40,10 +45,5 @@ public class Company implements Serializable {
         }
     }
 
-    public void setDevices(Set<Device> devices) {
-        this.devices.clear();
-        if (devices != null) {
-            this.devices.addAll(devices);
-        }
-    }
+
 }
