@@ -11,7 +11,14 @@ $topnav-background-color: #222;
             &:hover {
                 color: #fff;
             }
+            margin-right: 20px;
+                .dropdown-item {
+
+                   padding-right : 100px;
+                }
+
         }
+
     }
     .messages {
         width: 300px;

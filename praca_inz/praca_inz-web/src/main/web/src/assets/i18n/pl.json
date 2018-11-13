@@ -1,5 +1,5 @@
 {
-    "Dashboard": "Panel sterowania",
+    "HomePage": "Strona startowa",
     "Charts": "Wykresy",
     "Tables": "Tabele",
     "Forms": "Formy",
@@ -7,6 +7,7 @@
     "Bootstrap Grid": "Bootstrap siatki",
     "Component": "Komponent",
     "UserManagementPanel": "Panel zarzadzania użytkownikami",
+    "UserList": "Lista użytkowników",
     "Submenu": "Podmenu",
     "Blank Page": "Pusta Strona",
     "Language": "Język",
@@ -23,5 +24,11 @@
     "Pending Task" : "Pending Task",
     "In queue" : "W kolejce",
     "Mail" : "Poczta",
-    "View All" : "Pokaż wszystko"
+    "View All" : "Pokaż wszystko",
+    "Subordinates" : "Lista podwładnych",
+    "EmployeesManagementPanel" : "Panel zarządzania pracownikami",
+    "SubordinatesReports" : "Lista raportów podwładnych",
+    "DevicesMenagemantPanel" : "Panel zarzadzania urządzeniami",
+    "YourDevices" : "Twoje urządzenia",
+    "Warhouses" : "Magazyny"
 }

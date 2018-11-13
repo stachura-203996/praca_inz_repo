@@ -2,296 +2,38 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f66c3c42-2f01-4e2f-8a81-c7dd9e66fca1" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/praca_inz/praca_inz-server/src/main/java/com/stachura/praca_inz/backend/controller/registration/OnRegistrationCompleteEvent.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/praca_inz/praca_inz-server/src/main/java/com/stachura/praca_inz/backend/controller/registration/RegistrationController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/praca_inz/praca_inz-server/src/main/java/com/stachura/praca_inz/backend/error/InvalidOldPasswordException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/praca_inz/praca_inz-server/src/main/java/com/stachura/praca_inz/backend/error/ReCaptchaInvalidException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/praca_inz/praca_inz-server/src/main/java/com/stachura/praca_inz/backend/error/ReCaptchaUnavailableException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/praca_inz/praca_inz-server/src/main/java/com/stachura/praca_inz/backend/error/RestResponseEntityExceptionHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/praca_inz/praca_inz-server/src/main/java/com/stachura/praca_inz/backend/error/UserAlreadyExistException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/praca_inz/praca_inz-server/src/main/java/com/stachura/praca_inz/backend/error/UserNotFoundException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/praca_inz/praca_inz-server/src/main/java/com/stachura/praca_inz/backend/model/Warehouse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/praca_inz/praca_inz-server/src/main/java/com/stachura/praca_inz/backend/service/IRegistrationService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/praca_inz/praca_inz-server/src/main/java/com/stachura/praca_inz/backend/service/IUserService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/praca_inz/praca_inz-server/src/main/java/com/stachura/praca_inz/backend/service/impl/RegistrationService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/praca_inz/praca_inz-server/src/main/java/com/stachura/praca_inz/backend/service/impl/UserServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/praca_inz/praca_inz-server/src/main/java/com/stachura/praca_inz/backend/validation/EmailExistsException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/praca_inz/praca_inz-server/src/main/java/com/stachura/praca_inz/backend/validation/EmailValidator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/praca_inz/praca_inz-server/src/main/java/com/stachura/praca_inz/backend/validation/PasswordConstraintValidator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/praca_inz/praca_inz-server/src/main/java/com/stachura/praca_inz/backend/validation/PasswordMatches.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/praca_inz/praca_inz-server/src/main/java/com/stachura/praca_inz/backend/validation/PasswordMatchesValidator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/praca_inz/praca_inz-server/src/main/java/com/stachura/praca_inz/backend/validation/UserValidator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/praca_inz/praca_inz-server/src/main/java/com/stachura/praca_inz/backend/validation/ValidEmail.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/praca_inz/praca_inz-server/src/main/java/com/stachura/praca_inz/backend/validation/ValidPassword.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/praca_inz/praca_inz-server/src/main/java/com/stachura/praca_inz/backend/web/dto/RegistrationDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/praca_inz/praca_inz-server/src/main/java/com/stachura/praca_inz/backend/web/util/GenericResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/src/app/account/register/register.component.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/src/app/account/register/register.component.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/src/app/account/register/register.route.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/src/app/account/register/register.service.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/src/app/error-pages/400/error-400.component.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/src/app/error-pages/400/error-400.component.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/src/app/error-pages/400/error-400.component.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/src/app/error-pages/401/error-401.component.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/src/app/error-pages/401/error-401.component.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/src/app/error-pages/401/error-401.component.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/src/app/error-pages/403/error-403.component.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/src/app/error-pages/403/error-403.component.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/src/app/error-pages/403/error-403.component.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/src/app/error-pages/404/error-404.component.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/src/app/error-pages/404/error-404.component.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/src/app/error-pages/404/error-404.component.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/src/app/error-pages/500/error-500.component.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/src/app/error-pages/500/error-500.component.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/src/app/error-pages/500/error-500.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/mvnw.cmd" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/mvnw.cmd" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-server/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-server/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-server/src/main/java/com/stachura/praca_inz/backend/model/Device.java" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-server/src/main/java/com/stachura/praca_inz/backend/model/Device.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-server/src/main/java/com/stachura/praca_inz/backend/model/Employee.java" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-server/src/main/java/com/stachura/praca_inz/backend/model/Employee.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-server/src/main/java/com/stachura/praca_inz/backend/model/security/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-server/src/main/java/com/stachura/praca_inz/backend/model/security/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-server/src/main/java/com/stachura/praca_inz/backend/repository/CompanyRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-server/src/main/java/com/stachura/praca_inz/backend/repository/impl/CompanyRepositoryImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-server/src/main/java/com/stachura/praca_inz/backend/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-server/src/main/java/com/stachura/praca_inz/backend/repository/UserRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-server/src/main/java/com/stachura/praca_inz/backend/service/CompanyServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-server/src/main/java/com/stachura/praca_inz/backend/service/impl/CompanyServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-server/src/main/java/com/stachura/praca_inz/backend/service/UserDetailsServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-server/src/main/java/com/stachura/praca_inz/backend/service/impl/UserDetailsServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-server/src/main/resources/db/migration/h2/V11__create_user.sql" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-server/src/main/resources/db/migration/h2/V11__create_user.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-server/src/main/resources/db/migration/h2/V12__insert_authentication.sql" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-server/src/main/resources/db/migration/h2/V12__insert_authentication.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-server/src/main/resources/db/migration/h2/V14__insert_user.sql" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-server/src/main/resources/db/migration/h2/V14__insert_user.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-server/src/main/resources/db/migration/h2/V4__create_car.sql" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-server/src/main/resources/db/migration/h2/V4__create_device.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-server/src/main/resources/db/migration/postgresql/V11__create_user.sql" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-server/src/main/resources/db/migration/postgresql/V11__create_user.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-server/src/main/resources/db/migration/postgresql/V12__insert_authentication.sql" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-server/src/main/resources/db/migration/postgresql/V12__insert_authentication.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-server/src/main/resources/db/migration/postgresql/V14__insert_user.sql" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-server/src/main/resources/db/migration/postgresql/V14__insert_user.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-server/src/main/resources/db/migration/postgresql/V4__create_car.sql" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-server/src/main/resources/db/migration/postgresql/V4__create_device.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-server/src/main/resources/db/migration/postgresql/V7__insert_car.sql" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-server/src/main/resources/db/migration/postgresql/V7__insert_device.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/.mailmap" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/.mailmap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/AUTHORS" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/AUTHORS" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/CHANGELOG.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/CONTRIBUTING.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/CONTRIBUTING.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/LICENSE" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/LICENSE" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/changelogs/CHANGELOG-1.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/changelogs/CHANGELOG-1.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/changelogs/CHANGELOG-2.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/changelogs/CHANGELOG-2.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/changelogs/CHANGELOG-3.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/changelogs/CHANGELOG-3.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/changelogs/CHANGELOG-4.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/changelogs/CHANGELOG-4.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/changelogs/CHANGELOG-5.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/changelogs/CHANGELOG-5.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/doc/cli/npm-access.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/doc/cli/npm-access.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/doc/cli/npm-adduser.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/doc/cli/npm-adduser.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/doc/cli/npm-ci.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/doc/cli/npm-ci.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/doc/cli/npm-config.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/doc/cli/npm-config.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/doc/cli/npm-doctor.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/doc/cli/npm-doctor.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/doc/cli/npm-logout.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/doc/cli/npm-logout.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/doc/cli/npm-ls.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/doc/cli/npm-ls.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/doc/cli/npm-owner.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/doc/cli/npm-owner.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/doc/cli/npm-profile.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/doc/cli/npm-profile.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/doc/cli/npm-publish.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/doc/cli/npm-publish.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/doc/cli/npm-stars.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/doc/cli/npm-stars.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/doc/cli/npm-team.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/doc/cli/npm-team.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/doc/cli/npm-unpublish.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/doc/cli/npm-unpublish.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/doc/cli/npm-version.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/doc/cli/npm-version.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/doc/cli/npm.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/doc/cli/npm.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/doc/files/npm-package-locks.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/doc/files/npm-package-locks.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/doc/files/npm-shrinkwrap.json.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/doc/files/npm-shrinkwrap.json.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/doc/files/npmrc.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/doc/files/npmrc.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/doc/files/package-lock.json.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/doc/files/package-lock.json.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/doc/files/package.json.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/doc/files/package.json.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/doc/misc/npm-developers.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/doc/misc/npm-developers.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/doc/misc/npm-disputes.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/doc/misc/npm-disputes.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/doc/misc/npm-index.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/doc/misc/npm-index.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/doc/misc/npm-orgs.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/doc/misc/npm-orgs.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/doc/misc/npm-registry.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/doc/misc/npm-registry.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/doc/misc/npm-scope.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/doc/misc/npm-scope.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/doc/misc/npm-scripts.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/doc/misc/npm-scripts.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/doc/misc/semver.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/doc/misc/semver.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/doc/spec/package-lock.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/doc/spec/package-lock.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/html/doc/README.html" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/html/doc/README.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/html/doc/cli/npm-access.html" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/html/doc/cli/npm-access.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/html/doc/cli/npm-adduser.html" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/html/doc/cli/npm-adduser.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/html/doc/cli/npm-ci.html" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/html/doc/cli/npm-ci.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/html/doc/cli/npm-config.html" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/html/doc/cli/npm-config.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/html/doc/cli/npm-doctor.html" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/html/doc/cli/npm-doctor.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/html/doc/cli/npm-hook.html" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/html/doc/cli/npm-hook.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/html/doc/cli/npm-logout.html" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/html/doc/cli/npm-logout.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/html/doc/cli/npm-ls.html" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/html/doc/cli/npm-ls.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/html/doc/cli/npm-owner.html" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/html/doc/cli/npm-owner.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/html/doc/cli/npm-profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/html/doc/cli/npm-profile.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/html/doc/cli/npm-publish.html" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/html/doc/cli/npm-publish.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/html/doc/cli/npm-stars.html" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/html/doc/cli/npm-stars.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/html/doc/cli/npm-team.html" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/html/doc/cli/npm-team.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/html/doc/cli/npm-unpublish.html" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/html/doc/cli/npm-unpublish.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/html/doc/cli/npm-version.html" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/html/doc/cli/npm-version.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/html/doc/cli/npm.html" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/html/doc/cli/npm.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/html/doc/files/npm-json.html" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/html/doc/files/npm-json.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/html/doc/files/npm-package-locks.html" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/html/doc/files/npm-package-locks.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/html/doc/files/npm-shrinkwrap.json.html" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/html/doc/files/npm-shrinkwrap.json.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/html/doc/files/npmrc.html" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/html/doc/files/npmrc.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/html/doc/files/package-lock.json.html" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/html/doc/files/package-lock.json.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/html/doc/files/package.json.html" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/html/doc/files/package.json.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/html/doc/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/html/doc/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/html/doc/misc/npm-config.html" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/html/doc/misc/npm-config.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/html/doc/misc/npm-developers.html" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/html/doc/misc/npm-developers.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/html/doc/misc/npm-disputes.html" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/html/doc/misc/npm-disputes.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/html/doc/misc/npm-index.html" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/html/doc/misc/npm-index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/html/doc/misc/npm-orgs.html" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/html/doc/misc/npm-orgs.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/html/doc/misc/npm-registry.html" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/html/doc/misc/npm-registry.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/html/doc/misc/npm-scope.html" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/html/doc/misc/npm-scope.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/html/doc/misc/npm-scripts.html" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/html/doc/misc/npm-scripts.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/html/doc/misc/semver.html" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/html/doc/misc/semver.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/lib/deprecate.js" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/lib/deprecate.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/lib/install/audit.js" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/lib/install/audit.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/lib/install/deps.js" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/lib/install/deps.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/lib/profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/lib/profile.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/lib/stars.js" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/lib/stars.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/man/man1/npm-README.1" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/man/man1/npm-README.1" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/man/man1/npm-access.1" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/man/man1/npm-access.1" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/man/man1/npm-adduser.1" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/man/man1/npm-adduser.1" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/man/man1/npm-ci.1" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/man/man1/npm-ci.1" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/man/man1/npm-config.1" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/man/man1/npm-config.1" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/man/man1/npm-doctor.1" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/man/man1/npm-doctor.1" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/man/man1/npm-hook.1" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/man/man1/npm-hook.1" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/man/man1/npm-logout.1" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/man/man1/npm-logout.1" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/man/man1/npm-ls.1" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/man/man1/npm-ls.1" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/man/man1/npm-owner.1" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/man/man1/npm-owner.1" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/man/man1/npm-profile.1" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/man/man1/npm-profile.1" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/man/man1/npm-publish.1" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/man/man1/npm-publish.1" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/man/man1/npm-stars.1" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/man/man1/npm-stars.1" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/man/man1/npm-team.1" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/man/man1/npm-team.1" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/man/man1/npm-unpublish.1" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/man/man1/npm-unpublish.1" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/man/man1/npm-version.1" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/man/man1/npm-version.1" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/man/man1/npm.1" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/man/man1/npm.1" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/man/man5/npm-json.5" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/man/man5/npm-json.5" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/man/man5/npm-package-locks.5" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/man/man5/npm-package-locks.5" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/man/man5/npm-shrinkwrap.json.5" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/man/man5/npm-shrinkwrap.json.5" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/man/man5/package-lock.json.5" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/man/man5/package-lock.json.5" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/man/man5/package.json.5" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/man/man5/package.json.5" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/man/man7/npm-config.7" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/man/man7/npm-config.7" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/man/man7/npm-developers.7" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/man/man7/npm-developers.7" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/man/man7/npm-disputes.7" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/man/man7/npm-disputes.7" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/man/man7/npm-index.7" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/man/man7/npm-index.7" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/man/man7/npm-orgs.7" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/man/man7/npm-orgs.7" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/man/man7/npm-registry.7" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/man/man7/npm-registry.7" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/man/man7/npm-scope.7" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/man/man7/npm-scope.7" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/man/man7/npm-scripts.7" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/man/man7/npm-scripts.7" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/are-we-there-yet/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/are-we-there-yet/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/asap/CHANGES.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/asap/CHANGES.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/aws4/aws4.js" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/aws4/aws4.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/bin-links/LICENSE" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/bin-links/LICENSE" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/bluebird/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/bluebird/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/boom/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/boom/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/cli-columns/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/cli-columns/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/configstore/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/configstore/readme.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/copy-concurrently/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/copy-concurrently/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/dashdash/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/dashdash/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/debug/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/debug/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/debug/node_modules/ms/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/debug/node_modules/ms/readme.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/dotenv/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/dotenv/CHANGELOG.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/execa/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/execa/readme.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/form-data/lib/form_data.js" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/form-data/lib/form_data.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/gauge/wide-truncate.js" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/gauge/wide-truncate.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/genfun/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/genfun/CHANGELOG.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/genfun/lib/method.js" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/genfun/lib/method.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/gentle-fs/LICENSE" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/gentle-fs/LICENSE" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/gentle-fs/node_modules/iferr/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/gentle-fs/node_modules/iferr/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/got/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/got/readme.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/graceful-fs/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/graceful-fs/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/har-validator/node_modules/ajv/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/har-validator/node_modules/ajv/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/has-unicode/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/has-unicode/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/hawk/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/hawk/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/hoek/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/hoek/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/hosted-git-info/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/hosted-git-info/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/http-cache-semantics/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/http-cache-semantics/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/iconv-lite/Changelog.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/iconv-lite/Changelog.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/iferr/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/iferr/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/ip/lib/ip.js" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/ip/lib/ip.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/isexe/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/isexe/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/json-schema/draft-zyp-json-schema-03.xml" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/json-schema/draft-zyp-json-schema-03.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/json-schema/draft-zyp-json-schema-04.xml" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/json-schema/draft-zyp-json-schema-04.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/json-stringify-safe/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/json-stringify-safe/CHANGELOG.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/jsprim/CONTRIBUTING.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/jsprim/CONTRIBUTING.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/jsprim/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/jsprim/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/libcipm/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/libcipm/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/libnpmhook/node_modules/npm-registry-fetch/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/libnpmhook/node_modules/npm-registry-fetch/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/libnpmhook/node_modules/npm-registry-fetch/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/libnpmhook/node_modules/npm-registry-fetch/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/libnpx/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/libnpx/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/libnpx/libnpx.1" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/libnpx/libnpx.1" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/lru-cache/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/lru-cache/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/make-fetch-happen/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/make-fetch-happen/CHANGELOG.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/ms/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/ms/readme.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/node-fetch-npm/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/node-fetch-npm/CHANGELOG.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/node-fetch-npm/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/node-fetch-npm/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/node-gyp/gyp/pylib/gyp/MSVSSettings.py" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/node-gyp/gyp/pylib/gyp/MSVSSettings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/node-gyp/gyp/pylib/gyp/MSVSUserFile.py" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/node-gyp/gyp/pylib/gyp/MSVSUserFile.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/node-gyp/gyp/pylib/gyp/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/node-gyp/gyp/pylib/gyp/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/node-gyp/gyp/pylib/gyp/generator/cmake.py" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/node-gyp/gyp/pylib/gyp/generator/cmake.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/node-gyp/gyp/pylib/gyp/generator/make.py" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/node-gyp/gyp/pylib/gyp/generator/make.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/node-gyp/gyp/pylib/gyp/input.py" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/node-gyp/gyp/pylib/gyp/input.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/node-gyp/gyp/pylib/gyp/msvs_emulation.py" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/node-gyp/gyp/pylib/gyp/msvs_emulation.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/node-gyp/gyp/pylib/gyp/xcode_emulation.py" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/node-gyp/gyp/pylib/gyp/xcode_emulation.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/node-gyp/gyp/pylib/gyp/xcodeproj_file.py" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/node-gyp/gyp/pylib/gyp/xcodeproj_file.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/node-gyp/gyp/tools/pretty_gyp.py" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/node-gyp/gyp/tools/pretty_gyp.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/node-gyp/node_modules/nopt/test/basic.js" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/node-gyp/node_modules/nopt/test/basic.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/node-gyp/test/docker.sh" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/node-gyp/test/docker.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/nopt/test/basic.js" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/nopt/test/basic.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/npm-audit-report/reporters/detail.js" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/npm-audit-report/reporters/detail.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/npm-profile/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/npm-profile/CHANGELOG.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/npm-profile/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/npm-profile/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/npm-registry-client/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/npm-registry-client/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/npm-registry-client/lib/adduser.js" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/npm-registry-client/lib/adduser.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/npm-registry-client/lib/request.js" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/npm-registry-client/lib/request.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/npm-registry-client/node_modules/ssri/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/npm-registry-client/node_modules/ssri/CHANGELOG.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/npm-registry-fetch/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/npm-registry-fetch/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/npm-registry-fetch/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/npm-registry-fetch/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/npm-registry-fetch/node_modules/cacache/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/npm-registry-fetch/node_modules/cacache/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/npm-registry-fetch/node_modules/make-fetch-happen/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/npm-registry-fetch/node_modules/make-fetch-happen/CHANGELOG.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/npm-registry-fetch/node_modules/make-fetch-happen/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/npm-registry-fetch/node_modules/make-fetch-happen/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/npm-registry-fetch/node_modules/ssri/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/npm-registry-fetch/node_modules/ssri/CHANGELOG.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/npm-user-validate/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/npm-user-validate/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/os-locale/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/os-locale/readme.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/package-json/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/package-json/readme.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/pacote/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/pacote/CHANGELOG.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/performance-now/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/performance-now/Makefile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/promzard/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/promzard/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/protoduck/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/protoduck/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/qs/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/qs/CHANGELOG.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/query-string/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/query-string/readme.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/read/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/read/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/readable-stream/GOVERNANCE.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/readable-stream/GOVERNANCE.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/readable-stream/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/readable-stream/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/readable-stream/doc/wg-meetings/2015-01-30.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/readable-stream/doc/wg-meetings/2015-01-30.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/readable-stream/lib/_stream_readable.js" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/readable-stream/lib/_stream_readable.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/readable-stream/lib/_stream_writable.js" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/readable-stream/lib/_stream_writable.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/registry-url/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/registry-url/readme.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/request/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/request/CHANGELOG.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/request/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/request/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/request/request.js" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/request/request.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/require-directory/README.markdown" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/require-directory/README.markdown" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/safe-buffer/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/safe-buffer/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/safer-buffer/Porting-Buffer.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/safer-buffer/Porting-Buffer.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/safer-buffer/Readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/safer-buffer/Readme.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/slide/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/slide/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/socks/build/client/socksclient.js" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/socks/build/client/socksclient.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/sorted-union-stream/node_modules/readable-stream/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/sorted-union-stream/node_modules/readable-stream/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/spdx-exceptions/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/spdx-exceptions/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/spdx-expression-parse/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/spdx-expression-parse/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/sshpk/man/man1/sshpk-conv.1" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/sshpk/man/man1/sshpk-conv.1" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/ssri/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/ssri/CHANGELOG.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/supports-color/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/supports-color/readme.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/tar/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/tar/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/tweetnacl/AUTHORS.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/tweetnacl/AUTHORS.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/tweetnacl/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/tweetnacl/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/update-notifier/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/update-notifier/readme.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/util-deprecate/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/util-deprecate/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/validate-npm-package-license/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/validate-npm-package-license/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/validate-npm-package-name/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/validate-npm-package-name/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/verror/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/verror/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/verror/lib/verror.js" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/verror/lib/verror.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/which/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/which/CHANGELOG.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/xdg-basedir/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/xdg-basedir/readme.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/yargs-parser/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/yargs-parser/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/yargs/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/yargs/CHANGELOG.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/yargs/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/yargs/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/scripts/release.sh" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/scripts/release.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/src/app/app-routing.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/src/app/app-routing.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/src/app/app.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/src/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/src/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/dist/1.07ff48a34011da30d496.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/dist/10.5e38288e5f1ce7d9c47e.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/dist/11.148c568d5f43def6f662.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/dist/12.1faac5a34040be8bfbf9.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/dist/13.ebf8bc8b2bdca88ed122.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/dist/14.4cdcc8acdfedb5fe06f2.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/dist/2.d5d66fb565cc35cb25a4.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/dist/3.4e06f20e1abe7db485c4.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/dist/3rdpartylicenses.txt" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/dist/3rdpartylicenses.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/dist/4.5155810445d94ceb6b58.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/dist/5.a503abe30ae186904613.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/dist/6.a97c2d3de28a197cadc1.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/dist/7.bb44c1a7321ed80a9959.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/dist/8.8ff81c58b04baca19ff5.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/dist/9.bc17644bc96b34a5eff3.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/dist/assets/i18n/de.json" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/dist/assets/i18n/de.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/dist/assets/i18n/en.json" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/dist/assets/i18n/en.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/dist/assets/i18n/ur.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/dist/assets/i18n/zh-CHS.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/dist/common.f16d6f70975b6e9a3881.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/dist/fontawesome-webfont.912ec66d7572ff821749.svg" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/dist/fontawesome-webfont.912ec66d7572ff821749.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/dist/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/dist/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/dist/main.4b20b7ce32df78939b4f.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/dist/polyfills.1371016fb090fbda5d54.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/dist/runtime.fc1c0265092c2882fc36.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/dist/scripts.1cd05d3e7f9761ff7fcc.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/dist/styles.205f7bdd876b2e9f7b05.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/src/app/layout/components/header/header.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/src/app/layout/components/header/header.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/src/app/layout/components/sidebar/sidebar.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/src/app/layout/components/sidebar/sidebar.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/src/app/layout/dashboard/dashboard.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/src/app/layout/dashboard/dashboard.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/src/assets/i18n/en.json" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/src/assets/i18n/en.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/src/assets/i18n/pl.json" beforeDir="false" afterPath="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/src/assets/i18n/pl.json" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -303,10 +45,11 @@
     <session id="-1974492712">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="2" />
+          <entry key="project.closed" value="3" />
           <entry key="project.open.time.1" value="1" />
           <entry key="project.open.time.11" value="1" />
-          <entry key="project.opened" value="2" />
+          <entry key="project.open.time.5" value="1" />
+          <entry key="project.opened" value="3" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -337,16 +80,7 @@
     </session>
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/src/app/services/guards/login.guard.ts">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="20" lean-forward="true" selection-start-line="20" selection-end-line="20" />
-            </state>
-          </provider>
-        </entry>
-      </file>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/src/app/app-routing.module.ts">
           <provider selected="true" editor-type-id="text-editor">
@@ -363,7 +97,7 @@
         <entry file="file://$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/src/app/app.module.ts">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="85">
-              <caret line="5" lean-forward="true" selection-start-line="5" selection-end-line="5" selection-end-column="72" />
+              <caret line="5" lean-forward="true" selection-start-line="5" selection-end-line="5" selection-end-column="71" />
             </state>
           </provider>
         </entry>
@@ -397,8 +131,6 @@
   </component>
   <component name="NodePackageJsonFileManager">
     <packageJsonPaths>
-      <path value="$PROJECT_DIR$/praca_inz/node_modules/bootstrap/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/node_modules/font-awesome/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/JSONStream/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/abbrev/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node/node_modules/npm/node_modules/agent-base/package.json" />
@@ -804,11 +536,9 @@
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/@angular-devkit/architect/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/@angular-devkit/architect/test/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/@angular-devkit/build-angular/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/@angular-devkit/build-optimizer/node_modules/source-map/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/@angular-devkit/build-optimizer/node_modules/typescript/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/@angular-devkit/build-optimizer/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/@angular-devkit/build-optimizer/webpack-loader/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/@angular-devkit/build-webpack/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/@angular-devkit/core/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/@angular-devkit/schematics/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/@angular/animations/browser/package.json" />
@@ -820,39 +550,19 @@
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/@angular/common/locales/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/@angular/common/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/@angular/common/testing/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/@angular/compiler-cli/node_modules/ansi-regex/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/@angular/compiler-cli/node_modules/anymatch/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/@angular/compiler-cli/node_modules/arr-diff/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/@angular/compiler-cli/node_modules/array-unique/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/@angular/compiler-cli/node_modules/braces/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/@angular/compiler-cli/node_modules/camelcase/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/@angular/compiler-cli/node_modules/chokidar/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/@angular/compiler-cli/node_modules/cross-spawn/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/@angular/compiler-cli/node_modules/execa/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/@angular/compiler-cli/node_modules/expand-brackets/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/@angular/compiler-cli/node_modules/extglob/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/@angular/compiler-cli/node_modules/glob-parent/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/@angular/compiler-cli/node_modules/is-extglob/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/@angular/compiler-cli/node_modules/is-fullwidth-code-point/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/@angular/compiler-cli/node_modules/is-glob/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/@angular/compiler-cli/node_modules/kind-of/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/@angular/compiler-cli/node_modules/load-json-file/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/@angular/compiler-cli/node_modules/mem/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/@angular/compiler-cli/node_modules/micromatch/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/@angular/compiler-cli/node_modules/minimist/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/@angular/compiler-cli/node_modules/os-locale/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/@angular/compiler-cli/node_modules/path-type/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/@angular/compiler-cli/node_modules/pify/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/@angular/compiler-cli/node_modules/read-pkg-up/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/@angular/compiler-cli/node_modules/read-pkg/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/@angular/compiler-cli/node_modules/source-map/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/@angular/compiler-cli/node_modules/string-width/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/@angular/compiler-cli/node_modules/strip-ansi/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/@angular/compiler-cli/node_modules/strip-bom/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/@angular/compiler-cli/node_modules/which-module/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/@angular/compiler-cli/node_modules/y18n/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/@angular/compiler-cli/node_modules/yargs-parser/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/@angular/compiler-cli/node_modules/yargs/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/@angular/compiler-cli/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/@angular/compiler/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/@angular/compiler/testing/package.json" />
@@ -870,26 +580,8 @@
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/@angular/router/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/@angular/router/testing/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/@angular/router/upgrade/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/@babel/code-frame/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/@babel/generator/node_modules/jsesc/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/@babel/generator/node_modules/source-map/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/@babel/generator/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/@babel/helper-function-name/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/@babel/helper-get-function-arity/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/@babel/helper-split-export-declaration/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/@babel/highlight/node_modules/js-tokens/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/@babel/highlight/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/@babel/parser/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/@babel/template/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/@babel/traverse/node_modules/debug/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/@babel/traverse/node_modules/globals/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/@babel/traverse/node_modules/ms/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/@babel/traverse/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/@babel/types/node_modules/to-fast-properties/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/@babel/types/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/@ngtools/webpack/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/@schematics/angular/library/files/__projectRoot__/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/@schematics/angular/node_modules/typescript/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/@schematics/angular/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/@schematics/angular/workspace/files/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/@schematics/update/package.json" />
@@ -900,24 +592,18 @@
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/@types/selenium-webdriver/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/@webassemblyjs/ast/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/@webassemblyjs/floating-point-hex-parser/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/@webassemblyjs/helper-api-error/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/@webassemblyjs/helper-buffer/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/@webassemblyjs/helper-code-frame/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/@webassemblyjs/helper-fsm/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/@webassemblyjs/helper-module-context/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/@webassemblyjs/helper-wasm-bytecode/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/@webassemblyjs/helper-wasm-section/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/@webassemblyjs/ieee754/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/@webassemblyjs/leb128/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/@webassemblyjs/utf8/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/@webassemblyjs/wasm-edit/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/@webassemblyjs/wasm-gen/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/@webassemblyjs/wasm-opt/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/@webassemblyjs/wasm-parser/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/@webassemblyjs/wast-parser/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/@webassemblyjs/wast-printer/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/@xtuc/ieee754/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/@xtuc/long/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/abbrev/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/accepts/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/acorn-dynamic-import/package.json" />
@@ -930,7 +616,6 @@
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/ajv/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/amdefine/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/ansi-colors/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/ansi-escapes/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/ansi-html/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/ansi-regex/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/ansi-styles/package.json" />
@@ -972,7 +657,6 @@
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/babel-code-frame/node_modules/chalk/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/babel-code-frame/node_modules/supports-color/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/babel-code-frame/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/babel-generator/node_modules/source-map/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/babel-generator/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/babel-messages/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/babel-runtime/package.json" />
@@ -1014,7 +698,6 @@
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/browserify-sign/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/browserify-zlib/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/browserslist/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/browserstack/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/buffer-alloc-unsafe/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/buffer-alloc/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/buffer-fill/package.json" />
@@ -1032,10 +715,8 @@
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/camelcase-keys/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/camelcase/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/caniuse-lite/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/canonical-path/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/caseless/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/chalk/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/chardet/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/chokidar/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/chownr/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/chrome-trace-event/package.json" />
@@ -1046,15 +727,11 @@
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/class-utils/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/clean-css/node_modules/source-map/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/clean-css/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/cli-cursor/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/cli-width/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/cliui/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/clone-deep/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/clone/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/co/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/code-point-at/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/codelyzer/node_modules/source-map/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/codelyzer/node_modules/sprintf-js/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/codelyzer/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/collection-visit/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/color-convert/package.json" />
@@ -1064,7 +741,6 @@
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/combined-stream/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/commander/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/commondir/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/compare-versions/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/component-bind/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/component-emitter/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/component-inherit/package.json" />
@@ -1112,7 +788,6 @@
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/deep-equal/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/deep-is/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/default-gateway/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/default-require-extensions/node_modules/strip-bom/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/default-require-extensions/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/define-property/node_modules/is-accessor-descriptor/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/define-property/node_modules/is-data-descriptor/package.json" />
@@ -1124,7 +799,6 @@
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/delayed-stream/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/delegates/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/depd/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/dependency-graph/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/des.js/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/destroy/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/detect-indent/package.json" />
@@ -1195,8 +869,6 @@
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/extend-shallow/node_modules/is-extendable/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/extend-shallow/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/extend/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/external-editor/node_modules/iconv-lite/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/external-editor/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/extglob/node_modules/define-property/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/extglob/node_modules/extend-shallow/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/extglob/node_modules/is-accessor-descriptor/package.json" />
@@ -1209,8 +881,6 @@
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/fast-levenshtein/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/fastparse/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/faye-websocket/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/figgy-pudding/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/figures/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/file-loader/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/filename-regex/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/fileset/package.json" />
@@ -1309,13 +979,7 @@
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/inflight/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/inherits/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/ini/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/inquirer/node_modules/ansi-regex/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/inquirer/node_modules/is-fullwidth-code-point/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/inquirer/node_modules/string-width/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/inquirer/node_modules/strip-ansi/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/inquirer/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/internal-ip/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/interpret/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/invariant/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/invert-kv/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/ip-regex/package.json" />
@@ -1347,7 +1011,6 @@
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/is-plain-object/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/is-posix-bracket/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/is-primitive/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/is-promise/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/is-stream/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/is-typedarray/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/is-utf8/package.json" />
@@ -1359,23 +1022,16 @@
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/isobject/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/isstream/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/istanbul-api/node_modules/async/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/istanbul-api/node_modules/istanbul-lib-coverage/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/istanbul-api/node_modules/istanbul-lib-instrument/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/istanbul-api/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/istanbul-instrumenter-loader/node_modules/ajv/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/istanbul-instrumenter-loader/node_modules/fast-deep-equal/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/istanbul-instrumenter-loader/node_modules/json-schema-traverse/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/istanbul-instrumenter-loader/node_modules/schema-utils/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/istanbul-instrumenter-loader/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/istanbul-lib-coverage/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/istanbul-lib-hook/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/istanbul-lib-instrument/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/istanbul-lib-report/node_modules/istanbul-lib-coverage/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/istanbul-lib-report/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/istanbul-lib-source-maps/node_modules/debug/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/istanbul-lib-source-maps/node_modules/istanbul-lib-coverage/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/istanbul-lib-source-maps/node_modules/ms/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/istanbul-lib-source-maps/node_modules/source-map/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/istanbul-lib-source-maps/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/istanbul-reports/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/istanbul/node_modules/glob/package.json" />
@@ -1414,7 +1070,6 @@
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/karma-jasmine-html-reporter/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/karma-jasmine/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/karma-source-map-support/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/karma/node_modules/mime/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/karma/node_modules/source-map/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/karma/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/killable/package.json" />
@@ -1445,10 +1100,8 @@
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/loose-envify/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/loud-rejection/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/lru-cache/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/magic-string/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/make-dir/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/make-error/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/mamacro/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/map-age-cleaner/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/map-cache/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/map-obj/package.json" />
@@ -1483,7 +1136,6 @@
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/ms/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/multicast-dns-service-types/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/multicast-dns/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/mute-stream/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/nan/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/nan/tools/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/nanomatch/package.json" />
@@ -1495,18 +1147,9 @@
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/node-gyp/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/node-libs-browser/node_modules/punycode/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/node-libs-browser/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/node-releases/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/node-sass/node_modules/ajv/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/node-sass/node_modules/ansi-styles/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/node-sass/node_modules/chalk/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/node-sass/node_modules/fast-deep-equal/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/node-sass/node_modules/har-validator/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/node-sass/node_modules/json-schema-traverse/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/node-sass/node_modules/oauth-sign/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/node-sass/node_modules/punycode/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/node-sass/node_modules/request/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/node-sass/node_modules/supports-color/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/node-sass/node_modules/tough-cookie/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/node-sass/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/nopt/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/normalize-package-data/package.json" />
@@ -1533,7 +1176,6 @@
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/on-finished/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/on-headers/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/once/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/onetime/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/opn/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/optimist/node_modules/wordwrap/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/optimist/package.json" />
@@ -1601,7 +1243,6 @@
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/protractor/node_modules/minimist/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/protractor/node_modules/pify/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/protractor/node_modules/source-map-support/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/protractor/node_modules/source-map/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/protractor/node_modules/supports-color/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/protractor/node_modules/webdriver-manager/built/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/protractor/node_modules/webdriver-manager/package.json" />
@@ -1637,7 +1278,6 @@
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/read-pkg/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/readable-stream/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/readdirp/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/rechoir/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/redent/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/reflect-metadata/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/regenerate/package.json" />
@@ -1662,18 +1302,12 @@
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/resolve-url/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/resolve/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/resolve/test/module_dir/zmodules/bbb/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/resolve/test/pathfilter/deep_ref/node_modules/deep/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/resolve/test/resolver/baz/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/resolve/test/resolver/biz/node_modules/garply/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/resolve/test/resolver/incorrect_main/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/resolve/test/subdirs/node_modules/a/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/restore-cursor/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/ret/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/retry/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/rfdc/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/rimraf/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/ripemd160/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/run-async/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/run-queue/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/rxjs/ajax/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/rxjs/internal-compatibility/package.json" />
@@ -1718,7 +1352,6 @@
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/shallow-clone/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/shebang-command/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/shebang-regex/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/shelljs/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/signal-exit/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/slash/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/slide/package.json" />
@@ -1731,15 +1364,12 @@
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/snapdragon-util/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/snapdragon/node_modules/define-property/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/snapdragon/node_modules/extend-shallow/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/snapdragon/node_modules/source-map/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/snapdragon/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/socket.io-adapter/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/socket.io-client/node_modules/debug/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/socket.io-client/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/socket.io-parser/node_modules/debug/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/socket.io-parser/node_modules/isarray/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/socket.io-parser/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/socket.io/node_modules/debug/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/socket.io/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/sockjs-client/node_modules/faye-websocket/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/sockjs-client/package.json" />
@@ -1751,21 +1381,17 @@
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/sockjs/examples/multiplex/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/sockjs/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/source-list-map/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/source-map-loader/node_modules/async/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/source-map-loader/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/source-map-resolve/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/source-map-support/node_modules/source-map/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/source-map-support/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/source-map-url/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/source-map/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/sourcemap-codec/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/spdx-correct/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/spdx-exceptions/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/spdx-expression-parse/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/spdx-license-ids/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/spdy-transport/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/spdy/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/speed-measure-webpack-plugin/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/split-string/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/sprintf-js/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/sshpk/package.json" />
@@ -1789,7 +1415,6 @@
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/strip-bom/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/strip-eof/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/strip-indent/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/style-loader/node_modules/schema-utils/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/style-loader/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/stylus-loader/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/stylus/node_modules/glob/package.json" />
@@ -1799,21 +1424,6 @@
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/symbol-observable/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/tapable/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/tar/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/terser-webpack-plugin/node_modules/cacache/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/terser-webpack-plugin/node_modules/find-cache-dir/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/terser-webpack-plugin/node_modules/find-up/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/terser-webpack-plugin/node_modules/locate-path/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/terser-webpack-plugin/node_modules/mississippi/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/terser-webpack-plugin/node_modules/p-limit/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/terser-webpack-plugin/node_modules/p-locate/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/terser-webpack-plugin/node_modules/p-try/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/terser-webpack-plugin/node_modules/pkg-dir/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/terser-webpack-plugin/node_modules/pump/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/terser-webpack-plugin/node_modules/source-map/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/terser-webpack-plugin/node_modules/ssri/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/terser-webpack-plugin/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/terser/node_modules/source-map/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/terser/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/through/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/through2/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/thunky/package.json" />
@@ -1835,13 +1445,6 @@
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/ts-node/node_modules/minimist/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/ts-node/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/tslib/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/tslint/node_modules/resolve/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/tslint/node_modules/resolve/test/module_dir/zmodules/bbb/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/tslint/node_modules/resolve/test/resolver/baz/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/tslint/node_modules/resolve/test/resolver/browser_field/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/tslint/node_modules/resolve/test/resolver/dot_main/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/tslint/node_modules/resolve/test/resolver/dot_slash_main/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/tslint/node_modules/resolve/test/resolver/incorrect_main/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/tslint/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/tsutils/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/tty-browserify/package.json" />
@@ -1854,7 +1457,6 @@
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/uglify-js/node_modules/source-map/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/uglify-js/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/uglifyjs-webpack-plugin/node_modules/commander/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/uglifyjs-webpack-plugin/node_modules/schema-utils/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/uglifyjs-webpack-plugin/node_modules/source-map/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/uglifyjs-webpack-plugin/node_modules/uglify-es/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/uglifyjs-webpack-plugin/package.json" />
@@ -1872,7 +1474,6 @@
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/upath/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/uri-js/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/urix/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/url-join/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/url-parse/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/url/node_modules/punycode/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/url/package.json" />
@@ -1893,9 +1494,6 @@
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/wbuf/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/webdriver-js-extender/built/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/webdriver-js-extender/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/webpack-core/node_modules/source-list-map/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/webpack-core/node_modules/source-map/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/webpack-core/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/webpack-dev-middleware/node_modules/mime/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/webpack-dev-middleware/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/webpack-dev-server/node_modules/ansi-regex/package.json" />
@@ -1909,7 +1507,6 @@
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/webpack-dev-server/node_modules/is-fullwidth-code-point/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/webpack-dev-server/node_modules/lcid/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/webpack-dev-server/node_modules/locate-path/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/webpack-dev-server/node_modules/mime/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/webpack-dev-server/node_modules/ms/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/webpack-dev-server/node_modules/os-locale/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/webpack-dev-server/node_modules/p-limit/package.json" />
@@ -1917,7 +1514,6 @@
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/webpack-dev-server/node_modules/p-try/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/webpack-dev-server/node_modules/string-width/node_modules/strip-ansi/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/webpack-dev-server/node_modules/string-width/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/webpack-dev-server/node_modules/webpack-dev-middleware/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/webpack-dev-server/node_modules/which-module/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/webpack-dev-server/node_modules/yargs-parser/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/webpack-dev-server/node_modules/yargs/package.json" />
@@ -1927,7 +1523,6 @@
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/webpack-sources/node_modules/source-map/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/webpack-sources/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/webpack-subresource-integrity/package.json" />
-      <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/webpack/node_modules/schema-utils/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/webpack/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/websocket-driver/package.json" />
       <path value="$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/node_modules/websocket-extensions/package.json" />
@@ -1960,7 +1555,7 @@
     </packageJsonPaths>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-1928" />
+    <option name="x" value="-8" />
     <option name="y" value="-8" />
     <option name="width" value="1936" />
     <option name="height" value="1066" />
@@ -2033,44 +1628,19 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="app" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="praca_inz_repo" type="b2602c69:ProjectViewProjectNode" />
-              <item name="praca_inz_repo" type="462c0819:PsiDirectoryNode" />
-              <item name="praca_inz" type="462c0819:PsiDirectoryNode" />
-              <item name="praca_inz-web" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="web" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="services" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="praca_inz_repo" type="b2602c69:ProjectViewProjectNode" />
-              <item name="praca_inz_repo" type="462c0819:PsiDirectoryNode" />
-              <item name="praca_inz" type="462c0819:PsiDirectoryNode" />
-              <item name="praca_inz-web" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="web" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="services" type="462c0819:PsiDirectoryNode" />
-              <item name="guards" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
       <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1541952075120" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Praca inżynierska/ssbd_repo" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="ts.external.directory.path" value="C:\Users\Tomek\Desktop\praca_inz_repo\praca_inz\praca_inz-web\src\main\web\node_modules\typescript\lib" />
@@ -2107,24 +1677,23 @@
       <updated>1541893006192</updated>
       <workItem from="1541893007598" duration="7000" />
       <workItem from="1541951461404" duration="672000" />
+      <workItem from="1542117647409" duration="16000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="679000" />
+    <option name="totallyTimeSpent" value="695000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1928" y="-8" width="1936" height="1066" extended-state="6" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="1936" height="1066" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25266525" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2553305" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
       <window_info id="UI Designer" order="4" />
       <window_info id="Capture Tool" order="5" />
       <window_info id="Favorites" order="6" side_tool="true" />
-      <window_info anchor="bottom" id="TypeScript" weight="0.3290461" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Run" order="2" />
@@ -2136,6 +1705,7 @@
       <window_info anchor="bottom" id="Terminal" order="8" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="10" />
+      <window_info anchor="bottom" id="TypeScript" order="11" weight="0.3290461" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -2159,20 +1729,7 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/src/app/services/guards/login.guard.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="20" lean-forward="true" selection-start-line="20" selection-end-line="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/src/app/app.module.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" lean-forward="true" selection-start-line="5" selection-end-line="5" selection-end-column="72" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/src/app/services/guards/login.guard.ts" />
     <entry file="file://$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/src/app/app-routing.module.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="289">
@@ -2180,6 +1737,13 @@
           <folding>
             <element signature="e#0#41#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/praca_inz/praca_inz-web/src/main/web/src/app/app.module.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" lean-forward="true" selection-start-line="5" selection-end-line="5" selection-end-column="71" />
         </state>
       </provider>
     </entry>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { routerTransition } from '../../router.animations';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-dashboard',
@@ -11,7 +12,12 @@ export class DashboardComponent implements OnInit {
     public alerts: Array<any> = [];
     public sliders: Array<any> = [];
 
-    constructor() {
+    constructor(private translate: TranslateService) {
+
+        this.translate.addLangs(['en','pl', 'fr', 'es','de']);
+        this.translate.setDefaultLang('pl');
+        const browserLang = this.translate.getBrowserLang();
+        this.translate.use(browserLang.match(/en|pl|fr|es|de/) ? browserLang : 'pl');
         this.sliders.push(
             {
                 imagePath: 'assets/images/slider1.jpg',
