@@ -10,10 +10,18 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+/**
+ * Obiekt przesyłany z widoku z informacjami potrzebnymi do rejestracju nowego konta
+ */
+
 @Getter
 @Setter
 @PasswordMatches
 public class RegistrationDto {
+
+    @NotNull
+    @Size(min = 1, message = "{Size.userDto.username}")
+    private String username;
 
     @NotNull
     @Size(min = 1, message = "{Size.userDto.firstName}")
@@ -32,6 +40,11 @@ public class RegistrationDto {
     @NotNull
     @Size(min = 1, message = "{Size.userDto.email}")
     private String email;
+
+    private String city;
+    private String street;
+    private String buildingNo;
+    private String flatNo;
 
     @Override
     public String toString() {

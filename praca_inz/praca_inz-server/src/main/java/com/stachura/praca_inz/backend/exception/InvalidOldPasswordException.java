@@ -1,4 +1,4 @@
-package com.stachura.praca_inz.backend.error;
+package com.stachura.praca_inz.backend.exception;
 
 public final class InvalidOldPasswordException extends RuntimeException {
 

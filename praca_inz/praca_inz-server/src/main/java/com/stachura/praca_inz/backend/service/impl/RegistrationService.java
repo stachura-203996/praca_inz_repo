@@ -1,6 +1,6 @@
 package com.stachura.praca_inz.backend.service.impl;
 
-import com.stachura.praca_inz.backend.error.UserAlreadyExistException;
+import com.stachura.praca_inz.backend.exception.UserAlreadyExistException;
 import com.stachura.praca_inz.backend.model.Employee;
 import com.stachura.praca_inz.backend.model.security.User;
 import com.stachura.praca_inz.backend.repository.EmployeeRepository;

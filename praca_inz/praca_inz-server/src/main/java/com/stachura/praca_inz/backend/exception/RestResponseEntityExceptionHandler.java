@@ -1,4 +1,4 @@
-package com.stachura.praca_inz.backend.error;
+package com.stachura.praca_inz.backend.exception;
 
 import com.stachura.praca_inz.backend.web.util.GenericResponse;
 import org.springframework.beans.factory.annotation.Autowired;
