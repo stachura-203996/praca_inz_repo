@@ -1,6 +1,6 @@
 import { AppPage } from './app.po';
 
-describe('test-ng4 App', () => {
+describe('web App', () => {
   let page: AppPage;
 
   beforeEach(() => {
