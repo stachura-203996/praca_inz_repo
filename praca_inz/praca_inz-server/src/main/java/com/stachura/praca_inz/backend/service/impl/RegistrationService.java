@@ -1,23 +1,26 @@
 package com.stachura.praca_inz.backend.service.impl;
 
 import com.stachura.praca_inz.backend.exception.UserAlreadyExistException;
-import com.stachura.praca_inz.backend.model.Employee;
+import com.stachura.praca_inz.backend.model.Userdata;
 import com.stachura.praca_inz.backend.model.security.User;
-import com.stachura.praca_inz.backend.repository.EmployeeRepository;
+import com.stachura.praca_inz.backend.repository.UserdataRepository;
 import com.stachura.praca_inz.backend.repository.UserRepository;
-import com.stachura.praca_inz.backend.service.IRegistrationService;
 import com.stachura.praca_inz.backend.web.dto.RegistrationDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 
-public class RegistrationService implements IRegistrationService {
+@Service
+public class RegistrationService implements com.stachura.praca_inz.backend.service.RegistrationService {
 
     @Autowired
-    private EmployeeRepository employeeRepository;
+    private UserdataRepository userdataRepository;
 
     @Autowired
     private UserRepository userRepository;
 
+    @Qualifier("userPasswordEncoder")
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -27,18 +30,18 @@ public class RegistrationService implements IRegistrationService {
             throw new UserAlreadyExistException("There is an user with that email adress: " + accountDto.getEmail());
         }
         final User user = new User();
-        final Employee employee =new Employee();
+        final Userdata userdata =new Userdata();
         user.setUsername(accountDto.getFirstName());
         user.setPassword(passwordEncoder.encode(accountDto.getPassword()));
-        employee.setEmail(accountDto.getEmail());
-        employee.setSurname(accountDto.getLastName());
-        employee.setUser(user);
+        userdata.setEmail(accountDto.getEmail());
+        userdata.setSurname(accountDto.getLastName());
+        user.setUserdata(userdata);
 
 
-//        employee.setRoles(Arrays.asList(roleRepository.findByName("ROLE_USER")));
+//        userdata.setRoles(Arrays.asList(roleRepository.findByName("ROLE_USER")));
         return userRepository.save(user);
     }
     private boolean emailExist(final String email) {
-        return employeeRepository.findByEmail(email) != null;
+        return userdataRepository.findByEmail(email) != null;
     }
 }

@@ -1,4 +1,5 @@
 /target/
+/dist
 !.mvn/wrapper/maven-wrapper.jar
 
 ### STS ###
@@ -23,3 +24,6 @@
 /dist/
 /nbdist/
 /.nb-gradle/
+/dist/web/
+dist/
+!bower_components/**/dist/

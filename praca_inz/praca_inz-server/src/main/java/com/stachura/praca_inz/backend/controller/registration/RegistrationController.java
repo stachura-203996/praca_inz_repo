@@ -1,19 +1,16 @@
 package com.stachura.praca_inz.backend.controller.registration;
 
 import com.stachura.praca_inz.backend.model.security.User;
-import com.stachura.praca_inz.backend.service.IRegistrationService;
+import com.stachura.praca_inz.backend.service.RegistrationService;
 import com.stachura.praca_inz.backend.web.dto.RegistrationDto;
 import com.stachura.praca_inz.backend.web.util.GenericResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -21,7 +18,7 @@ import javax.validation.Valid;
 public class RegistrationController {
 
     @Autowired
-    private IRegistrationService userService;
+    private RegistrationService userService;
 
     @Autowired
     private ApplicationEventPublisher eventPublisher;

@@ -39,7 +39,7 @@ export class Configuration {
   public PAGE_REGISTRATION_SUCCESS = '/registrationSuccessful';
   public PAGE_BENEFIT = '/bmanager/benefits';
   public PAGE_PROPOSED_BENEFIT = '/bmanager/proposedBenefits';
-  public PURCHASE_URL = '/employee/purchases';
+  public PURCHASE_URL = '/userdata/purchases';
 
   // Benefit response code
   public NOT_ENOUGH_BENEFITS = 'not_enough_benefits';

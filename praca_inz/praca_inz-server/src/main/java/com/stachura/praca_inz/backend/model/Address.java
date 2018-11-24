@@ -2,11 +2,13 @@ package com.stachura.praca_inz.backend.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
+@EnableAutoConfiguration
 @Table(name = "ADDRESS")
 @Getter
 @Setter

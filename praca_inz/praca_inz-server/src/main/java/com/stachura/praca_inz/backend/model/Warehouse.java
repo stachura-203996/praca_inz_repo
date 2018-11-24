@@ -4,6 +4,7 @@ package com.stachura.praca_inz.backend.model;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -11,6 +12,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@EnableAutoConfiguration
 @Table(name = "WAREHOUSE")
 @Getter
 @Setter
@@ -27,7 +29,7 @@ public class Warehouse  implements Serializable {
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "EMPLOYEE_ID")
-    private Employee employee;
+    private Userdata userdata;
 
     @Column(name = "NAME", nullable = false)
     private String name;

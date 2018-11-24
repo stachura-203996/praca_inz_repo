@@ -9,13 +9,14 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthGuard } from './shared';
+import {ConfirmDialogComponent} from "./confirm-dialog/confirm-dialog.component";
 
 // AoT requires an exported function for factories
 export const createTranslateLoader = (http: HttpClient) => {
     /* for development
     return new TranslateHttpLoader(
         http,
-        '/start-angular/SB-Admin-BS4-Angular-6/master/dist/assets/i18n/',
+        '/start-angular/Inventory-System/master/dist/assets/i18n/',
         '.json'
     ); */
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -36,7 +37,10 @@ export const createTranslateLoader = (http: HttpClient) => {
         }),
         AppRoutingModule
     ],
-    declarations: [AppComponent],
+    declarations: [
+        AppComponent,
+        ConfirmDialogComponent
+    ],
     providers: [AuthGuard],
     bootstrap: [AppComponent]
 })

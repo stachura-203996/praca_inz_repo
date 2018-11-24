@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -11,6 +12,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@EnableAutoConfiguration
 @Table(name = "OFFICE")
 @Getter
 @Setter
@@ -37,13 +39,13 @@ public class Office implements Serializable {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "office", fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonManagedReference
-    private Set<Employee> employees = new HashSet<>();
+    private Set<Userdata> userdata = new HashSet<>();
 
 
-    public void setEmployees(Set<Employee> employees) {
-        this.employees.clear();
-        if (employees != null) {
-            this.employees.addAll(employees);
+    public void setUserdata(Set<Userdata> userdata) {
+        this.userdata.clear();
+        if (userdata != null) {
+            this.userdata.addAll(userdata);
         }
     }
 }
