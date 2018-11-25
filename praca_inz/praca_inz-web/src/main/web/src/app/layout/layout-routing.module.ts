@@ -17,7 +17,11 @@ const routes: Routes = [
             { path: 'components', loadChildren: './bs-component/bs-component.module#BsComponentModule' },
             { path: 'blank-page', loadChildren: './blank-page/blank-page.module#BlankPageModule' },
             {path:  'profile', loadChildren: './profile/profile.module#ProfileModule'},
-            // {path: 'profile/edit', loadChildren:'./profile/profile.module#ProfileModule'}
+            {path: 'users', loadChildren:'./user-management/user-management.module#UserManagementModule'},
+            {path: 'mail', loadChildren:'./mail/mail.module#MailModule'},
+            {path: 'settings', loadChildren:'./settings/settings.module#SettingsModule'},
+            {path: 'devices', loadChildren:'./device-management/device-management.module#DeviceManagementModule'},
+            {path: 'warehouse', loadChildren: './warehouse-management/warehouse-management.module#WarehouseManagementModule'}
         ]
     }
 ];

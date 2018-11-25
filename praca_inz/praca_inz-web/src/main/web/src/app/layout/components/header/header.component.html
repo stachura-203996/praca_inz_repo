@@ -97,14 +97,14 @@
         <a href="javascript:void(0)" class="nav-link" ngbDropdownToggle>
             <i class="fa fa-user"></i> John Smith <b class="caret"></b>
         </a>
-        <div class="dropdown-menu-right" [routerLink]="['/profile']" ngbDropdownMenu>
-            <a class="dropdown-item" href="javascript:void(0)">
+        <div class="dropdown-menu-right"  ngbDropdownMenu>
+            <a class="dropdown-item" [routerLink]="['/profile']" href="javascript:void(0)">
                 <i class="fa fa-fw fa-user"></i> {{ 'Profile' | translate }}
             </a>
             <a class="dropdown-item" [routerLink]="['/mail']" href="javascript:void(0)">
                 <i class="fa fa-fw fa-envelope"></i> {{ 'Inbox' | translate }}
             </a>
-            <a class="dropdown-item" [routerLink]="['/setings']" href="javascript:void(0)">
+            <a class="dropdown-item" [routerLink]="['/settings']" href="javascript:void(0)">
                 <i class="fa fa-fw fa-gear"></i> {{ 'Settings' | translate }}
             </a>
             <a class="dropdown-item" [routerLink]="['/login']" (click)="onLoggedout()">

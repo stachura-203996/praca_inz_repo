@@ -12,13 +12,13 @@
             <li class="nested" [class.expand]="showMenu === 'userManagementPanel'">
                 <ul class="submenu">
                     <li>
-                        <a href="javascript:void(0)">
+                        <a [routerLink]="['/users']" href="javascript:void(0)">
                             <i class="fa fa-monument"></i>&nbsp;
                             <span>{{ 'UserList' | translate }}</span>
                         </a>
                     </li>
                     <li>
-                        <a href="javascript:void(0)">
+                        <a [routerLink]="['/users/add']" href="javascript:void(0)">
                             <i class="fa fa-monument"></i>&nbsp;
                             <span>{{ 'AddUser' | translate }}</span>
                         </a>
@@ -63,7 +63,7 @@
                     </li>
                     <li>
                         <a href="javascript:void(0)">
-                            <i class="fa fa-monument"></i>&nbsp;
+                            <i  class="fa fa-monument"></i>&nbsp;
                             <span>{{ 'Warhouses' | translate }}</span>
                         </a>
                     </li>
