@@ -1,3 +1,23 @@
-<p>
-  user-list works!
-</p>
+<div class="col-sm-12 col-md-8 offset-md-2">
+    <h2>Users list</h2>
+     <table class="table table-striped" align="center">
+        <thead class="thead-inverse">
+            <tr>
+                <th>Name</th>
+                <th>Surname</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Options</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let user of users">
+                <td>{{user.name}}</td>
+                <td>{{user.surname}}</td>
+                <td>{{user.username}}</td>
+                <td>{{user.email}}</td>
+                <td>{{opcje}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

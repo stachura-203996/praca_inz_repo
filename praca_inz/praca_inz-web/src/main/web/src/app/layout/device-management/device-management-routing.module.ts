@@ -7,9 +7,8 @@ import {DeviceAddComponent} from "./device-add/device-add.component";
 
 const routes: Routes = [
     {path: '', component: DeviceListComponent },
-    {path: 'requests', component: DeviceRequestsComponent},
-    {path:'user', component: DeviceUserComponent},
-    {path:'add', component: DeviceAddComponent}
+    {path: 'request', component: DeviceRequestsComponent},
+    {path:'user', component: DeviceUserComponent}
 ];
 
 @NgModule({

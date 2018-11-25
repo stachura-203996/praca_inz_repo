@@ -6,7 +6,8 @@
     "Bootstrap Element": "Elementy Bootstrapa",
     "Bootstrap Grid": "Bootstrap siatki",
     "Component": "Komponent",
-    "UserManagementPanel": "Panel zarzadzania użytkownikami",
+    "UserManagementPanel": "Użytkownicy",
+    "AddUser" : "Dodaj użytkownika",
     "UserList": "Lista użytkowników",
     "Submenu": "Podmenu",
     "Blank Page": "Pusta Strona",
@@ -30,5 +31,17 @@
     "SubordinatesReports" : "Lista raportów podwładnych",
     "DevicesMenagemantPanel" : "Panel zarzadzania urządzeniami",
     "YourDevices" : "Twoje urządzenia",
-    "Warhouses" : "Magazyny"
+    "Warhouses" : "Magazyny",
+    "CompaniesList" : "Lista firm",
+    "DepartmentsList" : "Lista oddziałów",
+    "OfficesList" : "Lista biur",
+    "DevicesList" : "Lista urządzeń",
+    "DevicesRequest": "Nowe zapotrzebowanie",
+    "SubordinatesRequests" : "Zapotrzebowania podwładnych",
+    "CompaniesAdd" : "Dodaj firmę",
+    "DepartmentsAdd" : "Dodaj oddział",
+    "OfficesAdd" : "Dodaj biuro",
+    "Collapse Sidebar" : "Zwiń menu",
+    "CompanyManagementPanel" : "Panel zarzadzania firmą",
+    "TaskList" : "Lista zadań"
 }
