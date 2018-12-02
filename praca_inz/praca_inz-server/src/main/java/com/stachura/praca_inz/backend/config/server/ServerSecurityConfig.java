@@ -2,12 +2,10 @@ package com.stachura.praca_inz.backend.config.server;
 
 import com.stachura.praca_inz.backend.config.encryption.Encoders;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.autoconfigure.security.SecurityProperties;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -17,12 +15,13 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
+@EnableAutoConfiguration
 @EnableWebSecurity
 @Import(Encoders.class)
 public class ServerSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
-    @Qualifier("userDetailsServiceImpl")
+
     @Autowired
     private UserDetailsService userDetailsService;
 
@@ -45,10 +44,11 @@ public class ServerSecurityConfig extends WebSecurityConfigurerAdapter {
             throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/login").permitAll()
-                .anyRequest()
-                .authenticated()
-                .and()
+                .antMatchers("/**","/login","/error").permitAll()
+                .anyRequest().authenticated()
+                .and().formLogin().loginPage("/login")
+                .permitAll()
+                .and().csrf().disable()
                 .httpBasic();
     }
 }
