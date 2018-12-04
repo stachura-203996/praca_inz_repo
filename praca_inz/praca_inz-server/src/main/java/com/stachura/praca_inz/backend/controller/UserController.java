@@ -12,6 +12,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
 import java.util.List;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
@@ -20,6 +22,7 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 @RestController
 @RequestMapping("/secured/users")
 public class UserController {
+
 
     @Autowired
     private UserService userService;
@@ -31,11 +34,21 @@ public class UserController {
         return userService.getAllUsers();
     }
 
+//TODO get user details
+    @RequestMapping(value = "/profile", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(value = HttpStatus.OK)
+    public @ResponseBody
+    String get(Principal principal) {
+           return principal.getName();
+    }
+
+
+
 //    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 //    @ResponseStatus(value = HttpStatus.OK)
 //    public @ResponseBody
 //    Company get(@PathVariable Long id) {
-//        return userService.get(id);
+//           return userService.get(id);
 //    }
 //
 //    @RequestMapping(value = "/filter", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)

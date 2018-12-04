@@ -26,25 +26,4 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         throw new UsernameNotFoundException(username);
     }
-    //TODO Może trzeba dodać tutaj tworzenie nowego User z wypełnionymi zmiennymi
-
-//    @Override
-//    public UserDetails loadUserByUsername(final String email) throws UsernameNotFoundException {
-//        final String ip = getClientIP();
-//        if (loginAttemptService.isBlocked(ip)) {
-//            throw new RuntimeException("blocked");
-//        }
-//
-//        try {
-//            final User user = userRepository.findByEmail(email);
-//            if (user == null) {
-//                throw new UsernameNotFoundException("No user found with username: " + email);
-//            }
-//
-//            return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), user.isEnabled(), true, true, true, getAuthorities(user.getRoles()));
-//        } catch (final Exception e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
-
 }

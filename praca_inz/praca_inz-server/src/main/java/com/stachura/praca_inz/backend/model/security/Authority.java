@@ -24,6 +24,9 @@ public class Authority implements GrantedAuthority {
     @Column(name = "NAME")
     private String name;
 
+    @Column(name= "ACTIVE")
+    private Boolean active;
+
     @Override
     public String getAuthority() {
         return getName();

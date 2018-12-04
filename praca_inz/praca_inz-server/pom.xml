@@ -22,6 +22,7 @@
         <lombok.version>1.18.4</lombok.version>
         <passay.version>1.0</passay.version>
         <guava.version>20.0</guava.version>
+        <log4j.version>1.2.17</log4j.version>
         <oauth2.version>2.2.1.RELEASE</oauth2.version>
     </properties>
 
@@ -61,10 +62,10 @@
             <version>${spring.version}</version>
         </dependency>
 
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.boot</groupId>-->
+            <!--<artifactId>spring-boot-starter-security</artifactId>-->
+        <!--</dependency>-->
         <!-- Password Validation -->
         <dependency>
             <groupId>org.passay</groupId>
@@ -128,8 +129,11 @@
             <artifactId>guava</artifactId>
             <version>${guava.version}</version>
         </dependency>
-
-
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>${log4j.version}</version>
+        </dependency>
         <dependency>
             <groupId>com.stachura</groupId>
             <artifactId>praca_inz-web</artifactId>
