@@ -10,6 +10,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
@@ -18,6 +19,7 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 @RestController
 @RequestMapping("/secured/company")
 public class CompanyController {
+
 
     @Autowired
     private CompanyService companyService;

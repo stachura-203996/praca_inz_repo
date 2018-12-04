@@ -23,6 +23,10 @@ public class Device implements Serializable {
     @Column(name = "SERIAL_NUMBER")
     private String serialNumber;
 
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "DEVICE_TYPE_ID")
+    private DeviceData deviceData;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
     private Warehouse warehouse;
