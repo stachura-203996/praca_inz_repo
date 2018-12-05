@@ -1,42 +1,41 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {HttpErrorHandler} from './http-error-handler.service';
 import {Observable} from 'rxjs';
-import {catchError} from "rxjs/operators";
+import {CookieService} from "ngx-cookie-service";
+
 @Injectable()
 export class HttpService {
 
-  headers = new HttpHeaders({'token': '' });
+  headers = new HttpHeaders({'Content-type': 'application/x-www-form-urlencoded; charset=utf-8', 'Authorization': 'Bearer '+this.cookieService.get('access_token')});
 
-  constructor(private http: HttpClient,
-              private httpErrorHandler: HttpErrorHandler) {
+  constructor(private http: HttpClient, private cookieService:CookieService) {
   }
 
-  get<T>(endpoint: string, httpOptions = {}): Observable<{}|T> {
+  get<T>(endpoint: string, httpOptions = {}): Observable<T> {
     return this.http.get<T>(endpoint, {
       headers: this.headers,
       ...httpOptions
-    }).pipe(catchError(err => this.httpErrorHandler.handleError(err)));
+    })
   }
 
-  post<T>(endpoint: string, body, httpOptions = {}): Observable<{}|T> {
+  post<T>(endpoint: string, body, httpOptions = {}): Observable<T> {
     return this.http.post<T>(endpoint, body, {
       headers: this.headers,
       ...httpOptions
-    }).pipe(catchError(err => this.httpErrorHandler.handleError(err)));
+    })
   }
 
-  put<T>(endpoint: string, body, httpOptions = {}): Observable<{}|T> {
+  put<T>(endpoint: string, body, httpOptions = {}): Observable<T> {
     return this.http.put<T>(endpoint, body, {
       headers: this.headers,
       ...httpOptions
-    }).pipe(catchError(err => this.httpErrorHandler.handleError(err)));
+    })
   }
 
   delete<T>(endpoint: string, httpOptions = {}) {
     return this.http.delete<T>(endpoint, {
       headers: this.headers,
       ...httpOptions
-    }).pipe(catchError(err => this.httpErrorHandler.handleError(err)));
+    })
   }
 }
