@@ -41,7 +41,7 @@ export const createTranslateLoader = (http: HttpClient) => {
         AppComponent,
         ConfirmDialogComponent
     ],
-    providers: [AuthGuard/*,{provide: LocationStrategy, useClass: HashLocationStrategy}*/],
+    providers: [AuthGuard],
     bootstrap: [AppComponent]
 })
 export class AppModule {}
