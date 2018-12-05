@@ -14,9 +14,9 @@ export class LoginService {
         params.append('username',loginData.username);
         params.append('password',loginData.password);
         params.append('grant_type','password');
-        params.append('client_id','+');
+        params.append('client_id','spring-security-oauth2-read-write-client');
 
-        let headers = new HttpHeaders({'Content-type': 'application/x-www-form-urlencoded; charset=utf-8', 'Authorization': 'Basic '+btoa("fooClientIdPassword:secret")});
+        let headers = new HttpHeaders({'Content-type': 'application/x-www-form-urlencoded; charset=utf-8', 'Authorization': 'Basic c3ByaW5nLXNlY3VyaXR5LW9hdXRoMi1yZWFkLXdyaXRlLWNsaWVudDpzcHJpbmctc2VjdXJpdHktb2F1dGgyLXJlYWQtd3JpdGUtY2xpZW50LXBhc3N3b3JkMTIzNA=='});
                console.log(params.toString());
         this.http.post('http://localhost:8081/oauth/token', params.toString(), { headers: headers })
             .subscribe(
@@ -30,9 +30,7 @@ export class LoginService {
         var expireDate = new Date().getTime() + (1000 * token.expires_in);
         this.cookieService.set('access_token', token.access_token, expireDate);
         console.log('Obtained Access token');
-        localStorage.setItem('isLoggedin', 'true');
-        this._router.navigate(['/dashboard']);
-        localStorage.setItem('isLoggedin', 'true');
+        this.checkCredentials();
     }
 
     checkCredentials(){
@@ -40,6 +38,8 @@ export class LoginService {
             this._router.navigate(['/login']);
             return false;
         } else {
+            this._router.navigate(['/dashboard']);
+            localStorage.setItem('isLoggedin', 'true');
             return true;
         }
     }

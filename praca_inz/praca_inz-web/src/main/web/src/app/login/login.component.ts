@@ -20,6 +20,6 @@ export class LoginComponent implements OnInit {
     }
 
     onLoggedin() {
-         // this.loginService.obtainAccessToken(this.loginData);
+        this.loginService.obtainAccessToken(this.loginData);
     }
 }
