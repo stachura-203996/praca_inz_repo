@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from './shared';
+import {LoginService} from "./login/login.service";
+import {CookieService} from "ngx-cookie-service";
 
 const routes: Routes = [
     { path: '', loadChildren: './layout/layout.module#LayoutModule', canActivate: [AuthGuard]},
@@ -14,6 +16,7 @@ const routes: Routes = [
 
 @NgModule({
     imports: [RouterModule.forRoot(routes, { useHash: true })],
-    exports: [RouterModule]
+    exports: [RouterModule],
+    providers:[LoginService,CookieService]
 })
 export class AppRoutingModule {}

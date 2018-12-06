@@ -1,6 +1,7 @@
 import { Component, Output, EventEmitter, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import {LoginService} from "../../../login/login.service";
 
 @Component({
     selector: 'app-sidebar',
@@ -15,7 +16,7 @@ export class SidebarComponent {
 
     @Output() collapsedEvent = new EventEmitter<boolean>();
     
-    constructor(private translate: TranslateService, public router: Router) {
+    constructor(private translate: TranslateService, public router: Router, private loginService : LoginService) {
         this.translate.addLangs(['en','pl','de']);
         this.translate.setDefaultLang('pl');
         const browserLang = this.translate.getBrowserLang();
@@ -69,6 +70,6 @@ export class SidebarComponent {
     }
 
     onLoggedout() {
-        localStorage.removeItem('isLoggedin');
+        this.loginService.logout();
     }
 }

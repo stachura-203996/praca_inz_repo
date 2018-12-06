@@ -8,6 +8,7 @@ import { LayoutComponent } from './layout.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { HeaderComponent } from './components/header/header.component';
 import {LoginService} from "../login/login.service";
+import {CookieService} from "ngx-cookie-service";
 
 
 @NgModule({
@@ -18,6 +19,6 @@ import {LoginService} from "../login/login.service";
         NgbDropdownModule.forRoot()
     ],
     declarations: [LayoutComponent, SidebarComponent, HeaderComponent],
-    providers:[LoginService]
+    providers:[LoginService,CookieService]
 })
 export class LayoutModule {}
