@@ -5,7 +5,8 @@ import {LoginService} from "./login/login.service";
 import {CookieService} from "ngx-cookie-service";
 
 const routes: Routes = [
-    { path: '', loadChildren: './layout/layout.module#LayoutModule', canActivate: [AuthGuard]},
+    { path: '', redirectTo: 'page', pathMatch: 'prefix' },
+    { path: 'page', loadChildren: './layout/layout.module#LayoutModule', canActivate: [AuthGuard]},
     { path: 'login', loadChildren: './login/login.module#LoginModule' },
     { path: 'signup', loadChildren: './signup/signup.module#SignupModule' },
     { path: 'error', loadChildren: './server-error/server-error.module#ServerErrorModule' },
@@ -15,7 +16,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-    imports: [RouterModule.forRoot(routes, { useHash: true })],
+    imports: [RouterModule.forRoot(routes )],
     exports: [RouterModule],
     providers:[LoginService,CookieService]
 })

@@ -38,7 +38,7 @@ export class LoginService {
             this._router.navigate(['/login']);
             return false;
         } else {
-            this._router.navigate(['/dashboard']);
+            this._router.navigate(['/page']);
             localStorage.setItem('isLoggedin', 'true');
             return true;
         }
