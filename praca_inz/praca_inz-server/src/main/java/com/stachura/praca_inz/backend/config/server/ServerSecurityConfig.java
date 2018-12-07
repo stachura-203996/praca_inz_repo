@@ -38,15 +38,17 @@ public class ServerSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(userDetailsService).passwordEncoder(userPasswordEncoder);
     }
 
-//    @Override
-//    protected void configure(final HttpSecurity http) throws Exception {
-//        // @formatter:off
-//        http.authorizeRequests().antMatchers("/login").permitAll()
+    @Override
+    protected void configure(final HttpSecurity http) throws Exception {
+//        http.authorizeRequests()
+////                .antMatchers("/*").permitAll()
+//                .antMatchers("/index.html").permitAll()
+//                .antMatchers("/login").permitAll()
 //                .antMatchers("/oauth/token/revokeById/**").permitAll()
 //                .antMatchers("/tokens/**").permitAll()
 //                .anyRequest().authenticated()
-//                .and().formLogin().permitAll()
+//                .and().formLogin().loginPage("/login").permitAll()
 //                .and().csrf().disable();
-//        // @formatter:on
-//    }
+    http.httpBasic().disable();
+    }
 }
