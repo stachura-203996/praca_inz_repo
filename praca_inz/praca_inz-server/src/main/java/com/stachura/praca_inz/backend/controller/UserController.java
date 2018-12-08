@@ -3,6 +3,7 @@ package com.stachura.praca_inz.backend.controller;
 
 import com.stachura.praca_inz.backend.model.Company;
 import com.stachura.praca_inz.backend.service.UserService;
+import com.stachura.praca_inz.backend.web.dto.ProfileInfoDto;
 import com.stachura.praca_inz.backend.web.dto.UserListElementDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
@@ -25,7 +26,7 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 @RequestMapping("/secured/users")
 public class UserController {
 
-    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
 
     @Autowired
     private UserService userService;
@@ -40,8 +41,9 @@ public class UserController {
     @RequestMapping(value = "/profile", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
-    String get() {
-           return auth.getName();
+    ProfileInfoDto get() {
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+           return userService.get(auth.getName());
     }
 
 //    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)

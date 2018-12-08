@@ -12,12 +12,14 @@ import lombok.*;
 public class ProfileInfoDto {
 
     private Long id;
+    private String username;
     private String name;
     private String surname;
     private String city;
     private String email;
     private String street;
-    private int houseNo;
-    private Integer flatNo;
-    private int pointsSum;
+    private String houseNumber;
+    private String flatNumber;
+    private String zipCode;
+
 }

@@ -3,6 +3,7 @@ package com.stachura.praca_inz.backend.service.impl;
 import com.stachura.praca_inz.backend.model.security.User;
 import com.stachura.praca_inz.backend.repository.UserRepository;
 import com.stachura.praca_inz.backend.service.UserService;
+import com.stachura.praca_inz.backend.web.dto.ProfileInfoDto;
 import com.stachura.praca_inz.backend.web.dto.UserListElementDto;
 import com.stachura.praca_inz.backend.web.dto.converter.UserConverter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,5 +26,11 @@ public class UserServiceImpl implements UserService {
             usersDto.add(UserConverter.toUserListElement(a));
         }
         return usersDto;
+    }
+
+    @Override
+    public ProfileInfoDto get(String name) {
+        User user = userRepository.findByUsername(name);
+        return UserConverter.toProfileInfo(user);
     }
 }
