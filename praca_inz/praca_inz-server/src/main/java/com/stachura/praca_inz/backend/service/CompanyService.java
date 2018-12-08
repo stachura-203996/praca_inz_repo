@@ -1,6 +1,7 @@
 package com.stachura.praca_inz.backend.service;
 
 import com.stachura.praca_inz.backend.model.Company;
+import com.stachura.praca_inz.backend.web.dto.CompanyStructuresListElementDto;
 
 import java.util.List;
 
@@ -10,7 +11,7 @@ public interface CompanyService {
 
     Company get(String name);
 
-    List<Company> getAll();
+    List<CompanyStructuresListElementDto> getAll();
 
     void create(Company company);
 

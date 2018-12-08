@@ -3,11 +3,14 @@ package com.stachura.praca_inz.backend.service.impl;
 import com.stachura.praca_inz.backend.model.Company;
 import com.stachura.praca_inz.backend.repository.CompanyRepository;
 import com.stachura.praca_inz.backend.service.CompanyService;
+import com.stachura.praca_inz.backend.web.dto.CompanyStructuresListElementDto;
+import com.stachura.praca_inz.backend.web.dto.converter.CompanyStructureConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -33,8 +36,13 @@ public class CompanyServiceImpl implements CompanyService {
     @Override
     @Transactional(readOnly = true)
     @PreAuthorize("hasAuthority('COMPANY_READ')")
-    public List<Company> getAll() {
-        return companyRepository.findAll();
+    public List<CompanyStructuresListElementDto> getAll() {
+        List<Company> companies=companyRepository.findAll();
+        List<CompanyStructuresListElementDto> companiesDto = new ArrayList<>();
+        for (Company a : companies) {
+            companiesDto.add(CompanyStructureConverter.toCompanyStructureListElement(a));
+        }
+        return companiesDto;
     }
 
     @Override

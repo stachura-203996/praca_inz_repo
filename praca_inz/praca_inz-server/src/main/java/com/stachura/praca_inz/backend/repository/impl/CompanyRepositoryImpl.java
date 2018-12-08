@@ -23,10 +23,7 @@ public class CompanyRepositoryImpl implements CompanyRepository {
         CriteriaQuery<Company> query = builder.createQuery(Company.class);
 
         Root<Company> root = query.from(Company.class);
-//        root.fetch(Company_.devices, JoinType.LEFT);
         Fetch<Company, Department> departmentFetch = root.fetch(Company_.departments, JoinType.LEFT);
-//        Fetch<Department, Userdata> employeeFetch = departmentFetch.fetch(Department_.employees, JoinType.LEFT);
-//        employeeFetch.fetch(Employee_.address, JoinType.LEFT);
         departmentFetch.fetch(Department_.offices, JoinType.LEFT);
 
         query.select(root).distinct(true);
@@ -42,10 +39,7 @@ public class CompanyRepositoryImpl implements CompanyRepository {
         CriteriaQuery<Company> query = builder.createQuery(Company.class);
 
         Root<Company> root = query.from(Company.class);
-       // root.fetch(Company_.devices, JoinType.LEFT);
         Fetch<Company, Department> departmentFetch = root.fetch(Company_.departments, JoinType.LEFT);
-//        Fetch<Department, Userdata> employeeFetch = departmentFetch.fetch(Department_.employees, JoinType.LEFT);
-//        employeeFetch.fetch(Employee_.address, JoinType.LEFT);
         departmentFetch.fetch(Department_.offices, JoinType.LEFT);
 
         query.select(root).distinct(true);
