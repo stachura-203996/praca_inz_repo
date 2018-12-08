@@ -52,8 +52,6 @@ export class UserService {
         return this.httpService.put(this.userPath + '/' + userId + '/accessLevels/' + accountId + this.inactivePath, '');
     }
 
-
-
     verifyUser(id: number): Observable<any> {
         return this.httpService.put(this.userPath + '/' + id + this.verifiedPath, '');
     }

@@ -33,16 +33,14 @@ public class UserController {
     List<UserListElementDto> getAll() {
         return userService.getAllUsers();
     }
-
-//TODO get user details
-    @RequestMapping(value = "/profile", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(value = HttpStatus.OK)
-    public @ResponseBody
-    String get(Principal principal) {
-           return principal.getName();
-    }
-
-
+//
+////TODO get user details
+//    @RequestMapping(value = "/profile", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+//    @ResponseStatus(value = HttpStatus.OK)
+//    public @ResponseBody
+//    String get(Principal principal) {
+//           return principal.getName();
+//    }
 
 //    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 //    @ResponseStatus(value = HttpStatus.OK)

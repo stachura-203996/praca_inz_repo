@@ -7,7 +7,6 @@ import {LoginService} from "../../../login/login.service";
 
 @NgModule({
     imports: [CommonModule, RouterModule],
-    providers:[LoginService],
     declarations: [PageHeaderComponent],
     exports: [PageHeaderComponent]
 })

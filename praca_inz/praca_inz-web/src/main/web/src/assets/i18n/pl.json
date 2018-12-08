@@ -43,5 +43,10 @@
     "OfficesAdd" : "Dodaj biuro",
     "Collapse Sidebar" : "Zwiń menu",
     "CompanyManagementPanel" : "Panel zarzadzania firmą",
-    "TaskList" : "Lista zadań"
+    "TaskList" : "Lista zadań",
+    "Name": "Imię",
+    "Surname":"Nazwisko",
+    "Username" : "Nick",
+    "Email" : "Email",
+    "Options": "Opcje"
 }

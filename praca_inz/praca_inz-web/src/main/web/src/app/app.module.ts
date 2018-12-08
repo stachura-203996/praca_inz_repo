@@ -12,6 +12,13 @@ import {AuthGuard} from './shared';
 import {ConfirmDialogComponent} from "./confirm-dialog/confirm-dialog.component";
 import {LoginService} from "./login/login.service";
 import {CookieService} from "ngx-cookie-service";
+import {UserService} from "./layout/user-management/user.service";
+import {HttpService} from "./shared/services/http.service";
+import {Configuration} from "./app.constants";
+import {ProfileService} from "./layout/profile/profile.service";
+import {MessageService} from "./shared/services/message.service";
+import {I18nService} from "./shared/services/i18n/i18n.service";
+import {ToastrModule} from "ngx-toastr";
 
 
 export const createTranslateLoader = (http: HttpClient) => {
@@ -31,13 +38,28 @@ export const createTranslateLoader = (http: HttpClient) => {
                 deps: [HttpClient]
             }
         }),
-        AppRoutingModule
+        AppRoutingModule,
+        ToastrModule.forRoot({
+            positionClass: 'toast-top-center',
+            maxOpened: 2,
+            autoDismiss: true
+        }),
     ],
     declarations: [
         AppComponent,
         ConfirmDialogComponent
     ],
-    providers: [AuthGuard, LoginService, CookieService],
+    providers: [
+        AuthGuard,
+        LoginService,
+        CookieService,
+        UserService,
+        HttpService,
+        Configuration,
+        ProfileService,
+        MessageService,
+        I18nService
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule {

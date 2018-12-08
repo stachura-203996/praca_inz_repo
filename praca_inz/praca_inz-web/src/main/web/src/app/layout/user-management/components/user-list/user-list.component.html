@@ -1,13 +1,23 @@
 <div class="col-sm-12 col-md-8 offset-md-2">
-    <h2>Users list</h2>
+    <h2>{{ 'UserList' | translate }}</h2>
+
+    <form class="form-inline">
+    <input class="form-control" #searchBox id="search-box" (keyup)="filterUsers(searchBox.value)"
+           placeholder="Search..." i18n-placeholder="User search placeholder" />
+
+        <div class="custom-control custom-checkbox mr-sm-2" (change)="filterUsers(searchBox.value)">
+            <input type="checkbox" class="custom-control-input" id="verifiedFilter" [(ngModel)]="notVerifiedFilter" name="verifiedFilter">
+            <label class="custom-control-label" for="verifiedFilter" i18n="@@notVerifiedFilterChkBox">Not verified only</label>
+        </div>
+    </form>
      <table class="table table-striped" align="center">
         <thead class="thead-inverse">
             <tr>
-                <th>Name</th>
-                <th>Surname</th>
-                <th>Username</th>
-                <th>Email</th>
-                <th>Options</th>
+                <th>{{ 'Name' | translate }}</th>
+                <th>{{ 'Surname' | translate }}</th>
+                <th>{{ 'Username' | translate }}</th>
+                <th>{{ 'Email' | translate }}</th>
+                <th>{{ 'Options' | translate }}</th>
             </tr>
         </thead>
         <tbody>
@@ -16,7 +26,48 @@
                 <td>{{user.surname}}</td>
                 <td>{{user.username}}</td>
                 <td>{{user.email}}</td>
-                <td>{{"opcje"}}</td>
+                <td class="text-center">
+                    <div class="btn-group" >
+                        <button id="button-basic" dropdownToggle type="button" class="btn btn-primary btn-sm dropdown-toggle"
+                                aria-controls="dropdown-basic" (click)="selectedUserAccessLevels=null; getRoles(user.id);"
+                                i18n="@@optionsBtn">Options<span class="caret"></span>
+                        </button>
+                        <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu dropdown-menu-right text-center"
+                            role="menu" aria-labelledby="button-basic">
+                            <li role="menuitem" *ngIf="!user.verified"><button type="button" class="btn btn-link"
+                                                                               (click)="verifyUser(user.id)" i18n="@@verifyUserBtn">Verify</button></li>
+                            <li class="divider dropdown-divider" *ngIf="!user.verified"></li>
+                            <li role="menuitem"><button type="button" class="btn btn-link" [disabled]="user.active"
+                                                        (click)="user.active=!user.active; activateAccount(user.id)" i18n="@@activateUserBtn">Activate</button></li>
+                            <li role="menuitem"><button type="button" class="btn btn-link" [disabled]="!user.active"
+                                                        (click)="user.active=!user.active; deactivateAccount(user.id)" i18n="@@deactivateUserBtn">Deactivate</button></li>
+                            <li class="divider dropdown-divider"></li>
+                            <li role="menuitem">
+                                <button type="button" class="btn btn-link">
+                                    <a routerLink="/admin/users/{{user.username}}" i18n="@@editUserButton">Edit</a>
+                                </button>
+                            </li>
+                            <li class="divider dropdown-divider"></li>
+                            <li *ngIf="!selectedUserAccessLevels"><span i18n="@@loadingRolesMsg">Loading...</span></li>
+                            <li *ngFor="let role of selectedUserAccessLevels; let id = index">
+                                <div class="col-auto my-1">
+                                    <div class="custom-control custom-checkbox mr-sm-2"
+                                         (change)="changeAccessLevelState($event,user.id,role.accessLevelId)">
+                                        <input type="checkbox" class="custom-control-input" id="{{id}}{{user.id}}"
+                                               [checked]="role.active">
+                                        <label class="custom-control-label" for="{{id}}{{user.id}}">{{role.name}}</label>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="divider dropdown-divider"></li>
+                            <li role="menuitem">
+                                <button type="button" class="btn btn-link">
+                                    <a routerLink="/admin/password/{{user.id}}" i18n="@@editPasswordButton">Change Password</a>
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+                </td>
             </tr>
         </tbody>
     </table>

@@ -9,7 +9,6 @@ import {FormsModule} from "@angular/forms";
 
 @NgModule({
     imports: [CommonModule, LoginRoutingModule,FormsModule],
-    providers: [LoginService,CookieService],
     declarations: [LoginComponent]
 })
 export class LoginModule {}
