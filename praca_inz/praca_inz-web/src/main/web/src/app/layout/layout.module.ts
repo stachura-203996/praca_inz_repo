@@ -19,6 +19,5 @@ import {CookieService} from "ngx-cookie-service";
         NgbDropdownModule.forRoot()
     ],
     declarations: [LayoutComponent, SidebarComponent, HeaderComponent],
-    providers:[LoginService,CookieService]
-})
+  })
 export class LayoutModule {}

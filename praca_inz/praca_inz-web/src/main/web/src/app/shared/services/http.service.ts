@@ -6,7 +6,7 @@ import {CookieService} from "ngx-cookie-service";
 @Injectable()
 export class HttpService {
 
-  headers = new HttpHeaders({'Content-type': 'application/x-www-form-urlencoded; charset=utf-8', 'Authorization': 'Bearer '+this.cookieService.get('access_token')});
+  headers = new HttpHeaders({'authorization': 'Bearer '+this.cookieService.get('access_token')});
 
   constructor(private http: HttpClient, private cookieService:CookieService) {
   }

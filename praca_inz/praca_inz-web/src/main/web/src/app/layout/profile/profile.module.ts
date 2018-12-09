@@ -12,7 +12,7 @@ import {ProfileService} from "./profile.service";
         ProfileRoutingModule
     ],
     declarations: [ProfileEditComponent, ProfilePublicComponent, ProfilePrivateComponent],
-    providers: [ProfileService]
+
 })
 export class ProfileModule {
 }

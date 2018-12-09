@@ -3,12 +3,12 @@ import {Injectable} from '@angular/core';
 @Injectable()
 export class Configuration {
 
-  public Server = 'https://studapp.it.p.lodz.pl:8404/ssbd201804'; // prod
-  // public Server = 'https://localhost:8181/ssbd201804';
+  // public Server = 'https://studapp.it.p.lodz.pl:8404/ssbd201804'; // prod
+  public Server = 'http://localhost:8081';
   // public Server = ''; // npm start
 
-  public ApiUrl = '/api';
-  public ServerWithApiUrl = this.Server + this.ApiUrl;
+  public SecuredUrl = '/secured';
+  public ServerWithApiUrl = this.Server + this.SecuredUrl;
   public ROOT = '/';
 
   // Report response codes

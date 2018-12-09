@@ -3,7 +3,9 @@ import {CookieService} from "ngx-cookie-service";
 import {HttpClient,HttpHeaders} from "@angular/common/http";
 import {Router} from "@angular/router";
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class LoginService {
 
     constructor(
