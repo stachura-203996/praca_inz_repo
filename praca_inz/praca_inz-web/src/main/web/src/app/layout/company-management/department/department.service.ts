@@ -1,20 +1,19 @@
 import { Injectable } from '@angular/core';
-import {Observable} from "rxjs";
 import {HttpService} from "../../../shared/services/http.service";
 import {Configuration} from "../../../app.constants";
+import {Observable} from "rxjs";
 import {StructureListElement} from "../models/structure-list-element";
 
 @Injectable({
   providedIn: 'root'
 })
-export class CompanyService {
+export class DepartmentService {
 
-    private companyPath = this.configuration.ServerWithApiUrl + '/structure/company';
+    private departmentPath = this.configuration.ServerWithApiUrl + '/structure/department';
 
-  constructor(private httpService: HttpService, private configuration: Configuration) { }
+    constructor(private httpService: HttpService, private configuration: Configuration) { }
 
     getAll(): Observable<StructureListElement[]> {
-        return this.httpService.get<StructureListElement[]>(this.companyPath);
+        return this.httpService.get<StructureListElement[]>(this.departmentPath);
     }
-
 }

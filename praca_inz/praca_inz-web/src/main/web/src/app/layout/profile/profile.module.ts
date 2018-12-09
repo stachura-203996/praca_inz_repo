@@ -4,7 +4,6 @@ import {ProfileEditComponent} from './components/profile-edit/profile-edit.compo
 import {ProfilePublicComponent} from './components/profile-public/profile-public.component';
 import {ProfilePrivateComponent} from './components/profile-private/profile-private.component';
 import {ProfileRoutingModule} from "./profile-routing.module";
-import {ProfileService} from "./profile.service";
 
 @NgModule({
     imports: [

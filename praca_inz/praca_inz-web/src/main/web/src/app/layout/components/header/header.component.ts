@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import {LoginService} from "../../../login/login.service";
+import {ProfileInfo} from "../../profile/models/profile-info";
+import {ProfileService} from "../../profile/profile.service";
 
 @Component({
     selector: 'app-header',
@@ -10,8 +12,9 @@ import {LoginService} from "../../../login/login.service";
 })
 export class HeaderComponent implements OnInit {
     pushRightClass: string = 'push-right';
+    currentUser: ProfileInfo;
 
-    constructor(private translate: TranslateService, public router: Router, private loginService : LoginService) {
+    constructor(private translate: TranslateService, public router: Router, private loginService : LoginService, private profileService:ProfileService) {
 
         this.translate.addLangs(['en','pl','de']);
         this.translate.setDefaultLang('pl');
@@ -52,5 +55,23 @@ export class HeaderComponent implements OnInit {
 
     changeLang(language: string) {
         this.translate.use(language);
+    }
+
+    getProfile() {
+        this.profileService.getUserProfile().subscribe(profile => {
+            this.currentUser = profile
+        });
+    }
+
+    getUserInfo(){
+        return (this.currentUser.name+ ' '+ this.currentUser.surname);
+    }
+
+    getAddress(): string {
+        if (this.currentUser.flatNumber == null || this.currentUser.flatNumber === "0") {
+            return (this.currentUser.street + ' ' + this.currentUser.houseNumber);
+        } else {
+            return (this.currentUser.street + ' ' + this.currentUser.houseNumber + ' / ' + this.currentUser.flatNumber);
+        }
     }
 }

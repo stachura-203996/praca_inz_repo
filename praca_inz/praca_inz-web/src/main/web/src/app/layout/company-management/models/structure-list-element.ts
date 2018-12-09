@@ -1,4 +1,4 @@
-export class OfficeListElement {
+export class StructureListElement {
     id: number;
     name: string;
     description: string;
