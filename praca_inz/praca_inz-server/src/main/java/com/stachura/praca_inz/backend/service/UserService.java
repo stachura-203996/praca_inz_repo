@@ -1,5 +1,7 @@
 package com.stachura.praca_inz.backend.service;
 
+import com.stachura.praca_inz.backend.model.Company;
+import com.stachura.praca_inz.backend.web.dto.ProfileInfoDto;
 import com.stachura.praca_inz.backend.web.dto.UserListElementDto;
 
 import java.util.List;
@@ -11,4 +13,11 @@ public interface UserService {
      * @return lista użytkowników
      */
     List<UserListElementDto> getAllUsers();
+
+    /**
+     * Metoda zwracająca użytkownika o danym loginie jako obiekty typu {@link ProfileInfoDto}
+     *
+     * @return użytkownik
+     */
+    ProfileInfoDto get(String name);
 }

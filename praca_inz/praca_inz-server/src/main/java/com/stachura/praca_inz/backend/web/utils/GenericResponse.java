@@ -1,4 +1,4 @@
-package com.stachura.praca_inz.backend.web.util;
+package com.stachura.praca_inz.backend.web.utils;
 
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;

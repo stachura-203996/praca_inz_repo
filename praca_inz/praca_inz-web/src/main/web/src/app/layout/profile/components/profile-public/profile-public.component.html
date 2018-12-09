@@ -1,27 +1,27 @@
-<!--<div class="col-sm-12 col-md-6 offset-md-3" align="left">-->
-    <!--<h2 i18n="@@profileDetails">Profile details</h2>-->
-    <!--<div *ngIf="currentUser">-->
-        <!--<div class="form-row form-group">-->
-            <!--<h3 class="col-md-3">{{ currentUser.name| uppercase }} {{currentUser.surname|uppercase}}</h3>-->
-        <!--</div>-->
-        <!--<div class="form-row form-group">-->
-            <!--<label i18n="@@emailLabel" class="col-md-3">E-mail:&nbsp;</label><span class="col-md-3">{{currentUser.email}}</span>-->
-        <!--</div>-->
-        <!--<div class="form-row form-group">-->
-            <!--<label i18n="@@cityLabel" class="col-md-3">City:&nbsp;</label><span class="col-md-3">{{currentUser.city}}</span>-->
-        <!--</div>-->
-        <!--<div class="form-row form-group">-->
-            <!--<label i18n="@@addressLabel" class="col-md-3">Address:&nbsp;</label><span class="col-md-3">{{getAddress()}}</span>-->
-        <!--</div>-->
-        <!--<div class="form-row form-group">-->
-            <!--<label i18n="@@pointsLabel" class="col-md-3">Points:&nbsp;</label><span class="col-md-3">{{currentUser.pointsSum}}</span>-->
-        <!--</div>-->
-    <!--</div>-->
-    <!--<div>-->
-        <!--<button [routerLink]="['/profile/edit']" class="btn btn-primary" i18n="@@editButton">Edit</button>-->
-    <!--</div>-->
-    <!--<br/>-->
-    <!--<div>-->
-        <!--<button [routerLink]="['/profile/password']" class="btn btn-primary" i18n="@@changePasswordButton">Change Password</button>-->
-    <!--</div>-->
-<!--</div>-->
+<div class="col-sm-12 col-md-6 offset-md-3" align="left">
+    <h2 i18n="@@profileDetails">Profile details</h2>
+    <div *ngIf="currentUser">
+        <div class="form-row form-group">
+            <h3 class="col-md-3">{{ currentUser.name| uppercase }} {{currentUser.surname|uppercase}}</h3>
+        </div>
+        <div class="form-row form-group">
+            <label i18n="@@emailLabel" class="col-md-3">E-mail:&nbsp;</label><span class="col-md-3">{{currentUser.email}}</span>
+        </div>
+        <div class="form-row form-group">
+            <label i18n="@@cityLabel" class="col-md-3">City:&nbsp;</label><span class="col-md-3">{{currentUser.city}}</span>
+        </div>
+        <div class="form-row form-group">
+            <label i18n="@@addressLabel" class="col-md-3">Address:&nbsp;</label><span class="col-md-3">{{getAddress()}}</span>
+        </div>
+        <div class="form-row form-group">
+            <label i18n="@@pointsLabel" class="col-md-3">Points:&nbsp;</label><span class="col-md-3">{{currentUser.pointsSum}}</span>
+        </div>
+    </div>
+    <div>
+        <button [routerLink]="['/profile/edit']" class="btn btn-primary" i18n="@@editButton">Edit</button>
+    </div>
+    <br/>
+    <div>
+        <button [routerLink]="['/profile/password']" class="btn btn-primary" i18n="@@changePasswordButton">Change Password</button>
+    </div>
+</div>

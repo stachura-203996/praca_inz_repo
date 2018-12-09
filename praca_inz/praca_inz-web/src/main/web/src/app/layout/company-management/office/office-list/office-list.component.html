@@ -1,3 +1,32 @@
-<p>
-  office-list works!
-</p>
+<div class="col-sm-12 col-md-8 offset-md-2">
+    <h2>{{ 'OfficeList' | translate }}</h2>
+
+    <form class="form-inline">
+        <input class="form-control" #searchBox id="search-box" (keyup)="filterUsers(searchBox.value)"
+               placeholder="Search..." i18n-placeholder="User search placeholder"/>
+    </form>
+    <table class="table table-striped" align="center">
+        <thead class="thead-inverse">
+        <tr>
+            <th>{{ 'Name' | translate }}</th>
+            <th>{{ 'Description' | translate }}</th>
+            <th>{{ 'City' | translate }}</th>
+            <th>{{'ZipCode'|translate}}</th>
+            <th>{{ 'Adress' | translate }}</th>
+            <th>{{'ParentName'|translate}}</th>
+            <th>{{ 'Options' | translate }}</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let office of offices">
+            <td>{{office.name}}</td>
+            <td>{{office.description}}</td>
+            <td>{{office.city}}</td>
+            <td>{{office.zipCode}}</td>
+            <td>{{getAddress(office)}}</td>
+            <td>{{office.parentName}}</td>
+            <td>Options</td>
+        </tr>
+        </tbody>
+    </table>
+</div>

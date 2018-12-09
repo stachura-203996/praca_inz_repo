@@ -1,6 +1,6 @@
 package com.stachura.praca_inz.backend.exception;
 
-import com.stachura.praca_inz.backend.web.util.GenericResponse;
+import com.stachura.praca_inz.backend.web.utils.GenericResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.MessageSource;
