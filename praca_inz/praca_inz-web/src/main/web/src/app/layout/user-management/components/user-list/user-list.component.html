@@ -1,16 +1,21 @@
-<div class="col-sm-12 col-md-8 offset-md-2">
-    <h2>{{ 'UserList' | translate }}</h2>
+<div [@routerTransition]>
+<!--<div class="col-sm-12 col-md-8 offset-md-2">-->
+    <h1>{{ 'UserList' | translate }}</h1>
 
-    <form class="form-inline">
-    <input class="form-control" #searchBox id="search-box" (keyup)="filterUsers(searchBox.value)"
-           placeholder="Search..." i18n-placeholder="User search placeholder" />
-
-        <div class="custom-control custom-checkbox mr-sm-2" (change)="filterUsers(searchBox.value)">
-            <input type="checkbox" class="custom-control-input" id="verifiedFilter" [(ngModel)]="notVerifiedFilter" name="verifiedFilter">
-            <label class="custom-control-label" for="verifiedFilter" i18n="@@notVerifiedFilterChkBox">Not verified only</label>
+    <div class="row">
+        <div class="col-lg-10">
+            <input class="form-control" #searchBox id="search-box" (keyup)="filterUsers(searchBox.value)"
+                   placeholder="Search..." i18n-placeholder="User search placeholder"/>
         </div>
-    </form>
-     <table class="table table-striped" align="center">
+        <div class="col-lg-2">
+            <button class="btn btn-primary float-right jh-create-entity" [routerLink]="['./add']">
+                <i class="fa fa-plus"></i>&nbsp;
+                <span>{{ 'CreateUser' | translate }}</span>
+            </button>
+        </div>
+    </div>
+    <br>
+     <table class="table table-striped">
         <thead class="thead-inverse">
             <tr>
                 <th>{{ 'Name' | translate }}</th>
@@ -29,7 +34,7 @@
                 <td class="text-left">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"
-                                [routerLink]="['./view']"
+                                [routerLink]="['/page/profile/user']"
                                 class="btn btn-info btn-sm">
                             <i class="fa fa-eye"></i>&nbsp;
                             <span class="d-none d-md-inline">View</span>
@@ -52,3 +57,4 @@
         </tbody>
     </table>
 </div>
+<!--</div>-->

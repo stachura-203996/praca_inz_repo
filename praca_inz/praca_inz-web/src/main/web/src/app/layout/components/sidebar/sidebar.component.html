@@ -28,50 +28,50 @@
         </div>
         <div class="nested-menu">
             <a class="list-group-item" (click)="addExpandClass('companyManagementPanel')">
-                <i class="fa fa-bars"></i>&nbsp;
+                <i class="fa fa-sitemap"></i>&nbsp;
                 <span>{{ 'Entities' | translate }}</span>
             </a>
             <li class="nested" [class.expand]="showMenu === 'companyManagementPanel'">
                 <ul class="submenu">
                     <li>
                         <a [routerLink]="['/admin/companies']" href="javascript:void(0)">
-                            <i class="fa fa-monument"></i>&nbsp;
+                            <i class="fa fa-angle-right"></i>&nbsp;
                             <span>{{ 'Companies' | translate }}</span>
                         </a>
                     </li>
                     <li>
                         <a [routerLink]="['/admin/departments']" href="javascript:void(0)">
-                            <i class="fa fa-monument"></i>&nbsp;
+                            <i class="fa fa-angle-right"></i>&nbsp;
                             <span>{{ 'Departments' | translate }}</span>
                         </a>
                     </li>
                     <li>
                         <a [routerLink]="['/admin/offices']" href="javascript:void(0)">
-                            <i class="fa fa-monument"></i>&nbsp;
+                            <i class="fa fa-angle-right"></i>&nbsp;
                             <span>{{ 'Offices' | translate }}</span>
                         </a>
                     </li>
                     <li>
                         <a [routerLink]="['/admin/devices']" href="javascript:void(0)">
-                            <i class="fa fa-desktop"></i>&nbsp;
+                            <i class="fa fa-angle-right"></i>&nbsp;
                             <span>{{ 'Devices' | translate }}</span>
                         </a>
                     </li>
                     <li>
                         <a [routerLink]="['/admin/devices/types']" href="javascript:void(0)">
-                            <i class="fa fa-ballot"></i>&nbsp;
+                            <i class="fa fa-angle-right"></i>&nbsp;
                             <span>{{ 'DevicesTypes' | translate }}</span>
                         </a>
                     </li>
                     <li>
                         <a [routerLink]="['/admin/warehouses']" href="javascript:void(0)">
-                            <i class="fa fa-warehouse"></i>&nbsp;
+                            <i class="fa fa-angle-right"></i>&nbsp;
                             <span>{{ 'Warehouses' | translate }}</span>
                         </a>
                     </li>
                     <li>
                         <a [routerLink]="['/admin/transitions']" href="javascript:void(0)">
-                            <i class="fa fa-exchange"></i>&nbsp;
+                            <i class="fa fa-angle-right"></i>&nbsp;
                             <span>{{ 'Transitions' | translate }}</span>
                         </a>
                     </li>

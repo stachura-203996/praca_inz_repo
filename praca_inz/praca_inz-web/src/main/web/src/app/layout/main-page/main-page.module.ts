@@ -4,6 +4,7 @@ import { NgbCarouselModule, NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { MainPageRoutingModule } from './main-page-routing.module';
 import { MainPageComponent } from './main-page.component';
+import { PageHeaderModule } from './../../shared';
 import {
     TimelineComponent,
     NotificationComponent,
@@ -18,7 +19,8 @@ import { StatModule } from '../../shared';
         NgbAlertModule.forRoot(),
         MainPageRoutingModule,
         StatModule,
-        TranslateModule
+        TranslateModule,
+        PageHeaderModule
     ],
     declarations: [
         MainPageComponent,

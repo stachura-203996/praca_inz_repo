@@ -1,45 +1,54 @@
-<div class="col-sm-12 col-md-8 offset-md-2">
-    <h2>{{ 'DepartmentList' | translate }}</h2>
+<!--<div class="col-sm-12 col-md-8 offset-md-2">-->
+<h1>{{ 'DepartmentList' | translate }}</h1>
 
-    <form class="form-inline">
+<div class="row">
+    <div class="col-lg-10">
         <input class="form-control" #searchBox id="search-box" (keyup)="filterUsers(searchBox.value)"
                placeholder="Search..." i18n-placeholder="User search placeholder"/>
-    </form>
-    <table class="table table-striped" align="center">
-        <thead class="thead-inverse">
-        <tr>
-            <th>{{ 'Name' | translate }}</th>
-            <th>{{ 'Description' | translate }}</th>
-            <th></th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let department of departments">
-            <td>{{department.name}}</td>
-            <td>{{department.description}}</td>
-            <td class="text-right">
-                <div class="btn-group flex-btn-group-container">
-                    <button type="submit"
-                            [routerLink]="['./view']"
-                            class="btn btn-info btn-sm">
-                        <i class="fa fa-eye"></i>&nbsp;
-                        <span class="d-none d-md-inline">View</span>
-                    </button>
-                    <button type="submit"
-                            [routerLink]="['./edit']"
-                            queryParamsHandling="merge"
-                            class="btn btn-primary btn-sm">
-                        <i class="fa fa-pencil"></i>&nbsp;
-                        <span class="d-none d-md-inline">Edit</span>
-                    </button>
-                    <button type="button" (click)="delete(department)"
-                            class="btn btn-danger btn-sm" >
-                        <i class="fa fa-times"></i>&nbsp;
-                        <span class="d-none d-md-inline">Delete</span>
-                    </button>
-                </div>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+    </div>
+    <div class="col-lg-2">
+        <button class="btn btn-primary float-right jh-create-entity" [routerLink]="['./add']">
+            <i class="fa fa-plus"></i>&nbsp;
+            <span>{{ 'CreateDepartment' | translate }}</span>
+        </button>
+    </div>
 </div>
+<br>
+<table class="table table-striped" align="center">
+    <thead class="thead-inverse">
+    <tr>
+        <th>{{ 'Name' | translate }}</th>
+        <th>{{ 'Description' | translate }}</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let department of departments">
+        <td>{{department.name}}</td>
+        <td>{{department.description}}</td>
+        <td class="text-right">
+            <div class="btn-group flex-btn-group-container">
+                <button type="submit"
+                        [routerLink]="['./view']"
+                        class="btn btn-info btn-sm">
+                    <i class="fa fa-eye"></i>&nbsp;
+                    <span class="d-none d-md-inline">View</span>
+                </button>
+                <button type="submit"
+                        [routerLink]="['./edit']"
+                        queryParamsHandling="merge"
+                        class="btn btn-primary btn-sm">
+                    <i class="fa fa-pencil"></i>&nbsp;
+                    <span class="d-none d-md-inline">Edit</span>
+                </button>
+                <button type="button" (click)="delete(department)"
+                        class="btn btn-danger btn-sm">
+                    <i class="fa fa-times"></i>&nbsp;
+                    <span class="d-none d-md-inline">Delete</span>
+                </button>
+            </div>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<!--</div>-->
