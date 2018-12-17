@@ -7,8 +7,8 @@ const routes: Routes = [
         path: '',
         component: LayoutComponent,
         children: [
-            { path: '', redirectTo: 'dashboard', pathMatch: 'prefix' },
-            { path: 'dashboard', loadChildren: './dashboard/dashboard.module#DashboardModule' },
+            { path: '', redirectTo: 'main-page', pathMatch: 'prefix' },
+            { path: 'main-page', loadChildren: './main-page/main-page.module#MainPageModule' },
             { path: 'charts', loadChildren: './templates/charts/charts.module#ChartsModule' },
             { path: 'tables', loadChildren: './templates/tables/tables.module#TablesModule' },
             { path: 'forms', loadChildren: './templates/form/form.module#FormModule' },
@@ -23,9 +23,7 @@ const routes: Routes = [
             {path: 'devices', loadChildren:'./device-management/device-management.module#DeviceManagementModule'},
             {path: 'warehouse', loadChildren: './warehouse-management/warehouse-management.module#WarehouseManagementModule'},
             {path: 'subordinates', loadChildren: './employee-management/employee-management.module#EmployeeManagementModule'},
-            {path: 'companies', loadChildren: './company-management/company/company.module#CompanyModule'},
-            {path: 'departments', loadChildren: './company-management/department/department.module#DepartmentModule'},
-            {path: 'offices', loadChildren: './company-management/office/office.module#OfficeModule'}
+            {path:'admin', loadChildren: './admin/admin.module#AdminModule'}
         ]
     }
 ];

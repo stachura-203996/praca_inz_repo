@@ -20,6 +20,9 @@ public class Device implements Serializable {
     @Column(name = "ID", updatable = false, nullable = false)
     private Long id = null;
 
+    @Column(name = "NAME", nullable = false)
+    private String name;
+
     @Column(name = "SERIAL_NUMBER")
     private String serialNumber;
 

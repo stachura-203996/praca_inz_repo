@@ -1,26 +1,26 @@
 <nav class="sidebar" [ngClass]="{sidebarPushRight: isActive, collapsed: collapsed}">
     <div class="list-group">
-        <a routerLink="/dashboard" [routerLinkActive]="['router-link-active']" class="list-group-item">
+        <a routerLink="/main-page" [routerLinkActive]="['router-link-active']" class="list-group-item">
             <i class="fa fa-fw fa-home"></i>&nbsp;
             <span>{{ 'HomePage' | translate }}</span>
         </a>
         <div class="nested-menu">
             <a class="list-group-item" (click)="addExpandClass('userManagementPanel')">
-                <i class="fa fa-users"></i>&nbsp;
-                <span>{{ 'UserManagementPanel' | translate }}</span>
+                <i class="fa fa-book"></i>&nbsp;
+                <span>{{ 'Administration' | translate }}</span>
             </a>
             <li class="nested" [class.expand]="showMenu === 'userManagementPanel'">
                 <ul class="submenu">
                     <li>
-                        <a [routerLink]="['/users']" href="javascript:void(0)">
+                        <a [routerLink]="['/admin/dashboard']" href="javascript:void(0)">
                             <i class="fa fa-monument"></i>&nbsp;
-                            <span>{{ 'UserList' | translate }}</span>
+                            <span>{{ 'Dashboard' | translate }}</span>
                         </a>
                     </li>
                     <li>
-                        <a [routerLink]="['/users/add']" href="javascript:void(0)">
+                        <a [routerLink]="['/users']" href="javascript:void(0)">
                             <i class="fa fa-monument"></i>&nbsp;
-                            <span>{{ 'AddUser' | translate }}</span>
+                            <span>{{ 'Users' | translate }}</span>
                         </a>
                     </li>
                 </ul>
@@ -28,47 +28,51 @@
         </div>
         <div class="nested-menu">
             <a class="list-group-item" (click)="addExpandClass('companyManagementPanel')">
-                <i class="fa fa-building"></i>&nbsp;
-                <span>{{ 'CompanyManagementPanel' | translate }}</span>
+                <i class="fa fa-sitemap"></i>&nbsp;
+                <span>{{ 'Entities' | translate }}</span>
             </a>
             <li class="nested" [class.expand]="showMenu === 'companyManagementPanel'">
                 <ul class="submenu">
                     <li>
-                        <a [routerLink]="['/companies']" href="javascript:void(0)">
-                            <i class="fa fa-monument"></i>&nbsp;
-                            <span>{{ 'CompaniesList' | translate }}</span>
+                        <a [routerLink]="['/admin/companies']" href="javascript:void(0)">
+                            <i class="fa fa-angle-right"></i>&nbsp;
+                            <span>{{ 'Companies' | translate }}</span>
                         </a>
                     </li>
                     <li>
-                        <a [routerLink]="['/companies/add']" href="javascript:void(0)">
-                            <i class="fa fa-monument"></i>&nbsp;
-                            <span>{{ 'CompaniesAdd' | translate }}</span>
-                        </a>
-                    </li>
-                    <div class="dropdown-divider"></div>
-                    <li>
-                        <a [routerLink]="['/departments']" href="javascript:void(0)">
-                            <i class="fa fa-monument"></i>&nbsp;
-                            <span>{{ 'DepartmentsList' | translate }}</span>
+                        <a [routerLink]="['/admin/departments']" href="javascript:void(0)">
+                            <i class="fa fa-angle-right"></i>&nbsp;
+                            <span>{{ 'Departments' | translate }}</span>
                         </a>
                     </li>
                     <li>
-                        <a [routerLink]="['/departments/add']" href="javascript:void(0)">
-                            <i class="fa fa-monument"></i>&nbsp;
-                            <span>{{ 'DepartmentsAdd' | translate }}</span>
-                        </a>
-                    </li>
-                    <div class="dropdown-divider"></div>
-                    <li>
-                        <a [routerLink]="['/offices']" href="javascript:void(0)">
-                            <i class="fa fa-monument"></i>&nbsp;
-                            <span>{{ 'OfficesList' | translate }}</span>
+                        <a [routerLink]="['/admin/offices']" href="javascript:void(0)">
+                            <i class="fa fa-angle-right"></i>&nbsp;
+                            <span>{{ 'Offices' | translate }}</span>
                         </a>
                     </li>
                     <li>
-                        <a [routerLink]="['/offices/add']" href="javascript:void(0)">
-                            <i class="fa fa-monument"></i>&nbsp;
-                            <span>{{ 'OfficesAdd' | translate }}</span>
+                        <a [routerLink]="['/admin/devices']" href="javascript:void(0)">
+                            <i class="fa fa-angle-right"></i>&nbsp;
+                            <span>{{ 'Devices' | translate }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/admin/devices/types']" href="javascript:void(0)">
+                            <i class="fa fa-angle-right"></i>&nbsp;
+                            <span>{{ 'DevicesTypes' | translate }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/admin/warehouses']" href="javascript:void(0)">
+                            <i class="fa fa-angle-right"></i>&nbsp;
+                            <span>{{ 'Warehouses' | translate }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/admin/transitions']" href="javascript:void(0)">
+                            <i class="fa fa-angle-right"></i>&nbsp;
+                            <span>{{ 'Transitions' | translate }}</span>
                         </a>
                     </li>
                 </ul>
@@ -77,7 +81,7 @@
         <div class="nested-menu">
             <a class="list-group-item" (click)="addExpandClass('employeesManagementPanel')">
                 <i class="fa fa-briefcase"></i>&nbsp;
-                <span>{{ 'EmployeesManagementPanel' | translate }}</span>
+                <span>{{ 'Employees' | translate }}</span>
             </a>
             <li class="nested" [class.expand]="showMenu === 'employeesManagementPanel'">
                 <ul class="submenu">
@@ -99,7 +103,7 @@
         <div class="nested-menu">
             <a class="list-group-item" (click)="addExpandClass('devicesManagementPanel')">
                 <i class="fa fa-desktop"></i>&nbsp;
-                <span>{{ 'DevicesMenagemantPanel' | translate }}</span>
+                <span>{{ 'Devices' | translate }}</span>
             </a>
             <li class="nested" [class.expand]="showMenu === 'devicesManagementPanel'">
                 <ul class="submenu">
@@ -107,12 +111,6 @@
                         <a [routerLink]="['/devices/user']" href="javascript:void(0)">
                             <i class="fa fa-monument"></i>&nbsp;
                             <span>{{ 'YourDevices' | translate }}</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a [routerLink]="['/devices']" href="javascript:void(0)">
-                            <i  class="fa fa-monument"></i>&nbsp;
-                            <span>{{ 'DevicesList' | translate }}</span>
                         </a>
                     </li>
                     <li>

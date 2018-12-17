@@ -25,6 +25,7 @@ public class WebApplicationConfig implements WebMvcConfigurer {
         return container -> {
             container.addErrorPages(new ErrorPage(HttpStatus.NOT_FOUND,
                     "/notFound"));
+            container.addErrorPages(new ErrorPage(HttpStatus.LOOP_DETECTED,"/notFound"));
         };
     }
 
