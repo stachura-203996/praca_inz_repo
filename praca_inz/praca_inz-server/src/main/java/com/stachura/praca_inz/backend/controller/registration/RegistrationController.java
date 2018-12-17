@@ -3,7 +3,7 @@ package com.stachura.praca_inz.backend.controller.registration;
 import com.stachura.praca_inz.backend.model.security.User;
 import com.stachura.praca_inz.backend.service.RegistrationService;
 import com.stachura.praca_inz.backend.web.dto.RegistrationDto;
-import com.stachura.praca_inz.backend.web.util.GenericResponse;
+import com.stachura.praca_inz.backend.web.utils.GenericResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

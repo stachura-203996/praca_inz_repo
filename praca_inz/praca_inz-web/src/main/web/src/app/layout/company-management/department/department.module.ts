@@ -4,11 +4,15 @@ import { DepartmentListComponent } from './department-list/department-list.compo
 import { DepartmentAddComponent } from './department-add/department-add.component';
 import { DepartmentEditComponent } from './department-edit/department-edit.component';
 import {DepartmentRoutingModule} from "./department-routing.module";
+import {TranslateModule} from "@ngx-translate/core";
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   imports: [
     CommonModule,
-      DepartmentRoutingModule
+      DepartmentRoutingModule,
+      TranslateModule,
+      FormsModule
   ],
   declarations: [DepartmentListComponent, DepartmentAddComponent, DepartmentEditComponent]
 })

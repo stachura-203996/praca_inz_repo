@@ -10,8 +10,8 @@ import {FormsModule} from "@angular/forms";
 @NgModule({
     imports: [
         CommonModule,
-        TranslateModule,
         UserManagementRoutingModule,
+        TranslateModule,
         FormsModule
 
     ],

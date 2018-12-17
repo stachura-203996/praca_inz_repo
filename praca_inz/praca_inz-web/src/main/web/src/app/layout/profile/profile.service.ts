@@ -10,10 +10,7 @@ import {Configuration} from "../../app.constants";
 export class ProfileService {
 
     private profilePath = this.configuration.ServerWithApiUrl + '/users';
-    private userPathDetail;
-    private activePath = '/active';
-    private inactivePath = '/inactive';
-    private verifiedPath = '/verified';
+
   constructor(private httpService: HttpService, private configuration: Configuration) { }
 
     getUserProfile(): Observable<ProfileInfo> {

@@ -3,6 +3,7 @@ package com.stachura.praca_inz.backend.controller;
 
 import com.stachura.praca_inz.backend.model.Company;
 import com.stachura.praca_inz.backend.service.UserService;
+import com.stachura.praca_inz.backend.web.dto.ProfileInfoDto;
 import com.stachura.praca_inz.backend.web.dto.UserListElementDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
@@ -10,6 +11,8 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,6 +27,7 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 public class UserController {
 
 
+
     @Autowired
     private UserService userService;
 
@@ -33,14 +37,14 @@ public class UserController {
     List<UserListElementDto> getAll() {
         return userService.getAllUsers();
     }
-//
-////TODO get user details
-//    @RequestMapping(value = "/profile", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-//    @ResponseStatus(value = HttpStatus.OK)
-//    public @ResponseBody
-//    String get(Principal principal) {
-//           return principal.getName();
-//    }
+
+    @RequestMapping(value = "/profile", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(value = HttpStatus.OK)
+    public @ResponseBody
+    ProfileInfoDto get() {
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+           return userService.get(auth.getName());
+    }
 
 //    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 //    @ResponseStatus(value = HttpStatus.OK)
