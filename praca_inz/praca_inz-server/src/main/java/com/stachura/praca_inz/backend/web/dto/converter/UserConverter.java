@@ -73,13 +73,13 @@ public class UserConverter {
 //     */
 //    public static UserEditDto toUserEdit(User user) {
 //        return UserEditDto.builder()
-//                .name(user.getUserdata().getName())
-//                .surname(user.getUserdata().getSurname())
-//                .city(user.getUserdata().getAddress().getCity())
-//                .street(user.getUserdata().getAddress().getStreet())
-//                .houseNo(Integer.parseInt(user.getUserdata().getAddress().getBuildingNumber()))
-//                .flatNo(Integer.valueOf(user.getUserdata().getAddress().getFlatNumber()))
-////     TODO           .userdataVersion(user.getUserdata().getVersion())
+//                .name(user.getUsers().getName())
+//                .surname(user.getUsers().getSurname())
+//                .city(user.getUsers().getAddress().getCity())
+//                .street(user.getUsers().getAddress().getStreet())
+//                .houseNo(Integer.parseInt(user.getUsers().getAddress().getBuildingNumber()))
+//                .flatNo(Integer.valueOf(user.getUsers().getAddress().getFlatNumber()))
+////     TODO           .userdataVersion(user.getUsers().getVersion())
 //                .build();
 //    }
 
@@ -91,18 +91,18 @@ public class UserConverter {
 //     *//*
 //    public static UserEditByAdminDto toUserEditByAdminView(User user) {
 //        UserEditByAdminDto userEdit = UserEditByAdminDto.builder()
-//                .name(user.getUserdata().getName())
-//                .surname(user.getUserdata().getSurname())
-//                .city(user.getUserdata().getAddress().getCity())
-//                .street(user.getUserdata().getAddress().getStreet())
-//                .houseNo(Integer.parseInt(user.getUserdata().getAddress().getBuildingNumber()))
-//                .flatNo(Integer.valueOf(user.getUserdata().getAddress().getFlatNumber()))
-//                .email(user.getUserdata().getEmail())
-////     TODO           .userdataVersion(user.getUserdata().getVersion())
+//                .name(user.getUsers().getName())
+//                .surname(user.getUsers().getSurname())
+//                .city(user.getUsers().getAddress().getCity())
+//                .street(user.getUsers().getAddress().getStreet())
+//                .houseNo(Integer.parseInt(user.getUsers().getAddress().getBuildingNumber()))
+//                .flatNo(Integer.valueOf(user.getUsers().getAddress().getFlatNumber()))
+//                .email(user.getUsers().getEmail())
+////     TODO           .userdataVersion(user.getUsers().getVersion())
 //                .build();
 //
-//        if (user.getUserdata().getSupervisor() != null && !user.getUserdata().getSupervisor().getAccount().getUsername().isEmpty()) {
-//            user.setSupervisorUsername(user.getUserdata().getSupervisor().getAccount().getUsername());
+//        if (user.getUsers().getSupervisor() != null && !user.getUsers().getSupervisor().getAccount().getUsername().isEmpty()) {
+//            user.setSupervisorUsername(user.getUsers().getSupervisor().getAccount().getUsername());
 //        }
 //        return user;
 //    }
@@ -116,14 +116,14 @@ public class UserConverter {
 //    public static ProfileInfo toProfileInfo(Account account) {
 //        return ProfileInfo.builder()
 //                .id(account.getId())
-//                .name(account.getUserdata().getName())
-//                .surname(account.getUserdata().getSurname())
-//                .city(account.getUserdata().getCity())
-//                .email(account.getUserdata().getEmail())
-//                .street(account.getUserdata().getStreet())
-//                .houseNo(account.getUserdata().getHouseNo())
-//                .flatNo(account.getUserdata().getFlatNo())
-//                .pointsSum(account.getUserdata().getPointsSum())
+//                .name(account.getUsers().getName())
+//                .surname(account.getUsers().getSurname())
+//                .city(account.getUsers().getCity())
+//                .email(account.getUsers().getEmail())
+//                .street(account.getUsers().getStreet())
+//                .houseNo(account.getUsers().getHouseNo())
+//                .flatNo(account.getUsers().getFlatNo())
+//                .pointsSum(account.getUsers().getPointsSum())
 //                .build();
 //    }
 
@@ -184,7 +184,7 @@ public class UserConverter {
 //        userAccount.setPerformanceReportCollection(account.getPerformanceReportCollection());
 //        userAccount.setPointCollection(account.getPointCollection());
 //        userAccount.setPurchaseCollection(account.getPurchaseCollection());
-//        userAccount.setUserdata(account.getUserdata());
+//        userAccount.setUsers(account.getUsers());
 //        userAccount.setUsername(account.getUsername());
 //        userAccount.setVerified(account.getVerified());
 //    }

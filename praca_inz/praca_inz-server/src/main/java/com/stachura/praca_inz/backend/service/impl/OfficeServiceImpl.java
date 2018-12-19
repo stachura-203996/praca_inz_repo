@@ -1,5 +1,6 @@
 package com.stachura.praca_inz.backend.service.impl;
 
+import com.stachura.praca_inz.backend.exception.EntityException;
 import com.stachura.praca_inz.backend.model.Office;
 import com.stachura.praca_inz.backend.repository.interfaces.OfficeRepository;
 import com.stachura.praca_inz.backend.service.OfficeService;
@@ -25,12 +26,12 @@ public class OfficeServiceImpl implements OfficeService {
         return officeRepository.find(id);
     }
 
-    @Override
-    @Transactional(readOnly = true)
-//    @PreAuthorize("hasAuthority('COMPANY_READ') and hasAuthority('DEPARTMENT_READ')")
-    public Office get(String name) {
-        return officeRepository.find(name);
-    }
+//    @Override
+//    @Transactional(readOnly = true)
+////    @PreAuthorize("hasAuthority('COMPANY_READ') and hasAuthority('DEPARTMENT_READ')")
+//    public Office get(String name) {
+//        return officeRepository.find(name);
+//    }
 
     @Override
     @Transactional(readOnly = true)
@@ -48,27 +49,37 @@ public class OfficeServiceImpl implements OfficeService {
     @Transactional
 //    @PreAuthorize("hasAuthority('COMPANY_CREATE')")
     public void create(Office office) {
-        officeRepository.create(office);
+        try {
+            officeRepository.create(office);
+        } catch (EntityException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     @Transactional
 //    @PreAuthorize("hasAuthority('COMPANY_UPDATE')")
     public Office update(Office office) {
-        return officeRepository.update(office);
+       Office officeR=new Office();
+        try {
+            officeR= officeRepository.update(office);
+        } catch (EntityException e) {
+            e.printStackTrace();
+        }
+        return officeR;
     }
 
     @Override
     @Transactional
 //    @PreAuthorize("hasAuthority('COMPANY_DELETE')")
     public void delete(Long id) {
-        officeRepository.delete(id);
+        officeRepository.remove(id);
     }
 
     @Override
     @Transactional
 //    @PreAuthorize("hasAuthority('COMPANY_DELETE')")
     public void delete(Office office) {
-        officeRepository.delete(office);
+        officeRepository.remove(office);
     }
 }

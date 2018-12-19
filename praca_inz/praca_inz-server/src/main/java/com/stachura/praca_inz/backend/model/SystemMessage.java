@@ -1,4 +1,35 @@
 package com.stachura.praca_inz.backend.model;
 
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+
+import javax.persistence.*;
+
+@Entity
+@EnableAutoConfiguration
+@Table(name = "SYSTEM_MESSAGE")
+@Getter
+@Setter
 public class SystemMessage {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "ID", updatable = false, nullable = false)
+    private Long id = null;
+
+    @Version
+    @Column(name = "VERSION")
+    private long version;
+
+    @Column(name = "TITLE", nullable = false)
+    private String title;
+
+    @Column(name = "MESSAGE", nullable = false)
+    private String message;
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "SYSTEM_MESSAGE_TYPE_ID")
+    private SystemMessageType systemMessageType;
+
 }

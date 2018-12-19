@@ -6,16 +6,20 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 
 import javax.persistence.*;
 
+
 @Entity
 @EnableAutoConfiguration
-@Table(name = "DEVICE_TYPE")
+@Table(name = "DELIVERY_REQUEST")
 @Getter
 @Setter
-public class DeviceData {
+public class DeliveryRequest {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ID", updatable = false, nullable = false)
     private Long id = null;
 
+    @Version
+    @Column(name = "VERSION")
+    private long version;
 }

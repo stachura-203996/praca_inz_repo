@@ -6,12 +6,13 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 
 import javax.persistence.*;
 
+
 @Entity
 @EnableAutoConfiguration
-@Table(name = "REPORT")
+@Table(name = "TRANSFER_REQUEST")
 @Getter
 @Setter
-public class Report {
+public class TransferRequest {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -21,4 +22,5 @@ public class Report {
     @Version
     @Column(name = "VERSION")
     private long version;
+
 }

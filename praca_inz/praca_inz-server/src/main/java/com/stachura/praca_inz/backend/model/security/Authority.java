@@ -17,9 +17,13 @@ import javax.persistence.*;
 public class Authority implements GrantedAuthority {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID")
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "ID", updatable = false, nullable = false)
+    private Long id = null;
+
+    @Version
+    @Column(name = "VERSION")
+    private long version;
 
     @Column(name = "NAME")
     private String name;

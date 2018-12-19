@@ -37,12 +37,12 @@ public class OfficeController {
         return officeService.get(id);
     }
 
-    @RequestMapping(value = "/filter", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(value = HttpStatus.OK)
-    public @ResponseBody
-    Office get(@RequestParam String name) {
-        return officeService.get(name);
-    }
+//    @RequestMapping(value = "/filter", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+//    @ResponseStatus(value = HttpStatus.OK)
+//    public @ResponseBody
+//    Office get(@RequestParam String name) {
+//        return officeService.get(name);
+//    }
 
     @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)

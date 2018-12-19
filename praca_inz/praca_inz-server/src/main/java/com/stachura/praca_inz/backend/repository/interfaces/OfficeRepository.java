@@ -1,5 +1,6 @@
 package com.stachura.praca_inz.backend.repository.interfaces;
 
+import com.stachura.praca_inz.backend.exception.EntityException;
 import com.stachura.praca_inz.backend.model.Office;
 
 import java.util.List;
@@ -7,15 +8,13 @@ import java.util.List;
 public interface OfficeRepository {
     Office find(Long id);
 
-    Office find(String name);
-
     List<Office> findAll();
 
-    void create(Office office);
+    void create(Office office)throws EntityException;
 
-    Office update(Office office);
+    Office update(Office office)throws EntityException;
 
-    void delete(Long id);
+    void remove(Long id);
 
-    void delete(Office office);
+    void remove(Office office);
 }

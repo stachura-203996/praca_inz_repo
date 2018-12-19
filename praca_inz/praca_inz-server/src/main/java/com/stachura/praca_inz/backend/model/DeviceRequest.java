@@ -8,10 +8,10 @@ import javax.persistence.*;
 
 @Entity
 @EnableAutoConfiguration
-@Table(name = "REPORT")
+@Table(name = "REQUEST")
 @Getter
 @Setter
-public class Report {
+public class DeviceRequest {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -21,4 +21,7 @@ public class Report {
     @Version
     @Column(name = "VERSION")
     private long version;
+
+    @Column(name = "TITLE", nullable = false)
+    private String title;
 }

@@ -16,21 +16,6 @@ public class CompanyRepositoryImpl extends AbstractRepository<Company> implement
         super(Company.class);
     }
 
-    @Override
-    public Company find(Long id) {
-        CriteriaBuilder builder = getEntityManager().getCriteriaBuilder();
-        CriteriaQuery<Company> query = builder.createQuery(Company.class);
-
-        Root<Company> root = query.from(Company.class);
-        Fetch<Company, Department> departmentFetch = root.fetch(Company_.departments, JoinType.LEFT);
-        departmentFetch.fetch(Department_.offices, JoinType.LEFT);
-
-        query.select(root).distinct(true);
-        Predicate idPredicate = builder.equal(root.get(Company_.id), id);
-        query.where(builder.and(idPredicate));
-
-        return DataAccessUtils.singleResult(getEntityManager().createQuery(query).getResultList());
-    }
 
     @Override
     public Company find(String name) {

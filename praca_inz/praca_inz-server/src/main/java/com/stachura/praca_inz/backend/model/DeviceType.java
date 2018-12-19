@@ -1,5 +1,6 @@
 package com.stachura.praca_inz.backend.model;
 
+
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -8,10 +9,10 @@ import javax.persistence.*;
 
 @Entity
 @EnableAutoConfiguration
-@Table(name = "REPORT")
+@Table(name = "DEVICE_TYPE")
 @Getter
 @Setter
-public class Report {
+public class DeviceType {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -21,4 +22,7 @@ public class Report {
     @Version
     @Column(name = "VERSION")
     private long version;
+
+    @Column(name = "NAME", nullable = false)
+    private String name;
 }

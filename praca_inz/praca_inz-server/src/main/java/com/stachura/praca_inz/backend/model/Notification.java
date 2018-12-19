@@ -19,4 +19,8 @@ public class Notification {
     @Column(name = "ID", updatable = false, nullable = false)
     private Long id = null;
 
+    @Version
+    @Column(name = "VERSION")
+    private long version;
+
 }
