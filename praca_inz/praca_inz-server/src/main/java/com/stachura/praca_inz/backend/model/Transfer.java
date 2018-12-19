@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Table(name = "TRANSITION")
 @Getter
 @Setter
-public class Transition {
+public class Transfer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

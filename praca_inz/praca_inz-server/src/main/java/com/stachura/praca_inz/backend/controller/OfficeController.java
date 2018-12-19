@@ -2,6 +2,7 @@ package com.stachura.praca_inz.backend.controller;
 
 import com.stachura.praca_inz.backend.model.Office;
 import com.stachura.praca_inz.backend.service.OfficeService;
+import com.stachura.praca_inz.backend.web.dto.CompanyStructuresListElementDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.http.HttpHeaders;
@@ -25,7 +26,7 @@ public class OfficeController {
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
-    List<Office> getAll() {
+    List<CompanyStructuresListElementDto> getAll() {
         return officeService.getAll();
     }
 

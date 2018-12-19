@@ -1,25 +1,24 @@
 package com.stachura.praca_inz.backend.repository.impl;
 
 import com.stachura.praca_inz.backend.model.*;
-import com.stachura.praca_inz.backend.repository.CompanyRepository;
+import com.stachura.praca_inz.backend.repository.AbstractRepository;
+import com.stachura.praca_inz.backend.repository.interfaces.CompanyRepository;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
-import java.util.List;
 
 @Repository
-public class CompanyRepositoryImpl implements CompanyRepository {
+public class CompanyRepositoryImpl extends AbstractRepository<Company> implements CompanyRepository{
 
-    @PersistenceContext
-    private EntityManager entityManager;
+
+    public CompanyRepositoryImpl() {
+        super(Company.class);
+    }
 
     @Override
     public Company find(Long id) {
-        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+        CriteriaBuilder builder = getEntityManager().getCriteriaBuilder();
         CriteriaQuery<Company> query = builder.createQuery(Company.class);
 
         Root<Company> root = query.from(Company.class);
@@ -30,12 +29,12 @@ public class CompanyRepositoryImpl implements CompanyRepository {
         Predicate idPredicate = builder.equal(root.get(Company_.id), id);
         query.where(builder.and(idPredicate));
 
-        return DataAccessUtils.singleResult(entityManager.createQuery(query).getResultList());
+        return DataAccessUtils.singleResult(getEntityManager().createQuery(query).getResultList());
     }
 
     @Override
     public Company find(String name) {
-        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+        CriteriaBuilder builder = getEntityManager().getCriteriaBuilder();
         CriteriaQuery<Company> query = builder.createQuery(Company.class);
 
         Root<Company> root = query.from(Company.class);
@@ -46,38 +45,7 @@ public class CompanyRepositoryImpl implements CompanyRepository {
         Predicate idPredicate = builder.equal(root.get(Company_.name), name);
         query.where(builder.and(idPredicate));
 
-        return DataAccessUtils.singleResult(entityManager.createQuery(query).getResultList());
+        return DataAccessUtils.singleResult(getEntityManager().createQuery(query).getResultList());
     }
 
-    @Override
-    public List<Company> findAll() {
-        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
-        CriteriaQuery<Company> query = builder.createQuery(Company.class);
-        Root<Company> root = query.from(Company.class);
-        query.select(root).distinct(true);
-        TypedQuery<Company> allQuery = entityManager.createQuery(query);
-
-        return allQuery.getResultList();
-    }
-
-    @Override
-    public void create(Company company) {
-        entityManager.persist(company);
-    }
-
-    @Override
-    public Company update(Company company) {
-        return entityManager.merge(company);
-    }
-
-    @Override
-    public void delete(Long id) {
-        Company company = entityManager.find(Company.class, id);
-        delete(company);
-    }
-
-    @Override
-    public void delete(Company company) {
-        entityManager.remove(company);
-    }
 }

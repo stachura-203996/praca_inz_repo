@@ -30,6 +30,7 @@ public class Office implements Serializable {
     @JoinColumn(name = "ADDRESS_ID")
     private Address address;
 
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
     private Department department;

@@ -1,7 +1,8 @@
 package com.stachura.praca_inz.backend.service.impl;
 
+import com.stachura.praca_inz.backend.exception.EntityException;
 import com.stachura.praca_inz.backend.model.Company;
-import com.stachura.praca_inz.backend.repository.CompanyRepository;
+import com.stachura.praca_inz.backend.repository.interfaces.CompanyRepository;
 import com.stachura.praca_inz.backend.service.CompanyService;
 import com.stachura.praca_inz.backend.web.dto.CompanyStructuresListElementDto;
 import com.stachura.praca_inz.backend.web.dto.converter.CompanyStructureConverter;
@@ -12,6 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+
+//TODO Obsługa zcustomizowanych wyjątków w każdym serwisie
 
 @Service
 public class CompanyServiceImpl implements CompanyService {
@@ -37,7 +40,7 @@ public class CompanyServiceImpl implements CompanyService {
     @Transactional(readOnly = true)
     @PreAuthorize("hasAuthority('COMPANY_READ')")
     public List<CompanyStructuresListElementDto> getAll() {
-        List<Company> companies=companyRepository.findAll();
+        List<Company> companies = companyRepository.findAll();
         List<CompanyStructuresListElementDto> companiesDto = new ArrayList<>();
         for (Company a : companies) {
             companiesDto.add(CompanyStructureConverter.toCompanyStructureListElement(a));
@@ -45,31 +48,45 @@ public class CompanyServiceImpl implements CompanyService {
         return companiesDto;
     }
 
+    //TODO
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('COMPANY_CREATE')")
     public void create(Company company) {
-        companyRepository.create(company);
+        try {
+            companyRepository.create(company);
+
+        } catch (EntityException e) {
+
+        }
+
     }
 
+    //TODO
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('COMPANY_UPDATE')")
     public Company update(Company company) {
-        return companyRepository.update(company);
+        Company companyR = new Company();
+        try {
+            company = companyRepository.update(company);
+        } catch (EntityException e) {
+
+        }
+        return companyR;
     }
 
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('COMPANY_DELETE')")
     public void delete(Long id) {
-        companyRepository.delete(id);
+        companyRepository.remove(id);
     }
 
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('COMPANY_DELETE')")
     public void delete(Company company) {
-        companyRepository.delete(company);
+        companyRepository.remove(company);
     }
 }

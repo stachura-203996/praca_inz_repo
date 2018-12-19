@@ -1,7 +1,8 @@
 package com.stachura.praca_inz.backend.service.impl;
 
+import com.stachura.praca_inz.backend.exception.EntityException;
 import com.stachura.praca_inz.backend.model.Department;
-import com.stachura.praca_inz.backend.repository.DepartmentRepository;
+import com.stachura.praca_inz.backend.repository.interfaces.DepartmentRepository;
 import com.stachura.praca_inz.backend.service.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,31 +37,42 @@ public class DepartmentServiceImpl implements DepartmentService {
         return departmentRepository.findAll();
     }
 
+    //TODO EXCEPTIONS
     @Override
     @Transactional
 //    @PreAuthorize("hasAuthority('COMPANY_CREATE')")
-    public void create(Department company) {
-        departmentRepository.create(company);
-    }
+    public void create(Department department) {
+        try {
+            departmentRepository.create(department);
+        } catch (EntityException e){
 
+        }
+    }
+//TODO EXCEPTIONS
     @Override
     @Transactional
 //    @PreAuthorize("hasAuthority('COMPANY_UPDATE')")
-    public Department update(Department company) {
-        return departmentRepository.update(company);
+    public Department update(Department department) {
+        Department departmentR=new Department();
+        try {
+            departmentR= departmentRepository.update(department);
+        } catch (EntityException e) {
+            e.printStackTrace();
+        }
+        return departmentR;
     }
 
     @Override
     @Transactional
 //    @PreAuthorize("hasAuthority('COMPANY_DELETE')")
     public void delete(Long id) {
-        departmentRepository.delete(id);
+        departmentRepository.remove(id);
     }
 
     @Override
     @Transactional
 //    @PreAuthorize("hasAuthority('COMPANY_DELETE')")
-    public void delete(Department company) {
-        departmentRepository.delete(company);
+    public void delete(Department department) {
+        departmentRepository.remove(department);
     }
 }

@@ -2,8 +2,7 @@ package com.stachura.praca_inz.backend.repository.impl;
 
 import com.stachura.praca_inz.backend.model.Office;
 import com.stachura.praca_inz.backend.model.Office_;
-import com.stachura.praca_inz.backend.model.Office;
-import com.stachura.praca_inz.backend.repository.OfficeRepository;
+import com.stachura.praca_inz.backend.repository.interfaces.OfficeRepository;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.stereotype.Repository;
 

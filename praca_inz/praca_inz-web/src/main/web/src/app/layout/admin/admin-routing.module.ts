@@ -7,6 +7,9 @@ import {OfficeListComponent} from "./components/entity-management/office/office-
 import {OfficeAddComponent} from "./components/entity-management/office/office-add/office-add.component";
 import {OfficeEditComponent} from "./components/entity-management/office/office-edit/office-edit.component";
 import {DashboardComponent} from "./components/administration/dashboard/dashboard.component";
+import {DepartmentListComponent} from "./components/entity-management/department/department-list/department-list.component";
+import {DepartmentAddComponent} from "./components/entity-management/department/department-add/department-add.component";
+import {DepartmentEditComponent} from "./components/entity-management/department/department-edit/department-edit.component";
 
 
 const routes: Routes = [
@@ -17,9 +20,9 @@ const routes: Routes = [
     {path: 'offices', component: OfficeListComponent},
     {path: 'offices/add', component:OfficeAddComponent},
     {path: 'offices/edit', component:OfficeEditComponent},
-    {path: 'departments', component: OfficeListComponent},
-    {path: 'departments/add', component:OfficeAddComponent},
-    {path: 'departments/edit', component:OfficeEditComponent},
+    {path: 'departments', component: DepartmentListComponent},
+    {path: 'departments/add', component:DepartmentAddComponent},
+    {path: 'departments/edit', component:DepartmentEditComponent},
     {path: 'dashboard', component: DashboardComponent}
 ];
 

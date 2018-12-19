@@ -1,4 +1,4 @@
-package com.stachura.praca_inz.backend.repository;
+package com.stachura.praca_inz.backend.repository.interfaces;
 
 import com.stachura.praca_inz.backend.model.security.User;
 import org.springframework.data.jpa.repository.JpaRepository;
