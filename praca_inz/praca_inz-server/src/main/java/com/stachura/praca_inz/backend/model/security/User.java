@@ -8,6 +8,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
@@ -15,6 +16,7 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 @EnableAutoConfiguration
@@ -52,7 +54,7 @@ public class User implements UserDetails, Serializable {
     private boolean enabled;
 
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JsonBackReference
     private Office office;
 
@@ -60,15 +62,22 @@ public class User implements UserDetails, Serializable {
     @JsonBackReference
     private Warehouse warehouse;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "USERDATA_ID")
     private Userdata userdata;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "USERS_AUTHORITIES", joinColumns = @JoinColumn(name = "USER_ID", referencedColumnName = "ID"), inverseJoinColumns = @JoinColumn(name = "AUTHORITY_ID", referencedColumnName = "ID"))
+
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "USERS_ROLES", joinColumns = @JoinColumn(name = "USER_ID", referencedColumnName = "ID"), inverseJoinColumns = @JoinColumn(name = "USER_ROLE_ID", referencedColumnName = "ID"))
     @OrderBy
     @JsonIgnore
-    private Collection<Authority> authorities;
+    private Collection<UserRole> userRoles;
+
+    @Override
+    public Collection<Authority> getAuthorities() {
+        return this.getUserRoles().stream().flatMap(x->x.getAuthorities().stream()).collect(Collectors.toList());
+    }
 
     @Override
     public boolean isAccountNonExpired() {

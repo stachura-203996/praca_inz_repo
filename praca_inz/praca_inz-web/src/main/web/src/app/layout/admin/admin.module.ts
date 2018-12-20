@@ -14,6 +14,10 @@ import {OfficeAddComponent} from "./components/entity-management/office/office-a
 import {OfficeEditComponent} from "./components/entity-management/office/office-edit/office-edit.component";
 import { DashboardComponent } from './components/administration/dashboard/dashboard.component';
 import {ChatComponent, NotificationComponent, TimelineComponent} from "./components/administration/components";
+import {UserViewComponent} from "./components/administration/user-management/components/user-view/user-view.component";
+import {UserEditComponent} from "./components/administration/user-management/components/user-edit/user-edit.component";
+import {UserAddComponent} from "./components/administration/user-management/components/user-add/user-add.component";
+import {UserListComponent} from "./components/administration/user-management/components/user-list/user-list.component";
 
 @NgModule({
     imports: [
@@ -35,7 +39,11 @@ import {ChatComponent, NotificationComponent, TimelineComponent} from "./compone
         DashboardComponent,
         ChatComponent,
         NotificationComponent,
-        TimelineComponent
+        TimelineComponent,
+        UserViewComponent,
+        UserEditComponent,
+        UserAddComponent,
+        UserListComponent
     ]
 })
 export class AdminModule {

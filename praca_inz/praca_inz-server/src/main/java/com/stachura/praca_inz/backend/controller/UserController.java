@@ -3,6 +3,7 @@ package com.stachura.praca_inz.backend.controller;
 
 import com.stachura.praca_inz.backend.model.Company;
 import com.stachura.praca_inz.backend.service.UserService;
+import com.stachura.praca_inz.backend.web.dto.LoggedUserDto;
 import com.stachura.praca_inz.backend.web.dto.ProfileInfoDto;
 import com.stachura.praca_inz.backend.web.dto.UserListElementDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,9 +42,17 @@ public class UserController {
     @RequestMapping(value = "/profile", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
-    ProfileInfoDto get() {
+    ProfileInfoDto getProfile() {
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-           return userService.get(auth.getName());
+           return userService.getProfile(auth.getName());
+    }
+
+    @RequestMapping(value = "/logged", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(value = HttpStatus.OK)
+    public @ResponseBody
+    LoggedUserDto getLoggeduser() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        return userService.getLoggedUser(auth.getName());
     }
 
 //    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)

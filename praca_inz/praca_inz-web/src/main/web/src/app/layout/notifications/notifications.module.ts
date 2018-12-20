@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NotificationViewComponent } from './notification-view/notification-view.component';
+
 import { NotificationUserComponent } from './notification-user/notification-user.component';
 import {NotificationRoutingModule} from "./notification-routing.module";
 
@@ -9,6 +9,6 @@ import {NotificationRoutingModule} from "./notification-routing.module";
     CommonModule,
       NotificationRoutingModule
   ],
-  declarations: [NotificationViewComponent, NotificationUserComponent]
+  declarations: [NotificationUserComponent]
 })
 export class NotificationsModule { }

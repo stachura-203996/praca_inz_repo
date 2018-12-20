@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {AccountLevel} from "../../../../../user-management/models/account-level";
+
 import {TranslateService} from "@ngx-translate/core";
 import {CompanyService} from "../company.service";
 import {StructureListElement} from "../../models/structure-list-element";
-import {UserListComponent} from "../../../../../user-management/components/user-list/user-list.component";
+import {AccountLevel} from "../../../administration/user-management/models/account-level";
+
 
 @Component({
   selector: 'app-company-list',

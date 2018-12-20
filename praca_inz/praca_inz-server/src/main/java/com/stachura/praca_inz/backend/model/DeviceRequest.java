@@ -5,13 +5,14 @@ import lombok.Setter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @EnableAutoConfiguration
 @Table(name = "REQUEST")
 @Getter
 @Setter
-public class DeviceRequest {
+public class DeviceRequest implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

@@ -1,6 +1,7 @@
 package com.stachura.praca_inz.backend.service;
 
 import com.stachura.praca_inz.backend.model.Company;
+import com.stachura.praca_inz.backend.web.dto.LoggedUserDto;
 import com.stachura.praca_inz.backend.web.dto.ProfileInfoDto;
 import com.stachura.praca_inz.backend.web.dto.UserListElementDto;
 
@@ -17,7 +18,14 @@ public interface UserService {
     /**
      * Metoda zwracająca użytkownika o danym loginie jako obiekty typu {@link ProfileInfoDto}
      *
+     * @return
+     */
+    ProfileInfoDto getProfile(String name);
+
+    /**
+     * Metoda zwracająca użytkownika o danym loginie jako obiekty typu {@link ProfileInfoDto}
+     *
      * @return użytkownik
      */
-    ProfileInfoDto get(String name);
+    LoggedUserDto getLoggedUser(String name);
 }

@@ -3,6 +3,7 @@ package com.stachura.praca_inz.backend.service.impl;
 import com.stachura.praca_inz.backend.model.security.User;
 import com.stachura.praca_inz.backend.repository.interfaces.UserRepository;
 import com.stachura.praca_inz.backend.service.UserService;
+import com.stachura.praca_inz.backend.web.dto.LoggedUserDto;
 import com.stachura.praca_inz.backend.web.dto.ProfileInfoDto;
 import com.stachura.praca_inz.backend.web.dto.UserListElementDto;
 import com.stachura.praca_inz.backend.web.dto.converter.UserConverter;
@@ -29,8 +30,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ProfileInfoDto get(String name) {
+    public ProfileInfoDto getProfile(String name) {
         User user = userRepository.findByUsername(name);
         return UserConverter.toProfileInfo(user);
+    }
+
+    @Override
+    public LoggedUserDto getLoggedUser(String name) {
+        User user = userRepository.findByUsername(name);
+        return UserConverter.toLoggedUser(user);
     }
 }

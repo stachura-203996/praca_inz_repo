@@ -6,13 +6,14 @@ import lombok.Setter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @EnableAutoConfiguration
 @Table(name = "NOTIFICATION")
 @Getter
 @Setter
-public class Notification {
+public class Notification implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

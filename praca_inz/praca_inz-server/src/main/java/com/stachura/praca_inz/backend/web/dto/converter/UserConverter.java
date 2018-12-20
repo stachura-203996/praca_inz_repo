@@ -1,26 +1,13 @@
 package com.stachura.praca_inz.backend.web.dto.converter;
 
 import com.stachura.praca_inz.backend.model.security.User;
+import com.stachura.praca_inz.backend.model.security.UserRole;
 import com.stachura.praca_inz.backend.web.dto.*;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class UserConverter {
-
-    /**
-     * Metoda konwertująca encję {@link User} na obiekt {@link LoggedUserDto} przesyłany do widoku
-     *
-     * @param user encja konta
-     * @return obiekt z informacjami o zalogowanym użytkowniku
-     */
-    public static LoggedUserDto toLogggedUser(User user) {
-        return LoggedUserDto.builder()
-                .username(user.getUsername())
-                .firstName(user.getUserdata().getName())
-                .lastName(user.getUserdata().getSurname())
-                .roles(new ArrayList<>())
-                .build();
-    }
 
     /**
      * Metoda konwertująca encję {@link User} na obiekt {@link UserListElementDto} przesyłany do widoku
@@ -45,7 +32,7 @@ public class UserConverter {
      * Metoda konwertująca encję {@link User} na obiekt {@link ProfileInfoDto} przesyłany do widoku
      *
      * @param user encja konta
-     * @return obiekt z informacjami o zalogowanym użytkowniku
+     * @return obiekt z informacjami do profilu zalogowanego użytkownika
      */
     public static ProfileInfoDto toProfileInfo(User user) {
         return ProfileInfoDto.builder()
@@ -61,7 +48,20 @@ public class UserConverter {
                 .build();
     }
 
-
+    /**
+     * Metoda konwertująca encję {@link User} na obiekt {@link LoggedUserDto} przesyłany do widoku
+     *
+     * @param user encja konta
+     * @return obiekt z informacjami o zalogowanym użytkowniku
+     */
+    public static LoggedUserDto toLoggedUser(User user) {
+        return LoggedUserDto.builder()
+                .username(user.getUsername())
+                .name(user.getUserdata().getName())
+                .surname(user.getUserdata().getSurname())
+                .roles(user.getUserRoles().stream().map(UserRole::getName).collect(Collectors.toList()))
+                .build();
+    }
 
 
 

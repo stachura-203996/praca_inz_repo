@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -16,7 +17,7 @@ import java.util.Set;
 @Table(name = "TRANSFER")
 @Getter
 @Setter
-public class Transfer {
+public class Transfer implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

@@ -6,13 +6,14 @@ import lombok.Setter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @EnableAutoConfiguration
 @Table(name = "Parameter")
 @Getter
 @Setter
-public class Parameter {
+public class Parameter implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

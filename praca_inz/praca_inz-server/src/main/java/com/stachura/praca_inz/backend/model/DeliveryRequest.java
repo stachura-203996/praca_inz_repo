@@ -5,6 +5,7 @@ import lombok.Setter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 
 @Entity
@@ -12,7 +13,7 @@ import javax.persistence.*;
 @Table(name = "DELIVERY_REQUEST")
 @Getter
 @Setter
-public class DeliveryRequest {
+public class DeliveryRequest implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

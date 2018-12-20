@@ -10,10 +10,16 @@ import {DashboardComponent} from "./components/administration/dashboard/dashboar
 import {DepartmentListComponent} from "./components/entity-management/department/department-list/department-list.component";
 import {DepartmentAddComponent} from "./components/entity-management/department/department-add/department-add.component";
 import {DepartmentEditComponent} from "./components/entity-management/department/department-edit/department-edit.component";
+import {UserListComponent} from "./components/administration/user-management/components/user-list/user-list.component";
+import {UserAddComponent} from "./components/administration/user-management/components/user-add/user-add.component";
+import {UserEditComponent} from "./components/administration/user-management/components/user-edit/user-edit.component";
+import {UserViewComponent} from "./components/administration/user-management/components/user-view/user-view.component";
+
 
 
 const routes: Routes = [
     { path: '', redirectTo: 'dashboard', pathMatch: 'prefix' },
+    {path: 'dashboard', component: DashboardComponent},
     {path: 'companies', component: CompanyListComponent},
     {path: 'companies/add', component:CompanyAddComponent},
     {path: 'companies/edit', component:CompanyEditComponent},
@@ -23,7 +29,14 @@ const routes: Routes = [
     {path: 'departments', component: DepartmentListComponent},
     {path: 'departments/add', component:DepartmentAddComponent},
     {path: 'departments/edit', component:DepartmentEditComponent},
-    {path: 'dashboard', component: DashboardComponent}
+    {path: 'users', component: UserListComponent},
+    {path: 'users/add', component:UserAddComponent},
+    {path: 'users/edit', component:UserEditComponent},
+    {path: 'users/view', component:UserViewComponent}
+
+
+
+
 ];
 
 @NgModule({

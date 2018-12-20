@@ -14,7 +14,7 @@ import java.util.List;
 public class LoggedUserDto {
 
     private String username;
-    private String firstName;
-    private String lastName;
+    private String name;
+    private String surname;
     private List<String> roles;
 }

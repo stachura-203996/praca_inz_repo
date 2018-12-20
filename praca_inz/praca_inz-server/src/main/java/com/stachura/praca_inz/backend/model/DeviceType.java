@@ -6,13 +6,14 @@ import lombok.Setter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @EnableAutoConfiguration
 @Table(name = "DEVICE_TYPE")
 @Getter
 @Setter
-public class DeviceType {
+public class DeviceType implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
