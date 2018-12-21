@@ -8,11 +8,13 @@ import com.stachura.praca_inz.backend.web.dto.DeviceTypeListElementDto;
 import com.stachura.praca_inz.backend.web.dto.converter.DeviceTypeConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class DeviceTypeServiceImpl implements DeviceTypeService {
 
     @Autowired

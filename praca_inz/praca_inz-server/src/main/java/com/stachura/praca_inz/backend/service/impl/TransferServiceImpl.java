@@ -8,12 +8,14 @@ import com.stachura.praca_inz.backend.web.dto.TransferListElementDto;
 import com.stachura.praca_inz.backend.web.dto.converter.TransferConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Service
 public class TransferServiceImpl implements TransferService {
 
 

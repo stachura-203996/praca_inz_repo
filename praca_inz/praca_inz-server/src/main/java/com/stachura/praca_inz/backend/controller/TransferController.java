@@ -1,8 +1,8 @@
 package com.stachura.praca_inz.backend.controller;
 
-import com.stachura.praca_inz.backend.model.Device;
-import com.stachura.praca_inz.backend.service.DeviceService;
-import com.stachura.praca_inz.backend.web.dto.DeviceListElementDto;
+import com.stachura.praca_inz.backend.model.Transfer;
+import com.stachura.praca_inz.backend.service.TransferService;
+import com.stachura.praca_inz.backend.web.dto.TransferListElementDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.http.HttpHeaders;
@@ -16,51 +16,53 @@ import java.util.List;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
-public class DeviceController {
+@RestController
+@RequestMapping("/secured/transfer")
+public class TransferController {
 
     @Autowired
-    private DeviceService deviceService;
+    private TransferService transferService;
 
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
-    List<DeviceListElementDto> getAll() {
-        return deviceService.getAllDevices();
+    List<TransferListElementDto> getAll() {
+        return transferService.getAllTransfers();
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
-    Device get(@PathVariable Long id) {
-        return deviceService.getDeviceById(id);
+    Transfer get(@PathVariable Long id) {
+        return transferService.getTransferById(id);
     }
 
 //    @RequestMapping(value = "/filter", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 //    @ResponseStatus(value = HttpStatus.OK)
 //    public @ResponseBody
-//    Device get(@RequestParam String name) {
-//        return deviceService.get(name);
+//    Transfer get(@RequestParam String name) {
+//        return transferService.getTransferByName(name);
 //    }
 
     @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public ResponseEntity<?> create(@RequestBody Device device) {
-        deviceService.createNewDevice(device);
+    public ResponseEntity<?> create(@RequestBody Transfer transfer) {
+        transferService.createNewTransfer(transfer);
         HttpHeaders headers = new HttpHeaders();
-        ControllerLinkBuilder linkBuilder = linkTo(methodOn(DeviceController.class).get(device.getId()));
+        ControllerLinkBuilder linkBuilder = linkTo(methodOn(TransferController.class).get(transfer.getId()));
         headers.setLocation(linkBuilder.toUri());
         return new ResponseEntity<>(headers, HttpStatus.CREATED);
     }
 
     @RequestMapping(method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public void update(@RequestBody Device device) {
-        deviceService.updateDevice(device);
+    public void update(@RequestBody Transfer transfer) {
+        transferService.updateTransfer(transfer);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public void delete(@PathVariable Long id) {
-        deviceService.deleteDeviceById(id);
+        transferService.deleteTransferById(id);
     }
 }

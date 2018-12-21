@@ -10,11 +10,13 @@ import com.stachura.praca_inz.backend.web.dto.converter.CompanyStructureConverte
 import com.stachura.praca_inz.backend.web.dto.converter.SystemMessageConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class SystemMessageServiceImpl implements SystemMessageService {
 
     @Autowired
@@ -61,9 +63,9 @@ public class SystemMessageServiceImpl implements SystemMessageService {
     @Transactional
     @PreAuthorize("hasAuthority('SYSTEM_MESSAGE_UPDATE')")
     public SystemMessage updateSystemMessage(SystemMessage systemMessage) {
-        SystemMessage tmp=new SystemMessage();
+        SystemMessage tmp = new SystemMessage();
         try {
-            tmp= systemMessageRepository.update(systemMessage);
+            tmp = systemMessageRepository.update(systemMessage);
         } catch (EntityException e) {
             e.printStackTrace();
         }
