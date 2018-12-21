@@ -2,21 +2,20 @@ import {Component, OnInit} from '@angular/core';
 import {AccountLevel} from "../../models/account-level";
 import {UserListElement} from "../../models/user-list-element";
 import {UserService} from "../../user.service";
-import {Observable} from "rxjs";
 import {TranslateService} from "@ngx-translate/core";
-import {MessageService} from "../../../../shared/services/message.service";
-import {I18nService} from "../../../../shared/services/i18n/i18n.service";
+import {routerTransition} from "../../../../router.animations";
 
 @Component({
     selector: 'app-user-list',
     templateUrl: './user-list.component.html',
-    styleUrls: ['./user-list.component.scss']
+    styleUrls: ['./user-list.component.scss'],
+    animations: [routerTransition()]
 })
 export class UserListComponent implements OnInit {
 
     public notVerifiedFilter = false;
     users: UserListElement[];
-    selectedUserAccessLevels: AccountLevel[];
+
 
     constructor(private userService : UserService,
                 private translate:TranslateService,
@@ -70,10 +69,10 @@ export class UserListComponent implements OnInit {
         });
     }
 
-    getRoles(userId: number): void {
-        this.userService.getAccessLevels(userId)
-            .subscribe(levels => this.selectedUserAccessLevels = levels);
-    }
+    // getRoles(userId: number): void {
+    //     this.userService.getAccessLevels(userId)
+    //         .subscribe(levels => this.selectedUserAccessLevels = levels);
+    // }
 
     activateAccount(id: number) {
         // this.userService.activateAccount(id).subscribe(() => this.messageService
@@ -121,5 +120,18 @@ export class UserListComponent implements OnInit {
         //             });
         //         }
         //     });
+    }
+
+    delete(user: UserListComponent) {
+        // const modalRef = this.modalService.open(UserMgmtDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
+        // modalRef.componentInstance.user = user;
+        // modalRef.result.then(
+        //     result => {
+        //         // Left blank intentionally, nothing to do here
+        //     },
+        //     reason => {
+        //         // Left blank intentionally, nothing to do here
+        //     }
+        // );
     }
 }

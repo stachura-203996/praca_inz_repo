@@ -1,16 +1,21 @@
-<div class="col-sm-12 col-md-8 offset-md-2">
-    <h2>{{ 'UserList' | translate }}</h2>
+<div [@routerTransition]>
+<!--<div class="col-sm-12 col-md-8 offset-md-2">-->
+    <h1>{{ 'UserList' | translate }}</h1>
 
-    <form class="form-inline">
-    <input class="form-control" #searchBox id="search-box" (keyup)="filterUsers(searchBox.value)"
-           placeholder="Search..." i18n-placeholder="User search placeholder" />
-
-        <div class="custom-control custom-checkbox mr-sm-2" (change)="filterUsers(searchBox.value)">
-            <input type="checkbox" class="custom-control-input" id="verifiedFilter" [(ngModel)]="notVerifiedFilter" name="verifiedFilter">
-            <label class="custom-control-label" for="verifiedFilter" i18n="@@notVerifiedFilterChkBox">Not verified only</label>
+    <div class="row">
+        <div class="col-lg-10">
+            <input class="form-control" #searchBox id="search-box" (keyup)="filterUsers(searchBox.value)"
+                   placeholder="Search..." i18n-placeholder="User search placeholder"/>
         </div>
-    </form>
-     <table class="table table-striped" align="center">
+        <div class="col-lg-2">
+            <button class="btn btn-primary float-right jh-create-entity" [routerLink]="['./add']">
+                <i class="fa fa-plus"></i>&nbsp;
+                <span>{{ 'CreateUser' | translate }}</span>
+            </button>
+        </div>
+    </div>
+    <br>
+     <table class="table table-striped">
         <thead class="thead-inverse">
             <tr>
                 <th>{{ 'Name' | translate }}</th>
@@ -26,49 +31,30 @@
                 <td>{{user.surname}}</td>
                 <td>{{user.username}}</td>
                 <td>{{user.email}}</td>
-                <td class="text-center">
-                    <div class="btn-group" >
-                        <button id="button-basic" dropdownToggle type="button" class="btn btn-primary btn-sm dropdown-toggle"
-                                aria-controls="dropdown-basic" (click)="selectedUserAccessLevels=null; getRoles(user.id);"
-                                i18n="@@optionsBtn">Options<span class="caret"></span>
+                <td class="text-left">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/page/profile/user']"
+                                class="btn btn-info btn-sm">
+                            <i class="fa fa-eye"></i>&nbsp;
+                            <span class="d-none d-md-inline">View</span>
                         </button>
-                        <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu dropdown-menu-right text-center"
-                            role="menu" aria-labelledby="button-basic">
-                            <li role="menuitem" *ngIf="!user.verified"><button type="button" class="btn btn-link"
-                                                                               (click)="verifyUser(user.id)" i18n="@@verifyUserBtn">Verify</button></li>
-                            <li class="divider dropdown-divider" *ngIf="!user.verified"></li>
-                            <li role="menuitem"><button type="button" class="btn btn-link" [disabled]="user.active"
-                                                        (click)="user.active=!user.active; activateAccount(user.id)" i18n="@@activateUserBtn">Activate</button></li>
-                            <li role="menuitem"><button type="button" class="btn btn-link" [disabled]="!user.active"
-                                                        (click)="user.active=!user.active; deactivateAccount(user.id)" i18n="@@deactivateUserBtn">Deactivate</button></li>
-                            <li class="divider dropdown-divider"></li>
-                            <li role="menuitem">
-                                <button type="button" class="btn btn-link">
-                                    <a routerLink="/admin/users/{{user.username}}" i18n="@@editUserButton">Edit</a>
-                                </button>
-                            </li>
-                            <li class="divider dropdown-divider"></li>
-                            <li *ngIf="!selectedUserAccessLevels"><span i18n="@@loadingRolesMsg">Loading...</span></li>
-                            <li *ngFor="let role of selectedUserAccessLevels; let id = index">
-                                <div class="col-auto my-1">
-                                    <div class="custom-control custom-checkbox mr-sm-2"
-                                         (change)="changeAccessLevelState($event,user.id,role.accessLevelId)">
-                                        <input type="checkbox" class="custom-control-input" id="{{id}}{{user.id}}"
-                                               [checked]="role.active">
-                                        <label class="custom-control-label" for="{{id}}{{user.id}}">{{role.name}}</label>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="divider dropdown-divider"></li>
-                            <li role="menuitem">
-                                <button type="button" class="btn btn-link">
-                                    <a routerLink="/admin/password/{{user.id}}" i18n="@@editPasswordButton">Change Password</a>
-                                </button>
-                            </li>
-                        </ul>
+                        <button type="submit"
+                                [routerLink]="['./edit']"
+                                queryParamsHandling="merge"
+                                class="btn btn-primary btn-sm">
+                            <i class="fa fa-pencil"></i>&nbsp;
+                            <span class="d-none d-md-inline">Edit</span>
+                        </button>
+                        <button type="button" (click)="delete(user)"
+                                class="btn btn-danger btn-sm" >
+                            <i class="fa fa-times"></i>&nbsp;
+                            <span class="d-none d-md-inline">Delete</span>
+                        </button>
                     </div>
                 </td>
             </tr>
         </tbody>
     </table>
 </div>
+<!--</div>-->

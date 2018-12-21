@@ -7,9 +7,6 @@
     <div class="collapse navbar-collapse">
 
         <ul class="navbar-nav ml-auto">
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="text" placeholder="{{ 'Search' | translate }}">
-            </form>
             <li class="nav-item dropdown" ngbDropdown>
                 <a class="nav-link" href="javascript:void(0)" ngbDropdownToggle>
                     <i class="fa fa-bell"></i> <b class="caret"></b><span class="sr-only">(current)</span>
@@ -52,14 +49,14 @@
             </li>
             <li class="nav-item dropdown" ngbDropdown>
                 <a href="javascript:void(0)" class="nav-link" ngbDropdownToggle>
-                    <i class="fa fa-envelope"></i> <b class="caret"></b><span class="sr-only">(current)</span>
+                    <i class="fa fa-tasks"></i> <b class="caret"></b><span class="sr-only">(current)</span>
                 </a>
                 <div class="dropdown-menu-right" ngbDropdownMenu>
                     <a href="javascript:void(0)" class="dropdown-item">
-                        {{ 'TaskList' | translate }} <span class="badge badge-info">6</span>
+                        {{ 'Raports' | translate }} <span class="badge badge-info">6</span>
                     </a>
                     <a href="javascript:void(0)" class="dropdown-item">
-                        {{ 'In queue' | translate }} <span class="badge badge-info"> 13</span>
+                        {{ 'Requests' | translate }} <span class="badge badge-info"> 13</span>
                     </a>
                     <a href="javascript:void(0)" class="dropdown-item">
                         {{ 'Mail' | translate }} <span class="badge badge-info"> 45</span>
@@ -91,12 +88,12 @@
         <a href="javascript:void(0)" class="nav-link" ngbDropdownToggle>
             <i class="fa fa-user"></i> John Smith <b class="caret"></b>
         </a>
-        <div class="dropdown-menu-right"  ngbDropdownMenu>
+        <div class="dropdown-menu-right" ngbDropdownMenu>
             <a class="dropdown-item" [routerLink]="['/profile']" href="javascript:void(0)">
                 <i class="fa fa-fw fa-user"></i> {{ 'Profile' | translate }}
             </a>
             <a class="dropdown-item" [routerLink]="['/mail']" href="javascript:void(0)">
-                <i class="fa fa-fw fa-envelope"></i> {{ 'Inbox' | translate }}
+                <i class="fa fa-fw fa-tasks"></i> {{ 'Inbox' | translate }}
             </a>
             <a class="dropdown-item" [routerLink]="['/settings']" href="javascript:void(0)">
                 <i class="fa fa-fw fa-gear"></i> {{ 'Settings' | translate }}
