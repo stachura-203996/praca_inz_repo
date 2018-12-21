@@ -6,12 +6,11 @@ import lombok.*;
 @Builder
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
-public class WarehouseListElementDto {
+public class SystemMessageListElementDto {
 
     private Long id;
-    private String name;
-    private String username;
-    private String officeId;
-    private String officeName;
-    private String devicesNumber;
+    private String title;
+    private String message;
+    private String systemMessageTypeName;
+
 }

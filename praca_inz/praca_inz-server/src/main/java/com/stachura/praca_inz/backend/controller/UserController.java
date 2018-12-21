@@ -58,37 +58,37 @@ public class UserController {
 //    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 //    @ResponseStatus(value = HttpStatus.OK)
 //    public @ResponseBody
-//    Company get(@PathVariable Long id) {
-//           return userService.get(id);
+//    Company getCompanyById(@PathVariable Long id) {
+//           return userService.getCompanyById(id);
 //    }
 //
 //    @RequestMapping(value = "/filter", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 //    @ResponseStatus(value = HttpStatus.OK)
 //    public @ResponseBody
-//    Company get(@RequestParam String name) {
-//        return userService.get(name);
+//    Company getCompanyById(@RequestParam String name) {
+//        return userService.getCompanyById(name);
 //    }
 //
 //    @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 //    @ResponseStatus(value = HttpStatus.OK)
-//    public ResponseEntity<?> create(@RequestBody Company company) {
-//        userService.create(company);
+//    public ResponseEntity<?> createNewCompany(@RequestBody Company company) {
+//        userService.createNewCompany(company);
 //        HttpHeaders headers = new HttpHeaders();
-//        ControllerLinkBuilder linkBuilder = linkTo(methodOn(CompanyController.class).get(company.getId()));
+//        ControllerLinkBuilder linkBuilder = linkTo(methodOn(CompanyController.class).getCompanyById(company.getId()));
 //        headers.setLocation(linkBuilder.toUri());
 //        return new ResponseEntity<>(headers, HttpStatus.CREATED);
 //    }
 //
 //    @RequestMapping(method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
 //    @ResponseStatus(value = HttpStatus.OK)
-//    public void update(@RequestBody Company company) {
-//        userService.update(company);
+//    public void updateCompany(@RequestBody Company company) {
+//        userService.updateCompany(company);
 //    }
 //
 //    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
 //    @ResponseStatus(value = HttpStatus.OK)
-//    public void delete(@PathVariable Long id) {
-//        userService.delete(id);
+//    public void deleteCompanyById(@PathVariable Long id) {
+//        userService.deleteCompanyById(id);
 //    }
 
 }

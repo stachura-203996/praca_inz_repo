@@ -1,19 +1,18 @@
 package com.stachura.praca_inz.backend.model;
 
-
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 @Entity
 @EnableAutoConfiguration
-@Table(name = "NOTIFICATION")
+@Table(name = "PARAMETER_VALUE")
 @Getter
 @Setter
-public class Notification implements Serializable {
+public class ParameterValue {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -24,10 +23,11 @@ public class Notification implements Serializable {
     @Column(name = "VERSION")
     private long version;
 
-    @Column(name = "TITLE", nullable = false)
-    private String title;
+    @Column(name = "VALUE", nullable = false)
+    private String value;
 
-    @Column(name = "DESCRIPTION", nullable = false)
-    private String description;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonBackReference
+    private Parameter parameter;
 
 }

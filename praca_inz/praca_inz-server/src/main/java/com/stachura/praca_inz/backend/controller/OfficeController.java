@@ -40,8 +40,8 @@ public class OfficeController {
 //    @RequestMapping(value = "/filter", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 //    @ResponseStatus(value = HttpStatus.OK)
 //    public @ResponseBody
-//    Office get(@RequestParam String name) {
-//        return officeService.get(name);
+//    Office getCompanyById(@RequestParam String name) {
+//        return officeService.getCompanyById(name);
 //    }
 
     @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)

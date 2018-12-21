@@ -22,4 +22,7 @@ public class Delivery implements Serializable {
     @Version
     @Column(name = "VERSION")
     private long version;
+
+    @Column(name = "NAME", nullable = false)
+    private String title;
 }

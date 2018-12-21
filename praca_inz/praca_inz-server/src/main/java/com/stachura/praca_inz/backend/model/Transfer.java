@@ -28,8 +28,8 @@ public class Transfer implements Serializable {
     @Column(name = "VERSION")
     private long version;
 
-    @Column(name = "NAME", nullable = false)
-    private String name;
+    @Column(name = "TITLE", nullable = false)
+    private String title;
 
     @Basic(optional = false)
     @NotNull

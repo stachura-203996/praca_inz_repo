@@ -9,14 +9,18 @@ import {LoginService} from "../../../login/login.service";
 })
 export class WarehouseListComponent implements OnInit {
 
+    private roles;
 
     constructor(private sessionContextService: SessionContextService) {
     }
 
-    private roles;
-
     ngOnInit() {
         this.initRoles();
+        if(this.roles.admin==true){
+
+        } else if(this.roles.warehouseman==true) {
+
+        }
     }
 
     private initRoles() {

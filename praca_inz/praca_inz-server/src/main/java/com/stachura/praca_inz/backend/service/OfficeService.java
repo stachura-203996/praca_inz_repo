@@ -8,7 +8,7 @@ import java.util.List;
 public interface OfficeService {
     Office get(Long id);
 
-//    Office get(String name);
+//    Office getCompanyById(String name);
 
     List<CompanyStructuresListElementDto> getAll();
 

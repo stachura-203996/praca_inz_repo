@@ -2,12 +2,16 @@ package com.stachura.praca_inz.backend.service.impl;
 
 import com.stachura.praca_inz.backend.exception.EntityException;
 import com.stachura.praca_inz.backend.model.Department;
+import com.stachura.praca_inz.backend.model.Department;
 import com.stachura.praca_inz.backend.repository.interfaces.DepartmentRepository;
 import com.stachura.praca_inz.backend.service.DepartmentService;
+import com.stachura.praca_inz.backend.web.dto.CompanyStructuresListElementDto;
+import com.stachura.praca_inz.backend.web.dto.converter.CompanyStructureConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -19,29 +23,35 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Override
     @Transactional(readOnly = true)
 //    @PreAuthorize("hasAuthority('COMPANY_READ') and hasAuthority('DEPARTMENT_READ')")
-    public Department get(Long id) {
+    public Department getDepartmentById(Long id) {
         return departmentRepository.find(id);
     }
 
     @Override
     @Transactional(readOnly = true)
 //    @PreAuthorize("hasAuthority('COMPANY_READ') and hasAuthority('DEPARTMENT_READ')")
-    public Department get(String name) {
+    public Department getDepartmentByName(String name) {
         return departmentRepository.find(name);
     }
 
     @Override
     @Transactional(readOnly = true)
 //    @PreAuthorize("hasAuthority('COMPANY_READ')")
-    public List<Department> getAll() {
-        return departmentRepository.findAll();
+    public List<CompanyStructuresListElementDto> getAllDepartments() {
+        List<Department> departments = departmentRepository.findAll();
+        List<CompanyStructuresListElementDto> structuresListElementDtos = new ArrayList<>();
+        for (Department a : departments) {
+            structuresListElementDtos.add(CompanyStructureConverter.toCompanyStructureListElement(a));
+        }
+        return structuresListElementDtos;
+        
     }
 
     //TODO EXCEPTIONS
     @Override
     @Transactional
 //    @PreAuthorize("hasAuthority('COMPANY_CREATE')")
-    public void create(Department department) {
+    public void createNewDepartment(Department department) {
         try {
             departmentRepository.create(department);
         } catch (EntityException e){
@@ -52,27 +62,27 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Override
     @Transactional
 //    @PreAuthorize("hasAuthority('COMPANY_UPDATE')")
-    public Department update(Department department) {
-        Department departmentR=new Department();
+    public Department updateDepartment(Department department) {
+        Department tmp=new Department();
         try {
-            departmentR= departmentRepository.update(department);
+            tmp= departmentRepository.update(department);
         } catch (EntityException e) {
             e.printStackTrace();
         }
-        return departmentR;
+        return tmp;
     }
 
     @Override
     @Transactional
 //    @PreAuthorize("hasAuthority('COMPANY_DELETE')")
-    public void delete(Long id) {
+    public void deleteDepartmentById(Long id) {
         departmentRepository.remove(id);
     }
 
     @Override
     @Transactional
 //    @PreAuthorize("hasAuthority('COMPANY_DELETE')")
-    public void delete(Department department) {
+    public void deleteDepartment(Department department) {
         departmentRepository.remove(department);
     }
 }

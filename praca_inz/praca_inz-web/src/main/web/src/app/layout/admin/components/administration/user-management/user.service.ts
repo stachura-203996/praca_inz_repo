@@ -5,6 +5,7 @@ import {UserListElement} from "./models/user-list-element";
 import {UserEdit} from "./models/user-edit";
 import {HttpService} from "../../../../../shared/services/http.service";
 import {Configuration} from "../../../../../app.constants";
+import {LoggedUser} from "../../../../../login/models/logged-user";
 
 
 @Injectable({
@@ -27,6 +28,10 @@ export class UserService {
     getUser(username: string): Observable<UserEdit> {
         this.userPathDetail = this.userPath + '/' + username + '/account';
         return this.httpService.get<UserEdit>(this.userPathDetail);
+    }
+
+    getLoggedUser():Observable<LoggedUser>{
+        return this.httpService.get<LoggedUser>(this.userPath+'/logged');
     }
 
     updateUser(user: UserEdit): Observable<any> {

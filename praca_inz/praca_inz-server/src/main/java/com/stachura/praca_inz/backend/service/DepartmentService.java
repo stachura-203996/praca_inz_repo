@@ -1,21 +1,22 @@
 package com.stachura.praca_inz.backend.service;
 
 import com.stachura.praca_inz.backend.model.Department;
+import com.stachura.praca_inz.backend.web.dto.CompanyStructuresListElementDto;
 
 import java.util.List;
 
 public interface DepartmentService {
-    Department get(Long id);
+    Department getDepartmentById(Long id);
 
-    Department get(String name);
+    Department getDepartmentByName(String name);
 
-    List<Department> getAll();
+    List<CompanyStructuresListElementDto> getAllDepartments();
 
-    void create(Department department);
+    void createNewDepartment(Department department);
 
-    Department update(Department department);
+    Department updateDepartment(Department department);
 
-    void delete(Long id);
+    void deleteDepartmentById(Long id);
 
-    void delete(Department department);
+    void deleteDepartment(Department department);
 }

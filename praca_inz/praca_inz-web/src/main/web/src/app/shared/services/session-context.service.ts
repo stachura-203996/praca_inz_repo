@@ -5,29 +5,28 @@ import {Observable} from 'rxjs';
 import {Subject} from "rxjs";
 import {LoginService} from "../../login/login.service";
 import {HttpService} from "./http.service";
+import {UserService} from "../../layout/admin/components/administration/user-management/user.service";
 
 @Injectable()
 export class SessionContextService {
 
     private userLoggedIn = new Subject();
-    private loggedUser = new LoggedUser();
+     loggedUser:LoggedUser;
 
-    constructor(private cookieService: CookieService, private httpService:HttpService) {
-        // this.loggedUser.
+    constructor(private cookieService: CookieService, private userService:UserService) {
+        this.initLoggedUser();
     }
 
-
+    initLoggedUser():void{
+       this.userService.getLoggedUser().subscribe( x=>{this.loggedUser=x});
+    }
 
     watchSession(): Observable<any> {
         return this.userLoggedIn;
     }
 
     getUser(): LoggedUser {
-        const user: LoggedUser = JSON.parse(localStorage.getItem('loggedUser'));
-        if (user == null) {
-            this.resetSession();
-        }
-        return user;
+        return this.loggedUser;
     }
 
     setUser(user: LoggedUser): void {
@@ -36,11 +35,10 @@ export class SessionContextService {
     }
 
     hasUserRole(role: string) {
-        const user: LoggedUser = this.getUser();
-        if (user == null) {
+        if (this.loggedUser == null) {
             return false;
         }
-        return user.roles.includes(role);
+        return this.loggedUser.roles.includes(role);
     }
 
     setNameSurName(name: string, surname: string) {

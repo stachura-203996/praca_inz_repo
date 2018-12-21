@@ -27,18 +27,10 @@ export class LoginService {
         console.log(params.toString());
         this.http.post('http://localhost:8081/oauth/token', params.toString(), {headers: headers})
             .subscribe(
-                data => {
-                    this.saveToken(data);
-                    this.saveUsername(loginData.username);
-                },
-
+                data => this.saveToken(data),
                 err => alert('Invalid Credentials')
             );
 
-    }
-
-    saveUsername(username: string) {
-        this.cookieService.set('username', username)
     }
 
     saveToken(token) {
