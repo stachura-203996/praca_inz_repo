@@ -7,17 +7,17 @@ import java.util.List;
 
 public interface CompanyService {
 
-    Company get(Long id);
+    Company getCompanyById(Long id);
 
-    Company get(String name);
+    Company getCompanyByName(String name);
 
-    List<CompanyStructuresListElementDto> getAll();
+    List<CompanyStructuresListElementDto> getAllCompanies();
 
-    void create(Company company);
+    void createNewCompany(Company company);
 
-    Company update(Company company);
+    Company updateCompany(Company company);
 
-    void delete(Long id);
+    void deleteCompanyById(Long id);
 
-    void delete(Company company);
+    void deleteCompany(Company company);
 }

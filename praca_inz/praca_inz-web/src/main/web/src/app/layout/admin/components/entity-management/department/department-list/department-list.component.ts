@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-// import {CompanyListElement} from "../../department/models/department-list-element";
-import {AccountLevel} from "../../../../../user-management/models/account-level";
 import {DepartmentService} from "../department.service";
 import {TranslateService} from "@ngx-translate/core";
 import {StructureListElement} from "../../models/structure-list-element";

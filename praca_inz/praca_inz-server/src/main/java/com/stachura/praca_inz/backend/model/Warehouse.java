@@ -2,6 +2,7 @@ package com.stachura.praca_inz.backend.model;
 
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.stachura.praca_inz.backend.model.security.User;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -16,15 +17,27 @@ import java.util.Set;
 @Table(name = "WAREHOUSE")
 @Getter
 @Setter
-public abstract class Warehouse  implements Serializable {
+public class Warehouse implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ID", updatable = false, nullable = false)
     private Long id = null;
 
+    @Version
+    @Column(name = "VERSION")
+    private long version;
+
     @Column(name = "NAME", nullable = false)
     private String name;
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "USER_ID")
+    private User user;
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "OFFICE_ID")
+    private Office office;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "warehouse", fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonManagedReference

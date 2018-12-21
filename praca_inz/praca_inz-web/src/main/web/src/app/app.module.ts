@@ -12,7 +12,6 @@ import {AuthGuard} from './shared';
 import {ConfirmDialogComponent} from "./confirm-dialog/confirm-dialog.component";
 import {LoginService} from "./login/login.service";
 import {CookieService} from "ngx-cookie-service";
-import {UserService} from "./layout/user-management/user.service";
 import {HttpService} from "./shared/services/http.service";
 import {Configuration} from "./app.constants";
 import {ProfileService} from "./layout/profile/profile.service";
@@ -20,6 +19,7 @@ import {MessageService} from "./shared/services/message.service";
 import {I18nService} from "./shared/services/i18n/i18n.service";
 import {ToastrModule} from "ngx-toastr";
 import {SessionContextService} from "./shared/services/session-context.service";
+import {UserService} from "./layout/admin/components/administration/user-management/user.service";
 
 
 export const createTranslateLoader = (http: HttpClient) => {

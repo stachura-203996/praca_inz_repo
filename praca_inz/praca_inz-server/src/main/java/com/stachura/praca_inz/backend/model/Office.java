@@ -2,6 +2,7 @@ package com.stachura.praca_inz.backend.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.stachura.praca_inz.backend.model.security.User;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -23,12 +24,17 @@ public class Office implements Serializable {
     @Column(name = "ID", updatable = false, nullable = false)
     private Long id = null;
 
+    @Version
+    @Column(name = "VERSION")
+    private long version;
+
     @Column(name = "NAME", nullable = false)
     private String name;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "ADDRESS_ID")
     private Address address;
+
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
@@ -39,13 +45,16 @@ public class Office implements Serializable {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "office", fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonManagedReference
-    private Set<Userdata> userdata = new HashSet<>();
+    private Set<User> users = new HashSet<>();
 
 
-    public void setUserdata(Set<Userdata> userdata) {
-        this.userdata.clear();
-        if (userdata != null) {
-            this.userdata.addAll(userdata);
+    public void setUsers(Set<User> users) {
+        this.users.clear();
+        if (users != null) {
+            this.users.addAll(users);
         }
     }
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "WAREHOUSE_ID")
+    private Warehouse warehouse;
 }

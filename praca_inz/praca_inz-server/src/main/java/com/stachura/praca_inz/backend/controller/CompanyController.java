@@ -11,7 +11,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
@@ -29,27 +28,27 @@ public class CompanyController {
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
     List<CompanyStructuresListElementDto> getAll() {
-        return companyService.getAll();
+        return companyService.getAllCompanies();
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
     Company get(@PathVariable Long id) {
-        return companyService.get(id);
+        return companyService.getCompanyById(id);
     }
 
     @RequestMapping(value = "/filter", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
     Company get(@RequestParam String name) {
-        return companyService.get(name);
+        return companyService.getCompanyByName(name);
     }
 
     @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public ResponseEntity<?> create(@RequestBody Company company) {
-        companyService.create(company);
+        companyService.createNewCompany(company);
         HttpHeaders headers = new HttpHeaders();
         ControllerLinkBuilder linkBuilder = linkTo(methodOn(CompanyController.class).get(company.getId()));
         headers.setLocation(linkBuilder.toUri());
@@ -59,12 +58,12 @@ public class CompanyController {
     @RequestMapping(method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public void update(@RequestBody Company company) {
-        companyService.update(company);
+        companyService.updateCompany(company);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public void delete(@PathVariable Long id) {
-        companyService.delete(id);
+        companyService.deleteCompanyById(id);
     }
 }

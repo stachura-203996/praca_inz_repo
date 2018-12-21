@@ -3,6 +3,7 @@ package com.stachura.praca_inz.backend.controller;
 
 import com.stachura.praca_inz.backend.model.Company;
 import com.stachura.praca_inz.backend.service.UserService;
+import com.stachura.praca_inz.backend.web.dto.LoggedUserDto;
 import com.stachura.praca_inz.backend.web.dto.ProfileInfoDto;
 import com.stachura.praca_inz.backend.web.dto.UserListElementDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,45 +42,53 @@ public class UserController {
     @RequestMapping(value = "/profile", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
-    ProfileInfoDto get() {
+    ProfileInfoDto getProfile() {
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-           return userService.get(auth.getName());
+           return userService.getProfile(auth.getName());
+    }
+
+    @RequestMapping(value = "/logged", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(value = HttpStatus.OK)
+    public @ResponseBody
+    LoggedUserDto getLoggeduser() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        return userService.getLoggedUser(auth.getName());
     }
 
 //    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 //    @ResponseStatus(value = HttpStatus.OK)
 //    public @ResponseBody
-//    Company get(@PathVariable Long id) {
-//           return userService.get(id);
+//    Company getCompanyById(@PathVariable Long id) {
+//           return userService.getCompanyById(id);
 //    }
 //
 //    @RequestMapping(value = "/filter", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 //    @ResponseStatus(value = HttpStatus.OK)
 //    public @ResponseBody
-//    Company get(@RequestParam String name) {
-//        return userService.get(name);
+//    Company getCompanyById(@RequestParam String name) {
+//        return userService.getCompanyById(name);
 //    }
 //
 //    @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 //    @ResponseStatus(value = HttpStatus.OK)
-//    public ResponseEntity<?> create(@RequestBody Company company) {
-//        userService.create(company);
+//    public ResponseEntity<?> createNewCompany(@RequestBody Company company) {
+//        userService.createNewCompany(company);
 //        HttpHeaders headers = new HttpHeaders();
-//        ControllerLinkBuilder linkBuilder = linkTo(methodOn(CompanyController.class).get(company.getId()));
+//        ControllerLinkBuilder linkBuilder = linkTo(methodOn(CompanyController.class).getCompanyById(company.getId()));
 //        headers.setLocation(linkBuilder.toUri());
 //        return new ResponseEntity<>(headers, HttpStatus.CREATED);
 //    }
 //
 //    @RequestMapping(method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
 //    @ResponseStatus(value = HttpStatus.OK)
-//    public void update(@RequestBody Company company) {
-//        userService.update(company);
+//    public void updateCompany(@RequestBody Company company) {
+//        userService.updateCompany(company);
 //    }
 //
 //    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
 //    @ResponseStatus(value = HttpStatus.OK)
-//    public void delete(@PathVariable Long id) {
-//        userService.delete(id);
+//    public void deleteCompanyById(@PathVariable Long id) {
+//        userService.deleteCompanyById(id);
 //    }
 
 }

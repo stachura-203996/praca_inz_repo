@@ -1,7 +1,8 @@
 package com.stachura.praca_inz.backend.service.impl;
 
+import com.stachura.praca_inz.backend.exception.EntityException;
 import com.stachura.praca_inz.backend.model.Company;
-import com.stachura.praca_inz.backend.repository.CompanyRepository;
+import com.stachura.praca_inz.backend.repository.interfaces.CompanyRepository;
 import com.stachura.praca_inz.backend.service.CompanyService;
 import com.stachura.praca_inz.backend.web.dto.CompanyStructuresListElementDto;
 import com.stachura.praca_inz.backend.web.dto.converter.CompanyStructureConverter;
@@ -13,6 +14,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
+//TODO Obsługa zcustomizowanych wyjątków w każdym serwisie
+
 @Service
 public class CompanyServiceImpl implements CompanyService {
 
@@ -21,23 +24,23 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Override
     @Transactional(readOnly = true)
-    @PreAuthorize("hasAuthority('COMPANY_READ') and hasAuthority('DEPARTMENT_READ')")
-    public Company get(Long id) {
+    @PreAuthorize("hasAuthority('COMPANY_READ')")
+    public Company getCompanyById(Long id) {
         return companyRepository.find(id);
     }
 
     @Override
     @Transactional(readOnly = true)
-    @PreAuthorize("hasAuthority('COMPANY_READ') and hasAuthority('DEPARTMENT_READ')")
-    public Company get(String name) {
+    @PreAuthorize("hasAuthority('COMPANY_READ')")
+    public Company getCompanyByName(String name) {
         return companyRepository.find(name);
     }
 
     @Override
     @Transactional(readOnly = true)
-    @PreAuthorize("hasAuthority('COMPANY_READ')")
-    public List<CompanyStructuresListElementDto> getAll() {
-        List<Company> companies=companyRepository.findAll();
+    @PreAuthorize("hasAuthority('COMPANY_LIST_READ')")
+    public List<CompanyStructuresListElementDto> getAllCompanies() {
+        List<Company> companies = companyRepository.findAll();
         List<CompanyStructuresListElementDto> companiesDto = new ArrayList<>();
         for (Company a : companies) {
             companiesDto.add(CompanyStructureConverter.toCompanyStructureListElement(a));
@@ -45,31 +48,45 @@ public class CompanyServiceImpl implements CompanyService {
         return companiesDto;
     }
 
+    //TODO
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('COMPANY_CREATE')")
-    public void create(Company company) {
-        companyRepository.create(company);
+    public void createNewCompany(Company company) {
+        try {
+            companyRepository.create(company);
+
+        } catch (EntityException e) {
+
+        }
+
     }
 
+    //TODO
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('COMPANY_UPDATE')")
-    public Company update(Company company) {
-        return companyRepository.update(company);
+    public Company updateCompany(Company company) {
+        Company tmp = new Company();
+        try {
+            tmp = companyRepository.update(company);
+        } catch (EntityException e) {
+
+        }
+        return tmp;
     }
 
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('COMPANY_DELETE')")
-    public void delete(Long id) {
-        companyRepository.delete(id);
+    public void deleteCompanyById(Long id) {
+        companyRepository.remove(id);
     }
 
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('COMPANY_DELETE')")
-    public void delete(Company company) {
-        companyRepository.delete(company);
+    public void deleteCompany(Company company) {
+        companyRepository.remove(company);
     }
 }
