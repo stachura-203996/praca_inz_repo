@@ -17,7 +17,7 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 @RestController
-@RequestMapping("/secured/device")
+@RequestMapping("/secured/delivery")
 public class DeliveryController {
 
     @Autowired

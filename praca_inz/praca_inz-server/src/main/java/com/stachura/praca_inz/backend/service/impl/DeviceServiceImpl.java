@@ -3,6 +3,7 @@ package com.stachura.praca_inz.backend.service.impl;
 import com.stachura.praca_inz.backend.exception.EntityException;
 import com.stachura.praca_inz.backend.model.Device;
 import com.stachura.praca_inz.backend.repository.interfaces.DeviceRepository;
+import com.stachura.praca_inz.backend.repository.interfaces.UserRepository;
 import com.stachura.praca_inz.backend.service.DeviceService;
 import com.stachura.praca_inz.backend.web.dto.DeviceListElementDto;
 import com.stachura.praca_inz.backend.web.dto.converter.DeviceConverter;
@@ -13,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class DeviceServiceImpl implements DeviceService {
@@ -34,6 +36,7 @@ public class DeviceServiceImpl implements DeviceService {
         return deviceRepository.find(name);
     }*/
 
+
     @Override
     @Transactional(readOnly = true)
     @PreAuthorize("hasAuthority('DEVICE_LIST_READ')")
@@ -48,9 +51,15 @@ public class DeviceServiceImpl implements DeviceService {
 
     @Override
     @Transactional(readOnly = true)
-    @PreAuthorize("hasAuthority('DEVICE_USER_LIST_READ')")
-    public List<DeviceListElementDto> getAllDevicesForUser() {
-        return null;
+    @PreAuthorize("hasAuthority('DEVICE_LIST_READ')")
+    public List<DeviceListElementDto> getAllDevicesForLoggedUser(String username) {
+        List<Device> devices = deviceRepository.findAll().stream().filter(x -> x.getWarehouse().getUser().getUsername().equals(username) &&
+                x.getWarehouse().getOffice() == null).collect(Collectors.toList());
+        List<DeviceListElementDto> devicesDto = new ArrayList<>();
+        for (Device a : devices) {
+            devicesDto.add(DeviceConverter.toDeviceListElementDto(a));
+        }
+        return devicesDto;
     }
 
     //TODO EXCEPTIONS

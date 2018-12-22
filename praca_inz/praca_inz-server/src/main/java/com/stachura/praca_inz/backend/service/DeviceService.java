@@ -13,7 +13,7 @@ public interface DeviceService {
 
     List<DeviceListElementDto> getAllDevices();
 
-    List<DeviceListElementDto> getAllDevicesForUser();
+    List<DeviceListElementDto> getAllDevicesForLoggedUser(String username);
 
     void createNewDevice(Device device);
 
