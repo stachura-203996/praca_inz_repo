@@ -64,17 +64,24 @@
                         </a>
                     </li>
                     <li>
+                        <a [routerLink]="['/admin/request']" href="javascript:void(0)">
+                            <i  class="fa fa-monument"></i>&nbsp;
+                            <span>{{ 'DevicesRequest' | translate }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/admin/devices/transfer']" href="javascript:void(0)">
+                            <i  class="fa fa-monument"></i>&nbsp;
+                            <span>{{ 'Transfers' | translate }}</span>
+                        </a>
+                    </li>
+                    <li>
                         <a [routerLink]="['/admin/warehouses']" href="javascript:void(0)">
                             <i class="fa fa-angle-right"></i>&nbsp;
                             <span>{{ 'Warehouses' | translate }}</span>
                         </a>
                     </li>
-                    <li>
-                        <a [routerLink]="['/admin/transitions']" href="javascript:void(0)">
-                            <i class="fa fa-angle-right"></i>&nbsp;
-                            <span>{{ 'Transitions' | translate }}</span>
-                        </a>
-                    </li>
+
                 </ul>
             </li>
         </div>
@@ -108,47 +115,30 @@
             <li class="nested" [class.expand]="showMenu === 'devicesManagementPanel'">
                 <ul class="submenu">
                     <li>
-                        <a [routerLink]="['/devices/user']" href="javascript:void(0)">
+                        <a [routerLink]="['/devices']" href="javascript:void(0)">
                             <i class="fa fa-monument"></i>&nbsp;
                             <span>{{ 'YourDevices' | translate }}</span>
                         </a>
                     </li>
                     <li>
-                        <a [routerLink]="['/devices']" href="javascript:void(0)">
-                            <i  class="fa fa-monument"></i>&nbsp;
-                            <span>{{ 'Devices' | translate }}</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a [routerLink]="['/devices/request/user']" href="javascript:void(0)">
+                        <a [routerLink]="['/devices/request']" href="javascript:void(0)">
                             <i  class="fa fa-monument"></i>&nbsp;
                             <span>{{ 'YourDevicesRequest' | translate }}</span>
                         </a>
                     </li>
                     <li>
-                        <a [routerLink]="['/devices/request']" href="javascript:void(0)">
-                            <i  class="fa fa-monument"></i>&nbsp;
-                            <span>{{ 'DevicesRequest' | translate }}</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a [routerLink]="['/devices/transfer/user']" href="javascript:void(0)">
+                        <a [routerLink]="['/devices/transfer']" href="javascript:void(0)">
                             <i  class="fa fa-monument"></i>&nbsp;
                             <span>{{ 'YourTransfers' | translate }}</span>
                         </a>
                     </li>
-                    <li>
-                        <a [routerLink]="['/devices/transfer']" href="javascript:void(0)">
-                            <i  class="fa fa-monument"></i>&nbsp;
-                            <span>{{ 'Transfers' | translate }}</span>
-                        </a>
-                    </li>
+
                 </ul>
             </li>
         </div>
         <div class="nested-menu">
-            <a class="list-group-item" (click)="addExpandClass('devicesManagementPanel')">
-                <i class="fa fa-desktop"></i>&nbsp;
+            <a class="list-group-item" (click)="addExpandClass('warehouseManagementPanel')">
+                <i class="fa fa-houzz"></i>&nbsp;
                 <span>{{ 'Warehouse' | translate }}</span>
             </a>
             <li class="nested" [class.expand]="showMenu === 'warehouseManagementPanel'">
@@ -174,19 +164,7 @@
                     <li>
                         <a [routerLink]="['/devices/request']" href="javascript:void(0)">
                             <i  class="fa fa-monument"></i>&nbsp;
-                            <span>{{ 'Deliveries' | translate }}</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a [routerLink]="['/devices/transfer/user']" href="javascript:void(0)">
-                            <i  class="fa fa-monument"></i>&nbsp;
-                            <span>{{ 'YourTransfers' | translate }}</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a [routerLink]="['/devices/transfer']" href="javascript:void(0)">
-                            <i  class="fa fa-monument"></i>&nbsp;
-                            <span>{{ 'Transfers' | translate }}</span>
+                            <span>{{ 'DeliveriesRequests' | translate }}</span>
                         </a>
                     </li>
                 </ul>
@@ -226,11 +204,6 @@
                         <li>
                             <a href="javascript:void(0)">
                                 <span><i class="fa fa-fw fa-user"></i> {{ 'Profile' | translate }}</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0)">
-                                <span><i class="fa fa-fw fa-envelope"></i> {{ 'Inbox' | translate }}</span>
                             </a>
                         </li>
                         <li>

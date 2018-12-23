@@ -8,4 +8,8 @@ export class StructureListElement {
     flatNumber: string;
     zipCode: string;
     parentName: string;
+
+    toString(): string {
+        return this.name+' '+ this.city + ' ' + this.name+' '+ this.parentName;
+    }
 }

@@ -14,6 +14,14 @@ import {UserListComponent} from "./components/administration/user-management/com
 import {UserAddComponent} from "./components/administration/user-management/components/user-add/user-add.component";
 import {UserEditComponent} from "./components/administration/user-management/components/user-edit/user-edit.component";
 import {UserViewComponent} from "./components/administration/user-management/components/user-view/user-view.component";
+import {DeviceViewComponent} from "../device-management/device-view/device-view.component";
+import {DeviceListComponent} from "./components/entity-management/device/device-list/device-list.component";
+import {DeviceAddComponent} from "./components/entity-management/device/device-add/device-add.component";
+import {DeviceEditComponent} from "./components/entity-management/device/device-edit/device-edit.component";
+import {DeviceRequestListComponent} from "./components/entity-management/device/device-request-list/device-request-list.component";
+import {TransferListComponent} from "./components/entity-management/device/transfer-list/transfer-list.component";
+import {DeviceParameterAddComponent} from "./components/entity-management/device/device-parameter-add/device-parameter-add.component";
+import {DeviceParameterEditComponent} from "./components/entity-management/device/device-parameter-edit/device-parameter-edit.component";
 
 
 
@@ -32,11 +40,15 @@ const routes: Routes = [
     {path: 'users', component: UserListComponent},
     {path: 'users/add', component:UserAddComponent},
     {path: 'users/edit', component:UserEditComponent},
-    {path: 'users/view', component:UserViewComponent}
-
-
-
-
+    {path: 'users/view', component:UserViewComponent},
+    {path: 'devices', component: DeviceListComponent},
+    {path: 'devices/add', component:DeviceAddComponent},
+    {path: 'devices/edit', component:DeviceEditComponent},
+    {path: 'devices/view', component:DeviceViewComponent},
+    {path: 'devices/request', component: DeviceRequestListComponent},
+    {path: 'devices/transfer', component: TransferListComponent},
+    {path: 'devices/parameter/add', component: DeviceParameterAddComponent},
+    {path: 'devices/parameter/edit', component: DeviceParameterEditComponent}
 ];
 
 @NgModule({

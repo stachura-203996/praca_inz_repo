@@ -1,11 +1,15 @@
 package com.stachura.praca_inz.backend.service.impl;
 
 import com.stachura.praca_inz.backend.exception.EntityException;
+import com.stachura.praca_inz.backend.model.Device;
 import com.stachura.praca_inz.backend.model.Transfer;
 import com.stachura.praca_inz.backend.repository.interfaces.TransferRepository;
 import com.stachura.praca_inz.backend.service.TransferService;
+import com.stachura.praca_inz.backend.web.dto.DeviceListElementDto;
 import com.stachura.praca_inz.backend.web.dto.TransferListElementDto;
+import com.stachura.praca_inz.backend.web.dto.converter.DeviceConverter;
 import com.stachura.praca_inz.backend.web.dto.converter.TransferConverter;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
@@ -29,6 +33,19 @@ public class TransferServiceImpl implements TransferService {
         return transferRepository.find(id);
     }
 
+    @Override
+    public List<TransferListElementDto> getAllTransfersForLoggedUser(String username) {
+        List<Transfer> transfers = transferRepository.findAll().stream().filter(x -> x.getSenderWarehouse().getUser().getUsername().equals(username) &&
+                x.getRecieverWarehouse().getUser().getUsername().equals(username)).collect(Collectors.toList());
+        List<TransferListElementDto> transferListElementDtos = new ArrayList<>();
+        for (Transfer a : transfers) {
+            Hibernate.initialize(a.getRecieverWarehouse());
+            Hibernate.initialize(a.getSenderWarehouse());
+            transferListElementDtos.add(TransferConverter.toTransferListElementDto(a));
+        }
+        return transferListElementDtos;
+    }
+
 
     /*@Override
     @Transactional(readOnly = true)
@@ -45,6 +62,8 @@ public class TransferServiceImpl implements TransferService {
         List<Transfer> transfers = transferRepository.findAll();
         List<TransferListElementDto> transferListElementDtos = new ArrayList<>();
         for (Transfer a : transfers) {
+            Hibernate.initialize(a.getRecieverWarehouse());
+            Hibernate.initialize(a.getSenderWarehouse());
             transferListElementDtos.add(TransferConverter.toTransferListElementDto(a));
         }
         return transferListElementDtos;

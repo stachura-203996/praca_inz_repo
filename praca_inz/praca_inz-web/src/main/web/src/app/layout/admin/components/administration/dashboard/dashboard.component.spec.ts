@@ -3,7 +3,7 @@ import { RouterTestingModule } from '@angular/router/testing'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
 import { DashboardComponent } from './dashboard.component'
-import { DashboardModule } from './dashboard.module'
+
 
 describe('DashboardComponent', () => {
   let component: DashboardComponent
@@ -12,7 +12,6 @@ describe('DashboardComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        DashboardModule,
         RouterTestingModule,
         BrowserAnimationsModule,
        ]

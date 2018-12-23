@@ -42,7 +42,7 @@ export class DepartmentListComponent implements OnInit {
     }
 
     filterUsers(searchText: string) {
-        // this.userService.getAll().subscribe(users => {
+        // this.userService.getAllNotificationsForUser().subscribe(users => {
         //     if (!users) {
         //         this.users = [];
         //         return;

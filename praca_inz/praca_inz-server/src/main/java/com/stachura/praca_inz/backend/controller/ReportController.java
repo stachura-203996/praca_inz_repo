@@ -24,7 +24,7 @@ public class ReportController {
 //    @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 //    @ResponseStatus(value = HttpStatus.OK)
 //    public @ResponseBody
-//    List<CompanyStructuresListElementDto> getAll() {
+//    List<CompanyStructuresListElementDto> getAllNotificationsForUser() {
 //        return companyService.getAllCompanies();
 //    }
 //

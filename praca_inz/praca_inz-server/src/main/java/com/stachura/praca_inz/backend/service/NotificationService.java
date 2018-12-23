@@ -11,6 +11,7 @@ public interface NotificationService {
 
 //    Notification getNotificationByName(String name);
 
+    List<NotificationListElementDto> getAllNotificationsForLoggedUser(String username);
 
     List<NotificationListElementDto> getAllNotificationsForUser();
 

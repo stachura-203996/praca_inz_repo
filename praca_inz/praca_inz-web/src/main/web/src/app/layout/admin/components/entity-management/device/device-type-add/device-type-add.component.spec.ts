@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TransferAddComponent } from './transfer-add.component';
+import { DeviceTypeAddComponent } from './device-type-add.component';
 
-describe('TransferAddComponent', () => {
-  let component: TransferAddComponent;
-  let fixture: ComponentFixture<TransferAddComponent>;
+describe('DeviceTypeAddComponent', () => {
+  let component: DeviceTypeAddComponent;
+  let fixture: ComponentFixture<DeviceTypeAddComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TransferAddComponent ]
+      declarations: [ DeviceTypeAddComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TransferAddComponent);
+    fixture = TestBed.createComponent(DeviceTypeAddComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

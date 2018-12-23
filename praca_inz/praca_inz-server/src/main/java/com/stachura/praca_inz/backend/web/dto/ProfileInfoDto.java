@@ -13,7 +13,12 @@ public class ProfileInfoDto {
 
     private Long id;
     private String username;
+    private String position;
+    private String company;
+    private String department;
+    private String office;
     private String name;
+    private String middlename;
     private String surname;
     private String city;
     private String email;

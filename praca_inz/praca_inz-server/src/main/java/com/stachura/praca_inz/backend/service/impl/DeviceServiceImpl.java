@@ -7,6 +7,7 @@ import com.stachura.praca_inz.backend.repository.interfaces.UserRepository;
 import com.stachura.praca_inz.backend.service.DeviceService;
 import com.stachura.praca_inz.backend.web.dto.DeviceListElementDto;
 import com.stachura.praca_inz.backend.web.dto.converter.DeviceConverter;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
@@ -44,6 +45,8 @@ public class DeviceServiceImpl implements DeviceService {
         List<Device> devices = deviceRepository.findAll();
         List<DeviceListElementDto> devicesDto = new ArrayList<>();
         for (Device a : devices) {
+            Hibernate.initialize(a.getDeviceType());
+//            Hibernate.initialize(a.getDeviceType().getName());
             devicesDto.add(DeviceConverter.toDeviceListElementDto(a));
         }
         return devicesDto;
@@ -57,6 +60,8 @@ public class DeviceServiceImpl implements DeviceService {
                 x.getWarehouse().getOffice() == null).collect(Collectors.toList());
         List<DeviceListElementDto> devicesDto = new ArrayList<>();
         for (Device a : devices) {
+            Hibernate.initialize(a.getDeviceType());
+            Hibernate.initialize(a.getDeviceType().getName());
             devicesDto.add(DeviceConverter.toDeviceListElementDto(a));
         }
         return devicesDto;

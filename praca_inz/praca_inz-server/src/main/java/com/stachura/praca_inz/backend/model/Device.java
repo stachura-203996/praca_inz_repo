@@ -40,10 +40,8 @@ public class Device implements Serializable {
     @JoinColumn(name = "DEVICE_TYPE_ID")
     private DeviceType deviceType;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "DEVICES_PARAMETERS_VALUES", joinColumns = @JoinColumn(name = "DEVICE_ID", referencedColumnName = "ID"), inverseJoinColumns = @JoinColumn(name = "PARAMETER_VALUE_ID", referencedColumnName = "ID"))
-    @OrderBy
-    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "device", fetch = FetchType.LAZY, orphanRemoval = true)
+    @JsonManagedReference
     private Collection<ParameterValue> parameterValues;
 
     @ManyToOne(fetch = FetchType.LAZY)

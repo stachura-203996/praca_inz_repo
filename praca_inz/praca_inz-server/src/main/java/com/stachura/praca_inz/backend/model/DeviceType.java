@@ -30,7 +30,7 @@ public class DeviceType implements Serializable {
     @Column(name = "NAME", nullable = false)
     private String name;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "DEVICES_TYPES_PARAMETERS", joinColumns = @JoinColumn(name = "DEVICE_TYPE_ID", referencedColumnName = "ID"), inverseJoinColumns = @JoinColumn(name = "PARAMETER_ID", referencedColumnName = "ID"))
     @OrderBy
     @JsonIgnore

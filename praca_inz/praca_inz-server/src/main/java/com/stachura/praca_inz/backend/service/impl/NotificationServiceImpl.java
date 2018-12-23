@@ -3,10 +3,14 @@ package com.stachura.praca_inz.backend.service.impl;
 import com.stachura.praca_inz.backend.exception.EntityException;
 import com.stachura.praca_inz.backend.model.Notification;
 import com.stachura.praca_inz.backend.model.Notification;
+import com.stachura.praca_inz.backend.model.Transfer;
 import com.stachura.praca_inz.backend.repository.interfaces.NotificationRepository;
 import com.stachura.praca_inz.backend.service.NotificationService;
 import com.stachura.praca_inz.backend.web.dto.NotificationListElementDto;
+import com.stachura.praca_inz.backend.web.dto.TransferListElementDto;
 import com.stachura.praca_inz.backend.web.dto.converter.NotificationConverter;
+import com.stachura.praca_inz.backend.web.dto.converter.TransferConverter;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
@@ -14,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class NotificationServiceImpl implements NotificationService {
@@ -27,6 +32,19 @@ public class NotificationServiceImpl implements NotificationService {
     @PreAuthorize("hasAuthority('NOTIFICATION_READ')")
     public Notification getNotificationById(Long id) {
         return notificationRepository.find(id);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    @PreAuthorize("hasAuthority('NOTIFICATION_READ')")
+    public List<NotificationListElementDto> getAllNotificationsForLoggedUser(String username) {
+        List<Notification> notifications = notificationRepository.findAll().stream().filter(x -> x.getUser().getUsername().equals(username)).collect(Collectors.toList());
+        List<NotificationListElementDto> notificationListElementDtos = new ArrayList<>();
+        for (Notification a : notifications) {
+            Hibernate.initialize(a.getUser());
+            notificationListElementDtos.add(NotificationConverter.toNotificationListElementDto(a));
+        }
+        return notificationListElementDtos;
     }
 
     /*@Override

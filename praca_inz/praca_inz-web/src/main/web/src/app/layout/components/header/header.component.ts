@@ -4,6 +4,11 @@ import { TranslateService } from '@ngx-translate/core';
 import {LoginService} from "../../../login/login.service";
 import {ProfileInfo} from "../../profile/models/profile-info";
 import {ProfileService} from "../../profile/profile.service";
+import {SessionContextService} from "../../../shared/services/session-context.service";
+import {LoggedUser} from "../../../login/models/logged-user";
+import {UserService} from "../../admin/components/administration/user-management/user.service";
+import {NotificationService} from "../../notification/notification.service";
+import {NotificationListElement} from "../../notification/models/notification-list-element";
 
 @Component({
     selector: 'app-header',
@@ -12,9 +17,10 @@ import {ProfileService} from "../../profile/profile.service";
 })
 export class HeaderComponent implements OnInit {
     pushRightClass: string = 'push-right';
-    currentUser: ProfileInfo;
+    currentUser: LoggedUser;
+    notifications:NotificationListElement[];
 
-    constructor(private translate: TranslateService, public router: Router, private loginService : LoginService, private profileService:ProfileService) {
+    constructor(private translate: TranslateService, public router: Router, private loginService : LoginService, private userService:UserService, private notificationService:NotificationService) {
 
         this.translate.addLangs(['en','pl','de']);
         this.translate.setDefaultLang('pl');
@@ -32,7 +38,20 @@ export class HeaderComponent implements OnInit {
         });
     }
 
-    ngOnInit() {}
+
+
+    ngOnInit() {
+        this.getLoggedUser();
+        this.getLastNotifications();
+    }
+
+    getLastNotifications(){
+        this.notificationService.getAllNotificationsForUser().subscribe(x=>this.notifications=x);
+    }
+
+    getLoggedUser(){
+        this.userService.getLoggedUser().subscribe(x=>this.currentUser=x);
+    }
 
     isToggled(): boolean {
         const dom: Element = document.querySelector('body');
@@ -44,10 +63,7 @@ export class HeaderComponent implements OnInit {
         dom.classList.toggle(this.pushRightClass);
     }
 
-    rltAndLtr() {
-        const dom: any = document.querySelector('body');
-        dom.classList.toggle('rtl');
-    }
+
 
     onLoggedout() {
         this.loginService.logout();
@@ -57,21 +73,10 @@ export class HeaderComponent implements OnInit {
         this.translate.use(language);
     }
 
-    getProfile() {
-        this.profileService.getUserProfile().subscribe(profile => {
-            this.currentUser = profile
-        });
-    }
 
     getUserInfo(){
         return (this.currentUser.name+ ' '+ this.currentUser.surname);
     }
 
-    getAddress(): string {
-        if (this.currentUser.flatNumber == null || this.currentUser.flatNumber === "0") {
-            return (this.currentUser.street + ' ' + this.currentUser.houseNumber);
-        } else {
-            return (this.currentUser.street + ' ' + this.currentUser.houseNumber + ' / ' + this.currentUser.flatNumber);
-        }
-    }
+
 }

@@ -5,13 +5,15 @@ import {ProfileComponent} from './components/profile/profile.component';
 import {ProfileRoutingModule} from "./profile-routing.module";
 import {TranslateModule} from "@ngx-translate/core";
 import {FormsModule} from "@angular/forms";
+import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 
 @NgModule({
     imports: [
         CommonModule,
         ProfileRoutingModule,
         TranslateModule,
-        FormsModule
+        FormsModule,
+        NgbModule.forRoot(),
     ],
     declarations: [ProfileEditComponent, ProfileComponent],
 

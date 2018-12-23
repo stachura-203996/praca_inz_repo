@@ -15,26 +15,24 @@ export class CompanyListComponent implements OnInit {
 
     public notVerifiedFilter = false;
     companies: StructureListElement[];
-    selectedUserAccessLevels: AccountLevel[];
 
     constructor(private companyService : CompanyService,
                 private translate:TranslateService,
-
     ) {
 
-        this.translate.addLangs(['en','pl','de']);
-        this.translate.setDefaultLang('en');
-        const browserLang = this.translate.getBrowserLang();// private messageService: MessageService,
-        // private i18nService: I18nServiceerLang();
-        this.translate.use(browserLang.match(/en|pl|de/) ? browserLang : 'pl');
+        // this.translate.addLangs(['en','pl','de']);
+        // this.translate.setDefaultLang('en');
+        // const browserLang = this.translate.getBrowserLang();// private messageService: MessageService,
+        // // private i18nService: I18nServiceerLang();
+        // this.translate.use(browserLang.match(/en|pl|de/) ? browserLang : 'pl');
     }
 
     ngOnInit() {
         // this.filterUsers(null);
-        this.getUsers();
+        this.getCompanies();
     }
 
-    getUsers(){
+    getCompanies(){
         this.companyService.getAll().subscribe(companyListElement=> {this.companies=companyListElement});
     }
 
@@ -46,34 +44,23 @@ export class CompanyListComponent implements OnInit {
         }
     }
 
-    filterUsers(searchText: string) {
-        // this.userService.getAll().subscribe(users => {
-        //     if (!users) {
-        //         this.users = [];
-        //         return;
-        //     }
-        //     if (!searchText || searchText.length < 2) {
-        //         if (this.notVerifiedFilter) {
-        //             this.users = users.filter(it => {
-        //                 return it.verified === !this.notVerifiedFilter;
-        //             });
-        //         } else {
-        //             this.users = users;
-        //         }
-        //         return;
-        //     }
-        //
-        //     searchText = searchText.toLowerCase();
-        //     this.users = users.filter(it => {
-        //         const fullname = it.name + ' ' + it.surname;
-        //         const ok = fullname.toLowerCase().includes(searchText);
-        //         if (!this.notVerifiedFilter) {
-        //             return ok;
-        //         } else {
-        //             return ok && it.verified === !this.notVerifiedFilter;
-        //         }
-        //     });
-        // });
+    filterCompanies(searchText: string) {
+        this.companyService.getAll().subscribe(companies => {
+            if (!companies) {
+                this.companies = [];
+                return;
+            }
+            if (!searchText || searchText.length < 2) {
+                    this.companies = companies;
+            }
+
+            searchText = searchText.toLowerCase();
+            this.companies = companies.filter(it => {
+                const range = it.toString();
+                const ok = range.toLowerCase().includes(searchText);
+                return ok;
+            });
+        });
     }
 
 

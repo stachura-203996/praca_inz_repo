@@ -37,6 +37,9 @@ public class Userdata implements Serializable {
     @Column(name = "EMAIL")
     private String email;
 
+    @Column(name = "POSITION")
+    private String position;
+
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "USER_ID")
     private User user;

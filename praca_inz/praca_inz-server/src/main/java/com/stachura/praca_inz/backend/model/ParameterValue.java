@@ -30,4 +30,8 @@ public class ParameterValue {
     @JsonBackReference
     private Parameter parameter;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonBackReference
+    private Device device;
+
 }

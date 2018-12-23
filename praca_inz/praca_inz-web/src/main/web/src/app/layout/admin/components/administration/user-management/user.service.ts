@@ -21,6 +21,10 @@ export class UserService {
 
   constructor( private httpService: HttpService, private configuration: Configuration) { }
 
+    getAllSubordinates(): Observable<UserListElement[]> {
+        return this.httpService.get<UserListElement[]>(this.userPath+'/subordinates');
+    }
+
     getAll(): Observable<UserListElement[]> {
         return this.httpService.get<UserListElement[]>(this.userPath);
     }

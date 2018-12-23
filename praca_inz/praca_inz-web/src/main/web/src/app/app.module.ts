@@ -20,6 +20,8 @@ import {I18nService} from "./shared/services/i18n/i18n.service";
 import {ToastrModule} from "ngx-toastr";
 import {SessionContextService} from "./shared/services/session-context.service";
 import {UserService} from "./layout/admin/components/administration/user-management/user.service";
+import {DeviceService} from "./layout/device-management/device.service";
+import {NotificationService} from "./layout/notification/notification.service";
 
 
 export const createTranslateLoader = (http: HttpClient) => {
@@ -59,8 +61,10 @@ export const createTranslateLoader = (http: HttpClient) => {
         Configuration,
         ProfileService,
         MessageService,
+        DeviceService,
         I18nService,
-        SessionContextService
+        SessionContextService,
+        NotificationService
     ],
     bootstrap: [AppComponent]
 })

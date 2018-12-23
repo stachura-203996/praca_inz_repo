@@ -13,7 +13,7 @@ public class DeviceConverter {
                 .name(device.getName())
                 .username(device.getWarehouse().getUser().getUsername())
                 .serialNumber(device.getSerialNumber())
-//                .deviceTypeName(device.getDeviceType().getName())
+                .deviceTypeName(device.getDeviceType().getName())
                 .build();
     }
 }

@@ -10,7 +10,8 @@ public interface TransferService {
 
     Transfer getTransferById(Long id);
 
-//    Transfer getTransferByName(String name);
+    //    Transfer getTransferByName(String name);
+    List<TransferListElementDto> getAllTransfersForLoggedUser(String username);
 
     List<TransferListElementDto> getAllTransfers();
 

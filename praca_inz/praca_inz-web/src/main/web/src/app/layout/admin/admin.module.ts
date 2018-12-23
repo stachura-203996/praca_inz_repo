@@ -18,6 +18,16 @@ import {UserViewComponent} from "./components/administration/user-management/com
 import {UserEditComponent} from "./components/administration/user-management/components/user-edit/user-edit.component";
 import {UserAddComponent} from "./components/administration/user-management/components/user-add/user-add.component";
 import {UserListComponent} from "./components/administration/user-management/components/user-list/user-list.component";
+import {DeviceListComponent} from "./components/entity-management/device/device-list/device-list.component";
+import {DeviceAddComponent} from "./components/entity-management/device/device-add/device-add.component";
+import {DeviceEditComponent} from "./components/entity-management/device/device-edit/device-edit.component";
+import {TransferListComponent} from "./components/entity-management/device/transfer-list/transfer-list.component";
+import {DeviceRequestListComponent} from "./components/entity-management/device/device-request-list/device-request-list.component";
+import { DeviceTypeListComponent } from './components/entity-management/device/device-type-list/device-type-list.component';
+import { DeviceTypeAddComponent } from './components/entity-management/device/device-type-add/device-type-add.component';
+import { DeviceTypeEditComponent } from './components/entity-management/device/device-type-edit/device-type-edit.component';
+import { DeviceParameterAddComponent } from './components/entity-management/device/device-parameter-add/device-parameter-add.component';
+import { DeviceParameterEditComponent } from './components/entity-management/device/device-parameter-edit/device-parameter-edit.component';
 
 @NgModule({
     imports: [
@@ -43,7 +53,17 @@ import {UserListComponent} from "./components/administration/user-management/com
         UserViewComponent,
         UserEditComponent,
         UserAddComponent,
-        UserListComponent
+        UserListComponent,
+        DeviceListComponent,
+        DeviceAddComponent,
+        DeviceEditComponent,
+        DeviceRequestListComponent,
+        TransferListComponent,
+        DeviceTypeListComponent,
+        DeviceTypeAddComponent,
+        DeviceTypeEditComponent,
+        DeviceParameterAddComponent,
+        DeviceParameterEditComponent
     ]
 })
 export class AdminModule {

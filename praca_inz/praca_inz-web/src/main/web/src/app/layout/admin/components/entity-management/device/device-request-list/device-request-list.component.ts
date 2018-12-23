@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-device-requests',
+  selector: 'app-device-request-list',
   templateUrl: './device-request-list.component.html',
   styleUrls: ['./device-request-list.component.scss']
 })

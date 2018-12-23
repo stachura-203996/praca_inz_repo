@@ -18,6 +18,10 @@ export class SubordinatesListComponent implements OnInit {
   ngOnInit() {
   }
 
+    getUsers(){
+        this.userService.getAllSubordinates().subscribe(userListElements=> {this.users=userListElements});
+    }
+
     filterSubordinates(searchText: string) {
         this.userService.getAll().subscribe(users => {
             if (!users) {
