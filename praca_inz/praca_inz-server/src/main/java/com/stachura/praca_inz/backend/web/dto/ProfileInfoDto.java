@@ -2,6 +2,8 @@ package com.stachura.praca_inz.backend.web.dto;
 
 import lombok.*;
 
+import java.util.List;
+
 /**
  * Obiekt przesyłany do widoku z informacjami o zalogwanym użytkowniku
  */
@@ -26,5 +28,6 @@ public class ProfileInfoDto {
     private String houseNumber;
     private String flatNumber;
     private String zipCode;
-
+    private String workplace;
+    private List<String> roles;
 }

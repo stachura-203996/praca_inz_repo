@@ -4,10 +4,10 @@ import {LoginService} from "../../../login/login.service";
 
 @Component({
     selector: 'app-warehouse-list',
-    templateUrl: './warehouse-list.component.html',
-    styleUrls: ['./warehouse-list.component.scss']
+    templateUrl: './warehouse-user.component.html',
+    styleUrls: ['./warehouse-user.component.scss']
 })
-export class WarehouseListComponent implements OnInit {
+export class WarehouseUserComponent implements OnInit {
 
     private roles;
 

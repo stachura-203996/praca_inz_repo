@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {DepartmentService} from "../department.service";
 import {TranslateService} from "@ngx-translate/core";
-import {StructureListElement} from "../../models/structure-list-element";
+import {StructureListElement} from "../../../../../../models/structure-list-element";
 
 @Component({
   selector: 'app-department-list',

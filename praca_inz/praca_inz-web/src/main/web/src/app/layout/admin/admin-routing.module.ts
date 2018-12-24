@@ -22,6 +22,10 @@ import {DeviceRequestListComponent} from "./components/entity-management/device/
 import {TransferListComponent} from "./components/entity-management/device/transfer-list/transfer-list.component";
 import {DeviceParameterAddComponent} from "./components/entity-management/device/device-parameter-add/device-parameter-add.component";
 import {DeviceParameterEditComponent} from "./components/entity-management/device/device-parameter-edit/device-parameter-edit.component";
+import {DeviceTypeListComponent} from "./components/entity-management/device/device-type-list/device-type-list.component";
+import {DeviceTypeAddComponent} from "./components/entity-management/device/device-type-add/device-type-add.component";
+import {DeviceTypeEditComponent} from "./components/entity-management/device/device-type-edit/device-type-edit.component";
+import {DeviceTypeViewComponent} from "../device-management/device-type-view/device-type-view.component";
 
 
 
@@ -30,25 +34,28 @@ const routes: Routes = [
     {path: 'dashboard', component: DashboardComponent},
     {path: 'companies', component: CompanyListComponent},
     {path: 'companies/add', component:CompanyAddComponent},
-    {path: 'companies/edit', component:CompanyEditComponent},
+    {path: 'companies/edit/:id', component:CompanyEditComponent},
     {path: 'offices', component: OfficeListComponent},
     {path: 'offices/add', component:OfficeAddComponent},
-    {path: 'offices/edit', component:OfficeEditComponent},
+    {path: 'offices/edit/:id', component:OfficeEditComponent},
     {path: 'departments', component: DepartmentListComponent},
     {path: 'departments/add', component:DepartmentAddComponent},
-    {path: 'departments/edit', component:DepartmentEditComponent},
+    {path: 'departments/edit/:id', component:DepartmentEditComponent},
     {path: 'users', component: UserListComponent},
     {path: 'users/add', component:UserAddComponent},
-    {path: 'users/edit', component:UserEditComponent},
-    {path: 'users/view', component:UserViewComponent},
+    {path: 'users/edit/:username', component:UserEditComponent},
+    {path: 'users/view/:username', component:UserViewComponent},
     {path: 'devices', component: DeviceListComponent},
     {path: 'devices/add', component:DeviceAddComponent},
-    {path: 'devices/edit', component:DeviceEditComponent},
-    {path: 'devices/view', component:DeviceViewComponent},
+    {path: 'devices/edit/:id', component:DeviceEditComponent},
     {path: 'devices/request', component: DeviceRequestListComponent},
     {path: 'devices/transfer', component: TransferListComponent},
+    {path: 'devices/type', component: DeviceTypeListComponent},
+    {path: 'devices/type/add', component: DeviceTypeAddComponent},
+    {path: 'devices/type/edit/:id', component: DeviceTypeEditComponent},
+
     {path: 'devices/parameter/add', component: DeviceParameterAddComponent},
-    {path: 'devices/parameter/edit', component: DeviceParameterEditComponent}
+    {path: 'devices/parameter/edit/:id', component: DeviceParameterEditComponent}
 ];
 
 @NgModule({

@@ -13,7 +13,7 @@ import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
         ProfileRoutingModule,
         TranslateModule,
         FormsModule,
-        NgbModule.forRoot(),
+        NgbModule.forRoot()
     ],
     declarations: [ProfileEditComponent, ProfileComponent],
 

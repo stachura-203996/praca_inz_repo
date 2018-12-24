@@ -28,13 +28,18 @@ import { DeviceTypeAddComponent } from './components/entity-management/device/de
 import { DeviceTypeEditComponent } from './components/entity-management/device/device-type-edit/device-type-edit.component';
 import { DeviceParameterAddComponent } from './components/entity-management/device/device-parameter-add/device-parameter-add.component';
 import { DeviceParameterEditComponent } from './components/entity-management/device/device-parameter-edit/device-parameter-edit.component';
+import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
+import { WarehouseListComponent } from './components/entity-management/warehouse/warehouse-list/warehouse-list.component';
+import {WarehouseAddComponent} from "./components/entity-management/warehouse/warehouse-add/warehouse-add.component";
+import {WarehouseEditComponent} from "./components/entity-management/warehouse/warehouse-edit/warehouse-edit.component";
 
 @NgModule({
     imports: [
         CommonModule,
         AdminRoutingModule,
         TranslateModule,
-        FormsModule
+        FormsModule,
+        NgbModule.forRoot()
     ],
     declarations: [
         CompanyListComponent,
@@ -63,7 +68,10 @@ import { DeviceParameterEditComponent } from './components/entity-management/dev
         DeviceTypeAddComponent,
         DeviceTypeEditComponent,
         DeviceParameterAddComponent,
-        DeviceParameterEditComponent
+        DeviceParameterEditComponent,
+        WarehouseListComponent,
+        WarehouseAddComponent,
+        WarehouseEditComponent
     ]
 })
 export class AdminModule {

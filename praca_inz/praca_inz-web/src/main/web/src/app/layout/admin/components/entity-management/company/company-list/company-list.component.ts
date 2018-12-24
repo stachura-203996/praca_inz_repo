@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 import {TranslateService} from "@ngx-translate/core";
 import {CompanyService} from "../company.service";
-import {StructureListElement} from "../../models/structure-list-element";
-import {AccountLevel} from "../../../administration/user-management/models/account-level";
+import {StructureListElement} from "../../../../../../models/structure-list-element";
+import {AccountLevel} from "../../../../../../models/account-level";
 
 
 @Component({

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {TranslateService} from "@ngx-translate/core";
-import {UserListElement} from "../../admin/components/administration/user-management/models/user-list-element";
+import {UserListElement} from "../../../models/user-list-element";
 import {UserService} from "../../admin/components/administration/user-management/user.service";
 
 @Component({

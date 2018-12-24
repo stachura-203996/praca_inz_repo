@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {StructureListElement} from "../../admin/components/entity-management/models/structure-list-element";
-import {NotificationListElement} from "../models/notification-list-element";
+import {StructureListElement} from "../../../models/structure-list-element";
+import {NotificationListElement} from "../../../models/notification-list-element";
 import {NotificationService} from "../notification.service";
 
 @Component({

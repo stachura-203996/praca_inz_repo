@@ -1,4 +1,4 @@
-export class ProfileInfo {
+export class UserInfo {
     id: number;
     username: string;
     position: string;
@@ -15,4 +15,5 @@ export class ProfileInfo {
     flatNumber: string;
     zipCode: string;
     dateOfJoining: string;
+    roles: string[];
 }

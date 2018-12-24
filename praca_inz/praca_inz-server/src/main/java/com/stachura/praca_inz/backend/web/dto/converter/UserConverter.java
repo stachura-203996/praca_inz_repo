@@ -50,6 +50,8 @@ public class UserConverter {
                 .houseNumber(user.getUserdata().getAddress().getBuildingNumber())
                 .flatNumber(user.getUserdata().getAddress().getFlatNumber())
                 .zipCode(user.getUserdata().getAddress().getZipCode())
+                .roles(user.getUserRoles().stream().map(UserRole::getName).collect(Collectors.toList()))
+                .workplace(user.getUserdata().getWorkplace())
                 .build();
     }
 
@@ -67,6 +69,34 @@ public class UserConverter {
                 .roles(user.getUserRoles().stream().map(UserRole::getName).collect(Collectors.toList()))
                 .build();
     }
+
+
+    /**
+     * Metoda konwertująca encję {@link User} na obiekt {@link LoggedUserDto} przesyłany do widoku
+     *
+     * @param user encja konta
+     * @return obiekt z informacjami o zalogowanym użytkowniku
+     */
+    public static UserInfoDto toUserInfo(User user) {
+        return UserInfoDto.builder()
+                .id(user.getId())
+                .username(user.getUsername())
+                .position(user.getUserdata().getPosition())
+                .company(user.getOffice().getDepartment().getCompany().getName())
+                .department(user.getOffice().getDepartment().getName())
+                .office(user.getOffice().getName())
+                .name(user.getUserdata().getName())
+                .surname(user.getUserdata().getSurname())
+                .city(user.getUserdata().getAddress().getCity())
+                .email(user.getUserdata().getEmail())
+                .street(user.getUserdata().getAddress().getStreet())
+                .houseNumber(user.getUserdata().getAddress().getBuildingNumber())
+                .flatNumber(user.getUserdata().getAddress().getFlatNumber())
+                .zipCode(user.getUserdata().getAddress().getZipCode())
+                .roles(user.getUserRoles().stream().map(UserRole::getName).collect(Collectors.toList()))
+                .build();
+    }
+
 
 
 

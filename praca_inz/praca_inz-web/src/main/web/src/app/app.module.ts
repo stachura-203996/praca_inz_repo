@@ -22,6 +22,7 @@ import {SessionContextService} from "./shared/services/session-context.service";
 import {UserService} from "./layout/admin/components/administration/user-management/user.service";
 import {DeviceService} from "./layout/device-management/device.service";
 import {NotificationService} from "./layout/notification/notification.service";
+import {PasswordMatchDirective} from "./directives/password-match.directive";
 
 
 export const createTranslateLoader = (http: HttpClient) => {
@@ -50,7 +51,8 @@ export const createTranslateLoader = (http: HttpClient) => {
     ],
     declarations: [
         AppComponent,
-        ConfirmDialogComponent
+        ConfirmDialogComponent,
+        PasswordMatchDirective
     ],
     providers: [
         AuthGuard,

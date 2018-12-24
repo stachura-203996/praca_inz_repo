@@ -42,6 +42,14 @@ public class TransferController {
         return transferService.getAllTransfersForLoggedUser(auth.getName());
     }
 
+    @RequestMapping(value = "/user/{username}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(value = HttpStatus.OK)
+    public @ResponseBody
+    List<TransferListElementDto> getAllDevicesForLoggedUser(@PathVariable String username) {
+        return transferService.getAllTransfersForLoggedUser(username);
+    }
+
+
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody

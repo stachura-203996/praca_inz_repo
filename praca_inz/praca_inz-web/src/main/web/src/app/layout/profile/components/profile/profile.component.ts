@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import {ProfileInfo} from "../../models/profile-info";
+import {ProfileInfo} from "../../../../models/profile-info";
 import {ProfileService} from "../../profile.service";
 
 import {SessionContextService} from "../../../../shared/services/session-context.service";
 import {DeviceService} from "../../../device-management/device.service";
 import {DeviceListComponent} from "../../../admin/components/entity-management/device/device-list/device-list.component";
-import {DeviceListElement} from "../../../device-management/models/device-list-element";
-import {TransferListElement} from "../../../device-management/models/transfer-list-element";
+import {DeviceListElement} from "../../../../models/device-list-element";
+import {TransferListElement} from "../../../../models/transfer-list-element";
 
 @Component({
   selector: 'app-profile-private',
@@ -36,11 +36,11 @@ export class ProfileComponent implements OnInit {
     }
 
     getTransfersForLoggedUser(){
-        this.deviceService.getAllTransfersForUser().subscribe(transferListElement=> {this.transfers=transferListElement});
+        this.deviceService.getAllTransfersForLoggedUser().subscribe(transferListElement=> {this.transfers=transferListElement});
     }
 
     getDevicesForLoggedUser(){
-        this.deviceService.getAllDevicesForUser().subscribe(deviceListElement=> {this.devices=deviceListElement});
+        this.deviceService.getAllDevicesForLoggedUser().subscribe(deviceListElement=> {this.devices=deviceListElement});
     }
 
     getAddress(): string {

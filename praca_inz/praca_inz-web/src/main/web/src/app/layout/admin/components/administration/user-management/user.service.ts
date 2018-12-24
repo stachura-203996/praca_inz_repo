@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import {Observable} from "rxjs";
-import {AccountLevel} from "./models/account-level";
-import {UserListElement} from "./models/user-list-element";
-import {UserEdit} from "./models/user-edit";
+import {AccountLevel} from "../../../../../models/account-level";
+import {UserListElement} from "../../../../../models/user-list-element";
+import {UserEdit} from "../../../../../models/user-edit";
 import {HttpService} from "../../../../../shared/services/http.service";
 import {Configuration} from "../../../../../app.constants";
-import {LoggedUser} from "../../../../../login/models/logged-user";
+import {LoggedUser} from "../../../../../models/logged-user";
+import {UserInfo} from "../../../../../models/user-info";
 
 
 @Injectable({
@@ -27,6 +28,11 @@ export class UserService {
 
     getAll(): Observable<UserListElement[]> {
         return this.httpService.get<UserListElement[]>(this.userPath);
+    }
+
+    getUserInfoToView(username: string): Observable<UserInfo> {
+        this.userPathDetail = this.userPath + '/view/' + username;
+        return this.httpService.get<UserInfo>(this.userPathDetail);
     }
 
     getUser(username: string): Observable<UserEdit> {

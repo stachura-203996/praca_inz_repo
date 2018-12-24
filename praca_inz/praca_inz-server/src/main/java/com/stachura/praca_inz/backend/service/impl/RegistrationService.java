@@ -1,5 +1,6 @@
 package com.stachura.praca_inz.backend.service.impl;
 
+import com.stachura.praca_inz.backend.exception.EntityException;
 import com.stachura.praca_inz.backend.exception.UserAlreadyExistException;
 import com.stachura.praca_inz.backend.model.Userdata;
 import com.stachura.praca_inz.backend.model.security.User;
@@ -25,7 +26,7 @@ public class RegistrationService implements com.stachura.praca_inz.backend.servi
     private PasswordEncoder passwordEncoder;
 
     @Override
-    public User registerNewUserAccount(final RegistrationDto accountDto) {
+    public void registerNewUserAccount(final RegistrationDto accountDto) {
         if (emailExist(accountDto.getEmail())) {
             throw new UserAlreadyExistException("There is an user with that email adress: " + accountDto.getEmail());
         }
@@ -39,7 +40,11 @@ public class RegistrationService implements com.stachura.praca_inz.backend.servi
 
 
 //        userdata.setRoles(Arrays.asList(roleRepository.findByName("ROLE_USER")));
-        return userRepository.save(user);
+        try {
+             userRepository.create(user);
+        } catch (EntityException e) {
+            e.printStackTrace();
+        }
     }
     private boolean emailExist(final String email) {
         return userdataRepository.findByEmail(email) != null;

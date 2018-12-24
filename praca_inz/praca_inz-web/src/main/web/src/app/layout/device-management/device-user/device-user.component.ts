@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {StructureListElement} from "../../admin/components/entity-management/models/structure-list-element";
-import {DeviceListElement} from "../models/device-list-element";
+import {StructureListElement} from "../../../models/structure-list-element";
+import {DeviceListElement} from "../../../models/device-list-element";
 import {CompanyService} from "../../admin/components/entity-management/company/company.service";
 import {TranslateService} from "@ngx-translate/core";
 import {DeviceService} from "../device.service";
@@ -25,11 +25,11 @@ export class DeviceUserComponent implements OnInit {
 
 
     getDevicesForLoggedUser(){
-        this.deviceService.getAllDevicesForUser().subscribe(deviceListElement=> {this.devices=deviceListElement});
+        this.deviceService.getAllDevicesForLoggedUser().subscribe(deviceListElement=> {this.devices=deviceListElement});
     }
 
     filterDevices(searchText: string) {
-        this.deviceService.getAllDevicesForUser().subscribe(devices => {
+        this.deviceService.getAllDevicesForLoggedUser().subscribe(devices => {
             if (!devices) {
                 this.devices = [];
                 return;

@@ -30,8 +30,8 @@ public class RegistrationController {
     public GenericResponse registerUserAccount(@Valid final RegistrationDto accountDto, final HttpServletRequest request) {
         LOGGER.debug("Registering user user with information: {}", accountDto);
 
-        final User registered = userService.registerNewUserAccount(accountDto);
-        eventPublisher.publishEvent(new OnRegistrationCompleteEvent(registered, request.getLocale(), getAppUrl(request)));
+//        final User registered = userService.registerNewUserAccount(accountDto);
+//        eventPublisher.publishEvent(new OnRegistrationCompleteEvent(registered, request.getLocale(), getAppUrl(request)));
         return new GenericResponse("success");
     }
 

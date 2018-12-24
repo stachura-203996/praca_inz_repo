@@ -8,16 +8,18 @@ import {DeviceRequestViewComponent} from "./device-request-view/device-request-v
 import {DeviceViewComponent} from "./device-view/device-view.component";
 import {TransferViewComponent} from "./transfer-view/transfer-view.component";
 import {TransferUserComponent} from "./transfer-user/transfer-user.component";
+import {DeviceTypeViewComponent} from "./device-type-view/device-type-view.component";
 
 const routes: Routes = [
     {path:'', component: DeviceUserComponent},
-    {path: 'view', component: DeviceViewComponent},
+    {path: 'view/:id', component: DeviceViewComponent},
     {path:'transfer', component: TransferUserComponent},
-    {path:'transfer/view', component: TransferViewComponent},
+    {path:'transfer/view/:id', component: TransferViewComponent},
     {path: 'request', component: DeviceRequestUserComponent},
     {path: 'request/add', component: DeviceRequestAddComponent},
-    {path: 'request/view', component: DeviceRequestViewComponent},
-    {path: 'request/edit', component: DeviceRequestEditComponent}
+    {path: 'request/view/:id', component: DeviceRequestViewComponent},
+    {path: 'request/edit', component: DeviceRequestEditComponent},
+    {path: 'type/view/:id', component: DeviceTypeViewComponent},
 ];
 
 @NgModule({

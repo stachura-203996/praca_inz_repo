@@ -2,13 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import {LoginService} from "../../../login/login.service";
-import {ProfileInfo} from "../../profile/models/profile-info";
+import {ProfileInfo} from "../../../models/profile-info";
 import {ProfileService} from "../../profile/profile.service";
 import {SessionContextService} from "../../../shared/services/session-context.service";
-import {LoggedUser} from "../../../login/models/logged-user";
+import {LoggedUser} from "../../../models/logged-user";
 import {UserService} from "../../admin/components/administration/user-management/user.service";
 import {NotificationService} from "../../notification/notification.service";
-import {NotificationListElement} from "../../notification/models/notification-list-element";
+import {NotificationListElement} from "../../../models/notification-list-element";
 
 @Component({
     selector: 'app-header',

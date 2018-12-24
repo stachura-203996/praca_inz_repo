@@ -22,7 +22,7 @@
                 <th>{{ 'Surname' | translate }}</th>
                 <th>{{ 'Username' | translate }}</th>
                 <th>{{ 'Email' | translate }}</th>
-                <th>{{ 'Options' | translate }}</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -31,16 +31,16 @@
                 <td>{{user.surname}}</td>
                 <td>{{user.username}}</td>
                 <td>{{user.email}}</td>
-                <td class="text-left">
+                <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"
-                                [routerLink]="['/page/profile/user']"
+                                [routerLink]="['./view/'+user.username]"
                                 class="btn btn-info btn-sm">
                             <i class="fa fa-eye"></i>&nbsp;
                             <span class="d-none d-md-inline">View</span>
                         </button>
                         <button type="submit"
-                                [routerLink]="['./edit']"
+                                [routerLink]="['./edit/'+user.username]"
                                 queryParamsHandling="merge"
                                 class="btn btn-primary btn-sm">
                             <i class="fa fa-pencil"></i>&nbsp;

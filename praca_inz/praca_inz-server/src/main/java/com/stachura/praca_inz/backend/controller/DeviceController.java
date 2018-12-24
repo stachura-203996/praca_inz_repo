@@ -40,6 +40,13 @@ public class DeviceController {
         return deviceService.getAllDevicesForLoggedUser(auth.getName());
     }
 
+    @RequestMapping(value = "/user/{username}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(value = HttpStatus.OK)
+    public @ResponseBody
+    List<DeviceListElementDto> getAllDevicesForLoggedUser(@PathVariable String username) {
+        return deviceService.getAllDevicesForLoggedUser(username);
+    }
+
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody

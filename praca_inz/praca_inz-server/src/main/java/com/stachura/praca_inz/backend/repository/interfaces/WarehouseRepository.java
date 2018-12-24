@@ -11,11 +11,11 @@ public interface WarehouseRepository {
 
     List<Warehouse> findAll();
 
-    void create(Warehouse company)throws EntityException;
+    void create(Warehouse warehouse)throws EntityException;
 
-    Warehouse update(Warehouse company)throws EntityException;
+    Warehouse update(Warehouse warehouse)throws EntityException;
 
     void remove(Long id);
 
-    void remove(Warehouse company);
+    void remove(Warehouse warehouse);
 }

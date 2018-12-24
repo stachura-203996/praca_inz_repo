@@ -13,16 +13,16 @@
                 </a>
                 <ul class="dropdown-menu-right messages" ngbDropdownMenu>
                     <div *ngFor="let notification of notifications">
-                        <li class="media">
+                        <li class="dropdown-item" [routerLink]="[notification.url]">
                             <div class="media-body">
-                                <h5 class="mt-0 mb-1">{{' '+currentUser.name+ ' ' + currentUser.surname}}</h5>
-                                <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
-                                <p class="last"> Lorem ipsum dolor sit amet, consectetur...</p>
+                                <h5 class="mt-0 mb-1">{{' '+notification.title}}</h5>
+                                <p class="small text-muted"><i class="fa fa-clock-o"></i>{{'
+                                    '+notification.notificationDate}}</p>
+                                <p class="last">{{notification.description}}</p>
                             </div>
-                        </li>
+                        <li class="dropdown-divider"></li>
                     </div>
-                    <li class="dropdown-divider"></li>
-                    <a href="javascript:void(0)" class="dropdown-item">
+                    <a [routerLink]="['/notifications']" class="dropdown-item">
                         {{ 'View All' | translate }}
                     </a>
                 </ul>

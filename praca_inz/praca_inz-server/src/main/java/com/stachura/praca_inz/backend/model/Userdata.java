@@ -40,6 +40,9 @@ public class Userdata implements Serializable {
     @Column(name = "POSITION")
     private String position;
 
+    @Column(name = "WORKPLACE")
+    private String workplace;
+
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "USER_ID")
     private User user;

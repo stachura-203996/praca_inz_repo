@@ -1,27 +1,21 @@
 package com.stachura.praca_inz.backend.controller;
 
 
-import com.stachura.praca_inz.backend.model.Company;
 import com.stachura.praca_inz.backend.service.UserService;
 import com.stachura.praca_inz.backend.web.dto.LoggedUserDto;
 import com.stachura.praca_inz.backend.web.dto.ProfileInfoDto;
+import com.stachura.praca_inz.backend.web.dto.UserInfoDto;
 import com.stachura.praca_inz.backend.web.dto.UserListElementDto;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.mvc.ControllerLinkBuilder;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import java.security.Principal;
 import java.util.List;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 @RestController
 @RequestMapping("/secured/users")
@@ -55,12 +49,12 @@ public class UserController {
         return userService.getLoggedUser(auth.getName());
     }
 
-//    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-//    @ResponseStatus(value = HttpStatus.OK)
-//    public @ResponseBody
-//    Company getCompanyById(@PathVariable Long id) {
-//           return userService.getCompanyById(id);
-//    }
+    @RequestMapping(value = "/view/{username}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(value = HttpStatus.OK)
+    public @ResponseBody
+    UserInfoDto getUserInfo(@PathVariable String username) {
+           return userService.getUserInfo(username);
+    }
 //
 //    @RequestMapping(value = "/filter", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 //    @ResponseStatus(value = HttpStatus.OK)

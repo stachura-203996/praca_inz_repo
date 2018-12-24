@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import {TranslateService} from "@ngx-translate/core";
-import {DeviceListElement} from "../../../../../device-management/models/device-list-element";
+import {DeviceListElement} from "../../../../../../models/device-list-element";
 import {DeviceService} from "../../../../../device-management/device.service";
 
 

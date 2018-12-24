@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {DeviceListElement} from "../models/device-list-element";
+import {DeviceListElement} from "../../../models/device-list-element";
 import {DeviceService} from "../device.service";
 import {TranslateService} from "@ngx-translate/core";
-import {TransferListElement} from "../models/transfer-list-element";
+import {TransferListElement} from "../../../models/transfer-list-element";
 
 @Component({
   selector: 'app-transfer-user',
@@ -22,11 +22,11 @@ export class TransferUserComponent implements OnInit {
   }
 
     getTransfersForLoggedUser(){
-        this.deviceService.getAllTransfersForUser().subscribe(transferListElement=> {this.transfers=transferListElement});
+        this.deviceService.getAllTransfersForLoggedUser().subscribe(transferListElement=> {this.transfers=transferListElement});
     }
 
     filterTransfers(searchText: string) {
-        this.deviceService.getAllTransfersForUser().subscribe(transfers => {
+        this.deviceService.getAllTransfersForLoggedUser().subscribe(transfers => {
             if (!transfers) {
                 this.transfers = [];
                 return;

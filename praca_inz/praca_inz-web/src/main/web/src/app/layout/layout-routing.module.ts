@@ -15,7 +15,8 @@ const routes: Routes = [
             {path: 'warehouses', loadChildren: './warehouse-management/warehouse-management.module#WarehouseManagementModule'},
             {path: 'subordinates', loadChildren: './employee-management/employee-management.module#EmployeeManagementModule'},
             {path:'admin', loadChildren: './admin/admin.module#AdminModule'},
-            {path: 'notifications', loadChildren:'./notification/notifications.module#NotificationsModule'}
+            {path: 'notifications', loadChildren:'./notification/notifications.module#NotificationsModule'},
+            {path: 'structures', loadChildren:'./entity-management/entity-management.module#EntityManagementModule'},
         ]
     }
 ];

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {StructureListElement} from "../../models/structure-list-element";
+import {StructureListElement} from "../../../../../../models/structure-list-element";
 import {OfficeService} from "../office.service";
 import {TranslateService} from "@ngx-translate/core";
 
