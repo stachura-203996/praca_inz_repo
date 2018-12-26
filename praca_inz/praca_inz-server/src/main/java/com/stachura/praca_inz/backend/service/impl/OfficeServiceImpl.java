@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class OfficeServiceImpl implements OfficeService {
@@ -25,6 +26,26 @@ public class OfficeServiceImpl implements OfficeService {
     @PreAuthorize("hasAuthority('OFFICE_READ')")
     public Office get(Long id) {
         return officeRepository.find(id);
+    }
+
+    @Override
+    public List<CompanyStructuresListElementDto> getAllOfficesForCompany(Long id) {
+        List<Office> offices = officeRepository.findAll().stream().filter(x->x.getDepartment().getCompany().getId().equals(id)).collect(Collectors.toList());
+        List<CompanyStructuresListElementDto> officesDto = new ArrayList<>();
+        for (Office a : offices) {
+            officesDto.add(CompanyStructureConverter.toCompanyStructureListElement(a));
+        }
+        return officesDto;
+    }
+
+    @Override
+    public List<CompanyStructuresListElementDto> getAllOfficesForDepartment(Long id) {
+        List<Office> offices = officeRepository.findAll().stream().filter(x->x.getDepartment().getId().equals(id)).collect(Collectors.toList());
+        List<CompanyStructuresListElementDto> officesDto = new ArrayList<>();
+        for (Office a : offices) {
+            officesDto.add(CompanyStructureConverter.toCompanyStructureListElement(a));
+        }
+        return officesDto;
     }
 
 //    @Override

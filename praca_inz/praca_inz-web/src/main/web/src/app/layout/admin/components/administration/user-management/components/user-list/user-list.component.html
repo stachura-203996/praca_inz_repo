@@ -21,6 +21,7 @@
                 <th>{{ 'Name' | translate }}</th>
                 <th>{{ 'Surname' | translate }}</th>
                 <th>{{ 'Username' | translate }}</th>
+                <th>{{'Authorities'|translate}}</th>
                 <th>{{ 'Email' | translate }}</th>
                 <th></th>
             </tr>
@@ -30,6 +31,11 @@
                 <td>{{user.name}}</td>
                 <td>{{user.surname}}</td>
                 <td>{{user.username}}</td>
+                <td>
+                    <div *ngFor="let authority of user.roles">
+                        <span class="badge badge-info">{{ authority }}</span>
+                    </div>
+                </td>
                 <td>{{user.email}}</td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">

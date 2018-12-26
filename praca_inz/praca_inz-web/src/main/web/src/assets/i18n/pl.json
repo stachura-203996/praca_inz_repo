@@ -49,5 +49,14 @@
     "Username" : "Nick",
     "Email" : "Email",
     "Options": "Opcje",
-    "Administration" : "Narzędzia administratora"
+    "Administration" : "Narzędzia administratora",
+    "ElementName" : "Nazwa",
+    "DevicesManager":"Menadżer urządzeń",
+    "DepartmentsManager":"Menadżer urządzeń",
+    "OfficesManager":"Menadżer urządzeń",
+    "ZipCode":"Kod pocztowy",
+    "DeviceType":"Typ urządzenia",
+    "Description":"Typ urządzenia",
+    "City":"Miasto",
+    "Edit":"Edytuj"
 }

@@ -32,6 +32,34 @@ public class DeviceController {
         return deviceService.getAllDevices();
     }
 
+    @RequestMapping(value = "/company/{id}",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(value = HttpStatus.OK)
+    public @ResponseBody
+    List<DeviceListElementDto> getAllDevicesForCompany(@PathVariable Long id) {
+        return deviceService.getAllDevicesForCompany(id);
+    }
+
+    @RequestMapping(value = "/department/{id}",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(value = HttpStatus.OK)
+    public @ResponseBody
+    List<DeviceListElementDto> getAllDevicesForDepartment(@PathVariable Long id) {
+        return deviceService.getAllDevicesForDepartment(id);
+    }
+
+    @RequestMapping(value = "/office/{id}",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(value = HttpStatus.OK)
+    public @ResponseBody
+    List<DeviceListElementDto> getAllDevicesForOffice(@PathVariable Long id) {
+        return deviceService.getAllDevicesForOffice(id);
+    }
+
+    @RequestMapping(value = "/warehouse/{id}",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(value = HttpStatus.OK)
+    public @ResponseBody
+    List<DeviceListElementDto> getAllDevicesForWarehouse(@PathVariable Long id) {
+        return deviceService.getAllDevicesForWarehouse(id);
+    }
+
     @RequestMapping(value = "/user", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
@@ -53,15 +81,6 @@ public class DeviceController {
     Device get(@PathVariable Long id) {
         return deviceService.getDeviceById(id);
     }
-
-
-
-//    @RequestMapping(value = "/filter", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-//    @ResponseStatus(value = HttpStatus.OK)
-//    public @ResponseBody
-//    Device get(@RequestParam String name) {
-//        return deviceService.get(name);
-//    }
 
     @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)

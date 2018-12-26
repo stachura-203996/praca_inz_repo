@@ -6,4 +6,5 @@ export class UserListElement {
   email: string;
   active: boolean;
   verified: boolean;
+    roles: string[];
 }

@@ -24,6 +24,7 @@ public class UserConverter {
                 .email(user.getUserdata().getEmail())
                 .locked(user.isAccountLocked())
                 .verified(user.isEnabled())
+                .roles(user.getUserRoles().stream().map(UserRole::getName).collect(Collectors.toList()))
                 .build();
     }
 
@@ -83,8 +84,11 @@ public class UserConverter {
                 .username(user.getUsername())
                 .position(user.getUserdata().getPosition())
                 .company(user.getOffice().getDepartment().getCompany().getName())
+                .companyId(user.getOffice().getDepartment().getCompany().getId())
                 .department(user.getOffice().getDepartment().getName())
+                .departmentId(user.getOffice().getDepartment().getId())
                 .office(user.getOffice().getName())
+                .officeId(user.getOffice().getId())
                 .name(user.getUserdata().getName())
                 .surname(user.getUserdata().getSurname())
                 .city(user.getUserdata().getAddress().getCity())

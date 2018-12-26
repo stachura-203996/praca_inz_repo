@@ -3,8 +3,11 @@ export class UserInfo {
     username: string;
     position: string;
     company: string;
+    companyId:number;
     department: string;
+    departmentId:number;
     office: string;
+    officeId:number;
     middlename: string;
     name: string;
     surname: string;

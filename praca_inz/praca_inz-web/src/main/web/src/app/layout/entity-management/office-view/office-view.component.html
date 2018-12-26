@@ -1,3 +1,132 @@
-<p>
-  office-view works!
-</p>
+<!--<div class="container">-->
+<div class="row">
+    <div class="col-lg-4 ">
+        <div class="card">
+            <div class="card-header"><h4>{{'CompanyView'| translate}}</h4></div>
+            <div class="card-body">
+
+                <div class="box box-info">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <span><h4 style="color:#00b1b1;">{{office.name}}</h4></span>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <hr style="margin:5px 0 5px 0;">
+
+                    <div class="row">
+                        <div class="col-sm-5 col-xs-6 tital ">{{'StructureName'|translate}}</div>
+                        <div class="col-sm-7 col-xs-6 ">{{office.name}}</div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="bot-border"></div>
+                    <div class="row">
+                        <div class="col-sm-5 col-xs-6 tital ">{{'CompanyName'|translate}}</div>
+                        <div class="col-sm-7 col-xs-6 ">{{office.parentName}}</div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="bot-border"></div>
+
+                    <div class="row">
+                        <div class="col-sm-5 col-xs-6 tital ">{{'Description'| translate}}</div>
+                        <div class="col-sm-7 col-xs-6 ">
+                            <div class="box">{{office.description}}</div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="bot-border"></div>
+                    <br>
+                    <div class="row">
+                        <div class="col-sm-6" align="center">
+                            <button [routerLink]="['/admin/offices/edit/'+office.id]" class="btn btn-primary"
+                                    i18n="@@editButton">Edit
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-8">
+        <div class="box">
+            <div class="card">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-lg-10">
+                            <h4>{{'Devices'|translate}}</h4>
+                        </div>
+                        <div class="col-lg-2">
+                            <button class="btn btn-primary float-right jh-create-entity"
+                                    [routerLink]="['/admin/devices']">
+                                <span>{{ 'DeviceManager' | translate }}</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped" align="center">
+                        <thead class="thead-inverse">
+                        <tr>
+                            <th>{{ 'Name' | translate }}</th>
+                            <th>{{ 'SerialNumber' | translate }}</th>
+                            <th>{{ 'DeviceType' | translate }}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let device of devices">
+                            <td>{{device.name}}</td>
+                            <td>{{device.serialNumber}}</td>
+                            <td>{{device.deviceTypeName}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <br>
+            <div class="card">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-lg-10">
+                            <h4>{{'Offices'|translate}}</h4>
+                        </div>
+                        <div class="col-lg-2">
+                            <button class="btn btn-primary float-right jh-create-entity"
+                                    [routerLink]="['/admin/offices']">
+                                <span>{{ 'OfficeManager' | translate }}</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <!--<table class="table table-striped" align="center">-->
+                        <!--<thead class="thead-inverse">-->
+                        <!--<tr>-->
+                            <!--<th>{{ 'Name' | translate }}</th>-->
+                            <!--<th>{{ 'Description' | translate }}</th>-->
+                            <!--<th>{{ 'City' | translate }}</th>-->
+                            <!--<th>{{'ZipCode'|translate}}</th>-->
+                            <!--<th>{{ 'Adress' | translate }}</th>-->
+                            <!--<th>{{'ParentName'|translate}}</th>-->
+                        <!--</tr>-->
+                        <!--</thead>-->
+                        <!--<tbody>-->
+                        <!--<tr *ngFor="let office of warehouses">-->
+                            <!--<td>{{office.name}}</td>-->
+                            <!--<td>{{office.description}}</td>-->
+                            <!--<td>{{office.city}}</td>-->
+                            <!--<td>{{office.zipCode}}</td>-->
+                            <!--<td>{{getAddressStructure(office)}}</td>-->
+                            <!--<td>{{office.parentName}}</td>-->
+                        <!--</tr>-->
+                        <!--</tbody>-->
+                    <!--</table>-->
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+

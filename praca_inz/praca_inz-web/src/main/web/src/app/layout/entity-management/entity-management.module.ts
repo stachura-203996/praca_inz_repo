@@ -4,11 +4,17 @@ import {CompanyViewComponent} from './company-view/company-view.component';
 import {DepartmentViewComponent} from './department-view/department-view.component';
 import {OfficeViewComponent} from './office-view/office-view.component';
 import {EntityManagementRoutingModule} from "./entity-management-routing.module";
+import {TranslateModule} from "@ngx-translate/core";
+import {FormsModule} from "@angular/forms";
+import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 
 @NgModule({
     imports: [
         CommonModule,
-        EntityManagementRoutingModule
+        EntityManagementRoutingModule,
+        TranslateModule,
+        FormsModule,
+        NgbModule.forRoot()
     ],
     declarations: [CompanyViewComponent, DepartmentViewComponent, OfficeViewComponent]
 })

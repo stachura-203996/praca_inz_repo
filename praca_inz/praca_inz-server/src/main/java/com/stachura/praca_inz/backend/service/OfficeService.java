@@ -10,6 +10,10 @@ public interface OfficeService {
 
 //    Office getCompanyById(String name);
 
+    List<CompanyStructuresListElementDto> getAllOfficesForCompany(Long id);
+
+    List<CompanyStructuresListElementDto> getAllOfficesForDepartment(Long id);
+
     List<CompanyStructuresListElementDto> getAll();
 
     void create(Office office);

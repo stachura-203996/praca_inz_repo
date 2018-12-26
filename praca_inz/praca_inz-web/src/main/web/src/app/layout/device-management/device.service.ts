@@ -6,6 +6,7 @@ import {StructureListElement} from "../../models/structure-list-element";
 import {DeviceListElement} from "../../models/device-list-element";
 import {TransferListElement} from "../../models/transfer-list-element";
 import {DeviceTypeListElement} from "../../models/device-type-list-element";
+import {StructureViewElement} from "../../models/structure-view-element";
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +17,11 @@ export class DeviceService {
     private transferPath = this.configuration.ServerWithApiUrl + '/transfer';
 
     constructor(private httpService: HttpService, private configuration: Configuration) { }
+
+
+    getDevice(id:string){
+        return this.httpService.get<StructureViewElement>(this.devicePath+'/'+id);
+    }
 
     getAllDevices(): Observable<DeviceListElement[]> {
         return this.httpService.get<DeviceListElement[]>(this.devicePath);
@@ -31,6 +37,14 @@ export class DeviceService {
 
     getAllDevicesForUser(username:String): Observable<DeviceListElement[]> {
         return this.httpService.get<DeviceListElement[]>(this.devicePath+"/user/"+username);
+    }
+
+    getAllDevicesForCompany(id:String): Observable<DeviceListElement[]> {
+        return this.httpService.get<DeviceListElement[]>(this.devicePath+"/company/"+id);
+    }
+
+    getAllDevicesForDepartment(id:String): Observable<DeviceListElement[]> {
+        return this.httpService.get<DeviceListElement[]>(this.devicePath+"/department/"+id);
     }
 
     getAllTransfersForLoggedUser(): Observable<TransferListElement[]> {

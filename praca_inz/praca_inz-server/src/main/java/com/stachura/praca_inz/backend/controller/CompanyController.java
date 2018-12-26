@@ -3,6 +3,7 @@ package com.stachura.praca_inz.backend.controller;
 import com.stachura.praca_inz.backend.model.Company;
 import com.stachura.praca_inz.backend.service.CompanyService;
 import com.stachura.praca_inz.backend.web.dto.CompanyStructureAddDto;
+import com.stachura.praca_inz.backend.web.dto.CompanyStructureEditDto;
 import com.stachura.praca_inz.backend.web.dto.CompanyStructuresListElementDto;
 import com.stachura.praca_inz.backend.web.dto.converter.CompanyStructureConverter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,15 +37,8 @@ public class CompanyController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
-    Company get(@PathVariable Long id) {
-        return companyService.getCompanyById(id);
-    }
-
-    @RequestMapping(value = "/filter", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(value = HttpStatus.OK)
-    public @ResponseBody
-    Company get(@RequestParam String name) {
-        return companyService.getCompanyByName(name);
+    CompanyStructureEditDto getToEdit(@PathVariable Long id) {
+        return CompanyStructureConverter.toCompanyStructureEdit(companyService.getCompanyById(id));
     }
 
     @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)

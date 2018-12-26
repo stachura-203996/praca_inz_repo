@@ -12,6 +12,8 @@ public interface DepartmentService {
 
     List<CompanyStructuresListElementDto> getAllDepartments();
 
+    List<CompanyStructuresListElementDto> getAllDepartmentsForCompany(Long id);
+
     void createNewDepartment(Department department);
 
     Department updateDepartment(Department department);

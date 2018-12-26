@@ -2,6 +2,7 @@ package com.stachura.praca_inz.backend.service.impl;
 
 import com.stachura.praca_inz.backend.exception.EntityException;
 import com.stachura.praca_inz.backend.model.Device;
+import com.stachura.praca_inz.backend.model.Office;
 import com.stachura.praca_inz.backend.repository.interfaces.DeviceRepository;
 import com.stachura.praca_inz.backend.repository.interfaces.UserRepository;
 import com.stachura.praca_inz.backend.service.DeviceService;
@@ -15,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -46,7 +48,59 @@ public class DeviceServiceImpl implements DeviceService {
         List<DeviceListElementDto> devicesDto = new ArrayList<>();
         for (Device a : devices) {
             Hibernate.initialize(a.getDeviceType());
-//            Hibernate.initialize(a.getDeviceType().getName());
+            devicesDto.add(DeviceConverter.toDeviceListElementDto(a));
+        }
+        return devicesDto;
+    }
+
+    @Override
+    public List<DeviceListElementDto> getAllDevicesForCompany(Long id) {
+        List<Device> devices = deviceRepository.findAll().stream().filter(x -> {
+            Office office = Optional.ofNullable(x.getWarehouse().getOffice())
+                    .orElseGet(() -> x.getWarehouse().getUser().getOffice());
+            return office.getDepartment().getCompany().getId().equals(id);
+        }).collect(Collectors.toList());
+        List<DeviceListElementDto> devicesDto = new ArrayList<>();
+        for (Device a : devices) {
+            Hibernate.initialize(a.getDeviceType());
+            devicesDto.add(DeviceConverter.toDeviceListElementDto(a));
+        }
+        return devicesDto;
+    }
+
+    @Override
+    public List<DeviceListElementDto> getAllDevicesForDepartment(Long id) {
+        List<Device> devices = deviceRepository.findAll().stream().filter(x ->
+        {
+            Office office = Optional.ofNullable(x.getWarehouse().getOffice())
+                    .orElseGet(() -> x.getWarehouse().getUser().getOffice());
+            return office.getDepartment().getId().equals(id);
+        }).collect(Collectors.toList());
+        List<DeviceListElementDto> devicesDto = new ArrayList<>();
+        for (Device a : devices) {
+            Hibernate.initialize(a.getDeviceType());
+            devicesDto.add(DeviceConverter.toDeviceListElementDto(a));
+        }
+        return devicesDto;
+    }
+
+    @Override
+    public List<DeviceListElementDto> getAllDevicesForOffice(Long id) {
+        List<Device> devices = deviceRepository.findAll().stream().filter(x -> x.getWarehouse().getOffice().getId().equals(id)).collect(Collectors.toList());
+        List<DeviceListElementDto> devicesDto = new ArrayList<>();
+        for (Device a : devices) {
+            Hibernate.initialize(a.getDeviceType());
+            devicesDto.add(DeviceConverter.toDeviceListElementDto(a));
+        }
+        return devicesDto;
+    }
+
+    @Override
+    public List<DeviceListElementDto> getAllDevicesForWarehouse(Long id) {
+        List<Device> devices = deviceRepository.findAll().stream().filter(x -> x.getWarehouse().getId().equals(id)).collect(Collectors.toList());
+        List<DeviceListElementDto> devicesDto = new ArrayList<>();
+        for (Device a : devices) {
+            Hibernate.initialize(a.getDeviceType());
             devicesDto.add(DeviceConverter.toDeviceListElementDto(a));
         }
         return devicesDto;

@@ -2,7 +2,9 @@ package com.stachura.praca_inz.backend.controller;
 
 import com.stachura.praca_inz.backend.model.Department;
 import com.stachura.praca_inz.backend.service.DepartmentService;
+import com.stachura.praca_inz.backend.web.dto.CompanyStructureEditDto;
 import com.stachura.praca_inz.backend.web.dto.CompanyStructuresListElementDto;
+import com.stachura.praca_inz.backend.web.dto.converter.CompanyStructureConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.http.HttpHeaders;
@@ -30,11 +32,19 @@ public class DepartmentController {
         return departmentService.getAllDepartments();
     }
 
+
+    @RequestMapping(value = "/company/{id}",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(value = HttpStatus.OK)
+    public @ResponseBody
+    List<CompanyStructuresListElementDto> getAllDepartmentsForCompany(@PathVariable Long id) {
+        return departmentService.getAllDepartmentsForCompany(id);
+    }
+
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
-    Department get(@PathVariable Long id) {
-        return departmentService.getDepartmentById(id);
+    CompanyStructureEditDto get(@PathVariable Long id) {
+        return CompanyStructureConverter.toCompanyStructureEdit(departmentService.getDepartmentById(id));
     }
 
     @RequestMapping(value = "/filter", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)

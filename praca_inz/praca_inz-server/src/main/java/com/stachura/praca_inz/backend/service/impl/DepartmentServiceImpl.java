@@ -7,12 +7,14 @@ import com.stachura.praca_inz.backend.repository.interfaces.DepartmentRepository
 import com.stachura.praca_inz.backend.service.DepartmentService;
 import com.stachura.praca_inz.backend.web.dto.CompanyStructuresListElementDto;
 import com.stachura.praca_inz.backend.web.dto.converter.CompanyStructureConverter;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class DepartmentServiceImpl implements DepartmentService {
@@ -44,7 +46,20 @@ public class DepartmentServiceImpl implements DepartmentService {
             structuresListElementDtos.add(CompanyStructureConverter.toCompanyStructureListElement(a));
         }
         return structuresListElementDtos;
-        
+
+    }
+
+    @Override
+    public List<CompanyStructuresListElementDto> getAllDepartmentsForCompany(Long id) {
+        List<Department> departments = departmentRepository.findAll().stream().filter(x -> {
+            Hibernate.initialize(x.getCompany());
+            return x.getCompany().getId().equals(id);
+        }).collect(Collectors.toList());
+        List<CompanyStructuresListElementDto> structuresListElementDtos = new ArrayList<>();
+        for (Department a : departments) {
+            structuresListElementDtos.add(CompanyStructureConverter.toCompanyStructureListElement(a));
+        }
+        return structuresListElementDtos;
     }
 
     //TODO EXCEPTIONS
@@ -54,18 +69,19 @@ public class DepartmentServiceImpl implements DepartmentService {
     public void createNewDepartment(Department department) {
         try {
             departmentRepository.create(department);
-        } catch (EntityException e){
+        } catch (EntityException e) {
 
         }
     }
-//TODO EXCEPTIONS
+
+    //TODO EXCEPTIONS
     @Override
     @Transactional
 //    @PreAuthorize("hasAuthority('COMPANY_UPDATE')")
     public Department updateDepartment(Department department) {
-        Department tmp=new Department();
+        Department tmp = new Department();
         try {
-            tmp= departmentRepository.update(department);
+            tmp = departmentRepository.update(department);
         } catch (EntityException e) {
             e.printStackTrace();
         }

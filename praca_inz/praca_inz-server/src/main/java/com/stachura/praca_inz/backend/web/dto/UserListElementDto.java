@@ -3,6 +3,7 @@ package com.stachura.praca_inz.backend.web.dto;
 import lombok.*;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Obiekt przesyłany do widoku z informacjami potrzebnymi do wyświetlenia listy użytkowników
@@ -20,4 +21,5 @@ public class UserListElementDto implements Serializable {
     private String email;
     private boolean locked;
     private boolean verified;
+    private List<String> roles;
 }

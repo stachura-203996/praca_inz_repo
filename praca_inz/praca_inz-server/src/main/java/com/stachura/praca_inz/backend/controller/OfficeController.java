@@ -2,7 +2,9 @@ package com.stachura.praca_inz.backend.controller;
 
 import com.stachura.praca_inz.backend.model.Office;
 import com.stachura.praca_inz.backend.service.OfficeService;
+import com.stachura.praca_inz.backend.web.dto.CompanyStructureEditDto;
 import com.stachura.praca_inz.backend.web.dto.CompanyStructuresListElementDto;
+import com.stachura.praca_inz.backend.web.dto.converter.CompanyStructureConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.http.HttpHeaders;
@@ -33,16 +35,24 @@ public class OfficeController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
-    Office get(@PathVariable Long id) {
-        return officeService.get(id);
+    CompanyStructureEditDto get(@PathVariable Long id) {
+        return CompanyStructureConverter.toCompanyStructureEdit(officeService.get(id));
     }
 
-//    @RequestMapping(value = "/filter", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-//    @ResponseStatus(value = HttpStatus.OK)
-//    public @ResponseBody
-//    Office getCompanyById(@RequestParam String name) {
-//        return officeService.getCompanyById(name);
-//    }
+
+    @RequestMapping(value = "/company/{id}",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(value = HttpStatus.OK)
+    public @ResponseBody
+    List<CompanyStructuresListElementDto> getAllOfficesForCompany(@PathVariable Long id) {
+        return officeService.getAllOfficesForCompany(id);
+    }
+
+    @RequestMapping(value = "/department/{id}",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(value = HttpStatus.OK)
+    public @ResponseBody
+    List<CompanyStructuresListElementDto> getAllOfficesForDepartment(@PathVariable Long id) {
+        return officeService.getAllOfficesForDepartment(id);
+    }
 
     @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)

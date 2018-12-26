@@ -23,6 +23,7 @@ import {UserService} from "./layout/admin/components/administration/user-managem
 import {DeviceService} from "./layout/device-management/device.service";
 import {NotificationService} from "./layout/notification/notification.service";
 import {PasswordMatchDirective} from "./directives/password-match.directive";
+import {WarehouseService} from "./layout/warehouse-management/warehouse.service";
 
 
 export const createTranslateLoader = (http: HttpClient) => {
@@ -66,7 +67,8 @@ export const createTranslateLoader = (http: HttpClient) => {
         DeviceService,
         I18nService,
         SessionContextService,
-        NotificationService
+        NotificationService,
+        WarehouseService
     ],
     bootstrap: [AppComponent]
 })

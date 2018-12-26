@@ -16,8 +16,11 @@ public class UserInfoDto {
     private String username;
     private String position;
     private String company;
+    private Long companyId;
     private String department;
+    private Long departmentId;
     private String office;
+    private Long officeId;
     private String name;
     private String middlename;
     private String surname;

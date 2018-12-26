@@ -53,19 +53,22 @@
                     <div class="bot-border"></div>
                     <div class="row">
                         <div class="col-sm-5 col-xs-6 tital ">{{'Company'| translate}}</div>
-                        <div class="col-sm-7">{{user.company}}</div>
+                        <div class="col-sm-7"><a
+                            href="/structures/companies/view/{{user.companyId}}">{{user.company}}</a></div>
                     </div>
                     <div class="clearfix"></div>
                     <div class="bot-border"></div>
                     <div class="row">
                         <div class="col-sm-5 col-xs-6 tital ">{{'Department'| translate}}</div>
-                        <div class="col-sm-7">{{user.department}}</div>
+                        <div class="col-sm-7"><a href="/structures/departments/view/{{user.departmentId}}">{{user.department}}</a>
+                        </div>
                     </div>
                     <div class="clearfix"></div>
                     <div class="bot-border"></div>
                     <div class="row">
                         <div class="col-sm-5 col-xs-6 tital ">{{'Office'| translate}}</div>
-                        <div class="col-sm-7">{{user.office}}</div>
+                        <div class="col-sm-7"><a href="/structures/offices/view/{{user.officeId}}">{{user.office}}</a>
+                        </div>
                     </div>
                     <div class="clearfix"></div>
                     <div class="bot-border"></div>
@@ -78,6 +81,15 @@
                     <div class="row">
                         <div class="col-sm-5 col-xs-6 tital ">{{'Adress'| translate}}</div>
                         <div class="col-sm-7">{{getAddress()}}</div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="bot-border"></div>
+                    <div class="row">
+                        <div class="col-sm-5 col-xs-6 tital ">{{'Roles'| translate}}</div>
+                        <div class="col-sm-7">
+                            <div class="row" *ngFor="let authority of user.roles"><span class="badge badge-info">{{ authority }}</span>
+                            </div>
+                        </div>
                     </div>
                     <div class="clearfix"></div>
                     <div class="bot-border"></div>

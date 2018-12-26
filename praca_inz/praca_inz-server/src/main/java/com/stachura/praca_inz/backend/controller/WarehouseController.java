@@ -37,12 +37,7 @@ public class WarehouseController {
         return warehouseService.getWarehouseById(id);
     }
 
-//    @RequestMapping(value = "/filter", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-//    @ResponseStatus(value = HttpStatus.OK)
-//    public @ResponseBody
-//    Warehouse getCompanyById(@RequestParam String name) {
-//        return warehouseService.getCompanyById(name);
-//    }
+
 
     @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
