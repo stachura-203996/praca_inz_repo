@@ -4,7 +4,7 @@ import {ProfileService} from "../../profile.service";
 
 import {SessionContextService} from "../../../../shared/services/session-context.service";
 import {DeviceService} from "../../../device-management/device.service";
-import {DeviceListComponent} from "../../../admin/components/entity-management/device/device-list/device-list.component";
+import {DeviceListComponent} from "../../../admin/components/structure-management/device/device-list/device-list.component";
 import {DeviceListElement} from "../../../../models/device-list-element";
 import {TransferListElement} from "../../../../models/transfer-list-element";
 

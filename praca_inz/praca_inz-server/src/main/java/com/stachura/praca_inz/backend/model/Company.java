@@ -20,17 +20,18 @@ import java.util.Set;
 public class Company implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "ID", updatable = false, nullable = false)
-    private Long id = null;
+    private Long id;
 
     @Version
     @Column(name = "VERSION")
     private long version;
+
     @Column(name = "NAME", nullable = false)
     private String name;
 
-    @Column(name = "DESCRIPTION", nullable = false)
+    @Column(name = "DESCRIPTION")
     private String description;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -40,7 +41,6 @@ public class Company implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "company", fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonManagedReference
     private Set<Department> departments = new HashSet<>();
-
 
 
     public void setDepartments(Set<Department> departments) {

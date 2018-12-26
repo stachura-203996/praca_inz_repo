@@ -29,7 +29,7 @@ public class User implements UserDetails, Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ID", updatable = false, nullable = false)
-    private Long id = null;
+    private Long id;
 
     @Version
     @Column(name = "VERSION")

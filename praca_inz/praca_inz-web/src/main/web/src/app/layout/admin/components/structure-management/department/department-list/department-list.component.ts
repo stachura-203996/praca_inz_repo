@@ -26,10 +26,10 @@ export class DepartmentListComponent implements OnInit {
 
     ngOnInit() {
         // this.filterUsers(null);
-        this.getUsers();
+        this.getDepartments();
     }
 
-    getUsers(){
+    getDepartments(){
         this.departmentService.getAll().subscribe(departmentListElement=> {this.departments=departmentListElement});
     }
 

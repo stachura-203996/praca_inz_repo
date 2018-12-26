@@ -2,7 +2,9 @@ package com.stachura.praca_inz.backend.controller;
 
 import com.stachura.praca_inz.backend.model.Company;
 import com.stachura.praca_inz.backend.service.CompanyService;
+import com.stachura.praca_inz.backend.web.dto.CompanyStructureAddDto;
 import com.stachura.praca_inz.backend.web.dto.CompanyStructuresListElementDto;
+import com.stachura.praca_inz.backend.web.dto.converter.CompanyStructureConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.http.HttpHeaders;
@@ -47,11 +49,11 @@ public class CompanyController {
 
     @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public ResponseEntity<?> create(@RequestBody Company company) {
-        companyService.createNewCompany(company);
+    public ResponseEntity<?> create(@RequestBody CompanyStructureAddDto company) {
+        companyService.createNewCompany(CompanyStructureConverter.toCompany(company));
         HttpHeaders headers = new HttpHeaders();
-        ControllerLinkBuilder linkBuilder = linkTo(methodOn(CompanyController.class).get(company.getId()));
-        headers.setLocation(linkBuilder.toUri());
+//        ControllerLinkBuilder linkBuilder = linkTo(methodOn(CompanyController.class).get(company.getId()));
+//        headers.setLocation(linkBuilder.toUri());
         return new ResponseEntity<>(headers, HttpStatus.CREATED);
     }
 

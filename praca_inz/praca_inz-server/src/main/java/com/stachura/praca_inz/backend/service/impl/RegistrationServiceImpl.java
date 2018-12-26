@@ -6,6 +6,7 @@ import com.stachura.praca_inz.backend.model.Userdata;
 import com.stachura.praca_inz.backend.model.security.User;
 import com.stachura.praca_inz.backend.repository.interfaces.UserdataRepository;
 import com.stachura.praca_inz.backend.repository.interfaces.UserRepository;
+import com.stachura.praca_inz.backend.service.RegistrationService;
 import com.stachura.praca_inz.backend.web.dto.RegistrationDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -13,7 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
-public class RegistrationService implements com.stachura.praca_inz.backend.service.RegistrationService {
+public class RegistrationServiceImpl implements RegistrationService {
 
     @Autowired
     private UserdataRepository userdataRepository;
@@ -26,16 +27,16 @@ public class RegistrationService implements com.stachura.praca_inz.backend.servi
     private PasswordEncoder passwordEncoder;
 
     @Override
-    public void registerNewUserAccount(final RegistrationDto accountDto) {
-        if (emailExist(accountDto.getEmail())) {
-            throw new UserAlreadyExistException("There is an user with that email adress: " + accountDto.getEmail());
+    public void registerNewUserAccount(final RegistrationDto data,boolean verified) {
+        if (emailExist(data.getEmail())) {
+            throw new UserAlreadyExistException("There is an user with that email adress: " + data.getEmail());
         }
         final User user = new User();
         final Userdata userdata =new Userdata();
-        user.setUsername(accountDto.getFirstName());
-        user.setPassword(passwordEncoder.encode(accountDto.getPassword()));
-        userdata.setEmail(accountDto.getEmail());
-        userdata.setSurname(accountDto.getLastName());
+        user.setUsername(data.getUsername());
+        user.setPassword(passwordEncoder.encode(data.getPassword()));
+        userdata.setEmail(data.getEmail());
+        userdata.setSurname(data.getSurname());
         user.setUserdata(userdata);
 
 

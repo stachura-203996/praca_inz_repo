@@ -4,5 +4,5 @@ import com.stachura.praca_inz.backend.model.security.User;
 import com.stachura.praca_inz.backend.web.dto.RegistrationDto;
 
 public interface RegistrationService {
-    void registerNewUserAccount(RegistrationDto accountDto);
+    void registerNewUserAccount(RegistrationDto data,boolean verified);
 }

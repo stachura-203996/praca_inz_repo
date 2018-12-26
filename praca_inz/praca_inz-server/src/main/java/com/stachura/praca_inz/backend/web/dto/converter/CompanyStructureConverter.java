@@ -1,9 +1,12 @@
 package com.stachura.praca_inz.backend.web.dto.converter;
 
+import com.stachura.praca_inz.backend.model.Address;
 import com.stachura.praca_inz.backend.model.Company;
 import com.stachura.praca_inz.backend.model.Department;
 import com.stachura.praca_inz.backend.model.Office;
+import com.stachura.praca_inz.backend.web.dto.CompanyStructureAddDto;
 import com.stachura.praca_inz.backend.web.dto.CompanyStructuresListElementDto;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * Dostarcza metod do konwersji obiektów związanych z strukturą firmy
@@ -62,5 +65,20 @@ public class CompanyStructureConverter {
                 .zipCode(office.getAddress().getZipCode())
                 .parentName(office.getDepartment().getName())
                 .build();
+    }
+
+
+    public static Company toCompany(CompanyStructureAddDto companyStructureAddDto){
+        Company company = new Company();
+        company.setName(companyStructureAddDto.getName());
+        company.setDescription(companyStructureAddDto.getDescription());
+        Address adress = new Address();
+        adress.setCity(companyStructureAddDto.getCity());
+        adress.setStreet(companyStructureAddDto.getStreet());
+        adress.setBuildingNumber(companyStructureAddDto.getBuildingNumber());
+        adress.setFlatNumber(companyStructureAddDto.getFlatNumber());
+        adress.setZipCode(companyStructureAddDto.getZipCode());
+        company.setAddress(adress);
+        return company;
     }
 }

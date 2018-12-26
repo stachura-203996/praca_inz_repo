@@ -23,22 +23,22 @@
                             <span>{{ 'Users' | translate }}</span>
                         </a>
                     </li>
-                </ul>
-            </li>
-        </div>
-        <div class="nested-menu">
-            <a class="list-group-item" (click)="addExpandClass('companyManagementPanel')">
-                <i class="fa fa-sitemap"></i>&nbsp;
-                <span>{{ 'Entities' | translate }}</span>
-            </a>
-            <li class="nested" [class.expand]="showMenu === 'companyManagementPanel'">
-                <ul class="submenu">
                     <li>
                         <a [routerLink]="['/admin/companies']">
                             <i class="fa fa-angle-right"></i>&nbsp;
                             <span>{{ 'Companies' | translate }}</span>
                         </a>
                     </li>
+                </ul>
+            </li>
+        </div>
+        <div class="nested-menu">
+            <a class="list-group-item" (click)="addExpandClass('companyManagementPanel')">
+                <i class="fa fa-sitemap"></i>&nbsp;
+                <span>{{ 'Structures' | translate }}</span>
+            </a>
+            <li class="nested" [class.expand]="showMenu === 'companyManagementPanel'">
+                <ul class="submenu">
                     <li>
                         <a [routerLink]="['/admin/departments']">
                             <i class="fa fa-angle-right"></i>&nbsp;

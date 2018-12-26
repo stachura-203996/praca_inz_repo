@@ -8,6 +8,7 @@ import com.stachura.praca_inz.backend.web.dto.CompanyStructuresListElementDto;
 import com.stachura.praca_inz.backend.web.dto.converter.CompanyStructureConverter;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.integration.util.StackTraceUtils;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -54,12 +55,13 @@ public class CompanyServiceImpl implements CompanyService {
     @Transactional
     @PreAuthorize("hasAuthority('COMPANY_CREATE')")
     public void createNewCompany(Company company) {
+
         try {
             companyRepository.create(company);
-
         } catch (EntityException e) {
-
+            e.printStackTrace();
         }
+
 
     }
 
@@ -69,11 +71,13 @@ public class CompanyServiceImpl implements CompanyService {
     @PreAuthorize("hasAuthority('COMPANY_UPDATE')")
     public Company updateCompany(Company company) {
         Company tmp = new Company();
+
         try {
             tmp = companyRepository.update(company);
         } catch (EntityException e) {
-
+            e.printStackTrace();
         }
+
         return tmp;
     }
 
