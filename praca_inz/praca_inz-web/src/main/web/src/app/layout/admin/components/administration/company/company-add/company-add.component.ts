@@ -16,13 +16,16 @@ export class CompanyAddComponent implements OnInit {
     }
 
     ngOnInit() {
+
     }
 
 
     companyAdd(){
-        this.companyService.createCompany(this.structureAddElement);
-        // this.router.navigate(['/admin/companies']);
+        this.companyService.createCompany(this.structureAddElement).subscribe(resp => {
+            this.router.navigateByUrl('/admin/companies');
+        });
     }
+
     clear() {
       this.structureAddElement.description=null;
       this.structureAddElement.zipCode=null;

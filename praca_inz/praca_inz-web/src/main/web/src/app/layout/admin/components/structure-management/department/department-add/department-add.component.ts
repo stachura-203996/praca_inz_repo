@@ -28,8 +28,9 @@ export class DepartmentAddComponent implements OnInit {
     }
 
     departmentAdd(){
-        this.departmentService.createDepartment(this.structureAddElement);
-        this.router.navigate(['/admin/departments']);
+        this.departmentService.createDepartment(this.structureAddElement).subscribe(resp => {
+            this.router.navigateByUrl('/admin/departments');
+        });
     }
     clear() {
         this.structureAddElement.description=null;

@@ -20,7 +20,7 @@ export class CompanyService {
     }
 
     createCompany(data: StructureAddElement): Observable<any>  {
-       return this.httpService.post(this.companyPath, data);
+       return this.httpService.post<StructureAddElement>(this.companyPath, data);
     }
 
 }

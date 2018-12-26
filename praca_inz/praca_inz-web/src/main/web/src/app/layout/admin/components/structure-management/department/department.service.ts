@@ -19,6 +19,6 @@ export class DepartmentService {
     }
 
     createDepartment(data:StructureAddElement): Observable<any>{
-        return this.httpService.post(this.departmentPath,data);
+        return this.httpService.post<StructureAddElement>(this.departmentPath,data);
     }
 }
