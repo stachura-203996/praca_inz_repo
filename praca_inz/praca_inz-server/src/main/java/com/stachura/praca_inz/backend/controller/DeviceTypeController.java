@@ -40,7 +40,7 @@ public class DeviceTypeController {
 //    @RequestMapping(value = "/filter", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 //    @ResponseStatus(value = HttpStatus.OK)
 //    public @ResponseBody
-//    DeviceType get(@RequestParam String name) {
+//    DeviceType getOfficeById(@RequestParam String name) {
 //        return deviceTypeService.g(name);
 //    }
 

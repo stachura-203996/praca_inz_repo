@@ -26,15 +26,12 @@ public class SystemMessageServiceImpl implements SystemMessageService {
     @Transactional(readOnly = true)
     @PreAuthorize("hasAuthority('SYSTEM_MESSAGE_READ')")
     public SystemMessage getSystemMessageById(Long id) {
-        return systemMessageRepository.find(id);
+        SystemMessage systemMessage = systemMessageRepository.find(id);
+        if (systemMessage.isDeleted()) {
+            return null;
+        }
+        return systemMessage;
     }
-
-//    @Override
-//    @Transactional(readOnly = true)
-////    @PreAuthorize("hasAuthority('SYSTEM_MESSAGE_READ') and hasAuthority('DEPARTMENT_READ')")
-//    public SystemMessage getCompanyById(String name) {
-//        return systemMessageRepository.find(name);
-//    }
 
     @Override
     @Transactional(readOnly = true)
@@ -43,7 +40,9 @@ public class SystemMessageServiceImpl implements SystemMessageService {
         List<SystemMessage> systemMessages = systemMessageRepository.findAll();
         List<SystemMessageListElementDto> systemMessageListElementDtos = new ArrayList<>();
         for (SystemMessage a : systemMessages) {
-            systemMessageListElementDtos.add(SystemMessageConverter.toSystemMessageListElement(a));
+            if (!a.isDeleted()) {
+                systemMessageListElementDtos.add(SystemMessageConverter.toSystemMessageListElement(a));
+            }
         }
         return systemMessageListElementDtos;
     }
@@ -65,7 +64,9 @@ public class SystemMessageServiceImpl implements SystemMessageService {
     public SystemMessage updateSystemMessage(SystemMessage systemMessage) {
         SystemMessage tmp = new SystemMessage();
         try {
-            tmp = systemMessageRepository.update(systemMessage);
+            if(!systemMessageRepository.find(systemMessage.getId()).isDeleted()) {
+                tmp = systemMessageRepository.update(systemMessage);
+            }
         } catch (EntityException e) {
             e.printStackTrace();
         }
@@ -76,13 +77,13 @@ public class SystemMessageServiceImpl implements SystemMessageService {
     @Transactional
     @PreAuthorize("hasAuthority('SYSTEM_MESSAGE_DELETE')")
     public void deleteSystemMessageById(Long id) {
-        systemMessageRepository.remove(id);
+        systemMessageRepository.find(id).setDeleted(true);
     }
 
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('SYSTEM_MESSAGE_DELETE')")
     public void deleteSystemMessage(SystemMessage systemMessage) {
-        systemMessageRepository.remove(systemMessage);
+        systemMessageRepository.find(systemMessage.getId()).setDeleted(true);
     }
 }

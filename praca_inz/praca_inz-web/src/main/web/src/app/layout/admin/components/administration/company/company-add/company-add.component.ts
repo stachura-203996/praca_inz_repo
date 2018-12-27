@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {StructureAddElement} from "../../../../../../models/structure-add-element";
 import {CompanyService} from "../company.service";
 import {Router} from "@angular/router";
+import {StructureAddElement} from "../../../../../../models/structure-elements";
 
 @Component({
     selector: 'app-company-add',

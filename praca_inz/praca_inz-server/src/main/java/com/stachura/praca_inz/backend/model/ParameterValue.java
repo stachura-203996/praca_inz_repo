@@ -34,4 +34,7 @@ public class ParameterValue {
     @JsonBackReference
     private Device device;
 
+    @Column(name = "DELETED", nullable = false)
+    private boolean deleted;
+
 }

@@ -30,6 +30,9 @@ public class Parameter implements Serializable {
     @Column(name = "VERSION")
     private long version;
 
+    @Column(name = "DELETED", nullable = false)
+    private boolean deleted;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "parameter", fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonManagedReference
     private Set<ParameterValue> parameterValues = new HashSet<>();

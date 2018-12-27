@@ -8,12 +8,16 @@ import {DeliveryRequestViewComponent} from './delivery-request-view/delivery-req
 import {DeliveryRequestAddComponent} from './delivery-request-add/delivery-request-add.component';
 import { DeliveryRequestEditComponent } from './delivery-request-edit/delivery-request-edit.component';
 import { WarehousesDeliveryComponent } from './warehouses-delivery/warehouses-delivery.component';
+import {TranslateModule} from "@ngx-translate/core";
+import {FormsModule} from "@angular/forms";
 
 
 @NgModule({
     imports: [
         CommonModule,
-        WarehouseManagementRoutingModule
+        WarehouseManagementRoutingModule,
+        TranslateModule,
+        FormsModule,
     ],
     declarations: [
         WarehouseUserComponent,

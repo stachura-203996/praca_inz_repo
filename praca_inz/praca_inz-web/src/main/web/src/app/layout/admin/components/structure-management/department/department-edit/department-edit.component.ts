@@ -1,10 +1,11 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {StructureAddElement} from "../../../../../../models/structure-add-element";
-import {StructureListElement} from "../../../../../../models/structure-list-element";
+
 import {CompanyService} from "../../../administration/company/company.service";
 import {DepartmentService} from "../department.service";
 import {ActivatedRoute, Router} from "@angular/router";
-import {StructureEditElement} from "../../../../../../models/structure-edit-element";
+import {StructureEditElement, StructureListElement} from "../../../../../../models/structure-elements";
+import {TranslateService} from "@ngx-translate/core";
+
 
 @Component({
     selector: 'app-department-edit',
@@ -13,14 +14,20 @@ import {StructureEditElement} from "../../../../../../models/structure-edit-elem
 })
 export class DepartmentEditComponent implements OnInit {
 
-    @Input() structureEditElement: StructureEditElement = new StructureAddElement;
+    structureEditElement: StructureEditElement;
 
     companies: StructureListElement[];
 
-    constructor(private route: ActivatedRoute,private companyService: CompanyService, private departmentService: DepartmentService, private router: Router) {
+    constructor(private route: ActivatedRoute,private companyService: CompanyService,private translate:TranslateService, private departmentService: DepartmentService, private router: Router) {
+        this.translate.addLangs(['en','pl']);
+        this.translate.setDefaultLang('pl');
+        const browserLang = this.translate.getBrowserLang();
+        this.translate.use(browserLang.match(/en|pl/) ? browserLang : 'pl');
+
     }
 
     ngOnInit() {
+        this.getDepartment();
         this.getCompanies();
     }
 
@@ -35,20 +42,14 @@ export class DepartmentEditComponent implements OnInit {
         });
     }
 
-    departmentAdd() {
-        this.departmentService.createDepartment(this.structureEditElement).subscribe(resp => {
+    departmentUpdate() {
+        this.departmentService.updateDepartment(this.structureEditElement).subscribe(resp => {
             this.router.navigateByUrl('/admin/departments');
         });
     }
 
     clear() {
-        this.structureEditElement.description = null;
-        this.structureEditElement.zipCode = null;
-        this.structureEditElement.buildingNumber = null;
-        this.structureEditElement.city = null;
-        this.structureEditElement.flatNumber = null;
-        this.structureEditElement.street = null;
-        this.structureEditElement.name = null;
+        this.structureEditElement=new StructureEditElement;
     }
 
 }

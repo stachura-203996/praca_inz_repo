@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {DeviceListElement} from "../../../../../../models/device-list-element";
 import {DeviceService} from "../../../../../device-management/device.service";
 import {TranslateService} from "@ngx-translate/core";
-import {DeviceTypeListElement} from "../../../../../../models/device-type-list-element";
+import {DeviceListElement, DeviceTypeListElement} from "../../../../../../models/device-elements";
 
 @Component({
   selector: 'app-device-type-list',

@@ -15,5 +15,5 @@ public class CompanyStructureEditDto {
     private String buildingNumber;
     private String flatNumber;
     private String zipCode;
-    private String parentName;
+    private String parentId;
 }

@@ -30,7 +30,11 @@ public class TransferServiceImpl implements TransferService {
     @Transactional(readOnly = true)
     @PreAuthorize("hasAuthority('TRANSFER_READ')")
     public Transfer getTransferById(Long id) {
-        return transferRepository.find(id);
+        Transfer transfer = transferRepository.find(id);
+        if (transfer.isDeleted()) {
+            return null;
+        }
+        return transfer;
     }
 
     @Override
@@ -39,21 +43,14 @@ public class TransferServiceImpl implements TransferService {
                 x.getRecieverWarehouse().getUser().getUsername().equals(username)).collect(Collectors.toList());
         List<TransferListElementDto> transferListElementDtos = new ArrayList<>();
         for (Transfer a : transfers) {
-            Hibernate.initialize(a.getRecieverWarehouse());
-            Hibernate.initialize(a.getSenderWarehouse());
-            transferListElementDtos.add(TransferConverter.toTransferListElementDto(a));
+            if (!a.isDeleted()) {
+                Hibernate.initialize(a.getRecieverWarehouse());
+                Hibernate.initialize(a.getSenderWarehouse());
+                transferListElementDtos.add(TransferConverter.toTransferListElementDto(a));
+            }
         }
         return transferListElementDtos;
     }
-
-
-    /*@Override
-    @Transactional(readOnly = true)
-    @PreAuthorize("hasAuthority('TRANSFER_READ') and hasAuthority('DEPARTMENT_READ')")
-    public Transfer getCompanyById(String name) {
-        return transferRepository.find(name);
-    }*/
-
 
     @Override
     @Transactional(readOnly = true)
@@ -62,9 +59,11 @@ public class TransferServiceImpl implements TransferService {
         List<Transfer> transfers = transferRepository.findAll();
         List<TransferListElementDto> transferListElementDtos = new ArrayList<>();
         for (Transfer a : transfers) {
-            Hibernate.initialize(a.getRecieverWarehouse());
-            Hibernate.initialize(a.getSenderWarehouse());
-            transferListElementDtos.add(TransferConverter.toTransferListElementDto(a));
+            if (!a.isDeleted()) {
+                Hibernate.initialize(a.getRecieverWarehouse());
+                Hibernate.initialize(a.getSenderWarehouse());
+                transferListElementDtos.add(TransferConverter.toTransferListElementDto(a));
+            }
         }
         return transferListElementDtos;
     }
@@ -90,7 +89,9 @@ public class TransferServiceImpl implements TransferService {
     public Transfer updateTransfer(Transfer transfer) {
         Transfer tmp = new Transfer();
         try {
-            transfer = transferRepository.update(transfer);
+            if (!transferRepository.find(transfer.getId()).isDeleted()) {
+                transfer = transferRepository.update(transfer);
+            }
         } catch (EntityException e) {
 
         }
@@ -101,13 +102,13 @@ public class TransferServiceImpl implements TransferService {
     @Transactional
     @PreAuthorize("hasAuthority('TRANSFER_DELETE')")
     public void deleteTransferById(Long id) {
-        transferRepository.remove(id);
+        transferRepository.find(id).setDeleted(true);
     }
 
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('TRANSFER_DELETE')")
     public void deleteTransfer(Transfer transfer) {
-        transferRepository.remove(transfer);
+        transferRepository.find(transfer.getId()).setDeleted(true);
     }
 }

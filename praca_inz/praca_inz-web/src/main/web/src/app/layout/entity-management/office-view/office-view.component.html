@@ -87,39 +87,35 @@
                 <div class="card-header">
                     <div class="row">
                         <div class="col-lg-10">
-                            <h4>{{'Offices'|translate}}</h4>
+                            <h4>{{'Warehouses'|translate}}</h4>
                         </div>
                         <div class="col-lg-2">
                             <button class="btn btn-primary float-right jh-create-entity"
-                                    [routerLink]="['/admin/offices']">
-                                <span>{{ 'OfficeManager' | translate }}</span>
+                                    [routerLink]="['/admin/warehouses']">
+                                <span>{{ 'Warehousemanager' | translate }}</span>
                             </button>
                         </div>
                     </div>
                 </div>
                 <div class="card-body">
-                    <!--<table class="table table-striped" align="center">-->
-                        <!--<thead class="thead-inverse">-->
-                        <!--<tr>-->
-                            <!--<th>{{ 'Name' | translate }}</th>-->
-                            <!--<th>{{ 'Description' | translate }}</th>-->
-                            <!--<th>{{ 'City' | translate }}</th>-->
-                            <!--<th>{{'ZipCode'|translate}}</th>-->
-                            <!--<th>{{ 'Adress' | translate }}</th>-->
-                            <!--<th>{{'ParentName'|translate}}</th>-->
-                        <!--</tr>-->
-                        <!--</thead>-->
-                        <!--<tbody>-->
-                        <!--<tr *ngFor="let office of warehouses">-->
-                            <!--<td>{{office.name}}</td>-->
-                            <!--<td>{{office.description}}</td>-->
-                            <!--<td>{{office.city}}</td>-->
-                            <!--<td>{{office.zipCode}}</td>-->
-                            <!--<td>{{getAddressStructure(office)}}</td>-->
-                            <!--<td>{{office.parentName}}</td>-->
-                        <!--</tr>-->
-                        <!--</tbody>-->
-                    <!--</table>-->
+                    <table class="table table-striped" align="center">
+                        <thead class="thead-inverse">
+                        <tr>
+                            <th>{{ 'Name' | translate }}</th>
+                            <th>{{ 'OfficeName' | translate }}</th>
+                            <th>{{ 'Username' | translate }}</th>
+                            <th>{{'DevicesNumber'|translate}}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let warehouse of warehouses">
+                            <td>{{warehouse.name}}</td>
+                            <td>{{warehouse.officeName}}</td>
+                            <td>{{warehouse.username}}</td>
+                            <td>{{warehouse.devicesNumber}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

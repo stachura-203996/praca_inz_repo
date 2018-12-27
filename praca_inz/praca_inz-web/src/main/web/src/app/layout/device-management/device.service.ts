@@ -2,11 +2,10 @@ import { Injectable } from '@angular/core';
 import {HttpService} from "../../shared/services/http.service";
 import {Configuration} from "../../app.constants";
 import {Observable} from "rxjs";
-import {StructureListElement} from "../../models/structure-list-element";
-import {DeviceListElement} from "../../models/device-list-element";
 import {TransferListElement} from "../../models/transfer-list-element";
-import {DeviceTypeListElement} from "../../models/device-type-list-element";
-import {StructureViewElement} from "../../models/structure-view-element";
+import {StructureViewElement} from "../../models/structure-elements";
+import {DeviceListElement, DeviceTypeListElement} from "../../models/device-elements";
+
 
 @Injectable({
   providedIn: 'root'

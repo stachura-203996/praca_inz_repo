@@ -37,19 +37,12 @@ public class DeliveryController {
         return deliveryService.getDeliveryById(id);
     }
 
-//    @RequestMapping(value = "/filter", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-//    @ResponseStatus(value = HttpStatus.OK)
-//    public @ResponseBody
-//    Company get(@RequestParam String name) {
-//        return deliveryService.g(name);
-//    }
-
     @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public ResponseEntity<?> create(@RequestBody Delivery delivery) {
         deliveryService.createNewDelivery(delivery);
         HttpHeaders headers = new HttpHeaders();
-//        ControllerLinkBuilder linkBuilder = linkTo(methodOn(CompanyController.class).get(delivery.getId()));
+//        ControllerLinkBuilder linkBuilder = linkTo(methodOn(CompanyController.class).getOfficeById(delivery.getId()));
 //        headers.setLocation(linkBuilder.toUri());
         return new ResponseEntity<>(headers, HttpStatus.CREATED);
     }

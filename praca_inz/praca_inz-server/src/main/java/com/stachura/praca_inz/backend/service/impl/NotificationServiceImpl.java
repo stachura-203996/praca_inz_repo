@@ -31,18 +31,40 @@ public class NotificationServiceImpl implements NotificationService {
     @Transactional(readOnly = true)
     @PreAuthorize("hasAuthority('NOTIFICATION_READ')")
     public Notification getNotificationById(Long id) {
-        return notificationRepository.find(id);
+        Notification notification = notificationRepository.find(id);
+        if (notification.isDeleted()) {
+            return null;
+        }
+        return notification;
     }
 
     @Override
     @Transactional(readOnly = true)
     @PreAuthorize("hasAuthority('NOTIFICATION_READ')")
-    public List<NotificationListElementDto> getAllNotificationsForLoggedUser(String username) {
-        List<Notification> notifications = notificationRepository.findAll().stream().filter(x -> x.getUser().getUsername().equals(username)).collect(Collectors.toList());
+    public List<NotificationListElementDto> getUnreadedAllNotificationsForLoggedUser(String username) {
+        List<Notification> notifications = notificationRepository.findAll().stream().filter(x -> x.getUser().getUsername().equals(username) && !x.isReaded()).collect(Collectors.toList());
         List<NotificationListElementDto> notificationListElementDtos = new ArrayList<>();
         for (Notification a : notifications) {
-            Hibernate.initialize(a.getUser());
-            notificationListElementDtos.add(NotificationConverter.toNotificationListElementDto(a));
+            if (!a.isDeleted()) {
+                Hibernate.initialize(a.getUser());
+                notificationListElementDtos.add(NotificationConverter.toNotificationListElementDto(a));
+            }
+        }
+        return notificationListElementDtos;
+    }
+
+
+    @Override
+    @Transactional(readOnly = true)
+    @PreAuthorize("hasAuthority('NOTIFICATION_READ')")
+    public List<NotificationListElementDto> getReadedAllNotificationsForLoggedUser(String username) {
+        List<Notification> notifications = notificationRepository.findAll().stream().filter(x -> x.getUser().getUsername().equals(username)&&x.isReaded()).collect(Collectors.toList());
+        List<NotificationListElementDto> notificationListElementDtos = new ArrayList<>();
+        for (Notification a : notifications) {
+            if (!a.isDeleted()) {
+                Hibernate.initialize(a.getUser());
+                notificationListElementDtos.add(NotificationConverter.toNotificationListElementDto(a));
+            }
         }
         return notificationListElementDtos;
     }
@@ -55,14 +77,15 @@ public class NotificationServiceImpl implements NotificationService {
     }*/
 
 
-    @Override
     @Transactional(readOnly = true)
     @PreAuthorize("hasAuthority('NOTIFICATION_USER_LIST_READ')")
-    public List<NotificationListElementDto> getAllNotificationsForUser() {
+    public List<NotificationListElementDto> getAllNotifications() {
         List<Notification> notifications = notificationRepository.findAll();
         List<NotificationListElementDto> notificationListElementDtos = new ArrayList<>();
         for (Notification a : notifications) {
-            notificationListElementDtos.add(NotificationConverter.toNotificationListElementDto(a));
+            if (!a.isDeleted()) {
+                notificationListElementDtos.add(NotificationConverter.toNotificationListElementDto(a));
+            }
         }
         return notificationListElementDtos;
     }
@@ -86,7 +109,9 @@ public class NotificationServiceImpl implements NotificationService {
     public Notification updateNotification(Notification notification) {
         Notification tmp = new Notification();
         try {
-            tmp = notificationRepository.update(notification);
+            if (!notificationRepository.find(notification.getId()).isDeleted()) {
+                tmp = notificationRepository.update(notification);
+            }
         } catch (EntityException e) {
             e.printStackTrace();
         }
@@ -97,13 +122,13 @@ public class NotificationServiceImpl implements NotificationService {
     @Transactional
     @PreAuthorize("hasAuthority('NOTIFICATION_DELETE')")
     public void deleteNotificationById(Long id) {
-        notificationRepository.remove(id);
+        notificationRepository.find(id).setDeleted(true);
     }
 
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('NOTIFICATION_DELETE')")
     public void deleteNotification(Notification notification) {
-        notificationRepository.remove(notification);
+        notificationRepository.find(notification.getId()).setDeleted(true);
     }
 }

@@ -60,7 +60,7 @@ public class TransferController {
 //    @RequestMapping(value = "/filter", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 //    @ResponseStatus(value = HttpStatus.OK)
 //    public @ResponseBody
-//    Transfer get(@RequestParam String name) {
+//    Transfer getOfficeById(@RequestParam String name) {
 //        return transferService.getTransferByName(name);
 //    }
 

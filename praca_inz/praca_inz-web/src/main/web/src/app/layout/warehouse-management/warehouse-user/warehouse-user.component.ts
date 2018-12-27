@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {SessionContextService} from "../../../shared/services/session-context.service";
-import {LoginService} from "../../../login/login.service";
+import {WarehouseListElement} from "../../../models/warehouse-elements";
+import {WarehouseService} from "../warehouse.service";
+import {TranslateService} from "@ngx-translate/core";
+import {StructureListElement} from "../../../models/structure-elements";
 
 @Component({
     selector: 'app-warehouse-list',
@@ -9,23 +11,75 @@ import {LoginService} from "../../../login/login.service";
 })
 export class WarehouseUserComponent implements OnInit {
 
-    private roles;
+    warehouses: WarehouseListElement[];
 
-    constructor(private sessionContextService: SessionContextService) {
+    constructor(private warehouseService: WarehouseService,
+                private translate: TranslateService,
+    ) {
+        this.translate.addLangs(['en', 'pl']);
+        this.translate.setDefaultLang('pl');
+        const browserLang = this.translate.getBrowserLang();
+        this.translate.use(browserLang.match(/en|pl/) ? browserLang : 'pl');
     }
 
     ngOnInit() {
-        this.initRoles();
-        if(this.roles.admin==true){
-
-        } else if(this.roles.warehouseman==true) {
-
-        }
+        // this.filterUsers(null);
+        this.getUsers();
     }
 
-    private initRoles() {
-        this.roles == {admin: false, employee: false, manager: false, warehouseman: false};
-        Object.entries(this.roles).forEach(([key, value]) => this.roles[key] = this.sessionContextService.hasUserRole(key));
+    getUsers() {
+        this.warehouseService.getAll().subscribe(warehouseListElement => {
+            this.warehouses = warehouseListElement
+        });
     }
 
+
+    filterWarehouses(searchText
+                         :
+                         string
+    ) {
+        // this.userService.getAllNotificationsForUser().subscribe(users => {
+        //     if (!users) {
+        //         this.users = [];
+        //         return;
+        //     }
+        //     if (!searchText || searchText.length < 2) {
+        //         if (this.notVerifiedFilter) {
+        //             this.users = users.filter(it => {
+        //                 return it.verified === !this.notVerifiedFilter;
+        //             });
+        //         } else {
+        //             this.users = users;
+        //         }
+        //         return;
+        //     }
+        //
+        //     searchText = searchText.toLowerCase();
+        //     this.users = users.filter(it => {
+        //         const fullname = it.name + ' ' + it.surname;
+        //         const ok = fullname.toLowerCase().includes(searchText);
+        //         if (!this.notVerifiedFilter) {
+        //             return ok;
+        //         } else {
+        //             return ok && it.verified === !this.notVerifiedFilter;
+        //         }
+        //     });
+        // });
+    }
+
+    delete(structure
+               :
+               StructureListElement
+    ) {
+        // const modalRef = this.modalService.open(UserMgmtDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
+        // modalRef.componentInstance.user = user;
+        // modalRef.result.then(
+        //     result => {
+        //         // Left blank intentionally, nothing to do here
+        //     },
+        //     reason => {
+        //         // Left blank intentionally, nothing to do here
+        //     }
+        // );
+    }
 }

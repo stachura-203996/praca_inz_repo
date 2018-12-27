@@ -29,8 +29,7 @@ public class SystemMessage implements Serializable {
     @Column(name = "MESSAGE", nullable = false)
     private String message;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "SYSTEM_MESSAGE_TYPE_ID")
-    private SystemMessageType systemMessageType;
+    @Column(name = "DELETED", nullable = false)
+    private boolean deleted;
 
 }

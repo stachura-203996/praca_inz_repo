@@ -1,16 +1,13 @@
 package com.stachura.praca_inz.backend.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.stachura.praca_inz.backend.model.security.User;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -40,9 +37,24 @@ public class Device implements Serializable {
     @JoinColumn(name = "DEVICE_TYPE_ID")
     private DeviceType deviceType;
 
+    @Column(name = "DELETED", nullable = false)
+    private boolean deleted;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonBackReference
+    private Company company;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "device", fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonManagedReference
-    private Collection<ParameterValue> parameterValues;
+    private Set<Transfer> transfers = new HashSet<>();
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "device", fetch = FetchType.LAZY, orphanRemoval = true)
+    @JsonManagedReference
+    private Set<DeviceField> deviceFields = new HashSet<>();
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "device", fetch = FetchType.LAZY, orphanRemoval = true)
+    @JsonManagedReference
+    private Set<ParameterValue> parameterValues;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference

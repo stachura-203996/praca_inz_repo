@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {StructureListElement} from "../../../models/structure-list-element";
 import {NotificationListElement} from "../../../models/notification-list-element";
 import {NotificationService} from "../notification.service";
+import {Router} from "@angular/router";
 
 @Component({
     selector: 'app-notification-user',
@@ -10,31 +10,37 @@ import {NotificationService} from "../notification.service";
 })
 export class NotificationUserComponent implements OnInit {
 
-    notifications: NotificationListElement[];
+    unreadedNotifications: NotificationListElement[];
 
-    constructor(private notificationService:NotificationService) {
+    readedNotifications: NotificationListElement[];
+
+    constructor(private notificationService:NotificationService, private router:Router) {
     }
 
     ngOnInit() {
-        this.getNotificationsForUser();
+        this.getUnreadedNotificationsForUser();
     }
 
-    getNotificationsForUser(){
-        this.notificationService.getAllNotificationsForUser().subscribe(notificationListElement=> {this.notifications=notificationListElement});
+    getUnreadedNotificationsForUser(){
+        this.notificationService.getAllUnreadedNotificationsForUser().subscribe(notificationListElement=> {this.unreadedNotifications=notificationListElement});
+    }
+
+    getReadedNotificationsForUser(){
+        this.notificationService.getAllReadedNotificationsForUser().subscribe(notificationListElement=> {this.readedNotifications=notificationListElement});
     }
 
     filterNotifications(searchText: string) {
-        this.notificationService.getAllNotificationsForUser().subscribe(notifications => {
+        this.notificationService.getAllUnreadedNotificationsForUser().subscribe(notifications => {
             if (!notifications) {
-                this.notifications = [];
+                this.unreadedNotifications = [];
                 return;
             }
             if (!searchText || searchText.length < 2) {
-                this.notifications = notifications;
+                this.unreadedNotifications = notifications;
             }
 
             searchText = searchText.toLowerCase();
-            this.notifications = notifications.filter(it => {
+            this.unreadedNotifications = notifications.filter(it => {
                 const range = it.toString();
                 const ok = range.toLowerCase().includes(searchText);
                 return ok;
@@ -42,17 +48,19 @@ export class NotificationUserComponent implements OnInit {
         });
     }
 
+    view(notification:NotificationListElement){
+        notification.readed=true;
+        this.notificationService.updateNotification(notification).subscribe(resp => {
+            this.router.navigateByUrl('/notifications');
+        });
+    }
+
+
     delete(notification: NotificationListElement) {
-        // const modalRef = this.modalService.open(UserMgmtDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
-        // modalRef.componentInstance.user = user;
-        // modalRef.result.then(
-        //     result => {
-        //         // Left blank intentionally, nothing to do here
-        //     },
-        //     reason => {
-        //         // Left blank intentionally, nothing to do here
-        //     }
-        // );
+        this.notificationService.deleteNotification(String(notification.id)).subscribe(resp => {
+            this.getReadedNotificationsForUser()
+            this.getUnreadedNotificationsForUser()
+        });
     }
 
 }

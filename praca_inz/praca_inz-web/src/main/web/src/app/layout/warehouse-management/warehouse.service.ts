@@ -2,9 +2,8 @@ import { Injectable } from '@angular/core';
 import {HttpService} from "../../shared/services/http.service";
 import {Configuration} from "../../app.constants";
 import {Observable} from "rxjs";
-import {StructureAddElement} from "../../models/structure-add-element";
-import {WarehouseListElement} from "../../login/warehouse-list-element";
 import {WarehouseViewElement} from "../../models/warehouse-view-element";
+import {WarehouseAddElement, WarehouseListElement} from "../../models/warehouse-elements";
 
 
 @Injectable({
@@ -20,6 +19,10 @@ export class WarehouseService {
         return this.httpService.get<WarehouseListElement[]>(this.warehousePath);
     }
 
+    getAllForWarehouseman(id:string): Observable<WarehouseListElement[]> {
+        return this.httpService.get<WarehouseListElement[]>(this.warehousePath+'/company/'+id);
+    }
+
     getAllForCompany(id:string): Observable<WarehouseListElement[]> {
         return this.httpService.get<WarehouseListElement[]>(this.warehousePath+'/company/'+id);
     }
@@ -29,10 +32,10 @@ export class WarehouseService {
     }
 
     getAllForOffice(id:string): Observable<WarehouseListElement[]> {
-        return this.httpService.get<WarehouseListElement[]>(this.warehousePath+'/office/'+id);
+        return this.httpService.get<WarehouseListElement[]>(this.warehousePath+'/warehouse/'+id);
     }
 
-    createWarehouse(data:StructureAddElement): Observable<any>{
+    createWarehouse(data:WarehouseAddElement): Observable<any>{
         return this.httpService.post(this.warehousePath,data);
     }
 

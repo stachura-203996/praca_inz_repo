@@ -8,16 +8,15 @@
 
         <ul class="navbar-nav ml-auto">
             <li class="nav-item dropdown" ngbDropdown>
-                <a class="nav-link" href="javascript:void(0)" ngbDropdownToggle>
+                <a class="nav-link" (click)="getLastNotifications()" ngbDropdownToggle>
                     <i class="fa fa-bell"></i> <b class="caret"></b><span class="sr-only">(current)</span>
                 </a>
                 <ul class="dropdown-menu-right messages" ngbDropdownMenu>
                     <div *ngFor="let notification of notifications">
-                        <li class="dropdown-item" [routerLink]="[notification.url]">
+                        <li class="dropdown-item" (click)="viewNotification(notification)">
                             <div class="media-body">
                                 <h5 class="mt-0 mb-1">{{' '+notification.title}}</h5>
-                                <p class="small text-muted"><i class="fa fa-clock-o"></i>{{'
-                                    '+notification.notificationDate}}</p>
+                                <p class="small text-muted"><i class="fa fa-clock-o"></i>{{' '+notification.calendarTimestamp}}</p>
                                 <p class="last">{{notification.description}}</p>
                             </div>
                         <li class="dropdown-divider"></li>
@@ -32,10 +31,10 @@
                     <i class="fa fa-tasks"></i> <b class="caret"></b><span class="sr-only">(current)</span>
                 </a>
                 <div class="dropdown-menu-right" ngbDropdownMenu>
-                    <a href="javascript:void(0)" class="dropdown-item">
+                    <a href="/employees/reports" class="dropdown-item">
                         {{ 'Raports' | translate }} <span class="badge badge-info">6</span>
                     </a>
-                    <a href="javascript:void(0)" class="dropdown-item">
+                    <a href="/devices/requests" class="dropdown-item">
                         {{ 'Requests' | translate }} <span class="badge badge-info"> 13</span>
                     </a>
                 </div>

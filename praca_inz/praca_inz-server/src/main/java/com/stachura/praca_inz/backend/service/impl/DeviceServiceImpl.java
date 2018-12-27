@@ -29,7 +29,11 @@ public class DeviceServiceImpl implements DeviceService {
     @Transactional(readOnly = true)
     @PreAuthorize("hasAuthority('DEVICE_READ')")
     public Device getDeviceById(Long id) {
-        return deviceRepository.find(id);
+        Device device = deviceRepository.find(id);
+        if (device.isDeleted()) {
+            return null;
+        }
+        return device;
     }
 
     /*@Override
@@ -47,8 +51,10 @@ public class DeviceServiceImpl implements DeviceService {
         List<Device> devices = deviceRepository.findAll();
         List<DeviceListElementDto> devicesDto = new ArrayList<>();
         for (Device a : devices) {
-            Hibernate.initialize(a.getDeviceType());
-            devicesDto.add(DeviceConverter.toDeviceListElementDto(a));
+            if (!a.isDeleted()) {
+                Hibernate.initialize(a.getDeviceType());
+                devicesDto.add(DeviceConverter.toDeviceListElementDto(a));
+            }
         }
         return devicesDto;
     }
@@ -62,8 +68,10 @@ public class DeviceServiceImpl implements DeviceService {
         }).collect(Collectors.toList());
         List<DeviceListElementDto> devicesDto = new ArrayList<>();
         for (Device a : devices) {
-            Hibernate.initialize(a.getDeviceType());
-            devicesDto.add(DeviceConverter.toDeviceListElementDto(a));
+            if (!a.isDeleted()) {
+                Hibernate.initialize(a.getDeviceType());
+                devicesDto.add(DeviceConverter.toDeviceListElementDto(a));
+            }
         }
         return devicesDto;
     }
@@ -78,8 +86,10 @@ public class DeviceServiceImpl implements DeviceService {
         }).collect(Collectors.toList());
         List<DeviceListElementDto> devicesDto = new ArrayList<>();
         for (Device a : devices) {
-            Hibernate.initialize(a.getDeviceType());
-            devicesDto.add(DeviceConverter.toDeviceListElementDto(a));
+            if (!a.isDeleted()) {
+                Hibernate.initialize(a.getDeviceType());
+                devicesDto.add(DeviceConverter.toDeviceListElementDto(a));
+            }
         }
         return devicesDto;
     }
@@ -89,8 +99,10 @@ public class DeviceServiceImpl implements DeviceService {
         List<Device> devices = deviceRepository.findAll().stream().filter(x -> x.getWarehouse().getOffice().getId().equals(id)).collect(Collectors.toList());
         List<DeviceListElementDto> devicesDto = new ArrayList<>();
         for (Device a : devices) {
-            Hibernate.initialize(a.getDeviceType());
-            devicesDto.add(DeviceConverter.toDeviceListElementDto(a));
+            if (!a.isDeleted()) {
+                Hibernate.initialize(a.getDeviceType());
+                devicesDto.add(DeviceConverter.toDeviceListElementDto(a));
+            }
         }
         return devicesDto;
     }
@@ -100,8 +112,10 @@ public class DeviceServiceImpl implements DeviceService {
         List<Device> devices = deviceRepository.findAll().stream().filter(x -> x.getWarehouse().getId().equals(id)).collect(Collectors.toList());
         List<DeviceListElementDto> devicesDto = new ArrayList<>();
         for (Device a : devices) {
-            Hibernate.initialize(a.getDeviceType());
-            devicesDto.add(DeviceConverter.toDeviceListElementDto(a));
+            if (!a.isDeleted()) {
+                Hibernate.initialize(a.getDeviceType());
+                devicesDto.add(DeviceConverter.toDeviceListElementDto(a));
+            }
         }
         return devicesDto;
     }
@@ -114,9 +128,11 @@ public class DeviceServiceImpl implements DeviceService {
                 x.getWarehouse().getOffice() == null).collect(Collectors.toList());
         List<DeviceListElementDto> devicesDto = new ArrayList<>();
         for (Device a : devices) {
-            Hibernate.initialize(a.getDeviceType());
-            Hibernate.initialize(a.getDeviceType().getName());
-            devicesDto.add(DeviceConverter.toDeviceListElementDto(a));
+            if (!a.isDeleted()) {
+                Hibernate.initialize(a.getDeviceType());
+                Hibernate.initialize(a.getDeviceType().getName());
+                devicesDto.add(DeviceConverter.toDeviceListElementDto(a));
+            }
         }
         return devicesDto;
     }
@@ -140,7 +156,9 @@ public class DeviceServiceImpl implements DeviceService {
     public Device updateDevice(Device device) {
         Device tmp = new Device();
         try {
-            tmp = deviceRepository.update(device);
+            if (!deviceRepository.find(device.getId()).isDeleted()) {
+                tmp = deviceRepository.update(device);
+            }
         } catch (EntityException e) {
             e.printStackTrace();
         }
@@ -151,13 +169,28 @@ public class DeviceServiceImpl implements DeviceService {
     @Transactional
     @PreAuthorize("hasAuthority('DEVICE_DELETE')")
     public void deleteDeviceById(Long id) {
-        deviceRepository.remove(id);
+        deviceRepository.find(id).setDeleted(true);
     }
 
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('DEVICE_DELETE')")
     public void deleteDevice(Device device) {
-        deviceRepository.remove(device);
+        deviceRepository.find(device.getId()).setDeleted(true);
+    }
+
+    @Override
+    public List<DeviceListElementDto> getAllDevicesForLoggedWarehouseman(String username) {
+        List<Device> devices = deviceRepository.findAll().stream().filter(x -> x.getWarehouse().getUser().getUsername().equals(username) &&
+                x.getWarehouse().getOffice() != null).collect(Collectors.toList());
+        List<DeviceListElementDto> devicesDto = new ArrayList<>();
+        for (Device a : devices) {
+            if (!a.isDeleted()) {
+                Hibernate.initialize(a.getDeviceType());
+                Hibernate.initialize(a.getDeviceType().getName());
+                devicesDto.add(DeviceConverter.toDeviceListElementDto(a));
+            }
+        }
+        return devicesDto;
     }
 }

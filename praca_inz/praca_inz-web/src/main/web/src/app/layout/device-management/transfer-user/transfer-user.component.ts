@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {DeviceListElement} from "../../../models/device-list-element";
 import {DeviceService} from "../device.service";
 import {TranslateService} from "@ngx-translate/core";
 import {TransferListElement} from "../../../models/transfer-list-element";

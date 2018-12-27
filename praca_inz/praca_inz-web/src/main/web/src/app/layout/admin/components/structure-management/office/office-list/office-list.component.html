@@ -1,4 +1,3 @@
-<!--<div class="col-sm-12 col-md-8 offset-md-2">-->
 <h1>{{ 'Offices' | translate }}</h1>
 
 <div class="row">
@@ -18,22 +17,22 @@
     <thead class="thead-inverse">
     <tr>
         <th>{{ 'Name' | translate }}</th>
-        <th>{{ 'Description' | translate }}</th>
         <th>{{ 'City' | translate }}</th>
         <th>{{'ZipCode'|translate}}</th>
         <th>{{ 'Adress' | translate }}</th>
-        <th>{{'ParentName'|translate}}</th>
+        <th>{{'Company'|translate}}</th>
+        <th>{{'Department'|translate}}</th>
         <th></th>
     </tr>
     </thead>
     <tbody>
     <tr *ngFor="let office of offices">
         <td>{{office.name}}</td>
-        <td>{{office.description}}</td>
         <td>{{office.city}}</td>
         <td>{{office.zipCode}}</td>
         <td>{{getAddress(office)}}</td>
-        <td>{{office.parentName}}</td>
+        <td>{{office.companyName}}</td>
+        <td>{{office.departmentName}}</td>
         <td class="text-right">
             <div class="btn-group flex-btn-group-container">
                 <button type="submit"
@@ -49,7 +48,7 @@
                     <i class="fa fa-pencil"></i>&nbsp;
                     <span class="d-none d-md-inline">Edit</span>
                 </button>
-                <button type="button" (click)="delete(office)"
+                <button type="button" (click)="delete(office.id)"
                         class="btn btn-danger btn-sm">
                     <i class="fa fa-times"></i>&nbsp;
                     <span class="d-none d-md-inline">Delete</span>

@@ -3,7 +3,7 @@ package com.stachura.praca_inz.backend.controller;
 import com.stachura.praca_inz.backend.model.Notification;
 import com.stachura.praca_inz.backend.service.NotificationService;
 import com.stachura.praca_inz.backend.web.dto.NotificationListElementDto;
-import com.stachura.praca_inz.backend.web.dto.TransferListElementDto;
+import com.stachura.praca_inz.backend.web.dto.converter.NotificationConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.http.HttpHeaders;
@@ -26,20 +26,28 @@ public class NotificationController {
     @Autowired
     private NotificationService notificationService;
 
-    @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(value = HttpStatus.OK)
-    public @ResponseBody
-    List<NotificationListElementDto> getAllNotificationsForUser() {
-        return notificationService.getAllNotificationsForUser();
-    }
+//    @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+//    @ResponseStatus(value = HttpStatus.OK)
+//    public @ResponseBody
+//    List<NotificationListElementDto> getAllNotificationsForUser() {
+//        return notificationService.get();
+//    }
 
 
     @RequestMapping(value = "/user", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
-    List<NotificationListElementDto> getAllDevicesForLoggedUser() {
+    List<NotificationListElementDto> getUnreadedAllDevicesForLoggedUser() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        return notificationService.getAllNotificationsForLoggedUser(auth.getName());
+        return notificationService.getUnreadedAllNotificationsForLoggedUser(auth.getName());
+    }
+
+    @RequestMapping(value = "/user/readed", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(value = HttpStatus.OK)
+    public @ResponseBody
+    List<NotificationListElementDto> getReadedAllDevicesForLoggedUser() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        return notificationService.getReadedAllNotificationsForLoggedUser(auth.getName());
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -52,7 +60,7 @@ public class NotificationController {
 //    @RequestMapping(value = "/filter", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 //    @ResponseStatus(value = HttpStatus.OK)
 //    public @ResponseBody
-//    Notification get(@RequestParam String name) {
+//    Notification getOfficeById(@RequestParam String name) {
 //        return notificationService.g(name);
 //    }
 
@@ -68,8 +76,9 @@ public class NotificationController {
 
     @RequestMapping(method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public void update(@RequestBody Notification notification) {
-        notificationService.updateNotification(notification);
+    public void update(@RequestBody NotificationListElementDto notificationListElementDto) {
+        Notification notification= notificationService.getNotificationById(notificationListElementDto.getId());
+        notificationService.updateNotification(NotificationConverter.toNotification(notificationListElementDto,notification));
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)

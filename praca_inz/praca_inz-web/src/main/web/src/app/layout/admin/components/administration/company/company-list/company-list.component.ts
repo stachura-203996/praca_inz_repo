@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import {TranslateService} from "@ngx-translate/core";
 import {CompanyService} from "../company.service";
-import {StructureListElement} from "../../../../../../models/structure-list-element";
-import {AccountLevel} from "../../../../../../models/account-level";
+import {StructureListElement} from "../../../../../../models/structure-elements";
 
 
 @Component({
@@ -65,15 +64,8 @@ export class CompanyListComponent implements OnInit {
 
 
     delete(structure: StructureListElement) {
-        // const modalRef = this.modalService.open(UserMgmtDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
-        // modalRef.componentInstance.user = user;
-        // modalRef.result.then(
-        //     result => {
-        //         // Left blank intentionally, nothing to do here
-        //     },
-        //     reason => {
-        //         // Left blank intentionally, nothing to do here
-        //     }
-        // );
+        this.companyService.deleteCompany(String(structure.id)).subscribe(resp => {
+            this.getCompanies()
+        });
     }
 }

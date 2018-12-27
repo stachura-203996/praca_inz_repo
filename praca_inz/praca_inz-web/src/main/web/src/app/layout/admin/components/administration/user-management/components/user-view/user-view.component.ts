@@ -1,15 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 
-import {UserListElement} from "../../../../../../../models/user-list-element";
-import {ProfileInfo} from "../../../../../../../models/profile-info";
-import {ProfileService} from "../../../../../../profile/profile.service";
 import {SessionContextService} from "../../../../../../../shared/services/session-context.service";
 import {ActivatedRoute} from "@angular/router";
 import {UserInfo} from "../../../../../../../models/user-info";
 import {UserService} from "../../user.service";
-import {DeviceListElement} from "../../../../../../../models/device-list-element";
+
 import {TransferListElement} from "../../../../../../../models/transfer-list-element";
 import {DeviceService} from "../../../../../../device-management/device.service";
+import {DeviceListElement} from "../../../../../../../models/device-elements";
 
 
 @Component({

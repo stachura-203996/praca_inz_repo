@@ -30,4 +30,6 @@ public interface DeviceService {
     void deleteDeviceById(Long id);
 
     void deleteDevice(Device device);
+
+    List<DeviceListElementDto> getAllDevicesForLoggedWarehouseman(String username);
 }

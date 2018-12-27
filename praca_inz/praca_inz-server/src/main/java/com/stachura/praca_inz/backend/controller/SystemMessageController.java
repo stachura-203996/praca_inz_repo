@@ -40,7 +40,7 @@ public class SystemMessageController {
 //    @RequestMapping(value = "/filter", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 //    @ResponseStatus(value = HttpStatus.OK)
 //    public @ResponseBody
-//    SystemMessage get(@RequestParam String name) {
+//    SystemMessage getOfficeById(@RequestParam String name) {
 //        return systemMessageService.g(name);
 //    }
 

@@ -12,7 +12,7 @@ public class NotificationListElementDto {
     private String title;
     private String description;
     private String url;
-    private String notificationDate;
     private boolean readed;
+    private String calendarTimestamp;
 
 }

@@ -28,7 +28,11 @@ public class CompanyServiceImpl implements CompanyService {
     @Transactional(readOnly = true)
     @PreAuthorize("hasAuthority('COMPANY_READ')")
     public Company getCompanyById(Long id) {
-        return companyRepository.find(id);
+        Company company = companyRepository.find(id);
+        if (company.isDeleted()) {
+            return null;
+        }
+        return company;
     }
 
     @Override
@@ -45,7 +49,9 @@ public class CompanyServiceImpl implements CompanyService {
         List<Company> companies = companyRepository.findAll();
         List<CompanyStructuresListElementDto> companiesDto = new ArrayList<>();
         for (Company a : companies) {
-            companiesDto.add(CompanyStructureConverter.toCompanyStructureListElement(a));
+            if (!a.isDeleted()) {
+                companiesDto.add(CompanyStructureConverter.toCompanyStructureListElement(a));
+            }
         }
         return companiesDto;
     }
@@ -73,7 +79,10 @@ public class CompanyServiceImpl implements CompanyService {
         Company tmp = new Company();
 
         try {
-            tmp = companyRepository.update(company);
+            if (!companyRepository.find(company.getId()).isDeleted()) {
+                tmp = companyRepository.update(company);
+            }
+
         } catch (EntityException e) {
             e.printStackTrace();
         }
@@ -85,13 +94,13 @@ public class CompanyServiceImpl implements CompanyService {
     @Transactional
     @PreAuthorize("hasAuthority('COMPANY_DELETE')")
     public void deleteCompanyById(Long id) {
-        companyRepository.remove(id);
+        companyRepository.find(id).setDeleted(true);
     }
 
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('COMPANY_DELETE')")
     public void deleteCompany(Company company) {
-        companyRepository.remove(company);
+        companyRepository.find(company.getId()).setDeleted(true);
     }
 }

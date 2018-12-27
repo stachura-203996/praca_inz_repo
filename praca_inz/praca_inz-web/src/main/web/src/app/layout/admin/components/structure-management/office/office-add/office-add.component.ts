@@ -1,10 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {StructureAddElement} from "../../../../../../models/structure-add-element";
-import {CompanyService} from "../../../administration/company/company.service";
 import {Router} from "@angular/router";
 import {OfficeService} from "../office.service";
-import {StructureListElement} from "../../../../../../models/structure-list-element";
 import {DepartmentService} from "../../department/department.service";
+import {StructureAddElement, StructureListElement} from "../../../../../../models/structure-elements";
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-office-add',
@@ -17,7 +16,11 @@ export class OfficeAddComponent implements OnInit {
 
     departments: StructureListElement[];
 
-    constructor(private departmentService:DepartmentService,private officeService:OfficeService,private router:Router) {
+    constructor(private departmentService:DepartmentService,private officeService:OfficeService,private router:Router,private translate:TranslateService) {
+        this.translate.addLangs(['en','pl']);
+        this.translate.setDefaultLang('pl');
+        const browserLang = this.translate.getBrowserLang();
+        this.translate.use(browserLang.match(/en|pl/) ? browserLang : 'pl');
     }
 
     ngOnInit() {

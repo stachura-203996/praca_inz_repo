@@ -68,6 +68,14 @@ public class DeviceController {
         return deviceService.getAllDevicesForLoggedUser(auth.getName());
     }
 
+    @RequestMapping(value = "/warehouseman", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(value = HttpStatus.OK)
+    public @ResponseBody
+    List<DeviceListElementDto> getAllDevicesForLoggedWarehouseman() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        return deviceService.getAllDevicesForLoggedWarehouseman(auth.getName());
+    }
+
     @RequestMapping(value = "/user/{username}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody

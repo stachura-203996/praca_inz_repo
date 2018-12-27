@@ -8,7 +8,6 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
@@ -58,6 +57,10 @@ public class User implements UserDetails, Serializable {
     @JsonBackReference
     private Office office;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JsonBackReference
+    private Office managedOffice;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
     private Warehouse warehouse;
@@ -66,6 +69,9 @@ public class User implements UserDetails, Serializable {
     @JoinColumn(name = "USERDATA_ID")
     private Userdata userdata;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY, orphanRemoval = true)
+    @JsonManagedReference
+    private Set<Report> reports = new HashSet<>();
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonManagedReference

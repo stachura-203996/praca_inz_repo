@@ -2,9 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import {LoginService} from "../../../login/login.service";
-import {ProfileInfo} from "../../../models/profile-info";
-import {ProfileService} from "../../profile/profile.service";
-import {SessionContextService} from "../../../shared/services/session-context.service";
 import {LoggedUser} from "../../../models/logged-user";
 import {UserService} from "../../admin/components/administration/user-management/user.service";
 import {NotificationService} from "../../notification/notification.service";
@@ -42,11 +39,10 @@ export class HeaderComponent implements OnInit {
 
     ngOnInit() {
         this.getLoggedUser();
-        this.getLastNotifications();
     }
 
     getLastNotifications(){
-        this.notificationService.getAllNotificationsForUser().subscribe(x=>this.notifications=x);
+        this.notificationService.getAllUnreadedNotificationsForUser().subscribe(x=>this.notifications=x);
     }
 
     getLoggedUser(){
@@ -78,5 +74,10 @@ export class HeaderComponent implements OnInit {
         return (this.currentUser.name+ ' '+ this.currentUser.surname);
     }
 
-
+    viewNotification(notification:NotificationListElement){
+        notification.readed=true;
+        this.notificationService.updateNotification(notification).subscribe(resp => {
+            this.router.navigateByUrl(notification.url);
+        });
+    }
 }

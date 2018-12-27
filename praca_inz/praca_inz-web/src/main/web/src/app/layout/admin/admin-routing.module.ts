@@ -6,7 +6,6 @@ import {CompanyEditComponent} from "./components/administration/company/company-
 import {OfficeListComponent} from "./components/structure-management/office/office-list/office-list.component";
 import {OfficeAddComponent} from "./components/structure-management/office/office-add/office-add.component";
 import {OfficeEditComponent} from "./components/structure-management/office/office-edit/office-edit.component";
-import {DashboardComponent} from "./components/administration/dashboard/dashboard.component";
 import {DepartmentListComponent} from "./components/structure-management/department/department-list/department-list.component";
 import {DepartmentAddComponent} from "./components/structure-management/department/department-add/department-add.component";
 import {DepartmentEditComponent} from "./components/structure-management/department/department-edit/department-edit.component";
@@ -14,7 +13,6 @@ import {UserListComponent} from "./components/administration/user-management/com
 import {UserAddComponent} from "./components/administration/user-management/components/user-add/user-add.component";
 import {UserEditComponent} from "./components/administration/user-management/components/user-edit/user-edit.component";
 import {UserViewComponent} from "./components/administration/user-management/components/user-view/user-view.component";
-import {DeviceViewComponent} from "../device-management/device-view/device-view.component";
 import {DeviceListComponent} from "./components/structure-management/device/device-list/device-list.component";
 import {DeviceAddComponent} from "./components/structure-management/device/device-add/device-add.component";
 import {DeviceEditComponent} from "./components/structure-management/device/device-edit/device-edit.component";
@@ -25,13 +23,14 @@ import {DeviceParameterEditComponent} from "./components/structure-management/de
 import {DeviceTypeListComponent} from "./components/structure-management/device/device-type-list/device-type-list.component";
 import {DeviceTypeAddComponent} from "./components/structure-management/device/device-type-add/device-type-add.component";
 import {DeviceTypeEditComponent} from "./components/structure-management/device/device-type-edit/device-type-edit.component";
-import {DeviceTypeViewComponent} from "../device-management/device-type-view/device-type-view.component";
+import {WarehouseListComponent} from "./components/structure-management/warehouse/warehouse-list/warehouse-list.component";
+import {WarehouseAddComponent} from "./components/structure-management/warehouse/warehouse-add/warehouse-add.component";
+import {WarehouseEditComponent} from "./components/structure-management/warehouse/warehouse-edit/warehouse-edit.component";
+import {RequestListComponent} from "./components/structure-management/request/request-list/request-list.component";
 
 
 
 const routes: Routes = [
-    { path: '', redirectTo: 'dashboard', pathMatch: 'prefix' },
-    {path: 'dashboard', component: DashboardComponent},
     {path: 'companies', component: CompanyListComponent},
     {path: 'companies/add', component:CompanyAddComponent},
     {path: 'companies/edit/:id', component:CompanyEditComponent},
@@ -54,7 +53,12 @@ const routes: Routes = [
     {path: 'devices/type/add', component: DeviceTypeAddComponent},
     {path: 'devices/type/edit/:id', component: DeviceTypeEditComponent},
     {path: 'devices/parameter/add', component: DeviceParameterAddComponent},
-    {path: 'devices/parameter/edit/:id', component: DeviceParameterEditComponent}
+    {path: 'devices/parameter/edit/:id', component: DeviceParameterEditComponent},
+    {path: 'warehouses', component: WarehouseListComponent},
+    {path: 'warehouses/add', component: WarehouseAddComponent},
+    {path: 'warehouses/edit/:id', component: WarehouseEditComponent},
+    {path: 'requests', component: RequestListComponent},
+
 ];
 
 @NgModule({

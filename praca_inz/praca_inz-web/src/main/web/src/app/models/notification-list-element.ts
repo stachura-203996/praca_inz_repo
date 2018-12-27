@@ -3,10 +3,10 @@ export class NotificationListElement {
     title: string;
     description: string;
     url:string;
-    notificationDate:string;
+    calendarTimestamp:string;
     readed:boolean;
 
     toString(): string {
-        return this.title+' '+ this.description + ' ' + this.url+' '+ this.notificationDate;
+        return this.title+' '+ this.description + ' ' + this.url+' '+ this.calendarTimestamp;
     }
 }

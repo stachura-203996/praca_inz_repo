@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {DepartmentService} from "../department.service";
 import {TranslateService} from "@ngx-translate/core";
-import {StructureListElement} from "../../../../../../models/structure-list-element";
+import {StructureListElement} from "../../../../../../models/structure-elements";
+
 
 @Component({
   selector: 'app-department-list',
@@ -12,16 +13,13 @@ export class DepartmentListComponent implements OnInit {
 
    departments: StructureListElement[];
 
-    constructor(private departmentService : DepartmentService,
-                private translate:TranslateService,
+    constructor(private departmentService : DepartmentService, private translate:TranslateService)
+    {
+        this.translate.addLangs(['en','pl']);
+        this.translate.setDefaultLang('pl');
+        const browserLang = this.translate.getBrowserLang();
+        this.translate.use(browserLang.match(/en|pl/) ? browserLang : 'pl');
 
-    ) {
-
-        this.translate.addLangs(['en','pl','de']);
-        this.translate.setDefaultLang('en');
-        const browserLang = this.translate.getBrowserLang();// private messageService: MessageService,
-        // private i18nService: I18nServiceerLang();
-        this.translate.use(browserLang.match(/en|pl|de/) ? browserLang : 'pl');
     }
 
     ngOnInit() {
@@ -72,16 +70,9 @@ export class DepartmentListComponent implements OnInit {
     }
 
     delete(structure: StructureListElement) {
-        // const modalRef = this.modalService.open(UserMgmtDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
-        // modalRef.componentInstance.user = user;
-        // modalRef.result.then(
-        //     result => {
-        //         // Left blank intentionally, nothing to do here
-        //     },
-        //     reason => {
-        //         // Left blank intentionally, nothing to do here
-        //     }
-        // );
+        this.departmentService.deleteDepartament(String(structure.id)).subscribe(resp => {
+            this.getDepartments()
+        });
     }
 
 }

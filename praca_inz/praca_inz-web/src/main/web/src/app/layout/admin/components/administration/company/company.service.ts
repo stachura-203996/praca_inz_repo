@@ -2,10 +2,12 @@ import {Injectable} from '@angular/core';
 import {Observable} from "rxjs";
 import {HttpService} from "../../../../../shared/services/http.service";
 import {Configuration} from "../../../../../app.constants";
-import {StructureListElement} from "../../../../../models/structure-list-element";
-import {StructureAddElement} from "../../../../../models/structure-add-element";
-import {StructureEditElement} from "../../../../../models/structure-edit-element";
-import {StructureViewElement} from "../../../../../models/structure-view-element";
+import {
+    StructureAddElement, StructureEditElement,
+    StructureListElement,
+    StructureViewElement
+} from "../../../../../models/structure-elements";
+
 
 @Injectable({
     providedIn: 'root'
@@ -29,4 +31,11 @@ export class CompanyService {
        return this.httpService.post<StructureAddElement>(this.companyPath, data);
     }
 
+    updateDepartment(data: StructureEditElement): Observable<any> {
+        return this.httpService.put<StructureEditElement>(this.companyPath, data);
+    }
+
+    deleteCompany(id :string): Observable<any>{
+        return this.httpService.delete<any>(this.companyPath+'/'+id);
+    }
 }

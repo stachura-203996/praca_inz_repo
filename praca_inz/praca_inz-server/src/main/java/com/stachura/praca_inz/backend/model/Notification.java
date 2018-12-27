@@ -31,6 +31,10 @@ public class Notification implements Serializable {
     @Column(name = "TITLE", nullable = false)
     private String title;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonBackReference
+    private User user;
+
     @Column(name = "DESCRIPTION", nullable = false)
     private String description;
 
@@ -40,14 +44,15 @@ public class Notification implements Serializable {
     @Column(name = "READED")
     private boolean readed;
 
-    @Basic(optional = false)
+    @Column(name = "DELETED", nullable = false)
+    private boolean deleted;
+
+    @Basic
     @NotNull
     @Column(name = "NOTIFICATION_DATE")
-    @Temporal(TemporalType.DATE)
-    private Date notificationData;
+    @Temporal(TemporalType.TIMESTAMP)
+    private java.util.Calendar calendarTimestamp;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JsonBackReference
-    private User user;
+
 
 }

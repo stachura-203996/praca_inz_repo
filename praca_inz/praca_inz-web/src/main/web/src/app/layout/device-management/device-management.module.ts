@@ -13,13 +13,15 @@ import {TranslateModule} from "@ngx-translate/core";
 import {FormsModule} from "@angular/forms";
 import { DeviceTypeViewComponent } from './device-type-view/device-type-view.component';
 import { TransferRequestAddComponent } from './transfer-request-add/transfer-request-add.component';
+import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 
 @NgModule({
     imports: [
         CommonModule,
         DeviceManagementRoutingModule,
         TranslateModule,
-        FormsModule
+        FormsModule,
+        NgbModule.forRoot()
     ],
     declarations: [
         DeviceUserComponent,

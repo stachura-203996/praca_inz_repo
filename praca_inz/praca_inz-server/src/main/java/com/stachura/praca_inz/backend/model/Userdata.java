@@ -51,4 +51,5 @@ public class Userdata implements Serializable {
     @JoinColumn(name = "ADDRESS_ID")
     private Address address;
 
+
 }

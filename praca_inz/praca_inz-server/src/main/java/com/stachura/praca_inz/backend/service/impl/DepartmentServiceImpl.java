@@ -24,26 +24,36 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     @Transactional(readOnly = true)
-//    @PreAuthorize("hasAuthority('COMPANY_READ') and hasAuthority('DEPARTMENT_READ')")
+//    @PreAuthorize("hasAuthority('DEPARTMENT_READ')")
     public Department getDepartmentById(Long id) {
-        return departmentRepository.find(id);
+        Department department = departmentRepository.find(id);
+        if (department.isDeleted()) {
+            return null;
+        }
+        return department;
     }
 
     @Override
     @Transactional(readOnly = true)
-//    @PreAuthorize("hasAuthority('COMPANY_READ') and hasAuthority('DEPARTMENT_READ')")
+//    @PreAuthorize("hasAuthority('DEPARTMENT_READ')")
     public Department getDepartmentByName(String name) {
-        return departmentRepository.find(name);
+        Department department = departmentRepository.find(name);
+        if (department.isDeleted()) {
+            return null;
+        }
+        return department;
     }
 
     @Override
     @Transactional(readOnly = true)
-//    @PreAuthorize("hasAuthority('COMPANY_READ')")
+//    @PreAuthorize("hasAuthority('DEPARTMENT_READ')")
     public List<CompanyStructuresListElementDto> getAllDepartments() {
         List<Department> departments = departmentRepository.findAll();
         List<CompanyStructuresListElementDto> structuresListElementDtos = new ArrayList<>();
         for (Department a : departments) {
-            structuresListElementDtos.add(CompanyStructureConverter.toCompanyStructureListElement(a));
+            if (!a.isDeleted()) {
+                structuresListElementDtos.add(CompanyStructureConverter.toCompanyStructureListElement(a));
+            }
         }
         return structuresListElementDtos;
 
@@ -57,7 +67,9 @@ public class DepartmentServiceImpl implements DepartmentService {
         }).collect(Collectors.toList());
         List<CompanyStructuresListElementDto> structuresListElementDtos = new ArrayList<>();
         for (Department a : departments) {
-            structuresListElementDtos.add(CompanyStructureConverter.toCompanyStructureListElement(a));
+            if (!a.isDeleted()) {
+                structuresListElementDtos.add(CompanyStructureConverter.toCompanyStructureListElement(a));
+            }
         }
         return structuresListElementDtos;
     }
@@ -65,7 +77,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     //TODO EXCEPTIONS
     @Override
     @Transactional
-//    @PreAuthorize("hasAuthority('COMPANY_CREATE')")
+//    @PreAuthorize("hasAuthority('DEPARTMENT_CREATE')")
     public void createNewDepartment(Department department) {
         try {
             departmentRepository.create(department);
@@ -77,11 +89,13 @@ public class DepartmentServiceImpl implements DepartmentService {
     //TODO EXCEPTIONS
     @Override
     @Transactional
-//    @PreAuthorize("hasAuthority('COMPANY_UPDATE')")
+//    @PreAuthorize("hasAuthority('DEPARTMENT_UPDATE')")
     public Department updateDepartment(Department department) {
         Department tmp = new Department();
         try {
-            tmp = departmentRepository.update(department);
+            if (!departmentRepository.find(department.getId()).isDeleted()) {
+                tmp = departmentRepository.update(department);
+            }
         } catch (EntityException e) {
             e.printStackTrace();
         }
@@ -90,15 +104,16 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     @Transactional
-//    @PreAuthorize("hasAuthority('COMPANY_DELETE')")
+//    @PreAuthorize("hasAuthority('DEPARTMENT_DELETE')")
     public void deleteDepartmentById(Long id) {
-        departmentRepository.remove(id);
+        departmentRepository.find(id).setDeleted(true);
+
     }
 
     @Override
     @Transactional
-//    @PreAuthorize("hasAuthority('COMPANY_DELETE')")
+//    @PreAuthorize("hasAuthority('DEPARTMENT_DELETE')")
     public void deleteDepartment(Department department) {
-        departmentRepository.remove(department);
+        departmentRepository.find(department.getId()).setDeleted(true);
     }
 }

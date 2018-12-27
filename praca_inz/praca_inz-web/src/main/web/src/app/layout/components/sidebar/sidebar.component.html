@@ -12,11 +12,6 @@
             <li class="nested" [class.expand]="showMenu === 'userManagementPanel'">
                 <ul class="submenu">
                     <li>
-                        <a [routerLink]="['/admin/dashboard']" href="javascript:void(0)">
-                            <span>{{ 'Dashboard' | translate }}</span>
-                        </a>
-                    </li>
-                    <li>
                         <a [routerLink]="['/admin/users']" href="javascript:void(0)">
                             <span>{{ 'Users' | translate }}</span>
                         </a>
@@ -57,7 +52,7 @@
                         </a>
                     </li>
                     <li>
-                        <a [routerLink]="['/admin/request']">
+                        <a [routerLink]="['/admin/requests']">
                             <span>{{ 'Requests' | translate }}</span>
                         </a>
                     </li>
@@ -78,20 +73,26 @@
         <div class="nested-menu">
             <a class="list-group-item" (click)="addExpandClass('employeesManagementPanel')">
                 <i class="fa fa-briefcase"></i>&nbsp;
-                <span>{{ 'Employees' | translate }}</span>
+                <span>{{ 'Emlpoyeemanager' | translate }}</span>
             </a>
             <li class="nested" [class.expand]="showMenu === 'employeesManagementPanel'">
                 <ul class="submenu">
                     <li>
-                        <a [routerLink]="['/subordinates']">
+                        <a [routerLink]="['employees/subordinates']">
                             <i class="fa fa-monument"></i>&nbsp;
-                            <span>{{ 'Subordinates' | translate }}</span>
+                            <span>{{ 'Employees' | translate }}</span>
                         </a>
                     </li>
                     <li>
-                        <a [routerLink]="['/subordinates/requests']">
+                        <a [routerLink]="['/employees/subordinates/requests']">
                             <i class="fa fa-monument"></i>&nbsp;
                             <span>{{ 'SubordinatesRequests' | translate }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/employees/reports']">
+                            <i class="fa fa-monument"></i>&nbsp;
+                            <span>{{ 'Reports' | translate }}</span>
                         </a>
                     </li>
                 </ul>
@@ -113,7 +114,7 @@
                     <li>
                         <a [routerLink]="['/devices/request']">
                             <i  class="fa fa-monument"></i>&nbsp;
-                            <span>{{ 'YourDevicesRequest' | translate }}</span>
+                            <span>{{ 'YourRequests' | translate }}</span>
                         </a>
                     </li>
                     <li>

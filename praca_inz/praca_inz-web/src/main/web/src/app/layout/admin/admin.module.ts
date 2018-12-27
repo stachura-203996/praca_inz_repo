@@ -12,7 +12,6 @@ import {DepartmentEditComponent} from "./components/structure-management/departm
 import {OfficeListComponent} from "./components/structure-management/office/office-list/office-list.component";
 import {OfficeAddComponent} from "./components/structure-management/office/office-add/office-add.component";
 import {OfficeEditComponent} from "./components/structure-management/office/office-edit/office-edit.component";
-import { DashboardComponent } from './components/administration/dashboard/dashboard.component';
 import {ChatComponent, NotificationComponent, TimelineComponent} from "./components/administration/components";
 import {UserViewComponent} from "./components/administration/user-management/components/user-view/user-view.component";
 import {UserEditComponent} from "./components/administration/user-management/components/user-edit/user-edit.component";
@@ -32,6 +31,8 @@ import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import { WarehouseListComponent } from './components/structure-management/warehouse/warehouse-list/warehouse-list.component';
 import {WarehouseAddComponent} from "./components/structure-management/warehouse/warehouse-add/warehouse-add.component";
 import {WarehouseEditComponent} from "./components/structure-management/warehouse/warehouse-edit/warehouse-edit.component";
+import { RequestListComponent } from './components/structure-management/request/request-list/request-list.component';
+import { ReportListComponent } from './components/structure-management/report/report-list/report-list.component';
 
 @NgModule({
     imports: [
@@ -51,7 +52,6 @@ import {WarehouseEditComponent} from "./components/structure-management/warehous
         OfficeListComponent,
         OfficeAddComponent,
         OfficeEditComponent,
-        DashboardComponent,
         ChatComponent,
         NotificationComponent,
         TimelineComponent,
@@ -71,7 +71,9 @@ import {WarehouseEditComponent} from "./components/structure-management/warehous
         DeviceParameterEditComponent,
         WarehouseListComponent,
         WarehouseAddComponent,
-        WarehouseEditComponent
+        WarehouseEditComponent,
+        RequestListComponent,
+        ReportListComponent
     ]
 })
 export class AdminModule {

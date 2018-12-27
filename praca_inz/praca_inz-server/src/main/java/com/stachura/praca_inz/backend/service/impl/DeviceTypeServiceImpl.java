@@ -24,7 +24,11 @@ public class DeviceTypeServiceImpl implements DeviceTypeService {
     @Transactional(readOnly = true)
     @PreAuthorize("hasAuthority('DEVICE_TYPE_READ')")
     public DeviceType getDeviceTypeById(Long id) {
-        return deviceTypeRepository.find(id);
+        DeviceType deviceType = deviceTypeRepository.find(id);
+        if (deviceType.isDeleted()) {
+            return null;
+        }
+        return deviceType;
     }
 
     /*@Override
@@ -41,7 +45,9 @@ public class DeviceTypeServiceImpl implements DeviceTypeService {
         List<DeviceType> deviceTypes = deviceTypeRepository.findAll();
         List<DeviceTypeListElementDto> deviceTypesDto = new ArrayList<>();
         for (DeviceType a : deviceTypes) {
-            deviceTypesDto.add(DeviceTypeConverter.toDeviceTypeListElement(a));
+            if (!a.isDeleted()) {
+                deviceTypesDto.add(DeviceTypeConverter.toDeviceTypeListElement(a));
+            }
         }
         return deviceTypesDto;
     }
@@ -52,9 +58,11 @@ public class DeviceTypeServiceImpl implements DeviceTypeService {
     @PreAuthorize("hasAuthority('DEVICE_TYPE_CREATE')")
     public void createNewDeviceType(DeviceType deviceType) {
         try {
+
             deviceTypeRepository.create(deviceType);
 
-        } catch (EntityException e) {
+        } catch (
+                EntityException e) {
 
         }
 
@@ -67,7 +75,9 @@ public class DeviceTypeServiceImpl implements DeviceTypeService {
     public DeviceType updateDeviceType(DeviceType deviceType) {
         DeviceType tmp = new DeviceType();
         try {
-            tmp = deviceTypeRepository.update(deviceType);
+            if (!deviceTypeRepository.find(deviceType.getId()).isDeleted()) {
+                tmp = deviceTypeRepository.update(deviceType);
+            }
         } catch (EntityException e) {
 
         }
@@ -78,13 +88,13 @@ public class DeviceTypeServiceImpl implements DeviceTypeService {
     @Transactional
     @PreAuthorize("hasAuthority('DEVICE_TYPE_DELETE')")
     public void deleteDeviceTypeById(Long id) {
-        deviceTypeRepository.remove(id);
+        deviceTypeRepository.find(id).setDeleted(true);
     }
 
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('DEVICE_TYPE_DELETE')")
     public void deleteDeviceType(DeviceType deviceType) {
-        deviceTypeRepository.remove(deviceType);
+        deviceTypeRepository.find(deviceType.getId()).setDeleted(true);
     }
 }

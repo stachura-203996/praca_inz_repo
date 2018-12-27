@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import {StructureViewElement} from "../../../models/structure-view-element";
-import {DeviceListElement} from "../../../models/device-list-element";
-import {StructureListElement} from "../../../models/structure-list-element";
 import {ActivatedRoute} from "@angular/router";
 import {CompanyService} from "../../admin/components/administration/company/company.service";
 import {DepartmentService} from "../../admin/components/structure-management/department/department.service";
 import {OfficeService} from "../../admin/components/structure-management/office/office.service";
 import {SessionContextService} from "../../../shared/services/session-context.service";
 import {DeviceService} from "../../device-management/device.service";
+import {StructureListElement, StructureViewElement} from "../../../models/structure-elements";
+import {DeviceListElement} from "../../../models/device-elements";
+import {WarehouseListElement} from "../../../models/warehouse-elements";
+import {WarehouseService} from "../../warehouse-management/warehouse.service";
 
 @Component({
   selector: 'app-department-view',
@@ -19,10 +20,12 @@ export class DepartmentViewComponent implements OnInit {
     department: StructureViewElement;
     devices: DeviceListElement[];
     offices: StructureListElement[];
+    warehouses:WarehouseListElement[];
 
     constructor(
         private route: ActivatedRoute,
         private companyService: CompanyService,
+        private warehouseService:WarehouseService,
         private departmentService: DepartmentService,
         private officeService: OfficeService,
         private sessionContextService: SessionContextService,
@@ -33,6 +36,7 @@ export class DepartmentViewComponent implements OnInit {
         this.getDepartment();
         this.getDevicesForOffice();
         this.getOfficesForDepartment();
+        this.getWarehouseForDepartment()
     }
 
     getDepartment() {
@@ -45,6 +49,14 @@ export class DepartmentViewComponent implements OnInit {
         const id = this.route.snapshot.paramMap.get('id');
         this.officeService.getAllForDepartment(id).subscribe(officeListElement => {
             this.offices = officeListElement
+        });
+    }
+
+
+    getWarehouseForDepartment() {
+        const id = this.route.snapshot.paramMap.get('id');
+        this.warehouseService.getAllForDepartment(id).subscribe(warehouseListElement => {
+            this.warehouses = warehouseListElement
         });
     }
 

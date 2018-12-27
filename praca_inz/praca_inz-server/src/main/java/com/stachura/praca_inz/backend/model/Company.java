@@ -34,6 +34,9 @@ public class Company implements Serializable {
     @Column(name = "DESCRIPTION")
     private String description;
 
+    @Column(name = "DELETED", nullable = false)
+    private boolean deleted;
+
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "MAIN_OFFICE_ADRESS_ID")
     private Address address;
@@ -42,13 +45,12 @@ public class Company implements Serializable {
     @JsonManagedReference
     private Set<Department> departments = new HashSet<>();
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "company", fetch = FetchType.LAZY, orphanRemoval = true)
+    @JsonManagedReference
+    private Set<Device> devices = new HashSet<>();
 
-    public void setDepartments(Set<Department> departments) {
-        this.departments.clear();
-        if (departments != null) {
-            this.departments.addAll(departments);
-        }
-    }
-
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "company", fetch = FetchType.LAZY, orphanRemoval = true)
+    @JsonManagedReference
+    private Set<DeviceType> deviceTypes = new HashSet<>();
 
 }

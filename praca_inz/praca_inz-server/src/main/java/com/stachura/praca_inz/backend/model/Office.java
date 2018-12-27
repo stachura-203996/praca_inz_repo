@@ -43,9 +43,17 @@ public class Office implements Serializable {
     @Column(name = "DESCRIPTION")
     private String description;
 
+    @Column(name = "DELETED", nullable = false)
+    private boolean deleted;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "office", fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonManagedReference
     private Set<User> users = new HashSet<>();
+
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "managedOffice", fetch = FetchType.LAZY, orphanRemoval = true)
+    @JsonManagedReference
+    private Set<User> mangers = new HashSet<>();
 
 
     public void setUsers(Set<User> users) {

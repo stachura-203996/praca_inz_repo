@@ -9,10 +9,10 @@ import {DeliveryRequestViewComponent} from "./delivery-request-view/delivery-req
 
 const routes: Routes = [
     {path: '', component: WarehouseUserComponent },
-    {path: 'view', component: WarehouseViewComponent },
+    {path: 'view/:id', component: WarehouseViewComponent },
     {path: 'delivery/requests', component: DeliveryRequestListComponent },
     {path:'delivery/request/add', component: DeliveryRequestAddComponent},
-    {path:'delivery/request/view', component: DeliveryRequestViewComponent}
+    {path:'delivery/request/view/:id', component: DeliveryRequestViewComponent}
 ];
 
 @NgModule({

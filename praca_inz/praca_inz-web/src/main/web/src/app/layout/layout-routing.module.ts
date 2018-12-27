@@ -13,7 +13,7 @@ const routes: Routes = [
             {path: 'settings', loadChildren:'./settings/settings.module#SettingsModule'},
             {path: 'devices', loadChildren:'./device-management/device-management.module#DeviceManagementModule'},
             {path: 'warehouses', loadChildren: './warehouse-management/warehouse-management.module#WarehouseManagementModule'},
-            {path: 'subordinates', loadChildren: './employee-management/employee-management.module#EmployeeManagementModule'},
+            {path: 'employees', loadChildren: './employee-management/employee-management.module#EmployeeManagementModule'},
             {path:'admin', loadChildren: './admin/admin.module#AdminModule'},
             {path: 'notifications', loadChildren:'./notification/notifications.module#NotificationsModule'},
             {path: 'structures', loadChildren:'./entity-management/entity-management.module#EntityManagementModule'},
