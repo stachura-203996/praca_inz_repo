@@ -33,10 +33,7 @@ export class StructureListElement {
     zipCode: string;
     companyName: string;
     departmentName:string;
-
-    toString(): string {
-        return this.name+' '+ this.city + ' ' + this.name+' '+ this.companyName+' '+this.departmentName;
-    }
+    deleted:boolean;
 }
 
 export class StructureViewElement {

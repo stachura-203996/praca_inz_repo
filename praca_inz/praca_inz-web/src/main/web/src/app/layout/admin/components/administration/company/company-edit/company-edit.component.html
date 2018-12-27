@@ -8,7 +8,7 @@
                         <label class="col-xl-5 control-label" for="Name">{{'CompanyName' | translate}}</label>
                         <div class="col-xl-5">
                             <div class="input-group">
-                                <input id="Name" [(ngModel)]="structureAddElement.name" name="Name" type="text"
+                                <input id="Name" [(ngModel)]="structureEditElement.name" name="Name" type="text"
                                        placeholder="Name" class="form-control input-xl" #name="ngModel" required>
                             </div>
                             <div *ngIf="name.invalid && (name.touched || name.dirty)"
@@ -25,13 +25,13 @@
                             <div id="Address" class="row">
                                 <div class="col-xl-4">
                                     <div class="input-group">
-                                        <input id="City" [(ngModel)]="structureAddElement.city" name="City" type="text"
+                                        <input id="City" [(ngModel)]="structureEditElement.city" name="City" type="text"
                                                placeholder="City" class="form-control input-xl">
                                     </div>
                                 </div>
                                 <div class="col-xl-4">
                                     <div class="input-group">
-                                        <input id="Street" [(ngModel)]="structureAddElement.street" name="Street"
+                                        <input id="Street" [(ngModel)]="structureEditElement.street" name="Street"
                                                type="text"
                                                placeholder="Street" class="form-control input-xl">
                                     </div>
@@ -41,21 +41,21 @@
                             <div class="row">
                                 <div class="col-xl-2">
                                     <div class="input-group">
-                                        <input id="houseNumber" [(ngModel)]="structureAddElement.buildingNumber"
+                                        <input id="houseNumber" [(ngModel)]="structureEditElement.buildingNumber"
                                                name="houseNumber" type="text" placeholder="houseNumber"
                                                class="form-control input-xl">
                                     </div>
                                 </div>
                                 <div class="col-xl-2">
                                     <div class="input-group">
-                                        <input id="flatNumber" [(ngModel)]="structureAddElement.flatNumber"
+                                        <input id="flatNumber" [(ngModel)]="structureEditElement.flatNumber"
                                                name="flatNumber" type="text" placeholder="flatNumber"
                                                class="form-control input-xl">
                                     </div>
                                 </div>
                                 <div class="col-xl-2">
                                     <div class="input-group">
-                                        <input id="zipCode" [(ngModel)]="structureAddElement.zipCode"
+                                        <input id="zipCode" [(ngModel)]="structureEditElement.zipCode"
                                                name="zipCode" type="text" placeholder="zipCode"
                                                class="form-control input-xl">
                                     </div>
@@ -68,7 +68,7 @@
                     <div class="form-group">
                         <label class="col-xl-7 control-label" for="Overview (max 200 words)">Overview (max 200 words)</label>
                         <div class="col-xl-7">
-                    <textarea class="form-control" [(ngModel)]="structureAddElement.description" rows="10"
+                    <textarea class="form-control" [(ngModel)]="structureEditElement.description" rows="10"
                               id="Overview (max 200 words)"
                               name="Overview (max 200 words)">{{'Overview'|translate}}</textarea>
                         </div>
@@ -78,7 +78,7 @@
                         <div class="col-sm-4">
                             <div class="row">
                                 <div class="col-xl-6" align="center">
-                                    <a class="btn btn-success" (click)="companyAdd()"><span class="glyphicon glyphicon-thumbs-up" ></span>{{'Submit'|translate}}</a>
+                                    <a class="btn btn-success" (click)="companytUpdate()"><span class="glyphicon glyphicon-thumbs-up" ></span>{{'Submit'|translate}}</a>
                                 </div>
                                 <div class="col-xl-6" align="center">
                                     <a class="btn btn-danger" (click)="clear()"><span class="glyphicon glyphicon-remove-sign" ></span>{{'Clear'|translate}}</a>

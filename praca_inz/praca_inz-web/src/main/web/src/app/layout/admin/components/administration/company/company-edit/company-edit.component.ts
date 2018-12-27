@@ -1,7 +1,14 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {CompanyService} from "../company.service";
-import {Router} from "@angular/router";
-import {StructureAddElement} from "../../../../../../models/structure-elements";
+import {ActivatedRoute, Router} from "@angular/router";
+import {
+    StructureAddElement,
+    StructureEditElement,
+    StructureListElement
+} from "../../../../../../models/structure-elements";
+import {TranslateService} from "@ngx-translate/core";
+import {DepartmentService} from "../../../structure-management/department/department.service";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-company-edit',
@@ -10,27 +17,34 @@ import {StructureAddElement} from "../../../../../../models/structure-elements";
 })
 export class CompanyEditComponent implements OnInit {
 
-    @Input() structureAddElement: StructureAddElement = new StructureAddElement;
+    structureEditElement: StructureEditElement;
 
-    constructor(private companyService:CompanyService,private router:Router) {
+
+
+    constructor(private route: ActivatedRoute,private companyService: CompanyService,private translate:TranslateService, private departmentService: DepartmentService, private router: Router) {
+        this.translate.addLangs(['en','pl']);
+        this.translate.setDefaultLang('pl');
+        const browserLang = this.translate.getBrowserLang();
+        this.translate.use(browserLang.match(/en|pl/) ? browserLang : 'pl');
+
     }
 
     ngOnInit() {
+        this.getCompany();
     }
 
-
-    companyAdd(){
-        this.companyService.createCompany(this.structureAddElement);
-        this.router.navigate(['/admin/companies']);
+    getCompany() {
+        const id = this.route.snapshot.paramMap.get('id');
+        this.companyService.getCompanyEdit(id).subscribe(x=>this.structureEditElement=x);
     }
+
+    companytUpdate() {
+        this.companyService.updateCompany(this.structureEditElement).subscribe(resp => {
+            this.router.navigateByUrl('/admin/companies');
+        });
+    }
+
     clear() {
-        this.structureAddElement.description=null;
-        this.structureAddElement.zipCode=null;
-        this.structureAddElement.buildingNumber=null;
-        this.structureAddElement.city=null;
-        this.structureAddElement.flatNumber=null;
-        this.structureAddElement.street=null;
-        this.structureAddElement.name=null;
+        this.structureEditElement=new StructureEditElement;
     }
-
 }

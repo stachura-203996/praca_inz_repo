@@ -1,8 +1,6 @@
 export class RequestListElement {
     id: number;
     title: string;
-    serialNumber: string;
-    deviceTypeName: string;
     username: string;
     status: string;
     acceptedToSend: boolean;
@@ -12,6 +10,6 @@ export class RequestListElement {
     utilTimestamp:string;
 
     toString(): string {
-        return this.title + ' ' + this.serialNumber + ' ' + this.deviceTypeName + ' ' + this.username;
+        return this.title + ' ' + this.username + ' '+ this.recieverWarehouseName+' '+ this.senderWarehouseName+''+this.utilTimestamp;
     }
 }

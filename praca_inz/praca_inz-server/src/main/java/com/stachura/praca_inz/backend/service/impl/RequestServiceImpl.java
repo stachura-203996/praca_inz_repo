@@ -7,11 +7,14 @@ import com.stachura.praca_inz.backend.service.RequestService;
 import com.stachura.praca_inz.backend.web.dto.RequestListElementDto;
 import com.stachura.praca_inz.backend.web.dto.converter.RequestConverter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
+@Service
 public class RequestServiceImpl implements RequestService {
 
     @Autowired
@@ -21,8 +24,8 @@ public class RequestServiceImpl implements RequestService {
     @Transactional(readOnly = true)
 //    @PreAuthorize("hasAuthority('REQUEST_READ')")
     public Request getRequestById(Long id) {
-        Request request= requestRepository.find(id);
-        if(request.isDeleted()){
+        Request request = requestRepository.find(id);
+        if (request.isDeleted()) {
             return null;
         }
         return request;
@@ -31,11 +34,36 @@ public class RequestServiceImpl implements RequestService {
     @Override
     @Transactional(readOnly = true)
 //    @PreAuthorize("hasAuthority('REQUEST_LIST_READ')")
-    public List<RequestListElementDto> getAllRequests() {
+    public List<RequestListElementDto> getAllRequests(String type) {
         List<Request> requests = requestRepository.findAll();
         List<RequestListElementDto> requestListElementDtos = new ArrayList<>();
         for (Request a : requests) {
-            if(!a.isDeleted()) {
+            if (!a.isDeleted()) {
+                requestListElementDtos.add(RequestConverter.toRequestListElement(a));
+            }
+        }
+        return requestListElementDtos;
+    }
+
+    @Override
+    public List<RequestListElementDto> getAllRequestsForUser(String type, String username) {
+        List<Request> requests = requestRepository.findAll().stream().filter(x -> x.getRequestType().name().equals(type) && x.getUser().getUsername().equals(username)).collect(Collectors.toList());
+        List<RequestListElementDto> requestListElementDtos = new ArrayList<>();
+        for (Request a : requests) {
+            if (!a.isDeleted()) {
+                requestListElementDtos.add(RequestConverter.toRequestListElement(a));
+            }
+        }
+        return requestListElementDtos;
+    }
+
+    @Override
+    public List<RequestListElementDto> getAllRequestsForOffice(String type, Long id) {
+        List<Request> requests = requestRepository.findAll().stream().filter(x -> x.getRequestType().name().equals(type) && x.getRecieverWarehouse().getOffice().getId().equals(id)
+                || x.getSenderWarehouse().getOffice().getId().equals(id)).collect(Collectors.toList());
+        List<RequestListElementDto> requestListElementDtos = new ArrayList<>();
+        for (Request a : requests) {
+            if (!a.isDeleted()) {
                 requestListElementDtos.add(RequestConverter.toRequestListElement(a));
             }
         }

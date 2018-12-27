@@ -19,10 +19,10 @@ export class RequestListComponent implements OnInit {
 
     ngOnInit() {
         // this.filterUsers(null);
-        this.getUsers();
+        this.getRequests();
     }
 
-    getUsers(){
+    getRequests(){
         this.officeService.getAll().subscribe(officeListElement=> {this.offices=officeListElement});
     }
 

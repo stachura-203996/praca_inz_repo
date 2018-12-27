@@ -27,11 +27,15 @@ export class CompanyService {
         return this.httpService.get<StructureViewElement>(this.companyPath+'/'+id);
     }
 
+    getCompanyEdit(id:string): Observable<StructureEditElement>{
+        return this.httpService.get<StructureEditElement>(this.companyPath+'/'+id);
+    }
+
     createCompany(data: StructureAddElement): Observable<any>  {
        return this.httpService.post<StructureAddElement>(this.companyPath, data);
     }
 
-    updateDepartment(data: StructureEditElement): Observable<any> {
+    updateCompany(data: StructureEditElement): Observable<any> {
         return this.httpService.put<StructureEditElement>(this.companyPath, data);
     }
 

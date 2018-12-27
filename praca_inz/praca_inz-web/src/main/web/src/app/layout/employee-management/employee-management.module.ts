@@ -6,6 +6,7 @@ import {EmployeeManagementRoutingModule} from "./employee-management-routing.mod
 import {TranslateModule} from "@ngx-translate/core";
 import {FormsModule} from "@angular/forms";
 import {ReportUserComponent} from "./report-user/report-user.component";
+import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import {ReportUserComponent} from "./report-user/report-user.component";
         CommonModule,
         EmployeeManagementRoutingModule,
         TranslateModule,
-        FormsModule
+        FormsModule,
+        NgbModule.forRoot()
     ],
     declarations: [SubordinatesListComponent, SubordinatesRequestsComponent, ReportUserComponent]
 })

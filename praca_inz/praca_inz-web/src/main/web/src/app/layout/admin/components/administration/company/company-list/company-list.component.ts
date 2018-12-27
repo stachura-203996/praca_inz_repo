@@ -12,7 +12,7 @@ import {StructureListElement} from "../../../../../../models/structure-elements"
 })
 export class CompanyListComponent implements OnInit {
 
-    public notVerifiedFilter = false;
+    public deletedFilter = false;
     companies: StructureListElement[];
 
     constructor(private companyService : CompanyService,
@@ -28,7 +28,7 @@ export class CompanyListComponent implements OnInit {
 
     ngOnInit() {
         // this.filterUsers(null);
-        this.getCompanies();
+        this.filterCompanies(null);
     }
 
     getCompanies(){
@@ -50,18 +50,28 @@ export class CompanyListComponent implements OnInit {
                 return;
             }
             if (!searchText || searchText.length < 2) {
+                if (this.deletedFilter) {
+                    this.companies = companies.filter(it => {
+                        return it.deleted === !this.deletedFilter;
+                    });
+                } else {
                     this.companies = companies;
+                }
+                return;
             }
 
             searchText = searchText.toLowerCase();
             this.companies = companies.filter(it => {
-                const range = it.toString();
+                const range = it.name+' '+it.companyName+' '+it.departmentName+' '+it.description+' '+it.city+' '+it.street+' '+it.zipCode;
                 const ok = range.toLowerCase().includes(searchText);
-                return ok;
+                if (!this.deletedFilter) {
+                    return ok;
+                } else {
+                    return ok && it.deleted === !this.deletedFilter;
+                }
             });
         });
     }
-
 
     delete(structure: StructureListElement) {
         this.companyService.deleteCompany(String(structure.id)).subscribe(resp => {

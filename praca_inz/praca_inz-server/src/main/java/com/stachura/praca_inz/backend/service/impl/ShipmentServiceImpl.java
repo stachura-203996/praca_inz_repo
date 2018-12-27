@@ -8,11 +8,12 @@ import com.stachura.praca_inz.backend.web.dto.ShipmentListElementDto;
 import com.stachura.praca_inz.backend.web.dto.converter.ShipmentConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
-
+@Service
 public class ShipmentServiceImpl implements ShipmentService {
    
     @Autowired

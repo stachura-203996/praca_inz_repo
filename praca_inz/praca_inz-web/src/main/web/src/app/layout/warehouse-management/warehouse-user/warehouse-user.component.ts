@@ -24,10 +24,10 @@ export class WarehouseUserComponent implements OnInit {
 
     ngOnInit() {
         // this.filterUsers(null);
-        this.getUsers();
+        this.getWarehouses();
     }
 
-    getUsers() {
+    getWarehouses() {
         this.warehouseService.getAll().subscribe(warehouseListElement => {
             this.warehouses = warehouseListElement
         });

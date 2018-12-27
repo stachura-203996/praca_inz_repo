@@ -9,7 +9,11 @@ public interface RequestService {
 
     Request getRequestById(Long id);
 
-    List<RequestListElementDto> getAllRequests();
+    List<RequestListElementDto> getAllRequests(String type);
+
+    List<RequestListElementDto> getAllRequestsForUser(String type,String username);
+
+    List<RequestListElementDto> getAllRequestsForOffice(String type,Long id);
 
     void createNewRequest(Request report);
 
