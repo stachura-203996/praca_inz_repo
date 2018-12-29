@@ -74,7 +74,7 @@ public class DepartmentController {
     @ResponseStatus(value = HttpStatus.OK)
     public void update(@RequestBody CompanyStructureEditDto companyStructureEditDto) {
         Department beforeDepartment=departmentService.getDepartmentById(companyStructureEditDto.getId());
-        departmentService.updateDepartment(CompanyStructureConverter.toDepartment(companyStructureEditDto,beforeDepartment));
+        departmentService.updateDepartment(CompanyStructureConverter.toDepartment(companyStructureEditDto,beforeDepartment,companyRepository));
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)

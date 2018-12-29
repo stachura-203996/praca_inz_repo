@@ -14,9 +14,6 @@
     "Language": "Język",
     "Polish" : "Polski",
     "English": "Angielski",
-    "French": "Francuski",
-    "Spanish": "Hiszpański",
-    "German": "Niemiecki",
     "Search" : "Wyszukaj",
     "Settings" : "Ustawienia",
     "Profile" : "Profil",
@@ -69,5 +66,14 @@
     "Clear":"Wyczyść",
     "Delete":"Usuń",
     "Search...":"Wyszukaj...",
-    "EditDepartment":"Edytuj oddział"
+    "EditDepartment":"Edytuj oddział",
+    "YourRequests": "Twoje zgłoszenia",
+    "DeviceRequestAdd":"Dodaj zapotrzebowanie",
+    "YourTransfers":"Twoje transfery",
+    "YourWarehouses":"Zarządzane magazyny",
+    "Requests":"Zgłoszenia",
+    "DeliveryRequestAdd":"Zgłoś dostawę",
+    "ShipmentRequestAdd":"Zgłoś wysyłkę",
+    "Deliveries":"Dostawy",
+    "Shipments":"Wysyłki"
 }

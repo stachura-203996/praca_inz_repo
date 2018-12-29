@@ -69,9 +69,13 @@ public class User implements UserDetails, Serializable {
     @JoinColumn(name = "USERDATA_ID")
     private Userdata userdata;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "sender", fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonManagedReference
-    private Set<Report> reports = new HashSet<>();
+    private Set<Report> reportsSender = new HashSet<>();
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "reciever", fetch = FetchType.LAZY, orphanRemoval = true)
+    @JsonManagedReference
+    private Set<Report> reportsReciever = new HashSet<>();
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonManagedReference

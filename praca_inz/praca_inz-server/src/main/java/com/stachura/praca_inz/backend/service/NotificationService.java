@@ -13,6 +13,8 @@ public interface NotificationService {
 
     List<NotificationListElementDto> getReadedAllNotificationsForLoggedUser(String username);
 
+    public List<NotificationListElementDto> getLast3UnreadedAllNotificationsForLoggedUser(String username);
+
     void createNewNotification(Notification device);
 
     Notification updateNotification(Notification device);

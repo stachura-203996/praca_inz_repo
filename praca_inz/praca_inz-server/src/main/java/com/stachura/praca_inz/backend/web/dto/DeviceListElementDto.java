@@ -14,5 +14,8 @@ public class DeviceListElementDto {
     String serialNumber;
     String deviceTypeName;
     String username;
+    String manufacture;
+    String lastUpdate;
+    String location;
 
 }

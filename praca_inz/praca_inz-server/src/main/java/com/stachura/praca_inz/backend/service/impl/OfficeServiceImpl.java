@@ -6,6 +6,7 @@ import com.stachura.praca_inz.backend.repository.interfaces.OfficeRepository;
 import com.stachura.praca_inz.backend.service.OfficeService;
 import com.stachura.praca_inz.backend.web.dto.CompanyStructuresListElementDto;
 import com.stachura.praca_inz.backend.web.dto.converter.CompanyStructureConverter;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
@@ -25,8 +26,8 @@ public class OfficeServiceImpl implements OfficeService {
     @Transactional(readOnly = true)
     @PreAuthorize("hasAuthority('OFFICE_READ')")
     public Office getOfficeById(Long id) {
-        Office office=officeRepository.find(id);
-        if(office.isDeleted()){
+        Office office = officeRepository.find(id);
+        if (office.isDeleted()) {
             return null;
         }
         return office;
@@ -38,6 +39,8 @@ public class OfficeServiceImpl implements OfficeService {
         List<CompanyStructuresListElementDto> officesDto = new ArrayList<>();
         for (Office a : offices) {
             if (!a.isDeleted()) {
+                Hibernate.initialize(a.getDepartment());
+                Hibernate.initialize(a.getDepartment().getCompany());
                 officesDto.add(CompanyStructureConverter.toCompanyStructureListElement(a));
             }
         }
@@ -50,8 +53,11 @@ public class OfficeServiceImpl implements OfficeService {
         List<CompanyStructuresListElementDto> officesDto = new ArrayList<>();
         for (Office a : offices) {
             if (!a.isDeleted()) {
-            officesDto.add(CompanyStructureConverter.toCompanyStructureListElement(a));
-        }}
+                Hibernate.initialize(a.getDepartment());
+                Hibernate.initialize(a.getDepartment().getCompany());
+                officesDto.add(CompanyStructureConverter.toCompanyStructureListElement(a));
+            }
+        }
         return officesDto;
     }
 
@@ -70,8 +76,11 @@ public class OfficeServiceImpl implements OfficeService {
         List<CompanyStructuresListElementDto> officesDto = new ArrayList<>();
         for (Office a : offices) {
             if (!a.isDeleted()) {
-            officesDto.add(CompanyStructureConverter.toCompanyStructureListElement(a));
-        }}
+                Hibernate.initialize(a.getDepartment());
+                Hibernate.initialize(a.getDepartment().getCompany());
+                officesDto.add(CompanyStructureConverter.toCompanyStructureListElement(a));
+            }
+        }
         return officesDto;
     }
 

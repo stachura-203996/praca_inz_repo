@@ -18,7 +18,8 @@
     <tr>
         <th>{{ 'ElementName' | translate }}</th>
         <th>{{ 'OfficeName' | translate }}</th>
-        <th>{{ 'Username' | translate }}</th>
+        <th>{{'Location'| translate}}</th>
+        <th>{{ 'Person responsible for' | translate }}</th>
         <th>{{'DevicesNumber'|translate}}</th>
         <th></th>
     </tr>
@@ -27,6 +28,7 @@
     <tr *ngFor="let warehouse of warehouses">
         <td>{{warehouse.name}}</td>
         <td>{{warehouse.officeName}}</td>
+        <td></td>
         <td>{{warehouse.username}}</td>
         <td>{{warehouse.devicesNumber}}</td>
         <td class="text-right">

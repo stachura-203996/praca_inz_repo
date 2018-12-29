@@ -3,6 +3,9 @@ export class DeviceListElement {
     name: string;
     serialNumber: string;
     deviceTypeName:string;
+    manufacture:string;
+    lastUpdate:string
+    location:string;
     username:string;
 
     toString(): string {

@@ -36,4 +36,8 @@ public interface UserService {
      * @return użytkownik
      */
     UserInfoDto getUserInfo(String name);
+
+    List<UserListElementDto> getAllUsersForManager(String username);
+
+    List<UserListElementDto> getAllUsersForCompanyAdmin(String username);
 }

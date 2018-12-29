@@ -53,6 +53,8 @@ public class DeviceServiceImpl implements DeviceService {
         for (Device a : devices) {
             if (!a.isDeleted()) {
                 Hibernate.initialize(a.getDeviceType());
+                Hibernate.initialize(a.getWarehouse());
+                Hibernate.initialize(a.getCompany());
                 devicesDto.add(DeviceConverter.toDeviceListElementDto(a));
             }
         }

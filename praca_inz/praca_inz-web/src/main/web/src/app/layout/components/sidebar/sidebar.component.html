@@ -57,6 +57,11 @@
                         </a>
                     </li>
                     <li>
+                        <a [routerLink]="['/admin/reports']">
+                            <span>{{ 'Reports' | translate }}</span>
+                        </a>
+                    </li>
+                    <li>
                         <a [routerLink]="['/admin/devices/transfer']">
                             <span>{{ 'Transfers' | translate }}</span>
                         </a>
@@ -90,6 +95,12 @@
                         </a>
                     </li>
                     <li>
+                        <a [routerLink]="['/notifications']">
+                            <i class="fa fa-monument"></i>&nbsp;
+                            <span>{{ 'Notifications' | translate }}</span>
+                        </a>
+                    </li>
+                    <li>
                         <a [routerLink]="['/employees/reports']">
                             <i class="fa fa-monument"></i>&nbsp;
                             <span>{{ 'Reports' | translate }}</span>
@@ -118,6 +129,12 @@
                         </a>
                     </li>
                     <li>
+                        <a [routerLink]="['/devices/request/add']">
+                            <i  class="fa fa-monument"></i>&nbsp;
+                            <span>{{ 'DeviceRequestAdd' | translate }}</span>
+                        </a>
+                    </li>
+                    <li>
                         <a [routerLink]="['/devices/transfer']">
                             <i  class="fa fa-monument"></i>&nbsp;
                             <span>{{ 'YourTransfers' | translate }}</span>
@@ -135,15 +152,33 @@
             <li class="nested" [class.expand]="showMenu === 'warehouseManagementPanel'">
                 <ul class="submenu">
                     <li>
-                        <a [routerLink]="['/warehouses/user']">
+                        <a [routerLink]="['/warehouses']">
                             <i class="fa fa-monument"></i>&nbsp;
                             <span>{{ 'YourWarehouses' | translate }}</span>
                         </a>
                     </li>
                     <li>
-                        <a [routerLink]="['/warehouses']">
+                        <a [routerLink]="['/warehouses/device']">
                             <i  class="fa fa-monument"></i>&nbsp;
-                            <span>{{ 'Warehouses' | translate }}</span>
+                            <span>{{ 'Devices' | translate }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/warehouses/request']">
+                            <i  class="fa fa-monument"></i>&nbsp;
+                            <span>{{ 'Requests' | translate }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/warehouses/delivery/request/add']">
+                            <i  class="fa fa-monument"></i>&nbsp;
+                            <span>{{ 'DeliveryRequestAdd' | translate }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/warehouses/shipment/request/add']">
+                            <i  class="fa fa-monument"></i>&nbsp;
+                            <span>{{ 'ShipmentRequestAdd' | translate }}</span>
                         </a>
                     </li>
                     <li>
@@ -153,11 +188,12 @@
                         </a>
                     </li>
                     <li>
-                        <a [routerLink]="['/devices/request']">
+                        <a [routerLink]="['/warehouses/shipment']">
                             <i  class="fa fa-monument"></i>&nbsp;
-                            <span>{{ 'DeliveriesRequests' | translate }}</span>
+                            <span>{{ 'Shipments' | translate }}</span>
                         </a>
                     </li>
+
                 </ul>
             </li>
         </div>

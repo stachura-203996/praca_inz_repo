@@ -19,7 +19,7 @@ export class StructureEditElement {
     buildingNumber: string;
     flatNumber: string;
     zipCode: string;
-    parentId: string;
+    parentId: number;
 }
 
 export class StructureListElement {

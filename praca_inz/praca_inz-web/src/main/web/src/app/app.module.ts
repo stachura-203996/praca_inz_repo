@@ -24,6 +24,8 @@ import {DeviceService} from "./layout/device-management/device.service";
 import {NotificationService} from "./layout/notification/notification.service";
 import {PasswordMatchDirective} from "./directives/password-match.directive";
 import {WarehouseService} from "./layout/warehouse-management/warehouse.service";
+import {SystemMessageService} from "./layout/main-page/system-message.service";
+import {ReportService} from "./layout/employee-management/report.service";
 
 
 export const createTranslateLoader = (http: HttpClient) => {
@@ -64,8 +66,10 @@ export const createTranslateLoader = (http: HttpClient) => {
         Configuration,
         ProfileService,
         MessageService,
+        SystemMessageService,
         DeviceService,
         I18nService,
+        ReportService,
         SessionContextService,
         NotificationService,
         WarehouseService

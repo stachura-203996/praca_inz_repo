@@ -27,6 +27,7 @@ import {WarehouseListComponent} from "./components/structure-management/warehous
 import {WarehouseAddComponent} from "./components/structure-management/warehouse/warehouse-add/warehouse-add.component";
 import {WarehouseEditComponent} from "./components/structure-management/warehouse/warehouse-edit/warehouse-edit.component";
 import {RequestListComponent} from "./components/structure-management/request/request-list/request-list.component";
+import {ReportListElement} from "../../models/report-elements";
 
 
 
@@ -58,6 +59,8 @@ const routes: Routes = [
     {path: 'warehouses/add', component: WarehouseAddComponent},
     {path: 'warehouses/edit/:id', component: WarehouseEditComponent},
     {path: 'requests', component: RequestListComponent},
+    {path: 'reports', component: ReportListElement},
+
 
 ];
 

@@ -7,14 +7,16 @@ import lombok.Setter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.Comparator;
 
 @Entity
 @EnableAutoConfiguration
 @Table(name = "REPORT")
 @Getter
 @Setter
-public class Report implements Serializable {
+public class Report implements Serializable, Comparator<Report> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -30,11 +32,27 @@ public class Report implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
-    private User user;
+    private User sender;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonBackReference
+    private User reciever;
 
     @Column(name = "DESCRIPTION")
     private String description;
 
     @Column(name = "DELETED", nullable = false)
     private boolean deleted;
+
+    @Basic
+    @NotNull
+    @Column(name = "REPORT_DATE")
+    @Temporal(TemporalType.TIMESTAMP)
+    private java.util.Calendar calendarTimestamp;
+
+
+    @Override
+    public int compare(Report o1, Report o2) {
+        return o1.getCalendarTimestamp().compareTo(o2.getCalendarTimestamp());
+    }
 }

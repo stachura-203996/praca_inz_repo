@@ -19,6 +19,7 @@ export class NotificationUserComponent implements OnInit {
 
     ngOnInit() {
         this.getUnreadedNotificationsForUser();
+        this.getReadedNotificationsForUser();
     }
 
     getUnreadedNotificationsForUser(){
@@ -51,7 +52,7 @@ export class NotificationUserComponent implements OnInit {
     view(notification:NotificationListElement){
         notification.readed=true;
         this.notificationService.updateNotification(notification).subscribe(resp => {
-            this.router.navigateByUrl('/notifications');
+            this.router.navigateByUrl(notification.url);
         });
     }
 

@@ -119,9 +119,10 @@ public class CompanyStructureConverter {
                 .build();
     }
 
-    public static Department toDepartment(CompanyStructureEditDto companyStructureEditDto, Department beforeDepartment) {
+    public static Department toDepartment(CompanyStructureEditDto companyStructureEditDto, Department beforeDepartment, CompanyRepository companyRepository) {
         beforeDepartment.setName(companyStructureEditDto.getName());
         beforeDepartment.setDescription(companyStructureEditDto.getDescription());
+        beforeDepartment.setCompany(companyRepository.find(companyStructureEditDto.getParentId()));
         return beforeDepartment;
     }
 
@@ -136,7 +137,7 @@ public class CompanyStructureConverter {
         return beforeCompany;
     }
 
-    public static Office toOffice(CompanyStructureEditDto companyStructureEditDto, Office beforeOffice) {
+    public static Office toOffice(CompanyStructureEditDto companyStructureEditDto, Office beforeOffice,DepartmentRepository departmentRepository) {
 
         beforeOffice.setName(companyStructureEditDto.getName());
         beforeOffice.setDescription(companyStructureEditDto.getDescription());
@@ -145,6 +146,7 @@ public class CompanyStructureConverter {
         beforeOffice.getAddress().setBuildingNumber(companyStructureEditDto.getBuildingNumber());
         beforeOffice.getAddress().setFlatNumber(companyStructureEditDto.getFlatNumber());
         beforeOffice.getAddress().setZipCode(companyStructureEditDto.getZipCode());
+        beforeOffice.setDepartment(departmentRepository.find(companyStructureEditDto.getParentId()));
         return beforeOffice;
     }
 

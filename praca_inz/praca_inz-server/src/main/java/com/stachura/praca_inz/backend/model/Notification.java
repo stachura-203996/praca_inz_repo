@@ -10,6 +10,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.Comparator;
 import java.util.Date;
 
 @Entity
@@ -17,7 +18,7 @@ import java.util.Date;
 @Table(name = "NOTIFICATION")
 @Getter
 @Setter
-public class Notification implements Serializable {
+public class Notification implements Serializable, Comparator<Notification> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -54,5 +55,8 @@ public class Notification implements Serializable {
     private java.util.Calendar calendarTimestamp;
 
 
-
+    @Override
+    public int compare(Notification o1, Notification o2) {
+        return o1.getCalendarTimestamp().compareTo(o2.getCalendarTimestamp());
+    }
 }

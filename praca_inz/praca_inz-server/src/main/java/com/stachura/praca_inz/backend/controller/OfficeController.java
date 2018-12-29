@@ -71,7 +71,7 @@ public class OfficeController {
     @ResponseStatus(value = HttpStatus.OK)
     public void update(@RequestBody CompanyStructureEditDto companyStructureEditDto) {
         Office beforeOffice=officeService.getOfficeById(companyStructureEditDto.getId());
-        officeService.update(CompanyStructureConverter.toOffice(companyStructureEditDto,beforeOffice));
+        officeService.update(CompanyStructureConverter.toOffice(companyStructureEditDto,beforeOffice,departmentRepository));
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)

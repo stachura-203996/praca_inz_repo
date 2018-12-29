@@ -4,11 +4,12 @@ import {OfficeService} from "../office.service";
 import {DepartmentService} from "../../department/department.service";
 import {StructureAddElement, StructureListElement} from "../../../../../../models/structure-elements";
 import {TranslateService} from "@ngx-translate/core";
+import {CompanyService} from "../../../administration/company/company.service";
 
 @Component({
-  selector: 'app-office-add',
-  templateUrl: './office-add.component.html',
-  styleUrls: ['./office-add.component.scss']
+    selector: 'app-office-add',
+    templateUrl: './office-add.component.html',
+    styleUrls: ['./office-add.component.scss']
 })
 export class OfficeAddComponent implements OnInit {
 
@@ -16,33 +17,31 @@ export class OfficeAddComponent implements OnInit {
 
     departments: StructureListElement[];
 
-    constructor(private departmentService:DepartmentService,private officeService:OfficeService,private router:Router,private translate:TranslateService) {
-        this.translate.addLangs(['en','pl']);
+    constructor(private officeService: OfficeService, private departmentService: DepartmentService, private translate: TranslateService, private router: Router) {
+        this.translate.addLangs(['en', 'pl']);
         this.translate.setDefaultLang('pl');
         const browserLang = this.translate.getBrowserLang();
         this.translate.use(browserLang.match(/en|pl/) ? browserLang : 'pl');
     }
 
     ngOnInit() {
-        // this.filterUsers(null);
         this.getDepartments();
     }
 
-    getDepartments(){
-        this.departmentService.getAll().subscribe(departmentListElement=> {this.departments=departmentListElement});
+    getDepartments() {
+        this.departmentService.getAll().subscribe(companyListElement => {
+            this.departments = companyListElement
+        });
     }
 
-    companyAdd(){
-        this.officeService.createOffice(this.structureAddElement);
-        this.router.navigate(['/admin/offices']);
+    officeAdd() {
+        this.officeService.createOffice(this.structureAddElement).subscribe(resp => {
+            this.router.navigateByUrl('/admin/offices');
+        });
     }
+
     clear() {
-        this.structureAddElement.description=null;
-        this.structureAddElement.zipCode=null;
-        this.structureAddElement.buildingNumber=null;
-        this.structureAddElement.city=null;
-        this.structureAddElement.flatNumber=null;
-        this.structureAddElement.street=null;
-        this.structureAddElement.name=null;
+        this.structureAddElement = new StructureAddElement();
     }
+
 }

@@ -12,7 +12,6 @@ import {DepartmentEditComponent} from "./components/structure-management/departm
 import {OfficeListComponent} from "./components/structure-management/office/office-list/office-list.component";
 import {OfficeAddComponent} from "./components/structure-management/office/office-add/office-add.component";
 import {OfficeEditComponent} from "./components/structure-management/office/office-edit/office-edit.component";
-import {ChatComponent, NotificationComponent, TimelineComponent} from "./components/administration/components";
 import {UserViewComponent} from "./components/administration/user-management/components/user-view/user-view.component";
 import {UserEditComponent} from "./components/administration/user-management/components/user-edit/user-edit.component";
 import {UserAddComponent} from "./components/administration/user-management/components/user-add/user-add.component";
@@ -52,9 +51,6 @@ import { ReportListComponent } from './components/structure-management/report/re
         OfficeListComponent,
         OfficeAddComponent,
         OfficeEditComponent,
-        ChatComponent,
-        NotificationComponent,
-        TimelineComponent,
         UserViewComponent,
         UserEditComponent,
         UserAddComponent,

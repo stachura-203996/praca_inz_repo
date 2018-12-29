@@ -38,14 +38,9 @@ export class DepartmentAddComponent implements OnInit {
             this.router.navigateByUrl('/admin/departments');
         });
     }
+
     clear() {
-        this.structureAddElement.description=null;
-        this.structureAddElement.zipCode=null;
-        this.structureAddElement.buildingNumber=null;
-        this.structureAddElement.city=null;
-        this.structureAddElement.flatNumber=null;
-        this.structureAddElement.street=null;
-        this.structureAddElement.name=null;
+        this.structureAddElement=new StructureAddElement();
     }
 
 }

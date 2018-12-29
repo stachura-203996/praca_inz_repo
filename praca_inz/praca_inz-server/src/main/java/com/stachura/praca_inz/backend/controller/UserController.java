@@ -41,6 +41,23 @@ public class UserController {
            return userService.getProfile(auth.getName());
     }
 
+
+    @RequestMapping(value = "/company/admin",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(value = HttpStatus.OK)
+    public @ResponseBody
+    List<UserListElementDto> getAllForCompanyAdmin() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        return userService.getAllUsersForCompanyAdmin(auth.getName());
+    }
+
+    @RequestMapping(value = "/subordinates",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(value = HttpStatus.OK)
+    public @ResponseBody
+    List<UserListElementDto> getAllForManager() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        return userService.getAllUsersForManager(auth.getName());
+    }
+
     @RequestMapping(value = "/logged", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody

@@ -1,3 +1,88 @@
-<p>
-  report works!
-</p>
+<div class="col-md-12">
+    <h1>{{ 'Reports' | translate }}</h1>
+    <br>
+    <ngb-tabset>
+        <ngb-tab>
+            <ng-template ngbTabTitle>{{'YourReports'|translate}}</ng-template>
+            <ng-template ngbTabContent>
+                <table class="table table-striped" align="center">
+                    <thead class="thead-inverse">
+                    <tr>
+                        <th>{{ 'Title' | translate }}</th>
+                        <th>{{ 'Reciever' | translate }}</th>
+                        <th>{{ 'Date' | translate }}</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let report of reports">
+                        <td>{{report.title}}</td>
+                        <td>{{report.reciever}}</td>
+                        <td>{{report.reportDate}}</td>
+                        <td class="text-right">
+                            <div class="btn-group flex-btn-group-container">
+                                <button type="submit"
+                                        [routerLink]="['./view/'+report.id]"
+                                        class="btn btn-info btn-sm">
+                                    <i class="fa fa-eye"></i>&nbsp;
+                                    <span class="d-none d-md-inline">View</span>
+                                </button>
+                                <button type="button" (click)="delete(report)"
+                                        class="btn btn-danger btn-sm">
+                                    <i class="fa fa-times"></i>&nbsp;
+                                    <span class="d-none d-md-inline">Delete</span>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </ng-template>
+        </ngb-tab>
+        <ngb-tab>
+            <ng-template ngbTabTitle>{{'EmployeesReports'|translate}}</ng-template>
+            <ng-template ngbTabContent>
+                <table class="table table-striped" align="center">
+                    <thead class="thead-inverse">
+                    <tr>
+                        <th>{{ 'Title' | translate }}</th>
+                        <th>{{ 'Sender' | translate }}</th>
+                        <th>{{ 'Date' | translate }}</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let report of reports">
+                        <td>{{report.title}}</td>
+                        <td>{{report.sender}}</td>
+                        <td>{{report.reportDate}}</td>
+                        <td class="text-right">
+                            <div class="btn-group flex-btn-group-container">
+                                <button type="submit"
+                                        [routerLink]="['./view/'+report.id]"
+                                        class="btn btn-info btn-sm">
+                                    <i class="fa fa-eye"></i>&nbsp;
+                                    <span class="d-none d-md-inline">View</span>
+                                </button>
+                                <button type="submit"
+                                        [routerLink]="['./edit/'+report.id]"
+                                        queryParamsHandling="merge"
+                                        class="btn btn-primary btn-sm">
+                                    <i class="fa fa-pencil"></i>&nbsp;
+                                    <span class="d-none d-md-inline">Edit</span>
+                                </button>
+                                <button type="button" (click)="delete(report)"
+                                        class="btn btn-danger btn-sm">
+                                    <i class="fa fa-times"></i>&nbsp;
+                                    <span class="d-none d-md-inline">Delete</span>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </ng-template>
+        </ngb-tab>
+    </ngb-tabset>
+</div>
+

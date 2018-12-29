@@ -11,7 +11,10 @@ public class ReportConverter {
         return ReportListElementDto.builder()
                 .id(report.getId())
                 .title(report.getTitle())
-                .username(report.getUser().getUsername())
+                .sender(report.getSender().getUsername())
+                .reciver(report.getReciever().getUsername())
+                .description(report.getDescription())
+                .reportDate(report.getCalendarTimestamp().getTime().toString())
                 .build();
     }
 }

@@ -1,4 +1,6 @@
+<div class="col-xl-12">
 <h1>{{ 'Requests' | translate }}</h1>
+<br>
 <ngb-tabset>
     <ngb-tab>
         <ng-template ngbTabTitle>{{'DeviceRequests'|translate}}</ng-template>
@@ -16,7 +18,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr *ngFor="let request of DeviceRequests">
+                <tr *ngFor="let request of deviceRequest">
                     <td>{{request.title}}</td>
                     <td>{{request.username}}</td>
                     <td>{{request.status}}</td>
@@ -101,3 +103,4 @@
         </ng-template>
     </ngb-tab>
 </ngb-tabset>
+</div>

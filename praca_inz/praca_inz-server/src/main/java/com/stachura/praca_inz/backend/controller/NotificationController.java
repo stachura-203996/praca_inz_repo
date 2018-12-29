@@ -26,18 +26,18 @@ public class NotificationController {
     @Autowired
     private NotificationService notificationService;
 
-//    @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-//    @ResponseStatus(value = HttpStatus.OK)
-//    public @ResponseBody
-//    List<NotificationListElementDto> getAllNotificationsForUser() {
-//        return notificationService.get();
-//    }
-
-
     @RequestMapping(value = "/user", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
     List<NotificationListElementDto> getUnreadedAllDevicesForLoggedUser() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        return notificationService.getUnreadedAllNotificationsForLoggedUser(auth.getName());
+    }
+
+    @RequestMapping(value = "/user/last", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(value = HttpStatus.OK)
+    public @ResponseBody
+    List<NotificationListElementDto> getLast3UnreadedAllDevicesForLoggedUser() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         return notificationService.getUnreadedAllNotificationsForLoggedUser(auth.getName());
     }

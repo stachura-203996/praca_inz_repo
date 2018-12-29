@@ -13,6 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class ReportServiceImpl implements ReportService {
 
@@ -86,5 +88,29 @@ public class ReportServiceImpl implements ReportService {
 //    @PreAuthorize("hasAuthority('REPORT_DELETE')")
     public void deleteReport(Report report) {
         reportRepository.find(report.getId()).setDeleted(true);
+    }
+
+    @Override
+    public List<ReportListElementDto> getAllReportsFromEmployees(String username) {
+        List<Report> reports = reportRepository.findAll().stream().filter(x->x.getReciever().getUsername().equals(username)).collect(Collectors.toList());
+        List<ReportListElementDto> reportListElementDtos = new ArrayList<>();
+        for (Report a : reports) {
+            if(!a.isDeleted()) {
+                reportListElementDtos.add(ReportConverter.toReportListElement(a));
+            }
+        }
+        return reportListElementDtos;
+    }
+
+    @Override
+    public List<ReportListElementDto> getAllReportsForUser(String username) {
+        List<Report> reports = reportRepository.findAll().stream().filter(x->x.getSender().getUsername().equals(username)).collect(Collectors.toList());
+        List<ReportListElementDto> reportListElementDtos = new ArrayList<>();
+        for (Report a : reports) {
+            if(!a.isDeleted()) {
+                reportListElementDtos.add(ReportConverter.toReportListElement(a));
+            }
+        }
+        return reportListElementDtos;
     }
 }

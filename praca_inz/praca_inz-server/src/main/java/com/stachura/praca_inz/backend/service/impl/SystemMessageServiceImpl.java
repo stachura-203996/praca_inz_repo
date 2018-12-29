@@ -13,8 +13,11 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class SystemMessageServiceImpl implements SystemMessageService {
@@ -37,7 +40,7 @@ public class SystemMessageServiceImpl implements SystemMessageService {
     @Transactional(readOnly = true)
     @PreAuthorize("hasAuthority('SYSTEM_MESSAGE_LIST_READ')")
     public List<SystemMessageListElementDto> getAllSystemMessages() {
-        List<SystemMessage> systemMessages = systemMessageRepository.findAll();
+        List<SystemMessage> systemMessages = systemMessageRepository.findAll().stream().sorted(Comparator.comparing(SystemMessage::getCalendarTimestamp).reversed()).collect(Collectors.toList());
         List<SystemMessageListElementDto> systemMessageListElementDtos = new ArrayList<>();
         for (SystemMessage a : systemMessages) {
             if (!a.isDeleted()) {
@@ -85,5 +88,21 @@ public class SystemMessageServiceImpl implements SystemMessageService {
     @PreAuthorize("hasAuthority('SYSTEM_MESSAGE_DELETE')")
     public void deleteSystemMessage(SystemMessage systemMessage) {
         systemMessageRepository.find(systemMessage.getId()).setDeleted(true);
+    }
+
+    @Override
+    @Transactional
+    @PreAuthorize("hasAuthority('SYSTEM_MESSAGE_LIST_READ')")
+    public List<SystemMessageListElementDto> getLast4SystemMessages() {
+        List<SystemMessage> systemMessages = systemMessageRepository.findAll().stream().sorted(Comparator.comparing(SystemMessage::getCalendarTimestamp).reversed()).collect(Collectors.toList());
+        List<SystemMessageListElementDto> systemMessageListElementDtos = new ArrayList<>();
+        int i=0;
+        for (SystemMessage a : systemMessages) {
+            if (!a.isDeleted()&&i<3) {
+                systemMessageListElementDtos.add(SystemMessageConverter.toSystemMessageListElement(a));
+                i++;
+            }
+        }
+        return systemMessageListElementDtos;
     }
 }

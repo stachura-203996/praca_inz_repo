@@ -17,4 +17,8 @@ public interface ReportService {
     void deleteReportById(Long id);
 
     void deleteReport(Report report);
+
+    List<ReportListElementDto> getAllReportsFromEmployees(String username);
+
+    List<ReportListElementDto> getAllReportsForUser(String username);
 }

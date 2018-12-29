@@ -22,14 +22,14 @@
                     <div class="form-group col-xl-5">
                         <label for="companySelect">{{'Company'|translate}}</label>
                         <select class="form-control" id="companySelect" [(ngModel)]="structureEditElement.parentId">
-                                <option *ngFor="let company of companies" [value]="company.id" >{{company.name}}</option>
+                                <option *ngFor="let company of companies" [ngValue]="company.id" >{{company.name}}</option>
                         </select>
                     </div>
                     <!-- Textarea -->
                     <div class="form-group">
                         <label class="col-xl-7 control-label" for="Overview (max 200 words)">Overview (max 200 words)</label>
                         <div class="col-xl-7">
-                    <textarea class="form-control" [(ngModel)]="structureEditElement.description" rows="10"
+                    <textarea class="form-control" [(ngModel)]="structureEditElement.parentId" rows="10"
                               id="Overview (max 200 words)"
                               name="{{'Overview (max 200 words)'|translate}}">{{'Overview'|translate}}</textarea>
                         </div>

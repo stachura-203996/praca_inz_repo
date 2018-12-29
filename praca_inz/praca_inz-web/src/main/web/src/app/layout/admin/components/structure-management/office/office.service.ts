@@ -21,6 +21,10 @@ export class OfficeService {
         return this.httpService.get<StructureListElement[]>(this.officePath);
     }
 
+    getOfficeEdit(id:string): Observable<StructureEditElement>{
+        return this.httpService.get<StructureEditElement>(this.officePath+'/'+id);
+    }
+
     getAllForCompany(id:string): Observable<StructureListElement[]> {
         return this.httpService.get<StructureListElement[]>(this.officePath+'/company/'+id);
     }
@@ -38,7 +42,7 @@ export class OfficeService {
     }
 
 
-    updateDepartment(data: StructureEditElement): Observable<any> {
+    updateOffice(data: StructureEditElement): Observable<any> {
         return this.httpService.put<StructureEditElement>(this.officePath, data);
     }
 

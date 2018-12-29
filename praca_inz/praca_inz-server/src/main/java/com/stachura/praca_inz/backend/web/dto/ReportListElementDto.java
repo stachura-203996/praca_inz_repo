@@ -14,6 +14,9 @@ public class ReportListElementDto {
 
     private Long id;
     private String title;
-    private String username;
+    private String sender;
+    private String reciver;
+    private String reportDate;
+    private String description;
 
 }

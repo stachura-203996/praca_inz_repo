@@ -7,7 +7,9 @@ import lombok.Setter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -33,9 +35,18 @@ public class Device implements Serializable {
     @Column(name = "SERIAL_NUMBER")
     private String serialNumber;
 
+    @Column(name = "MANUFACTURE")
+    private String manufacture;
+
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "DEVICE_TYPE_ID")
     private DeviceType deviceType;
+
+    @Basic
+    @NotNull
+    @Column(name = "LAST_UPDATE")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Calendar lastUpdate;
 
     @Column(name = "DELETED", nullable = false)
     private boolean deleted;

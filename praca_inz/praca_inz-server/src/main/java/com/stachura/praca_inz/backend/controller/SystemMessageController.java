@@ -37,12 +37,12 @@ public class SystemMessageController {
         return systemMessageService.getSystemMessageById(id);
     }
 
-//    @RequestMapping(value = "/filter", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-//    @ResponseStatus(value = HttpStatus.OK)
-//    public @ResponseBody
-//    SystemMessage getOfficeById(@RequestParam String name) {
-//        return systemMessageService.g(name);
-//    }
+    @RequestMapping(value = "/last",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(value = HttpStatus.OK)
+    public @ResponseBody
+    List<SystemMessageListElementDto> getLast4() {
+        return systemMessageService.getLast4SystemMessages();
+    }
 
     @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
