@@ -1,13 +1,17 @@
 package com.stachura.praca_inz.backend.service.impl;
 
+import com.stachura.praca_inz.backend.exception.EntityException;
 import com.stachura.praca_inz.backend.model.Office;
-import com.stachura.praca_inz.backend.repository.OfficeRepository;
+import com.stachura.praca_inz.backend.repository.interfaces.OfficeRepository;
 import com.stachura.praca_inz.backend.service.OfficeService;
+import com.stachura.praca_inz.backend.web.dto.CompanyStructuresListElementDto;
+import com.stachura.praca_inz.backend.web.dto.converter.CompanyStructureConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -18,50 +22,65 @@ public class OfficeServiceImpl implements OfficeService {
 
     @Override
     @Transactional(readOnly = true)
-//    @PreAuthorize("hasAuthority('COMPANY_READ') and hasAuthority('DEPARTMENT_READ')")
+    @PreAuthorize("hasAuthority('OFFICE_READ')")
     public Office get(Long id) {
         return officeRepository.find(id);
     }
 
-    @Override
-    @Transactional(readOnly = true)
-//    @PreAuthorize("hasAuthority('COMPANY_READ') and hasAuthority('DEPARTMENT_READ')")
-    public Office get(String name) {
-        return officeRepository.find(name);
-    }
+//    @Override
+//    @Transactional(readOnly = true)
+////    @PreAuthorize("hasAuthority('OFFICE_READ') and hasAuthority('DEPARTMENT_READ')")
+//    public Office getCompanyById(String name) {
+//        return officeRepository.find(name);
+//    }
 
     @Override
     @Transactional(readOnly = true)
-//    @PreAuthorize("hasAuthority('COMPANY_READ')")
-    public List<Office> getAll() {
-        return officeRepository.findAll();
+    @PreAuthorize("hasAuthority('OFFICE_LIST_READ')")
+    public List<CompanyStructuresListElementDto> getAll() {
+        List<Office> offices = officeRepository.findAll();
+        List<CompanyStructuresListElementDto> officesDto = new ArrayList<>();
+        for (Office a : offices) {
+            officesDto.add(CompanyStructureConverter.toCompanyStructureListElement(a));
+        }
+        return officesDto;
     }
 
     @Override
     @Transactional
-//    @PreAuthorize("hasAuthority('COMPANY_CREATE')")
-    public void create(Office company) {
-        officeRepository.create(company);
+    @PreAuthorize("hasAuthority('OFFICE_CREATE')")
+    public void create(Office office) {
+        try {
+            officeRepository.create(office);
+        } catch (EntityException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     @Transactional
-//    @PreAuthorize("hasAuthority('COMPANY_UPDATE')")
-    public Office update(Office company) {
-        return officeRepository.update(company);
+    @PreAuthorize("hasAuthority('OFFICE_UPDATE')")
+    public Office update(Office office) {
+       Office tmp=new Office();
+        try {
+            tmp= officeRepository.update(office);
+        } catch (EntityException e) {
+            e.printStackTrace();
+        }
+        return tmp;
     }
 
     @Override
     @Transactional
-//    @PreAuthorize("hasAuthority('COMPANY_DELETE')")
+    @PreAuthorize("hasAuthority('OFFICE_DELETE')")
     public void delete(Long id) {
-        officeRepository.delete(id);
+        officeRepository.remove(id);
     }
 
     @Override
     @Transactional
-//    @PreAuthorize("hasAuthority('COMPANY_DELETE')")
-    public void delete(Office company) {
-        officeRepository.delete(company);
+    @PreAuthorize("hasAuthority('OFFICE_DELETE')")
+    public void delete(Office office) {
+        officeRepository.remove(office);
     }
 }

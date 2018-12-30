@@ -2,6 +2,7 @@ package com.stachura.praca_inz.backend.controller;
 
 import com.stachura.praca_inz.backend.model.Office;
 import com.stachura.praca_inz.backend.service.OfficeService;
+import com.stachura.praca_inz.backend.web.dto.CompanyStructuresListElementDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.http.HttpHeaders;
@@ -25,7 +26,7 @@ public class OfficeController {
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
-    List<Office> getAll() {
+    List<CompanyStructuresListElementDto> getAll() {
         return officeService.getAll();
     }
 
@@ -36,12 +37,12 @@ public class OfficeController {
         return officeService.get(id);
     }
 
-    @RequestMapping(value = "/filter", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(value = HttpStatus.OK)
-    public @ResponseBody
-    Office get(@RequestParam String name) {
-        return officeService.get(name);
-    }
+//    @RequestMapping(value = "/filter", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+//    @ResponseStatus(value = HttpStatus.OK)
+//    public @ResponseBody
+//    Office getCompanyById(@RequestParam String name) {
+//        return officeService.getCompanyById(name);
+//    }
 
     @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
