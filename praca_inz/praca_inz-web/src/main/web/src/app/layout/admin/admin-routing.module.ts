@@ -20,14 +20,14 @@ import {DeviceRequestListComponent} from "./components/structure-management/devi
 import {TransferListComponent} from "./components/structure-management/device/transfer-list/transfer-list.component";
 import {DeviceParameterAddComponent} from "./components/structure-management/device/device-parameter-add/device-parameter-add.component";
 import {DeviceParameterEditComponent} from "./components/structure-management/device/device-parameter-edit/device-parameter-edit.component";
-import {DeviceTypeListComponent} from "./components/structure-management/device/device-type-list/device-type-list.component";
-import {DeviceTypeAddComponent} from "./components/structure-management/device/device-type-add/device-type-add.component";
-import {DeviceTypeEditComponent} from "./components/structure-management/device/device-type-edit/device-type-edit.component";
 import {WarehouseListComponent} from "./components/structure-management/warehouse/warehouse-list/warehouse-list.component";
 import {WarehouseAddComponent} from "./components/structure-management/warehouse/warehouse-add/warehouse-add.component";
 import {WarehouseEditComponent} from "./components/structure-management/warehouse/warehouse-edit/warehouse-edit.component";
 import {RequestListComponent} from "./components/structure-management/request/request-list/request-list.component";
-import {ReportListElement} from "../../models/report-elements";
+import {ReportListComponent} from "./components/structure-management/report/report-list/report-list.component";
+import {DeviceModelListElement} from "../../models/device-elements";
+import {DeviceModelAddComponent} from "./components/structure-management/device/device-model-add/device-model-add.component";
+import {DeviceModelEditComponent} from "./components/structure-management/device/device-model-edit/device-model-edit.component";
 
 
 
@@ -50,16 +50,16 @@ const routes: Routes = [
     {path: 'devices/edit/:id', component:DeviceEditComponent},
     {path: 'devices/request', component: DeviceRequestListComponent},
     {path: 'devices/transfer', component: TransferListComponent},
-    {path: 'devices/type', component: DeviceTypeListComponent},
-    {path: 'devices/type/add', component: DeviceTypeAddComponent},
-    {path: 'devices/type/edit/:id', component: DeviceTypeEditComponent},
+    {path: 'devices/model', component: DeviceModelListElement},
+    {path: 'devices/model/add', component: DeviceModelAddComponent},
+    {path: 'devices/model/edit/:id', component: DeviceModelEditComponent},
     {path: 'devices/parameter/add', component: DeviceParameterAddComponent},
     {path: 'devices/parameter/edit/:id', component: DeviceParameterEditComponent},
     {path: 'warehouses', component: WarehouseListComponent},
     {path: 'warehouses/add', component: WarehouseAddComponent},
     {path: 'warehouses/edit/:id', component: WarehouseEditComponent},
     {path: 'requests', component: RequestListComponent},
-    {path: 'reports', component: ReportListElement},
+    {path: 'reports', component: ReportListComponent},
 
 
 ];

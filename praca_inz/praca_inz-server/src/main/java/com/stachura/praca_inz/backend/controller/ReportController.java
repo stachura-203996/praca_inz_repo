@@ -25,6 +25,14 @@ public class ReportController {
     @Autowired
     private ReportService reportService;
 
+
+    @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(value = HttpStatus.OK)
+    public @ResponseBody
+    List<ReportListElementDto> getAllReports() {
+        return reportService.getAllReports();
+    }
+
     @RequestMapping(value = "/user",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
@@ -33,12 +41,12 @@ public class ReportController {
         return reportService.getAllReportsForUser(auth.getName());
     }
 
-    @RequestMapping(value = "/employees",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/others",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
-    List<ReportListElementDto> getAllReportsFromEmployes() {
+    List<ReportListElementDto> getAllReportsFromOthers() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        return reportService.getAllReportsFromEmployees(auth.getName());
+        return reportService.getAllReportsFromOthers(auth.getName());
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)

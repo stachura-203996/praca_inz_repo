@@ -11,16 +11,11 @@ import {StructureListElement} from "../../../models/structure-elements";
 })
 export class WarehouseRequestListComponent implements OnInit {
 
-    deviceRequest: RequestListElement[];
-    transferRequest:RequestListElement[];
-    deliveryRequest:RequestListElement[];
-    shipmentRequest:RequestListElement[];
+    employeesRequests: RequestListElement[];
+    warehousesRequests:RequestListElement[];
+    otherWarehousesRequests:RequestListElement[];
 
-
-    DEVICE_REQUEST:string="DEVICE_REQUEST";
     TRANSFER_REQUEST:string="TRANSFER_REQUEST";
-    DELIVERY_REQUEST:string="DELIVERY_REQUEST";
-    SHIPMENT_REQUEST:string="SHIPMENT_REQUEST";
 
     constructor(private requestService : RequestService,
                 private translate:TranslateService,
@@ -33,8 +28,9 @@ export class WarehouseRequestListComponent implements OnInit {
     }
 
     getRequests(){
-        this.requestService.getAllRequestsForLoggedUser(this.DEVICE_REQUEST).subscribe(officeListElement=> {this.deviceRequest=officeListElement});
-        this.requestService.getAllRequestsForLoggedUser(this.TRANSFER_REQUEST).subscribe(officeListElement=> {this.transferRequest=officeListElement});
+        this.requestService.getAllRequestsForLoggedUser(this.TRANSFER_REQUEST).subscribe(requests=> {this.warehousesRequests=requests});
+        this.requestService.getAllRequestsForLoggedUser(this.TRANSFER_REQUEST).subscribe(requests=> {this.otherWarehousesRequests=requests});
+        this.requestService.getAllRequestsForLoggedUser(this.TRANSFER_REQUEST).subscribe(requests=> {this.employeesRequests=requests});
     }
 
     getAddress(office:StructureListElement): string {

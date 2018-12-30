@@ -40,7 +40,7 @@ public class TransferServiceImpl implements TransferService {
     @Override
     public List<TransferListElementDto> getAllTransfersForLoggedUser(String username) {
         List<Transfer> transfers = transferRepository.findAll().stream().filter(x -> x.getSenderWarehouse().getUser().getUsername().equals(username) &&
-                x.getRecieverWarehouse().getUser().getUsername().equals(username)).collect(Collectors.toList());
+                x.getRecieverWarehouse().getUser().getUsername().equals(username)|| x.getUsername().equals(username)).collect(Collectors.toList());
         List<TransferListElementDto> transferListElementDtos = new ArrayList<>();
         for (Transfer a : transfers) {
             if (!a.isDeleted()) {

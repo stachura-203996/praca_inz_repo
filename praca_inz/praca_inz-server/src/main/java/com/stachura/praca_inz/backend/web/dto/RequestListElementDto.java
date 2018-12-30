@@ -23,6 +23,7 @@ public class RequestListElementDto {
     private String title;
     private String username;
     private String status;
+    private String type;
     private boolean acceptedToSend;
     private boolean acceptedToRecive;
     private String recieverWarehouseName;

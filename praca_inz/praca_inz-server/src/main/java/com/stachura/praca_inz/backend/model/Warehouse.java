@@ -2,6 +2,8 @@ package com.stachura.praca_inz.backend.model;
 
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.stachura.praca_inz.backend.model.enums.RequestType;
+import com.stachura.praca_inz.backend.model.enums.WarehouseType;
 import com.stachura.praca_inz.backend.model.security.User;
 import lombok.Getter;
 import lombok.Setter;
@@ -38,6 +40,10 @@ public class Warehouse implements Serializable {
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "OFFICE_ID")
     private Office office;
+
+    @Column(name = "WAREHOUSE_TYPE", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private WarehouseType warehouseType;
 
     @Column(name = "DELETED", nullable = false)
     private boolean deleted;

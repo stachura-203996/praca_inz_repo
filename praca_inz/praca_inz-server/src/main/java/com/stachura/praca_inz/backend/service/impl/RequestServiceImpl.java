@@ -35,7 +35,7 @@ public class RequestServiceImpl implements RequestService {
     @Transactional(readOnly = true)
 //    @PreAuthorize("hasAuthority('REQUEST_LIST_READ')")
     public List<RequestListElementDto> getAllRequests(String type) {
-        List<Request> requests = requestRepository.findAll();
+        List<Request> requests = requestRepository.findAll().stream().filter(x -> x.getRequestType().name().equals(type)).collect(Collectors.toList());
         List<RequestListElementDto> requestListElementDtos = new ArrayList<>();
         for (Request a : requests) {
             if (!a.isDeleted()) {

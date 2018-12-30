@@ -26,7 +26,7 @@ export class RequestService {
     }
 
     getAllRequestsForLoggedUser(type:string): Observable<RequestListElement[]> {
-        return this.httpService.get<RequestListElement[]>(this.requestPath+"/user"+type);
+        return this.httpService.get<RequestListElement[]>(this.requestPath+"/user/"+type);
     }
     
     getAllRequestsForOffice(type:string,id:string): Observable<RequestListElement[]> {
@@ -39,6 +39,10 @@ export class RequestService {
 
     updateRequest(data: StructureEditElement): Observable<any> {
         return this.httpService.put<StructureEditElement>(this.requestPath, data);
+    }
+
+    cancelRequest(data: RequestListElement): Observable<any> {
+        return this.httpService.put<StructureEditElement>(this.requestPath+'/cancel/', data);
     }
 
     deleteRequest(id :string): Observable<any>{

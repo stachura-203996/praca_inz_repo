@@ -4,7 +4,6 @@ import com.stachura.praca_inz.backend.exception.EntityException;
 import com.stachura.praca_inz.backend.model.Device;
 import com.stachura.praca_inz.backend.model.Office;
 import com.stachura.praca_inz.backend.repository.interfaces.DeviceRepository;
-import com.stachura.praca_inz.backend.repository.interfaces.UserRepository;
 import com.stachura.praca_inz.backend.service.DeviceService;
 import com.stachura.praca_inz.backend.web.dto.DeviceListElementDto;
 import com.stachura.praca_inz.backend.web.dto.converter.DeviceConverter;
@@ -52,7 +51,7 @@ public class DeviceServiceImpl implements DeviceService {
         List<DeviceListElementDto> devicesDto = new ArrayList<>();
         for (Device a : devices) {
             if (!a.isDeleted()) {
-                Hibernate.initialize(a.getDeviceType());
+                Hibernate.initialize(a.getDeviceModel());
                 Hibernate.initialize(a.getWarehouse());
                 Hibernate.initialize(a.getCompany());
                 devicesDto.add(DeviceConverter.toDeviceListElementDto(a));
@@ -71,7 +70,7 @@ public class DeviceServiceImpl implements DeviceService {
         List<DeviceListElementDto> devicesDto = new ArrayList<>();
         for (Device a : devices) {
             if (!a.isDeleted()) {
-                Hibernate.initialize(a.getDeviceType());
+                Hibernate.initialize(a.getDeviceModel());
                 devicesDto.add(DeviceConverter.toDeviceListElementDto(a));
             }
         }
@@ -89,7 +88,7 @@ public class DeviceServiceImpl implements DeviceService {
         List<DeviceListElementDto> devicesDto = new ArrayList<>();
         for (Device a : devices) {
             if (!a.isDeleted()) {
-                Hibernate.initialize(a.getDeviceType());
+                Hibernate.initialize(a.getDeviceModel());
                 devicesDto.add(DeviceConverter.toDeviceListElementDto(a));
             }
         }
@@ -102,7 +101,7 @@ public class DeviceServiceImpl implements DeviceService {
         List<DeviceListElementDto> devicesDto = new ArrayList<>();
         for (Device a : devices) {
             if (!a.isDeleted()) {
-                Hibernate.initialize(a.getDeviceType());
+                Hibernate.initialize(a.getDeviceModel());
                 devicesDto.add(DeviceConverter.toDeviceListElementDto(a));
             }
         }
@@ -115,7 +114,7 @@ public class DeviceServiceImpl implements DeviceService {
         List<DeviceListElementDto> devicesDto = new ArrayList<>();
         for (Device a : devices) {
             if (!a.isDeleted()) {
-                Hibernate.initialize(a.getDeviceType());
+                Hibernate.initialize(a.getDeviceModel());
                 devicesDto.add(DeviceConverter.toDeviceListElementDto(a));
             }
         }
@@ -127,12 +126,12 @@ public class DeviceServiceImpl implements DeviceService {
     @PreAuthorize("hasAuthority('DEVICE_LIST_READ')")
     public List<DeviceListElementDto> getAllDevicesForLoggedUser(String username) {
         List<Device> devices = deviceRepository.findAll().stream().filter(x -> x.getWarehouse().getUser().getUsername().equals(username) &&
-                x.getWarehouse().getOffice() == null).collect(Collectors.toList());
+                x.getWarehouse().getWarehouseType().name().equals("USER")).collect(Collectors.toList());
         List<DeviceListElementDto> devicesDto = new ArrayList<>();
         for (Device a : devices) {
             if (!a.isDeleted()) {
-                Hibernate.initialize(a.getDeviceType());
-                Hibernate.initialize(a.getDeviceType().getName());
+                Hibernate.initialize(a.getDeviceModel());
+                Hibernate.initialize(a.getDeviceModel().getName());
                 devicesDto.add(DeviceConverter.toDeviceListElementDto(a));
             }
         }
@@ -188,8 +187,8 @@ public class DeviceServiceImpl implements DeviceService {
         List<DeviceListElementDto> devicesDto = new ArrayList<>();
         for (Device a : devices) {
             if (!a.isDeleted()) {
-                Hibernate.initialize(a.getDeviceType());
-                Hibernate.initialize(a.getDeviceType().getName());
+                Hibernate.initialize(a.getDeviceModel());
+                Hibernate.initialize(a.getDeviceModel().getName());
                 devicesDto.add(DeviceConverter.toDeviceListElementDto(a));
             }
         }

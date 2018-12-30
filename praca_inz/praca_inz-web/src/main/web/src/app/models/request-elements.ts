@@ -3,6 +3,7 @@ export class RequestListElement {
     title: string;
     username: string;
     status: string;
+    type:string
     acceptedToSend: boolean;
     acceptedToRecive: boolean;
     recieverWarehouseName:string;

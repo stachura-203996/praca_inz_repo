@@ -4,7 +4,7 @@ import {Configuration} from "../../app.constants";
 import {Observable} from "rxjs";
 import {TransferListElement} from "../../models/transfer-list-element";
 import {StructureViewElement} from "../../models/structure-elements";
-import {DeviceListElement, DeviceTypeListElement} from "../../models/device-elements";
+import {DeviceListElement, DeviceModelListElement} from "../../models/device-elements";
 
 
 @Injectable({
@@ -54,8 +54,8 @@ export class DeviceService {
         return this.httpService.get<TransferListElement[]>(this.transferPath+"/user/"+username);
     }
 
-    getAllDevicesTypes(): Observable<DeviceTypeListElement[]> {
-        return this.httpService.get<DeviceTypeListElement[]>(this.devicePath+"/type");
+    getAllDevicesModels(): Observable<DeviceModelListElement[]> {
+        return this.httpService.get<DeviceModelListElement[]>(this.devicePath+"/model");
     }
 }
 

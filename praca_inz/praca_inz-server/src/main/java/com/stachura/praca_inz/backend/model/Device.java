@@ -39,8 +39,8 @@ public class Device implements Serializable {
     private String manufacture;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "DEVICE_TYPE_ID")
-    private DeviceType deviceType;
+    @JoinColumn(name = "DEVICE_MODEL_ID")
+    private DeviceModel deviceModel;
 
     @Basic
     @NotNull

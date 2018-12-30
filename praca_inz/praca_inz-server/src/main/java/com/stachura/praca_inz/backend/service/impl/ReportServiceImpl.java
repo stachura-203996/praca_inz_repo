@@ -91,7 +91,7 @@ public class ReportServiceImpl implements ReportService {
     }
 
     @Override
-    public List<ReportListElementDto> getAllReportsFromEmployees(String username) {
+    public List<ReportListElementDto> getAllReportsFromOthers(String username) {
         List<Report> reports = reportRepository.findAll().stream().filter(x->x.getReciever().getUsername().equals(username)).collect(Collectors.toList());
         List<ReportListElementDto> reportListElementDtos = new ArrayList<>();
         for (Report a : reports) {

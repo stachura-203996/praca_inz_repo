@@ -51,6 +51,6 @@ public class Company implements Serializable {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "company", fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonManagedReference
-    private Set<DeviceType> deviceTypes = new HashSet<>();
+    private Set<DeviceModel> deviceModels = new HashSet<>();
 
 }

@@ -18,8 +18,8 @@ import {WarehouseDevicesComponent} from "./warehouse-devices/warehouse-devices.c
 const routes: Routes = [
     {path: '', component: WarehouseUserComponent },
     {path: 'view/:id', component: WarehouseViewComponent },
-    {path: 'request', component: WarehouseRequestListComponent },
-    {path:'device', component: WarehouseDevicesComponent},
+    {path: 'requests', component: WarehouseRequestListComponent },
+    {path:'devices', component: WarehouseDevicesComponent},
     {path:'device/add', component: DeviceAddComponent},
     {path:'device/edit/:id', component: DeviceEditComponent},
     {path:'delivery', component: DeliveryListComponent},
