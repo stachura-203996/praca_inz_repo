@@ -2,6 +2,7 @@ package com.stachura.praca_inz.backend.service.impl;
 
 import com.stachura.praca_inz.backend.model.security.User;
 import com.stachura.praca_inz.backend.repository.interfaces.UserRepository;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -18,8 +19,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUsername(username);
-
+        User user = userRepository.find(username);
+        Hibernate.initialize(user.getUsername());
+        Hibernate.initialize(user.getUserRoles());
+        Hibernate.initialize(user.getAuthorities());
+        Hibernate.initialize(user.getNotifications());
         if (user != null) {
             return user;
         }

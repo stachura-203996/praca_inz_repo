@@ -11,6 +11,7 @@ public class SystemMessageListElementDto {
     private Long id;
     private String title;
     private String message;
+    private String messageDate;
     private String systemMessageTypeName;
 
 }

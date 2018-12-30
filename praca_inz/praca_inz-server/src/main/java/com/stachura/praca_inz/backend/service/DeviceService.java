@@ -13,7 +13,15 @@ public interface DeviceService {
 
     List<DeviceListElementDto> getAllDevices();
 
-    List<DeviceListElementDto> getAllDevicesForUser();
+    List<DeviceListElementDto> getAllDevicesForCompany(Long id);
+
+    List<DeviceListElementDto> getAllDevicesForDepartment(Long id);
+
+    List<DeviceListElementDto> getAllDevicesForOffice(Long id);
+
+    List<DeviceListElementDto> getAllDevicesForWarehouse(Long id);
+
+    List<DeviceListElementDto> getAllDevicesForLoggedUser(String username);
 
     void createNewDevice(Device device);
 
@@ -22,4 +30,6 @@ public interface DeviceService {
     void deleteDeviceById(Long id);
 
     void deleteDevice(Device device);
+
+    List<DeviceListElementDto> getAllDevicesForLoggedWarehouseman(String username);
 }

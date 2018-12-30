@@ -6,9 +6,13 @@ import com.stachura.praca_inz.backend.web.dto.CompanyStructuresListElementDto;
 import java.util.List;
 
 public interface OfficeService {
-    Office get(Long id);
+    Office getOfficeById(Long id);
 
 //    Office getCompanyById(String name);
+
+    List<CompanyStructuresListElementDto> getAllOfficesForCompany(Long id);
+
+    List<CompanyStructuresListElementDto> getAllOfficesForDepartment(Long id);
 
     List<CompanyStructuresListElementDto> getAll();
 

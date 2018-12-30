@@ -10,10 +10,11 @@ public class TransferConverter {
         return TransferListElementDto.builder()
                 .id(transfer.getId())
                 .title(transfer.getTitle())
-                .transferData(transfer.getTransferData())
+                .transferData(transfer.getTransferData().toString())
                 .senderWarehouseName(transfer.getSenderWarehouse().getName())
                 .recieverWarehouseName(transfer.getRecieverWarehouse().getName())
                 .deviceName(transfer.getDevice().getName())
+                .deviceSerialNumber(transfer.getDevice().getSerialNumber())
                 .build();
     }
 }

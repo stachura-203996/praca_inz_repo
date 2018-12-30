@@ -6,7 +6,9 @@ import com.stachura.praca_inz.backend.repository.interfaces.CompanyRepository;
 import com.stachura.praca_inz.backend.service.CompanyService;
 import com.stachura.praca_inz.backend.web.dto.CompanyStructuresListElementDto;
 import com.stachura.praca_inz.backend.web.dto.converter.CompanyStructureConverter;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.integration.util.StackTraceUtils;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,7 +28,11 @@ public class CompanyServiceImpl implements CompanyService {
     @Transactional(readOnly = true)
     @PreAuthorize("hasAuthority('COMPANY_READ')")
     public Company getCompanyById(Long id) {
-        return companyRepository.find(id);
+        Company company = companyRepository.find(id);
+        if (company.isDeleted()) {
+            return null;
+        }
+        return company;
     }
 
     @Override
@@ -43,7 +49,9 @@ public class CompanyServiceImpl implements CompanyService {
         List<Company> companies = companyRepository.findAll();
         List<CompanyStructuresListElementDto> companiesDto = new ArrayList<>();
         for (Company a : companies) {
-            companiesDto.add(CompanyStructureConverter.toCompanyStructureListElement(a));
+            if (!a.isDeleted()) {
+                companiesDto.add(CompanyStructureConverter.toCompanyStructureListElement(a));
+            }
         }
         return companiesDto;
     }
@@ -53,12 +61,13 @@ public class CompanyServiceImpl implements CompanyService {
     @Transactional
     @PreAuthorize("hasAuthority('COMPANY_CREATE')")
     public void createNewCompany(Company company) {
+
         try {
             companyRepository.create(company);
-
         } catch (EntityException e) {
-
+            e.printStackTrace();
         }
+
 
     }
 
@@ -68,11 +77,16 @@ public class CompanyServiceImpl implements CompanyService {
     @PreAuthorize("hasAuthority('COMPANY_UPDATE')")
     public Company updateCompany(Company company) {
         Company tmp = new Company();
-        try {
-            tmp = companyRepository.update(company);
-        } catch (EntityException e) {
 
+        try {
+            if (!companyRepository.find(company.getId()).isDeleted()) {
+                tmp = companyRepository.update(company);
+            }
+
+        } catch (EntityException e) {
+            e.printStackTrace();
         }
+
         return tmp;
     }
 
@@ -80,13 +94,13 @@ public class CompanyServiceImpl implements CompanyService {
     @Transactional
     @PreAuthorize("hasAuthority('COMPANY_DELETE')")
     public void deleteCompanyById(Long id) {
-        companyRepository.remove(id);
+        companyRepository.find(id).setDeleted(true);
     }
 
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('COMPANY_DELETE')")
     public void deleteCompany(Company company) {
-        companyRepository.remove(company);
+        companyRepository.find(company.getId()).setDeleted(true);
     }
 }

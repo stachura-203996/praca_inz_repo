@@ -12,7 +12,7 @@ public class SystemMessageConverter {
                 .id(systemMessage.getId())
                 .message(systemMessage.getMessage())
                 .title(systemMessage.getTitle())
-                .systemMessageTypeName(systemMessage.getSystemMessageType().getName())
+                .messageDate(systemMessage.getCalendarTimestamp().getTime().toString())
                 .build();
     }
 }

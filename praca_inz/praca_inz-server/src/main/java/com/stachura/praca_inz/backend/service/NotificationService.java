@@ -9,10 +9,11 @@ public interface NotificationService {
     
     Notification getNotificationById(Long id);
 
-//    Notification getNotificationByName(String name);
+    List<NotificationListElementDto> getUnreadedAllNotificationsForLoggedUser(String username);
 
+    List<NotificationListElementDto> getReadedAllNotificationsForLoggedUser(String username);
 
-    List<NotificationListElementDto> getAllNotificationsForUser();
+    public List<NotificationListElementDto> getLast3UnreadedAllNotificationsForLoggedUser(String username);
 
     void createNewNotification(Notification device);
 

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {Observable} from "rxjs";
-import {ProfileInfo} from "./models/profile-info";
+import {ProfileInfo} from "../../models/profile-info";
 import {HttpService} from "../../shared/services/http.service";
 import {Configuration} from "../../app.constants";
 

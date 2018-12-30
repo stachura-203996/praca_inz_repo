@@ -1,11 +1,15 @@
 package com.stachura.praca_inz.backend.service.impl;
 
 import com.stachura.praca_inz.backend.exception.EntityException;
+import com.stachura.praca_inz.backend.model.Device;
 import com.stachura.praca_inz.backend.model.Warehouse;
 import com.stachura.praca_inz.backend.repository.interfaces.WarehouseRepository;
 import com.stachura.praca_inz.backend.service.WarehouseService;
+import com.stachura.praca_inz.backend.web.dto.DeviceListElementDto;
 import com.stachura.praca_inz.backend.web.dto.WarehouseListElementDto;
+import com.stachura.praca_inz.backend.web.dto.converter.DeviceConverter;
 import com.stachura.praca_inz.backend.web.dto.converter.WarehouseConverter;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
@@ -23,27 +27,26 @@ public class WarehouseServiceImpl implements WarehouseService {
 
     @Override
     @Transactional(readOnly = true)
-    @PreAuthorize("hasAuthority('COMPANY_READ') and hasAuthority('DEPARTMENT_READ')")
+//    @PreAuthorize("hasAuthority('WAREHOUSE_READ')")
     public Warehouse getWarehouseById(Long id) {
-        return warehouseRepository.find(id);
+        Warehouse warehouse = warehouseRepository.find(id);
+        if (warehouse.isDeleted()) {
+            return null;
+        }
+        return warehouse;
     }
-//
-//    @Override
-//    @Transactional(readOnly = true)
-//    @PreAuthorize("hasAuthority('COMPANY_READ') and hasAuthority('DEPARTMENT_READ')")
-//    public Warehouse getCompanyById(String name) {
-//        return warehouseRepository.find(name);
-//    }
 
 
     @Override
     @Transactional(readOnly = true)
-//    @PreAuthorize("hasAuthority('COMPANY_READ')")
+//    @PreAuthorize("hasAuthority('WAREHOUSE_READ')")
     public List<WarehouseListElementDto> getAllOfficeWarehouses() {
-        List<Warehouse> warehouses = warehouseRepository.findAll().stream().filter(x->x.getOffice()!=null).collect(Collectors.toList());
+        List<Warehouse> warehouses = warehouseRepository.findAll().stream().filter(x -> x.getOffice() != null).collect(Collectors.toList());
         List<WarehouseListElementDto> warehouseListElementDtos = new ArrayList<>();
         for (Warehouse a : warehouses) {
-            warehouseListElementDtos.add(WarehouseConverter.toWarehouseOfficeListElementDto(a));
+            if (!a.isDeleted()) {
+                warehouseListElementDtos.add(WarehouseConverter.toWarehouseOfficeListElementDto(a));
+            }
         }
         return warehouseListElementDtos;
     }
@@ -51,7 +54,7 @@ public class WarehouseServiceImpl implements WarehouseService {
     //TODO
     @Override
     @Transactional
-//    @PreAuthorize("hasAuthority('COMPANY_CREATE')")
+//    @PreAuthorize("hasAuthority('WAREHOUSE_CREATE')")
     public void createNewWarehouse(Warehouse warehouse) {
         try {
             warehouseRepository.create(warehouse);
@@ -65,11 +68,13 @@ public class WarehouseServiceImpl implements WarehouseService {
     //TODO
     @Override
     @Transactional
-//    @PreAuthorize("hasAuthority('COMPANY_UPDATE')")
+//    @PreAuthorize("hasAuthority('WAREHOUSE_UPDATE')")
     public Warehouse updateWarehouse(Warehouse warehouse) {
         Warehouse tmp = new Warehouse();
         try {
-            tmp = warehouseRepository.update(warehouse);
+            if (!warehouseRepository.find(warehouse.getId()).isDeleted()) {
+                tmp = warehouseRepository.update(warehouse);
+            }
         } catch (EntityException e) {
 
         }
@@ -78,15 +83,69 @@ public class WarehouseServiceImpl implements WarehouseService {
 
     @Override
     @Transactional
-    @PreAuthorize("hasAuthority('COMPANY_DELETE')")
+//    @PreAuthorize("hasAuthority('WAREHOUSE_DELETE')")
     public void deleteWarehouseById(Long id) {
-        warehouseRepository.remove(id);
+        warehouseRepository.find(id).setDeleted(true);
     }
 
     @Override
     @Transactional
-    @PreAuthorize("hasAuthority('COMPANY_DELETE')")
+//    @PreAuthorize("hasAuthority('WAREHOUSE_DELETE')")
     public void deleteWarehouse(Warehouse warehouse) {
-        warehouseRepository.remove(warehouse);
+        warehouseRepository.find(warehouse.getId()).setDeleted(true);
+    }
+
+    @Override
+    public List<WarehouseListElementDto> getAllWarehousesForCompany(Long id) {
+        List<Warehouse> warehouses = warehouseRepository.findAll().stream().filter(x -> x.getOffice() != null && x.getOffice().getDepartment().getCompany().getId().equals(id)).collect(Collectors.toList());
+        List<WarehouseListElementDto> warehouseListElementDtos = new ArrayList<>();
+        for (Warehouse a : warehouses) {
+            if (!a.isDeleted()) {
+                warehouseListElementDtos.add(WarehouseConverter.toWarehouseOfficeListElementDto(a));
+            }
+        }
+        return warehouseListElementDtos;
+    }
+
+    @Override
+    public List<WarehouseListElementDto> getAllwarehousesForDepartment(Long id) {
+        List<Warehouse> warehouses = warehouseRepository.findAll().stream().filter(x -> x.getOffice() != null && x.getOffice().getDepartment().getId().equals(id)).collect(Collectors.toList());
+        List<WarehouseListElementDto> warehouseListElementDtos = new ArrayList<>();
+        for (Warehouse a : warehouses) {
+            if (!a.isDeleted()) {
+                warehouseListElementDtos.add(WarehouseConverter.toWarehouseOfficeListElementDto(a));
+            }
+        }
+        return warehouseListElementDtos;
+    }
+
+    @Override
+    public List<WarehouseListElementDto> getAllWarehousesForOffice(Long id) {
+        List<Warehouse> warehouses = warehouseRepository.findAll().stream().filter(x -> x.getOffice() != null && x.getOffice().getId().equals(id)).collect(Collectors.toList());
+        List<WarehouseListElementDto> warehouseListElementDtos = new ArrayList<>();
+        for (Warehouse a : warehouses) {
+            if (!a.isDeleted()) {
+                warehouseListElementDtos.add(WarehouseConverter.toWarehouseOfficeListElementDto(a));
+            }
+        }
+        return warehouseListElementDtos;
+    }
+
+
+    @Override
+    @Transactional(readOnly = true)
+//    @PreAuthorize("hasAuthority('WAREHOUSE_LIST_READ')")
+    public List<WarehouseListElementDto> getAllWarehousesForLoggedUser(String username) {
+        List<Warehouse> warehouses = warehouseRepository.findAll().stream().filter(x -> x.getUser().getUsername().equals(username) &&
+                x.getOffice() != null).collect(Collectors.toList());
+        List<WarehouseListElementDto> warehouseDto = new ArrayList<>();
+        for (Warehouse a : warehouses) {
+            if (!a.isDeleted()) {
+                Hibernate.initialize(a.getDevices());
+                Hibernate.initialize(a.getOffice());
+                warehouseDto.add(WarehouseConverter.toWarehouseOfficeListElementDto(a));
+            }
+        }
+        return warehouseDto;
     }
 }

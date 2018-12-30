@@ -1,0 +1,243 @@
+<!--<div class="container">-->
+<div class="row">
+    <div class="col-lg-4 ">
+        <div class="card">
+            <div class="card-header"><h4>{{'UserProfile'| translate}}</h4></div>
+            <div class="card-body">
+
+                <div class="box box-info">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div align="center"><img alt="User Pic"
+                                                     src="https://x1.xingassets.com/assets/frontend_minified/img/users/nobody_m.original.jpg"
+                                                     id="profile-image1" class="rounded-circle">
+
+                                <input id="profile-image-upload" class="hidden" type="file">
+                            </div>
+                            <br>
+                        </div>
+                        <div class="col-sm-6">
+                            <span><h4 style="color:#00b1b1;">{{user.name+' '+user.surname}}</h4></span>
+                            <span><p>{{user.position}}</p></span>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <hr style="margin:5px 0 5px 0;">
+
+                    <div class="row">
+                        <div class="col-sm-5 col-xs-6 tital ">{{'Username'|translate}}</div>
+                        <div class="col-sm-7 col-xs-6 ">{{user.username}}</div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="bot-border"></div>
+
+                    <div class="row">
+                        <div class="col-sm-5 col-xs-6 tital ">{{'FirstName'| translate}}</div>
+                        <div class="col-sm-7 col-xs-6 ">{{user.name}}</div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="bot-border"></div>
+
+                    <div class="row">
+                        <div class="col-sm-5 col-xs-6 tital ">{{'LastName'| translate}}</div>
+                        <div class="col-sm-7">{{user.surname}}</div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="bot-border"></div>
+                    <div class="row">
+                        <div class="col-sm-5 col-xs-6 tital ">{{'Company'| translate}}</div>
+                        <div class="col-sm-7">{{user.company}}</div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="bot-border"></div>
+                    <div class="row">
+                        <div class="col-sm-5 col-xs-6 tital ">{{'Department'| translate}}</div>
+                        <div class="col-sm-7">{{user.department}}</div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="bot-border"></div>
+                    <div class="row">
+                        <div class="col-sm-5 col-xs-6 tital ">{{'Office'| translate}}</div>
+                        <div class="col-sm-7">{{user.office}}</div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="bot-border"></div>
+                    <div class="row">
+                        <div class="col-sm-5 col-xs-6 tital ">{{'Email'| translate}}</div>
+                        <div class="col-sm-7">{{user.email}}</div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="bot-border"></div>
+                    <div class="row">
+                        <div class="col-sm-5 col-xs-6 tital ">{{'Adress'| translate}}</div>
+                        <div class="col-sm-7">{{getAddress()}}</div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="bot-border"></div>
+                    <div class="row">
+                        <div class="col-sm-5 col-xs-6 tital ">{{'DateOfJoining'| translate}}</div>
+                        <div class="col-sm-7">{{user.dateOfJoining}}</div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="bot-border"></div>
+                    <br>
+                    <div class="row">
+                        <div class="col-sm-6" align="center">
+                            <button [routerLink]="['/profile/edit']" class="btn btn-primary" i18n="@@editButton">Edit
+                            </button>
+                        </div>
+                        <div class="col-sm-6" align="center">
+                            <button [routerLink]="['/profile/password']" class="btn btn-primary"
+                                    i18n="@@changePasswordButton">Change Password
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-8">
+        <div class="box">
+            <div class="card">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-lg-10">
+                            <h4>Devices list</h4>
+                        </div>
+                        <div class="col-lg-2">
+                            <button class="btn btn-primary float-right jh-create-entity" [routerLink]="['/devices']">
+                                <span>{{ 'YourDeviceManager' | translate }}</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped" align="center">
+                        <thead class="thead-inverse">
+                        <tr>
+                            <th>{{ 'Name' | translate }}</th>
+                            <th>{{ 'SerialNumber' | translate }}</th>
+                            <th>{{ 'DeviceType' | translate }}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let device of devices">
+                            <td>{{device.name}}</td>
+                            <td>{{device.serialNumber}}</td>
+                            <td>{{device.deviceTypeName}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!--</div>-->
+            </div>
+            <!--<div class="col-lg-8">-->
+            <br>
+            <div class="card">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-lg-10">
+                            <h4>Transfers list</h4>
+                        </div>
+                        <div class="col-lg-2">
+                            <button class="btn btn-primary float-right jh-create-entity"
+                                    [routerLink]="['/devices/transfer']">
+                                <span>{{ 'YourTransferManager' | translate }}</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped" align="center">
+                        <thead class="thead-inverse">
+                        <tr>
+                            <th>{{ 'Name' | translate }}</th>
+                            <th>{{ 'DeviceName' | translate }}</th>
+                            <th>{{'DeviceSerialNumber'| translate}}</th>
+                            <th>{{ 'Date' | translate }}</th>
+                            <th>{{'Sender'| translate}}</th>
+                            <th>{{'Reciever' | translate}}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let transfer of transfers">
+                            <td>{{transfer.title}}</td>
+                            <td>{{transfer.deviceName}}</td>
+                            <td>{{transfer.deviceSerialNumber}}</td>
+                            <td>{{transfer.date}}</td>
+                            <td>{{transfer.senderWarehouseName}}</td>
+                            <td>{{transfer.recieverWarehouseName}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <br>
+            <div class="card">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-lg-10">
+                            <h4>Requests list</h4>
+                        </div>
+                        <div class="col-lg-2">
+                            <button class="btn btn-primary float-right jh-create-entity"
+                                    [routerLink]="['/devices/request']">
+                                <span>{{ 'YourRequestsManager' | translate }}</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <br>
+                    <ngb-tabset>
+                        <ngb-tab title="Simple">
+                            <ng-template ngbTabContent>
+                                <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu
+                                    stumptown aliqua, retro synth
+                                    master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica.
+                                    Reprehenderit butcher retro keffiyeh
+                                    dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex
+                                    squid. Aliquip placeat salvia cillum
+                                    iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi
+                                    qui.</p>
+                            </ng-template>
+                        </ngb-tab>
+                        <ngb-tab>
+                            <ng-template ngbTabTitle><b>Fancy</b> title</ng-template>
+                            <ng-template ngbTabContent>
+                                <p>Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson
+                                    artisan four loko farm-to-table
+                                    craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk
+                                    aliquip jean shorts ullamco ad vinyl
+                                    cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus
+                                    mollit. Keytar helvetica VHS salvia
+                                    yr, vero magna velit sapiente labore stumptown. Vegan fanny pack odio cillum wes
+                                    anderson 8-bit, sustainable jean
+                                    shorts beard ut DIY ethical culpa terry richardson biodiesel. Art party
+                                    scenester stumptown, tumblr butcher vero
+                                    sint qui sapiente accusamus tattooed echo park.</p>
+                            </ng-template>
+                        </ngb-tab>
+                        <ngb-tab title="Disabled" [disabled]="true">
+                            <ng-template ngbTabContent>
+                                <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu
+                                    stumptown aliqua, retro synth
+                                    master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica.
+                                    Reprehenderit butcher retro keffiyeh
+                                    dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex
+                                    squid. Aliquip placeat salvia cillum
+                                    iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi
+                                    qui.</p>
+                            </ng-template>
+                        </ngb-tab>
+                    </ngb-tabset>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+

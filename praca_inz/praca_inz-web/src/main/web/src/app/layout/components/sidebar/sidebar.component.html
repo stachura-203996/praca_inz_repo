@@ -12,15 +12,13 @@
             <li class="nested" [class.expand]="showMenu === 'userManagementPanel'">
                 <ul class="submenu">
                     <li>
-                        <a [routerLink]="['/admin/dashboard']" href="javascript:void(0)">
-                            <i class="fa fa-monument"></i>&nbsp;
-                            <span>{{ 'Dashboard' | translate }}</span>
+                        <a [routerLink]="['/admin/users']" href="javascript:void(0)">
+                            <span>{{ 'Users' | translate }}</span>
                         </a>
                     </li>
                     <li>
-                        <a [routerLink]="['/admin/users']" href="javascript:void(0)">
-                            <i class="fa fa-monument"></i>&nbsp;
-                            <span>{{ 'Users' | translate }}</span>
+                        <a [routerLink]="['/admin/companies']">
+                            <span>{{ 'Companies' | translate }}</span>
                         </a>
                     </li>
                 </ul>
@@ -29,72 +27,83 @@
         <div class="nested-menu">
             <a class="list-group-item" (click)="addExpandClass('companyManagementPanel')">
                 <i class="fa fa-sitemap"></i>&nbsp;
-                <span>{{ 'Entities' | translate }}</span>
+                <span>{{ 'Structures' | translate }}</span>
             </a>
             <li class="nested" [class.expand]="showMenu === 'companyManagementPanel'">
                 <ul class="submenu">
                     <li>
-                        <a [routerLink]="['/admin/companies']" href="javascript:void(0)">
-                            <i class="fa fa-angle-right"></i>&nbsp;
-                            <span>{{ 'Companies' | translate }}</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a [routerLink]="['/admin/departments']" href="javascript:void(0)">
-                            <i class="fa fa-angle-right"></i>&nbsp;
+                        <a [routerLink]="['/admin/departments']">
                             <span>{{ 'Departments' | translate }}</span>
                         </a>
                     </li>
                     <li>
-                        <a [routerLink]="['/admin/offices']" href="javascript:void(0)">
-                            <i class="fa fa-angle-right"></i>&nbsp;
+                        <a [routerLink]="['/admin/offices']">
                             <span>{{ 'Offices' | translate }}</span>
                         </a>
                     </li>
                     <li>
-                        <a [routerLink]="['/admin/devices']" href="javascript:void(0)">
-                            <i class="fa fa-angle-right"></i>&nbsp;
+                        <a [routerLink]="['/admin/devices']">
                             <span>{{ 'Devices' | translate }}</span>
                         </a>
                     </li>
                     <li>
-                        <a [routerLink]="['/admin/devices/types']" href="javascript:void(0)">
-                            <i class="fa fa-angle-right"></i>&nbsp;
+                        <a [routerLink]="['/admin/devices/type']">
                             <span>{{ 'DevicesTypes' | translate }}</span>
                         </a>
                     </li>
                     <li>
-                        <a [routerLink]="['/admin/warehouses']" href="javascript:void(0)">
-                            <i class="fa fa-angle-right"></i>&nbsp;
-                            <span>{{ 'Warehouses' | translate }}</span>
+                        <a [routerLink]="['/admin/requests']">
+                            <span>{{ 'Requests' | translate }}</span>
                         </a>
                     </li>
                     <li>
-                        <a [routerLink]="['/admin/transitions']" href="javascript:void(0)">
-                            <i class="fa fa-angle-right"></i>&nbsp;
-                            <span>{{ 'Transitions' | translate }}</span>
+                        <a [routerLink]="['/admin/reports']">
+                            <span>{{ 'Reports' | translate }}</span>
                         </a>
                     </li>
+                    <li>
+                        <a [routerLink]="['/admin/devices/transfer']">
+                            <span>{{ 'Transfers' | translate }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/admin/warehouses']">
+                            <span>{{ 'Warehouses' | translate }}</span>
+                        </a>
+                    </li>
+
                 </ul>
             </li>
         </div>
         <div class="nested-menu">
             <a class="list-group-item" (click)="addExpandClass('employeesManagementPanel')">
                 <i class="fa fa-briefcase"></i>&nbsp;
-                <span>{{ 'Employees' | translate }}</span>
+                <span>{{ 'Emlpoyeemanager' | translate }}</span>
             </a>
             <li class="nested" [class.expand]="showMenu === 'employeesManagementPanel'">
                 <ul class="submenu">
                     <li>
-                        <a [routerLink]="['/subordinates']" href="javascript:void(0)">
+                        <a [routerLink]="['employees/subordinates']">
                             <i class="fa fa-monument"></i>&nbsp;
-                            <span>{{ 'Subordinates' | translate }}</span>
+                            <span>{{ 'Employees' | translate }}</span>
                         </a>
                     </li>
                     <li>
-                        <a [routerLink]="['/subordinates/requests']" href="javascript:void(0)">
+                        <a [routerLink]="['/employees/subordinates/requests']">
                             <i class="fa fa-monument"></i>&nbsp;
                             <span>{{ 'SubordinatesRequests' | translate }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/notifications']">
+                            <i class="fa fa-monument"></i>&nbsp;
+                            <span>{{ 'Notifications' | translate }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/employees/reports']">
+                            <i class="fa fa-monument"></i>&nbsp;
+                            <span>{{ 'Reports' | translate }}</span>
                         </a>
                     </li>
                 </ul>
@@ -108,87 +117,83 @@
             <li class="nested" [class.expand]="showMenu === 'devicesManagementPanel'">
                 <ul class="submenu">
                     <li>
-                        <a [routerLink]="['/devices/user']" href="javascript:void(0)">
+                        <a [routerLink]="['/devices']">
                             <i class="fa fa-monument"></i>&nbsp;
                             <span>{{ 'YourDevices' | translate }}</span>
                         </a>
                     </li>
                     <li>
-                        <a [routerLink]="['/devices']" href="javascript:void(0)">
+                        <a [routerLink]="['/devices/request']">
                             <i  class="fa fa-monument"></i>&nbsp;
-                            <span>{{ 'Devices' | translate }}</span>
+                            <span>{{ 'YourRequests' | translate }}</span>
                         </a>
                     </li>
                     <li>
-                        <a [routerLink]="['/devices/request/user']" href="javascript:void(0)">
+                        <a [routerLink]="['/devices/request/add']">
                             <i  class="fa fa-monument"></i>&nbsp;
-                            <span>{{ 'YourDevicesRequest' | translate }}</span>
+                            <span>{{ 'DeviceRequestAdd' | translate }}</span>
                         </a>
                     </li>
                     <li>
-                        <a [routerLink]="['/devices/request']" href="javascript:void(0)">
-                            <i  class="fa fa-monument"></i>&nbsp;
-                            <span>{{ 'DevicesRequest' | translate }}</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a [routerLink]="['/devices/transfer/user']" href="javascript:void(0)">
+                        <a [routerLink]="['/devices/transfer']">
                             <i  class="fa fa-monument"></i>&nbsp;
                             <span>{{ 'YourTransfers' | translate }}</span>
                         </a>
                     </li>
-                    <li>
-                        <a [routerLink]="['/devices/transfer']" href="javascript:void(0)">
-                            <i  class="fa fa-monument"></i>&nbsp;
-                            <span>{{ 'Transfers' | translate }}</span>
-                        </a>
-                    </li>
+
                 </ul>
             </li>
         </div>
         <div class="nested-menu">
-            <a class="list-group-item" (click)="addExpandClass('devicesManagementPanel')">
-                <i class="fa fa-desktop"></i>&nbsp;
+            <a class="list-group-item" (click)="addExpandClass('warehouseManagementPanel')">
+                <i class="fa fa-houzz"></i>&nbsp;
                 <span>{{ 'Warehouse' | translate }}</span>
             </a>
             <li class="nested" [class.expand]="showMenu === 'warehouseManagementPanel'">
                 <ul class="submenu">
                     <li>
-                        <a [routerLink]="['/warehouses/user']" href="javascript:void(0)">
+                        <a [routerLink]="['/warehouses']">
                             <i class="fa fa-monument"></i>&nbsp;
                             <span>{{ 'YourWarehouses' | translate }}</span>
                         </a>
                     </li>
                     <li>
-                        <a [routerLink]="['/warehouses']" href="javascript:void(0)">
+                        <a [routerLink]="['/warehouses/device']">
                             <i  class="fa fa-monument"></i>&nbsp;
-                            <span>{{ 'Warehouses' | translate }}</span>
+                            <span>{{ 'Devices' | translate }}</span>
                         </a>
                     </li>
                     <li>
-                        <a [routerLink]="['/warehouses/delivery']" href="javascript:void(0)">
+                        <a [routerLink]="['/warehouses/request']">
+                            <i  class="fa fa-monument"></i>&nbsp;
+                            <span>{{ 'Requests' | translate }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/warehouses/delivery/request/add']">
+                            <i  class="fa fa-monument"></i>&nbsp;
+                            <span>{{ 'DeliveryRequestAdd' | translate }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/warehouses/shipment/request/add']">
+                            <i  class="fa fa-monument"></i>&nbsp;
+                            <span>{{ 'ShipmentRequestAdd' | translate }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/warehouses/delivery']">
                             <i  class="fa fa-monument"></i>&nbsp;
                             <span>{{ 'Deliveries' | translate }}</span>
                         </a>
                     </li>
                     <li>
-                        <a [routerLink]="['/devices/request']" href="javascript:void(0)">
+                        <a [routerLink]="['/warehouses/shipment']">
                             <i  class="fa fa-monument"></i>&nbsp;
-                            <span>{{ 'Deliveries' | translate }}</span>
+                            <span>{{ 'Shipments' | translate }}</span>
                         </a>
                     </li>
-                    <li>
-                        <a [routerLink]="['/devices/transfer/user']" href="javascript:void(0)">
-                            <i  class="fa fa-monument"></i>&nbsp;
-                            <span>{{ 'YourTransfers' | translate }}</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a [routerLink]="['/devices/transfer']" href="javascript:void(0)">
-                            <i  class="fa fa-monument"></i>&nbsp;
-                            <span>{{ 'Transfers' | translate }}</span>
-                        </a>
-                    </li>
+
                 </ul>
             </li>
         </div>
@@ -226,11 +231,6 @@
                         <li>
                             <a href="javascript:void(0)">
                                 <span><i class="fa fa-fw fa-user"></i> {{ 'Profile' | translate }}</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0)">
-                                <span><i class="fa fa-fw fa-envelope"></i> {{ 'Inbox' | translate }}</span>
                             </a>
                         </li>
                         <li>

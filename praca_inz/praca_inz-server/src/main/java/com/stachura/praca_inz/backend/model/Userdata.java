@@ -20,7 +20,7 @@ import java.util.Set;
 public class Userdata implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id", updatable = false, nullable = false)
     private Long id = null;
 
@@ -37,6 +37,12 @@ public class Userdata implements Serializable {
     @Column(name = "EMAIL")
     private String email;
 
+    @Column(name = "POSITION")
+    private String position;
+
+    @Column(name = "WORKPLACE")
+    private String workplace;
+
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "USER_ID")
     private User user;
@@ -44,5 +50,6 @@ public class Userdata implements Serializable {
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "ADDRESS_ID")
     private Address address;
+
 
 }

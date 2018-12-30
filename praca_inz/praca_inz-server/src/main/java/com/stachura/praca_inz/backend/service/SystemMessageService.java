@@ -20,4 +20,6 @@ public interface SystemMessageService {
     void deleteSystemMessageById(Long id);
 
     void deleteSystemMessage(SystemMessage systemMessage);
+
+    List<SystemMessageListElementDto> getLast4SystemMessages();
 }

@@ -17,7 +17,7 @@ public abstract class AbstractRepository<T> {
         this.entityClass = entityClass;
     }
 
-    protected EntityManager getEntityManager() {
+    protected EntityManager getEntityManager(){
         return entityManager;
     }
 
@@ -28,7 +28,8 @@ public abstract class AbstractRepository<T> {
      * @throws EntityException jeżeli tworzenie encji zostanie zakończone niepowodzeniem
      */
     public void create(T entity) throws EntityException {
-        getEntityManager().persist(entity);
+        entityManager.persist(entity);
+        entityManager.flush();
     }
 
     /**
@@ -38,43 +39,44 @@ public abstract class AbstractRepository<T> {
      * @throws EntityException jeżeli edycja encji zostanie zakończone niepowodzeniem
      */
     public void edit(T entity) throws EntityException {
-        getEntityManager().merge(entity);
+        entityManager.merge(entity);
+        entityManager.flush();
     }
 
-    public void remove(Long id){getEntityManager().remove(getEntityManager().find(entityClass,id));}
+    public void remove(Long id){entityManager.remove(entityManager.find(entityClass,id));}
 
     public void remove(T entity) {
-        getEntityManager().remove(getEntityManager().merge(entity));
+        entityManager.remove(entityManager.merge(entity));
     }
 
     public T find(Long id) {
-        return getEntityManager().find(entityClass, id);
+        return entityManager.find(entityClass, id);
     }
 
     public List<T> findAll() {
-        javax.persistence.criteria.CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
+        javax.persistence.criteria.CriteriaQuery cq = entityManager.getCriteriaBuilder().createQuery();
         cq.select(cq.from(entityClass));
-        return getEntityManager().createQuery(cq).getResultList();
+        return entityManager.createQuery(cq).getResultList();
     }
 
     public List<T> findRange(int[] range) {
-        javax.persistence.criteria.CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
+        javax.persistence.criteria.CriteriaQuery cq = entityManager.getCriteriaBuilder().createQuery();
         cq.select(cq.from(entityClass));
-        javax.persistence.Query q = getEntityManager().createQuery(cq);
+        javax.persistence.Query q = entityManager.createQuery(cq);
         q.setMaxResults(range[1] - range[0] + 1);
         q.setFirstResult(range[0]);
         return q.getResultList();
     }
 
     public int count() {
-        javax.persistence.criteria.CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
+        javax.persistence.criteria.CriteriaQuery cq = entityManager.getCriteriaBuilder().createQuery();
         javax.persistence.criteria.Root<T> rt = cq.from(entityClass);
-        cq.select(getEntityManager().getCriteriaBuilder().count(rt));
-        javax.persistence.Query q = getEntityManager().createQuery(cq);
+        cq.select(entityManager.getCriteriaBuilder().count(rt));
+        javax.persistence.Query q = entityManager.createQuery(cq);
         return ((Long) q.getSingleResult()).intValue();
     }
 
     public T update(T entity) throws EntityException{
-       return getEntityManager().merge(entity);
+       return entityManager.merge(entity);
     }
 }
