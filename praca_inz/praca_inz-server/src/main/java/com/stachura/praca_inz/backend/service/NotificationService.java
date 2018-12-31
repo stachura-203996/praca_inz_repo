@@ -15,11 +15,11 @@ public interface NotificationService {
 
     public List<NotificationListElementDto> getLast3UnreadedAllNotificationsForLoggedUser(String username);
 
-    void createNewNotification(Notification device);
+    void createNewNotification(Notification notification);
 
-    Notification updateNotification(Notification device);
+    Notification updateNotification(Notification notification);
 
     void deleteNotificationById(Long id);
 
-    void deleteNotification(Notification device);
+    void deleteNotification(Notification notification);
 }

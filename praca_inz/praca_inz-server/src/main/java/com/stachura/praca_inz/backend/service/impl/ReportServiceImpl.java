@@ -50,14 +50,16 @@ public class ReportServiceImpl implements ReportService {
     @Override
     @Transactional
 //    @PreAuthorize("hasAuthority('REPORT_CREATE')")
-    public void createNewReport(Report report) {
+    public Long createNewReport(Report report) {
         try {
             reportRepository.create(report);
+            return report.getId();
 
         } catch (EntityException e) {
 
         }
 
+        return null;
     }
 
     //TODO

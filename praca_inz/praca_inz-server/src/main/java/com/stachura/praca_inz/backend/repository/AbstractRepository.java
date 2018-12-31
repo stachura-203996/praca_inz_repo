@@ -40,6 +40,7 @@ public abstract class AbstractRepository<T> {
      */
     public void edit(T entity) throws EntityException {
         entityManager.merge(entity);
+
         entityManager.flush();
     }
 

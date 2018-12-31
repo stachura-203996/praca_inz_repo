@@ -1,9 +1,13 @@
 package com.stachura.praca_inz.backend.controller;
 
+import com.stachura.praca_inz.backend.model.Notification;
 import com.stachura.praca_inz.backend.model.Report;
+import com.stachura.praca_inz.backend.service.EmailService;
+import com.stachura.praca_inz.backend.service.NotificationService;
 import com.stachura.praca_inz.backend.service.ReportService;
 import com.stachura.praca_inz.backend.web.dto.ReportListElementDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -13,6 +17,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Timestamp;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
@@ -25,6 +32,11 @@ public class ReportController {
     @Autowired
     private ReportService reportService;
 
+    @Autowired
+    private NotificationService notificationService;
+
+    @Value("${server.port}")
+    private String port;
 
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
@@ -33,7 +45,7 @@ public class ReportController {
         return reportService.getAllReports();
     }
 
-    @RequestMapping(value = "/user",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/user", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
     List<ReportListElementDto> getAllReportsForUser() {
@@ -41,7 +53,7 @@ public class ReportController {
         return reportService.getAllReportsForUser(auth.getName());
     }
 
-    @RequestMapping(value = "/others",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/others", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
     List<ReportListElementDto> getAllReportsFromOthers() {
@@ -59,10 +71,28 @@ public class ReportController {
     @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public ResponseEntity<?> create(@RequestBody Report report) {
-        reportService.createNewReport(report);
+        Long id = reportService.createNewReport(report);
+        Notification notification = new Notification();
+        notification.setUrl("localhost:" + port + "/page/employees/reports/view" + id);
+        notification.setUser(report.getSender());
+        notification.setReaded(false);
+        notification.setTitle("Report sended");
+        notification.setCalendarTimestamp(Calendar.getInstance());
+        notification.setDeleted(false);
+        notification.setDescription("Your report was sent to:" + report.getReciever().getUsername() + "\n+ \n"
+                + "Report title: " + report.getTitle() + "\n \n"
+                + "Report description:" + report.getDescription() + "\n \n"
+                + "localhost:" + port + "/page/employees/reports/view" + id);
+        notificationService.createNewNotification(notification);
+        Notification recieverNotification = notification.clone();
+        recieverNotification.setDescription("You get report from:" + report.getSender().getUsername() + "\n+ \n"
+                + "Report title: " + report.getTitle() + "\n \n"
+                + "Report description:" + report.getDescription() + "\n \n"
+                + "localhost:" + port + "/page/employees/reports/view" + id);
+        recieverNotification.setUser(report.getReciever());
         HttpHeaders headers = new HttpHeaders();
-//        ControllerLinkBuilder linkBuilder = linkTo(methodOn(ReportController.class).getReportsById(report.getId()));
-//        headers.setLocation(linkBuilder.toUri());
+        ControllerLinkBuilder linkBuilder = linkTo(methodOn(ReportController.class).getReportsById(id));
+        headers.setLocation(linkBuilder.toUri());
         return new ResponseEntity<>(headers, HttpStatus.CREATED);
     }
 

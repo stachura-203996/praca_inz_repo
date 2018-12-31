@@ -10,7 +10,7 @@ public interface ReportService {
 
     List<ReportListElementDto> getAllReports();
 
-    void createNewReport(Report report);
+    Long createNewReport(Report report);
 
     Report updateReport(Report report);
 
