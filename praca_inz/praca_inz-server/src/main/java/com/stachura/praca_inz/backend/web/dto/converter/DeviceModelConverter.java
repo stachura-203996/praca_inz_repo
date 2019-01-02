@@ -20,6 +20,7 @@ public class DeviceModelConverter {
                 .id(deviceModel.getId())
                 .manufacture(deviceModel.getManufacture())
                 .name(deviceModel.getName())
+                .type(deviceModel.getDeviceType().getName())
                 .numberOfDevices(String.valueOf(deviceModel.getDevices().size()))
                 .owner(deviceModel.getCompany().getName())
                 .build();

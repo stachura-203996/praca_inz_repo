@@ -8,8 +8,8 @@ public class ParameterConverter {
     public static ParameterListElementDto toParameterListElementDto(Parameter parameter){
         return ParameterListElementDto.builder()
                 .id(parameter.getId())
-                .name(parameter.getValue())
-                .value(parameter.getName())
+                .name(parameter.getName())
+                .value(parameter.getValue())
                 .build();
     }
 }
