@@ -1,14 +1,14 @@
 package com.stachura.praca_inz.backend.service.impl;
 
-import com.stachura.praca_inz.backend.exception.EntityException;
+import com.stachura.praca_inz.backend.exception.repository.DatabaseErrorException;
+import com.stachura.praca_inz.backend.exception.repository.EntityException;
+import com.stachura.praca_inz.backend.exception.service.ServiceException;
 import com.stachura.praca_inz.backend.model.Company;
 import com.stachura.praca_inz.backend.repository.interfaces.CompanyRepository;
 import com.stachura.praca_inz.backend.service.CompanyService;
 import com.stachura.praca_inz.backend.web.dto.CompanyStructuresListElementDto;
 import com.stachura.praca_inz.backend.web.dto.converter.CompanyStructureConverter;
-import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.integration.util.StackTraceUtils;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -56,38 +56,27 @@ public class CompanyServiceImpl implements CompanyService {
         return companiesDto;
     }
 
-    //TODO
+
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('COMPANY_CREATE')")
-    public void createNewCompany(Company company) {
-
+    public Long createNewCompany(Company company) throws ServiceException {
         try {
             companyRepository.create(company);
+            return company.getId();
+        } catch (DatabaseErrorException e) {
+            throw e;
         } catch (EntityException e) {
-            e.printStackTrace();
+            throw ServiceException.createServiceException(ServiceException.ENTITY_VALIDATION, e);
         }
-
-
     }
 
-    //TODO
+
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('COMPANY_UPDATE')")
-    public Company updateCompany(Company company) {
-        Company tmp = new Company();
-
-        try {
-            if (!companyRepository.find(company.getId()).isDeleted()) {
-                tmp = companyRepository.update(company);
-            }
-
-        } catch (EntityException e) {
-            e.printStackTrace();
-        }
-
-        return tmp;
+    public void updateCompany(Company company) throws ServiceException {
+        companyRepository.update(company);
     }
 
     @Override

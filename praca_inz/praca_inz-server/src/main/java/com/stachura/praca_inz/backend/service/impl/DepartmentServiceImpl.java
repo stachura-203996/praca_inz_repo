@@ -1,7 +1,8 @@
 package com.stachura.praca_inz.backend.service.impl;
 
-import com.stachura.praca_inz.backend.exception.EntityException;
-import com.stachura.praca_inz.backend.model.Department;
+import com.stachura.praca_inz.backend.exception.repository.DatabaseErrorException;
+import com.stachura.praca_inz.backend.exception.repository.EntityException;
+import com.stachura.praca_inz.backend.exception.service.ServiceException;
 import com.stachura.praca_inz.backend.model.Department;
 import com.stachura.praca_inz.backend.repository.interfaces.DepartmentRepository;
 import com.stachura.praca_inz.backend.service.DepartmentService;
@@ -9,6 +10,7 @@ import com.stachura.praca_inz.backend.web.dto.CompanyStructuresListElementDto;
 import com.stachura.praca_inz.backend.web.dto.converter.CompanyStructureConverter;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,7 +26,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     @Transactional(readOnly = true)
-//    @PreAuthorize("hasAuthority('DEPARTMENT_READ')")
+    @PreAuthorize("hasAuthority('DEPARTMENT_READ')")
     public Department getDepartmentById(Long id) {
         Department department = departmentRepository.find(id);
         if (department.isDeleted()) {
@@ -35,7 +37,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     @Transactional(readOnly = true)
-//    @PreAuthorize("hasAuthority('DEPARTMENT_READ')")
+    @PreAuthorize("hasAuthority('DEPARTMENT_READ')")
     public Department getDepartmentByName(String name) {
         Department department = departmentRepository.find(name);
         if (department.isDeleted()) {
@@ -46,7 +48,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     @Transactional(readOnly = true)
-//    @PreAuthorize("hasAuthority('DEPARTMENT_READ')")
+    @PreAuthorize("hasAuthority('DEPARTMENT_LIST_READ')")
     public List<CompanyStructuresListElementDto> getAllDepartments() {
         List<Department> departments = departmentRepository.findAll();
         List<CompanyStructuresListElementDto> structuresListElementDtos = new ArrayList<>();
@@ -74,37 +76,31 @@ public class DepartmentServiceImpl implements DepartmentService {
         return structuresListElementDtos;
     }
 
-    //TODO EXCEPTIONS
     @Override
     @Transactional
-//    @PreAuthorize("hasAuthority('DEPARTMENT_CREATE')")
-    public void createNewDepartment(Department department) {
+    @PreAuthorize("hasAuthority('DEPARTMENT_CREATE')")
+    public void createNewDepartment(Department department) throws ServiceException {
         try {
             departmentRepository.create(department);
+        } catch (DatabaseErrorException e) {
+            throw e;
         } catch (EntityException e) {
-
+            throw ServiceException.createServiceException(ServiceException.ENTITY_VALIDATION, e);
         }
-    }
-
-    //TODO EXCEPTIONS
-    @Override
-    @Transactional
-//    @PreAuthorize("hasAuthority('DEPARTMENT_UPDATE')")
-    public Department updateDepartment(Department department) {
-        Department tmp = new Department();
-        try {
-            if (!departmentRepository.find(department.getId()).isDeleted()) {
-                tmp = departmentRepository.update(department);
-            }
-        } catch (EntityException e) {
-            e.printStackTrace();
-        }
-        return tmp;
     }
 
     @Override
     @Transactional
-//    @PreAuthorize("hasAuthority('DEPARTMENT_DELETE')")
+    @PreAuthorize("hasAuthority('DEPARTMENT_UPDATE')")
+    public void updateDepartment(Department department) throws ServiceException {
+
+        departmentRepository.update(department);
+
+    }
+
+    @Override
+    @Transactional
+    @PreAuthorize("hasAuthority('DEPARTMENT_DELETE')")
     public void deleteDepartmentById(Long id) {
         departmentRepository.find(id).setDeleted(true);
 
@@ -112,7 +108,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     @Transactional
-//    @PreAuthorize("hasAuthority('DEPARTMENT_DELETE')")
+    @PreAuthorize("hasAuthority('DEPARTMENT_DELETE')")
     public void deleteDepartment(Department department) {
         departmentRepository.find(department.getId()).setDeleted(true);
     }

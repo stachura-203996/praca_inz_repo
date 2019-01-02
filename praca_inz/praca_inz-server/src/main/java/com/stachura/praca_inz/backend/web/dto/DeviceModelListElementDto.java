@@ -9,4 +9,5 @@ import lombok.*;
 public class DeviceModelListElementDto {
     Long id;
     String name;
+    String deviceTypeName;
 }

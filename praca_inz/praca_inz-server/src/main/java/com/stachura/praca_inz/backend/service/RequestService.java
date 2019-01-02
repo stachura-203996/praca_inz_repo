@@ -1,5 +1,6 @@
 package com.stachura.praca_inz.backend.service;
 
+import com.stachura.praca_inz.backend.exception.service.ServiceException;
 import com.stachura.praca_inz.backend.model.Request;
 import com.stachura.praca_inz.backend.web.dto.RequestListElementDto;
 
@@ -15,9 +16,9 @@ public interface RequestService {
 
     List<RequestListElementDto> getAllRequestsForOffice(String type,Long id);
 
-    void createNewRequest(Request report);
+    void createNewRequest(Request report) throws ServiceException;
 
-    Request updateRequest(Request report);
+    void updateRequest(Request report) throws ServiceException;
 
     void deleteRequestById(Long id);
 

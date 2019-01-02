@@ -11,8 +11,9 @@ public class DeviceConverter {
                 .name(device.getName())
                 .username(device.getWarehouse().getUser().getUsername())
                 .serialNumber(device.getSerialNumber())
-                .deviceTypeName(device.getDeviceModel().getName())
-                .manufacture(device.getManufacture())
+                .deviceModel(device.getDeviceModel().getName())
+                .deviceTypeName(device.getDeviceModel().getDeviceType().getName())
+                .manufacture(device.getDeviceModel().getManufacture())
                 .lastUpdate(device.getLastUpdate().getTime().toString())
                 .location(device.getCompany().getName()+
                         " > " + device.getWarehouse().getOffice().getDepartment().getName()+

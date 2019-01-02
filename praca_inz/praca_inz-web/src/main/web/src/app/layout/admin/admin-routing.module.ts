@@ -25,9 +25,9 @@ import {WarehouseAddComponent} from "./components/structure-management/warehouse
 import {WarehouseEditComponent} from "./components/structure-management/warehouse/warehouse-edit/warehouse-edit.component";
 import {RequestListComponent} from "./components/structure-management/request/request-list/request-list.component";
 import {ReportListComponent} from "./components/structure-management/report/report-list/report-list.component";
-import {DeviceModelListElement} from "../../models/device-elements";
 import {DeviceModelAddComponent} from "./components/structure-management/device/device-model-add/device-model-add.component";
 import {DeviceModelEditComponent} from "./components/structure-management/device/device-model-edit/device-model-edit.component";
+import {DeviceModelListComponent} from "./components/structure-management/device/device-model-list/device-model-list.component";
 
 
 
@@ -50,7 +50,7 @@ const routes: Routes = [
     {path: 'devices/edit/:id', component:DeviceEditComponent},
     {path: 'devices/request', component: DeviceRequestListComponent},
     {path: 'devices/transfer', component: TransferListComponent},
-    {path: 'devices/model', component: DeviceModelListElement},
+    {path: 'devices/model', component: DeviceModelListComponent},
     {path: 'devices/model/add', component: DeviceModelAddComponent},
     {path: 'devices/model/edit/:id', component: DeviceModelEditComponent},
     {path: 'devices/parameter/add', component: DeviceParameterAddComponent},

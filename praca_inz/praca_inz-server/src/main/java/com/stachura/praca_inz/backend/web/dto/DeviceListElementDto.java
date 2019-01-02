@@ -12,6 +12,7 @@ public class DeviceListElementDto {
     Long id;
     String name;
     String serialNumber;
+    String deviceModel;
     String deviceTypeName;
     String username;
     String manufacture;

@@ -1,7 +1,7 @@
 package com.stachura.praca_inz.backend.service;
 
+import com.stachura.praca_inz.backend.exception.service.ServiceException;
 import com.stachura.praca_inz.backend.model.Warehouse;
-import com.stachura.praca_inz.backend.web.dto.DeviceListElementDto;
 import com.stachura.praca_inz.backend.web.dto.WarehouseListElementDto;
 
 
@@ -15,9 +15,9 @@ public interface WarehouseService {
 
     List<WarehouseListElementDto> getAllOfficeWarehouses();
 
-    void createNewWarehouse(Warehouse warehouse);
+    void createNewWarehouse(Warehouse warehouse) throws ServiceException;
 
-    Warehouse updateWarehouse(Warehouse warehouse);
+    void updateWarehouse(Warehouse warehouse) throws ServiceException;
 
     void deleteWarehouseById(Long id);
 

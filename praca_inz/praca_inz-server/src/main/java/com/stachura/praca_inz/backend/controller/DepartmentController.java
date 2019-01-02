@@ -1,5 +1,6 @@
 package com.stachura.praca_inz.backend.controller;
 
+import com.stachura.praca_inz.backend.exception.service.ServiceException;
 import com.stachura.praca_inz.backend.model.Department;
 import com.stachura.praca_inz.backend.repository.interfaces.CompanyRepository;
 import com.stachura.praca_inz.backend.service.CompanyService;
@@ -63,7 +64,11 @@ public class DepartmentController {
     @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public ResponseEntity<?> create(@RequestBody CompanyStructureAddDto department) {
-        departmentService.createNewDepartment(CompanyStructureConverter.toDepartment(department,companyRepository));
+        try {
+            departmentService.createNewDepartment(CompanyStructureConverter.toDepartment(department,companyRepository));
+        } catch (ServiceException e) {
+            e.printStackTrace();
+        }
         HttpHeaders headers = new HttpHeaders();
 //        ControllerLinkBuilder linkBuilder = linkTo(methodOn(DepartmentController.class).getOfficeById(department.getId()));
 //        headers.setLocation(linkBuilder.toUri());
@@ -74,7 +79,11 @@ public class DepartmentController {
     @ResponseStatus(value = HttpStatus.OK)
     public void update(@RequestBody CompanyStructureEditDto companyStructureEditDto) {
         Department beforeDepartment=departmentService.getDepartmentById(companyStructureEditDto.getId());
-        departmentService.updateDepartment(CompanyStructureConverter.toDepartment(companyStructureEditDto,beforeDepartment,companyRepository));
+        try {
+            departmentService.updateDepartment(CompanyStructureConverter.toDepartment(companyStructureEditDto,beforeDepartment,companyRepository));
+        } catch (ServiceException e) {
+            e.printStackTrace();
+        }
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)

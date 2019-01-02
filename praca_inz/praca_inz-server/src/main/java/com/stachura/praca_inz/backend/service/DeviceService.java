@@ -1,5 +1,7 @@
 package com.stachura.praca_inz.backend.service;
 
+import com.stachura.praca_inz.backend.exception.repository.EntityException;
+import com.stachura.praca_inz.backend.exception.service.ServiceException;
 import com.stachura.praca_inz.backend.model.Device;
 import com.stachura.praca_inz.backend.web.dto.DeviceListElementDto;
 
@@ -23,9 +25,9 @@ public interface DeviceService {
 
     List<DeviceListElementDto> getAllDevicesForLoggedUser(String username);
 
-    void createNewDevice(Device device);
+    void createNewDevice(Device device) throws SecurityException, ServiceException;
 
-    Device updateDevice(Device device);
+    void updateDevice(Device device) throws SecurityException, EntityException, ServiceException;
 
     void deleteDeviceById(Long id);
 

@@ -1,5 +1,6 @@
 package com.stachura.praca_inz.backend.controller;
 
+import com.stachura.praca_inz.backend.exception.service.ServiceException;
 import com.stachura.praca_inz.backend.model.Warehouse;
 import com.stachura.praca_inz.backend.service.WarehouseService;
 import com.stachura.praca_inz.backend.web.dto.DeviceListElementDto;
@@ -73,7 +74,11 @@ public class WarehouseController {
     @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public ResponseEntity<?> create(@RequestBody Warehouse warehouse) {
-        warehouseService.createNewWarehouse(warehouse);
+        try {
+            warehouseService.createNewWarehouse(warehouse);
+        } catch (ServiceException e) {
+            e.printStackTrace();
+        }
         HttpHeaders headers = new HttpHeaders();
         ControllerLinkBuilder linkBuilder = linkTo(methodOn(WarehouseController.class).get(warehouse.getId()));
         headers.setLocation(linkBuilder.toUri());
@@ -83,7 +88,11 @@ public class WarehouseController {
     @RequestMapping(method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public void update(@RequestBody Warehouse warehouse) {
-        warehouseService.updateWarehouse(warehouse);
+        try {
+            warehouseService.updateWarehouse(warehouse);
+        } catch (ServiceException e) {
+            e.printStackTrace();
+        }
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)

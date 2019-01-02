@@ -2,7 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import {StructureListElement, StructureViewElement} from "../../../models/structure-elements";
 import {CompanyService} from "../../admin/components/administration/company/company.service";
 import {TranslateService} from "@ngx-translate/core";
-import {DeviceListElement} from "../../../models/device-elements";
+import {
+    DeviceListElement,
+    DeviceModelViewElement,
+    DeviceViewElement,
+    ParameterListElement
+} from "../../../models/device-elements";
 import {WarehouseListElement} from "../../../models/warehouse-elements";
 import {ActivatedRoute} from "@angular/router";
 import {WarehouseService} from "../../warehouse-management/warehouse.service";
@@ -18,16 +23,11 @@ import {DeviceService} from "../device.service";
 })
 export class DeviceModelViewComponent implements OnInit {
 
-    company: StructureViewElement;
-    devices: DeviceListElement[];
-    offices: StructureListElement[];
-    departments: StructureListElement[];
-    warehouses:WarehouseListElement[];
+    deviceModel: DeviceModelViewElement;
+    parameters: ParameterListElement[];
 
     constructor(
         private route: ActivatedRoute,
-        private companyService: CompanyService,
-        private warehouseService:WarehouseService,
         private departmentService: DepartmentService,
         private officeService: OfficeService,
         private sessionContextService: SessionContextService,
@@ -35,51 +35,20 @@ export class DeviceModelViewComponent implements OnInit {
     ) {}
 
     ngOnInit() {
-        this.getCompany();
-        this.getDevicesForCompany();
-        this.getOfficesForCompany();
-        this.getDepartmentsForCompany();
+        this.getDeviceModel();
+        this.getParameters();
     }
 
-    getCompany() {
+    getDeviceModel() {
         const id = this.route.snapshot.paramMap.get('id');
-        this.companyService.getCompany(id).subscribe(x => this.company = x);
+        this.deviceService.getDeviceModelView(id).subscribe(x => this.deviceModel = x);
     }
 
-    getDepartmentsForCompany() {
+    getParameters() {
         const id = this.route.snapshot.paramMap.get('id');
-        this.departmentService.getAllForCompany(id).subscribe(departmentListElement => {
-            this.departments = departmentListElement
+        this.deviceService.getAllParametersForDeviceModel(id).subscribe(deviceListElement => {
+            this.parameters = deviceListElement
         });
-    }
-
-    getOfficesForCompany() {
-        const id = this.route.snapshot.paramMap.get('id');
-        this.officeService.getAllForCompany(id).subscribe(officeListElement => {
-            this.offices = officeListElement
-        });
-    }
-
-    getWarehouseForCompany() {
-        const id = this.route.snapshot.paramMap.get('id');
-        this.warehouseService.getAllForCompany(id).subscribe(warehouseListElement => {
-            this.warehouses = warehouseListElement
-        });
-    }
-
-    getDevicesForCompany() {
-        const id = this.route.snapshot.paramMap.get('id');
-        this.deviceService.getAllDevicesForCompany(id).subscribe(deviceListElement => {
-            this.devices = deviceListElement
-        });
-    }
-
-    getAddress(): string {
-        if (this.company.flatNumber == null || this.company.flatNumber === "0") {
-            return (this.company.street + ' ' + this.company.buildingNumber);
-        } else {
-            return (this.company.street + ' ' + this.company.buildingNumber + ' / ' + this.company.flatNumber);
-        }
     }
 
     getAddressStructure(structure:StructureListElement): string {

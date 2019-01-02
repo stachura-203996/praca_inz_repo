@@ -4,7 +4,7 @@
 
     <div class="row">
         <div class="col-lg-10">
-            <input class="form-control" #searchBox id="search-box" (keyup)="filterDevicesTypes(searchBox.value)"
+            <input class="form-control" #searchBox id="search-box" (keyup)="filterDeviceModels(searchBox.value)"
                    placeholder="Search..." i18n-placeholder="User search placeholder"/>
         </div>
         <div class="col-lg-2">
@@ -19,12 +19,16 @@
         <thead class="thead-inverse">
         <tr>
             <th>{{ 'ElementName' | translate }}</th>
+            <th>{{'Manufacture'|translate}}</th>
+            <th>{{'Type'|translate}}</th>
             <th></th>
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let device of devicesTypes">
+        <tr *ngFor="let device of deviceModels">
             <td>{{device.name}}</td>
+            <td>{{device.manufacture}}</td>
+            <td>{{device.type}}</td>
             <td class="text-right">
                 <div class="btn-group flex-btn-group-container">
                     <button type="submit"

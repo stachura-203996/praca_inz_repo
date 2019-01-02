@@ -1,6 +1,8 @@
 package com.stachura.praca_inz.backend.service.impl;
 
-import com.stachura.praca_inz.backend.exception.EntityException;
+import com.stachura.praca_inz.backend.exception.repository.DatabaseErrorException;
+import com.stachura.praca_inz.backend.exception.repository.EntityException;
+import com.stachura.praca_inz.backend.exception.service.ServiceException;
 import com.stachura.praca_inz.backend.model.Device;
 import com.stachura.praca_inz.backend.model.Office;
 import com.stachura.praca_inz.backend.repository.interfaces.DeviceRepository;
@@ -35,14 +37,6 @@ public class DeviceServiceImpl implements DeviceService {
         return device;
     }
 
-    /*@Override
-    @Transactional(readOnly = true)
-    @PreAuthorize("hasAuthority('DEVICE_READ') and hasAuthority('DEPARTMENT_READ')")
-    public Device getDeviceByName(String name) {
-        return deviceRepository.find(name);
-    }*/
-
-
     @Override
     @Transactional(readOnly = true)
     @PreAuthorize("hasAuthority('DEVICE_LIST_READ')")
@@ -54,6 +48,7 @@ public class DeviceServiceImpl implements DeviceService {
                 Hibernate.initialize(a.getDeviceModel());
                 Hibernate.initialize(a.getWarehouse());
                 Hibernate.initialize(a.getCompany());
+                Hibernate.initialize(a.getDeviceModel().getDeviceType());
                 devicesDto.add(DeviceConverter.toDeviceListElementDto(a));
             }
         }
@@ -138,32 +133,24 @@ public class DeviceServiceImpl implements DeviceService {
         return devicesDto;
     }
 
-    //TODO EXCEPTIONS
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('DEVICE_CREATE')")
-    public void createNewDevice(Device device) {
+    public void createNewDevice(Device device) throws ServiceException {
         try {
             deviceRepository.create(device);
+        } catch (DatabaseErrorException e) {
+            throw e;
         } catch (EntityException e) {
-
+            throw ServiceException.createServiceException(ServiceException.ENTITY_VALIDATION, e);
         }
     }
 
-    //TODO EXCEPTIONS
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('DEVICE_UPDATE')")
-    public Device updateDevice(Device device) {
-        Device tmp = new Device();
-        try {
-            if (!deviceRepository.find(device.getId()).isDeleted()) {
-                tmp = deviceRepository.update(device);
-            }
-        } catch (EntityException e) {
-            e.printStackTrace();
-        }
-        return tmp;
+    public void updateDevice(Device device) throws ServiceException {
+        deviceRepository.update(device);
     }
 
     @Override

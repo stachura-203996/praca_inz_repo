@@ -1,6 +1,6 @@
 package com.stachura.praca_inz.backend.repository.interfaces;
 
-import com.stachura.praca_inz.backend.exception.EntityException;
+import com.stachura.praca_inz.backend.exception.repository.EntityException;
 import com.stachura.praca_inz.backend.model.Request;
 
 import java.util.List;
@@ -13,7 +13,7 @@ public interface RequestRepository {
 
     void create(Request request)throws EntityException;
 
-    Request update(Request request)throws EntityException;
+    void update(Request request)throws EntityException;
 
     void remove(Long id);
 

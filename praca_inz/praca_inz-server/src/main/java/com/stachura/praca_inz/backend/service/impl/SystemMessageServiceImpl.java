@@ -1,19 +1,18 @@
 package com.stachura.praca_inz.backend.service.impl;
 
-import com.stachura.praca_inz.backend.exception.EntityException;
+import com.stachura.praca_inz.backend.exception.repository.DatabaseErrorException;
+import com.stachura.praca_inz.backend.exception.repository.EntityException;
+import com.stachura.praca_inz.backend.exception.service.ServiceException;
 import com.stachura.praca_inz.backend.model.SystemMessage;
 import com.stachura.praca_inz.backend.repository.interfaces.SystemMessageRepository;
 import com.stachura.praca_inz.backend.service.SystemMessageService;
-import com.stachura.praca_inz.backend.web.dto.CompanyStructuresListElementDto;
 import com.stachura.praca_inz.backend.web.dto.SystemMessageListElementDto;
-import com.stachura.praca_inz.backend.web.dto.converter.CompanyStructureConverter;
 import com.stachura.praca_inz.backend.web.dto.converter.SystemMessageConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -53,27 +52,23 @@ public class SystemMessageServiceImpl implements SystemMessageService {
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('SYSTEM_MESSAGE_CREATE')")
-    public void createNewSystemMessage(SystemMessage systemMessage) {
+    public void createNewSystemMessage(SystemMessage systemMessage) throws ServiceException{
         try {
             systemMessageRepository.create(systemMessage);
+        } catch (DatabaseErrorException e) {
+            throw e;
         } catch (EntityException e) {
-            e.printStackTrace();
+            throw ServiceException.createServiceException(ServiceException.ENTITY_VALIDATION, e);
         }
     }
 
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('SYSTEM_MESSAGE_UPDATE')")
-    public SystemMessage updateSystemMessage(SystemMessage systemMessage) {
-        SystemMessage tmp = new SystemMessage();
-        try {
-            if(!systemMessageRepository.find(systemMessage.getId()).isDeleted()) {
-                tmp = systemMessageRepository.update(systemMessage);
-            }
-        } catch (EntityException e) {
-            e.printStackTrace();
-        }
-        return tmp;
+    public void updateSystemMessage(SystemMessage systemMessage) throws ServiceException {
+
+              systemMessageRepository.update(systemMessage);
+
     }
 
     @Override

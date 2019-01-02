@@ -1,5 +1,6 @@
 package com.stachura.praca_inz.backend.controller;
 
+import com.stachura.praca_inz.backend.exception.service.ServiceException;
 import com.stachura.praca_inz.backend.model.Delivery;
 import com.stachura.praca_inz.backend.service.DeliveryService;
 import com.stachura.praca_inz.backend.web.dto.DeliveryListElementDto;
@@ -40,7 +41,11 @@ public class DeliveryController {
     @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public ResponseEntity<?> create(@RequestBody Delivery delivery) {
-        deliveryService.createNewDelivery(delivery);
+        try {
+            deliveryService.createNewDelivery(delivery);
+        } catch (ServiceException e) {
+            e.printStackTrace();
+        }
         HttpHeaders headers = new HttpHeaders();
 //        ControllerLinkBuilder linkBuilder = linkTo(methodOn(CompanyController.class).getOfficeById(delivery.getId()));
 //        headers.setLocation(linkBuilder.toUri());
@@ -50,7 +55,11 @@ public class DeliveryController {
     @RequestMapping(method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public void update(@RequestBody Delivery delivery) {
-        deliveryService.updateDelivery(delivery);
+        try {
+            deliveryService.updateDelivery(delivery);
+        } catch (ServiceException e) {
+            e.printStackTrace();
+        }
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)

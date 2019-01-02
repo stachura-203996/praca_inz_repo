@@ -1,5 +1,6 @@
 package com.stachura.praca_inz.backend.service;
 
+import com.stachura.praca_inz.backend.exception.service.ServiceException;
 import com.stachura.praca_inz.backend.model.Company;
 import com.stachura.praca_inz.backend.web.dto.CompanyStructuresListElementDto;
 
@@ -13,9 +14,9 @@ public interface CompanyService {
 
     List<CompanyStructuresListElementDto> getAllCompanies();
 
-    void createNewCompany(Company company);
+    Long createNewCompany(Company company) throws ServiceException;
 
-    Company updateCompany(Company company);
+    void updateCompany(Company company) throws ServiceException;
 
     void deleteCompanyById(Long id);
 

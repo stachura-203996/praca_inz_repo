@@ -34,6 +34,13 @@ public class DeviceModel implements Serializable {
     @Column(name = "NAME", nullable = false)
     private String name;
 
+    @Column(name = "MANUFACTURE")
+    private String manufacture;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonBackReference
+    private DeviceType deviceType;
+
     @Column(name = "DELETED", nullable = false)
     private boolean deleted;
 
@@ -53,9 +60,12 @@ public class DeviceModel implements Serializable {
         }
     }
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "DEVICES_TYPES_PARAMETERS", joinColumns = @JoinColumn(name = "DEVICE_MODEL_ID", referencedColumnName = "ID"), inverseJoinColumns = @JoinColumn(name = "PARAMETER_ID", referencedColumnName = "ID"))
-    @OrderBy
-    @JsonIgnore
-    private Collection<Parameter> parameters;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "deviceModel", fetch = FetchType.LAZY, orphanRemoval = true)
+    @JsonManagedReference
+    private Set<Parameter> parameters = new HashSet<>();
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "deviceModel", fetch = FetchType.LAZY, orphanRemoval = true)
+    @JsonManagedReference
+    private Set<Device> devices = new HashSet<>();
+
 }

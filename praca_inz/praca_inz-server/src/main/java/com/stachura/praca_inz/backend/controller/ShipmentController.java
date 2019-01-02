@@ -1,5 +1,6 @@
 package com.stachura.praca_inz.backend.controller;
 
+import com.stachura.praca_inz.backend.exception.service.ServiceException;
 import com.stachura.praca_inz.backend.model.Shipment;
 import com.stachura.praca_inz.backend.service.ShipmentService;
 import com.stachura.praca_inz.backend.service.ShipmentService;
@@ -36,7 +37,11 @@ public class ShipmentController {
     @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public ResponseEntity<?> create(@RequestBody Shipment shipment) {
-        shipmentService.createNewShipment(shipment);
+        try {
+            shipmentService.createNewShipment(shipment);
+        } catch (ServiceException e) {
+            e.printStackTrace();
+        }
         HttpHeaders headers = new HttpHeaders();
 //        ControllerLinkBuilder linkBuilder = linkTo(methodOn(CompanyController.class).getOfficeById(shipment.getId()));
 //        headers.setLocation(linkBuilder.toUri());
@@ -46,7 +51,11 @@ public class ShipmentController {
     @RequestMapping(method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public void update(@RequestBody Shipment shipment) {
-        shipmentService.updateShipment(shipment);
+        try {
+            shipmentService.updateShipment(shipment);
+        } catch (ServiceException e) {
+            e.printStackTrace();
+        }
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)

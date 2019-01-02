@@ -1,0 +1,40 @@
+<!--<div class="col-sm-12 col-md-8 offset-md-2">-->
+<div class="col-md-12">
+    <h1>{{ 'DeviceTypes' | translate }}</h1>
+
+    <div class="row">
+        <div class="col-lg-10">
+            <input class="form-control" #searchBox id="search-box" (keyup)="filterDeviceTypes(searchBox.value)"
+                   placeholder="Search..." i18n-placeholder="User search placeholder"/>
+        </div>
+        <div class="col-lg-2">
+            <button class="btn btn-primary float-right jh-create-entity" [routerLink]="['./add']">
+                <i class="fa fa-plus"></i>&nbsp;
+                <span>{{ 'CreateDeviceType' | translate }}</span>
+            </button>
+        </div>
+    </div>
+    <br>
+    <table class="table table-striped" align="center">
+        <thead class="thead-inverse">
+        <tr>
+            <th>{{ 'ElementName' | translate }}</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let device of deviceTypes">
+            <td>{{device.name}}</td>
+            <td class="text-right">
+                <div class="btn-group flex-btn-group-container">
+                    <button type="button" (click)="delete(device)"
+                            class="btn btn-danger btn-sm">
+                        <i class="fa fa-times"></i>&nbsp;
+                        <span class="d-none d-md-inline">Delete</span>
+                    </button>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>

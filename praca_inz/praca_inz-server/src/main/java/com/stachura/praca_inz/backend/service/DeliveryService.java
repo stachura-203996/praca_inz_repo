@@ -1,5 +1,6 @@
 package com.stachura.praca_inz.backend.service;
 
+import com.stachura.praca_inz.backend.exception.service.ServiceException;
 import com.stachura.praca_inz.backend.model.Delivery;
 import com.stachura.praca_inz.backend.web.dto.DeliveryListElementDto;
 
@@ -13,9 +14,9 @@ public interface DeliveryService {
 
     List<DeliveryListElementDto> getAllDeliveries();
 
-    void createNewDelivery(Delivery delivery);
+    void createNewDelivery(Delivery delivery) throws ServiceException;
 
-    Delivery updateDelivery(Delivery delivery);
+    void updateDelivery(Delivery delivery) throws ServiceException;
 
     void deleteDeliveryById(Long id);
 

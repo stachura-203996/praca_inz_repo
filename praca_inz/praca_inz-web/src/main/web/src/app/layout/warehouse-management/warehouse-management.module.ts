@@ -18,6 +18,8 @@ import { DeliveryListComponent } from './delivery-list/delivery-list.component';
 import { ShipmentListComponent } from './shipment-list/shipment-list.component';
 import { WarehouseDevicesComponent } from './warehouse-devices/warehouse-devices.component';
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
+import { DeviceModelAddComponent } from './device-model-add/device-model-add.component';
+import { DeviceModelEditComponent } from './device-model-edit/device-model-edit.component';
 
 
 @NgModule({
@@ -42,7 +44,9 @@ import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
         ShipmentRequestViewComponent,
         DeliveryListComponent,
         ShipmentListComponent,
-        WarehouseDevicesComponent
+        WarehouseDevicesComponent,
+        DeviceModelAddComponent,
+        DeviceModelEditComponent
     ]
 })
 export class WarehouseManagementModule {

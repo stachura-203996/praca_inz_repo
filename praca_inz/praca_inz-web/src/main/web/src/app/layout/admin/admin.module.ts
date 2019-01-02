@@ -35,6 +35,7 @@ import {SystemMessageEditComponent} from "./components/structure-management/syst
 import {DeviceModelListComponent} from "./components/structure-management/device/device-model-list/device-model-list.component";
 import {DeviceModelAddComponent} from "./components/structure-management/device/device-model-add/device-model-add.component";
 import {DeviceModelEditComponent} from "./components/structure-management/device/device-model-edit/device-model-edit.component";
+import { DeviceTypeListComponent } from './components/structure-management/device/device-type-list/device-type-list.component';
 
 @NgModule({
     imports: [
@@ -75,7 +76,8 @@ import {DeviceModelEditComponent} from "./components/structure-management/device
         ReportListComponent,
         SystemMessageAddComponent,
         SystemMessageListComponent,
-        SystemMessageEditComponent
+        SystemMessageEditComponent,
+        DeviceTypeListComponent
     ]
 })
 export class AdminModule {

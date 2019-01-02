@@ -1,5 +1,6 @@
 package com.stachura.praca_inz.backend.service;
 
+import com.stachura.praca_inz.backend.exception.service.ServiceException;
 import com.stachura.praca_inz.backend.model.Notification;
 import com.stachura.praca_inz.backend.web.dto.NotificationListElementDto;
 
@@ -15,9 +16,9 @@ public interface NotificationService {
 
     public List<NotificationListElementDto> getLast3UnreadedAllNotificationsForLoggedUser(String username);
 
-    void createNewNotification(Notification notification);
+    void createNewNotification(Notification notification) throws ServiceException;
 
-    Notification updateNotification(Notification notification);
+    void updateNotification(Notification notification) throws ServiceException;
 
     void deleteNotificationById(Long id);
 

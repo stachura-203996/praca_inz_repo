@@ -1,6 +1,8 @@
 package com.stachura.praca_inz.backend.service.impl;
 
-import com.stachura.praca_inz.backend.exception.EntityException;
+import com.stachura.praca_inz.backend.exception.repository.DatabaseErrorException;
+import com.stachura.praca_inz.backend.exception.repository.EntityException;
+import com.stachura.praca_inz.backend.exception.service.ServiceException;
 import com.stachura.praca_inz.backend.model.Delivery;
 import com.stachura.praca_inz.backend.repository.interfaces.DeliveryRepository;
 import com.stachura.praca_inz.backend.service.DeliveryService;
@@ -24,19 +26,12 @@ public class DeliveryServiceImpl implements DeliveryService {
     @Transactional(readOnly = true)
     @PreAuthorize("hasAuthority('DELIVERY_READ')")
     public Delivery getDeliveryById(Long id) {
-        Delivery delivery=deliveryRepository.find(id);
-        if(delivery.isDeleted()){
+        Delivery delivery = deliveryRepository.find(id);
+        if (delivery.isDeleted()) {
             return null;
         }
-        return delivery ;
+        return delivery;
     }
-
-//    @Override
-//    @Transactional(readOnly = true)
-//    @PreAuthorize("hasAuthority('DELIVERY_READ')")
-//    public Delivery getDeliveryByName(String name) {
-//        return deliveryRepository.find(name);
-//    }
 
     @Override
     @Transactional(readOnly = true)
@@ -45,41 +40,34 @@ public class DeliveryServiceImpl implements DeliveryService {
         List<Delivery> deliveries = deliveryRepository.findAll();
         List<DeliveryListElementDto> companiesDto = new ArrayList<>();
         for (Delivery a : deliveries) {
-            if(!a.isDeleted()) {
+            if (!a.isDeleted()) {
                 companiesDto.add(DeliveryConverter.toDeliveryListElement(a));
             }
         }
         return companiesDto;
     }
 
-    //TODO
+
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('DELIVERY_CREATE')")
-    public void createNewDelivery(Delivery delivery) {
+    public void createNewDelivery(Delivery delivery) throws ServiceException {
         try {
             deliveryRepository.create(delivery);
 
+        } catch (DatabaseErrorException e) {
+            throw e;
         } catch (EntityException e) {
-
+            throw ServiceException.createServiceException(ServiceException.ENTITY_VALIDATION, e);
         }
 
     }
 
-    //TODO
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('DELIVERY_UPDATE')")
-    public Delivery updateDelivery(Delivery delivery) {
-        Delivery tmp = new Delivery();
-        try {
-            if (!deliveryRepository.find(delivery.getId()).isDeleted()) {
-                tmp = deliveryRepository.update(delivery);
-            }
-        } catch (EntityException e) {
-
-        }
-        return tmp;
+    public void updateDelivery(Delivery delivery)throws ServiceException {
+        deliveryRepository.update(delivery);
     }
 
     @Override

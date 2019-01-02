@@ -35,11 +35,9 @@ public class Device implements Serializable {
     @Column(name = "SERIAL_NUMBER")
     private String serialNumber;
 
-    @Column(name = "MANUFACTURE")
-    private String manufacture;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "DEVICE_MODEL_ID")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonBackReference
     private DeviceModel deviceModel;
 
     @Basic
@@ -62,10 +60,6 @@ public class Device implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "device", fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonManagedReference
     private Set<DeviceField> deviceFields = new HashSet<>();
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "device", fetch = FetchType.LAZY, orphanRemoval = true)
-    @JsonManagedReference
-    private Set<ParameterValue> parameterValues;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference

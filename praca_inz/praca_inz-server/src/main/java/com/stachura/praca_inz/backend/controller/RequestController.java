@@ -1,5 +1,6 @@
 package com.stachura.praca_inz.backend.controller;
 
+import com.stachura.praca_inz.backend.exception.service.ServiceException;
 import com.stachura.praca_inz.backend.model.Request;
 import com.stachura.praca_inz.backend.service.RequestService;
 import com.stachura.praca_inz.backend.web.dto.RequestListElementDto;
@@ -57,7 +58,11 @@ public class RequestController {
     @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public ResponseEntity<?> create(@RequestBody Request request) {
-        requestService.createNewRequest(request);
+        try {
+            requestService.createNewRequest(request);
+        } catch (ServiceException e) {
+            e.printStackTrace();
+        }
         HttpHeaders headers = new HttpHeaders();
         ControllerLinkBuilder linkBuilder = linkTo(methodOn(RequestController.class).getOfficeById(request.getId()));
         headers.setLocation(linkBuilder.toUri());
@@ -67,7 +72,11 @@ public class RequestController {
     @RequestMapping(method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public void update(@RequestBody Request request) {
-        requestService.updateRequest(request);
+        try {
+            requestService.updateRequest(request);
+        } catch (ServiceException e) {
+            e.printStackTrace();
+        }
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)

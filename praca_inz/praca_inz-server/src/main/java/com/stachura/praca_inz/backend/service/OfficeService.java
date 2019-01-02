@@ -1,5 +1,6 @@
 package com.stachura.praca_inz.backend.service;
 
+import com.stachura.praca_inz.backend.exception.service.ServiceException;
 import com.stachura.praca_inz.backend.model.Office;
 import com.stachura.praca_inz.backend.web.dto.CompanyStructuresListElementDto;
 
@@ -16,9 +17,9 @@ public interface OfficeService {
 
     List<CompanyStructuresListElementDto> getAll();
 
-    void create(Office office);
+    void create(Office office) throws ServiceException;
 
-    Office update(Office office);
+    void update(Office office) throws ServiceException;
 
     void delete(Long id);
 

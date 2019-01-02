@@ -1,11 +1,17 @@
 package com.stachura.praca_inz.backend.service.impl;
 
-import com.stachura.praca_inz.backend.exception.EntityException;
+import com.stachura.praca_inz.backend.exception.repository.DatabaseErrorException;
+import com.stachura.praca_inz.backend.exception.repository.EntityException;
+import com.stachura.praca_inz.backend.exception.service.ServiceException;
 import com.stachura.praca_inz.backend.model.DeviceModel;
+import com.stachura.praca_inz.backend.model.Parameter;
 import com.stachura.praca_inz.backend.repository.interfaces.DeviceModelRepository;
 import com.stachura.praca_inz.backend.service.DeviceModelService;
 import com.stachura.praca_inz.backend.web.dto.DeviceModelListElementDto;
+import com.stachura.praca_inz.backend.web.dto.DeviceModelViewDto;
+import com.stachura.praca_inz.backend.web.dto.ParameterListElementDto;
 import com.stachura.praca_inz.backend.web.dto.converter.DeviceModelConverter;
+import com.stachura.praca_inz.backend.web.dto.converter.ParameterConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
@@ -13,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class DeviceModelServiceImpl implements DeviceModelService {
@@ -22,79 +29,79 @@ public class DeviceModelServiceImpl implements DeviceModelService {
 
     @Override
     @Transactional(readOnly = true)
-    @PreAuthorize("hasAuthority('DEVICE_TYPE_READ')")
-    public DeviceModel getDeviceTypeById(Long id) {
+    @PreAuthorize("hasAuthority('DEVICE_MODEL_READ')")
+    public DeviceModelViewDto getDeviceModelViewById(Long id) {
         DeviceModel deviceModel = deviceModelRepository.find(id);
         if (deviceModel.isDeleted()) {
             return null;
         }
-        return deviceModel;
+        return DeviceModelConverter.toDeviceModelViewDto(deviceModel);
     }
 
-    /*@Override
-    @Transactional(readOnly = true)
-    @PreAuthorize("hasAuthority('DEVICE_TYPE_READ') and hasAuthority('DEPARTMENT_READ')")
-    public DeviceModel getDeviceTypeByName(String name) {
-        return deviceModelRepository.find(name);
-    }*/
+    @Override
+    public List<ParameterListElementDto> getDeviceParameters(Long id) {
+        DeviceModel deviceModel = deviceModelRepository.find(id);
+        List<Parameter> parameters = (List<Parameter>) deviceModel.getParameters();
+        if (deviceModel.isDeleted()) {
+            return null;
+        }
+        List<ParameterListElementDto> parameterListElementDtos = new ArrayList<>();
+        for (Parameter a : parameters) {
+            parameterListElementDtos.add(ParameterConverter.toParameterListElementDto(a));
+        }
+
+        return parameterListElementDtos;
+    }
 
     @Override
     @Transactional(readOnly = true)
-    @PreAuthorize("hasAuthority('DEVICE_TYPE_READ')")
-    public List<DeviceModelListElementDto> getAllDeviceTypes() {
+    @PreAuthorize("hasAuthority('DEVICE_MODEL_READ')")
+    public List<DeviceModelListElementDto> getAllDeviceModels() {
         List<DeviceModel> deviceModels = deviceModelRepository.findAll();
-        List<DeviceModelListElementDto> deviceTypesDto = new ArrayList<>();
+        List<DeviceModelListElementDto> deviceModelsDto = new ArrayList<>();
         for (DeviceModel a : deviceModels) {
             if (!a.isDeleted()) {
-                deviceTypesDto.add(DeviceModelConverter.toDeviceTypeListElement(a));
+                deviceModelsDto.add(DeviceModelConverter.toDeviceModelListElement(a));
             }
         }
-        return deviceTypesDto;
+        return deviceModelsDto;
     }
 
-    //TODO EXCEPTIONS
     @Override
     @Transactional
-    @PreAuthorize("hasAuthority('DEVICE_TYPE_CREATE')")
-    public void createNewDeviceType(DeviceModel deviceModel) {
+    @PreAuthorize("hasAuthority('DEVICE_MODEL_CREATE')")
+    public void createNewDeviceModel(DeviceModel deviceModel) throws ServiceException {
         try {
-
             deviceModelRepository.create(deviceModel);
-
-        } catch (
-                EntityException e) {
-
-        }
-
-    }
-
-    //TODO EXCEPTIONS
-    @Override
-    @Transactional
-    @PreAuthorize("hasAuthority('DEVICE_TYPE_UPDATE')")
-    public DeviceModel updateDeviceType(DeviceModel deviceModel) {
-        DeviceModel tmp = new DeviceModel();
-        try {
-            if (!deviceModelRepository.find(deviceModel.getId()).isDeleted()) {
-                tmp = deviceModelRepository.update(deviceModel);
-            }
+        } catch (DatabaseErrorException e) {
+            throw e;
         } catch (EntityException e) {
-
+            throw ServiceException.createServiceException(ServiceException.ENTITY_VALIDATION, e);
         }
-        return tmp;
+
+    }
+
+
+    @Override
+    @Transactional
+    @PreAuthorize("hasAuthority('DEVICE_MODEL_UPDATE')")
+    public void updateDeviceModel(DeviceModel deviceModel) throws ServiceException {
+
+        deviceModelRepository.update(deviceModel);
+
     }
 
     @Override
     @Transactional
-    @PreAuthorize("hasAuthority('DEVICE_TYPE_DELETE')")
-    public void deleteDeviceTypeById(Long id) {
+    @PreAuthorize("hasAuthority('DEVICE_MODEL_DELETE')")
+    public void deleteDeviceModelById(Long id) {
         deviceModelRepository.find(id).setDeleted(true);
     }
 
     @Override
     @Transactional
-    @PreAuthorize("hasAuthority('DEVICE_TYPE_DELETE')")
-    public void deleteDeviceType(DeviceModel deviceModel) {
+    @PreAuthorize("hasAuthority('DEVICE_MODEL_DELETE')")
+    public void deleteDeviceModel(DeviceModel deviceModel) {
         deviceModelRepository.find(deviceModel.getId()).setDeleted(true);
     }
 }

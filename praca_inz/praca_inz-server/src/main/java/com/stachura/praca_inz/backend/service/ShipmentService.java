@@ -1,5 +1,6 @@
 package com.stachura.praca_inz.backend.service;
 
+import com.stachura.praca_inz.backend.exception.service.ServiceException;
 import com.stachura.praca_inz.backend.model.Shipment;
 import com.stachura.praca_inz.backend.web.dto.ShipmentListElementDto;
 
@@ -10,9 +11,9 @@ public interface ShipmentService {
 
     List<ShipmentListElementDto> getAllShipments();
 
-    void createNewShipment(Shipment shipment);
+    void createNewShipment(Shipment shipment) throws ServiceException;
 
-    Shipment updateShipment(Shipment shipment);
+    void updateShipment(Shipment shipment) throws ServiceException;
 
     void deleteShipmentById(Long id);
 
