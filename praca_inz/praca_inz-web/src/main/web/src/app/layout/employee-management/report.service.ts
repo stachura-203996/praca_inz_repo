@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpService} from "../../shared/services/http.service";
 import {Configuration} from "../../app.constants";
 import {Observable} from "rxjs";
-import {ReportListElement} from "../../models/report-elements";
+import {ReportAddElement, ReportListElement} from "../../models/report-elements";
 import {StructureAddElement, StructureEditElement, StructureViewElement} from "../../models/structure-elements";
 
 
@@ -37,8 +37,8 @@ export class ReportService {
         return this.httpService.get<StructureViewElement>(this.reportPath + '/' + id);
     }
 
-    createReport(data: StructureAddElement): Observable<any> {
-        return this.httpService.post<StructureAddElement>(this.reportPath, data);
+    createReport(data: ReportAddElement): Observable<any> {
+        return this.httpService.post<ReportAddElement>(this.reportPath, data);
     }
 
     updateReport(data: StructureEditElement): Observable<any> {

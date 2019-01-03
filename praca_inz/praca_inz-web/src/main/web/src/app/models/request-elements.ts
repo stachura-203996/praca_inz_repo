@@ -27,6 +27,7 @@ export class TransferRequestAddElement {
 export class DeviceRequestAddElement {
     id: number;
     title: string;
+    amount:string;
     description: string;
     deviceModel:number;
 }
@@ -34,13 +35,15 @@ export class DeviceRequestAddElement {
 export class DeliveryRequestAddElement {
     id: number;
     title: string;
+    amount:string;
     description: string;
-    deviceModel:string;
+    deviceModel:number;
 }
 
 export class ShipmentRequestAddElement {
     id: number;
     title: string;
+    amount:string;
     description: string;
     deviceId:number;
     recieverWarehouseId:number;
@@ -59,6 +62,7 @@ export class TransferRequestEditElement {
 export class DeviceRequestEditElement {
     id: number;
     title: string;
+    amount:string;
     description: string;
     deviceModel:number
 }
@@ -66,6 +70,7 @@ export class DeviceRequestEditElement {
 export class DeliveryRequestEditElement {
     id: number;
     title: string;
+    amount:string;
     description: string;
     deviceModel:number;
 }
@@ -73,6 +78,7 @@ export class DeliveryRequestEditElement {
 export class ShipmentRequestEditElement {
     id: number;
     title: string;
+    amount:string;
     description: string;
     deviceId:number;
     recieverWarehouseId:number;

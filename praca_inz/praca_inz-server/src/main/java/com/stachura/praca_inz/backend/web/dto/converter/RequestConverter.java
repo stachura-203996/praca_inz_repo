@@ -68,6 +68,7 @@ public class RequestConverter {
         request.setAcceptedToRecive(false);
         request.setAcceptedToSend(false);
         request.setDeleted(false);
+        request.setAmount(deviceRequestAddDto.getAmount());
         request.setDescription(deviceRequestAddDto.getDescription());
         DeviceModel deviceModel = deviceModelRepository.find(deviceRequestAddDto.getDeviceModelId());
         request.setDeviceModel(deviceModel);
@@ -85,6 +86,7 @@ public class RequestConverter {
         request.setAcceptedToRecive(false);
         request.setAcceptedToSend(false);
         request.setDeleted(false);
+        request.setAmount(deliveryRequestAddDto.getAmount());
         request.setDescription(deliveryRequestAddDto.getDescription());
         DeviceModel deviceModel = deviceModelRepository.find(deliveryRequestAddDto.getDeviceModelId());
         request.setDeviceModel(deviceModel);

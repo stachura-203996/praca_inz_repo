@@ -16,6 +16,7 @@ export class TransferRequestAddComponent implements OnInit {
     @Input() transferRequestAddElement: TransferRequestAddElement= new TransferRequestAddElement;
 
     warehouses: WarehouseListElement[];
+
     selectedOption: string;
 
     constructor(private route: ActivatedRoute,private warehouseService:WarehouseService,private requestService:RequestService,private translate:TranslateService,private router:Router) {
@@ -44,5 +45,4 @@ export class TransferRequestAddComponent implements OnInit {
     clear() {
         this.transferRequestAddElement=new TransferRequestAddElement();
     }
-
 }

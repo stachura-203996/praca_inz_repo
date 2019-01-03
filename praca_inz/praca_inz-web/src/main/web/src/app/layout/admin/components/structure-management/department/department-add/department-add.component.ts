@@ -18,6 +18,8 @@ export class DepartmentAddComponent implements OnInit {
 
     companies: StructureListElement[];
 
+    selectedOption: string;
+    tmp:StructureListElement;
     constructor(private companyService:CompanyService,private departmentService:DepartmentService,private translate:TranslateService,private router:Router) {
         this.translate.addLangs(['en','pl']);
         this.translate.setDefaultLang('pl');
@@ -34,6 +36,8 @@ export class DepartmentAddComponent implements OnInit {
     }
 
     departmentAdd(){
+        this.tmp=this.companies.find(x=>x.name==this.selectedOption);
+        // this.structureAddElement.companyId=this.tmp.id;
         this.departmentService.createDepartment(this.structureAddElement).subscribe(resp => {
             this.router.navigateByUrl('/admin/departments');
         });

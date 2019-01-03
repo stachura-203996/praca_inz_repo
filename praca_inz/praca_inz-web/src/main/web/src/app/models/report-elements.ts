@@ -6,3 +6,8 @@ export class ReportListElement {
     sender:string;
     reciever:string;
 }
+export class ReportAddElement {
+    title: string;
+    description: string;
+    reciever:string
+}

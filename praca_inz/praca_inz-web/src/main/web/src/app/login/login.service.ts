@@ -10,7 +10,7 @@ export class LoginService {
 
 
     constructor(
-        private _router: Router, private http: HttpClient, private cookieService: CookieService) {
+        private router: Router, private http: HttpClient, private cookieService: CookieService) {
     }
 
     obtainAccessToken(loginData) {
@@ -37,23 +37,19 @@ export class LoginService {
         var expireDate = new Date().getTime() + (1000 * token.expires_in);
         this.cookieService.set('access_token', token.access_token, expireDate);
         console.log('Obtained Access token');
-        this.checkCredentials();
+        this.router.navigateByUrl('/page')
     }
 
-    checkCredentials() {
-        if (!this.cookieService.check('access_token')) {
-            this._router.navigate(['/login']);//TODO Drut
-            return false;
-        } else {
-            this._router.navigate(['/page']);
-            localStorage.setItem('isLoggedin', 'true');
-            return true;
-        }
+    checkCredentials():boolean {
+        return this.cookieService.check('access_token');
+    }
+
+    revokeToken(){
+
     }
 
     logout() {
         this.cookieService.delete('access_token');
-
-        this._router.navigate(['/login']);
+        this.router.navigate(['/login']);
     }
 }

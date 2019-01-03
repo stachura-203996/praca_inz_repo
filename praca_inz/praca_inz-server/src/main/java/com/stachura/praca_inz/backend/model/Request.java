@@ -51,6 +51,9 @@ public class Request {
     @Enumerated(EnumType.STRING)
     private Status status;
 
+    @Column(name = "AMOUNT")
+    private int amount;
+
     @Column(name = "REQUEST_TYPE", nullable = false)
     @Enumerated(EnumType.STRING)
     private RequestType requestType;

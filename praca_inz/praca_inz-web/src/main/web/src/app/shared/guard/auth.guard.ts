@@ -5,17 +5,15 @@ import {LoginService} from "../../login/login.service";
 
 @Injectable()
 export class AuthGuard {
-    constructor(private router: Router/*, private service:LoginService*/) {}
+    constructor(private router: Router, private service:LoginService) {}
 
     canActivate() {
-        // return this.service.checkCredentials();
 
-        if (localStorage.getItem('isLoggedin')) {
-
+        if(this.service.checkCredentials()){
             return true;
+        }else {
+             this.router.navigate(['/login']);
+            return false;
         }
-
-        // this.router.navigate(['/login']);
-        return true;//TODO drut
     }
 }

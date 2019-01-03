@@ -6,7 +6,7 @@ export class StructureAddElement {
     buildingNumber: string;
     flatNumber: string;
     zipCode: string;
-    companyId:string;
+    companyId:number;
     departmentId:string
 }
 
