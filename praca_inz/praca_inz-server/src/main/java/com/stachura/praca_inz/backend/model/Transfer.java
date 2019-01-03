@@ -1,6 +1,7 @@
 package com.stachura.praca_inz.backend.model;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.stachura.praca_inz.backend.model.enums.Status;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -9,8 +10,6 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @EnableAutoConfiguration
@@ -20,7 +19,7 @@ import java.util.Set;
 public class Transfer implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "ID", updatable = false, nullable = false)
     private Long id = null;
 
@@ -31,22 +30,34 @@ public class Transfer implements Serializable {
     @Column(name = "TITLE", nullable = false)
     private String title;
 
+    @Column(name = "USERNAME", nullable = false)
+    private String username;
+
+    @Column(name = "STATUS", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Status status;
+
+    @Column(name = "DESCRIPTION")
+    private String description;
+
     @Basic(optional = false)
     @NotNull
     @Column(name = "TRANSFER_DATE")
     @Temporal(TemporalType.DATE)
     private Date transferData;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "SENDER_WAREHOUSE_ID")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonBackReference
     private Warehouse senderWarehouse;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "RECIEVER_WAREHOUSE_ID")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonBackReference
     private Warehouse recieverWarehouse;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "DEVICE_ID")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonBackReference
     private Device device;
 
+    @Column(name = "DELETED", nullable = false)
+    private boolean deleted;
 }

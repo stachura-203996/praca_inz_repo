@@ -6,6 +6,7 @@ import com.stachura.praca_inz.backend.repository.interfaces.OfficeRepository;
 import com.stachura.praca_inz.backend.service.OfficeService;
 import com.stachura.praca_inz.backend.web.dto.CompanyStructuresListElementDto;
 import com.stachura.praca_inz.backend.web.dto.converter.CompanyStructureConverter;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class OfficeServiceImpl implements OfficeService {
@@ -23,8 +25,40 @@ public class OfficeServiceImpl implements OfficeService {
     @Override
     @Transactional(readOnly = true)
     @PreAuthorize("hasAuthority('OFFICE_READ')")
-    public Office get(Long id) {
-        return officeRepository.find(id);
+    public Office getOfficeById(Long id) {
+        Office office = officeRepository.find(id);
+        if (office.isDeleted()) {
+            return null;
+        }
+        return office;
+    }
+
+    @Override
+    public List<CompanyStructuresListElementDto> getAllOfficesForCompany(Long id) {
+        List<Office> offices = officeRepository.findAll().stream().filter(x -> x.getDepartment().getCompany().getId().equals(id)).collect(Collectors.toList());
+        List<CompanyStructuresListElementDto> officesDto = new ArrayList<>();
+        for (Office a : offices) {
+            if (!a.isDeleted()) {
+                Hibernate.initialize(a.getDepartment());
+                Hibernate.initialize(a.getDepartment().getCompany());
+                officesDto.add(CompanyStructureConverter.toCompanyStructureListElement(a));
+            }
+        }
+        return officesDto;
+    }
+
+    @Override
+    public List<CompanyStructuresListElementDto> getAllOfficesForDepartment(Long id) {
+        List<Office> offices = officeRepository.findAll().stream().filter(x -> x.getDepartment().getId().equals(id)).collect(Collectors.toList());
+        List<CompanyStructuresListElementDto> officesDto = new ArrayList<>();
+        for (Office a : offices) {
+            if (!a.isDeleted()) {
+                Hibernate.initialize(a.getDepartment());
+                Hibernate.initialize(a.getDepartment().getCompany());
+                officesDto.add(CompanyStructureConverter.toCompanyStructureListElement(a));
+            }
+        }
+        return officesDto;
     }
 
 //    @Override
@@ -41,7 +75,11 @@ public class OfficeServiceImpl implements OfficeService {
         List<Office> offices = officeRepository.findAll();
         List<CompanyStructuresListElementDto> officesDto = new ArrayList<>();
         for (Office a : offices) {
-            officesDto.add(CompanyStructureConverter.toCompanyStructureListElement(a));
+            if (!a.isDeleted()) {
+                Hibernate.initialize(a.getDepartment());
+                Hibernate.initialize(a.getDepartment().getCompany());
+                officesDto.add(CompanyStructureConverter.toCompanyStructureListElement(a));
+            }
         }
         return officesDto;
     }
@@ -61,9 +99,11 @@ public class OfficeServiceImpl implements OfficeService {
     @Transactional
     @PreAuthorize("hasAuthority('OFFICE_UPDATE')")
     public Office update(Office office) {
-       Office tmp=new Office();
+        Office tmp = new Office();
         try {
-            tmp= officeRepository.update(office);
+            if (!officeRepository.find(office.getId()).isDeleted()) {
+                tmp = officeRepository.update(office);
+            }
         } catch (EntityException e) {
             e.printStackTrace();
         }
@@ -74,13 +114,13 @@ public class OfficeServiceImpl implements OfficeService {
     @Transactional
     @PreAuthorize("hasAuthority('OFFICE_DELETE')")
     public void delete(Long id) {
-        officeRepository.remove(id);
+        officeRepository.find(id).setDeleted(true);
     }
 
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('OFFICE_DELETE')")
     public void delete(Office office) {
-        officeRepository.remove(office);
+        officeRepository.find(office.getId()).setDeleted(true);
     }
 }

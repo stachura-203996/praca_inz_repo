@@ -24,6 +24,7 @@ public class UserConverter {
                 .email(user.getUserdata().getEmail())
                 .locked(user.isAccountLocked())
                 .verified(user.isEnabled())
+                .roles(user.getUserRoles().stream().map(UserRole::getName).collect(Collectors.toList()))
                 .build();
     }
 
@@ -37,6 +38,11 @@ public class UserConverter {
     public static ProfileInfoDto toProfileInfo(User user) {
         return ProfileInfoDto.builder()
                 .id(user.getId())
+                .username(user.getUsername())
+                .position(user.getUserdata().getPosition())
+                .company(user.getOffice().getDepartment().getCompany().getName())
+                .department(user.getOffice().getDepartment().getName())
+                .office(user.getOffice().getName())
                 .name(user.getUserdata().getName())
                 .surname(user.getUserdata().getSurname())
                 .city(user.getUserdata().getAddress().getCity())
@@ -45,6 +51,8 @@ public class UserConverter {
                 .houseNumber(user.getUserdata().getAddress().getBuildingNumber())
                 .flatNumber(user.getUserdata().getAddress().getFlatNumber())
                 .zipCode(user.getUserdata().getAddress().getZipCode())
+                .roles(user.getUserRoles().stream().map(UserRole::getName).collect(Collectors.toList()))
+                .workplace(user.getUserdata().getWorkplace())
                 .build();
     }
 
@@ -64,6 +72,37 @@ public class UserConverter {
     }
 
 
+    /**
+     * Metoda konwertująca encję {@link User} na obiekt {@link LoggedUserDto} przesyłany do widoku
+     *
+     * @param user encja konta
+     * @return obiekt z informacjami o zalogowanym użytkowniku
+     */
+    public static UserInfoDto toUserInfo(User user) {
+        return UserInfoDto.builder()
+                .id(user.getId())
+                .username(user.getUsername())
+                .position(user.getUserdata().getPosition())
+                .company(user.getOffice().getDepartment().getCompany().getName())
+                .companyId(user.getOffice().getDepartment().getCompany().getId())
+                .department(user.getOffice().getDepartment().getName())
+                .departmentId(user.getOffice().getDepartment().getId())
+                .office(user.getOffice().getName())
+                .officeId(user.getOffice().getId())
+                .name(user.getUserdata().getName())
+                .surname(user.getUserdata().getSurname())
+                .city(user.getUserdata().getAddress().getCity())
+                .email(user.getUserdata().getEmail())
+                .street(user.getUserdata().getAddress().getStreet())
+                .houseNumber(user.getUserdata().getAddress().getBuildingNumber())
+                .flatNumber(user.getUserdata().getAddress().getFlatNumber())
+                .zipCode(user.getUserdata().getAddress().getZipCode())
+                .roles(user.getUserRoles().stream().map(UserRole::getName).collect(Collectors.toList()))
+                .build();
+    }
+
+
+
 
 //    /**
 //     * Metoda konwertująca encję {@link User} na obiekt {@link UserEditDto} przesyłany do widoku
@@ -73,13 +112,13 @@ public class UserConverter {
 //     */
 //    public static UserEditDto toUserEdit(User user) {
 //        return UserEditDto.builder()
-//                .name(user.getUsers().getName())
-//                .surname(user.getUsers().getSurname())
-//                .city(user.getUsers().getAddress().getCity())
-//                .street(user.getUsers().getAddress().getStreet())
-//                .houseNo(Integer.parseInt(user.getUsers().getAddress().getBuildingNumber()))
-//                .flatNo(Integer.valueOf(user.getUsers().getAddress().getFlatNumber()))
-////     TODO           .userdataVersion(user.getUsers().getVersion())
+//                .name(user.getCompanies().getName())
+//                .surname(user.getCompanies().getSurname())
+//                .city(user.getCompanies().getAddress().getCity())
+//                .street(user.getCompanies().getAddress().getStreet())
+//                .houseNo(Integer.parseInt(user.getCompanies().getAddress().getBuildingNumber()))
+//                .flatNo(Integer.valueOf(user.getCompanies().getAddress().getFlatNumber()))
+////     TODO           .userdataVersion(user.getCompanies().getVersion())
 //                .build();
 //    }
 
@@ -91,18 +130,18 @@ public class UserConverter {
 //     *//*
 //    public static UserEditByAdminDto toUserEditByAdminView(User user) {
 //        UserEditByAdminDto userEdit = UserEditByAdminDto.builder()
-//                .name(user.getUsers().getName())
-//                .surname(user.getUsers().getSurname())
-//                .city(user.getUsers().getAddress().getCity())
-//                .street(user.getUsers().getAddress().getStreet())
-//                .houseNo(Integer.parseInt(user.getUsers().getAddress().getBuildingNumber()))
-//                .flatNo(Integer.valueOf(user.getUsers().getAddress().getFlatNumber()))
-//                .email(user.getUsers().getEmail())
-////     TODO           .userdataVersion(user.getUsers().getVersion())
+//                .name(user.getCompanies().getName())
+//                .surname(user.getCompanies().getSurname())
+//                .city(user.getCompanies().getAddress().getCity())
+//                .street(user.getCompanies().getAddress().getStreet())
+//                .houseNo(Integer.parseInt(user.getCompanies().getAddress().getBuildingNumber()))
+//                .flatNo(Integer.valueOf(user.getCompanies().getAddress().getFlatNumber()))
+//                .email(user.getCompanies().getEmail())
+////     TODO           .userdataVersion(user.getCompanies().getVersion())
 //                .build();
 //
-//        if (user.getUsers().getSupervisor() != null && !user.getUsers().getSupervisor().getAccount().getUsername().isEmpty()) {
-//            user.setSupervisorUsername(user.getUsers().getSupervisor().getAccount().getUsername());
+//        if (user.getCompanies().getSupervisor() != null && !user.getCompanies().getSupervisor().getAccount().getUsername().isEmpty()) {
+//            user.setSupervisorUsername(user.getCompanies().getSupervisor().getAccount().getUsername());
 //        }
 //        return user;
 //    }
@@ -116,14 +155,14 @@ public class UserConverter {
 //    public static ProfileInfo toProfileInfo(Account account) {
 //        return ProfileInfo.builder()
 //                .id(account.getId())
-//                .name(account.getUsers().getName())
-//                .surname(account.getUsers().getSurname())
-//                .city(account.getUsers().getCity())
-//                .email(account.getUsers().getEmail())
-//                .street(account.getUsers().getStreet())
-//                .houseNo(account.getUsers().getHouseNo())
-//                .flatNo(account.getUsers().getFlatNo())
-//                .pointsSum(account.getUsers().getPointsSum())
+//                .name(account.getCompanies().getName())
+//                .surname(account.getCompanies().getSurname())
+//                .city(account.getCompanies().getCity())
+//                .email(account.getCompanies().getEmail())
+//                .street(account.getCompanies().getStreet())
+//                .houseNo(account.getCompanies().getHouseNo())
+//                .flatNo(account.getCompanies().getFlatNo())
+//                .pointsSum(account.getCompanies().getPointsSum())
 //                .build();
 //    }
 
@@ -184,7 +223,7 @@ public class UserConverter {
 //        userAccount.setPerformanceReportCollection(account.getPerformanceReportCollection());
 //        userAccount.setPointCollection(account.getPointCollection());
 //        userAccount.setPurchaseCollection(account.getPurchaseCollection());
-//        userAccount.setUsers(account.getUsers());
+//        userAccount.setUsers(account.getCompanies());
 //        userAccount.setUsername(account.getUsername());
 //        userAccount.setVerified(account.getVerified());
 //    }

@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {CookieService} from 'ngx-cookie-service';
-import {LoggedUser} from "../../login/models/logged-user";
+import {LoggedUser} from "../../models/logged-user";
 import {Observable} from 'rxjs';
 import {Subject} from "rxjs";
 import {LoginService} from "../../login/login.service";

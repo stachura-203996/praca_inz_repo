@@ -8,11 +8,13 @@ import com.stachura.praca_inz.backend.web.dto.DeliveryListElementDto;
 import com.stachura.praca_inz.backend.web.dto.converter.DeliveryConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class DeliveryServiceImpl implements DeliveryService {
 
     @Autowired
@@ -22,7 +24,11 @@ public class DeliveryServiceImpl implements DeliveryService {
     @Transactional(readOnly = true)
     @PreAuthorize("hasAuthority('DELIVERY_READ')")
     public Delivery getDeliveryById(Long id) {
-        return deliveryRepository.find(id);
+        Delivery delivery=deliveryRepository.find(id);
+        if(delivery.isDeleted()){
+            return null;
+        }
+        return delivery ;
     }
 
 //    @Override
@@ -39,7 +45,9 @@ public class DeliveryServiceImpl implements DeliveryService {
         List<Delivery> deliveries = deliveryRepository.findAll();
         List<DeliveryListElementDto> companiesDto = new ArrayList<>();
         for (Delivery a : deliveries) {
-            companiesDto.add(DeliveryConverter.toDeliveryListElement(a));
+            if(!a.isDeleted()) {
+                companiesDto.add(DeliveryConverter.toDeliveryListElement(a));
+            }
         }
         return companiesDto;
     }
@@ -65,7 +73,9 @@ public class DeliveryServiceImpl implements DeliveryService {
     public Delivery updateDelivery(Delivery delivery) {
         Delivery tmp = new Delivery();
         try {
-            tmp = deliveryRepository.update(delivery);
+            if (!deliveryRepository.find(delivery.getId()).isDeleted()) {
+                tmp = deliveryRepository.update(delivery);
+            }
         } catch (EntityException e) {
 
         }
@@ -76,13 +86,13 @@ public class DeliveryServiceImpl implements DeliveryService {
     @Transactional
     @PreAuthorize("hasAuthority('DELIVERY_DELETE')")
     public void deleteDeliveryById(Long id) {
-        deliveryRepository.remove(id);
+        deliveryRepository.find(id).setDeleted(true);
     }
 
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('DELIVERY_DELETE')")
     public void deleteDelivery(Delivery delivery) {
-        deliveryRepository.remove(delivery);
+        deliveryRepository.find(delivery.getId()).setDeleted(true);
     }
 }

@@ -1,6 +1,7 @@
 package com.stachura.praca_inz.backend.service;
 
 import com.stachura.praca_inz.backend.model.Warehouse;
+import com.stachura.praca_inz.backend.web.dto.DeviceListElementDto;
 import com.stachura.praca_inz.backend.web.dto.WarehouseListElementDto;
 
 
@@ -21,4 +22,12 @@ public interface WarehouseService {
     void deleteWarehouseById(Long id);
 
     void deleteWarehouse(Warehouse warehouse);
+
+    List<WarehouseListElementDto> getAllWarehousesForCompany(Long id);
+
+    List<WarehouseListElementDto> getAllwarehousesForDepartment(Long id);
+
+    List<WarehouseListElementDto> getAllWarehousesForOffice(Long id);
+
+    List<WarehouseListElementDto> getAllWarehousesForLoggedUser(String username);
 }

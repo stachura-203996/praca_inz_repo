@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from './shared';
-import {LoginService} from "./login/login.service";
-import {CookieService} from "ngx-cookie-service";
 
 const routes: Routes = [
     { path: '', redirectTo: 'page', pathMatch: 'prefix' },

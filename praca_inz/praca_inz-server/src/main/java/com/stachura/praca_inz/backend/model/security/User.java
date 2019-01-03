@@ -8,7 +8,6 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
@@ -29,7 +28,7 @@ public class User implements UserDetails, Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ID", updatable = false, nullable = false)
-    private Long id = null;
+    private Long id;
 
     @Version
     @Column(name = "VERSION")
@@ -58,6 +57,10 @@ public class User implements UserDetails, Serializable {
     @JsonBackReference
     private Office office;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JsonBackReference
+    private Office managedOffice;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
     private Warehouse warehouse;
@@ -66,7 +69,17 @@ public class User implements UserDetails, Serializable {
     @JoinColumn(name = "USERDATA_ID")
     private Userdata userdata;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "sender", fetch = FetchType.LAZY, orphanRemoval = true)
+    @JsonManagedReference
+    private Set<Report> reportsSender = new HashSet<>();
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "reciever", fetch = FetchType.LAZY, orphanRemoval = true)
+    @JsonManagedReference
+    private Set<Report> reportsReciever = new HashSet<>();
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY, orphanRemoval = true)
+    @JsonManagedReference
+    private Set<Notification> notifications = new HashSet<>();
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "USERS_ROLES", joinColumns = @JoinColumn(name = "USER_ID", referencedColumnName = "ID"), inverseJoinColumns = @JoinColumn(name = "USER_ROLE_ID", referencedColumnName = "ID"))

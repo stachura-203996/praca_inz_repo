@@ -19,7 +19,7 @@ import java.util.Set;
 public class Department implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "ID", updatable = false, nullable = false)
     private Long id = null;
 
@@ -32,6 +32,9 @@ public class Department implements Serializable {
 
     @Column(name = "DESCRIPTION")
     private String description;
+
+    @Column(name = "DELETED", nullable = false)
+    private boolean deleted;
 
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "department", fetch = FetchType.LAZY, orphanRemoval = true)

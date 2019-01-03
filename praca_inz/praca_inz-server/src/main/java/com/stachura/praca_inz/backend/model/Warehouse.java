@@ -20,7 +20,7 @@ import java.util.Set;
 public class Warehouse implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "ID", updatable = false, nullable = false)
     private Long id = null;
 
@@ -39,16 +39,35 @@ public class Warehouse implements Serializable {
     @JoinColumn(name = "OFFICE_ID")
     private Office office;
 
+    @Column(name = "DELETED", nullable = false)
+    private boolean deleted;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "warehouse", fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonManagedReference
     private Set<Device> devices = new HashSet<>();
 
 
-    public void setDevices(Set<Device> devices) {
-        this.devices.clear();
-        if (devices != null) {
-            this.devices.addAll(devices);
-        }
-    }
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "senderWarehouse", fetch = FetchType.LAZY, orphanRemoval = true)
+    @JsonManagedReference
+    private Set<Request> senderRequests = new HashSet<>();
+
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "recieverWarehouse", fetch = FetchType.LAZY, orphanRemoval = true)
+    @JsonManagedReference
+    private Set<Request> receiverRequests = new HashSet<>();
+
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "recieverWarehouse", fetch = FetchType.LAZY, orphanRemoval = true)
+    @JsonManagedReference
+    private Set<Delivery> receiverDeliveries = new HashSet<>();
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "senderWarehouse", fetch = FetchType.LAZY, orphanRemoval = true)
+    @JsonManagedReference
+    private Set<Transfer> senderTransfers = new HashSet<>();
+
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "recieverWarehouse", fetch = FetchType.LAZY, orphanRemoval = true)
+    @JsonManagedReference
+    private Set<Transfer> receiverTransfers = new HashSet<>();
 }
 

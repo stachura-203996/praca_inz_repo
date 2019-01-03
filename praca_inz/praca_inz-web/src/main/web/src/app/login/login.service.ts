@@ -42,7 +42,7 @@ export class LoginService {
 
     checkCredentials() {
         if (!this.cookieService.check('access_token')) {
-            this._router.navigate(['/login']);
+            this._router.navigate(['/login']);//TODO Drut
             return false;
         } else {
             this._router.navigate(['/page']);

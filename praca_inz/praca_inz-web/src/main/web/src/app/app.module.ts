@@ -20,6 +20,12 @@ import {I18nService} from "./shared/services/i18n/i18n.service";
 import {ToastrModule} from "ngx-toastr";
 import {SessionContextService} from "./shared/services/session-context.service";
 import {UserService} from "./layout/admin/components/administration/user-management/user.service";
+import {DeviceService} from "./layout/device-management/device.service";
+import {NotificationService} from "./layout/notification/notification.service";
+import {PasswordMatchDirective} from "./directives/password-match.directive";
+import {WarehouseService} from "./layout/warehouse-management/warehouse.service";
+import {SystemMessageService} from "./layout/main-page/system-message.service";
+import {ReportService} from "./layout/employee-management/report.service";
 
 
 export const createTranslateLoader = (http: HttpClient) => {
@@ -48,7 +54,8 @@ export const createTranslateLoader = (http: HttpClient) => {
     ],
     declarations: [
         AppComponent,
-        ConfirmDialogComponent
+        ConfirmDialogComponent,
+        PasswordMatchDirective
     ],
     providers: [
         AuthGuard,
@@ -59,8 +66,13 @@ export const createTranslateLoader = (http: HttpClient) => {
         Configuration,
         ProfileService,
         MessageService,
+        SystemMessageService,
+        DeviceService,
         I18nService,
-        SessionContextService
+        ReportService,
+        SessionContextService,
+        NotificationService,
+        WarehouseService
     ],
     bootstrap: [AppComponent]
 })

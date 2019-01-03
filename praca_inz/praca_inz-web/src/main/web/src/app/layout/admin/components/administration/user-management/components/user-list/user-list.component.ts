@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {AccountLevel} from "../../models/account-level";
-import {UserListElement} from "../../models/user-list-element";
+import {AccountLevel} from "../../../../../../../models/account-level";
+import {UserListElement} from "../../../../../../../models/user-list-element";
 import {UserService} from "../../user.service";
 import {TranslateService} from "@ngx-translate/core";
 import {routerTransition} from "../../../../../../../router.animations";

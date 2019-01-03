@@ -22,13 +22,16 @@ import java.util.Set;
 public class Parameter implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "ID", updatable = false, nullable = false)
     private Long id = null;
 
     @Version
     @Column(name = "VERSION")
     private long version;
+
+    @Column(name = "DELETED", nullable = false)
+    private boolean deleted;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "parameter", fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonManagedReference

@@ -2,6 +2,7 @@ package com.stachura.praca_inz.backend.controller;
 
 import com.stachura.praca_inz.backend.model.Warehouse;
 import com.stachura.praca_inz.backend.service.WarehouseService;
+import com.stachura.praca_inz.backend.web.dto.DeviceListElementDto;
 import com.stachura.praca_inz.backend.web.dto.WarehouseListElementDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
@@ -9,6 +10,8 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -37,12 +40,35 @@ public class WarehouseController {
         return warehouseService.getWarehouseById(id);
     }
 
-//    @RequestMapping(value = "/filter", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-//    @ResponseStatus(value = HttpStatus.OK)
-//    public @ResponseBody
-//    Warehouse getCompanyById(@RequestParam String name) {
-//        return warehouseService.getCompanyById(name);
-//    }
+    @RequestMapping(value = "/company/user",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(value = HttpStatus.OK)
+    public @ResponseBody
+    List<WarehouseListElementDto> getAllWarehousesForUser() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        return warehouseService.getAllWarehousesForLoggedUser(auth.getName());
+    }
+
+    @RequestMapping(value = "/company/{id}",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(value = HttpStatus.OK)
+    public @ResponseBody
+    List<WarehouseListElementDto> getAllWarehousesForCompany(@PathVariable Long id) {
+        return warehouseService.getAllWarehousesForCompany(id);
+    }
+
+    @RequestMapping(value = "/department/{id}",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(value = HttpStatus.OK)
+    public @ResponseBody
+    List<WarehouseListElementDto> getAllWarehousesForDepartment(@PathVariable Long id) {
+        return warehouseService.getAllwarehousesForDepartment(id);
+    }
+
+    @RequestMapping(value = "/office/{id}",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(value = HttpStatus.OK)
+    public @ResponseBody
+    List<WarehouseListElementDto> getAllWarehousesForOffice(@PathVariable Long id) {
+        return warehouseService.getAllWarehousesForOffice(id);
+    }
+
 
     @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)

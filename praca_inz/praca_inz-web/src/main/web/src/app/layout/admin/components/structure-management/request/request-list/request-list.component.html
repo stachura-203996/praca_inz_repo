@@ -1,0 +1,153 @@
+<h1>{{ 'Requests' | translate }}</h1>
+<ngb-tabset>
+    <ngb-tab>
+        <ng-template ngbTabTitle>{{'DeviceRequests'|translate}}</ng-template>
+        <ng-template ngbTabContent>
+            <table class="table table-striped" align="center">
+                <thead class="thead-inverse">
+                <tr>
+                    <th>{{ 'Name' | translate }}</th>
+                    <th>{{ 'Description' | translate }}</th>
+                    <th>{{ 'City' | translate }}</th>
+                    <th>{{'ZipCode'|translate}}</th>
+                    <th>{{ 'Adress' | translate }}</th>
+                    <th>{{'ParentName'|translate}}</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let office of offices">
+                    <td>{{office.name}}</td>
+                    <td>{{office.description}}</td>
+                    <td>{{office.city}}</td>
+                    <td>{{office.zipCode}}</td>
+                    <td>{{getAddress(office)}}</td>
+                    <td>{{office.companyName}}</td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit"
+                                    [routerLink]="['/structures/offices/view/'+office.id]"
+                                    class="btn btn-info btn-sm">
+                                <i class="fa fa-eye"></i>&nbsp;
+                                <span class="d-none d-md-inline">View</span>
+                            </button>
+                            <button type="submit"
+                                    [routerLink]="['./edit/'+office.id]"
+                                    queryParamsHandling="merge"
+                                    class="btn btn-primary btn-sm">
+                                <i class="fa fa-pencil"></i>&nbsp;
+                                <span class="d-none d-md-inline">Edit</span>
+                            </button>
+                            <button type="button" (click)="delete(office)"
+                                    class="btn btn-danger btn-sm">
+                                <i class="fa fa-times"></i>&nbsp;
+                                <span class="d-none d-md-inline">Delete</span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </ng-template>
+    </ngb-tab>
+    <ngb-tab>
+        <ng-template ngbTabTitle>{{'TransferRequests'|translate}}</ng-template>
+        <ng-template ngbTabContent>
+            <table class="table table-striped" align="center">
+                <thead class="thead-inverse">
+                <tr>
+                    <th>{{ 'Name' | translate }}</th>
+                    <th>{{ 'Description' | translate }}</th>
+                    <th>{{ 'City' | translate }}</th>
+                    <th>{{'ZipCode'|translate}}</th>
+                    <th>{{ 'Adress' | translate }}</th>
+                    <th>{{'ParentName'|translate}}</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let office of offices">
+                    <td>{{office.name}}</td>
+                    <td>{{office.description}}</td>
+                    <td>{{office.city}}</td>
+                    <td>{{office.zipCode}}</td>
+                    <td>{{getAddress(office)}}</td>
+                    <td>{{office.departmentName}}</td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit"
+                                    [routerLink]="['/structures/offices/view/'+office.id]"
+                                    class="btn btn-info btn-sm">
+                                <i class="fa fa-eye"></i>&nbsp;
+                                <span class="d-none d-md-inline">View</span>
+                            </button>
+                            <button type="submit"
+                                    [routerLink]="['./edit/'+office.id]"
+                                    queryParamsHandling="merge"
+                                    class="btn btn-primary btn-sm">
+                                <i class="fa fa-pencil"></i>&nbsp;
+                                <span class="d-none d-md-inline">Edit</span>
+                            </button>
+                            <button type="button" (click)="delete(office)"
+                                    class="btn btn-danger btn-sm">
+                                <i class="fa fa-times"></i>&nbsp;
+                                <span class="d-none d-md-inline">Delete</span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </ng-template>
+    </ngb-tab>
+    <ngb-tab>
+        <ng-template ngbTabTitle>{{'DeliveryRequests'|translate}}</ng-template>
+        <ng-template ngbTabContent>
+            <table class="table table-striped" align="center">
+                <thead class="thead-inverse">
+                <tr>
+                    <th>{{ 'Name' | translate }}</th>
+                    <th>{{ 'Description' | translate }}</th>
+                    <th>{{ 'City' | translate }}</th>
+                    <th>{{'ZipCode'|translate}}</th>
+                    <th>{{ 'Adress' | translate }}</th>
+                    <th>{{'ParentName'|translate}}</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let office of offices">
+                    <td>{{office.name}}</td>
+                    <td>{{office.description}}</td>
+                    <td>{{office.city}}</td>
+                    <td>{{office.zipCode}}</td>
+                    <td>{{getAddress(office)}}</td>
+                    <td>{{office.departmentName}}</td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit"
+                                    [routerLink]="['/structures/offices/view/'+office.id]"
+                                    class="btn btn-info btn-sm">
+                                <i class="fa fa-eye"></i>&nbsp;
+                                <span class="d-none d-md-inline">View</span>
+                            </button>
+                            <button type="submit"
+                                    [routerLink]="['./edit/'+office.id]"
+                                    queryParamsHandling="merge"
+                                    class="btn btn-primary btn-sm">
+                                <i class="fa fa-pencil"></i>&nbsp;
+                                <span class="d-none d-md-inline">Edit</span>
+                            </button>
+                            <button type="button" (click)="delete(office)"
+                                    class="btn btn-danger btn-sm">
+                                <i class="fa fa-times"></i>&nbsp;
+                                <span class="d-none d-md-inline">Delete</span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </ng-template>
+    </ngb-tab>
+</ngb-tabset>

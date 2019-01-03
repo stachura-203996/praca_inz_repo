@@ -7,12 +7,14 @@ import com.stachura.praca_inz.backend.repository.interfaces.DepartmentRepository
 import com.stachura.praca_inz.backend.service.DepartmentService;
 import com.stachura.praca_inz.backend.web.dto.CompanyStructuresListElementDto;
 import com.stachura.praca_inz.backend.web.dto.converter.CompanyStructureConverter;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class DepartmentServiceImpl implements DepartmentService {
@@ -22,50 +24,78 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     @Transactional(readOnly = true)
-//    @PreAuthorize("hasAuthority('COMPANY_READ') and hasAuthority('DEPARTMENT_READ')")
+//    @PreAuthorize("hasAuthority('DEPARTMENT_READ')")
     public Department getDepartmentById(Long id) {
-        return departmentRepository.find(id);
+        Department department = departmentRepository.find(id);
+        if (department.isDeleted()) {
+            return null;
+        }
+        return department;
     }
 
     @Override
     @Transactional(readOnly = true)
-//    @PreAuthorize("hasAuthority('COMPANY_READ') and hasAuthority('DEPARTMENT_READ')")
+//    @PreAuthorize("hasAuthority('DEPARTMENT_READ')")
     public Department getDepartmentByName(String name) {
-        return departmentRepository.find(name);
+        Department department = departmentRepository.find(name);
+        if (department.isDeleted()) {
+            return null;
+        }
+        return department;
     }
 
     @Override
     @Transactional(readOnly = true)
-//    @PreAuthorize("hasAuthority('COMPANY_READ')")
+//    @PreAuthorize("hasAuthority('DEPARTMENT_READ')")
     public List<CompanyStructuresListElementDto> getAllDepartments() {
         List<Department> departments = departmentRepository.findAll();
         List<CompanyStructuresListElementDto> structuresListElementDtos = new ArrayList<>();
         for (Department a : departments) {
-            structuresListElementDtos.add(CompanyStructureConverter.toCompanyStructureListElement(a));
+            if (!a.isDeleted()) {
+                structuresListElementDtos.add(CompanyStructureConverter.toCompanyStructureListElement(a));
+            }
         }
         return structuresListElementDtos;
-        
+
+    }
+
+    @Override
+    public List<CompanyStructuresListElementDto> getAllDepartmentsForCompany(Long id) {
+        List<Department> departments = departmentRepository.findAll().stream().filter(x -> {
+            Hibernate.initialize(x.getCompany());
+            return x.getCompany().getId().equals(id);
+        }).collect(Collectors.toList());
+        List<CompanyStructuresListElementDto> structuresListElementDtos = new ArrayList<>();
+        for (Department a : departments) {
+            if (!a.isDeleted()) {
+                structuresListElementDtos.add(CompanyStructureConverter.toCompanyStructureListElement(a));
+            }
+        }
+        return structuresListElementDtos;
     }
 
     //TODO EXCEPTIONS
     @Override
     @Transactional
-//    @PreAuthorize("hasAuthority('COMPANY_CREATE')")
+//    @PreAuthorize("hasAuthority('DEPARTMENT_CREATE')")
     public void createNewDepartment(Department department) {
         try {
             departmentRepository.create(department);
-        } catch (EntityException e){
+        } catch (EntityException e) {
 
         }
     }
-//TODO EXCEPTIONS
+
+    //TODO EXCEPTIONS
     @Override
     @Transactional
-//    @PreAuthorize("hasAuthority('COMPANY_UPDATE')")
+//    @PreAuthorize("hasAuthority('DEPARTMENT_UPDATE')")
     public Department updateDepartment(Department department) {
-        Department tmp=new Department();
+        Department tmp = new Department();
         try {
-            tmp= departmentRepository.update(department);
+            if (!departmentRepository.find(department.getId()).isDeleted()) {
+                tmp = departmentRepository.update(department);
+            }
         } catch (EntityException e) {
             e.printStackTrace();
         }
@@ -74,15 +104,16 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     @Transactional
-//    @PreAuthorize("hasAuthority('COMPANY_DELETE')")
+//    @PreAuthorize("hasAuthority('DEPARTMENT_DELETE')")
     public void deleteDepartmentById(Long id) {
-        departmentRepository.remove(id);
+        departmentRepository.find(id).setDeleted(true);
+
     }
 
     @Override
     @Transactional
-//    @PreAuthorize("hasAuthority('COMPANY_DELETE')")
+//    @PreAuthorize("hasAuthority('DEPARTMENT_DELETE')")
     public void deleteDepartment(Department department) {
-        departmentRepository.remove(department);
+        departmentRepository.find(department.getId()).setDeleted(true);
     }
 }

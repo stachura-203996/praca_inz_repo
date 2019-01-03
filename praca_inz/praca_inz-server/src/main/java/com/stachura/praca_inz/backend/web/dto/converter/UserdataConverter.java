@@ -20,12 +20,12 @@ public class UserdataConverter {
     public static Userdata toUserdata(UserEditDto userEdit, User user) {
         Userdata userdata = new Userdata(userEdit.getUserdataVersion());
         userdata.setAccount(user);
-        userdata.setEmail(account.getUsers().getEmail());
-        userdata.setPointsSum(account.getUsers().getPointsSum());
-        userdata.setPointsForAssociates(account.getUsers().getPointsForAssociates());
-        userdata.setPointsForSubordinates(account.getUsers().getPointsForSubordinates());
-        userdata.setSupervisor(account.getUsers().getSupervisor());
-        userdata.setUserdataCollection(account.getUsers().getUserdataCollection());
+        userdata.setEmail(account.getCompanies().getEmail());
+        userdata.setPointsSum(account.getCompanies().getPointsSum());
+        userdata.setPointsForAssociates(account.getCompanies().getPointsForAssociates());
+        userdata.setPointsForSubordinates(account.getCompanies().getPointsForSubordinates());
+        userdata.setSupervisor(account.getCompanies().getSupervisor());
+        userdata.setUserdataCollection(account.getCompanies().getUserdataCollection());
 
         userdata.setName(userEdit.getName());
         userdata.setSurname(userEdit.getSurname());
@@ -57,7 +57,7 @@ public class UserdataConverter {
         userdata.setEmail(userEdit.getEmail());
 
         if (supervisorAccount != null) {
-            userdata.setSupervisor(supervisorAccount.getUsers());
+            userdata.setSupervisor(supervisorAccount.getCompanies());
         }
         return userdata;
     }*/

@@ -7,8 +7,7 @@ import { MainPageComponent } from './main-page.component';
 import { PageHeaderModule } from './../../shared';
 import {
     TimelineComponent,
-    NotificationComponent,
-    ChatComponent
+    NotificationComponent
 } from './components';
 import { StatModule } from '../../shared';
 
@@ -25,8 +24,7 @@ import { StatModule } from '../../shared';
     declarations: [
         MainPageComponent,
         TimelineComponent,
-        NotificationComponent,
-        ChatComponent
+        NotificationComponent
     ]
 })
 export class MainPageModule {}
