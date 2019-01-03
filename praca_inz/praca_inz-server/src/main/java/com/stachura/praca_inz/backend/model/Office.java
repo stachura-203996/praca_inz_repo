@@ -46,15 +46,13 @@ public class Office implements Serializable {
     @Column(name = "DELETED", nullable = false)
     private boolean deleted;
 
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "MANAGER_ID")
+    private User user;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "office", fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonManagedReference
     private Set<User> users = new HashSet<>();
-
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "managedOffice", fetch = FetchType.LAZY, orphanRemoval = true)
-    @JsonManagedReference
-    private Set<User> mangers = new HashSet<>();
-
 
     public void setUsers(Set<User> users) {
         this.users.clear();
@@ -62,6 +60,7 @@ public class Office implements Serializable {
             this.users.addAll(users);
         }
     }
+
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "WAREHOUSE_ID")
     private Warehouse warehouse;

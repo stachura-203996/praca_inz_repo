@@ -1,7 +1,6 @@
 package com.stachura.praca_inz.backend.web.dto.converter;
 
 import com.stachura.praca_inz.backend.model.Shipment;
-import com.stachura.praca_inz.backend.web.dto.DeliveryListElementDto;
 import com.stachura.praca_inz.backend.web.dto.ShipmentListElementDto;
 
 public class ShipmentConverter {
@@ -10,13 +9,14 @@ public class ShipmentConverter {
         return ShipmentListElementDto.builder()
 
                 .id(shipment.getId())
-                .deliveryNumber(shipment.getDeliveryNumber())
-                .title(shipment.getTitle())
-                .username(shipment.getUsername())
+                .shipmentNumber(shipment.getShipmentNumber())
+                .createDate(shipment.getCreateDate().getTime().toString())
+                .lastUpdate(shipment.getLastUpdate().getTime().toString())
+                .receiver(shipment.getRecieverWarehouse().getName())
+                .sender(shipment.getSenderWarehouse().getName())
                 .status(shipment.getStatus().name())
-                .senderWarehouseName(shipment.getSenderWarehouse().getName())
-                .recieverWarehouseName(shipment.getRecieverWarehouse().getName())
-                .utilTimestamp(shipment.getUtilTimestamp().toString())
+                .username(shipment.getUsername())
+                .title(shipment.getTitle())
                 .build();
     }
 }

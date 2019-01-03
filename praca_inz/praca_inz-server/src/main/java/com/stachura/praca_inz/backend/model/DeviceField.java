@@ -25,7 +25,7 @@ public class DeviceField {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
-    private DeviceType deviceType;
+    private DeviceModel deviceModel;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference

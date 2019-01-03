@@ -1,10 +1,12 @@
 package com.stachura.praca_inz.backend.service.impl;
 
-import com.stachura.praca_inz.backend.exception.EntityException;
+import com.stachura.praca_inz.backend.exception.repository.DatabaseErrorException;
+import com.stachura.praca_inz.backend.exception.repository.EntityException;
+import com.stachura.praca_inz.backend.exception.service.ServiceException;
 import com.stachura.praca_inz.backend.model.Office;
 import com.stachura.praca_inz.backend.repository.interfaces.OfficeRepository;
 import com.stachura.praca_inz.backend.service.OfficeService;
-import com.stachura.praca_inz.backend.web.dto.CompanyStructuresListElementDto;
+import com.stachura.praca_inz.backend.web.dto.company.CompanyStructuresListElementDto;
 import com.stachura.praca_inz.backend.web.dto.converter.CompanyStructureConverter;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,13 +63,6 @@ public class OfficeServiceImpl implements OfficeService {
         return officesDto;
     }
 
-//    @Override
-//    @Transactional(readOnly = true)
-////    @PreAuthorize("hasAuthority('OFFICE_READ') and hasAuthority('DEPARTMENT_READ')")
-//    public Office getCompanyById(String name) {
-//        return officeRepository.find(name);
-//    }
-
     @Override
     @Transactional(readOnly = true)
     @PreAuthorize("hasAuthority('OFFICE_LIST_READ')")
@@ -87,27 +82,21 @@ public class OfficeServiceImpl implements OfficeService {
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('OFFICE_CREATE')")
-    public void create(Office office) {
+    public void create(Office office)throws ServiceException {
         try {
             officeRepository.create(office);
+        } catch (DatabaseErrorException e) {
+            throw e;
         } catch (EntityException e) {
-            e.printStackTrace();
+            throw ServiceException.createServiceException(ServiceException.ENTITY_VALIDATION, e);
         }
     }
 
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('OFFICE_UPDATE')")
-    public Office update(Office office) {
-        Office tmp = new Office();
-        try {
-            if (!officeRepository.find(office.getId()).isDeleted()) {
-                tmp = officeRepository.update(office);
-            }
-        } catch (EntityException e) {
-            e.printStackTrace();
-        }
-        return tmp;
+    public void update(Office office) throws ServiceException {
+        officeRepository.update(office);
     }
 
     @Override

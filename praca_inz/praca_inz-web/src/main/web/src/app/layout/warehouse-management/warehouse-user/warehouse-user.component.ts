@@ -23,63 +23,34 @@ export class WarehouseUserComponent implements OnInit {
     }
 
     ngOnInit() {
-        // this.filterUsers(null);
         this.getWarehouses();
     }
 
     getWarehouses() {
-        this.warehouseService.getAll().subscribe(warehouseListElement => {
+        this.warehouseService.getAllForWarehouseman().subscribe(warehouseListElement => {
             this.warehouses = warehouseListElement
         });
     }
 
 
-    filterWarehouses(searchText
-                         :
-                         string
-    ) {
-        // this.userService.getAllNotificationsForUser().subscribe(users => {
-        //     if (!users) {
-        //         this.users = [];
-        //         return;
-        //     }
-        //     if (!searchText || searchText.length < 2) {
-        //         if (this.notVerifiedFilter) {
-        //             this.users = users.filter(it => {
-        //                 return it.verified === !this.notVerifiedFilter;
-        //             });
-        //         } else {
-        //             this.users = users;
-        //         }
-        //         return;
-        //     }
-        //
-        //     searchText = searchText.toLowerCase();
-        //     this.users = users.filter(it => {
-        //         const fullname = it.name + ' ' + it.surname;
-        //         const ok = fullname.toLowerCase().includes(searchText);
-        //         if (!this.notVerifiedFilter) {
-        //             return ok;
-        //         } else {
-        //             return ok && it.verified === !this.notVerifiedFilter;
-        //         }
-        //     });
-        // });
+    filterWarehouses(searchText: string) {
+        this.warehouseService.getAllForWarehouseman().subscribe(warehouses => {
+            if (!warehouses) {
+                this.warehouses = [];
+                return;
+            }
+            if (!searchText || searchText.length < 2) {
+                this.warehouses = warehouses;
+            }
+
+            searchText = searchText.toLowerCase();
+            this.warehouses = warehouses.filter(it => {
+                const range = it.toString();
+                const ok = range.toLowerCase().includes(searchText);
+                return ok;
+            });
+        });
     }
 
-    delete(structure
-               :
-               StructureListElement
-    ) {
-        // const modalRef = this.modalService.open(UserMgmtDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
-        // modalRef.componentInstance.user = user;
-        // modalRef.result.then(
-        //     result => {
-        //         // Left blank intentionally, nothing to do here
-        //     },
-        //     reason => {
-        //         // Left blank intentionally, nothing to do here
-        //     }
-        // );
-    }
+   
 }

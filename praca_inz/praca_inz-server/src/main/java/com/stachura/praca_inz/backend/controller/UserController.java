@@ -2,10 +2,10 @@ package com.stachura.praca_inz.backend.controller;
 
 
 import com.stachura.praca_inz.backend.service.UserService;
-import com.stachura.praca_inz.backend.web.dto.LoggedUserDto;
-import com.stachura.praca_inz.backend.web.dto.ProfileInfoDto;
-import com.stachura.praca_inz.backend.web.dto.UserInfoDto;
-import com.stachura.praca_inz.backend.web.dto.UserListElementDto;
+import com.stachura.praca_inz.backend.web.dto.user.LoggedUserDto;
+import com.stachura.praca_inz.backend.web.dto.user.ProfileInfoDto;
+import com.stachura.praca_inz.backend.web.dto.user.UserInfoDto;
+import com.stachura.praca_inz.backend.web.dto.user.UserListElementDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

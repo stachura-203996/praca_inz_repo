@@ -11,6 +11,14 @@ public enum Status {
     WAITINGFORCOLLECTING,
 
     //Transfer
-    TRANSFERED
+    TRANSFERED,
+
+    CLOSED,
+
+    CANCELED,
+
+    //Device
+    REPOSE,
+    RESERVED
 
 }

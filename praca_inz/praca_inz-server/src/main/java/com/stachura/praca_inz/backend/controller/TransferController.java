@@ -1,8 +1,8 @@
 package com.stachura.praca_inz.backend.controller;
 
+import com.stachura.praca_inz.backend.exception.service.ServiceException;
 import com.stachura.praca_inz.backend.model.Transfer;
 import com.stachura.praca_inz.backend.service.TransferService;
-import com.stachura.praca_inz.backend.web.dto.DeviceListElementDto;
 import com.stachura.praca_inz.backend.web.dto.TransferListElementDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
@@ -37,7 +37,7 @@ public class TransferController {
     @RequestMapping(value = "/user", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
-    List<TransferListElementDto> getAllDevicesForLoggedUser() {
+    List<TransferListElementDto> getAllTransfersForLoggedUser() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         return transferService.getAllTransfersForLoggedUser(auth.getName());
     }
@@ -45,7 +45,7 @@ public class TransferController {
     @RequestMapping(value = "/user/{username}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
-    List<TransferListElementDto> getAllDevicesForLoggedUser(@PathVariable String username) {
+    List<TransferListElementDto> getAllTransfersForLoggedUser(@PathVariable String username) {
         return transferService.getAllTransfersForLoggedUser(username);
     }
 
@@ -67,7 +67,11 @@ public class TransferController {
     @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public ResponseEntity<?> create(@RequestBody Transfer transfer) {
-        transferService.createNewTransfer(transfer);
+        try {
+            transferService.createNewTransfer(transfer);
+        } catch (ServiceException e) {
+            e.printStackTrace();
+        }
         HttpHeaders headers = new HttpHeaders();
         ControllerLinkBuilder linkBuilder = linkTo(methodOn(TransferController.class).get(transfer.getId()));
         headers.setLocation(linkBuilder.toUri());
@@ -77,7 +81,11 @@ public class TransferController {
     @RequestMapping(method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public void update(@RequestBody Transfer transfer) {
-        transferService.updateTransfer(transfer);
+        try {
+            transferService.updateTransfer(transfer);
+        } catch (ServiceException e) {
+            e.printStackTrace();
+        }
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)

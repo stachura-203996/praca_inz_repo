@@ -2,6 +2,8 @@ package com.stachura.praca_inz.backend.model;
 
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.stachura.praca_inz.backend.model.enums.RequestType;
+import com.stachura.praca_inz.backend.model.enums.WarehouseType;
 import com.stachura.praca_inz.backend.model.security.User;
 import lombok.Getter;
 import lombok.Setter;
@@ -39,6 +41,10 @@ public class Warehouse implements Serializable {
     @JoinColumn(name = "OFFICE_ID")
     private Office office;
 
+    @Column(name = "WAREHOUSE_TYPE", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private WarehouseType warehouseType;
+
     @Column(name = "DELETED", nullable = false)
     private boolean deleted;
 
@@ -60,6 +66,18 @@ public class Warehouse implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "recieverWarehouse", fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonManagedReference
     private Set<Delivery> receiverDeliveries = new HashSet<>();
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "senderWarehouse", fetch = FetchType.LAZY, orphanRemoval = true)
+    @JsonManagedReference
+    private Set<Delivery> senderDeliveries = new HashSet<>();
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "recieverWarehouse", fetch = FetchType.LAZY, orphanRemoval = true)
+    @JsonManagedReference
+    private Set<Delivery> receiverShipments = new HashSet<>();
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "senderWarehouse", fetch = FetchType.LAZY, orphanRemoval = true)
+    @JsonManagedReference
+    private Set<Delivery> senderShipments = new HashSet<>();
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "senderWarehouse", fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonManagedReference

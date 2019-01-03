@@ -25,8 +25,8 @@ export class ReportService {
         return this.httpService.get<ReportListElement[]>(this.reportPath + '/user');
     }
 
-    getAllFromEmployees(): Observable<ReportListElement[]> {
-        return this.httpService.get<ReportListElement[]>(this.reportPath + '/employees');
+    getAllFromOthers(): Observable<ReportListElement[]> {
+        return this.httpService.get<ReportListElement[]>(this.reportPath + '/others');
     }
 
     getReportEdit(id: string): Observable<StructureEditElement> {

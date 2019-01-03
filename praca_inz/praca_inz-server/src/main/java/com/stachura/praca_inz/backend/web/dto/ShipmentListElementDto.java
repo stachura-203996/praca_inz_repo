@@ -16,13 +16,14 @@ import java.util.Collection;
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 public class ShipmentListElementDto {
 
-    private Long id = null;
-    private String deliveryNumber;
-    private String title;
-    private String username;
-    private String status;
-    private String senderWarehouseName;
-    private String recieverWarehouseName;
-    private String utilTimestamp;
+    Long id;
+    String title;
+    String shipmentNumber;
+    String username;
+    String status;
+    String createDate;
+    String lastUpdate;
+    String sender;
+    String receiver;
 
 }

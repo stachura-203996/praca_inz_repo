@@ -1,5 +1,6 @@
 package com.stachura.praca_inz.backend.service;
 
+import com.stachura.praca_inz.backend.exception.service.ServiceException;
 import com.stachura.praca_inz.backend.model.SystemMessage;
 import com.stachura.praca_inz.backend.web.dto.SystemMessageListElementDto;
 
@@ -13,9 +14,9 @@ public interface SystemMessageService {
 
     List<SystemMessageListElementDto> getAllSystemMessages();
 
-    void createNewSystemMessage(SystemMessage systemMessage);
+    void createNewSystemMessage(SystemMessage systemMessage) throws ServiceException;
 
-    SystemMessage updateSystemMessage(SystemMessage systemMessage);
+    void updateSystemMessage(SystemMessage systemMessage) throws ServiceException;
 
     void deleteSystemMessageById(Long id);
 

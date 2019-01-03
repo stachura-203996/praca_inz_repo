@@ -1,6 +1,5 @@
 package com.stachura.praca_inz.backend.repository.impl;
 
-import com.stachura.praca_inz.backend.model.Office;
 import com.stachura.praca_inz.backend.model.Transfer;
 import com.stachura.praca_inz.backend.repository.AbstractRepository;
 import com.stachura.praca_inz.backend.repository.interfaces.TransferRepository;
@@ -12,4 +11,5 @@ public class TransferRepositoryImpl extends AbstractRepository<Transfer> impleme
     public TransferRepositoryImpl() {
         super(Transfer.class);
     }
+
 }

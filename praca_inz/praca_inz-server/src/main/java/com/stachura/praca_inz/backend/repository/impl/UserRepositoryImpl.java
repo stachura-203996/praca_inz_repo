@@ -1,5 +1,7 @@
 package com.stachura.praca_inz.backend.repository.impl;
 
+import com.stachura.praca_inz.backend.exception.repository.*;
+import com.stachura.praca_inz.backend.model.DeviceModel;
 import com.stachura.praca_inz.backend.model.security.User;
 import com.stachura.praca_inz.backend.model.security.User_;
 import com.stachura.praca_inz.backend.repository.AbstractRepository;
@@ -7,10 +9,14 @@ import com.stachura.praca_inz.backend.repository.interfaces.UserRepository;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.OptimisticLockException;
+import javax.persistence.PersistenceException;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import javax.validation.ConstraintViolationException;
+import javax.validation.ValidationException;
 
 @Repository
 public class UserRepositoryImpl extends AbstractRepository<User> implements UserRepository {
@@ -33,4 +39,5 @@ public class UserRepositoryImpl extends AbstractRepository<User> implements User
             return DataAccessUtils.singleResult(getEntityManager().createQuery(query).getResultList());
        
     }
+
 }

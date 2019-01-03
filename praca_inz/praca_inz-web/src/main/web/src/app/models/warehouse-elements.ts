@@ -5,10 +5,6 @@ export class WarehouseListElement {
     officeId:number
     officeName: string;
     devicesNumber:string;
-
-    toString(): string {
-        return this.name+' '+ this.username + ' ' + this.officeName;
-    }
 }
 
 export class WarehoucseListElement {
@@ -18,10 +14,6 @@ export class WarehoucseListElement {
     officeId:number
     officeName: string;
     devicesNumber:string;
-
-    toString(): string {
-        return this.name+' '+ this.username + ' ' + this.officeName;
-    }
 }
 
 export class WarehouseAddElement {
@@ -31,8 +23,31 @@ export class WarehouseAddElement {
     officeId:number
     officeName: string;
     devicesNumber:string;
+}
 
-    toString(): string {
-        return this.name+' '+ this.username + ' ' + this.officeName;
-    }
+export class DeliveryListElement{
+    id:number;
+    deliveryNumber:string;
+    title:string;
+    username:string;
+    status:string;
+    description:string
+    createDate:string;
+    lastUpdate:string;
+    sender:string;
+    receiver:string
+}
+
+export class ShipmentListElement{
+    id:number;
+    shipmentNumber:string;
+    title:string;
+    username:string;
+    status:string;
+    description:string
+    createDate:string;
+    lastUpdate:string;
+    sender:string;
+    receiver:string
+
 }

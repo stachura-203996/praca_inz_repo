@@ -1,11 +1,12 @@
 package com.stachura.praca_inz.backend.controller;
 
+import com.stachura.praca_inz.backend.exception.service.ServiceException;
 import com.stachura.praca_inz.backend.model.Office;
 import com.stachura.praca_inz.backend.repository.interfaces.DepartmentRepository;
 import com.stachura.praca_inz.backend.service.OfficeService;
-import com.stachura.praca_inz.backend.web.dto.CompanyStructureAddDto;
-import com.stachura.praca_inz.backend.web.dto.CompanyStructureEditDto;
-import com.stachura.praca_inz.backend.web.dto.CompanyStructuresListElementDto;
+import com.stachura.praca_inz.backend.web.dto.company.CompanyStructureAddDto;
+import com.stachura.praca_inz.backend.web.dto.company.CompanyStructureEditDto;
+import com.stachura.praca_inz.backend.web.dto.company.CompanyStructuresListElementDto;
 import com.stachura.praca_inz.backend.web.dto.converter.CompanyStructureConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -60,7 +61,11 @@ public class OfficeController {
     @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public ResponseEntity<?> create(@RequestBody CompanyStructureAddDto companyStructureAddDto) {
-        officeService.create(CompanyStructureConverter.toOffice(companyStructureAddDto,departmentRepository));
+        try {
+            officeService.create(CompanyStructureConverter.toOffice(companyStructureAddDto,departmentRepository));
+        } catch (ServiceException e) {
+            e.printStackTrace();
+        }
         HttpHeaders headers = new HttpHeaders();
 //        ControllerLinkBuilder linkBuilder = linkTo(methodOn(OfficeController.class).getOfficeById(office.getId()));
 //        headers.setLocation(linkBuilder.toUri());
@@ -71,7 +76,11 @@ public class OfficeController {
     @ResponseStatus(value = HttpStatus.OK)
     public void update(@RequestBody CompanyStructureEditDto companyStructureEditDto) {
         Office beforeOffice=officeService.getOfficeById(companyStructureEditDto.getId());
-        officeService.update(CompanyStructureConverter.toOffice(companyStructureEditDto,beforeOffice,departmentRepository));
+        try {
+            officeService.update(CompanyStructureConverter.toOffice(companyStructureEditDto,beforeOffice,departmentRepository));
+        } catch (ServiceException e) {
+            e.printStackTrace();
+        }
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)

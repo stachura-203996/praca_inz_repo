@@ -75,5 +75,16 @@
     "DeliveryRequestAdd":"Zgłoś dostawę",
     "ShipmentRequestAdd":"Zgłoś wysyłkę",
     "Deliveries":"Dostawy",
-    "Shipments":"Wysyłki"
+    "Shipments":"Wysyłki",
+    "DevicesModels":"Modele urządzeń",
+    "Structures":"Struktury",
+    "Warehouse":"Magazyn",
+    "EmployeeManager":"Menadżer pracownika",
+    "Employees":"Pracownicy",
+    "Reports":"Raporty",
+    "Notifications":"Powiadomienia",
+    "WarehouseRequests":"Zgłoszenia z magazynów",
+    "Transfers":"Transfery",
+    "Warehouses":"Magazyny",
+    "Employeemanager":"Menadżer pracownika"
 }

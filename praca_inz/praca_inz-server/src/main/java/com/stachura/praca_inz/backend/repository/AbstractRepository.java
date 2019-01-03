@@ -1,9 +1,13 @@
 package com.stachura.praca_inz.backend.repository;
 
-import com.stachura.praca_inz.backend.exception.EntityException;
+import com.stachura.praca_inz.backend.exception.repository.DatabaseErrorException;
+import com.stachura.praca_inz.backend.exception.repository.EntityException;
+import com.stachura.praca_inz.backend.exception.repository.EntityValidationException;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceException;
+import javax.validation.ConstraintViolationException;
 import java.util.List;
 
 public abstract class AbstractRepository<T> {
@@ -17,7 +21,7 @@ public abstract class AbstractRepository<T> {
         this.entityClass = entityClass;
     }
 
-    protected EntityManager getEntityManager(){
+    protected EntityManager getEntityManager() {
         return entityManager;
     }
 
@@ -28,8 +32,17 @@ public abstract class AbstractRepository<T> {
      * @throws EntityException jeżeli tworzenie encji zostanie zakończone niepowodzeniem
      */
     public void create(T entity) throws EntityException {
-        entityManager.persist(entity);
-        entityManager.flush();
+        try {
+            entityManager.persist(entity);
+            entityManager.flush();
+        } catch (PersistenceException pe) {
+            throw DatabaseErrorException.createDbErrorException(DatabaseErrorException.DATABASE_ERROR, pe);
+        } catch (IllegalArgumentException iae) {
+            throw DatabaseErrorException.createDbErrorException(DatabaseErrorException.ILLEGAL_ARGUMENT, iae);
+        } catch (
+                ConstraintViolationException cve) {
+            throw EntityValidationException.createBeanWithValidation(EntityValidationException.BENEFIT_DB_CONSTRAINT, cve);
+        }
     }
 
     /**
@@ -43,7 +56,9 @@ public abstract class AbstractRepository<T> {
         entityManager.flush();
     }
 
-    public void remove(Long id){entityManager.remove(entityManager.find(entityClass,id));}
+    public void remove(Long id) {
+        entityManager.remove(entityManager.find(entityClass, id));
+    }
 
     public void remove(T entity) {
         entityManager.remove(entityManager.merge(entity));
@@ -76,7 +91,7 @@ public abstract class AbstractRepository<T> {
         return ((Long) q.getSingleResult()).intValue();
     }
 
-    public T update(T entity) throws EntityException{
-       return entityManager.merge(entity);
+    public void update(T entity) throws EntityException {
+        entityManager.merge(entity);
     }
 }

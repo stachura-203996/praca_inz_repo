@@ -1,6 +1,6 @@
 package com.stachura.praca_inz.backend.repository.interfaces;
 
-import com.stachura.praca_inz.backend.exception.EntityException;
+import com.stachura.praca_inz.backend.exception.repository.EntityException;
 import com.stachura.praca_inz.backend.model.Company;
 
 import java.util.List;
@@ -15,7 +15,7 @@ public interface CompanyRepository {
 
     void create(Company company)throws EntityException;
 
-    Company update(Company company)throws EntityException;
+    void update(Company company)throws EntityException;
 
     void remove(Long id);
 

@@ -57,10 +57,21 @@ public class Delivery implements Serializable {
     @JsonBackReference
     private Warehouse recieverWarehouse;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonBackReference
+    private Warehouse senderWarehouse;
+
     @Basic
+    @NotNull
     @Column(name = "DELIVERY_DATE")
     @Temporal(TemporalType.TIMESTAMP)
-    private java.util.Date utilTimestamp;
+    private java.util.Calendar createDate;
+
+    @Basic
+    @NotNull
+    @Column(name = "LAST_UPDATE")
+    @Temporal(TemporalType.TIMESTAMP)
+    private java.util.Calendar lastUpdate;
 
     @Column(name = "DELETED", nullable = false)
     private boolean deleted;

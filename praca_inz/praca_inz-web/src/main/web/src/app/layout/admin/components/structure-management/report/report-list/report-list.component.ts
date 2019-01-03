@@ -26,10 +26,12 @@ export class ReportListComponent implements OnInit {
 
     ngOnInit() {
         // this.filterUsers(null);
-        this.getDepartments();
+        this.getReports();
     }
 
-    getDepartments(){
+
+
+    getReports(){
         this.reportService.getAll().subscribe(reportListElement=> {this.reports=reportListElement});
     }
 
@@ -55,7 +57,7 @@ export class ReportListComponent implements OnInit {
 
     delete(structure: ReportListElement) {
         this.reportService.deleteDepartament(String(structure.id)).subscribe(resp => {
-            this.getDepartments()
+            this.getReports()
         });
     }
 }
