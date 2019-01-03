@@ -37,8 +37,12 @@ export class DeviceService {
         return this.httpService.get<DeviceListElement[]>(this.devicePath + "/user");
     }
 
-    getAllDevicesForShipmentRequest(): Observable<DeviceListElement[]> {
-        return this.httpService.get<DeviceListElement[]>(this.devicePath + "/shipment-request");
+    getAllDevicesForRequest(): Observable<DeviceListElement[]> {
+        return this.httpService.get<DeviceListElement[]>(this.devicePath + "/request");
+    }
+
+    getAllDevicesForWarehouseman(): Observable<DeviceListElement[]> {
+        return this.httpService.get<DeviceListElement[]>(this.devicePath + "/warehouseman");
     }
 
     getAllDevicesForUser(username: String): Observable<DeviceListElement[]> {

@@ -68,8 +68,8 @@ public class RequestController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
-    Request getRequestById(@PathVariable Long id) {
-        return requestService.getRequestById(id);
+    RequestViewDto getRequestById(@PathVariable Long id) {
+        return RequestConverter.toRequestView(requestService.getRequestById(id));
     }
 
     @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)

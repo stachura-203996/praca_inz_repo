@@ -6,7 +6,7 @@ import {Observable} from "rxjs";
 import {
     DeliveryRequestAddElement, DeliveryRequestEditElement,
     DeviceRequestAddElement, DeviceRequestEditElement,
-    RequestListElement, ShipmentRequestAddElement, ShipmentRequestEditElement,
+    RequestListElement, RequestViewElement, ShipmentRequestAddElement, ShipmentRequestEditElement,
     TransferRequestAddElement, TransferRequestEditElement
 } from "../../models/request-elements";
 import {TransferRequestEditComponent} from "../device-management/transfer-requests/transfer-request-edit/transfer-request-edit.component";
@@ -22,6 +22,9 @@ export class RequestService {
 
     constructor(private httpService: HttpService, private configuration: Configuration) { }
 
+    getRequestView(id:string){
+            return this.httpService.get<RequestViewElement>(this.requestPath+'/'+id);
+    }
 
     getTransferRequestEdit(id:string): Observable<TransferRequestEditElement>{
         return this.httpService.get<TransferRequestEditElement>(this.requestPath+'/transfer/'+id);

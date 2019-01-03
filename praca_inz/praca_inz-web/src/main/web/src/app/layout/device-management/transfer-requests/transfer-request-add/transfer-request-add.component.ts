@@ -1,7 +1,4 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {StructureAddElement, StructureListElement} from "../../../../models/structure-elements";
-import {CompanyService} from "../../../admin/components/administration/company/company.service";
-import {DepartmentService} from "../../../admin/components/structure-management/department/department.service";
 import {TranslateService} from "@ngx-translate/core";
 import {ActivatedRoute, Router} from "@angular/router";
 import {TransferRequestAddElement} from "../../../../models/request-elements";

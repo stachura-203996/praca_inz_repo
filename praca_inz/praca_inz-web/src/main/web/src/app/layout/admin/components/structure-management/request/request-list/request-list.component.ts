@@ -92,19 +92,19 @@ export class RequestListComponent implements OnInit {
     viewPage(request:RequestListElement){
         switch(request.type) {
             case this.DEVICE_REQUEST: {
-                this.router.navigateByUrl('/devices/request/view/'+request.id);
+                this.router.navigateByUrl('/page/devices/request/view/'+request.id);
                 break;
             }
             case this.DELIVERY_REQUEST: {
-                this.router.navigateByUrl('/warehouses/delivery/request/view/'+request.id);
+                this.router.navigateByUrl('/page/warehouses/delivery/request/view/'+request.id);
                 break;
             }
             case this.TRANSFER_REQUEST: {
-                this.router.navigateByUrl('/devices/transfer/view/'+request.id);
+                this.router.navigateByUrl('/page/devices/request/transfer/view/'+request.id);
                 break;
             }
             case this.SHIPMENT_REQUEST: {
-                this.router.navigateByUrl('/warehouses/shipment/request/view/'+request.id);
+                this.router.navigateByUrl('/page/warehouses/shipment/request/view/'+request.id);
                 break;
             }
         }
@@ -113,19 +113,19 @@ export class RequestListComponent implements OnInit {
     editPage(request:RequestListElement){
         switch(request.type) {
             case this.DEVICE_REQUEST: {
-                this.router.navigateByUrl('/devices/request/edit/'+request.id);
+                this.router.navigateByUrl('/page/devices/request/edit/'+request.id);
                 break;
             }
             case this.DELIVERY_REQUEST: {
-                this.router.navigateByUrl('/warehouses/delivery/request/edit/'+request.id);
+                this.router.navigateByUrl('/page/warehouses/delivery/request/edit/'+request.id);
                 break;
             }
             case this.TRANSFER_REQUEST: {
-                this.router.navigateByUrl('/devices/transfer/edit/'+request.id);
+                this.router.navigateByUrl('/page/devices/transfer/request/edit/'+request.id);
                 break;
             }
             case this.SHIPMENT_REQUEST: {
-                this.router.navigateByUrl('/warehouses/shipment/request/edit/'+request.id);
+                this.router.navigateByUrl('/page/warehouses/shipment/request/edit/'+request.id);
                 break;
             }
         }

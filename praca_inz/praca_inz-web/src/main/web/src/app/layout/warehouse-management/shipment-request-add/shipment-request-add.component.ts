@@ -35,7 +35,7 @@ export class ShipmentRequestAddComponent implements OnInit {
     }
 
     filterDevices(searchText: string) {
-        this.deviceService.getAllDevicesForShipmentRequest().subscribe(devices => {
+        this.deviceService.getAllDevicesForRequest().subscribe(devices => {
             if (!devices) {
                 this.devices = [];
                 return;
@@ -55,7 +55,7 @@ export class ShipmentRequestAddComponent implements OnInit {
 
     getWarehouses(){
         this.warehouseService.getAllForShipmentRequest().subscribe(warehouses=> {this.warehouses=warehouses});
-        this.deviceService.getAllDevicesForShipmentRequest().subscribe(devices=> {this.devices=devices});
+        this.deviceService.getAllDevicesForRequest().subscribe(devices=> {this.devices=devices});
         this.deviceService.getAllDevicesModels().subscribe(devicesModels=>{this.devicesModels=devicesModels});
     }
 

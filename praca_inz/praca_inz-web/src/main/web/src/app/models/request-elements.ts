@@ -11,10 +11,6 @@ export class RequestListElement {
     recieverWarehouseName:string;
     senderWarehouseName:string;
     createDate:string;
-
-    toString(): string {
-        return this.title + ' ' + this.username + ' '+ this.recieverWarehouseName+' '+ this.senderWarehouseName+''+this.createDate;
-    }
 }
 
 
@@ -81,3 +77,20 @@ export class ShipmentRequestEditElement {
     deviceId:number;
     recieverWarehouseId:number;
 }
+
+//VIEW
+
+export class RequestViewElement {
+    id: number;
+    title: string;
+    username: string;
+    status: string;
+    type:string
+    acceptedToSend: boolean;
+    acceptedToRecive: boolean;
+    recieverWarehouseName:string;
+    senderWarehouseName:string;
+    createDate:string;
+}
+
+

@@ -30,6 +30,21 @@ public class RequestConverter {
                 .build();
     }
 
+    public static RequestViewDto toRequestView(Request request) {
+        return RequestViewDto.builder()
+                .id(request.getId())
+                .title(request.getTitle())
+                .username(request.getUser().getUsername())
+                .status(request.getStatus().name())
+                .type(request.getRequestType().name())
+                .acceptedToSend(request.isAcceptedToSend())
+                .acceptedToRecive(request.isAcceptedToRecive())
+                .recieverWarehouseName(request.getRecieverWarehouse().getName())
+                .senderWarehouseName(request.getSenderWarehouse().getName())
+                .createDate(request.getCreateDate().getTime().toString())
+                .build();
+    }
+
     public static Request toRequest(TransferRequestAddDto transferRequestAddDto, DeviceRepository deviceRepository, WarehouseRepository warehouseRepository, User user) {
         Request request = new Request();
         request.setAcceptedToRecive(false);

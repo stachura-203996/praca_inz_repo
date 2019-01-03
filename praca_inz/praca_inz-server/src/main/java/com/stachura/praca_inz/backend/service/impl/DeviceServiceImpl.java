@@ -5,6 +5,8 @@ import com.stachura.praca_inz.backend.exception.repository.EntityException;
 import com.stachura.praca_inz.backend.exception.service.ServiceException;
 import com.stachura.praca_inz.backend.model.Device;
 import com.stachura.praca_inz.backend.model.Office;
+import com.stachura.praca_inz.backend.model.enums.Status;
+import com.stachura.praca_inz.backend.model.enums.WarehouseType;
 import com.stachura.praca_inz.backend.repository.interfaces.DeviceRepository;
 import com.stachura.praca_inz.backend.service.DeviceService;
 import com.stachura.praca_inz.backend.web.dto.device.DeviceListElementDto;
@@ -56,6 +58,8 @@ public class DeviceServiceImpl implements DeviceService {
     }
 
     @Override
+    @Transactional(readOnly = true)
+    @PreAuthorize("hasAuthority('DEVICE_LIST_READ')")
     public List<DeviceListElementDto> getAllDevicesForCompany(Long id) {
         List<Device> devices = deviceRepository.findAll().stream().filter(x -> {
             Office office = Optional.ofNullable(x.getWarehouse().getOffice())
@@ -73,6 +77,8 @@ public class DeviceServiceImpl implements DeviceService {
     }
 
     @Override
+    @Transactional(readOnly = true)
+    @PreAuthorize("hasAuthority('DEVICE_LIST_READ')")
     public List<DeviceListElementDto> getAllDevicesForDepartment(Long id) {
         List<Device> devices = deviceRepository.findAll().stream().filter(x ->
         {
@@ -91,6 +97,8 @@ public class DeviceServiceImpl implements DeviceService {
     }
 
     @Override
+    @Transactional(readOnly = true)
+    @PreAuthorize("hasAuthority('DEVICE_LIST_READ')")
     public List<DeviceListElementDto> getAllDevicesForOffice(Long id) {
         List<Device> devices = deviceRepository.findAll().stream().filter(x -> x.getWarehouse().getOffice().getId().equals(id)).collect(Collectors.toList());
         List<DeviceListElementDto> devicesDto = new ArrayList<>();
@@ -104,6 +112,8 @@ public class DeviceServiceImpl implements DeviceService {
     }
 
     @Override
+    @Transactional(readOnly = true)
+    @PreAuthorize("hasAuthority('DEVICE_LIST_READ')")
     public List<DeviceListElementDto> getAllDevicesForWarehouse(Long id) {
         List<Device> devices = deviceRepository.findAll().stream().filter(x -> x.getWarehouse().getId().equals(id)).collect(Collectors.toList());
         List<DeviceListElementDto> devicesDto = new ArrayList<>();
@@ -121,7 +131,7 @@ public class DeviceServiceImpl implements DeviceService {
     @PreAuthorize("hasAuthority('DEVICE_LIST_READ')")
     public List<DeviceListElementDto> getAllDevicesForLoggedUser(String username) {
         List<Device> devices = deviceRepository.findAll().stream().filter(x -> x.getWarehouse().getUser().getUsername().equals(username) &&
-                x.getWarehouse().getWarehouseType().name().equals("USER")).collect(Collectors.toList());
+                x.getWarehouse().getWarehouseType().name().equals(WarehouseType.USER.name())).collect(Collectors.toList());
         List<DeviceListElementDto> devicesDto = new ArrayList<>();
         for (Device a : devices) {
             if (!a.isDeleted()) {
@@ -168,9 +178,11 @@ public class DeviceServiceImpl implements DeviceService {
     }
 
     @Override
+    @Transactional(readOnly = true)
+    @PreAuthorize("hasAuthority('DEVICE_LIST_READ')")
     public List<DeviceListElementDto> getAllDevicesForLoggedWarehouseman(String username) {
         List<Device> devices = deviceRepository.findAll().stream().filter(x -> x.getWarehouse().getUser().getUsername().equals(username) &&
-                x.getWarehouse().getOffice() != null).collect(Collectors.toList());
+                x.getWarehouse().getWarehouseType().name().equals(WarehouseType.OFFICE.name())).collect(Collectors.toList());
         List<DeviceListElementDto> devicesDto = new ArrayList<>();
         for (Device a : devices) {
             if (!a.isDeleted()) {
@@ -181,4 +193,22 @@ public class DeviceServiceImpl implements DeviceService {
         }
         return devicesDto;
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    @PreAuthorize("hasAuthority('DEVICE_LIST_READ')")
+    public List<DeviceListElementDto> getAllDevicesForRequest(String name) {
+        List<Device> devices = deviceRepository.findAll().stream().filter(x -> x.getWarehouse().getUser().getUsername().equals(name) &&
+                x.getWarehouse().getWarehouseType().name().equals(WarehouseType.OFFICE.name()) && x.getStatus().name().equals(Status.REPOSE.name())).collect(Collectors.toList());
+        List<DeviceListElementDto> devicesDto = new ArrayList<>();
+        for (Device a : devices) {
+            if (!a.isDeleted()) {
+                Hibernate.initialize(a.getDeviceModel());
+                Hibernate.initialize(a.getDeviceModel().getName());
+                devicesDto.add(DeviceConverter.toDeviceListElementDto(a));
+            }
+        }
+        return devicesDto;
+    }
+
 }

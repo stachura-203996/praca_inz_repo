@@ -38,6 +38,7 @@ import {DeviceModelEditComponent} from "./components/structure-management/device
 import { DeviceTypeListComponent } from './components/structure-management/device/device-type-list/device-type-list.component';
 import { DeliveryListComponent } from './components/structure-management/warehouse/delivery-list/delivery-list.component';
 import { ShipmentListComponent } from './components/structure-management/warehouse/shipment-list/shipment-list.component';
+import { SummaryComponent } from './components/structure-management/summary/summary.component';
 
 @NgModule({
     imports: [
@@ -81,7 +82,8 @@ import { ShipmentListComponent } from './components/structure-management/warehou
         SystemMessageEditComponent,
         DeviceTypeListComponent,
         DeliveryListComponent,
-        ShipmentListComponent
+        ShipmentListComponent,
+        SummaryComponent
     ]
 })
 export class AdminModule {

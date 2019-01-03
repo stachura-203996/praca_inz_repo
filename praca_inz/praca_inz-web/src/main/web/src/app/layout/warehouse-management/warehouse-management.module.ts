@@ -20,6 +20,8 @@ import { WarehouseDevicesComponent } from './warehouse-devices/warehouse-devices
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import { DeviceModelAddComponent } from './device-model-add/device-model-add.component';
 import { DeviceModelEditComponent } from './device-model-edit/device-model-edit.component';
+import { DeviceModelListComponent } from './device-model-list/device-model-list.component';
+import { SummaryComponent } from './summary/summary.component';
 
 
 @NgModule({
@@ -46,7 +48,9 @@ import { DeviceModelEditComponent } from './device-model-edit/device-model-edit.
         ShipmentListComponent,
         WarehouseDevicesComponent,
         DeviceModelAddComponent,
-        DeviceModelEditComponent
+        DeviceModelEditComponent,
+        DeviceModelListComponent,
+        SummaryComponent
     ]
 })
 export class WarehouseManagementModule {
