@@ -6,7 +6,7 @@ import com.stachura.praca_inz.backend.exception.service.ServiceException;
 import com.stachura.praca_inz.backend.model.Department;
 import com.stachura.praca_inz.backend.repository.interfaces.DepartmentRepository;
 import com.stachura.praca_inz.backend.service.DepartmentService;
-import com.stachura.praca_inz.backend.web.dto.CompanyStructuresListElementDto;
+import com.stachura.praca_inz.backend.web.dto.company.CompanyStructuresListElementDto;
 import com.stachura.praca_inz.backend.web.dto.converter.CompanyStructureConverter;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;

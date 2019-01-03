@@ -6,7 +6,7 @@ import com.stachura.praca_inz.backend.exception.service.ServiceException;
 import com.stachura.praca_inz.backend.model.Request;
 import com.stachura.praca_inz.backend.repository.interfaces.RequestRepository;
 import com.stachura.praca_inz.backend.service.RequestService;
-import com.stachura.praca_inz.backend.web.dto.RequestListElementDto;
+import com.stachura.praca_inz.backend.web.dto.request.RequestListElementDto;
 import com.stachura.praca_inz.backend.web.dto.converter.RequestConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;

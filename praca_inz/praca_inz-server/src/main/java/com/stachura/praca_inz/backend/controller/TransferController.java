@@ -3,7 +3,6 @@ package com.stachura.praca_inz.backend.controller;
 import com.stachura.praca_inz.backend.exception.service.ServiceException;
 import com.stachura.praca_inz.backend.model.Transfer;
 import com.stachura.praca_inz.backend.service.TransferService;
-import com.stachura.praca_inz.backend.web.dto.DeviceListElementDto;
 import com.stachura.praca_inz.backend.web.dto.TransferListElementDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;

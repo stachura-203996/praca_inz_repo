@@ -8,11 +8,17 @@ import {DeviceRequestAddComponent} from "./device-requests/device-request-add/de
 import {DeviceRequestViewComponent} from "./device-requests/device-request-view/device-request-view.component";
 import {DeviceRequestEditComponent} from "./device-requests/device-request-edit/device-request-edit.component";
 import {DeviceModelViewComponent} from "./device-model-view/device-model-view.component";
+import {TransferRequestAddComponent} from "./transfer-requests/transfer-request-add/transfer-request-add.component";
+import {TransferRequestViewComponent} from "./transfer-requests/transfer-request-view/transfer-request-view.component";
+import {TransferRequestEditComponent} from "./transfer-requests/transfer-request-edit/transfer-request-edit.component";
 
 const routes: Routes = [
     {path:'', component: DeviceUserComponent},
     {path: 'view/:id', component: DeviceViewComponent},
     {path:'transfer', component: TransferUserComponent},
+    {path:'transfer/request/add/:id', component: TransferRequestAddComponent},
+    {path:'transfer/request/edit/:id', component: TransferRequestEditComponent},
+    {path:'transfer/request/view/:id', component: TransferRequestViewComponent},
     {path:'transfer/view/:id', component: TransferViewComponent},
     {path: 'request/add', component: DeviceRequestAddComponent},
     {path: 'request/view/:id', component: DeviceRequestViewComponent},

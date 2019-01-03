@@ -9,5 +9,11 @@ import lombok.*;
 public class DeliveryListElementDto {
     Long id;
     String title;
-
+    String deliveryNumber;
+    String username;
+    String status;
+    String createDate;
+    String lastUpdate;
+    String sender;
+    String receiver;
 }

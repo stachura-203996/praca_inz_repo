@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class DeliveryServiceImpl implements DeliveryService {
@@ -47,6 +48,19 @@ public class DeliveryServiceImpl implements DeliveryService {
         return companiesDto;
     }
 
+    @Override
+    @Transactional(readOnly = true)
+    @PreAuthorize("hasAuthority('DELIVERY_LIST_READ')")
+    public List<DeliveryListElementDto> getAllDeliveriesForWarehouseman(Long id) {
+        List<Delivery> deliveries = deliveryRepository.findAll().stream().filter(x->x.getSenderWarehouse().getUser().getId().equals(id)).collect(Collectors.toList());
+        List<DeliveryListElementDto> companiesDto = new ArrayList<>();
+        for (Delivery a : deliveries) {
+            if (!a.isDeleted()) {
+                companiesDto.add(DeliveryConverter.toDeliveryListElement(a));
+            }
+        }
+        return companiesDto;
+    }
 
     @Override
     @Transactional
@@ -83,4 +97,6 @@ public class DeliveryServiceImpl implements DeliveryService {
     public void deleteDelivery(Delivery delivery) {
         deliveryRepository.find(delivery.getId()).setDeleted(true);
     }
+
+
 }

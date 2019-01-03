@@ -3,8 +3,9 @@ import {StructureListElement} from "../../../../../../models/structure-elements"
 
 import {TranslateService} from "@ngx-translate/core";
 import {RequestListElement} from "../../../../../../models/request-elements";
-import {RequestService} from "../../../../../device-management/request.service";
+
 import {Router} from "@angular/router";
+import {RequestService} from "../../../../../employee-management/request.service";
 
 @Component({
     selector: 'app-request-list',

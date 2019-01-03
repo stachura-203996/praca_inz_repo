@@ -3,10 +3,9 @@ package com.stachura.praca_inz.backend.controller;
 import com.stachura.praca_inz.backend.exception.service.ServiceException;
 import com.stachura.praca_inz.backend.model.Notification;
 import com.stachura.praca_inz.backend.model.Report;
-import com.stachura.praca_inz.backend.service.EmailService;
 import com.stachura.praca_inz.backend.service.NotificationService;
 import com.stachura.praca_inz.backend.service.ReportService;
-import com.stachura.praca_inz.backend.web.dto.ReportListElementDto;
+import com.stachura.praca_inz.backend.web.dto.report.ReportListElementDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
@@ -18,9 +17,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Timestamp;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;

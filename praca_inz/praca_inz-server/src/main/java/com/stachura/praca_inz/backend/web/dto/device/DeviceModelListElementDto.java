@@ -1,4 +1,4 @@
-package com.stachura.praca_inz.backend.web.dto;
+package com.stachura.praca_inz.backend.web.dto.device;
 
 import lombok.*;
 
@@ -6,10 +6,8 @@ import lombok.*;
 @Builder
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
-public class ParameterListElementDto {
-
+public class DeviceModelListElementDto {
     Long id;
     String name;
-    String value;
-
+    String deviceTypeName;
 }

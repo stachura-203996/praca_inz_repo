@@ -1,4 +1,4 @@
-package com.stachura.praca_inz.backend.web.dto;
+package com.stachura.praca_inz.backend.web.dto.user;
 
 import com.stachura.praca_inz.backend.validation.PasswordMatches;
 import com.stachura.praca_inz.backend.validation.ValidEmail;

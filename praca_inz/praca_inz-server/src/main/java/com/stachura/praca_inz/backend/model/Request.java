@@ -39,6 +39,14 @@ public class Request {
     @JsonBackReference
     private User user;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonBackReference
+    private Device device;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonBackReference
+    private DeviceModel deviceModel;
+
     @Column(name = "STATUS", nullable = false)
     @Enumerated(EnumType.STRING)
     private Status status;
@@ -64,16 +72,12 @@ public class Request {
     @JsonBackReference
     private Warehouse senderWarehouse;
 
-    @Basic(optional = false)
+    @Basic
     @NotNull
     @Column(name = "REQUEST_DATE")
     @Temporal(TemporalType.TIMESTAMP)
-    private java.util.Date utilTimestamp;
+    private java.util.Calendar createDate;
 
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "request", fetch = FetchType.LAZY, orphanRemoval = true)
-    @JsonManagedReference
-    private Set<DeviceField> deviceFields = new HashSet<>();
 
     @Column(name = "DELETED", nullable = false)
     private boolean deleted;

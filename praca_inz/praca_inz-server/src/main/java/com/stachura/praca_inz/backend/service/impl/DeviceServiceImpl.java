@@ -7,7 +7,7 @@ import com.stachura.praca_inz.backend.model.Device;
 import com.stachura.praca_inz.backend.model.Office;
 import com.stachura.praca_inz.backend.repository.interfaces.DeviceRepository;
 import com.stachura.praca_inz.backend.service.DeviceService;
-import com.stachura.praca_inz.backend.web.dto.DeviceListElementDto;
+import com.stachura.praca_inz.backend.web.dto.device.DeviceListElementDto;
 import com.stachura.praca_inz.backend.web.dto.converter.DeviceConverter;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;

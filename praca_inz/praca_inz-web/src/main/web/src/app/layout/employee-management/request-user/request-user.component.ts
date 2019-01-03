@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {RequestListElement} from "../../../models/request-elements";
-import {RequestService} from "../../device-management/request.service";
+
 import {TranslateService} from "@ngx-translate/core";
 import {StructureListElement} from "../../../models/structure-elements";
+import {RequestService} from "../request.service";
 
 @Component({
   selector: 'app-request-user',

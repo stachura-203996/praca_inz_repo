@@ -1,4 +1,4 @@
-package com.stachura.praca_inz.backend.web.dto;
+package com.stachura.praca_inz.backend.web.dto.report;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.stachura.praca_inz.backend.model.security.User;
@@ -15,7 +15,7 @@ public class ReportListElementDto {
     private Long id;
     private String title;
     private String sender;
-    private String reciver;
+    private String receiver;
     private String reportDate;
     private String description;
 

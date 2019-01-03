@@ -6,7 +6,7 @@ import com.stachura.praca_inz.backend.exception.service.ServiceException;
 import com.stachura.praca_inz.backend.model.Company;
 import com.stachura.praca_inz.backend.repository.interfaces.CompanyRepository;
 import com.stachura.praca_inz.backend.service.CompanyService;
-import com.stachura.praca_inz.backend.web.dto.CompanyStructuresListElementDto;
+import com.stachura.praca_inz.backend.web.dto.company.CompanyStructuresListElementDto;
 import com.stachura.praca_inz.backend.web.dto.converter.CompanyStructureConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;

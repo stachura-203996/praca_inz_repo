@@ -1,8 +1,8 @@
 package com.stachura.praca_inz.backend.web.dto.converter;
 
 import com.stachura.praca_inz.backend.model.DeviceModel;
-import com.stachura.praca_inz.backend.web.dto.DeviceModelListElementDto;
-import com.stachura.praca_inz.backend.web.dto.DeviceModelViewDto;
+import com.stachura.praca_inz.backend.web.dto.device.DeviceModelListElementDto;
+import com.stachura.praca_inz.backend.web.dto.device.DeviceModelViewDto;
 
 public class DeviceModelConverter {
 

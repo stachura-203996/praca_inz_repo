@@ -11,6 +11,7 @@
                     <th>{{ 'Title' | translate }}</th>
                     <th>{{ 'Username' | translate }}</th>
                     <th>{{'Status'|translate}}</th>
+                    <th>{{'Type'|translate}}</th>
                     <th>{{ 'Sender' | translate }}</th>
                     <th>{{'Reciever'|translate}}</th>
                     <th>{{'Date'|translate}}</th>
@@ -22,8 +23,10 @@
                     <td>{{request.title}}</td>
                     <td>{{request.username}}</td>
                     <td>{{request.status}}</td>
+                    <td>{{request.type}}</td>
+                    <td>{{request.senderWarehouseName}}</td>
                     <td>{{request.recieverWarehouseName}}</td>
-                    <td>{{request.utilTimestamp}}</td>
+                    <td>{{request.createDate}}</td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">
                             <button type="submit"
@@ -60,7 +63,9 @@
                     <th>{{ 'Title' | translate }}</th>
                     <th>{{ 'Username' | translate }}</th>
                     <th>{{'Status'|translate}}</th>
+                    <th>{{'Type'|translate}}</th>
                     <th>{{ 'Sender' | translate }}</th>
+                    <th>{{'Reciever'|translate}}</th>
                     <th>{{'Date'|translate}}</th>
                     <th></th>
                 </tr>
@@ -70,8 +75,10 @@
                     <td>{{request.title}}</td>
                     <td>{{request.username}}</td>
                     <td>{{request.status}}</td>
+                    <td>{{request.type}}</td>
                     <td>{{request.senderWarehouseName}}</td>
-                    <td>{{request.utilTimestamp}}</td>
+                    <td>{{request.recieverWarehouseName}}</td>
+                    <td>{{request.createDate}}</td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">
                             <button type="submit"

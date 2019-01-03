@@ -71,14 +71,23 @@
                             <span>{{ 'Warehouses' | translate }}</span>
                         </a>
                     </li>
-
+                    <li>
+                        <a [routerLink]="['/admin/deliveries']">
+                            <span>{{ 'Deliveries' | translate }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/admin/shipments']">
+                            <span>{{ 'Shipments' | translate }}</span>
+                        </a>
+                    </li>
                 </ul>
             </li>
         </div>
         <div class="nested-menu">
             <a class="list-group-item" (click)="addExpandClass('employeesManagementPanel')">
                 <i class="fa fa-briefcase"></i>&nbsp;
-                <span>{{ 'Emlpoyeemanager' | translate }}</span>
+                <span>{{ 'EmployeeManager' | translate }}</span>
             </a>
             <li class="nested" [class.expand]="showMenu === 'employeesManagementPanel'">
                 <ul class="submenu">

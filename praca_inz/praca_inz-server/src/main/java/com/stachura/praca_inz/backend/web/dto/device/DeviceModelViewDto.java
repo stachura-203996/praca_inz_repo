@@ -1,4 +1,4 @@
-package com.stachura.praca_inz.backend.web.dto;
+package com.stachura.praca_inz.backend.web.dto.device;
 
 import lombok.*;
 

@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {ReportUserComponent} from "./report-user.component";
 
-import { ReportUserComponent } from './report.component';
+
 
 describe('ReportComponent', () => {
   let component: ReportUserComponent;

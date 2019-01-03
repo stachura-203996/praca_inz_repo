@@ -1,8 +1,6 @@
 package com.stachura.praca_inz.backend.web.dto.converter;
 
-import com.stachura.praca_inz.backend.model.Device;
 import com.stachura.praca_inz.backend.model.SystemMessage;
-import com.stachura.praca_inz.backend.web.dto.DeviceListElementDto;
 import com.stachura.praca_inz.backend.web.dto.SystemMessageListElementDto;
 
 public class SystemMessageConverter {

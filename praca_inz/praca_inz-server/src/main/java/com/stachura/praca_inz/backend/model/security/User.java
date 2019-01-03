@@ -57,14 +57,6 @@ public class User implements UserDetails, Serializable {
     @JsonBackReference
     private Office office;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JsonBackReference
-    private Office managedOffice;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JsonBackReference
-    private Warehouse warehouse;
-
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "USERDATA_ID")
     private Userdata userdata;

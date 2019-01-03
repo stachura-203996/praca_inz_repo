@@ -1,26 +1,14 @@
 package com.stachura.praca_inz.backend.controller.registration;
 
-import com.stachura.praca_inz.backend.Constants;
-import com.stachura.praca_inz.backend.exception.service.ServiceException;
-import com.stachura.praca_inz.backend.model.security.User;
 import com.stachura.praca_inz.backend.service.RegistrationService;
-import com.stachura.praca_inz.backend.web.dto.RegisterResponse;
-import com.stachura.praca_inz.backend.web.dto.RegistrationDto;
-import com.stachura.praca_inz.backend.web.utils.GenericResponse;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.stachura.praca_inz.backend.web.dto.user.RegistrationDto;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.security.PermitAll;
-import javax.annotation.security.RolesAllowed;
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
-import javax.xml.ws.Response;
 
 @RestController
 @RequestMapping("/secured/register")

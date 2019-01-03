@@ -1,4 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {
+    DeviceRequestAddElement,
+    DeviceRequestEditElement,
+    TransferRequestEditElement
+} from "../../../../models/request-elements";
+import {DeviceModelListElement} from "../../../../models/device-elements";
+import {ActivatedRoute, Router} from "@angular/router";
+import {DeviceService} from "../../device.service";
+import {RequestService} from "../../../employee-management/request.service";
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-device-request-edit',
@@ -7,9 +17,40 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DeviceRequestEditComponent implements OnInit {
 
-  constructor() { }
+   deviceRequestEditElement: DeviceRequestEditElement;
 
-  ngOnInit() {
-  }
+    deviceModels: DeviceModelListElement[];
+    selectedOption: string;
 
+    constructor(private route: ActivatedRoute,private deviceService:DeviceService,private requestService:RequestService,private translate:TranslateService,private router:Router) {
+        this.translate.addLangs(['en','pl']);
+        this.translate.setDefaultLang('pl');
+        const browserLang = this.translate.getBrowserLang();
+        this.translate.use(browserLang.match(/en|pl/) ? browserLang : 'pl');
+    }
+
+    ngOnInit() {
+        this.getWarehouses();
+        this.getDeviceRequest();
+    }
+
+    getDeviceRequest() {
+        const id = this.route.snapshot.paramMap.get('id');
+        this.requestService.getDeviceRequestEdit(id).subscribe(x=>this.deviceRequestEditElement=x);
+    }
+
+    getWarehouses(){
+        this.deviceService.getAllDevicesModels().subscribe(deviceModels=> {this.deviceModels=deviceModels});
+    }
+
+    deviceRequestUpdate(){
+        this.deviceRequestEditElement.deviceModel=this.deviceModels.find(x=>x.name==this.selectedOption).id;
+        this.requestService.updateDeviceRequest(this.deviceRequestEditElement).subscribe(resp => {
+            this.router.navigateByUrl('/employees/requests');
+        });
+    }
+
+    clear() {
+        this.deviceRequestEditElement=new DeviceRequestEditElement();
+    }
 }

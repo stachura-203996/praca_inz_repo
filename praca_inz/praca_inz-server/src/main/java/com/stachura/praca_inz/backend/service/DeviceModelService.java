@@ -2,10 +2,9 @@ package com.stachura.praca_inz.backend.service;
 
 import com.stachura.praca_inz.backend.exception.service.ServiceException;
 import com.stachura.praca_inz.backend.model.DeviceModel;
-import com.stachura.praca_inz.backend.model.Parameter;
-import com.stachura.praca_inz.backend.web.dto.DeviceModelListElementDto;
-import com.stachura.praca_inz.backend.web.dto.DeviceModelViewDto;
-import com.stachura.praca_inz.backend.web.dto.ParameterListElementDto;
+import com.stachura.praca_inz.backend.web.dto.device.DeviceModelListElementDto;
+import com.stachura.praca_inz.backend.web.dto.device.DeviceModelViewDto;
+import com.stachura.praca_inz.backend.web.dto.device.ParameterListElementDto;
 
 import java.util.List;
 

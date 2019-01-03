@@ -1,8 +1,6 @@
 package com.stachura.praca_inz.backend.web.dto.converter;
 
 import com.stachura.praca_inz.backend.model.Userdata;
-import com.stachura.praca_inz.backend.model.security.User;
-import com.stachura.praca_inz.backend.web.dto.UserEditDto;
 
 
 /**

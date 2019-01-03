@@ -1,4 +1,4 @@
-package com.stachura.praca_inz.backend.web.dto;
+package com.stachura.praca_inz.backend.web.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -28,5 +28,5 @@ public class RequestListElementDto {
     private boolean acceptedToRecive;
     private String recieverWarehouseName;
     private String senderWarehouseName;
-    private String utilTimestamp;
+    private String createDate;
 }

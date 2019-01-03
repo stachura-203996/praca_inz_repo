@@ -3,7 +3,7 @@ package com.stachura.praca_inz.backend.controller;
 import com.stachura.praca_inz.backend.exception.service.ServiceException;
 import com.stachura.praca_inz.backend.model.Device;
 import com.stachura.praca_inz.backend.service.DeviceService;
-import com.stachura.praca_inz.backend.web.dto.DeviceListElementDto;
+import com.stachura.praca_inz.backend.web.dto.device.DeviceListElementDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.http.HttpHeaders;

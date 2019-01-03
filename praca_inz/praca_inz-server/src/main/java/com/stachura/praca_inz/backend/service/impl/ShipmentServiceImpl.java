@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ShipmentServiceImpl implements ShipmentService {
@@ -47,7 +48,21 @@ public class ShipmentServiceImpl implements ShipmentService {
         return shipmentListElementDtos;
     }
 
-    //TODO
+    @Override
+    @Transactional(readOnly = true)
+    @PreAuthorize("hasAuthority('SHIPMENT_LIST_READ')")
+    public List<ShipmentListElementDto> getAllShipmentsForWarehouseman(Long id) {
+        List<Shipment> shipments = shipmentRepository.findAll().stream().filter(x->x.getSenderWarehouse().getUser().getId().equals(id)).collect(Collectors.toList());
+        List<ShipmentListElementDto> shipmentListElementDtos = new ArrayList<>();
+        for (Shipment a : shipments) {
+            if (!a.isDeleted()) {
+                shipmentListElementDtos.add(ShipmentConverter.toShipmentListElement(a));
+            }
+        }
+        return shipmentListElementDtos;
+    }
+
+
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('SHIPMENT_CREATE')")

@@ -14,6 +14,8 @@ public interface DeliveryService {
 
     List<DeliveryListElementDto> getAllDeliveries();
 
+    List<DeliveryListElementDto> getAllDeliveriesForWarehouseman(Long id);
+
     void createNewDelivery(Delivery delivery) throws ServiceException;
 
     void updateDelivery(Delivery delivery) throws ServiceException;
@@ -21,4 +23,5 @@ public interface DeliveryService {
     void deleteDeliveryById(Long id);
 
     void deleteDelivery(Delivery delivery);
+
 }

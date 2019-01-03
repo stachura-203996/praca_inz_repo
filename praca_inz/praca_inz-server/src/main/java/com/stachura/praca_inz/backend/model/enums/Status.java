@@ -15,6 +15,10 @@ public enum Status {
 
     CLOSED,
 
-    CANCELED
+    CANCELED,
+
+    //Device
+    REPOSE,
+    RESERVED
 
 }

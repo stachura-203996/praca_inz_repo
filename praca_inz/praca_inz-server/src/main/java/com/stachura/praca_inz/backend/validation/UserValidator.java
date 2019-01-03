@@ -1,7 +1,7 @@
 package com.stachura.praca_inz.backend.validation;
 
 
-import com.stachura.praca_inz.backend.web.dto.RegistrationDto;
+import com.stachura.praca_inz.backend.web.dto.user.RegistrationDto;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;

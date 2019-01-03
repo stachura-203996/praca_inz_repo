@@ -112,6 +112,22 @@ public class WarehouseServiceImpl implements WarehouseService {
     }
 
     @Override
+    @Transactional(readOnly = true)
+    @PreAuthorize("hasAuthority('WAREHOUSE_LIST_READ')")
+    public List<WarehouseListElementDto> getAllForTransferRequest(Long id) {
+        List<Warehouse> warehouses = warehouseRepository.findAll().stream().filter(x -> x.getOffice().getId().equals(id)).collect(Collectors.toList());
+        List<WarehouseListElementDto> warehouseDto = new ArrayList<>();
+        for (Warehouse a : warehouses) {
+            if (!a.isDeleted()) {
+                Hibernate.initialize(a.getDevices());
+                Hibernate.initialize(a.getOffice());
+                warehouseDto.add(WarehouseConverter.toWarehouseOfficeListElementDto(a));
+            }
+        }
+        return warehouseDto;
+    }
+
+    @Override
     @Transactional
     @PreAuthorize("hasAuthority('WAREHOUSE_CREATE')")
     public void createNewWarehouse(Warehouse warehouse)throws ServiceException {

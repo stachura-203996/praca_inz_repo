@@ -3,13 +3,12 @@ package com.stachura.praca_inz.backend.controller;
 import com.stachura.praca_inz.backend.exception.service.ServiceException;
 import com.stachura.praca_inz.backend.model.Company;
 import com.stachura.praca_inz.backend.service.CompanyService;
-import com.stachura.praca_inz.backend.web.dto.CompanyStructureAddDto;
-import com.stachura.praca_inz.backend.web.dto.CompanyStructureEditDto;
-import com.stachura.praca_inz.backend.web.dto.CompanyStructuresListElementDto;
+import com.stachura.praca_inz.backend.web.dto.company.CompanyStructureAddDto;
+import com.stachura.praca_inz.backend.web.dto.company.CompanyStructureEditDto;
+import com.stachura.praca_inz.backend.web.dto.company.CompanyStructuresListElementDto;
 import com.stachura.praca_inz.backend.web.dto.converter.CompanyStructureConverter;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -20,7 +19,6 @@ import java.util.List;
 
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 @RestController
 @RequestMapping("/secured/structure/company")

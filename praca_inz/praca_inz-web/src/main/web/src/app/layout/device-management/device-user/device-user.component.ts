@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {TranslateService} from "@ngx-translate/core";
 import {DeviceService} from "../device.service";
 import {DeviceListElement} from "../../../models/device-elements";
+import {Router} from "@angular/router";
 
 @Component({
     selector: 'app-device-user',
@@ -45,17 +46,4 @@ export class DeviceUserComponent implements OnInit {
         });
     }
 
-
-    transfer(device: DeviceListElement) {
-        // const modalRef = this.modalService.open(UserMgmtDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
-        // modalRef.componentInstance.user = user;
-        // modalRef.result.then(
-        //     result => {
-        //         // Left blank intentionally, nothing to do here
-        //     },
-        //     reason => {
-        //         // Left blank intentionally, nothing to do here
-        //     }
-        // );
-    }
 }

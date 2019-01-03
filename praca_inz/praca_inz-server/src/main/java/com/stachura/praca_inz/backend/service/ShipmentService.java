@@ -11,6 +11,8 @@ public interface ShipmentService {
 
     List<ShipmentListElementDto> getAllShipments();
 
+    List<ShipmentListElementDto> getAllShipmentsForWarehouseman(Long id);
+
     void createNewShipment(Shipment shipment) throws ServiceException;
 
     void updateShipment(Shipment shipment) throws ServiceException;

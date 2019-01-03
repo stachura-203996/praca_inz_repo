@@ -2,6 +2,7 @@ package com.stachura.praca_inz.backend.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.stachura.praca_inz.backend.model.enums.Status;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -35,6 +36,9 @@ public class Device implements Serializable {
     @Column(name = "SERIAL_NUMBER")
     private String serialNumber;
 
+    @Column(name = "STATUS", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Status status;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference

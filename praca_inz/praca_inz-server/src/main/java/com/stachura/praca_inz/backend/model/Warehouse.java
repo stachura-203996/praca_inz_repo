@@ -69,6 +69,18 @@ public class Warehouse implements Serializable {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "senderWarehouse", fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonManagedReference
+    private Set<Delivery> senderDeliveries = new HashSet<>();
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "recieverWarehouse", fetch = FetchType.LAZY, orphanRemoval = true)
+    @JsonManagedReference
+    private Set<Delivery> receiverShipments = new HashSet<>();
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "senderWarehouse", fetch = FetchType.LAZY, orphanRemoval = true)
+    @JsonManagedReference
+    private Set<Delivery> senderShipments = new HashSet<>();
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "senderWarehouse", fetch = FetchType.LAZY, orphanRemoval = true)
+    @JsonManagedReference
     private Set<Transfer> senderTransfers = new HashSet<>();
 
 

@@ -1,26 +1,24 @@
-package com.stachura.praca_inz.backend.web.dto;
+package com.stachura.praca_inz.backend.web.dto.user;
 
 import lombok.*;
 
 import java.util.List;
 
 /**
- * Obiekt przesyłany do widoku z informacjami o  użytkowniku z danym loginem
+ * Obiekt przesyłany do widoku z informacjami o zalogwanym użytkowniku
  */
 @Data
 @Builder
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
-public class UserInfoDto {
+public class ProfileInfoDto {
+
     private Long id;
     private String username;
     private String position;
     private String company;
-    private Long companyId;
     private String department;
-    private Long departmentId;
     private String office;
-    private Long officeId;
     private String name;
     private String middlename;
     private String surname;
@@ -30,5 +28,6 @@ public class UserInfoDto {
     private String houseNumber;
     private String flatNumber;
     private String zipCode;
+    private String workplace;
     private List<String> roles;
 }

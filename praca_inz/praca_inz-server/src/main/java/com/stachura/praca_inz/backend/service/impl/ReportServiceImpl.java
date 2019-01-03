@@ -6,7 +6,7 @@ import com.stachura.praca_inz.backend.exception.service.ServiceException;
 import com.stachura.praca_inz.backend.model.Report;
 import com.stachura.praca_inz.backend.repository.interfaces.ReportRepository;
 import com.stachura.praca_inz.backend.service.ReportService;
-import com.stachura.praca_inz.backend.web.dto.ReportListElementDto;
+import com.stachura.praca_inz.backend.web.dto.report.ReportListElementDto;
 import com.stachura.praca_inz.backend.web.dto.converter.ReportConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
