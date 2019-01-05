@@ -1,5 +1,6 @@
 package com.stachura.praca_inz.backend.repository.interfaces;
 
+import com.stachura.praca_inz.backend.exception.repository.EntityException;
 import com.stachura.praca_inz.backend.model.Userdata;
 import com.stachura.praca_inz.backend.model.security.User;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -7,10 +8,22 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-@Repository
-public interface UserdataRepository extends JpaRepository<Userdata, Long> {
+import java.util.List;
 
-    @Query("SELECT DISTINCT userdata FROM Userdata userdata " +
-            "WHERE userdata.email = :email")
-    Userdata findByEmail(@Param("email")String email);
+public interface UserdataRepository {
+
+
+    Userdata findByEmail(String email);
+
+    Userdata find(Long id);
+
+    List<Userdata> findAll();
+
+    void create(Userdata userdata)throws EntityException;
+
+    void update(Userdata userdata)throws EntityException;
+
+    void remove(Long id);
+
+    void remove(Userdata userdata);
 }

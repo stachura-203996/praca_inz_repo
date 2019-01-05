@@ -22,7 +22,7 @@
                     <div class="form-group col-xl-5">
                         <label for="companySelect">{{'Company'|translate}}</label>
                         <select class="form-control" id="companySelect" [(ngModel)]="structureEditElement.parentId">
-                                <option *ngFor="let company of companies" [ngValue]="company.id" >{{company.name}}</option>
+                                <option *ngFor="let company of companies" [value]="company.id" >{{company.name}}</option>
                         </select>
                     </div>
                     <!-- Textarea -->

@@ -7,6 +7,8 @@ import {HttpService} from "../../../../../shared/services/http.service";
 import {Configuration} from "../../../../../app.constants";
 import {LoggedUser} from "../../../../../models/logged-user";
 import {UserInfo} from "../../../../../models/user-info";
+import {StructureAddElement, StructureEditElement} from "../../../../../models/structure-elements";
+import {RegisterUser} from "../../../../../models/register-user";
 
 
 @Injectable({
@@ -15,6 +17,7 @@ import {UserInfo} from "../../../../../models/user-info";
 export class UserService {
 
     private userPath = this.configuration.ServerWithApiUrl + '/users';
+    private registerPath =this.configuration.ServerWithApiUrl+'/register';
     private userPathDetail;
     private activePath = '/active';
     private inactivePath = '/inactive';
@@ -67,6 +70,12 @@ export class UserService {
     deactivateAccessLevel(userId: number, accountId: number): Observable<any> {
         return this.httpService.put(this.userPath + '/' + userId + '/accessLevels/' + accountId + this.inactivePath, '');
     }
+
+
+    createUser(data: RegisterUser): Observable<any>  {
+        return this.httpService.post<RegisterUser>(this.registerPath, data);
+    }
+
 
     verifyUser(id: number): Observable<any> {
         return this.httpService.put(this.userPath + '/' + id + this.verifiedPath, '');

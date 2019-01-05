@@ -1,5 +1,7 @@
 package com.stachura.praca_inz.backend.service.impl;
 
+import com.stachura.praca_inz.backend.exception.service.ServiceException;
+import com.stachura.praca_inz.backend.model.Company;
 import com.stachura.praca_inz.backend.model.security.User;
 import com.stachura.praca_inz.backend.repository.interfaces.UserRepository;
 import com.stachura.praca_inz.backend.service.UserService;
@@ -10,7 +12,9 @@ import com.stachura.praca_inz.backend.web.dto.user.UserListElementDto;
 import com.stachura.praca_inz.backend.web.dto.converter.UserConverter;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -83,4 +87,13 @@ public class UserServiceImpl implements UserService {
         }
         return usersDto;
     }
+
+    @Override
+    @Transactional
+    @PreAuthorize("hasAuthority('USER_UPDATE')")
+    public void updateUser(User user) throws ServiceException {
+        userRepository.update(user);
+    }
+
+
 }

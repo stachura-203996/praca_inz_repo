@@ -26,7 +26,8 @@ import java.util.stream.Collectors;
 public class User implements UserDetails, Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name = "UserGen", sequenceName = "user_id_seq",initialValue = 5,allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "UserGen")
     @Column(name = "ID", updatable = false, nullable = false)
     private Long id;
 

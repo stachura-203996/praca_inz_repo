@@ -3,9 +3,12 @@ package com.stachura.praca_inz.backend.service.impl;
 import com.stachura.praca_inz.backend.exception.repository.DatabaseErrorException;
 import com.stachura.praca_inz.backend.exception.repository.EntityException;
 import com.stachura.praca_inz.backend.exception.service.ServiceException;
+import com.stachura.praca_inz.backend.model.Address;
 import com.stachura.praca_inz.backend.model.Company;
+import com.stachura.praca_inz.backend.repository.interfaces.AddressRepository;
 import com.stachura.praca_inz.backend.repository.interfaces.CompanyRepository;
 import com.stachura.praca_inz.backend.service.CompanyService;
+import com.stachura.praca_inz.backend.web.dto.company.CompanyStructureAddDto;
 import com.stachura.praca_inz.backend.web.dto.company.CompanyStructuresListElementDto;
 import com.stachura.praca_inz.backend.web.dto.converter.CompanyStructureConverter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,13 +19,15 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
-//TODO Obsługa zcustomizowanych wyjątków w każdym serwisie
 
 @Service
 public class CompanyServiceImpl implements CompanyService {
 
     @Autowired
     private CompanyRepository companyRepository;
+
+    @Autowired
+    AddressRepository addressRepository;
 
     @Override
     @Transactional(readOnly = true)
@@ -60,8 +65,23 @@ public class CompanyServiceImpl implements CompanyService {
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('COMPANY_CREATE')")
-    public Long createNewCompany(Company company) throws ServiceException {
+    public Long createNewCompany(CompanyStructureAddDto companyStructureAddDto) throws ServiceException {
+
+        Address address = new Address();
+        address.setCity(companyStructureAddDto.getCity());
+        address.setStreet(companyStructureAddDto.getStreet());
+        address.setBuildingNumber(companyStructureAddDto.getBuildingNumber());
+        address.setFlatNumber(companyStructureAddDto.getFlatNumber());
+        address.setZipCode(companyStructureAddDto.getZipCode());
+        address.setDeleted(false);
+        Company company = new Company();
+        company.setDeleted(false);
+        company.setName(companyStructureAddDto.getName());
+        company.setDescription(companyStructureAddDto.getDescription());
+
         try {
+            addressRepository.create(address);
+            company.setAddress(address);
             companyRepository.create(company);
             return company.getId();
         } catch (DatabaseErrorException e) {

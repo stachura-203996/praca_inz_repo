@@ -8,20 +8,21 @@ import {StructureAddElement, StructureListElement} from "../../../../../../model
 import {TranslateService} from "@ngx-translate/core";
 
 @Component({
-  selector: 'app-department-add',
-  templateUrl: './department-add.component.html',
-  styleUrls: ['./department-add.component.scss']
+    selector: 'app-department-add',
+    templateUrl: './department-add.component.html',
+    styleUrls: ['./department-add.component.scss']
 })
 export class DepartmentAddComponent implements OnInit {
 
-    @Input() structureAddElement: StructureAddElement= new StructureAddElement;
+    @Input() structureAddElement: StructureAddElement = new StructureAddElement;
 
-    companies: StructureListElement[];
+    companies = new Map<string, number>();
 
     selectedOption: string;
-    tmp:StructureListElement;
-    constructor(private companyService:CompanyService,private departmentService:DepartmentService,private translate:TranslateService,private router:Router) {
-        this.translate.addLangs(['en','pl']);
+    id:number;
+
+    constructor(private companyService: CompanyService, private departmentService: DepartmentService, private translate: TranslateService, private router: Router) {
+        this.translate.addLangs(['en', 'pl']);
         this.translate.setDefaultLang('pl');
         const browserLang = this.translate.getBrowserLang();
         this.translate.use(browserLang.match(/en|pl/) ? browserLang : 'pl');
@@ -31,20 +32,28 @@ export class DepartmentAddComponent implements OnInit {
         this.getCompanies();
     }
 
-    getCompanies(){
-        this.companyService.getAll().subscribe(companyListElement=> {this.companies=companyListElement});
+    getCompanies() {
+        this.companyService.getAll().subscribe((response: StructureListElement[]) => {
+            this.companies = response.reduce(function(companyMap, company){
+                if(company.id){
+                    companyMap.set(company.name,company.id)
+                }
+                return companyMap;
+            },this.companies);
+        });
+
     }
 
-    departmentAdd(){
-        this.tmp=this.companies.find(x=>x.name==this.selectedOption);
-        // this.structureAddElement.companyId=this.tmp.id;
-        this.departmentService.createDepartment(this.structureAddElement).subscribe(resp => {
-            this.router.navigateByUrl('/admin/departments');
-        });
+    departmentAdd() {
+            this.structureAddElement.companyId = this.companies.get(this.selectedOption);
+            this.departmentService.createDepartment(this.structureAddElement).subscribe(resp => {
+                this.router.navigateByUrl('/admin/departments');
+            });
+
     }
 
     clear() {
-        this.structureAddElement=new StructureAddElement();
+        this.structureAddElement = new StructureAddElement();
     }
 
 }

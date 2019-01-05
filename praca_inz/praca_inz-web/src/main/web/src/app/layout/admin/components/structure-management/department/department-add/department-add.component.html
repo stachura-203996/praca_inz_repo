@@ -22,8 +22,8 @@
                     </div>
                     <div class="form-group col-xl-5">
                         <label for="companySelect">{{'Company'|translate}}</label>
-                        <select class="form-control" id="companySelect" [(ngModel)]="selectedOption" name="first">
-                            <option *ngFor="let company of companies">{{company.name}}</option>
+                        <select class="form-control" id="companySelect" [(ngModel)]="selectedOption" name="companySelect">
+                            <option *ngFor="let company of companies|keyvalue" [value]="company.key">{{company.key}}</option>
                         </select>
                     </div>
                     <!-- Textarea -->
@@ -32,7 +32,7 @@
                         <div class="col-xl-7">
                     <textarea class="form-control" [(ngModel)]="structureAddElement.description" rows="10"
                               id="Overview"
-                              name="{{'Overview (max 200 words)'|translate}}">{{'Overview'|translate}}</textarea>
+                              name="Overview">{{'Overview'|translate}}</textarea>
                         </div>
                     </div>
 

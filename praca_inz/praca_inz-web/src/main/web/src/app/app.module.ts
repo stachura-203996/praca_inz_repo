@@ -1,4 +1,4 @@
-import {CommonModule, HashLocationStrategy, Location, LocationStrategy} from '@angular/common';
+import {CommonModule} from '@angular/common';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
@@ -26,6 +26,10 @@ import {PasswordMatchDirective} from "./directives/password-match.directive";
 import {WarehouseService} from "./layout/warehouse-management/warehouse.service";
 import {SystemMessageService} from "./layout/main-page/system-message.service";
 import {ReportService} from "./layout/employee-management/report.service";
+import {EmailMatchDirective} from "./directives/email-match.directive";
+import {NotNaughtDirective} from "./directives/not-naught.directive";
+import {NotNegativeDirective} from "./directives/not-negative.directive";
+import {NotRealNumberDirective} from "./directives/not-real-number.directive";
 
 
 export const createTranslateLoader = (http: HttpClient) => {
@@ -55,7 +59,11 @@ export const createTranslateLoader = (http: HttpClient) => {
     declarations: [
         AppComponent,
         ConfirmDialogComponent,
-        PasswordMatchDirective
+        PasswordMatchDirective,
+        EmailMatchDirective,
+        NotNaughtDirective,
+        NotNegativeDirective,
+        NotRealNumberDirective
     ],
     providers: [
         AuthGuard,

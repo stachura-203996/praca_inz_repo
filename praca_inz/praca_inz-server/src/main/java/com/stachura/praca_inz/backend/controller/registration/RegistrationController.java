@@ -1,5 +1,6 @@
 package com.stachura.praca_inz.backend.controller.registration;
 
+import com.stachura.praca_inz.backend.exception.service.ServiceException;
 import com.stachura.praca_inz.backend.service.RegistrationService;
 import com.stachura.praca_inz.backend.web.dto.user.RegistrationDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,25 +19,6 @@ public class RegistrationController {
     private RegistrationService registrationService;
 
     /**
-     * Metoda rejestrująca konto nowego użytkownika
-     *
-     * @param data obiekt nowego użytkownika
-     * @return odpowiedź z informacją o powodzeniu operacji
-     */
-    @RequestMapping(value = "/self", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(value = HttpStatus.OK)
-    @PermitAll
-    public ResponseEntity<?> register(@RequestBody RegistrationDto data) {
-//        try {
-            registrationService.registerNewUserAccount(data, false);
-//            mailService.sendRegisterMessage(data.getEmail());
-//        } catch (ServiceException e) {
-//            return jsonResponse(new RegisterResponse(e.getMessage()));
-//        }
-        return new ResponseEntity<>(HttpStatus.CREATED);
-    }
-
-    /**
      * Metoda rejestrująca konto nowego użytkownika przez administratora
      *
      * @param data obiekt nowego użytkownika
@@ -45,11 +27,13 @@ public class RegistrationController {
     @RequestMapping(value = "/admin", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public ResponseEntity<?>  addUser(@RequestBody RegistrationDto data) {
-//        try {
+
+        try {
             registrationService.registerNewUserAccount(data, true);
-//        } catch (ServiceException e) {
-//            return jsonResponse(new RegisterResponse(e.getMessage()));
-//        }
+        } catch (ServiceException e) {
+            e.printStackTrace();
+        }
+
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }

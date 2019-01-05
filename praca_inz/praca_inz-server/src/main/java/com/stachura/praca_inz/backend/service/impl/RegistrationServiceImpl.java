@@ -2,16 +2,23 @@ package com.stachura.praca_inz.backend.service.impl;
 
 import com.stachura.praca_inz.backend.exception.UserAlreadyExistException;
 import com.stachura.praca_inz.backend.exception.repository.EntityException;
+import com.stachura.praca_inz.backend.exception.service.ServiceException;
+import com.stachura.praca_inz.backend.model.Address;
 import com.stachura.praca_inz.backend.model.Userdata;
+import com.stachura.praca_inz.backend.model.Warehouse;
+import com.stachura.praca_inz.backend.model.enums.WarehouseType;
 import com.stachura.praca_inz.backend.model.security.User;
-import com.stachura.praca_inz.backend.repository.interfaces.UserdataRepository;
-import com.stachura.praca_inz.backend.repository.interfaces.UserRepository;
+import com.stachura.praca_inz.backend.model.security.UserRole;
+import com.stachura.praca_inz.backend.repository.interfaces.*;
 import com.stachura.praca_inz.backend.service.RegistrationService;
 import com.stachura.praca_inz.backend.web.dto.user.RegistrationDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class RegistrationServiceImpl implements RegistrationService {
@@ -22,31 +29,68 @@ public class RegistrationServiceImpl implements RegistrationService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private WarehouseRepository warehouseRepository;
+
+    @Autowired
+    private OfficeRepository officeRepository;
+
+    @Autowired
+    private UserRoleRepository userRoleRepository;
+
+
     @Qualifier("userPasswordEncoder")
     @Autowired
     private PasswordEncoder passwordEncoder;
 
     @Override
-    public void registerNewUserAccount(final RegistrationDto data,boolean verified) {
+    public void registerNewUserAccount(final RegistrationDto data, boolean verified) throws ServiceException {
         if (emailExist(data.getEmail())) {
             throw new UserAlreadyExistException("There is an user with that email adress: " + data.getEmail());
         }
-        final User user = new User();
-        final Userdata userdata =new Userdata();
+
+        User user = new User();
         user.setUsername(data.getUsername());
         user.setPassword(passwordEncoder.encode(data.getPassword()));
+        user.setEnabled(true);
+        user.setAccountExpired(false);
+        user.setOffice(officeRepository.find(data.getOfficeId()));
+        user.setAccountLocked(false);
+        user.setCredentialsExpired(false);
+        List<UserRole> userRoles=userRoleRepository.findAll().stream().filter(x->data.getRoles().stream().anyMatch(name->name.equals(x.getName())))
+                .collect(Collectors.toList());
+        user.setUserRoles(userRoles);
+
+        Userdata userdata = new Userdata();
         userdata.setEmail(data.getEmail());
         userdata.setSurname(data.getSurname());
-        user.setUserdata(userdata);
+        userdata.setPosition(data.getPosition());
+        userdata.setName(data.getName());
+        userdata.setWorkplace(data.getWorkplace());
+        Address address=new Address();
+        address.setZipCode(data.getZipcode());
+        address.setFlatNumber(data.getFlatNumber());
+        address.setBuildingNumber(data.getHouseNumber());
+        address.setStreet(data.getStreet());
+        address.setCity(data.getCity());
+        userdata.setAddress(address);
+
+        Warehouse warehouse=new Warehouse();
+        warehouse.setName(data.getUsername());
+        warehouse.setOffice(officeRepository.find(data.getOfficeId()));
+        warehouse.setWarehouseType(WarehouseType.USER);
 
 
-//        userdata.setRoles(Arrays.asList(roleRepository.findByName("ROLE_USER")));
         try {
-             userRepository.create(user);
+            userRepository.create(user);
+            userdata.setUser(user);
+            userdataRepository.create(userdata);
+            warehouseRepository.create(warehouse);
         } catch (EntityException e) {
-            e.printStackTrace();
+           throw new ServiceException(e.getMessage());
         }
     }
+
     private boolean emailExist(final String email) {
         return userdataRepository.findByEmail(email) != null;
     }
