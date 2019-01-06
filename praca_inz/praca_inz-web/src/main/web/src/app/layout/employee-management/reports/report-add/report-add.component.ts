@@ -9,6 +9,7 @@ import {ReportAddElement} from "../../../../models/report-elements";
 import {ReportService} from "../../report.service";
 import {UserListElement} from "../../../../models/user-list-element";
 import {UserService} from "../../../admin/components/administration/user-management/user.service";
+import {StructureListElement} from "../../../../models/structure-elements";
 
 @Component({
   selector: 'app-report-add',
@@ -19,27 +20,33 @@ export class ReportAddComponent implements OnInit {
 
     @Input() reportAddElement: ReportAddElement= new ReportAddElement();
 
-     recivers: UserListElement[];
+     recivers=new Map<string, number>();
      selectedOption: string;
 
-    constructor(private route: ActivatedRoute,private userService:UserService,private reportService:ReportService,private translate:TranslateService,private router:Router) {
-        this.translate.addLangs(['en','pl']);
-        this.translate.setDefaultLang('pl');
-        const browserLang = this.translate.getBrowserLang();
-        this.translate.use(browserLang.match(/en|pl/) ? browserLang : 'pl');
-    }
+    constructor(private route: ActivatedRoute,private userService:UserService,private reportService:ReportService,private translate:TranslateService,private router:Router) {}
 
     ngOnInit() {
         this.getRecievers();
     }
 
-    getRecievers(){
-        this.userService.getAll().subscribe(deviceModels=> {this.recivers=deviceModels});
+
+    getRecievers() {
+        this.userService.getAll().subscribe((response: UserListElement[]) => {
+            this.recivers = response.reduce(function(companyMap, company){
+                if(company.id){
+                    companyMap.set(company.name,company.id)
+                }
+                return companyMap;
+            },this.recivers);
+        });
+
     }
 
+
     reportAdd(){
+        this.reportAddElement.reciever = this.recivers.get(this.selectedOption);
         this.reportService.createReport(this.reportAddElement).subscribe(resp => {
-            this.router.navigateByUrl('/employees/requests');
+            this.router.navigateByUrl('/employees/reports');
         });
     }
 

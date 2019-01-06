@@ -13,6 +13,8 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,7 +35,8 @@ public class DepartmentController {
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
     List<CompanyStructuresListElementDto> getAll() {
-        return departmentService.getAllDepartments();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        return departmentService.getAllDepartments(auth.getName());
     }
 
 

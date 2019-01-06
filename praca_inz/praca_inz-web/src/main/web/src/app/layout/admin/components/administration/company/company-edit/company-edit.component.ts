@@ -22,10 +22,7 @@ export class CompanyEditComponent implements OnInit {
 
 
     constructor(private route: ActivatedRoute,private companyService: CompanyService,private translate:TranslateService, private departmentService: DepartmentService, private router: Router) {
-        this.translate.addLangs(['en','pl']);
-        this.translate.setDefaultLang('pl');
-        const browserLang = this.translate.getBrowserLang();
-        this.translate.use(browserLang.match(/en|pl/) ? browserLang : 'pl');
+
 
     }
 

@@ -16,7 +16,6 @@ import {UserViewComponent} from "./components/administration/user-management/com
 import {DeviceListComponent} from "./components/structure-management/device/device-list/device-list.component";
 import {DeviceAddComponent} from "./components/structure-management/device/device-add/device-add.component";
 import {DeviceEditComponent} from "./components/structure-management/device/device-edit/device-edit.component";
-import {DeviceRequestListComponent} from "./components/structure-management/device/device-request-list/device-request-list.component";
 import {TransferListComponent} from "./components/structure-management/device/transfer-list/transfer-list.component";
 import {DeviceParameterAddComponent} from "./components/structure-management/device/device-parameter-add/device-parameter-add.component";
 import {DeviceParameterEditComponent} from "./components/structure-management/device/device-parameter-edit/device-parameter-edit.component";
@@ -30,6 +29,9 @@ import {DeviceModelEditComponent} from "./components/structure-management/device
 import {DeviceModelListComponent} from "./components/structure-management/device/device-model-list/device-model-list.component";
 import {DeliveryListComponent} from "./components/structure-management/warehouse/delivery-list/delivery-list.component";
 import {ShipmentListComponent} from "./components/structure-management/warehouse/shipment-list/shipment-list.component";
+import {UserPasswordEditComponent} from "./components/administration/user-management/components/user-password-edit/user-password-edit.component";
+import {DeviceTransferComponent} from "./components/structure-management/device/device-transfer/device-transfer.component";
+import {DeviceTypeListComponent} from "./components/structure-management/device/device-type-list/device-type-list.component";
 
 
 
@@ -45,16 +47,18 @@ const routes: Routes = [
     {path: 'departments/edit/:id', component:DepartmentEditComponent},
     {path: 'users', component: UserListComponent},
     {path: 'users/add', component:UserAddComponent},
-    {path: 'users/edit/:username', component:UserEditComponent},
+    {path: 'users/edit/:id', component:UserEditComponent},
+    {path: 'users/edit/password/:id', component:UserPasswordEditComponent},
     {path: 'users/view/:username', component:UserViewComponent},
     {path: 'devices', component: DeviceListComponent},
     {path: 'devices/add', component:DeviceAddComponent},
     {path: 'devices/edit/:id', component:DeviceEditComponent},
-    {path: 'devices/request', component: DeviceRequestListComponent},
-    {path: 'devices/transfer', component: TransferListComponent},
+    {path: 'devices/transfer', component: DeviceTransferComponent},
     {path: 'devices/model', component: DeviceModelListComponent},
     {path: 'devices/model/add', component: DeviceModelAddComponent},
     {path: 'devices/model/edit/:id', component: DeviceModelEditComponent},
+    {path: 'devices/type', component: DeviceTypeListComponent},
+    {path: 'devices/type/add', component: DeviceModelAddComponent},
     {path: 'devices/parameter/add', component: DeviceParameterAddComponent},
     {path: 'devices/parameter/edit/:id', component: DeviceParameterEditComponent},
     {path: 'warehouses', component: WarehouseListComponent},
@@ -64,6 +68,7 @@ const routes: Routes = [
     {path: 'shipments', component: ShipmentListComponent},
     {path: 'requests', component: RequestListComponent},
     {path: 'reports', component: ReportListComponent},
+    {path: 'transfers', component: TransferListComponent}
 
 
 ];

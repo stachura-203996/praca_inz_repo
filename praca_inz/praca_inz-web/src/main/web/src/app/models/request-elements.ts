@@ -11,6 +11,7 @@ export class RequestListElement {
     recieverWarehouseName:string;
     senderWarehouseName:string;
     createDate:string;
+    version:string
 }
 
 
@@ -96,6 +97,7 @@ export class RequestViewElement {
     acceptedToRecive: boolean;
     recieverWarehouseName:string;
     senderWarehouseName:string;
+    version:string;
     createDate:string;
 }
 

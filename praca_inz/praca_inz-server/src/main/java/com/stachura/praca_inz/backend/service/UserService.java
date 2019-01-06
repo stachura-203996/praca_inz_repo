@@ -2,10 +2,7 @@ package com.stachura.praca_inz.backend.service;
 
 import com.stachura.praca_inz.backend.exception.service.ServiceException;
 import com.stachura.praca_inz.backend.model.security.User;
-import com.stachura.praca_inz.backend.web.dto.user.LoggedUserDto;
-import com.stachura.praca_inz.backend.web.dto.user.ProfileInfoDto;
-import com.stachura.praca_inz.backend.web.dto.user.UserInfoDto;
-import com.stachura.praca_inz.backend.web.dto.user.UserListElementDto;
+import com.stachura.praca_inz.backend.web.dto.user.*;
 
 import java.util.List;
 
@@ -43,4 +40,6 @@ public interface UserService {
     List<UserListElementDto> getAllUsersForCompanyAdmin(String username);
 
     void updateUser(User user) throws ServiceException;
+
+    UserRolesDto getLoggedUserRoles(String name);
 }

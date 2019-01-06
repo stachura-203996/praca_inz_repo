@@ -11,7 +11,7 @@ public interface DepartmentService {
 
     Department getDepartmentByName(String name);
 
-    List<CompanyStructuresListElementDto> getAllDepartments();
+    List<CompanyStructuresListElementDto> getAllDepartments(String username);
 
     List<CompanyStructuresListElementDto> getAllDepartmentsForCompany(Long id);
 

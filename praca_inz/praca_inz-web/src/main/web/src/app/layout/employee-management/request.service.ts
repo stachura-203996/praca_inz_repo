@@ -22,10 +22,12 @@ export class RequestService {
 
     constructor(private httpService: HttpService, private configuration: Configuration) { }
 
+    //VIEW
     getRequestView(id:string){
             return this.httpService.get<RequestViewElement>(this.requestPath+'/'+id);
     }
 
+    //EDIT
     getTransferRequestEdit(id:string): Observable<TransferRequestEditElement>{
         return this.httpService.get<TransferRequestEditElement>(this.requestPath+'/transfer/'+id);
     }
@@ -42,18 +44,33 @@ export class RequestService {
         return this.httpService.get<ShipmentRequestEditElement>(this.requestPath+'/shipment/'+id);
     }
 
+    //GET-ALL
+
     getAllRequests(type:string): Observable<RequestListElement[]> {
         return this.httpService.get<RequestListElement[]>(this.requestPath+'/type/'+type);
     }
 
-    getAllRequestsForLoggedUser(type:string): Observable<RequestListElement[]> {
-        return this.httpService.get<RequestListElement[]>(this.requestPath+"/user/"+type);
+    getAllRequestsForLoggedUser(): Observable<RequestListElement[]> {
+        return this.httpService.get<RequestListElement[]>(this.requestPath+"/user/");
     }
     
-    getAllRequestsForOffice(type:string,id:string): Observable<RequestListElement[]> {
-        return this.httpService.get<RequestListElement[]>(this.requestPath+"/office/"+type+'/'+id);
+    getAllRequestsForManager(): Observable<RequestListElement[]> {
+        return this.httpService.get<RequestListElement[]>(this.requestPath+"/manager/");
     }
 
+    getAllRequestsFromOtherUsers(){
+        return this.httpService.get<RequestListElement[]>(this.requestPath+"/other/users");
+    }
+
+    getAllRequestsForWarehouseman(){
+        return this.httpService.get<RequestListElement[]>(this.requestPath+"/warehouseman/");
+    }
+
+    getAllRequestsFromOtherWarehouses(){
+        return this.httpService.get<RequestListElement[]>(this.requestPath+"/other/");
+    }
+
+    //CREATE
     createTransferRequest(data:TransferRequestAddElement): Observable<any>{
         return this.httpService.post<TransferRequestAddElement>(this.requestPath+'/transfer',data);
     }
@@ -70,6 +87,8 @@ export class RequestService {
         return this.httpService.post<ShipmentRequestAddElement>(this.requestPath+'/shipment',data);
     }
 
+
+    //UPDATE
     updateTransferRequest(data: TransferRequestEditElement): Observable<any> {
         return this.httpService.put<TransferRequestEditElement>(this.requestPath+'/transfer', data);
     }
@@ -86,10 +105,13 @@ export class RequestService {
         return this.httpService.put<ShipmentRequestEditElement>(this.requestPath+'/shipment', data);
     }
 
+    //CANCEL
+
     cancelRequest(data: RequestListElement): Observable<any> {
         return this.httpService.put<StructureEditElement>(this.requestPath+'/cancel/', data);
     }
 
+    //DELETE
     deleteRequest(id :string): Observable<any>{
         return this.httpService.delete<any>(this.requestPath+'/'+id);
     }

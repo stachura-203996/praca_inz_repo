@@ -14,7 +14,7 @@
                             </div>
                             <div *ngIf="title.invalid && (title.touched || title.dirty)"
                                  class="alert alert-danger col-sm-12">
-                                <div *ngIf="title.hasError('required')" i18n="@@quantityReq">
+                                <div *ngIf="title.hasError('required')">
                                     {{'Title is required!'|translate}}
                                 </div>
                             </div>
@@ -23,7 +23,7 @@
                     <div class="form-group col-xl-5">
                         <label for="recieverSelect">{{'Receiver'|translate}}</label>
                         <select class="form-control" id="recieverSelect" [(ngModel)]="selectedOption" name="first">
-                            <option *ngFor="let warehouse of warehouses">{{warehouse.name}}</option>
+                            <option *ngFor="let warehouse of warehouses|keyvalue" [value]="warehouse.key">{{warehouse.key}}</option>
                         </select>
                     </div>
                     <!-- Textarea -->

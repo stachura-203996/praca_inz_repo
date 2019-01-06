@@ -23,7 +23,15 @@ export class DepartmentService {
         return this.httpService.get<StructureListElement[]>(this.departmentPath);
     }
 
-    getAllForCompany(id:string): Observable<StructureListElement[]> {
+    getAllForAdmin(role:boolean,id:number): Observable<StructureListElement[]> {
+        if(role) {
+            return this.httpService.get<StructureListElement[]>(this.departmentPath);
+        } else{
+            return this.httpService.get<StructureListElement[]>(this.departmentPath+'/company/'+id);
+        }
+    }
+
+    getAllForCompany(id:number): Observable<StructureListElement[]> {
         return this.httpService.get<StructureListElement[]>(this.departmentPath+'/company/'+id);
     }
 

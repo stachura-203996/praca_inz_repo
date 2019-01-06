@@ -19,7 +19,8 @@ import java.util.Date;
 public class Transfer implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "TransferGen", sequenceName = "transfer_id_seq",initialValue = 2,allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "TransferGen")
     @Column(name = "ID", updatable = false, nullable = false)
     private Long id = null;
 

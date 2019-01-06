@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpService} from "../../shared/services/http.service";
 import {Configuration} from "../../app.constants";
 import {Observable} from "rxjs";
-import {ReportAddElement, ReportListElement} from "../../models/report-elements";
+import {ReportAddElement, ReportListElement, ReportViewElement} from "../../models/report-elements";
 import {StructureAddElement, StructureEditElement, StructureViewElement} from "../../models/structure-elements";
 
 
@@ -21,6 +21,10 @@ export class ReportService {
         return this.httpService.get<ReportListElement[]>(this.reportPath);
     }
 
+    getAllForCompany(id:number): Observable<ReportListElement[]> {
+        return this.httpService.get<ReportListElement[]>(this.reportPath+'/company/'+id);
+    }
+
     getAllForUser(): Observable<ReportListElement[]> {
         return this.httpService.get<ReportListElement[]>(this.reportPath + '/user');
     }
@@ -29,23 +33,23 @@ export class ReportService {
         return this.httpService.get<ReportListElement[]>(this.reportPath + '/others');
     }
 
-    getReportEdit(id: string): Observable<StructureEditElement> {
-        return this.httpService.get<StructureEditElement>(this.reportPath + '/' + id);
-    }
-
-    getReportView(id: string): Observable<StructureViewElement> {
-        return this.httpService.get<StructureViewElement>(this.reportPath + '/' + id);
+    getReportView(id: string): Observable<ReportViewElement> {
+        return this.httpService.get<ReportViewElement>(this.reportPath + '/' + id);
     }
 
     createReport(data: ReportAddElement): Observable<any> {
         return this.httpService.post<ReportAddElement>(this.reportPath, data);
     }
 
-    updateReport(data: StructureEditElement): Observable<any> {
-        return this.httpService.put<StructureEditElement>(this.reportPath, data);
+    deleteReport(id: string): Observable<any> {
+        return this.httpService.delete<any>(this.reportPath + '/' + id);
     }
 
-    deleteDepartament(id: string): Observable<any> {
-        return this.httpService.delete<any>(this.reportPath + '/' + id);
+    disableBySender(id: string): Observable<any> {
+        return this.httpService.delete<any>(this.reportPath + '/sender/' + id);
+    }
+
+    disableByReciever(id: string): Observable<any> {
+        return this.httpService.delete<any>(this.reportPath + '/reciever/' + id);
     }
 }

@@ -4,6 +4,7 @@ import {RequestListElement} from "../../../models/request-elements";
 import {TranslateService} from "@ngx-translate/core";
 import {StructureListElement} from "../../../models/structure-elements";
 import {RequestService} from "../request.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-request-user',
@@ -16,12 +17,12 @@ export class RequestUserComponent implements OnInit {
     yourRequest: RequestListElement[];
     employeesRequest:RequestListElement[];
 
-    DEVICE_REQUEST:string="DEVICE_REQUEST";
-    TRANSFER_REQUEST:string="TRANSFER_REQUEST";
-    DELIVERY_REQUEST:string="DELIVERY_REQUEST";
-    SHIPMENT_REQUEST:string="SHIPMENT_REQUEST";
+    DEVICE_REQUEST: string = "DEVICE_REQUEST";
+    TRANSFER_REQUEST: string = "TRANSFER_REQUEST";
+    DELIVERY_REQUEST: string = "DELIVERY_REQUEST";
+    SHIPMENT_REQUEST: string = "SHIPMENT_REQUEST";
 
-    constructor(private requestService : RequestService,
+    constructor(private router:Router,private requestService : RequestService,
                 private translate:TranslateService,
 
     ) {}
@@ -32,49 +33,12 @@ export class RequestUserComponent implements OnInit {
     }
 
     getRequests(){
-        this.requestService.getAllRequestsForLoggedUser(this.DEVICE_REQUEST).subscribe(officeListElement=> {this.yourRequest=officeListElement});
-        this.requestService.getAllRequestsForLoggedUser(this.TRANSFER_REQUEST).subscribe(officeListElement=> {this.employeesRequest=officeListElement});
+        this.requestService.getAllRequestsForLoggedUser().subscribe(requests=> {this.yourRequest=requests});
+        this.requestService.getAllRequestsForManager().subscribe(requests=> {this.employeesRequest=requests});
     }
 
-    getAddress(office:StructureListElement): string {
-        if (office.flatNumber== null || office.flatNumber === "0") {
-            return (office.street + ' ' + office.buildingNumber);
-        } else {
-            return (office.street + ' ' + office.buildingNumber + ' / ' + office.flatNumber);
-        }
-    }
 
-    filterUsers(searchText: string) {
-        // this.userService.getAllNotificationsForUser().subscribe(users => {
-        //     if (!users) {
-        //         this.users = [];
-        //         return;
-        //     }
-        //     if (!searchText || searchText.length < 2) {
-        //         if (this.notVerifiedFilter) {
-        //             this.users = users.filter(it => {
-        //                 return it.verified === !this.notVerifiedFilter;
-        //             });
-        //         } else {
-        //             this.users = users;
-        //         }
-        //         return;
-        //     }
-        //
-        //     searchText = searchText.toLowerCase();
-        //     this.users = users.filter(it => {
-        //         const fullname = it.name + ' ' + it.surname;
-        //         const ok = fullname.toLowerCase().includes(searchText);
-        //         if (!this.notVerifiedFilter) {
-        //             return ok;
-        //         } else {
-        //             return ok && it.verified === !this.notVerifiedFilter;
-        //         }
-        //     });
-        // });
-    }
-
-    delete(structure: StructureListElement) {
+    cancel(request: RequestListElement) {
         // const modalRef = this.modalService.open(UserMgmtDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
         // modalRef.componentInstance.user = user;
         // modalRef.result.then(
@@ -87,4 +51,53 @@ export class RequestUserComponent implements OnInit {
         // );
     }
 
+    reject(request: RequestListElement){
+
+    }
+
+    accept(request: RequestListElement){
+
+    }
+
+    viewPage(request:RequestListElement){
+        switch(request.type) {
+            case this.DEVICE_REQUEST: {
+                this.router.navigateByUrl('/page/devices/request/view/'+request.id);
+                break;
+            }
+            case this.DELIVERY_REQUEST: {
+                this.router.navigateByUrl('/page/warehouses/delivery/request/view/'+request.id);
+                break;
+            }
+            case this.TRANSFER_REQUEST: {
+                this.router.navigateByUrl('/page/devices/request/transfer/view/'+request.id);
+                break;
+            }
+            case this.SHIPMENT_REQUEST: {
+                this.router.navigateByUrl('/page/warehouses/shipment/request/view/'+request.id);
+                break;
+            }
+        }
+    }
+
+    editPage(request:RequestListElement){
+        switch(request.type) {
+            case this.DEVICE_REQUEST: {
+                this.router.navigateByUrl('/page/devices/request/edit/'+request.id);
+                break;
+            }
+            case this.DELIVERY_REQUEST: {
+                this.router.navigateByUrl('/page/warehouses/delivery/request/edit/'+request.id);
+                break;
+            }
+            case this.TRANSFER_REQUEST: {
+                this.router.navigateByUrl('/page/devices/transfer/request/edit/'+request.id);
+                break;
+            }
+            case this.SHIPMENT_REQUEST: {
+                this.router.navigateByUrl('/page/warehouses/shipment/request/edit/'+request.id);
+                break;
+            }
+        }
+    }
 }

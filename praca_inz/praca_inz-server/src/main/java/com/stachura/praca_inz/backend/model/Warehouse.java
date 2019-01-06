@@ -22,7 +22,8 @@ import java.util.Set;
 public class Warehouse implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "WarehouseGen", sequenceName = "warehouse_id_seq",initialValue = 3,allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "WarehouseGen")
     @Column(name = "ID", updatable = false, nullable = false)
     private Long id = null;
 

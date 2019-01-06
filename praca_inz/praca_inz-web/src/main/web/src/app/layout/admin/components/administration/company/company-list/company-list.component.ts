@@ -19,11 +19,6 @@ export class CompanyListComponent implements OnInit {
                 private translate:TranslateService,
     ) {
 
-        // this.translate.addLangs(['en','pl','de']);
-        // this.translate.setDefaultLang('en');
-        // const browserLang = this.translate.getBrowserLang();// private messageService: MessageService,
-        // // private i18nService: I18nServiceerLang();
-        // this.translate.use(browserLang.match(/en|pl|de/) ? browserLang : 'pl');
     }
 
     ngOnInit() {

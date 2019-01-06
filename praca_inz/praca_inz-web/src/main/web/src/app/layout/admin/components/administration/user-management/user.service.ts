@@ -9,6 +9,8 @@ import {LoggedUser} from "../../../../../models/logged-user";
 import {UserInfo} from "../../../../../models/user-info";
 import {StructureAddElement, StructureEditElement} from "../../../../../models/structure-elements";
 import {RegisterUser} from "../../../../../models/register-user";
+import {UserRoles} from "../../../../../models/user-roles";
+import {PasswordDataForAdmin} from "../../../../../models/change-password-by-admin-model";
 
 
 @Injectable({
@@ -47,6 +49,10 @@ export class UserService {
         return this.httpService.get<LoggedUser>(this.userPath+'/logged');
     }
 
+    getLoggedUserRoles():Observable<UserRoles>{
+        return this.httpService.get<UserRoles>(this.userPath+'/logged/roles');
+    }
+
     updateUser(user: UserEdit): Observable<any> {
         return this.httpService.put<any>(this.userPathDetail, user);
     }
@@ -73,11 +79,19 @@ export class UserService {
 
 
     createUser(data: RegisterUser): Observable<any>  {
-        return this.httpService.post<RegisterUser>(this.registerPath, data);
+        return this.httpService.post<RegisterUser>(this.registerPath+'/admin', data);
     }
 
 
     verifyUser(id: number): Observable<any> {
         return this.httpService.put(this.userPath + '/' + id + this.verifiedPath, '');
+    }
+
+    getUserPasswordData(id: string):Observable<PasswordDataForAdmin> {
+        return this.httpService.get<PasswordDataForAdmin>(this.userPath+'/password'+id);
+    }
+
+    changePasswordByAdmin(passwordDataByAdmin: PasswordDataForAdmin) {
+
     }
 }

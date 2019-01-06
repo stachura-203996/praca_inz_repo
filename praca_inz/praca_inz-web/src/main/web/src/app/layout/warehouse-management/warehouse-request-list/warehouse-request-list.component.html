@@ -33,14 +33,7 @@
                                     <i class="fa fa-eye"></i>&nbsp;
                                     <span class="d-none d-md-inline">View</span>
                                 </button>
-                                <button type="submit"
-                                        [routerLink]="['./edit/'+request.id]"
-                                        queryParamsHandling="merge"
-                                        class="btn btn-primary btn-sm">
-                                    <i class="fa fa-pencil"></i>&nbsp;
-                                    <span class="d-none d-md-inline">Edit</span>
-                                </button>
-                                <button type="button" (click)="delete(request)"
+                                <button type="button" (click)="cancel(request)"
                                         class="btn btn-danger btn-sm">
                                     <i class="fa fa-times"></i>&nbsp;
                                     <span class="d-none d-md-inline">Delete</span>
@@ -78,22 +71,10 @@
                         <td class="text-right">
                             <div class="btn-group flex-btn-group-container">
                                 <button type="submit"
-                                        [routerLink]="['/structures/offices/view/'+request.id]"
+                                        [routerLink]="['/warehouses/delivery/request/view/'+request.id]"
                                         class="btn btn-info btn-sm">
                                     <i class="fa fa-eye"></i>&nbsp;
                                     <span class="d-none d-md-inline">View</span>
-                                </button>
-                                <button type="submit"
-                                        [routerLink]="['./edit/'+request.id]"
-                                        queryParamsHandling="merge"
-                                        class="btn btn-primary btn-sm">
-                                    <i class="fa fa-pencil"></i>&nbsp;
-                                    <span class="d-none d-md-inline">Edit</span>
-                                </button>
-                                <button type="button" (click)="delete(request)"
-                                        class="btn btn-danger btn-sm">
-                                    <i class="fa fa-times"></i>&nbsp;
-                                    <span class="d-none d-md-inline">Delete</span>
                                 </button>
                             </div>
                         </td>

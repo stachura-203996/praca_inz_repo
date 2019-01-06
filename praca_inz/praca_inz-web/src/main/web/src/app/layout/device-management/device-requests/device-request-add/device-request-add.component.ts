@@ -19,10 +19,7 @@ export class DeviceRequestAddComponent implements OnInit {
     selectedOption: string;
 
     constructor(private route: ActivatedRoute,private deviceService:DeviceService,private requestService:RequestService,private translate:TranslateService,private router:Router) {
-        this.translate.addLangs(['en','pl']);
-        this.translate.setDefaultLang('pl');
-        const browserLang = this.translate.getBrowserLang();
-        this.translate.use(browserLang.match(/en|pl/) ? browserLang : 'pl');
+
     }
 
     ngOnInit() {

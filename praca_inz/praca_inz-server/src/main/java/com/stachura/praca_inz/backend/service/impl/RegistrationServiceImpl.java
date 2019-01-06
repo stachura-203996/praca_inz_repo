@@ -57,10 +57,11 @@ public class RegistrationServiceImpl implements RegistrationService {
         user.setOffice(officeRepository.find(data.getOfficeId()));
         user.setAccountLocked(false);
         user.setCredentialsExpired(false);
-        List<UserRole> userRoles=userRoleRepository.findAll().stream().filter(x->data.getRoles().stream().anyMatch(name->name.equals(x.getName())))
-                .collect(Collectors.toList());
-        user.setUserRoles(userRoles);
-
+        if(data.getRoles()!=null) {
+            List<UserRole> userRoles = userRoleRepository.findAll().stream().filter(x -> data.getRoles().stream().anyMatch(name -> name.equals(x.getName())))
+                    .collect(Collectors.toList());
+            user.setUserRoles(userRoles);
+        }
         Userdata userdata = new Userdata();
         userdata.setEmail(data.getEmail());
         userdata.setSurname(data.getSurname());
@@ -82,6 +83,8 @@ public class RegistrationServiceImpl implements RegistrationService {
 
 
         try {
+            user.setUserdata(userdata);
+
             userRepository.create(user);
             userdata.setUser(user);
             userdataRepository.create(userdata);

@@ -1,7 +1,11 @@
-import { Component, Output, EventEmitter, OnInit } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import {Component, Output, EventEmitter, OnInit} from '@angular/core';
+import {Router, NavigationEnd} from '@angular/router';
+import {TranslateService} from '@ngx-translate/core';
 import {LoginService} from "../../../login/login.service";
+import {LoggedUser} from "../../../models/logged-user";
+import {UserService} from "../../admin/components/administration/user-management/user.service";
+import {StructureListElement} from "../../../models/structure-elements";
+import {UserRoles} from "../../../models/user-roles";
 
 @Component({
     selector: 'app-sidebar',
@@ -14,15 +18,14 @@ export class SidebarComponent {
     showMenu: string = '';
     pushRightClass: string = 'push-right';
 
-    @Output() collapsedEvent = new EventEmitter<boolean>();
-    
-    constructor(private translate: TranslateService, public router: Router, private loginService : LoginService) {
-        this.translate.addLangs(['en','pl','de']);
-        this.translate.setDefaultLang('pl');
-        const browserLang = this.translate.getBrowserLang();
-        this.translate.use(browserLang.match(/en|pl|de/) ? browserLang : 'pl');
+    roles: UserRoles;
 
-        this.router.events.subscribe(val => {
+
+
+    @Output() collapsedEvent = new EventEmitter<boolean>();
+
+    constructor(private translate: TranslateService, public router: Router, private loginService: LoginService, private userService: UserService) {
+         this.router.events.subscribe(val => {
             if (
                 val instanceof NavigationEnd &&
                 window.innerWidth <= 992 &&
@@ -33,11 +36,23 @@ export class SidebarComponent {
         });
     }
 
+    ngOnInit() {
+        this.getLoggedUserRoles()
+    }
+
+
+    getLoggedUserRoles() {
+        this.userService.getLoggedUserRoles().subscribe(x => this.roles = x);
+    }
+
     eventCalled() {
         this.isActive = !this.isActive;
     }
 
-    addExpandClass(element: any) {
+    addExpandClass(element
+                       :
+                       any
+    ) {
         if (element === this.showMenu) {
             this.showMenu = '0';
         } else {
@@ -50,7 +65,9 @@ export class SidebarComponent {
         this.collapsedEvent.emit(this.collapsed);
     }
 
-    isToggled(): boolean {
+    isToggled()
+        :
+        boolean {
         const dom: Element = document.querySelector('body');
         return dom.classList.contains(this.pushRightClass);
     }
@@ -65,7 +82,10 @@ export class SidebarComponent {
         dom.classList.toggle('rtl');
     }
 
-    changeLang(language: string) {
+    changeLang(language
+                   :
+                   string
+    ) {
         this.translate.use(language);
     }
 

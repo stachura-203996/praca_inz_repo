@@ -107,7 +107,7 @@ public class NotificationServiceImpl implements NotificationService {
     public void createNewNotification(Notification notification)throws ServiceException {
         try {
             notificationRepository.create(notification);
-            emailService.sendSimpleMessage(notification.getUser().getUserdata().getEmail(),notification.getTitle(),notification.getDescription());
+            emailService.sendMessageWithLink(notification.getUser().getUserdata().getEmail(),notification.getTitle(),notification.getDescription());
         } catch (DatabaseErrorException e) {
             throw e;
         } catch (EntityException e) {

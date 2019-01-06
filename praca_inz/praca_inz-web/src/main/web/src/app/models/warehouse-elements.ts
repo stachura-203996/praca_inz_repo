@@ -5,16 +5,9 @@ export class WarehouseListElement {
     officeId:number
     officeName: string;
     devicesNumber:string;
+    deleted:boolean;
 }
 
-export class WarehoucseListElement {
-    id: number;
-    name: string;
-    username: string;
-    officeId:number
-    officeName: string;
-    devicesNumber:string;
-}
 
 export class WarehouseAddElement {
     id: number;

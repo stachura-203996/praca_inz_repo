@@ -52,7 +52,6 @@ public class RequestConverter {
         request.setDeleted(false);
         request.setDescription(transferRequestAddDto.getDescription());
         Device device = deviceRepository.find(transferRequestAddDto.getDeviceId());
-        request.setDevice(device);
         request.setRequestType(RequestType.TRANSFER_REQUEST);
         request.setRecieverWarehouse(warehouseRepository.find(transferRequestAddDto.getRecieverWarehouseId()));
         request.setSenderWarehouse(device.getWarehouse());
@@ -106,7 +105,6 @@ public class RequestConverter {
         request.setDeleted(false);
         request.setDescription(shipmentRequestAddDto.getDescription());
         Device device = deviceRepository.find(shipmentRequestAddDto.getDeviceId());
-        request.setDevice(device);
         request.setRequestType(RequestType.SHIPMENT_REQUEST);
         request.setRecieverWarehouse(warehouseRepository.find(shipmentRequestAddDto.getRecieverWarehouseId()));
         request.setSenderWarehouse(device.getWarehouse());

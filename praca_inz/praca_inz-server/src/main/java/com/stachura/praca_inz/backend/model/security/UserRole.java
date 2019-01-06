@@ -17,7 +17,8 @@ import java.util.Collection;
 public class UserRole implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name = "UserRoleGen", sequenceName = "user_role_id_seq",initialValue = 6,allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "UserRoleGen")
     @Column(name = "ID", updatable = false, nullable = false)
     private Long id = null;
 

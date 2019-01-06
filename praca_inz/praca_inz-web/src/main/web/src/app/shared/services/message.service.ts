@@ -4,7 +4,9 @@ import {BsModalService} from 'ngx-bootstrap';
 import {Observable} from "rxjs";
 import {ConfirmDialogComponent} from "../../confirm-dialog/confirm-dialog.component";
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class MessageService {
 
   constructor(private toastrService: ToastrService,

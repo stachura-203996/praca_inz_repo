@@ -5,6 +5,9 @@ import {DepartmentService} from "../../department/department.service";
 import {StructureAddElement, StructureListElement} from "../../../../../../models/structure-elements";
 import {TranslateService} from "@ngx-translate/core";
 import {CompanyService} from "../../../administration/company/company.service";
+import {UserRoles} from "../../../../../../models/user-roles";
+import {LoggedUser} from "../../../../../../models/logged-user";
+import {UserService} from "../../../administration/user-management/user.service";
 
 @Component({
     selector: 'app-office-add',
@@ -16,22 +19,44 @@ export class OfficeAddComponent implements OnInit {
     @Input() structureAddElement: StructureAddElement = new StructureAddElement;
 
     departments: StructureListElement[];
+    roles: UserRoles;
+    currentUser: LoggedUser;
 
-    constructor(private officeService: OfficeService, private departmentService: DepartmentService, private translate: TranslateService, private router: Router) {
-        this.translate.addLangs(['en', 'pl']);
-        this.translate.setDefaultLang('pl');
-        const browserLang = this.translate.getBrowserLang();
-        this.translate.use(browserLang.match(/en|pl/) ? browserLang : 'pl');
+    constructor(
+        private officeService: OfficeService,
+        private userService: UserService,
+        private departmentService: DepartmentService,
+        private translate: TranslateService,
+        private router: Router) {
     }
 
+
     ngOnInit() {
+        this.getLoggedUser();
+        this.getLoggedUserRoles();
         this.getDepartments();
     }
 
     getDepartments() {
-        this.departmentService.getAll().subscribe(companyListElement => {
-            this.departments = companyListElement
-        });
+        if (this.roles.admin) {
+            this.departmentService.getAll().subscribe(companyListElement => {
+                this.departments = companyListElement
+            });
+        } else{
+            this.departmentService.getAllForCompany(this.currentUser.companyId).subscribe(companyListElement => {
+                this.departments = companyListElement
+            });
+        }
+
+    }
+
+
+    getLoggedUser() {
+        this.userService.getLoggedUser().subscribe(x => this.currentUser = x);
+    }
+
+    getLoggedUserRoles() {
+        this.userService.getLoggedUserRoles().subscribe(x => this.roles = x);
     }
 
     officeAdd() {

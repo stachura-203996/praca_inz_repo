@@ -49,7 +49,7 @@ export class DeviceService {
         return this.httpService.get<DeviceListElement[]>(this.devicePath + "/user/" + username);
     }
 
-    getAllDevicesForCompany(id: String): Observable<DeviceListElement[]> {
+    getAllDevicesForCompany(id: number): Observable<DeviceListElement[]> {
         return this.httpService.get<DeviceListElement[]>(this.devicePath + "/company/" + id);
     }
 
@@ -76,6 +76,10 @@ export class DeviceService {
         return this.httpService.get<DeviceModelListElement[]>(this.devicePath + "/model");
     }
 
+    getAllDevicesModelsForCompany(id: number): Observable<DeviceModelListElement[]> {
+        return this.httpService.get<DeviceModelListElement[]>(this.devicePath + "/model/company/" + id);
+    }
+
     deleteDeviceModel(id :string): Observable<any>{
         return this.httpService.delete<any>(this.devicePath+'/model/'+id);
     }
@@ -98,6 +102,10 @@ export class DeviceService {
     }
 
     //Transfers
+
+    getAllTransfersForCompany(id: number): Observable<TransferListElement[]> {
+        return this.httpService.get<TransferListElement[]>(this.transferPath + "/company/" + id);
+    }
 
     getAllTransfers(): Observable<TransferListElement[]> {
         return this.httpService.get<TransferListElement[]>(this.transferPath);

@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SystemMessageEditComponent } from './system-message-edit.component';
+import { DeviceTransferComponent } from './device-transfer.component';
 
-describe('SystemMessageEditComponent', () => {
-  let component: SystemMessageEditComponent;
-  let fixture: ComponentFixture<SystemMessageEditComponent>;
+describe('DeviceTransferComponent', () => {
+  let component: DeviceTransferComponent;
+  let fixture: ComponentFixture<DeviceTransferComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SystemMessageEditComponent ]
+      declarations: [ DeviceTransferComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SystemMessageEditComponent);
+    fixture = TestBed.createComponent(DeviceTransferComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

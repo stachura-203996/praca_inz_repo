@@ -17,7 +17,7 @@ import {Configuration} from "./app.constants";
 import {ProfileService} from "./layout/profile/profile.service";
 import {MessageService} from "./shared/services/message.service";
 import {I18nService} from "./shared/services/i18n/i18n.service";
-import {ToastrModule} from "ngx-toastr";
+import {ToastContainerModule, ToastrModule} from "ngx-toastr";
 import {SessionContextService} from "./shared/services/session-context.service";
 import {UserService} from "./layout/admin/components/administration/user-management/user.service";
 import {DeviceService} from "./layout/device-management/device.service";
@@ -30,6 +30,7 @@ import {EmailMatchDirective} from "./directives/email-match.directive";
 import {NotNaughtDirective} from "./directives/not-naught.directive";
 import {NotNegativeDirective} from "./directives/not-negative.directive";
 import {NotRealNumberDirective} from "./directives/not-real-number.directive";
+import {BsDropdownModule, BsModalService} from "ngx-bootstrap";
 
 
 export const createTranslateLoader = (http: HttpClient) => {
@@ -40,6 +41,7 @@ export const createTranslateLoader = (http: HttpClient) => {
     imports: [
         CommonModule,
         BrowserModule,
+        HttpClientModule,
         BrowserAnimationsModule,
         HttpClientModule,
         TranslateModule.forRoot({
@@ -55,6 +57,8 @@ export const createTranslateLoader = (http: HttpClient) => {
             maxOpened: 2,
             autoDismiss: true
         }),
+        ToastContainerModule,
+        BsDropdownModule.forRoot(),
     ],
     declarations: [
         AppComponent,
@@ -77,6 +81,7 @@ export const createTranslateLoader = (http: HttpClient) => {
         SystemMessageService,
         DeviceService,
         I18nService,
+        BsModalService,
         ReportService,
         SessionContextService,
         NotificationService,

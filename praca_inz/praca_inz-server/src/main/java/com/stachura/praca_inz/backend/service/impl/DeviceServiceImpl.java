@@ -5,6 +5,7 @@ import com.stachura.praca_inz.backend.exception.repository.EntityException;
 import com.stachura.praca_inz.backend.exception.service.ServiceException;
 import com.stachura.praca_inz.backend.model.Device;
 import com.stachura.praca_inz.backend.model.Office;
+import com.stachura.praca_inz.backend.model.enums.DeviceStatus;
 import com.stachura.praca_inz.backend.model.enums.Status;
 import com.stachura.praca_inz.backend.model.enums.WarehouseType;
 import com.stachura.praca_inz.backend.repository.interfaces.DeviceRepository;
@@ -199,7 +200,7 @@ public class DeviceServiceImpl implements DeviceService {
     @PreAuthorize("hasAuthority('DEVICE_LIST_READ')")
     public List<DeviceListElementDto> getAllDevicesForRequest(String name) {
         List<Device> devices = deviceRepository.findAll().stream().filter(x -> x.getWarehouse().getUser().getUsername().equals(name) &&
-                x.getWarehouse().getWarehouseType().name().equals(WarehouseType.OFFICE.name()) && x.getStatus().name().equals(Status.REPOSE.name())).collect(Collectors.toList());
+                x.getWarehouse().getWarehouseType().name().equals(WarehouseType.OFFICE.name()) && x.getStatus().name().equals(DeviceStatus.REPOSE.name())).collect(Collectors.toList());
         List<DeviceListElementDto> devicesDto = new ArrayList<>();
         for (Device a : devices) {
             if (!a.isDeleted()) {

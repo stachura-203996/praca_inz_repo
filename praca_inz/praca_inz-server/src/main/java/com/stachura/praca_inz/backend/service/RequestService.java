@@ -12,7 +12,15 @@ public interface RequestService {
 
     List<RequestListElementDto> getAllRequests(String type);
 
-    List<RequestListElementDto> getAllRequestsForUser(String type,String username);
+    List<RequestListElementDto> getAllRequestsForUser(String username);
+
+    List<RequestListElementDto> getAllRequestForManager(String username);
+
+    List<RequestListElementDto> getAllRequestFromeOtherUsers(String username);
+
+    List<RequestListElementDto> getAllRequestForWarehouseman(String username);
+
+    List<RequestListElementDto> getAllRequestFromOtherWarehouses(String username);
 
     List<RequestListElementDto> getAllRequestsForOffice(String type,Long id);
 
@@ -23,4 +31,6 @@ public interface RequestService {
     void deleteRequestById(Long id);
 
     void deleteRequest(Request report);
+
+
 }

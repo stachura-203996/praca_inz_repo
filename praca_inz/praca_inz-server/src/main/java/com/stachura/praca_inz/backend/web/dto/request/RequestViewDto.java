@@ -17,4 +17,5 @@ public class RequestViewDto {
     private String recieverWarehouseName;
     private String senderWarehouseName;
     private String createDate;
+    private long version;
 }

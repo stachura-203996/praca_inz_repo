@@ -20,6 +20,7 @@ export class StructureEditElement {
     flatNumber: string;
     zipCode: string;
     parentId: number;
+    version:string;
 }
 
 export class StructureListElement {

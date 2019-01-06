@@ -3,6 +3,9 @@ import {DeviceService} from "../../../../../device-management/device.service";
 import {TranslateService} from "@ngx-translate/core";
 import {DeviceListElement, DeviceModelListElement} from "../../../../../../models/device-elements";
 import {StructureListElement} from "../../../../../../models/structure-elements";
+import {UserRoles} from "../../../../../../models/user-roles";
+import {LoggedUser} from "../../../../../../models/logged-user";
+import {UserService} from "../../../administration/user-management/user.service";
 
 @Component({
     selector: 'app-device-model-list',
@@ -13,11 +16,11 @@ export class DeviceModelListComponent implements OnInit {
 
     deviceModels: DeviceModelListElement[];
 
-    constructor(private deviceService: DeviceService, private translate: TranslateService) {
-        this.translate.addLangs(['en', 'pl']);
-        this.translate.setDefaultLang('pl');
-        const browserLang = this.translate.getBrowserLang();
-        this.translate.use(browserLang.match(/en|pl/) ? browserLang : 'pl');
+    constructor(
+        private deviceService: DeviceService,
+        private translate: TranslateService,
+        private userService: UserService
+    ) {
     }
 
     ngOnInit() {
@@ -26,9 +29,9 @@ export class DeviceModelListComponent implements OnInit {
 
 
     getDevicesModels() {
-        this.deviceService.getAllDevicesModels().subscribe(deviceListElement => {
-            this.deviceModels = deviceListElement
-        });
+            this.deviceService.getAllDevicesModels().subscribe(deviceListElement => {
+                this.deviceModels = deviceListElement
+            });
     }
 
     filterDeviceModels(searchText: string) {
@@ -43,14 +46,17 @@ export class DeviceModelListComponent implements OnInit {
 
             searchText = searchText.toLowerCase();
             this.deviceModels = deviceModels.filter(it => {
-                const range = it.name+ ' ' + it.manufacture+ ' ' + it.type;
+                const range = it.name + ' ' + it.manufacture + ' ' + it.type;
                 const ok = range.toLowerCase().includes(searchText);
                 return ok;
             });
         });
     }
 
-    delete(deviceModel: DeviceModelListElement) {
+    delete(deviceModel
+               :
+               DeviceModelListElement
+    ) {
         this.deviceService.deleteDeviceModel(String(deviceModel.id)).subscribe(resp => {
             this.getDevicesModels()
         });

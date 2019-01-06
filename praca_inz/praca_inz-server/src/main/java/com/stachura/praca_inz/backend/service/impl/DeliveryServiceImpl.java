@@ -1,10 +1,13 @@
 package com.stachura.praca_inz.backend.service.impl;
 
+import com.stachura.praca_inz.backend.Constants;
 import com.stachura.praca_inz.backend.exception.repository.DatabaseErrorException;
 import com.stachura.praca_inz.backend.exception.repository.EntityException;
 import com.stachura.praca_inz.backend.exception.service.ServiceException;
 import com.stachura.praca_inz.backend.model.Delivery;
+import com.stachura.praca_inz.backend.model.security.User;
 import com.stachura.praca_inz.backend.repository.interfaces.DeliveryRepository;
+import com.stachura.praca_inz.backend.repository.interfaces.UserRepository;
 import com.stachura.praca_inz.backend.service.DeliveryService;
 import com.stachura.praca_inz.backend.web.dto.DeliveryListElementDto;
 import com.stachura.praca_inz.backend.web.dto.converter.DeliveryConverter;
@@ -23,6 +26,9 @@ public class DeliveryServiceImpl implements DeliveryService {
     @Autowired
     private DeliveryRepository deliveryRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
     @Override
     @Transactional(readOnly = true)
     @PreAuthorize("hasAuthority('DELIVERY_READ')")
@@ -37,8 +43,15 @@ public class DeliveryServiceImpl implements DeliveryService {
     @Override
     @Transactional(readOnly = true)
     @PreAuthorize("hasAuthority('DELIVERY_LIST_READ')")
-    public List<DeliveryListElementDto> getAllDeliveries() {
-        List<Delivery> deliveries = deliveryRepository.findAll();
+    public List<DeliveryListElementDto> getAllDeliveries(String username) {
+        List<Delivery> deliveries;
+        User user=userRepository.find(username);
+        if (user.getUserRoles().stream().anyMatch(x->x.getName().equals(Constants.ADMIN_ROLE))) {
+            deliveries = deliveryRepository.findAll();
+        } else {
+            deliveries = deliveryRepository.findAll().stream().filter(x->x.getSenderWarehouse().getOffice().getDepartment().getCompany()
+                    .getId().equals(user.getOffice().getDepartment().getCompany().getId())).collect(Collectors.toList());
+        }
         List<DeliveryListElementDto> companiesDto = new ArrayList<>();
         for (Delivery a : deliveries) {
             if (!a.isDeleted()) {
@@ -52,7 +65,7 @@ public class DeliveryServiceImpl implements DeliveryService {
     @Transactional(readOnly = true)
     @PreAuthorize("hasAuthority('DELIVERY_LIST_READ')")
     public List<DeliveryListElementDto> getAllDeliveriesForWarehouseman(Long id) {
-        List<Delivery> deliveries = deliveryRepository.findAll().stream().filter(x->x.getSenderWarehouse().getUser().getId().equals(id)).collect(Collectors.toList());
+        List<Delivery> deliveries = deliveryRepository.findAll().stream().filter(x -> x.getSenderWarehouse().getUser().getId().equals(id)).collect(Collectors.toList());
         List<DeliveryListElementDto> companiesDto = new ArrayList<>();
         for (Delivery a : deliveries) {
             if (!a.isDeleted()) {
@@ -80,7 +93,7 @@ public class DeliveryServiceImpl implements DeliveryService {
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('DELIVERY_UPDATE')")
-    public void updateDelivery(Delivery delivery)throws ServiceException {
+    public void updateDelivery(Delivery delivery) throws ServiceException {
         deliveryRepository.update(delivery);
     }
 

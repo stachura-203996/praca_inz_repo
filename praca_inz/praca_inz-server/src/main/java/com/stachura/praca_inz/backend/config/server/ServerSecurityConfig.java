@@ -2,6 +2,7 @@ package com.stachura.praca_inz.backend.config.server;
 
 import com.stachura.praca_inz.backend.config.encryption.Encoders;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,6 +22,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class ServerSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
+    @Qualifier("userDetailsServiceImpl")
     @Autowired
     private UserDetailsService userDetailsService;
 

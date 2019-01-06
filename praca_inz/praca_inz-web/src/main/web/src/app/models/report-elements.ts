@@ -4,10 +4,19 @@ export class ReportListElement {
     reportDate: string;
     description: string;
     sender:string;
-    reciever:string;
+    receiver:string;
 }
 export class ReportAddElement {
     title: string;
     description: string;
-    reciever:string
+    reciever:number
+}
+
+export class ReportViewElement {
+    id: number;
+    title: string;
+    reportDate: string;
+    description: string;
+    sender:string;
+    receiver:string;
 }

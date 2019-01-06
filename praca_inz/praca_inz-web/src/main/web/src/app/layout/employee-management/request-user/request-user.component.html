@@ -30,22 +30,22 @@
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">
                             <button type="submit"
-                                    [routerLink]="['/structures/offices/view/'+request.id]"
+                                    (click)="viewPage(request)"
                                     class="btn btn-info btn-sm">
                                 <i class="fa fa-eye"></i>&nbsp;
-                                <span class="d-none d-md-inline">View</span>
+                                <span class="d-none d-md-inline">{{'View'|translate}}</span>
                             </button>
                             <button type="submit"
-                                    [routerLink]="['./edit/'+request.id]"
+                                    (click)="editPage(request)"
                                     queryParamsHandling="merge"
                                     class="btn btn-primary btn-sm">
                                 <i class="fa fa-pencil"></i>&nbsp;
-                                <span class="d-none d-md-inline">Edit</span>
+                                <span class="d-none d-md-inline">{{'Edit'|translate}}</span>
                             </button>
-                            <button type="button" (click)="delete(request)"
+                            <button type="button" (click)="cancel(request)"
                                     class="btn btn-danger btn-sm">
                                 <i class="fa fa-times"></i>&nbsp;
-                                <span class="d-none d-md-inline">Delete</span>
+                                <span class="d-none d-md-inline">{{'Delete'|translate}}</span>
                             </button>
                         </div>
                     </td>
@@ -55,7 +55,7 @@
         </ng-template>
     </ngb-tab>
     <ngb-tab>
-        <ng-template ngbTabTitle>{{'EmployeesRequests'|translate}}</ng-template>
+        <ng-template ngbTabTitle>{{'IncomingRequests'|translate}}</ng-template>
         <ng-template ngbTabContent>
             <table class="table table-striped" align="center">
                 <thead class="thead-inverse">
@@ -82,22 +82,20 @@
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">
                             <button type="submit"
-                                    [routerLink]="['/structures/offices/view/'+request.id]"
+                                    (click)="viewPage(request)"
                                     class="btn btn-info btn-sm">
                                 <i class="fa fa-eye"></i>&nbsp;
-                                <span class="d-none d-md-inline">View</span>
+                                <span class="d-none d-md-inline">{{'View'|translate}}</span>
                             </button>
-                            <button type="submit"
-                                    [routerLink]="['./edit/'+request.id]"
-                                    queryParamsHandling="merge"
-                                    class="btn btn-primary btn-sm">
-                                <i class="fa fa-pencil"></i>&nbsp;
-                                <span class="d-none d-md-inline">Edit</span>
-                            </button>
-                            <button type="button" (click)="delete(request)"
+                            <button type="button" (click)="accept(request)"
                                     class="btn btn-danger btn-sm">
                                 <i class="fa fa-times"></i>&nbsp;
-                                <span class="d-none d-md-inline">Delete</span>
+                                <span class="d-none d-md-inline">{{'Accept'|translate}}</span>
+                            </button>
+                            <button type="button" (click)="reject(request)"
+                                    class="btn btn-danger btn-sm">
+                                <i class="fa fa-times"></i>&nbsp;
+                                <span class="d-none d-md-inline">{{'Reject'|translate}}</span>
                             </button>
                         </div>
                     </td>

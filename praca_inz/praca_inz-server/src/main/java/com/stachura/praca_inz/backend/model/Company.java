@@ -32,7 +32,7 @@ public class Company implements Serializable {
     @Column(name = "NAME", nullable = false)
     private String name;
 
-    @Column(name = "DESCRIPTION")
+    @Column(name = "DESCRIPTION",columnDefinition ="TEXT")
     private String description;
 
     @Column(name = "DELETED", nullable = false)

@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {CookieService} from "ngx-cookie-service";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Router} from "@angular/router";
+import {SessionContextService} from "../shared/services/session-context.service";
 
 @Injectable({
     providedIn: 'root'
@@ -10,7 +11,7 @@ export class LoginService {
 
 
     constructor(
-        private router: Router, private http: HttpClient, private cookieService: CookieService) {
+        private router: Router, private http: HttpClient, private cookieService: CookieService,private sessionContextService:SessionContextService) {
     }
 
     obtainAccessToken(loginData) {

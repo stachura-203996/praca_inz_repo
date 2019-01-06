@@ -20,7 +20,8 @@ import java.util.Set;
 public class Office implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "OfficeGen", sequenceName = "office_id_seq",initialValue = 5,allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "OfficeGen")
     @Column(name = "ID", updatable = false, nullable = false)
     private Long id = null;
 
@@ -40,7 +41,7 @@ public class Office implements Serializable {
     @JsonBackReference
     private Department department;
 
-    @Column(name = "DESCRIPTION")
+    @Column(name = "DESCRIPTION",columnDefinition ="TEXT")
     private String description;
 
     @Column(name = "DELETED", nullable = false)

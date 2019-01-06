@@ -1,6 +1,5 @@
-<div [@routerTransition]>
-    <!--<div class="col-sm-12 col-md-8 offset-md-2">-->
-    <h1>{{ 'Subordinates' | translate }}</h1>
+<div class="col-xl-12">
+<h1>{{ 'Subordinates' | translate }}</h1>
 
     <div class="row">
         <div class="col-lg-10">
@@ -33,17 +32,10 @@
                         <i class="fa fa-eye"></i>&nbsp;
                         <span class="d-none d-md-inline">View</span>
                     </button>
-                    <button type="submit"
-                            [routerLink]="['./edit']"
-                            queryParamsHandling="merge"
-                            class="btn btn-primary btn-sm">
-                        <i class="fa fa-pencil"></i>&nbsp;
-                        <span class="d-none d-md-inline">Edit</span>
-                    </button>
                 </div>
             </td>
         </tr>
         </tbody>
     </table>
 </div>
-<!--</div>-->
+

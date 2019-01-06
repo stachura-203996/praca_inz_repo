@@ -29,47 +29,26 @@ export class WarehouseRequestListComponent implements OnInit {
     }
 
     getRequests(){
-        this.requestService.getAllRequestsForLoggedUser(this.TRANSFER_REQUEST).subscribe(requests=> {this.warehousesRequests=requests});
-        this.requestService.getAllRequestsForLoggedUser(this.TRANSFER_REQUEST).subscribe(requests=> {this.otherWarehousesRequests=requests});
-        this.requestService.getAllRequestsForLoggedUser(this.TRANSFER_REQUEST).subscribe(requests=> {this.employeesRequests=requests});
+        this.requestService.getAllRequestsForWarehouseman().subscribe(requests=> {this.warehousesRequests=requests});
+        this.requestService.getAllRequestsFromOtherWarehouses().subscribe(requests=> {this.otherWarehousesRequests=requests});
+        this.requestService.getAllRequestsFromOtherUsers().subscribe(requests=> {this.employeesRequests=requests});
     }
 
-    getAddress(office:StructureListElement): string {
-        if (office.flatNumber== null || office.flatNumber === "0") {
-            return (office.street + ' ' + office.buildingNumber);
-        } else {
-            return (office.street + ' ' + office.buildingNumber + ' / ' + office.flatNumber);
-        }
-    }
 
-    filterUsers(searchText: string) {
-        // this.userService.getAllNotificationsForUser().subscribe(users => {
-        //     if (!users) {
-        //         this.users = [];
-        //         return;
+
+
+
+    cancel(structure: StructureListElement) {
+        // const modalRef = this.modalService.open(UserMgmtDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
+        // modalRef.componentInstance.user = user;
+        // modalRef.result.then(
+        //     result => {
+        //         // Left blank intentionally, nothing to do here
+        //     },
+        //     reason => {
+        //         // Left blank intentionally, nothing to do here
         //     }
-        //     if (!searchText || searchText.length < 2) {
-        //         if (this.notVerifiedFilter) {
-        //             this.users = users.filter(it => {
-        //                 return it.verified === !this.notVerifiedFilter;
-        //             });
-        //         } else {
-        //             this.users = users;
-        //         }
-        //         return;
-        //     }
-        //
-        //     searchText = searchText.toLowerCase();
-        //     this.users = users.filter(it => {
-        //         const fullname = it.name + ' ' + it.surname;
-        //         const ok = fullname.toLowerCase().includes(searchText);
-        //         if (!this.notVerifiedFilter) {
-        //             return ok;
-        //         } else {
-        //             return ok && it.verified === !this.notVerifiedFilter;
-        //         }
-        //     });
-        // });
+        // );
     }
 
     delete(structure: StructureListElement) {

@@ -3,23 +3,19 @@ import {CookieService} from 'ngx-cookie-service';
 import {LoggedUser} from "../../models/logged-user";
 import {Observable} from 'rxjs';
 import {Subject} from "rxjs";
-import {LoginService} from "../../login/login.service";
-import {HttpService} from "./http.service";
 import {UserService} from "../../layout/admin/components/administration/user-management/user.service";
 
 @Injectable()
 export class SessionContextService {
 
     private userLoggedIn = new Subject();
-     loggedUser:LoggedUser;
+    loggedUser: LoggedUser;
 
-    constructor(private cookieService: CookieService, private userService:UserService) {
-        this.initLoggedUser();
+    constructor(private cookieService: CookieService, private userService: UserService) {
+
     }
 
-    initLoggedUser():void{
-       this.userService.getLoggedUser().subscribe( x=>{this.loggedUser=x});
-    }
+
 
     watchSession(): Observable<any> {
         return this.userLoggedIn;

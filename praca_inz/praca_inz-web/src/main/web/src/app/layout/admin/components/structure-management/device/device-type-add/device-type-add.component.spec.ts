@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DeviceRequestListComponent } from './device-request-list.component';
+import { DeviceTypeAddComponent } from './device-type-add.component';
 
-describe('DeviceRequestListComponent', () => {
-  let component: DeviceRequestListComponent;
-  let fixture: ComponentFixture<DeviceRequestListComponent>;
+describe('DeviceTypeAddComponent', () => {
+  let component: DeviceTypeAddComponent;
+  let fixture: ComponentFixture<DeviceTypeAddComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DeviceRequestListComponent ]
+      declarations: [ DeviceTypeAddComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DeviceRequestListComponent);
+    fixture = TestBed.createComponent(DeviceTypeAddComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
