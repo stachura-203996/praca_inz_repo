@@ -15,7 +15,7 @@ public class WebApplicationConfig implements WebMvcConfigurer {
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/notFound").setViewName("forward:/index.html");
+        registry.addViewController("/notFound").setViewName("forward:/ui/index.html");
     }
 
 

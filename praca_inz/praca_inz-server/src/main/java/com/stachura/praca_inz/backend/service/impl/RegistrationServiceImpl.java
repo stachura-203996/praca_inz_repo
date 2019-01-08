@@ -57,6 +57,7 @@ public class RegistrationServiceImpl implements RegistrationService {
         user.setOffice(officeRepository.find(data.getOfficeId()));
         user.setAccountLocked(false);
         user.setCredentialsExpired(false);
+
         if(data.getRoles()!=null) {
             List<UserRole> userRoles = userRoleRepository.findAll().stream().filter(x -> data.getRoles().stream().anyMatch(name -> name.equals(x.getName())))
                     .collect(Collectors.toList());
