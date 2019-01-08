@@ -40,8 +40,7 @@ public class ReportController {
     @Autowired
     private UserRepository userRepository;
 
-    @Value("${server.port}")
-    private String port;
+
 
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
@@ -81,8 +80,8 @@ public class ReportController {
         try {
             Report report =ReportConverter.toReport(reportAddDto,userRepository,auth.getName());
             id = reportService.createNewReport(report);
-//            notificationService.createNewNotification(getReportSentNotifiaction(report,port,id));
-//            notificationService.createNewNotification(getReportReceivedNotifiaction(report,port,id));
+            notificationService.createNewNotification(getReportSentNotifiaction(report,id));
+            notificationService.createNewNotification(getReportReceivedNotifiaction(report,id));
         } catch (ServiceException e) {
             e.printStackTrace();
         }
@@ -122,35 +121,29 @@ public class ReportController {
 
 
 
-    Notification getReportSentNotifiaction(Report report,String port,Long id){
-        String link = "<a href=\"\"http://localhost:\"" + port + "\"/page/employees/reports/view"+ id+"\">Click</a>";
+    Notification getReportSentNotifiaction(Report report,Long id){
         Notification notification = new Notification();
-        notification.setUrl("localhost:" + port + "/page/employees/reports/view" + id);
+        notification.setUrl("/page/employees/reports/view/" + id);
         notification.setUser(report.getSender());
         notification.setReaded(false);
         notification.setTitle("Report sended");
         notification.setCalendarTimestamp(Calendar.getInstance());
         notification.setDeleted(false);
-        notification.setDescription("Your report was sent to:" + report.getReciever().getUsername() + "\n+ \n"
-                + "Report title: " + report.getTitle() + "\n \n"
-                + "Report description:" + report.getDescription() + "\n \n"
-                + link);
+        notification.setDescription("Your report was sent to: " + report.getReciever().getUsername() + " Report title: " + report.getTitle()
+                + "Report description: " + report.getDescription());
         return notification;
     }
 
-    Notification getReportReceivedNotifiaction(Report report,String port,Long id){
-        String link = "<a href=\"\"http://localhost:\"" + port + "\"/page/employees/reports/view"+ id+"\">Click</a>";
+    Notification getReportReceivedNotifiaction(Report report,Long id){
         Notification notification = new Notification();
-        notification.setUrl("localhost:" + port + "/page/employees/reports/view" + id);
+        notification.setUrl("/page/employees/reports/view/" + id);
         notification.setUser(report.getReciever());
         notification.setReaded(false);
-        notification.setTitle("Report sended");
+        notification.setTitle("Report recieved");
         notification.setCalendarTimestamp(Calendar.getInstance());
         notification.setDeleted(false);
-        notification.setDescription("You get report from:" + report.getSender().getUsername() + "\n+ \n"
-                + "Report title: " + report.getTitle() + "\n \n"
-                + "Report description:" + report.getDescription() + "\n \n"
-                + "localhost:" + port + "/page/employees/reports/view" + id);
+        notification.setDescription("You get report from: " + report.getSender().getUsername() + "Report title: " + report.getTitle()
+                + "Report description: " + report.getDescription());
         return notification;
     }
 

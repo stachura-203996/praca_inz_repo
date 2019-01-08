@@ -41,11 +41,11 @@ public class Transfer implements Serializable {
     @Column(name = "DESCRIPTION")
     private String description;
 
-    @Basic(optional = false)
+    @Basic
     @NotNull
-    @Column(name = "TRANSFER_DATE")
-    @Temporal(TemporalType.DATE)
-    private Date transferData;
+    @Column(name = "TRANSFER_DATE", nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private java.util.Calendar transferDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference

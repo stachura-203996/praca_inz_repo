@@ -53,14 +53,17 @@ public class User implements UserDetails, Serializable {
     @Column(name = "ENABLED")
     private boolean enabled;
 
-
     @ManyToOne(fetch = FetchType.EAGER)
     @JsonBackReference
     private Office office;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER,optional = false)
     @JoinColumn(name = "USERDATA_ID")
     private Userdata userdata;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY, orphanRemoval = true)
+    @JsonManagedReference
+    private Set<Warehouse> warehouses = new HashSet<>();
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "sender", fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonManagedReference

@@ -14,7 +14,11 @@ export class RequestListElement {
     version:string
 }
 
-
+export class ChangeRequestStatusElement{
+    id: number;
+    status: string;
+    version:string;
+}
 //ADD
 
 export class TransferRequestAddElement {
@@ -30,7 +34,7 @@ export class DeviceRequestAddElement {
     title: string;
     amount:string;
     description: string;
-    deviceModel:number;
+    deviceModelId:number;
 }
 
 export class DeliveryRequestAddElement {
@@ -50,41 +54,6 @@ export class ShipmentRequestAddElement {
     recieverWarehouseId:number;
 }
 
-//EDIT
-
-export class TransferRequestEditElement {
-    id: number;
-    title: string;
-    description: string;
-    deviceId:string;
-    recieverWarehouseId:number;
-}
-
-export class DeviceRequestEditElement {
-    id: number;
-    title: string;
-    amount:string;
-    description: string;
-    deviceModel:number
-}
-
-export class DeliveryRequestEditElement {
-    id: number;
-    title: string;
-    amount:string;
-    description: string;
-    deviceModel:number;
-}
-
-export class ShipmentRequestEditElement {
-    id: number;
-    title: string;
-    amount:string;
-    description: string;
-    deviceId:number;
-    recieverWarehouseId:number;
-}
-
 //VIEW
 
 export class RequestViewElement {
@@ -92,13 +61,14 @@ export class RequestViewElement {
     title: string;
     username: string;
     status: string;
-    type:string
-    acceptedToSend: boolean;
-    acceptedToRecive: boolean;
+    type:string;
+    deviceModelName:string;
     recieverWarehouseName:string;
     senderWarehouseName:string;
-    version:string;
     createDate:string;
+    description:string;
+    version:string;
+    amount:string;
 }
 
 

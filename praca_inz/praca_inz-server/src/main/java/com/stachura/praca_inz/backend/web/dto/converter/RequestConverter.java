@@ -9,9 +9,7 @@ import com.stachura.praca_inz.backend.repository.interfaces.DeviceRepository;
 import com.stachura.praca_inz.backend.repository.interfaces.WarehouseRepository;
 import com.stachura.praca_inz.backend.web.dto.request.*;
 
-import java.util.Calendar;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class RequestConverter {
 
@@ -22,10 +20,8 @@ public class RequestConverter {
                 .username(request.getUser().getUsername())
                 .status(request.getStatus().name())
                 .type(request.getRequestType().name())
-                .acceptedToSend(request.isAcceptedToSend())
-                .acceptedToRecive(request.isAcceptedToRecive())
                 .recieverWarehouseName(request.getRecieverWarehouse().getName())
-                .senderWarehouseName(request.getSenderWarehouse().getName())
+                .senderWarehouseName(request.getSenderWarehouse()==null?" ":request.getSenderWarehouse().getName())
                 .createDate(request.getCreateDate().getTime().toString())
                 .build();
     }
@@ -34,24 +30,24 @@ public class RequestConverter {
         return RequestViewDto.builder()
                 .id(request.getId())
                 .title(request.getTitle())
+                .deviceModelName(request.getDeviceModel().getName())
+                .description(request.getDescription())
                 .username(request.getUser().getUsername())
                 .status(request.getStatus().name())
                 .type(request.getRequestType().name())
-                .acceptedToSend(request.isAcceptedToSend())
-                .acceptedToRecive(request.isAcceptedToRecive())
                 .recieverWarehouseName(request.getRecieverWarehouse().getName())
-                .senderWarehouseName(request.getSenderWarehouse().getName())
+                .senderWarehouseName(request.getSenderWarehouse()==null?" ":request.getSenderWarehouse().getName())
                 .createDate(request.getCreateDate().getTime().toString())
+                .amount(request.getAmount())
                 .build();
     }
 
     public static Request toRequest(TransferRequestAddDto transferRequestAddDto, DeviceRepository deviceRepository, WarehouseRepository warehouseRepository, User user) {
         Request request = new Request();
-        request.setAcceptedToRecive(false);
-        request.setAcceptedToSend(false);
         request.setDeleted(false);
         request.setDescription(transferRequestAddDto.getDescription());
         Device device = deviceRepository.find(transferRequestAddDto.getDeviceId());
+        request.setDeviceModel(device.getDeviceModel());
         request.setRequestType(RequestType.TRANSFER_REQUEST);
         request.setRecieverWarehouse(warehouseRepository.find(transferRequestAddDto.getRecieverWarehouseId()));
         request.setSenderWarehouse(device.getWarehouse());
@@ -59,13 +55,14 @@ public class RequestConverter {
         request.setTitle(transferRequestAddDto.getTitle());
         request.setUser(user);
         request.setCreateDate(Calendar.getInstance());
+        List<Device> deviceList=new ArrayList<>();
+        deviceList.add(device);
+        request.setDevices(deviceList);
         return request;
     }
 
     public static Request toRequest(DeviceRequestAddDto deviceRequestAddDto, DeviceModelRepository deviceModelRepository, WarehouseRepository warehouseRepository, User user) {
         Request request = new Request();
-        request.setAcceptedToRecive(false);
-        request.setAcceptedToSend(false);
         request.setDeleted(false);
         request.setAmount(deviceRequestAddDto.getAmount());
         request.setDescription(deviceRequestAddDto.getDescription());
@@ -75,6 +72,8 @@ public class RequestConverter {
         request.setRecieverWarehouse(warehouseRepository.findUserWarehouse(user.getId()));
         request.setStatus(Status.WAITING);
         request.setTitle(deviceRequestAddDto.getTitle());
+        List<Device> deviceList=new ArrayList<>();
+        request.setDevices(deviceList);
         request.setUser(user);
         request.setCreateDate(Calendar.getInstance());
         return request;
@@ -82,8 +81,6 @@ public class RequestConverter {
 
     public static Request toRequest(DeliveryRequestAddDto deliveryRequestAddDto, DeviceModelRepository deviceModelRepository, WarehouseRepository warehouseRepository, User user) {
         Request request = new Request();
-        request.setAcceptedToRecive(false);
-        request.setAcceptedToSend(false);
         request.setDeleted(false);
         request.setAmount(deliveryRequestAddDto.getAmount());
         request.setDescription(deliveryRequestAddDto.getDescription());
@@ -100,8 +97,6 @@ public class RequestConverter {
 
     public static Request toRequest(ShipmentRequestAddDto shipmentRequestAddDto, DeviceRepository deviceRepository, WarehouseRepository warehouseRepository, User user) {
         Request request = new Request();
-        request.setAcceptedToRecive(false);
-        request.setAcceptedToSend(false);
         request.setDeleted(false);
         request.setDescription(shipmentRequestAddDto.getDescription());
         Device device = deviceRepository.find(shipmentRequestAddDto.getDeviceId());

@@ -12,5 +12,4 @@ public class DeviceRequestAddDto {
     private int amount;
     private String description;
     private Long  deviceModelId;
-    private String recieverWarehouseId;
 }

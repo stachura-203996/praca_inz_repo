@@ -7,7 +7,6 @@ import {DeliveryRequestViewComponent} from "./delivery-request-view/delivery-req
 import {WarehouseRequestListComponent} from "./warehouse-request-list/warehouse-request-list.component";
 import {ShipmentRequestAddComponent} from "./shipment-request-add/shipment-request-add.component";
 import {ShipmentRequestViewComponent} from "./shipment-request-view/shipment-request-view.component";
-import {ShipmentRequestEditComponent} from "./shipment-request-edit/shipment-request-edit.component";
 import {DeliveryListComponent} from "./delivery-list/delivery-list.component";
 import {ShipmentListComponent} from "./shipment-list/shipment-list.component";
 import {DeviceAddComponent} from "./device-add/device-add.component";
@@ -25,10 +24,8 @@ const routes: Routes = [
     {path:'delivery', component: DeliveryListComponent},
     {path:'shipment', component: ShipmentListComponent},
     {path:'delivery/request/add', component: DeliveryRequestAddComponent},
-    {path:'delivery/request/edit/:id', component: DeliveryRequestAddComponent},
     {path:'delivery/request/view/:id', component: DeliveryRequestViewComponent},
     {path:'shipment/request/add', component: ShipmentRequestAddComponent},
-    {path:'shipment/request/edit/:id', component: ShipmentRequestEditComponent},
     {path:'shipment/request/view/:id', component: ShipmentRequestViewComponent},
 
 

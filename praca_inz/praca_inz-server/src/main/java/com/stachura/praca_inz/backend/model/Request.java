@@ -51,7 +51,7 @@ public class Request {
     @Enumerated(EnumType.STRING)
     private Status status;
 
-    @Column(name = "AMOUNT")
+    @Column(name = "AMOUNT", nullable = false)
     private int amount;
 
     @Column(name = "REQUEST_TYPE", nullable = false)
@@ -60,12 +60,6 @@ public class Request {
 
     @Column(name = "DESCRIPTION" , columnDefinition ="TEXT")
     private String description;
-
-    @Column(name = "ACCEPTED_TO_SEND", nullable = false)
-    private boolean acceptedToSend;
-
-    @Column(name = "ACCEPTED_TO_RECIEVE", nullable = false)
-    private boolean acceptedToRecive;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
@@ -86,7 +80,7 @@ public class Request {
     @JoinTable(name = "REQUESTS_DEVICES", joinColumns = @JoinColumn(name = "REQUEST_ID", referencedColumnName = "ID"), inverseJoinColumns = @JoinColumn(name = "DEVICE_ID", referencedColumnName = "ID"))
     @OrderBy
     @JsonIgnore
-    private Collection<UserRole> devices;
+    private Collection<Device> devices;
 
     @Column(name = "DELETED", nullable = false)
     private boolean deleted;

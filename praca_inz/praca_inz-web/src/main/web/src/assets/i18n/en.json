@@ -118,6 +118,12 @@
     "EmployeesRequests":"Employees requests",
     "OtherWarehouseRequests":"Other warehouse's requests",
     "YourWarehouseRequests":"Yours warehouse's requests",
-    "DevicesTypes":"Devices types"
+    "DevicesTypes":"Devices types",
+    "Location":"Location",
+    "LastUpdate":"Last update",
+    "Person responsible for":"Person responsible for",
+    "CreateDevice":"Create device",
+    "Amount of devices":"Amount of devices",
+    "RequestView":"Request view"
 
 }

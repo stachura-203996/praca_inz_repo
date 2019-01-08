@@ -82,7 +82,7 @@ public class DeviceController {
     public @ResponseBody
     List<DeviceListElementDto> getAllDevicesForShipmentRequest() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        return deviceService.getAllDevicesForRequest(auth.getName());
+        return deviceService.getAllDevicesForShipmentRequest(auth.getName());
     }
 
     @RequestMapping(value = "/user/{username}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)

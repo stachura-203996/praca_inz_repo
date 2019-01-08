@@ -39,9 +39,15 @@ $topnav-background-color: #222;
             }
             .last {
                 font-size: 12px;
+                max-width:300px ;
                 margin: 0;
             }
+
         }
     }
 }
 
+.p{
+    max-width: 150px;
+    word-wrap: break-word;
+}

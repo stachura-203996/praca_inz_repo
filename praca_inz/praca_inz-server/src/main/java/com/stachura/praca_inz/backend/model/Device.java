@@ -45,7 +45,7 @@ public class Device implements Serializable {
     @Enumerated(EnumType.STRING)
     private DeviceStatus status;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY,optional = false)
     @JsonBackReference
     private DeviceModel deviceModel;
 

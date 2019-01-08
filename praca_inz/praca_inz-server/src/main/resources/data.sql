@@ -45,9 +45,10 @@ INSERT INTO DEPARTMENT(ID, VERSION, DELETED,NAME, COMPANY_ID) VALUES (5,0,FALSE 
  INSERT INTO OFFICE(ID, VERSION,DELETED, NAME, ADDRESS_ID, DEPARTMENT_ID) VALUES (4,0, FALSE ,'Office of A Los Angeles', 7, 3);
 
 
- INSERT INTO USERDATA(ID, VERSION, NAME, SURNAME, EMAIL,ADDRESS_ID ) VALUES (1,0, 'John', 'William','email@email.com', 1);
- INSERT INTO USERDATA(ID, VERSION, NAME, SURNAME, ADDRESS_ID ) VALUES (2,0, 'Robert', 'James', 2);
- INSERT INTO USERDATA(ID, VERSION, NAME, SURNAME, ADDRESS_ID ) VALUES (3,0, 'Donald', 'Tyler', 3);
+ INSERT INTO USERDATA(ID, VERSION, NAME, SURNAME, EMAIL,ADDRESS_ID ) VALUES (1,0, 'Tomasz', 'Stachura','email@email.com', 1);
+ INSERT INTO USERDATA(ID, VERSION, NAME, SURNAME, EMAIL,ADDRESS_ID ) VALUES (2,0, 'Robert', 'William','email@email.com', 2);
+ INSERT INTO USERDATA(ID, VERSION, NAME, SURNAME, EMAIL,ADDRESS_ID ) VALUES (3,0, 'David', 'William','email@email.com', 3);
+ INSERT INTO USERDATA(ID, VERSION, NAME, SURNAME, EMAIL,ADDRESS_ID ) VALUES (4,0, 'John', 'William','email@email.com', 4);
 
 INSERT INTO OAUTH_CLIENT_DETAILS(CLIENT_ID, RESOURCE_IDS, CLIENT_SECRET, SCOPE, AUTHORIZED_GRANT_TYPES, AUTHORITIES, ACCESS_TOKEN_VALIDITY, REFRESH_TOKEN_VALIDITY)
 	VALUES ('spring-security-oauth2-read-client', 'resource-server-rest-api',
@@ -136,7 +137,7 @@ INSERT INTO USER_(ID, VERSION, USER_NAME, PASSWORD, ACCOUNT_EXPIRED, ACCOUNT_LOC
   VALUES (3,0, 'modifier', /*modifier1234*/'$2a$08$kPjzxewXRGNRiIuL4FtQH.mhMn7ZAFBYKB3ROz.J24IX8vDAcThsG', FALSE, FALSE, FALSE, TRUE,3,3);
 
 INSERT INTO USER_(ID, VERSION, USER_NAME, PASSWORD, ACCOUNT_EXPIRED, ACCOUNT_LOCKED, CREDENTIALS_EXPIRED, ENABLED,USERDATA_ID,OFFICE_ID)
-  VALUES (4,0, 'reader2', /*reader1234*/'$2a$08$vVXqh6S8TqfHMs1SlNTu/.J25iUCrpGBpyGExA.9yI.IlDRadR6Ea', FALSE, FALSE, FALSE, TRUE,3,4);
+  VALUES (4,0, 'reader2', /*reader1234*/'$2a$08$vVXqh6S8TqfHMs1SlNTu/.J25iUCrpGBpyGExA.9yI.IlDRadR6Ea', FALSE, FALSE, FALSE, TRUE,4,4);
 
 INSERT INTO USER_ROLE(ID,VERSION,NAME,ACTIVE) VALUES (1,0,'ADMIN',TRUE );
 INSERT INTO USER_ROLE(ID,VERSION,NAME,ACTIVE) VALUES (2,0,'USER',TRUE );
@@ -232,8 +233,8 @@ INSERT INTO  WAREHOUSE(ID, VERSION,DELETED,USER_ID,NAME,OFFICE_ID,WAREHOUSE_TYPE
 INSERT INTO public.device_type (id, name, version) VALUES (1, 'komputer', 0);
 INSERT INTO public.device_type (id, name, version) VALUES (2, 'mysz', 0);
 
-INSERT INTO public.device_model (id, deleted, manufacture, name, version, company_id, device_type_id) VALUES (1, false, 'pol', 'COMPUTER', 0, 1, 1);
-INSERT INTO public.device_model (id, deleted, manufacture, name, version, company_id, device_type_id) VALUES (2, false, 'hjh', 'myszka', 0, 1, 2);
+INSERT INTO public.device_model (id, cost, deleted, manufacture, name, version, company_id, device_type_id) VALUES (2, 2, false, 'hjh', 'myszka', 0, 1, 2);
+INSERT INTO public.device_model (id, cost, deleted, manufacture, name, version, company_id, device_type_id) VALUES (1, 2, false, 'pol', 'COMPUTER', 0, 1, 1);
 
 
 INSERT INTO DEVICE(ID, VERSION,DELETED,NAME,SERIAL_NUMBER, WAREHOUSE_ID,DEVICE_MODEL_ID,LAST_UPDATE,COMPANY_ID,STATUS) VALUES (1,0,FALSE ,'Komputer', 'XYZ10ABC', 1,1,'2018-03-12 12:00',1,'REPOSE');
@@ -257,7 +258,7 @@ INSERT INTO public.delivery (id, delivery_date, deleted, description, last_updat
 
 INSERT INTO report(ID,VERSION,DELETED,TITLE,SENDER_ID,RECIEVER_ID,REPORT_DATE,DISABLE_SENDER,DISABLE_RECIEVER,DESCRIPTION) VALUES (1,0,FALSE ,'title',1,1,'2011-03-12 13:00',FALSE,FALSE,'opis');
 
-INSERT INTO public.request (id, accepted_to_recieve, accepted_to_send, deleted, description, request_type, status, title, request_date, version, reciever_warehouse_id, sender_warehouse_id, user_id) VALUES (4, false, false, false, 'opis', 'SHIPMENT_REQUEST', 'WAITING', 'title', '2011-03-12 13:00:00.000000', 0, 1, 2, 1);
-INSERT INTO public.request (id, accepted_to_recieve, accepted_to_send, deleted, description, request_type, status, title, request_date, version, reciever_warehouse_id, sender_warehouse_id, user_id) VALUES (1, false, false, false, 'opis', 'DELIVERY_REQUEST', 'WAITING', 'title', '2011-03-12 13:00:00.000000', 0, 1, 2, 1);
-INSERT INTO public.request (id, accepted_to_recieve, accepted_to_send, deleted, description, request_type, status, title, request_date, version, reciever_warehouse_id, sender_warehouse_id, user_id) VALUES (2, false, false, false, 'opis', 'TRANSFER_REQUEST', 'WAITING', 'title', '2011-03-12 13:00:00.000000', 0, 1, 2, 1);
-INSERT INTO public.request (id, accepted_to_recieve, accepted_to_send, deleted, description, request_type, status, title, request_date, version, reciever_warehouse_id, sender_warehouse_id, user_id) VALUES (3, false, false, false, 'opis', 'DEVICE_REQUEST', 'WAITING', 'title', '2011-03-12 13:00:00.000000', 0, 1, 2, 1);
+INSERT INTO public.request (id, deleted, description, request_type, status, title, request_date, version, reciever_warehouse_id, sender_warehouse_id, user_id,AMOUNT) VALUES (4,false ,'opis', 'SHIPMENT_REQUEST', 'WAITING', 'title', '2011-03-12 13:00:00.000000', 0 , 1, 2, 1,2);
+INSERT INTO public.request (id,deleted, description, request_type, status, title, request_date, version, reciever_warehouse_id, sender_warehouse_id, user_id,AMOUNT) VALUES (1, false,'opis', 'DELIVERY_REQUEST', 'WAITING', 'title', '2011-03-12 13:00:00.000000', 0, 1, 2, 1,2);
+INSERT INTO public.request (id, deleted, description, request_type, status, title, request_date, version, reciever_warehouse_id, sender_warehouse_id, user_id,AMOUNT) VALUES (2, false,'opis', 'TRANSFER_REQUEST', 'WAITING', 'title', '2011-03-12 13:00:00.000000', 0, 1, 2, 1,1);
+INSERT INTO public.request (id, deleted, description, request_type, status, title, request_date, version, reciever_warehouse_id, sender_warehouse_id, user_id,AMOUNT) VALUES (3,false,'opis', 'DEVICE_REQUEST', 'WAITING', 'title', '2011-03-12 13:00:00.000000', 0, 1, 2, 1,4);

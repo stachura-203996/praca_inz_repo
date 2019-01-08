@@ -198,7 +198,7 @@ public class DeviceServiceImpl implements DeviceService {
     @Override
     @Transactional(readOnly = true)
     @PreAuthorize("hasAuthority('DEVICE_LIST_READ')")
-    public List<DeviceListElementDto> getAllDevicesForRequest(String name) {
+    public List<DeviceListElementDto> getAllDevicesForShipmentRequest(String name) {
         List<Device> devices = deviceRepository.findAll().stream().filter(x -> x.getWarehouse().getUser().getUsername().equals(name) &&
                 x.getWarehouse().getWarehouseType().name().equals(WarehouseType.OFFICE.name()) && x.getStatus().name().equals(DeviceStatus.REPOSE.name())).collect(Collectors.toList());
         List<DeviceListElementDto> devicesDto = new ArrayList<>();

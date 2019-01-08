@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DeviceRequestEditComponent } from './device-request-edit.component';
+import { ReportRequestAddComponent } from './report-request-add.component';
 
-describe('DeviceRequestEditComponent', () => {
-  let component: DeviceRequestEditComponent;
-  let fixture: ComponentFixture<DeviceRequestEditComponent>;
+describe('ReportRequestAddComponent', () => {
+  let component: ReportRequestAddComponent;
+  let fixture: ComponentFixture<ReportRequestAddComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DeviceRequestEditComponent ]
+      declarations: [ ReportRequestAddComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DeviceRequestEditComponent);
+    fixture = TestBed.createComponent(ReportRequestAddComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -3,6 +3,8 @@ import {CookieService} from "ngx-cookie-service";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {SessionContextService} from "../shared/services/session-context.service";
+import {DatePipe} from "@angular/common";
+import {Timestamp} from "rxjs";
 
 @Injectable({
     providedIn: 'root'
@@ -35,7 +37,8 @@ export class LoginService {
     }
 
     saveToken(token) {
-        var expireDate = new Date().getTime() + (1000 * token.expires_in);
+        var expireDate = Math.floor(new Date().getTime()/1000) +token.expires_in;
+
         this.cookieService.set('access_token', token.access_token, expireDate);
         console.log('Obtained Access token');
         this.router.navigateByUrl('/page')

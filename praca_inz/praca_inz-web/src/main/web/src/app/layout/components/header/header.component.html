@@ -1,7 +1,6 @@
 <nav class="navbar navbar-expand-lg fixed-top">
     <a class="navbar-brand" href="#">Inventory system </a>
     <button class="navbar-toggler" type="button" (click)="toggleSidebar()">
-        <!-- <span class="navbar-toggler-icon"></span> -->
         <i class="fa fa-bars text-muted" aria-hidden="true"></i>
     </button>
     <div class="collapse navbar-collapse">
@@ -16,9 +15,8 @@
                         <li class="dropdown-item" (click)="viewNotification(notification)">
                             <div class="media-body">
                                 <h5 class="mt-0 mb-1">{{' '+notification.title}}</h5>
-                                <p class="small text-muted"><i class="fa fa-clock-o"></i>{{'
-                                    '+notification.calendarTimestamp}}</p>
-                                <p class="last">{{notification.description}}</p>
+                                <p class="small text-muted"><i class="fa fa-clock-o"></i>{{' '+notification.calendarTimestamp}}</p>
+                                <div class="last">{{notification.description}}</div>
                             </div>
                         <li class="dropdown-divider"></li>
                     </div>

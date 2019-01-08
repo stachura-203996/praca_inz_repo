@@ -18,5 +18,6 @@ public class DeviceListElementDto {
     String manufacture;
     String lastUpdate;
     String location;
+    String status;
 
 }

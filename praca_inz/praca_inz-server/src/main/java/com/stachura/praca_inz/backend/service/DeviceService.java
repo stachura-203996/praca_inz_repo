@@ -35,7 +35,6 @@ public interface DeviceService {
 
     List<DeviceListElementDto> getAllDevicesForLoggedWarehouseman(String username);
 
-    List<DeviceListElementDto> getAllDevicesForRequest(String name);
-
+    List<DeviceListElementDto> getAllDevicesForShipmentRequest(String name);
 
 }

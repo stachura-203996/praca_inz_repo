@@ -2,6 +2,8 @@ package com.stachura.praca_inz.backend.service;
 
 import com.stachura.praca_inz.backend.exception.service.ServiceException;
 import com.stachura.praca_inz.backend.model.Request;
+import com.stachura.praca_inz.backend.web.dto.device.DeviceListElementDto;
+import com.stachura.praca_inz.backend.web.dto.request.ChangeStatusDto;
 import com.stachura.praca_inz.backend.web.dto.request.RequestListElementDto;
 
 import java.util.List;
@@ -32,5 +34,9 @@ public interface RequestService {
 
     void deleteRequest(Request report);
 
+    void realizeRequest(ChangeStatusDto changeStatusDto) throws ServiceException;
 
+    List<DeviceListElementDto> getAllRequestDevices(Long id);
+
+    void addDevicesToRequest(List<Long> devices,Long requestId)throws ServiceException;
 }

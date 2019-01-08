@@ -22,6 +22,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class ServerSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
+    private static final String ERROR_PATTERN="/error/**";
+
     @Qualifier("userDetailsServiceImpl")
     @Autowired
     private UserDetailsService userDetailsService;
@@ -43,13 +45,14 @@ public class ServerSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
 //        http.authorizeRequests()
-////                .antMatchers("/*").permitAll()
-//                .antMatchers("/index.html").permitAll()
-//                .antMatchers("/login").permitAll()
-//                .antMatchers("/oauth/token/revokeById/**").permitAll()
-//                .antMatchers("/tokens/**").permitAll()
-//                .anyRequest().authenticated()
-//                .and().formLogin().loginPage("/login").permitAll()
+////                .antMatchers(ERROR_PATTERN).permitAll()
+//////                .antMatchers("/*").permitAll()
+////                .antMatchers("/index.html").permitAll()
+////                .antMatchers("/login").permitAll()
+////                .antMatchers("/oauth/token/revokeById/**").permitAll()
+////                .antMatchers("/tokens/**").permitAll()
+////                .anyRequest().authenticated()
+////                .and().formLogin().loginPage("/login").permitAll()
 //                .and().csrf().disable();
     http.httpBasic().disable();
     }

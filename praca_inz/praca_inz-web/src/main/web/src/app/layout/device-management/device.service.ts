@@ -3,8 +3,9 @@ import {HttpService} from "../../shared/services/http.service";
 import {Configuration} from "../../app.constants";
 import {Observable} from "rxjs";
 import {TransferListElement} from "../../models/transfer-list-element";
-import {StructureViewElement} from "../../models/structure-elements";
+import {StructureEditElement, StructureViewElement} from "../../models/structure-elements";
 import {
+    DeviceEditElement,
     DeviceListElement,
     DeviceModelListElement, DeviceModelViewElement,
     DeviceTypeListElement,
@@ -61,6 +62,10 @@ export class DeviceService {
         return this.httpService.get<TransferListElement[]>(this.transferPath + "/user");
     }
 
+    updateDevice(data:DeviceEditElement){
+        return this.httpService.put<DeviceEditElement>(this.devicePath, data);
+    }
+
     deleteDevice(id :string): Observable<any>{
         return this.httpService.delete<any>(this.devicePath+'/'+id);
     }
@@ -102,6 +107,7 @@ export class DeviceService {
     }
 
     //Transfers
+
 
     getAllTransfersForCompany(id: number): Observable<TransferListElement[]> {
         return this.httpService.get<TransferListElement[]>(this.transferPath + "/company/" + id);

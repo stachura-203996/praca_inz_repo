@@ -81,15 +81,17 @@ public class RegistrationServiceImpl implements RegistrationService {
         warehouse.setOffice(officeRepository.find(data.getOfficeId()));
         warehouse.setWarehouseType(WarehouseType.USER);
 
+        warehouse.setDeleted(false);
+
 
         try {
-            user.setUserdata(userdata);
-
-            userRepository.create(user);
-            userdata.setUser(user);
             userdataRepository.create(userdata);
+            user.setUserdata(userdata);
+            userRepository.create(user);
+            warehouse.setUser(user);
             warehouseRepository.create(warehouse);
         } catch (EntityException e) {
+            e.printStackTrace();
            throw new ServiceException(e.getMessage());
         }
     }

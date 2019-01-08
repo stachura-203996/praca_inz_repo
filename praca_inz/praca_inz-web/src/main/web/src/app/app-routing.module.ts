@@ -8,7 +8,7 @@ const routes: Routes = [
     { path: 'login', loadChildren: './login/login.module#LoginModule' },
     { path: 'signup', loadChildren: './signup/signup.module#SignupModule' },
     { path: 'error', loadChildren: './errors-pages/error.module#ErrorModule' },
-    { path: '**', redirectTo: 'error/error-404' }
+    { path: '**', redirectTo: '/error/error-404' }
 ];
 
 @NgModule({

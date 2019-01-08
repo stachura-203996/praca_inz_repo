@@ -31,11 +31,11 @@ public class Report implements Serializable, Comparator<Report> {
     @Column(name = "TITLE", nullable = false)
     private String title;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY,optional = false)
     @JsonBackReference
     private User sender;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY,optional = false)
     @JsonBackReference
     private User reciever;
 
@@ -53,7 +53,7 @@ public class Report implements Serializable, Comparator<Report> {
 
     @Basic
     @NotNull
-    @Column(name = "REPORT_DATE")
+    @Column(name = "REPORT_DATE", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private java.util.Calendar calendarTimestamp;
 

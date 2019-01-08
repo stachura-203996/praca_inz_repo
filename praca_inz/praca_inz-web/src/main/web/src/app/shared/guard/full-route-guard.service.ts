@@ -1,9 +1,11 @@
 import {Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from '@angular/router';
-import {SessionContextService} from '../services/session-context.service';
+
 import {UrlAvailabilityForUserRoles} from './url-availability-for-user-roles';
-import {MessageService} from '../services/message.service';
-import {I18nService} from '../services/i18n/i18n.service';
+import {MessageService} from "../services/message.service";
+import {SessionContextService} from "../services/session-context.service";
+import {I18nService} from "../services/i18n/i18n.service";
+
 
 @Injectable()
 export class FullRouteGuard implements CanActivate {

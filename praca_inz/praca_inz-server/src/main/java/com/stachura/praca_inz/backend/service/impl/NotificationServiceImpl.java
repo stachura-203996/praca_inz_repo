@@ -11,6 +11,7 @@ import com.stachura.praca_inz.backend.web.dto.NotificationListElementDto;
 import com.stachura.praca_inz.backend.web.dto.converter.NotificationConverter;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,6 +30,9 @@ public class NotificationServiceImpl implements NotificationService {
 
     @Autowired
     private EmailService emailService;
+
+    @Value("${server.port}")
+    private String port;
 
     @Override
     @Transactional(readOnly = true)
@@ -107,7 +111,9 @@ public class NotificationServiceImpl implements NotificationService {
     public void createNewNotification(Notification notification)throws ServiceException {
         try {
             notificationRepository.create(notification);
-            emailService.sendMessageWithLink(notification.getUser().getUserdata().getEmail(),notification.getTitle(),notification.getDescription());
+            String link = "<a href=\"http://localhost:"+ port +notification.getUrl()+"\">Click</a>";
+            String description=notification.getDescription()+"<br>"+link;
+            emailService.sendMessageWithLink(notification.getUser().getUserdata().getEmail(),notification.getTitle(),description);
         } catch (DatabaseErrorException e) {
             throw e;
         } catch (EntityException e) {

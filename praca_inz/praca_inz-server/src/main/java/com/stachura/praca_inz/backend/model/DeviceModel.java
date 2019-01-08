@@ -35,8 +35,11 @@ public class DeviceModel implements Serializable {
     @Column(name = "NAME", nullable = false)
     private String name;
 
-    @Column(name = "MANUFACTURE")
+    @Column(name = "MANUFACTURE" ,nullable = false)
     private String manufacture;
+
+    @Column(name = "COST", nullable = false)
+    private long cost;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
