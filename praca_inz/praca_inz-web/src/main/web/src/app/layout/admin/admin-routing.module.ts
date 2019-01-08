@@ -28,7 +28,6 @@ import {DeviceModelAddComponent} from "./components/structure-management/device/
 import {DeviceModelEditComponent} from "./components/structure-management/device/device-model-edit/device-model-edit.component";
 import {DeviceModelListComponent} from "./components/structure-management/device/device-model-list/device-model-list.component";
 import {DeliveryListComponent} from "./components/structure-management/warehouse/delivery-list/delivery-list.component";
-import {ShipmentListComponent} from "./components/structure-management/warehouse/shipment-list/shipment-list.component";
 import {UserPasswordEditComponent} from "./components/administration/user-management/components/user-password-edit/user-password-edit.component";
 import {DeviceTransferComponent} from "./components/structure-management/device/device-transfer/device-transfer.component";
 import {DeviceTypeListComponent} from "./components/structure-management/device/device-type-list/device-type-list.component";
@@ -65,7 +64,6 @@ const routes: Routes = [
     {path: 'warehouses/add', component: WarehouseAddComponent},
     {path: 'warehouses/edit/:id', component: WarehouseEditComponent},
     {path: 'deliveries', component: DeliveryListComponent},
-    {path: 'shipments', component: ShipmentListComponent},
     {path: 'requests', component: RequestListComponent},
     {path: 'reports', component: ReportListComponent},
     {path: 'transfers', component: TransferListComponent}

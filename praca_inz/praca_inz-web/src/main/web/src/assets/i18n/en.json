@@ -124,6 +124,12 @@
     "Person responsible for":"Person responsible for",
     "CreateDevice":"Create device",
     "Amount of devices":"Amount of devices",
-    "RequestView":"Request view"
+    "RequestView":"Request view",
+    "UnreadedNotifications":"Unreaded notifications",
+    "ReadedNotifications":"Readed notifications",
+    "NotificationDate":"Notification date",
+    "Cancel":"Cancel",
+    "Reject":"Reject",
+    "Accept":"Accept"
 
 }

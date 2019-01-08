@@ -33,7 +33,6 @@ import {DeviceModelAddComponent} from "./components/structure-management/device/
 import {DeviceModelEditComponent} from "./components/structure-management/device/device-model-edit/device-model-edit.component";
 import { DeviceTypeListComponent } from './components/structure-management/device/device-type-list/device-type-list.component';
 import { DeliveryListComponent } from './components/structure-management/warehouse/delivery-list/delivery-list.component';
-import { ShipmentListComponent } from './components/structure-management/warehouse/shipment-list/shipment-list.component';
 import { SummaryComponent } from './components/structure-management/summary/summary.component';
 import { UserPasswordEditComponent } from './components/administration/user-management/components/user-password-edit/user-password-edit.component';
 import { DeviceTransferComponent } from './components/structure-management/device/device-transfer/device-transfer.component';
@@ -81,7 +80,6 @@ import { DeviceTypeAddComponent } from './components/structure-management/device
         SystemMessageListComponent,
         DeviceTypeListComponent,
         DeliveryListComponent,
-        ShipmentListComponent,
         SummaryComponent,
         UserPasswordEditComponent,
         DeviceTransferComponent,

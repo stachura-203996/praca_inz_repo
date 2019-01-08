@@ -8,6 +8,18 @@ export class WarehouseListElement {
     deleted:boolean;
 }
 
+export class WarehouseViewElement {
+    id: number;
+    name: string;
+    description: string;
+    city: string;
+    street: string;
+    buildingNumber: string;
+    flatNumber: string;
+    zipCode: string;
+    parentName: string;
+}
+
 
 export class WarehouseAddElement {
     id: number;

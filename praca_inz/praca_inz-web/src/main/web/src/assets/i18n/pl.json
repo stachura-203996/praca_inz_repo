@@ -118,5 +118,11 @@
     "Person responsible for": "Osoba odpowiedzialna",
     "CreateDevice": "Dodaj urządzenie",
     "Amount of devices": "Liczba urządzeń",
-    "RequestView":"Podgląd zgłoszenia"
+    "RequestView":"Podgląd zgłoszenia",
+    "UnreadedNotifications":"Nieprzeczytane powiadomienia",
+    "ReadedNotifications":"Przeczytane powiadomienia",
+    "NotificationDate":"Data otrzymania",
+    "Cancel":"Anuluj",
+    "Reject":"Odrzuć",
+    "Accept":"Akceptuj"
 }

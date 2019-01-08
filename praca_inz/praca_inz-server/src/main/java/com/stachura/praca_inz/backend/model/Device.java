@@ -38,7 +38,7 @@ public class Device implements Serializable {
     @Column(name = "NAME", nullable = false)
     private String name;
 
-    @Column(name = "SERIAL_NUMBER")
+    @Column(name = "SERIAL_NUMBER",nullable = false, unique = true)
     private String serialNumber;
 
     @Column(name = "STATUS", nullable = false)

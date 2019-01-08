@@ -38,11 +38,21 @@
         </div>
         <div class="clearfix"></div>
         <div class="bot-border"></div>
-        <div class="form-group col-xl-5" *ngIf="roles.admin">
-            <label for="companySelect">{{'Company'|translate}}</label>
-            <select class="form-control" id="companySelect" [(ngModel)]="selectedOptions" name="companySelect" multiple>
-                <option *ngFor="let device of devices|keyvalue" [value]="device.key">{{device.key}}</option>
-            </select>
+        <div class="form-group col-xl-5" *ngIf="roles.warehouseman">
+            <div class="row">
+                <div class="col-sm-5 col-xs-6 tital ">{{'Devices'|translate}}</div>
+                <div class="col-sm-7 col-xs-6 ">
+                    <div class="box">
+                        <mat-form-field>
+                            <mat-select placeholder="{{'Devices'|translate}}" name="companySelect" id="companySelect" [formControl]="form" multiple>
+                                <mat-option *ngFor="let device of devices|keyvalue" [value]="device.key">
+                                    {{device.key}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="row">
@@ -62,12 +72,14 @@
         <br>
         <div class="row">
             <div class="col-sm-4" align="center">
-                <button *ngIf="roles.warehouseman && request.status=='IN_WAREHOUSE'" (click)="reject()" class="btn btn-error">
+                <button *ngIf="roles.warehouseman && request.status=='IN_WAREHOUSE'" (click)="reject()"
+                        class="btn btn-error">
                     {{'Reject'|translate}}
                 </button>
             </div>
             <div class="col-sm-4" align="center">
-                <button *ngIf="roles.warehouseman && request.status=='IN_WAREHOUSE'" (click)="submit()" class="btn btn-succes">
+                <button *ngIf="roles.warehouseman && request.status=='IN_WAREHOUSE'" (click)="submit()"
+                        class="btn btn-succes">
                     {{'Accept'|translate}}
                 </button>
             </div>

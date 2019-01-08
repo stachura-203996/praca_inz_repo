@@ -5,8 +5,8 @@ import {StructureEditElement} from "../../models/structure-elements";
 import {Observable} from "rxjs";
 import {
     ChangeRequestStatusElement,
-    DeliveryRequestAddElement,DeviceRequestAddElement,
-    RequestListElement, RequestViewElement, ShipmentRequestAddElement,
+    DeviceRequestAddElement,
+    RequestListElement, RequestViewElement,
     TransferRequestAddElement
 } from "../../models/request-elements";
 import {DeviceListElement} from "../../models/device-elements";
@@ -63,14 +63,6 @@ export class RequestService {
         return this.httpService.post<DeviceRequestAddElement>(this.requestPath + '/device', data);
     }
 
-    createDeliveryRequest(data: DeliveryRequestAddElement): Observable<any> {
-        return this.httpService.post<DeliveryRequestAddElement>(this.requestPath + '/delivery', data);
-    }
-
-    createShipmentRequest(data: ShipmentRequestAddElement): Observable<any> {
-        return this.httpService.post<ShipmentRequestAddElement>(this.requestPath + '/shipment', data);
-    }
-
     //CHANGE STATUS
 
     changeRequestStatus(data:ChangeRequestStatusElement): Observable<any> {
@@ -83,7 +75,7 @@ export class RequestService {
     }
 
     addDevicesToRequest(data:number[],id:number):Observable<any>{
-        return this.httpService.put<DeviceListElement[]>(this.requestPath + '/devices'+id, data);
+        return this.httpService.put<DeviceListElement[]>(this.requestPath + '/devices/'+id, data);
     }
 
     //CANCEL

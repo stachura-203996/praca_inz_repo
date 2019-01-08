@@ -5,6 +5,7 @@ import com.stachura.praca_inz.backend.exception.repository.EntityException;
 import com.stachura.praca_inz.backend.exception.service.ServiceException;
 import com.stachura.praca_inz.backend.model.Warehouse;
 import com.stachura.praca_inz.backend.model.enums.WarehouseType;
+import com.stachura.praca_inz.backend.repository.interfaces.UserRepository;
 import com.stachura.praca_inz.backend.repository.interfaces.WarehouseRepository;
 import com.stachura.praca_inz.backend.service.WarehouseService;
 import com.stachura.praca_inz.backend.web.dto.WarehouseListElementDto;
@@ -15,6 +16,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,6 +27,8 @@ public class WarehouseServiceImpl implements WarehouseService {
     @Autowired
     private WarehouseRepository warehouseRepository;
 
+    @Autowired
+    private UserRepository userRepository;
 
     @Override
     @Transactional(readOnly = true)
@@ -116,7 +120,8 @@ public class WarehouseServiceImpl implements WarehouseService {
     @Override
     @Transactional(readOnly = true)
     @PreAuthorize("hasAuthority('WAREHOUSE_LIST_READ')")
-    public List<WarehouseListElementDto> getAllForTransferRequest(Long id) {
+    public List<WarehouseListElementDto> getAllForTransferRequest(String username) {
+        Long id =userRepository.find(username).getOffice().getId();
         List<Warehouse> warehouses = warehouseRepository.findAll().stream().filter(x -> x.getOffice().getId().equals(id)).collect(Collectors.toList());
         List<WarehouseListElementDto> warehouseDto = new ArrayList<>();
         for (Warehouse a : warehouses) {
@@ -129,21 +134,6 @@ public class WarehouseServiceImpl implements WarehouseService {
         return warehouseDto;
     }
 
-    @Override
-    @Transactional(readOnly = true)
-    @PreAuthorize("hasAuthority('WAREHOUSE_LIST_READ')")
-    public List<WarehouseListElementDto> getAllForShipmentRequest(Long id) {
-        List<Warehouse> warehouses = warehouseRepository.findAll().stream().filter(x -> x.getOffice().getDepartment().getCompany().getId().equals(id) && x.getWarehouseType().equals(WarehouseType.OFFICE)).collect(Collectors.toList());
-        List<WarehouseListElementDto> warehouseDto = new ArrayList<>();
-        for (Warehouse a : warehouses) {
-            if (!a.isDeleted()) {
-                Hibernate.initialize(a.getDevices());
-                Hibernate.initialize(a.getOffice());
-                warehouseDto.add(WarehouseConverter.toWarehouseOfficeListElementDto(a));
-            }
-        }
-        return warehouseDto;
-    }
 
     @Override
     @Transactional

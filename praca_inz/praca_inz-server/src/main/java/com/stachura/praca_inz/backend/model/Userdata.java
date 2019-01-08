@@ -44,6 +44,9 @@ public class Userdata implements Serializable {
     @Column(name = "WORKPLACE")
     private String workplace;
 
+    @Column(name="LANGUAGE")
+    private String language;
+
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "ADDRESS_ID")
     private Address address;

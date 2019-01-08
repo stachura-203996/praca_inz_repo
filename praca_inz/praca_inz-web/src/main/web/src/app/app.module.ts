@@ -31,6 +31,8 @@ import {NotNaughtDirective} from "./directives/not-naught.directive";
 import {NotNegativeDirective} from "./directives/not-negative.directive";
 import {NotRealNumberDirective} from "./directives/not-real-number.directive";
 import {BsDropdownModule, BsModalService} from "ngx-bootstrap";
+import {MatSelectModule} from "@angular/material";
+import {ReactiveFormsModule} from "@angular/forms";
 
 
 export const createTranslateLoader = (http: HttpClient) => {
@@ -42,6 +44,8 @@ export const createTranslateLoader = (http: HttpClient) => {
         CommonModule,
         BrowserModule,
         HttpClientModule,
+        MatSelectModule,
+        ReactiveFormsModule,
         BrowserAnimationsModule,
         HttpClientModule,
         TranslateModule.forRoot({

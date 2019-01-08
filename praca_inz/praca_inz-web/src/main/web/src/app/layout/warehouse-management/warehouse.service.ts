@@ -2,12 +2,11 @@ import { Injectable } from '@angular/core';
 import {HttpService} from "../../shared/services/http.service";
 import {Configuration} from "../../app.constants";
 import {Observable} from "rxjs";
-import {WarehouseViewElement} from "../../models/warehouse-view-element";
 import {
     DeliveryListElement,
     ShipmentListElement,
     WarehouseAddElement,
-    WarehouseListElement
+    WarehouseListElement, WarehouseViewElement
 } from "../../models/warehouse-elements";
 
 
@@ -77,22 +76,5 @@ export class WarehouseService {
     getAllDeliveriesForWarehouse(): Observable<DeliveryListElement[]> {
         return this.httpService.get<DeliveryListElement[]>(this.deliveryPath+'/warehouseman');
     }
-
-
-    //Shipments
-
-    getAllShipments(): Observable<ShipmentListElement[]> {
-        return this.httpService.get<ShipmentListElement[]>(this.shipmentPath);
-    }
-
-    getAllShipmentsForCompany(id:number): Observable<ShipmentListElement[]> {
-        return this.httpService.get<ShipmentListElement[]>(this.shipmentPath+'/company/'+id);
-    }
-
-    getAllShipmentsForWarehouse(): Observable<ShipmentListElement[]> {
-        return this.httpService.get<ShipmentListElement[]>(this.shipmentPath+'/warehouseman');
-    }
-
-
 
 }

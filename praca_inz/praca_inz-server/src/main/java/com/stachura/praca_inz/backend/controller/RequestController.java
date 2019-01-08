@@ -189,19 +189,6 @@ public class RequestController {
         return new ResponseEntity<>(headers, HttpStatus.CREATED);
     }
 
-    @RequestMapping(value = "/shipment", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(value = HttpStatus.OK)
-    public ResponseEntity<?> createShipmentRequest(@RequestBody ShipmentRequestAddDto shipmentRequestAddDto) {
-        try {
-            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-            requestService.createNewRequest(RequestConverter.toRequest(shipmentRequestAddDto, deviceRepository, warehouseRepository, userRepository.find(auth.getName())));
-        } catch (ServiceException e) {
-            e.printStackTrace();
-        }
-        HttpHeaders headers = new HttpHeaders();
-        return new ResponseEntity<>(headers, HttpStatus.CREATED);
-    }
-
     @RequestMapping(value = "/status", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public void changeStatus(@RequestBody ChangeStatusDto changeStatusDto) {

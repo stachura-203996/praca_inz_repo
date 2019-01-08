@@ -28,8 +28,6 @@ public class WarehouseController {
     @Autowired
     private WarehouseService warehouseService;
 
-    @Autowired
-    UserRepository userRepository;
 
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
@@ -58,15 +56,7 @@ public class WarehouseController {
     public @ResponseBody
     List<WarehouseListElementDto> getAllWarehousesForTransferRequest() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        return warehouseService.getAllForTransferRequest(userRepository.find(auth.getName()).getOffice().getId());
-    }
-
-    @RequestMapping(value = "/shipment-request",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(value = HttpStatus.OK)
-    public @ResponseBody
-    List<WarehouseListElementDto> getAllWarehousesForShipmentRequest() {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        return warehouseService.getAllForShipmentRequest(userRepository.find(auth.getName()).getOffice().getId());
+        return warehouseService.getAllForTransferRequest(auth.getName());
     }
 
     @RequestMapping(value = "/company/{id}",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)

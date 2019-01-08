@@ -24,8 +24,6 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-
-
     @RequestMapping(value = "/profile", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
@@ -80,9 +78,6 @@ public class UserController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         return userService.getAllUsersForManager(auth.getName());
     }
-
-
-
 
     @RequestMapping(method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)

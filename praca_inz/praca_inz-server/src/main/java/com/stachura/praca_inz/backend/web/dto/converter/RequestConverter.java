@@ -95,19 +95,5 @@ public class RequestConverter {
         return request;
     }
 
-    public static Request toRequest(ShipmentRequestAddDto shipmentRequestAddDto, DeviceRepository deviceRepository, WarehouseRepository warehouseRepository, User user) {
-        Request request = new Request();
-        request.setDeleted(false);
-        request.setDescription(shipmentRequestAddDto.getDescription());
-        Device device = deviceRepository.find(shipmentRequestAddDto.getDeviceId());
-        request.setRequestType(RequestType.SHIPMENT_REQUEST);
-        request.setRecieverWarehouse(warehouseRepository.find(shipmentRequestAddDto.getRecieverWarehouseId()));
-        request.setSenderWarehouse(device.getWarehouse());
-        request.setStatus(Status.WAITING);
-        request.setTitle(shipmentRequestAddDto.getTitle());
-        request.setUser(user);
-        request.setCreateDate(Calendar.getInstance());
-        return request;
-    }
 }
 
