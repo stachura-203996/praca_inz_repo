@@ -5,6 +5,9 @@ import {CompanyService} from "../../../administration/company/company.service";
 import {TranslateService} from "@ngx-translate/core";
 import {DepartmentService} from "../../department/department.service";
 import {OfficeService} from "../office.service";
+import {UserRoles} from "../../../../../../models/user-roles";
+import {LoggedUser} from "../../../../../../models/logged-user";
+import {UserService} from "../../../administration/user-management/user.service";
 
 @Component({
     selector: 'app-office-edit',
@@ -16,22 +19,19 @@ export class OfficeEditComponent implements OnInit {
     structureEditElement: StructureEditElement;
 
     departments: StructureListElement[];
+    roles: UserRoles;
 
     constructor(
         private route: ActivatedRoute,
         private departmentService: DepartmentService,
+        private userService:UserService,
         private translate: TranslateService,
         private officeService: OfficeService,
         private router: Router
-    ) {
-        this.translate.addLangs(['en', 'pl']);
-        this.translate.setDefaultLang('pl');
-        const browserLang = this.translate.getBrowserLang();
-        this.translate.use(browserLang.match(/en|pl/) ? browserLang : 'pl');
-
-    }
+    ) {}
 
     ngOnInit() {
+        this.getLoggedUserRoles();
         this.getOffice();
         this.getDepartments();
     }
@@ -41,6 +41,9 @@ export class OfficeEditComponent implements OnInit {
         this.officeService.getOfficeEdit(id).subscribe(x => this.structureEditElement = x);
     }
 
+    getLoggedUserRoles() {
+        this.userService.getLoggedUserRoles().subscribe(x => this.roles = x);
+    }
     getDepartments() {
         this.departmentService.getAll().subscribe(departmentListElement => {
             this.departments = departmentListElement

@@ -1,7 +1,7 @@
 export const UrlAvailabilityForUserRoles = {
-  'admin': ['/admin'],
-  'employee': ['/userdata', '/bmanager/benefits','/bmanager/proposedBenefits'],
-  'supervisor': ['/supervisor'],
-  'benefit_manager': ['/bmanager', '/bmanager/benefits', '/bmanager/proposedBenefits']
+  'ADMIN': ['/admin'],
+  'COMPANY_ADMIN': ['/userdata', '/bmanager/benefits','/bmanager/proposedBenefits'],
+  'MANAGER': ['/supervisor'],
+  'WAREHOUSEMAN': ['/warehouses', '/bmanager/benefits', '/bmanager/proposedBenefits']
 };
 

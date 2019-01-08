@@ -25,7 +25,7 @@ export class OfficeService {
         return this.httpService.get<StructureEditElement>(this.officePath+'/'+id);
     }
 
-    getAllForCompany(id:string): Observable<StructureListElement[]> {
+    getAllForCompany(id:number): Observable<StructureListElement[]> {
         return this.httpService.get<StructureListElement[]>(this.officePath+'/company/'+id);
     }
 

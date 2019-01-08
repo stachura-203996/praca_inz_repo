@@ -20,7 +20,8 @@ import java.util.Set;
 public class Office implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "OfficeGen", sequenceName = "office_id_seq",initialValue = 5,allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "OfficeGen")
     @Column(name = "ID", updatable = false, nullable = false)
     private Long id = null;
 
@@ -40,15 +41,11 @@ public class Office implements Serializable {
     @JsonBackReference
     private Department department;
 
-    @Column(name = "DESCRIPTION")
+    @Column(name = "DESCRIPTION",columnDefinition ="TEXT")
     private String description;
 
     @Column(name = "DELETED", nullable = false)
     private boolean deleted;
-
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "MANAGER_ID")
-    private User user;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "office", fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonManagedReference
@@ -61,7 +58,7 @@ public class Office implements Serializable {
         }
     }
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "WAREHOUSE_ID")
-    private Warehouse warehouse;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "office", fetch = FetchType.LAZY, orphanRemoval = true)
+    @JsonManagedReference
+    private Set<Warehouse> warehouses = new HashSet<>();
 }

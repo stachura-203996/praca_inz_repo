@@ -1,90 +1,123 @@
-import { Component, OnInit } from '@angular/core';
-import {RequestListElement} from "../../../models/request-elements";
+import {Component, OnInit} from '@angular/core';
+import {ChangeRequestStatusElement, RequestListElement} from "../../../models/request-elements";
 
 import {TranslateService} from "@ngx-translate/core";
-import {StructureListElement} from "../../../models/structure-elements";
 import {RequestService} from "../request.service";
+import {Router} from "@angular/router";
+import {UserRoles} from "../../../models/user-roles";
+import {UserService} from "../../admin/components/administration/user-management/user.service";
+import {Configuration} from "../../../app.constants";
+
 
 @Component({
-  selector: 'app-request-user',
-  templateUrl: './request-user.component.html',
-  styleUrls: ['./request-user.component.scss']
+    selector: 'app-request-user',
+    templateUrl: './request-user.component.html',
+    styleUrls: ['./request-user.component.scss']
 })
 export class RequestUserComponent implements OnInit {
 
 
     yourRequest: RequestListElement[];
-    employeesRequest:RequestListElement[];
+    employeesRequest: RequestListElement[];
+    roles: UserRoles;
+    changeRequestStatusElement:ChangeRequestStatusElement=new ChangeRequestStatusElement();
 
-    DEVICE_REQUEST:string="DEVICE_REQUEST";
-    TRANSFER_REQUEST:string="TRANSFER_REQUEST";
-    DELIVERY_REQUEST:string="DELIVERY_REQUEST";
-    SHIPMENT_REQUEST:string="SHIPMENT_REQUEST";
-
-    constructor(private requestService : RequestService,
-                private translate:TranslateService,
-
-    ) {}
+    constructor(
+        private router: Router,
+        private requestService: RequestService,
+        private userService: UserService,
+        private translate: TranslateService,
+        private configuration:Configuration
+    ) {
+    }
 
     ngOnInit() {
-        // this.filterUsers(null);
         this.getRequests();
+        this.getLoggedUserRoles();
     }
 
-    getRequests(){
-        this.requestService.getAllRequestsForLoggedUser(this.DEVICE_REQUEST).subscribe(officeListElement=> {this.yourRequest=officeListElement});
-        this.requestService.getAllRequestsForLoggedUser(this.TRANSFER_REQUEST).subscribe(officeListElement=> {this.employeesRequest=officeListElement});
+    getRequests() {
+        this.requestService.getAllRequestsForLoggedUser().subscribe(requests => {
+            this.yourRequest = requests
+        });
+        this.requestService.getAllRequestsForManager().subscribe(requests => {
+            this.employeesRequest = requests
+        });
     }
 
-    getAddress(office:StructureListElement): string {
-        if (office.flatNumber== null || office.flatNumber === "0") {
-            return (office.street + ' ' + office.buildingNumber);
-        } else {
-            return (office.street + ' ' + office.buildingNumber + ' / ' + office.flatNumber);
+    getLoggedUserRoles() {
+        this.userService.getLoggedUserRoles().subscribe(x => this.roles = x);
+    }
+
+    cancel(request: RequestListElement) {
+        this.changeRequestStatusElement.id=request.id;
+        this.changeRequestStatusElement.version=request.version;
+        this.changeRequestStatusElement.status=this.configuration.REQUEST_STATUS_CANCELED;
+        this.requestService.changeRequestStatus(this.changeRequestStatusElement).subscribe(rep=>{
+            this.getRequests();
+        });
+    }
+
+    reject(request: RequestListElement) {
+                this.changeRequestStatusElement.id=request.id;
+                this.changeRequestStatusElement.version=request.version;
+                this.changeRequestStatusElement.status=this.configuration.REQUEST_STATUS_REJECTED;
+                this.requestService.changeRequestStatus(this.changeRequestStatusElement).subscribe(rep=>{
+                    this.router.navigateByUrl('/employees/reports/request/add/'+request.id)
+                });
+
+    }
+
+    accept(request: RequestListElement) {
+                this.changeRequestStatusElement.id=request.id;
+                this.changeRequestStatusElement.version=request.version;
+                this.changeRequestStatusElement.status=this.configuration.REQUEST_STATUS_ACCEPTED;
+                this.requestService.changeRequestStatus(this.changeRequestStatusElement).subscribe(rep=>{
+                    this.router.navigateByUrl('/employees/reports/request/add/'+request.id)
+
+                });
+
+    }
+
+    viewPage(request: RequestListElement) {
+        switch (request.type) {
+            case this.configuration.DEVICE_REQUEST: {
+                this.router.navigateByUrl('/page/devices/request/view/' + request.id);
+                break;
+            }
+            case this.configuration.DELIVERY_REQUEST: {
+                this.router.navigateByUrl('/page/warehouses/delivery/request/view/' + request.id);
+                break;
+            }
+            case this.configuration.TRANSFER_REQUEST: {
+                this.router.navigateByUrl('/devices/transfer/request/view/' + request.id);
+                break;
+            }
+            case this.configuration.SHIPMENT_REQUEST: {
+                this.router.navigateByUrl('/page/warehouses/shipment/request/view/' + request.id);
+                break;
+            }
         }
     }
 
-    filterUsers(searchText: string) {
-        // this.userService.getAllNotificationsForUser().subscribe(users => {
-        //     if (!users) {
-        //         this.users = [];
-        //         return;
-        //     }
-        //     if (!searchText || searchText.length < 2) {
-        //         if (this.notVerifiedFilter) {
-        //             this.users = users.filter(it => {
-        //                 return it.verified === !this.notVerifiedFilter;
-        //             });
-        //         } else {
-        //             this.users = users;
-        //         }
-        //         return;
-        //     }
-        //
-        //     searchText = searchText.toLowerCase();
-        //     this.users = users.filter(it => {
-        //         const fullname = it.name + ' ' + it.surname;
-        //         const ok = fullname.toLowerCase().includes(searchText);
-        //         if (!this.notVerifiedFilter) {
-        //             return ok;
-        //         } else {
-        //             return ok && it.verified === !this.notVerifiedFilter;
-        //         }
-        //     });
-        // });
+    editPage(request: RequestListElement) {
+        switch (request.type) {
+            case this.configuration.DEVICE_REQUEST: {
+                this.router.navigateByUrl('/page/devices/request/edit/' + request.id);
+                break;
+            }
+            case this.configuration.DELIVERY_REQUEST: {
+                this.router.navigateByUrl('/page/warehouses/delivery/request/edit/' + request.id);
+                break;
+            }
+            case this.configuration.TRANSFER_REQUEST: {
+                this.router.navigateByUrl('/page/devices/transfer/request/edit/' + request.id);
+                break;
+            }
+            case this.configuration.SHIPMENT_REQUEST: {
+                this.router.navigateByUrl('/page/warehouses/shipment/request/edit/' + request.id);
+                break;
+            }
+        }
     }
-
-    delete(structure: StructureListElement) {
-        // const modalRef = this.modalService.open(UserMgmtDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
-        // modalRef.componentInstance.user = user;
-        // modalRef.result.then(
-        //     result => {
-        //         // Left blank intentionally, nothing to do here
-        //     },
-        //     reason => {
-        //         // Left blank intentionally, nothing to do here
-        //     }
-        // );
-    }
-
 }

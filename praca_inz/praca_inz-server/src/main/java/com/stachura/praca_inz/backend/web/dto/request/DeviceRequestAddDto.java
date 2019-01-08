@@ -9,7 +9,7 @@ import lombok.*;
 public class DeviceRequestAddDto {
     private Long id;
     private String title;
+    private int amount;
     private String description;
     private Long  deviceModelId;
-    private String recieverWarehouseId;
 }

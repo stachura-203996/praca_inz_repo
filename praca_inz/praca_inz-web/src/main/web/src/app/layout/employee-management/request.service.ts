@@ -1,95 +1,101 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpService} from "../../shared/services/http.service";
 import {Configuration} from "../../app.constants";
-import {StructureAddElement, StructureEditElement, StructureViewElement} from "../../models/structure-elements";
+import {StructureEditElement} from "../../models/structure-elements";
 import {Observable} from "rxjs";
 import {
-    DeliveryRequestAddElement, DeliveryRequestEditElement,
-    DeviceRequestAddElement, DeviceRequestEditElement,
-    RequestListElement, ShipmentRequestAddElement, ShipmentRequestEditElement,
-    TransferRequestAddElement, TransferRequestEditElement
+    ChangeRequestStatusElement,
+    DeliveryRequestAddElement,DeviceRequestAddElement,
+    RequestListElement, RequestViewElement, ShipmentRequestAddElement,
+    TransferRequestAddElement
 } from "../../models/request-elements";
-import {TransferRequestEditComponent} from "../device-management/transfer-requests/transfer-request-edit/transfer-request-edit.component";
+import {DeviceListElement} from "../../models/device-elements";
 
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class RequestService {
 
     private requestPath = this.configuration.ServerWithApiUrl + '/request';
-   
-
-    constructor(private httpService: HttpService, private configuration: Configuration) { }
 
 
-    getTransferRequestEdit(id:string): Observable<TransferRequestEditElement>{
-        return this.httpService.get<TransferRequestEditElement>(this.requestPath+'/transfer/'+id);
+    constructor(private httpService: HttpService, private configuration: Configuration) {
     }
 
-    getDeviceRequestEdit(id:string): Observable<DeviceRequestEditElement>{
-        return this.httpService.get<DeviceRequestEditElement>(this.requestPath+'/device/'+id);
+    //VIEW
+    getRequestView(id: string): Observable<RequestViewElement> {
+        return this.httpService.get<RequestViewElement>(this.requestPath + '/' + id);
     }
 
-    getDeliveryRequestEdit(id:string): Observable<DeliveryRequestEditElement>{
-        return this.httpService.get<DeliveryRequestEditElement>(this.requestPath+'/delivery/'+id);
+    //GET-ALL
+
+    getAllRequests(type: string): Observable<RequestListElement[]> {
+        return this.httpService.get<RequestListElement[]>(this.requestPath + '/type/' + type);
     }
 
-    getShipmentRequestEdit(id:string): Observable<ShipmentRequestEditElement>{
-        return this.httpService.get<ShipmentRequestEditElement>(this.requestPath+'/shipment/'+id);
+    getAllRequestsForLoggedUser(): Observable<RequestListElement[]> {
+        return this.httpService.get<RequestListElement[]>(this.requestPath + "/user/");
     }
 
-    getAllRequests(type:string): Observable<RequestListElement[]> {
-        return this.httpService.get<RequestListElement[]>(this.requestPath+'/type/'+type);
+    getAllRequestsForManager(): Observable<RequestListElement[]> {
+        return this.httpService.get<RequestListElement[]>(this.requestPath + "/manager/");
     }
 
-    getAllRequestsForLoggedUser(type:string): Observable<RequestListElement[]> {
-        return this.httpService.get<RequestListElement[]>(this.requestPath+"/user/"+type);
-    }
-    
-    getAllRequestsForOffice(type:string,id:string): Observable<RequestListElement[]> {
-        return this.httpService.get<RequestListElement[]>(this.requestPath+"/office/"+type+'/'+id);
+    getAllRequestsFromOtherUsers() {
+        return this.httpService.get<RequestListElement[]>(this.requestPath + "/other/users");
     }
 
-    createTransferRequest(data:TransferRequestAddElement): Observable<any>{
-        return this.httpService.post<TransferRequestAddElement>(this.requestPath+'/transfer',data);
+    getAllRequestsForWarehouseman() {
+        return this.httpService.get<RequestListElement[]>(this.requestPath + "/warehouseman/");
     }
 
-    createDeviceRequest(data:DeviceRequestAddElement): Observable<any>{
-        return this.httpService.post<DeviceRequestAddElement>(this.requestPath+'/device',data);
+    getAllRequestsFromOtherWarehouses() {
+        return this.httpService.get<RequestListElement[]>(this.requestPath + "/other/");
     }
 
-    createDeliveryRequest(data:DeliveryRequestAddElement): Observable<any>{
-        return this.httpService.post<DeliveryRequestAddElement>(this.requestPath+'/delivery',data);
+    //CREATE
+    createTransferRequest(data: TransferRequestAddElement): Observable<any> {
+        return this.httpService.post<TransferRequestAddElement>(this.requestPath + '/transfer', data);
     }
 
-    createShipmentRequest(data:ShipmentRequestAddElement): Observable<any>{
-        return this.httpService.post<ShipmentRequestAddElement>(this.requestPath+'/shipment',data);
+    createDeviceRequest(data: DeviceRequestAddElement): Observable<any> {
+        return this.httpService.post<DeviceRequestAddElement>(this.requestPath + '/device', data);
     }
 
-    updateTransferRequest(data: TransferRequestEditElement): Observable<any> {
-        return this.httpService.put<TransferRequestEditElement>(this.requestPath+'/transfer', data);
+    createDeliveryRequest(data: DeliveryRequestAddElement): Observable<any> {
+        return this.httpService.post<DeliveryRequestAddElement>(this.requestPath + '/delivery', data);
     }
 
-    updateDeviceRequest(data: DeviceRequestEditElement): Observable<any> {
-        return this.httpService.put<DeviceRequestEditElement>(this.requestPath+'/device', data);
+    createShipmentRequest(data: ShipmentRequestAddElement): Observable<any> {
+        return this.httpService.post<ShipmentRequestAddElement>(this.requestPath + '/shipment', data);
     }
 
-    updateDeliveryRequest(data: DeliveryRequestEditElement): Observable<any> {
-        return this.httpService.put<DeliveryRequestEditElement>(this.requestPath+'/delivery', data);
+    //CHANGE STATUS
+
+    changeRequestStatus(data:ChangeRequestStatusElement): Observable<any> {
+        return this.httpService.put<ChangeRequestStatusElement>(this.requestPath+'/status', data);
     }
 
-    updateShipmentRequest(data: ShipmentRequestEditElement): Observable<any> {
-        return this.httpService.put<ShipmentRequestEditElement>(this.requestPath+'/shipment', data);
+    //DEVICES
+    getAllDevicesForRequest(id:number): Observable<DeviceListElement[]>{
+        return this.httpService.get<DeviceListElement[]>(this.requestPath + "/devices/"+id);
     }
+
+    addDevicesToRequest(data:number[],id:number):Observable<any>{
+        return this.httpService.put<DeviceListElement[]>(this.requestPath + '/devices'+id, data);
+    }
+
+    //CANCEL
 
     cancelRequest(data: RequestListElement): Observable<any> {
-        return this.httpService.put<StructureEditElement>(this.requestPath+'/cancel/', data);
+        return this.httpService.put<StructureEditElement>(this.requestPath + '/cancel/', data);
     }
 
-    deleteRequest(id :string): Observable<any>{
-        return this.httpService.delete<any>(this.requestPath+'/'+id);
+    //DELETE
+    deleteRequest(id: string): Observable<any> {
+        return this.httpService.delete<any>(this.requestPath + '/' + id);
     }
 
-   
+
 }

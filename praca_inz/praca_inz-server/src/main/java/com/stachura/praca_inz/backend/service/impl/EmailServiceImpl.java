@@ -19,6 +19,56 @@ public class EmailServiceImpl implements EmailService {
     @Autowired
     public JavaMailSender emailSender;
 
+    @Override
+    public void sendRequestSentMessage() {
+
+    }
+
+    @Override
+    public void sendRequestRecievedMessage() {
+
+    }
+
+    @Override
+    public void sendRequestAcceptedMessage() {
+
+    }
+
+    @Override
+    public void sendRequestRejectedMessage() {
+
+    }
+
+    @Override
+    public void sendTransfeExecutedMessage() {
+
+    }
+
+    @Override
+    public void sendDeliveryExecutedMessage() {
+
+    }
+
+    @Override
+    public void sendShipmentExecutedMessage() {
+
+    }
+
+    @Override
+    public void sendDeviceRequestExecuted() {
+
+    }
+
+    @Override
+    public void sendReportSentMessage() {
+
+    }
+
+    @Override
+    public void sendReportRecievedMessage() {
+
+    }
+
     public void sendSimpleMessage(String to, String subject, String text) {
         try {
             SimpleMailMessage message = new SimpleMailMessage();
@@ -32,6 +82,9 @@ public class EmailServiceImpl implements EmailService {
         }
     }
 
+
+
+
     @Override
     public void sendSimpleMessageUsingTemplate(String to,
                                                String subject,
@@ -39,6 +92,23 @@ public class EmailServiceImpl implements EmailService {
                                                String ...templateArgs) {
         String text = String.format(template.getText(), templateArgs);
         sendSimpleMessage(to, subject, text);
+    }
+
+    @Override
+    public void sendMessageWithLink(String to, String subject, String text){
+
+        try {
+            MimeMessage message = emailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(message, true);
+
+            message.setText(text,"UTF-8", "html");
+            helper.setTo(to);
+            helper.setSubject(subject);
+
+            emailSender.send(message);
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -50,6 +120,7 @@ public class EmailServiceImpl implements EmailService {
             MimeMessage message = emailSender.createMimeMessage();
             // pass 'true' to the constructor to create a multipart message
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
+
 
             helper.setTo(to);
             helper.setSubject(subject);

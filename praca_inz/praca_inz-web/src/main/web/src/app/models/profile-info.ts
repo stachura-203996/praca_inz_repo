@@ -16,4 +16,5 @@ export class ProfileInfo {
     zipCode: string;
     dateOfJoining: string;
     roles: string[];
+    workplace:string
 }

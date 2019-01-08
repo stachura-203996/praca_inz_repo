@@ -32,11 +32,14 @@ public class DeliveryController {
     @Autowired
     private UserRepository userRepository;
 
+
+
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
     List<DeliveryListElementDto> getAll() {
-        return deliveryService.getAllDeliveries();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        return deliveryService.getAllDeliveries(auth.getName());
     }
 
     @RequestMapping(value = "/warehouseman",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)

@@ -22,7 +22,8 @@ import java.util.Date;
 public class Shipment {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "ShipmentGen", sequenceName = "shipment_id_seq",initialValue = 2,allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "ShipmentGen")
     @Column(name = "ID", updatable = false, nullable = false)
     private Long id = null;
 

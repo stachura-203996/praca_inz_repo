@@ -1,4 +1,4 @@
-<div class="col-md-12">
+ <div class="col-md-12" *ngIf="devices">
     <h1>{{ 'Devices' | translate }}</h1>
 
     <div class="row">
@@ -46,19 +46,19 @@
                         <i class="fa fa-eye"></i>&nbsp;
                         <span class="d-none d-md-inline">View</span>
                     </button>
-                    <button type="submit"
+                    <button *ngIf="device.status=='REPOSE'" type="submit"
                             [routerLink]="['./edit/'+device.id]"
                             queryParamsHandling="merge"
                             class="btn btn-primary btn-sm">
                         <i class="fa fa-pencil"></i>&nbsp;
                         <span class="d-none d-md-inline">Edit</span>
                     </button>
-                    <button type="button" (click)="transfer(device)"
+                    <button  *ngIf="device.status=='REPOSE'" type="button" (click)="transfer(device)"
                             class="btn btn-warning btn-sm">
                         <i class="fa fa-exchange"></i>&nbsp;
                         <span class="d-none d-md-inline">Transfer</span>
                     </button>
-                    <button type="button" (click)="delete(device)"
+                    <button *ngIf="device.status=='REPOSE'" type="button" (click)="delete(device)"
                             class="btn btn-danger btn-sm">
                         <i class="fa fa-times"></i>&nbsp;
                         <span class="d-none d-md-inline">Delete</span>

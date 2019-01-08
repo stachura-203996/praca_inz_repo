@@ -2,6 +2,8 @@ package com.stachura.praca_inz.backend.service;
 
 import com.stachura.praca_inz.backend.exception.service.ServiceException;
 import com.stachura.praca_inz.backend.model.Request;
+import com.stachura.praca_inz.backend.web.dto.device.DeviceListElementDto;
+import com.stachura.praca_inz.backend.web.dto.request.ChangeStatusDto;
 import com.stachura.praca_inz.backend.web.dto.request.RequestListElementDto;
 
 import java.util.List;
@@ -12,7 +14,15 @@ public interface RequestService {
 
     List<RequestListElementDto> getAllRequests(String type);
 
-    List<RequestListElementDto> getAllRequestsForUser(String type,String username);
+    List<RequestListElementDto> getAllRequestsForUser(String username);
+
+    List<RequestListElementDto> getAllRequestForManager(String username);
+
+    List<RequestListElementDto> getAllRequestFromeOtherUsers(String username);
+
+    List<RequestListElementDto> getAllRequestForWarehouseman(String username);
+
+    List<RequestListElementDto> getAllRequestFromOtherWarehouses(String username);
 
     List<RequestListElementDto> getAllRequestsForOffice(String type,Long id);
 
@@ -23,4 +33,10 @@ public interface RequestService {
     void deleteRequestById(Long id);
 
     void deleteRequest(Request report);
+
+    void realizeRequest(ChangeStatusDto changeStatusDto) throws ServiceException;
+
+    List<DeviceListElementDto> getAllRequestDevices(Long id);
+
+    void addDevicesToRequest(List<Long> devices,Long requestId)throws ServiceException;
 }

@@ -32,4 +32,6 @@ public interface WarehouseService {
     List<WarehouseListElementDto> getAllWarehousesForLoggedUser(String username);
 
     List<WarehouseListElementDto> getAllForTransferRequest(Long id);
+
+    List<WarehouseListElementDto> getAllForShipmentRequest(Long id);
 }

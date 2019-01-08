@@ -3,4 +3,5 @@ export class LoggedUser {
   name: string;
   surname: string;
   roles: string[];
+  companyId:number;
 }

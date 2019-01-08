@@ -2,10 +2,7 @@ package com.stachura.praca_inz.backend.web.dto.converter;
 
 import com.stachura.praca_inz.backend.model.security.User;
 import com.stachura.praca_inz.backend.model.security.UserRole;
-import com.stachura.praca_inz.backend.web.dto.user.LoggedUserDto;
-import com.stachura.praca_inz.backend.web.dto.user.ProfileInfoDto;
-import com.stachura.praca_inz.backend.web.dto.user.UserInfoDto;
-import com.stachura.praca_inz.backend.web.dto.user.UserListElementDto;
+import com.stachura.praca_inz.backend.web.dto.user.*;
 
 import java.util.stream.Collectors;
 
@@ -29,6 +26,8 @@ public class UserConverter {
                 .roles(user.getUserRoles().stream().map(UserRole::getName).collect(Collectors.toList()))
                 .build();
     }
+
+
 
 
     /**
@@ -69,7 +68,18 @@ public class UserConverter {
                 .username(user.getUsername())
                 .name(user.getUserdata().getName())
                 .surname(user.getUserdata().getSurname())
-                .roles(user.getUserRoles().stream().map(UserRole::getName).collect(Collectors.toList()))
+                .companyId(user.getOffice().getDepartment().getCompany().getId())
+                .build();
+    }
+
+
+    public static UserRolesDto toUserRoles(User user) {
+        return UserRolesDto.builder()
+                .admin(user.getUserRoles().stream().filter(x->x.getName().equals("ADMIN")).findFirst().isPresent())
+                .company_admin(user.getUserRoles().stream().filter(x->x.getName().equals("COMPANY_ADMIN")).findFirst().isPresent())
+                .manager(user.getUserRoles().stream().filter(x->x.getName().equals("MANAGER")).findFirst().isPresent())
+                .warehouseman(user.getUserRoles().stream().filter(x->x.getName().equals("WAREHOUSEMAN")).findFirst().isPresent())
+                .user(user.getUserRoles().stream().filter(x->x.getName().equals("USER")).findFirst().isPresent())
                 .build();
     }
 

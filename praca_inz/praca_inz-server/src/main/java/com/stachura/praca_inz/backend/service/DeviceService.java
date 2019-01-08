@@ -34,4 +34,7 @@ public interface DeviceService {
     void deleteDevice(Device device);
 
     List<DeviceListElementDto> getAllDevicesForLoggedWarehouseman(String username);
+
+    List<DeviceListElementDto> getAllDevicesForShipmentRequest(String name);
+
 }

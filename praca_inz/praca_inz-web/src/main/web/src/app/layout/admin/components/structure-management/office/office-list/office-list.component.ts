@@ -3,6 +3,9 @@ import {Component, OnInit} from '@angular/core';
 import {OfficeService} from "../office.service";
 import {TranslateService} from "@ngx-translate/core";
 import {StructureListElement} from "../../../../../../models/structure-elements";
+import {UserRoles} from "../../../../../../models/user-roles";
+import {LoggedUser} from "../../../../../../models/logged-user";
+import {UserService} from "../../../administration/user-management/user.service";
 
 @Component({
     selector: 'app-office-list',
@@ -11,26 +14,25 @@ import {StructureListElement} from "../../../../../../models/structure-elements"
 })
 export class OfficeListComponent implements OnInit {
 
+    public deletedFilter = false;
     offices: StructureListElement[];
+    roles: UserRoles;
+    currentUser: LoggedUser;
 
-    constructor(private officeService: OfficeService,
-                private translate: TranslateService,
+    constructor(
+        private officeService: OfficeService,
+        private translate: TranslateService,
     ) {
-        this.translate.addLangs(['en', 'pl']);
-        this.translate.setDefaultLang('pl');
-        const browserLang = this.translate.getBrowserLang();
-        this.translate.use(browserLang.match(/en|pl/) ? browserLang : 'pl');
     }
 
     ngOnInit() {
-        // this.filterUsers(null);
         this.getOffices();
     }
 
     getOffices() {
-        this.officeService.getAll().subscribe(officeListElement => {
-            this.offices = officeListElement
-        });
+            this.officeService.getAll().subscribe(officeListElement => {
+                this.offices = officeListElement
+            });
     }
 
     getAddress(office: StructureListElement): string {
@@ -41,34 +43,35 @@ export class OfficeListComponent implements OnInit {
         }
     }
 
-    filterUsers(searchText: string) {
-        // this.userService.getAllNotificationsForUser().subscribe(users => {
-        //     if (!users) {
-        //         this.users = [];
-        //         return;
-        //     }
-        //     if (!searchText || searchText.length < 2) {
-        //         if (this.notVerifiedFilter) {
-        //             this.users = users.filter(it => {
-        //                 return it.verified === !this.notVerifiedFilter;
-        //             });
-        //         } else {
-        //             this.users = users;
-        //         }
-        //         return;
-        //     }
-        //
-        //     searchText = searchText.toLowerCase();
-        //     this.users = users.filter(it => {
-        //         const fullname = it.name + ' ' + it.surname;
-        //         const ok = fullname.toLowerCase().includes(searchText);
-        //         if (!this.notVerifiedFilter) {
-        //             return ok;
-        //         } else {
-        //             return ok && it.verified === !this.notVerifiedFilter;
-        //         }
-        //     });
-        // });
+    filterOffices(searchText: string) {
+
+            this.officeService.getAll().subscribe(offices => {
+                if (!offices) {
+                    this.offices = [];
+                    return;
+                }
+                if (!searchText || searchText.length < 2) {
+                    if (this.deletedFilter) {
+                        this.offices = offices.filter(it => {
+                            return it.deleted === !this.deletedFilter;
+                        });
+                    } else {
+                        this.offices = offices;
+                    }
+                    return;
+                }
+
+                searchText = searchText.toLowerCase();
+                this.offices = offices.filter(it => {
+                    const range = it.name + ' ' + it.companyName + ' ' + it.departmentName + ' ' + it.description + ' ' + it.city + ' ' + it.street + ' ' + it.zipCode;
+                    const ok = range.toLowerCase().includes(searchText);
+                    if (!this.deletedFilter) {
+                        return ok;
+                    } else {
+                        return ok && it.deleted === !this.deletedFilter;
+                    }
+                });
+            });
     }
 
     delete(id: string) {

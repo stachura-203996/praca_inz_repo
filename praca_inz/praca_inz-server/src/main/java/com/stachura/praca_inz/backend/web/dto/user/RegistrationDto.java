@@ -8,6 +8,7 @@ import lombok.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 /**
  * Obiekt przesyłany z widoku z informacjami potrzebnymi do rejestracju nowego konta
@@ -27,4 +28,9 @@ public class RegistrationDto {
     private String street;
     private String houseNumber;
     private String flatNumber;
+    private String zipcode;
+    private String position;
+    private String workplace;
+    private Long officeId;
+    private List<String> roles;
 }

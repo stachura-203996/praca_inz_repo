@@ -2,6 +2,7 @@ package com.stachura.praca_inz.backend.config.server;
 
 import com.stachura.praca_inz.backend.config.encryption.Encoders;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,6 +22,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class ServerSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
+    private static final String ERROR_PATTERN="/error/**";
+
+    @Qualifier("userDetailsServiceImpl")
     @Autowired
     private UserDetailsService userDetailsService;
 
@@ -41,13 +45,14 @@ public class ServerSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
 //        http.authorizeRequests()
-////                .antMatchers("/*").permitAll()
-//                .antMatchers("/index.html").permitAll()
-//                .antMatchers("/login").permitAll()
-//                .antMatchers("/oauth/token/revokeById/**").permitAll()
-//                .antMatchers("/tokens/**").permitAll()
-//                .anyRequest().authenticated()
-//                .and().formLogin().loginPage("/login").permitAll()
+////                .antMatchers(ERROR_PATTERN).permitAll()
+//////                .antMatchers("/*").permitAll()
+////                .antMatchers("/index.html").permitAll()
+////                .antMatchers("/login").permitAll()
+////                .antMatchers("/oauth/token/revokeById/**").permitAll()
+////                .antMatchers("/tokens/**").permitAll()
+////                .anyRequest().authenticated()
+////                .and().formLogin().loginPage("/login").permitAll()
 //                .and().csrf().disable();
     http.httpBasic().disable();
     }

@@ -20,7 +20,8 @@ import java.util.Set;
 public class Company implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "CompanyGen", sequenceName = "company_id_seq",initialValue = 2,allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "CompanyGen")
     @Column(name = "ID", updatable = false, nullable = false)
     private Long id;
 
@@ -31,7 +32,7 @@ public class Company implements Serializable {
     @Column(name = "NAME", nullable = false)
     private String name;
 
-    @Column(name = "DESCRIPTION")
+    @Column(name = "DESCRIPTION",columnDefinition ="TEXT")
     private String description;
 
     @Column(name = "DELETED", nullable = false)

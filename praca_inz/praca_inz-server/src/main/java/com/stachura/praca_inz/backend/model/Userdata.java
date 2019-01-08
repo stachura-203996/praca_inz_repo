@@ -20,8 +20,9 @@ import java.util.Set;
 public class Userdata implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "id", updatable = false, nullable = false)
+    @SequenceGenerator(name = "UserdataGen", sequenceName = "userdata_id_seq",initialValue = 4,allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "UserdataGen")
+    @Column(name = "ID", updatable = false, nullable = false)
     private Long id = null;
 
     @Version
@@ -42,10 +43,6 @@ public class Userdata implements Serializable {
 
     @Column(name = "WORKPLACE")
     private String workplace;
-
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "USER_ID")
-    private User user;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "ADDRESS_ID")

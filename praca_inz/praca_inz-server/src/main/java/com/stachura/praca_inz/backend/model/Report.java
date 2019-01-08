@@ -19,7 +19,8 @@ import java.util.Comparator;
 public class Report implements Serializable, Comparator<Report> {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "ReportGen", sequenceName = "report_id_seq",initialValue = 2,allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "ReportGen")
     @Column(name = "ID", updatable = false, nullable = false)
     private Long id = null;
 
@@ -30,23 +31,29 @@ public class Report implements Serializable, Comparator<Report> {
     @Column(name = "TITLE", nullable = false)
     private String title;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY,optional = false)
     @JsonBackReference
     private User sender;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY,optional = false)
     @JsonBackReference
     private User reciever;
 
-    @Column(name = "DESCRIPTION")
+    @Column(name = "DESCRIPTION", columnDefinition ="TEXT", nullable = false)
     private String description;
 
     @Column(name = "DELETED", nullable = false)
     private boolean deleted;
 
+    @Column(name = "DISABLE_SENDER", nullable = false)
+    private boolean disableSender;
+
+    @Column(name = "DISABLE_RECIEVER", nullable = false)
+    private boolean disableReciever;
+
     @Basic
     @NotNull
-    @Column(name = "REPORT_DATE")
+    @Column(name = "REPORT_DATE", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private java.util.Calendar calendarTimestamp;
 

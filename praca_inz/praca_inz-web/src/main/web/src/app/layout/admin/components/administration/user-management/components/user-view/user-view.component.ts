@@ -8,6 +8,7 @@ import {UserService} from "../../user.service";
 import {TransferListElement} from "../../../../../../../models/transfer-list-element";
 import {DeviceService} from "../../../../../../device-management/device.service";
 import {DeviceListElement} from "../../../../../../../models/device-elements";
+import {UserRoles} from "../../../../../../../models/user-roles";
 
 
 @Component({
@@ -21,16 +22,18 @@ export class UserViewComponent implements OnInit {
     devices: DeviceListElement[];
     transfers: TransferListElement[];
 
-    roles = {admin: false, employee: false, supervisor: false, benefit_manager: false};
+    roles: UserRoles;
+
 
     constructor(
         private route: ActivatedRoute,
         private userService: UserService,
-        private deviceService:DeviceService,
-        private sessionContextService: SessionContextService,
-        ) {}
+        private deviceService: DeviceService,
+    ) {
+    }
 
     ngOnInit() {
+        this.getLoggedUserRoles()
         this.getUserInfo();
         this.getDevicesForUser()
         this.getTransfersForUser()
@@ -43,6 +46,11 @@ export class UserViewComponent implements OnInit {
         });
     }
 
+
+    getLoggedUserRoles() {
+        this.userService.getLoggedUserRoles().subscribe(x => this.roles = x);
+    }
+
     getAddress(): string {
         if (this.user.flatNumber == null || this.user.flatNumber === "0") {
             return (this.user.street + ' ' + this.user.houseNumber);
@@ -52,20 +60,17 @@ export class UserViewComponent implements OnInit {
     }
 
 
+    getTransfersForUser() {
+        const username = this.route.snapshot.paramMap.get('username');
+        this.deviceService.getAllTransfersForUser(username).subscribe(transferListElement => {
+            this.transfers = transferListElement
+        });
+    }
 
-getTransfersForUser()
-{
-    const username = this.route.snapshot.paramMap.get('username');
-    this.deviceService.getAllTransfersForUser(username).subscribe(transferListElement => {
-        this.transfers = transferListElement
-    });
-}
-
-getDevicesForUser()
-{
-    const username = this.route.snapshot.paramMap.get('username');
-    this.deviceService.getAllDevicesForUser(username).subscribe(deviceListElement => {
-        this.devices = deviceListElement
-    });
-}
+    getDevicesForUser() {
+        const username = this.route.snapshot.paramMap.get('username');
+        this.deviceService.getAllDevicesForUser(username).subscribe(deviceListElement => {
+            this.devices = deviceListElement
+        });
+    }
 }

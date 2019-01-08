@@ -61,6 +61,14 @@ public class WarehouseController {
         return warehouseService.getAllForTransferRequest(userRepository.find(auth.getName()).getOffice().getId());
     }
 
+    @RequestMapping(value = "/shipment-request",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(value = HttpStatus.OK)
+    public @ResponseBody
+    List<WarehouseListElementDto> getAllWarehousesForShipmentRequest() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        return warehouseService.getAllForShipmentRequest(userRepository.find(auth.getName()).getOffice().getId());
+    }
+
     @RequestMapping(value = "/company/{id}",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody

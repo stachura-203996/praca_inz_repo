@@ -6,6 +6,7 @@ import {FormsModule} from "@angular/forms";
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import {ProfileEditComponent} from "./profile-edit/profile-edit.component";
 import {ProfileComponent} from "./profile/profile.component";
+import { PasswordEditComponent } from './password-edit/password-edit.component';
 
 @NgModule({
     imports: [
@@ -15,7 +16,7 @@ import {ProfileComponent} from "./profile/profile.component";
         FormsModule,
         NgbModule.forRoot()
     ],
-    declarations: [ProfileEditComponent, ProfileComponent],
+    declarations: [ProfileEditComponent, ProfileComponent, PasswordEditComponent],
 
 })
 export class ProfileModule {

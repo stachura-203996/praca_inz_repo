@@ -14,6 +14,6 @@ public class CompanyStructureAddDto {
     private String buildingNumber;
     private String flatNumber;
     private String zipCode;
-    private String companyId;
-    private String departmentId;
+    private Long companyId;
+    private Long departmentId;
 }

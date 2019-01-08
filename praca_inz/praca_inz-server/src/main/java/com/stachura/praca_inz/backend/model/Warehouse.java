@@ -1,6 +1,7 @@
 package com.stachura.praca_inz.backend.model;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.stachura.praca_inz.backend.model.enums.RequestType;
 import com.stachura.praca_inz.backend.model.enums.WarehouseType;
@@ -22,7 +23,8 @@ import java.util.Set;
 public class Warehouse implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "WarehouseGen", sequenceName = "warehouse_id_seq",initialValue = 3,allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "WarehouseGen")
     @Column(name = "ID", updatable = false, nullable = false)
     private Long id = null;
 
@@ -33,12 +35,12 @@ public class Warehouse implements Serializable {
     @Column(name = "NAME", nullable = false)
     private String name;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "USER_ID")
+    @ManyToOne(fetch = FetchType.LAZY,optional = false)
+    @JsonBackReference
     private User user;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "OFFICE_ID")
+    @ManyToOne(fetch = FetchType.LAZY,optional = false)
+    @JsonBackReference
     private Office office;
 
     @Column(name = "WAREHOUSE_TYPE", nullable = false)
@@ -82,7 +84,6 @@ public class Warehouse implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "senderWarehouse", fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonManagedReference
     private Set<Transfer> senderTransfers = new HashSet<>();
-
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "recieverWarehouse", fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonManagedReference

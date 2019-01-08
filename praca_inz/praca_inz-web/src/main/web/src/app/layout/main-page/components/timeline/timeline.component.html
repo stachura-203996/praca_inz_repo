@@ -2,12 +2,26 @@
     <div class="row">
         <div class="col-md-10">
             <ul class="timeline">
-                <li *ngFor="let message of systemMessages">
-                    <a>{{message.title}}</a>
-                    <a class="float-right">{{message.messageDate}}</a>
-                    <p>{{message.message}}</p>
+                <li class="timeline-inverted" *ngFor="let message of systemMessages">
+                    <div class="timeline-panel">
+                        <div class="timeline-heading">
+                            <div class="row">
+                                <div class="col-xl-9">
+                                <h5 class="timeline-title">{{message.title}}</h5>
+                                </div>
+                                <div class="col-xl-3">
+                                <a class="float-right">{{message.messageDate}}</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="timeline-body">
+                            <p>{{message.message}}</p>
+                        </div>
+                    </div>
                 </li>
             </ul>
         </div>
     </div>
 </div>
+
+

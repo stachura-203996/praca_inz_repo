@@ -2,6 +2,9 @@ import {Injectable} from '@angular/core';
 import {CookieService} from "ngx-cookie-service";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Router} from "@angular/router";
+import {SessionContextService} from "../shared/services/session-context.service";
+import {DatePipe} from "@angular/common";
+import {Timestamp} from "rxjs";
 
 @Injectable({
     providedIn: 'root'
@@ -10,7 +13,7 @@ export class LoginService {
 
 
     constructor(
-        private _router: Router, private http: HttpClient, private cookieService: CookieService) {
+        private router: Router, private http: HttpClient, private cookieService: CookieService,private sessionContextService:SessionContextService) {
     }
 
     obtainAccessToken(loginData) {
@@ -34,26 +37,23 @@ export class LoginService {
     }
 
     saveToken(token) {
-        var expireDate = new Date().getTime() + (1000 * token.expires_in);
+        var expireDate = Math.floor(new Date().getTime()/1000) +token.expires_in;
+
         this.cookieService.set('access_token', token.access_token, expireDate);
         console.log('Obtained Access token');
-        this.checkCredentials();
+        this.router.navigateByUrl('/page')
     }
 
-    checkCredentials() {
-        if (!this.cookieService.check('access_token')) {
-            this._router.navigate(['/login']);//TODO Drut
-            return false;
-        } else {
-            this._router.navigate(['/page']);
-            localStorage.setItem('isLoggedin', 'true');
-            return true;
-        }
+    checkCredentials():boolean {
+        return this.cookieService.check('access_token');
+    }
+
+    revokeToken(){
+
     }
 
     logout() {
         this.cookieService.delete('access_token');
-
-        this._router.navigate(['/login']);
+        this.router.navigate(['/login']);
     }
 }

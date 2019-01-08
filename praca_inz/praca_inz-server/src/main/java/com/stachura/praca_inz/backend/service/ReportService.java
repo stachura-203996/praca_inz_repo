@@ -22,4 +22,8 @@ public interface ReportService {
     List<ReportListElementDto> getAllReportsFromOthers(String username);
 
     List<ReportListElementDto> getAllReportsForUser(String username);
+
+    void disableBySender(Long id);
+
+    void disableByReciever(Long id);
 }

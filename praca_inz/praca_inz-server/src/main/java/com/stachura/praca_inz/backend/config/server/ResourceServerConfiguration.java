@@ -16,6 +16,7 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
     private static final String SECURED_WRITE_SCOPE = "#oauth2.hasScope('write')";
     private static final String SECURED_PATTERN = "/secured/**";
 
+
     @Override
     public void configure(ResourceServerSecurityConfigurer resources) {
         resources.resourceId(RESOURCE_ID);

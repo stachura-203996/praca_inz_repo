@@ -11,6 +11,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Comparator;
 import java.util.Date;
 
@@ -22,7 +23,8 @@ import java.util.Date;
 public class Notification implements Serializable, Comparator<Notification>,Cloneable  {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "NotificationGen", sequenceName = "notification_id_seq",initialValue = 5,allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "NotificationGen")
     @Column(name = "ID", updatable = false, nullable = false)
     private Long id = null;
 
@@ -37,7 +39,7 @@ public class Notification implements Serializable, Comparator<Notification>,Clon
     @JsonBackReference
     private User user;
 
-    @Column(name = "DESCRIPTION", nullable = false)
+    @Column(name = "DESCRIPTION", nullable = false,  columnDefinition ="TEXT")
     private String description;
 
     @Column(name = "URL", nullable = false)
@@ -62,15 +64,6 @@ public class Notification implements Serializable, Comparator<Notification>,Clon
     }
 
 
-    public Notification clone(){
-        Notification tmp=new Notification();
-        tmp.setUser(this.getUser());
-        tmp.setDescription(this.getDescription());
-        tmp.setTitle(this.getTitle());
-        tmp.setCalendarTimestamp(this.getCalendarTimestamp());
-        tmp.setId(this.getId());
-        tmp.setReaded(this.isReaded());
-        tmp.setDeleted(this.isDeleted());
-        return tmp;
-    }
+
+
 }
