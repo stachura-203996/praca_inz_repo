@@ -47,8 +47,8 @@
                         </a>
                     </li>
                     <li>
-                        <a [routerLink]="['/admin/devices/type']">
-                            <span>{{ 'DevicesTypes' | translate }}</span>
+                        <a [routerLink]="['/admin/devices/model']">
+                            <span>{{ 'DevicesModels' | translate }}</span>
                         </a>
                     </li>
                     <li>
@@ -71,14 +71,23 @@
                             <span>{{ 'Warehouses' | translate }}</span>
                         </a>
                     </li>
-
+                    <li>
+                        <a [routerLink]="['/admin/deliveries']">
+                            <span>{{ 'Deliveries' | translate }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/admin/shipments']">
+                            <span>{{ 'Shipments' | translate }}</span>
+                        </a>
+                    </li>
                 </ul>
             </li>
         </div>
         <div class="nested-menu">
             <a class="list-group-item" (click)="addExpandClass('employeesManagementPanel')">
                 <i class="fa fa-briefcase"></i>&nbsp;
-                <span>{{ 'Emlpoyeemanager' | translate }}</span>
+                <span>{{ 'EmployeeManager' | translate }}</span>
             </a>
             <li class="nested" [class.expand]="showMenu === 'employeesManagementPanel'">
                 <ul class="submenu">
@@ -89,9 +98,9 @@
                         </a>
                     </li>
                     <li>
-                        <a [routerLink]="['/employees/subordinates/requests']">
+                        <a [routerLink]="['/employees/reports']">
                             <i class="fa fa-monument"></i>&nbsp;
-                            <span>{{ 'SubordinatesRequests' | translate }}</span>
+                            <span>{{ 'Reports' | translate }}</span>
                         </a>
                     </li>
                     <li>
@@ -101,9 +110,9 @@
                         </a>
                     </li>
                     <li>
-                        <a [routerLink]="['/employees/reports']">
+                        <a [routerLink]="['/employees/requests']">
                             <i class="fa fa-monument"></i>&nbsp;
-                            <span>{{ 'Reports' | translate }}</span>
+                            <span>{{ 'Requests' | translate }}</span>
                         </a>
                     </li>
                 </ul>
@@ -123,9 +132,9 @@
                         </a>
                     </li>
                     <li>
-                        <a [routerLink]="['/devices/request']">
+                        <a [routerLink]="['/devices/transfer']">
                             <i  class="fa fa-monument"></i>&nbsp;
-                            <span>{{ 'YourRequests' | translate }}</span>
+                            <span>{{ 'YourTransfers' | translate }}</span>
                         </a>
                     </li>
                     <li>
@@ -134,13 +143,6 @@
                             <span>{{ 'DeviceRequestAdd' | translate }}</span>
                         </a>
                     </li>
-                    <li>
-                        <a [routerLink]="['/devices/transfer']">
-                            <i  class="fa fa-monument"></i>&nbsp;
-                            <span>{{ 'YourTransfers' | translate }}</span>
-                        </a>
-                    </li>
-
                 </ul>
             </li>
         </div>
@@ -158,27 +160,15 @@
                         </a>
                     </li>
                     <li>
-                        <a [routerLink]="['/warehouses/device']">
+                        <a [routerLink]="['/warehouses/devices']">
                             <i  class="fa fa-monument"></i>&nbsp;
                             <span>{{ 'Devices' | translate }}</span>
                         </a>
                     </li>
                     <li>
-                        <a [routerLink]="['/warehouses/request']">
+                        <a [routerLink]="['/warehouses/requests']">
                             <i  class="fa fa-monument"></i>&nbsp;
-                            <span>{{ 'Requests' | translate }}</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a [routerLink]="['/warehouses/delivery/request/add']">
-                            <i  class="fa fa-monument"></i>&nbsp;
-                            <span>{{ 'DeliveryRequestAdd' | translate }}</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a [routerLink]="['/warehouses/shipment/request/add']">
-                            <i  class="fa fa-monument"></i>&nbsp;
-                            <span>{{ 'ShipmentRequestAdd' | translate }}</span>
+                            <span>{{ 'WarehouseRequests' | translate }}</span>
                         </a>
                     </li>
                     <li>
@@ -193,6 +183,19 @@
                             <span>{{ 'Shipments' | translate }}</span>
                         </a>
                     </li>
+                    <li>
+                        <a [routerLink]="['/warehouses/delivery/request/add']">
+                            <i  class="fa fa-monument"></i>&nbsp;
+                            <span>{{ 'DeliveryRequestAdd' | translate }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/warehouses/shipment/request/add']">
+                            <i  class="fa fa-monument"></i>&nbsp;
+                            <span>{{ 'ShipmentRequestAdd' | translate }}</span>
+                        </a>
+                    </li>
+
 
                 </ul>
             </li>

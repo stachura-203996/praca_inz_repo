@@ -30,17 +30,17 @@ public class Parameter implements Serializable {
     @Column(name = "VERSION")
     private long version;
 
+    @Column(name = "NAME", nullable = false)
+    private String name;
+
+    @Column(name = "VALUE", nullable = false)
+    private String value;
+
     @Column(name = "DELETED", nullable = false)
     private boolean deleted;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "parameter", fetch = FetchType.LAZY, orphanRemoval = true)
-    @JsonManagedReference
-    private Set<ParameterValue> parameterValues = new HashSet<>();
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonBackReference
+    private DeviceModel deviceModel;
 
-    public void setParametersValues(Set<ParameterValue> parameterValues) {
-        this.parameterValues.clear();
-        if (parameterValues != null) {
-            this.parameterValues.addAll(parameterValues);
-        }
-    }
 }

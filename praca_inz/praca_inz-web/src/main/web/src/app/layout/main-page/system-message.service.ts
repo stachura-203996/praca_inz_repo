@@ -3,7 +3,7 @@ import {HttpService} from "../../shared/services/http.service";
 import {Configuration} from "../../app.constants";
 import {StructureViewElement} from "../../models/structure-elements";
 import {Observable} from "rxjs";
-import {DeviceListElement, DeviceTypeListElement} from "../../models/device-elements";
+import {DeviceListElement, DeviceModelListElement} from "../../models/device-elements";
 import {TransferListElement} from "../../models/transfer-list-element";
 import {SystemMessageListElement} from "../../models/system-message-list-element";
 

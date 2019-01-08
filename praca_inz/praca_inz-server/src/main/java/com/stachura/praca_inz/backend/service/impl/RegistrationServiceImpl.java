@@ -1,13 +1,13 @@
 package com.stachura.praca_inz.backend.service.impl;
 
-import com.stachura.praca_inz.backend.exception.EntityException;
 import com.stachura.praca_inz.backend.exception.UserAlreadyExistException;
+import com.stachura.praca_inz.backend.exception.repository.EntityException;
 import com.stachura.praca_inz.backend.model.Userdata;
 import com.stachura.praca_inz.backend.model.security.User;
 import com.stachura.praca_inz.backend.repository.interfaces.UserdataRepository;
 import com.stachura.praca_inz.backend.repository.interfaces.UserRepository;
 import com.stachura.praca_inz.backend.service.RegistrationService;
-import com.stachura.praca_inz.backend.web.dto.RegistrationDto;
+import com.stachura.praca_inz.backend.web.dto.user.RegistrationDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.crypto.password.PasswordEncoder;

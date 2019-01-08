@@ -3,17 +3,22 @@ import {CommonModule} from '@angular/common';
 import {DeviceUserComponent} from './device-user/device-user.component';
 import {DeviceManagementRoutingModule} from "./device-management-routing.module";
 import {TransferUserComponent} from './transfer-user/transfer-user.component';
-import {DeviceRequestAddComponent} from './device-request-add/device-request-add.component';
-import {DeviceRequestEditComponent} from './device-request-edit/device-request-edit.component';
-import {DeviceRequestUserComponent} from './device-request-user/device-request-user.component';
+
 import {DeviceViewComponent} from './device-view/device-view.component';
-import {DeviceRequestViewComponent} from './device-request-view/device-request-view.component';
 import {TransferViewComponent} from './transfer-view/transfer-view.component';
 import {TranslateModule} from "@ngx-translate/core";
 import {FormsModule} from "@angular/forms";
-import { DeviceTypeViewComponent } from './device-type-view/device-type-view.component';
-import { TransferRequestAddComponent } from './transfer-request-add/transfer-request-add.component';
+
+
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
+import {DeviceRequestAddComponent} from "./device-requests/device-request-add/device-request-add.component";
+import {DeviceRequestEditComponent} from "./device-requests/device-request-edit/device-request-edit.component";
+import {DeviceRequestViewComponent} from "./device-requests/device-request-view/device-request-view.component";
+import {TransferRequestAddComponent} from "./transfer-requests/transfer-request-add/transfer-request-add.component";
+import {TransferRequestViewComponent} from "./transfer-requests/transfer-request-view/transfer-request-view.component";
+import {TransferRequestEditComponent} from "./transfer-requests/transfer-request-edit/transfer-request-edit.component";
+import {DeviceModelViewComponent} from "./device-model-view/device-model-view.component";
+
 
 @NgModule({
     imports: [
@@ -28,12 +33,13 @@ import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
         TransferUserComponent,
         DeviceRequestAddComponent,
         DeviceRequestEditComponent,
-        DeviceRequestUserComponent,
         DeviceViewComponent,
         DeviceRequestViewComponent,
         TransferViewComponent,
-        DeviceTypeViewComponent,
-        TransferRequestAddComponent
+        DeviceModelViewComponent,
+        TransferRequestAddComponent,
+        TransferRequestViewComponent,
+        TransferRequestEditComponent
     ]
 })
 export class DeviceManagementModule {

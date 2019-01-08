@@ -1,13 +1,12 @@
 package com.stachura.praca_inz.backend.service.impl;
 
-import com.stachura.praca_inz.backend.exception.EntityException;
-import com.stachura.praca_inz.backend.model.Device;
+import com.stachura.praca_inz.backend.exception.repository.DatabaseErrorException;
+import com.stachura.praca_inz.backend.exception.repository.EntityException;
+import com.stachura.praca_inz.backend.exception.service.ServiceException;
 import com.stachura.praca_inz.backend.model.Transfer;
 import com.stachura.praca_inz.backend.repository.interfaces.TransferRepository;
 import com.stachura.praca_inz.backend.service.TransferService;
-import com.stachura.praca_inz.backend.web.dto.DeviceListElementDto;
 import com.stachura.praca_inz.backend.web.dto.TransferListElementDto;
-import com.stachura.praca_inz.backend.web.dto.converter.DeviceConverter;
 import com.stachura.praca_inz.backend.web.dto.converter.TransferConverter;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,9 +37,11 @@ public class TransferServiceImpl implements TransferService {
     }
 
     @Override
+    @Transactional(readOnly = true)
+    @PreAuthorize("hasAuthority('TRANSFER_LIST_READ')")
     public List<TransferListElementDto> getAllTransfersForLoggedUser(String username) {
         List<Transfer> transfers = transferRepository.findAll().stream().filter(x -> x.getSenderWarehouse().getUser().getUsername().equals(username) &&
-                x.getRecieverWarehouse().getUser().getUsername().equals(username)).collect(Collectors.toList());
+                x.getRecieverWarehouse().getUser().getUsername().equals(username) || x.getUsername().equals(username)).collect(Collectors.toList());
         List<TransferListElementDto> transferListElementDtos = new ArrayList<>();
         for (Transfer a : transfers) {
             if (!a.isDeleted()) {
@@ -68,34 +69,24 @@ public class TransferServiceImpl implements TransferService {
         return transferListElementDtos;
     }
 
-    //TODO
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('TRANSFER_CREATE')")
-    public void createNewTransfer(Transfer transfer) {
+    public void createNewTransfer(Transfer transfer)throws ServiceException {
         try {
             transferRepository.create(transfer);
-
+        } catch (DatabaseErrorException e) {
+            throw e;
         } catch (EntityException e) {
-
+            throw ServiceException.createServiceException(ServiceException.ENTITY_VALIDATION, e);
         }
-
     }
 
-    //TODO
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('TRANSFER_UPDATE')")
-    public Transfer updateTransfer(Transfer transfer) {
-        Transfer tmp = new Transfer();
-        try {
-            if (!transferRepository.find(transfer.getId()).isDeleted()) {
-                transfer = transferRepository.update(transfer);
-            }
-        } catch (EntityException e) {
-
-        }
-        return tmp;
+    public void updateTransfer(Transfer transfer) throws ServiceException {
+        transferRepository.update(transfer);
     }
 
     @Override

@@ -1,10 +1,12 @@
 package com.stachura.praca_inz.backend.service.impl;
 
-import com.stachura.praca_inz.backend.exception.EntityException;
+import com.stachura.praca_inz.backend.exception.repository.DatabaseErrorException;
+import com.stachura.praca_inz.backend.exception.repository.EntityException;
+import com.stachura.praca_inz.backend.exception.service.ServiceException;
 import com.stachura.praca_inz.backend.model.Report;
 import com.stachura.praca_inz.backend.repository.interfaces.ReportRepository;
 import com.stachura.praca_inz.backend.service.ReportService;
-import com.stachura.praca_inz.backend.web.dto.ReportListElementDto;
+import com.stachura.praca_inz.backend.web.dto.report.ReportListElementDto;
 import com.stachura.praca_inz.backend.web.dto.converter.ReportConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -23,10 +25,10 @@ public class ReportServiceImpl implements ReportService {
 
     @Override
     @Transactional(readOnly = true)
-//    @PreAuthorize("hasAuthority('REPORT_READ')")
+    @PreAuthorize("hasAuthority('REPORT_READ')")
     public Report getReportById(Long id) {
-        Report report= reportRepository.find(id);
-        if(report.isDeleted()){
+        Report report = reportRepository.find(id);
+        if (report.isDeleted()) {
             return null;
         }
         return report;
@@ -34,68 +36,60 @@ public class ReportServiceImpl implements ReportService {
 
     @Override
     @Transactional(readOnly = true)
-//    @PreAuthorize("hasAuthority('REPORT_LIST_READ')")
+    @PreAuthorize("hasAuthority('REPORT_LIST_READ')")
     public List<ReportListElementDto> getAllReports() {
         List<Report> reports = reportRepository.findAll();
         List<ReportListElementDto> reportListElementDtos = new ArrayList<>();
         for (Report a : reports) {
-            if(!a.isDeleted()) {
+            if (!a.isDeleted()) {
                 reportListElementDtos.add(ReportConverter.toReportListElement(a));
             }
         }
         return reportListElementDtos;
     }
 
-    //TODO
     @Override
     @Transactional
-//    @PreAuthorize("hasAuthority('REPORT_CREATE')")
-    public void createNewReport(Report report) {
+    @PreAuthorize("hasAuthority('REPORT_CREATE')")
+    public Long createNewReport(Report report) throws ServiceException {
         try {
             reportRepository.create(report);
-
+            return report.getId();
+        } catch (DatabaseErrorException e) {
+            throw e;
         } catch (EntityException e) {
-
+            throw ServiceException.createServiceException(ServiceException.ENTITY_VALIDATION, e);
         }
-
     }
 
-    //TODO
+
     @Override
     @Transactional
-//    @PreAuthorize("hasAuthority('REPORT_UPDATE')")
-    public Report updateReport(Report report) {
-        Report tmp = new Report();
-        try {
-            if (!reportRepository.find(report.getId()).isDeleted()) {
-                tmp = reportRepository.update(report);
-            }
-        } catch (EntityException e) {
-
-        }
-        return tmp;
+    @PreAuthorize("hasAuthority('REPORT_UPDATE')")
+    public void updateReport(Report report) throws ServiceException {
+        reportRepository.update(report);
     }
 
     @Override
     @Transactional
-//    @PreAuthorize("hasAuthority('REPORT_DELETE')")
+    @PreAuthorize("hasAuthority('REPORT_DELETE')")
     public void deleteReportById(Long id) {
         reportRepository.find(id).setDeleted(true);
     }
 
     @Override
     @Transactional
-//    @PreAuthorize("hasAuthority('REPORT_DELETE')")
+    @PreAuthorize("hasAuthority('REPORT_DELETE')")
     public void deleteReport(Report report) {
         reportRepository.find(report.getId()).setDeleted(true);
     }
 
     @Override
-    public List<ReportListElementDto> getAllReportsFromEmployees(String username) {
-        List<Report> reports = reportRepository.findAll().stream().filter(x->x.getReciever().getUsername().equals(username)).collect(Collectors.toList());
+    public List<ReportListElementDto> getAllReportsFromOthers(String username) {
+        List<Report> reports = reportRepository.findAll().stream().filter(x -> x.getReciever().getUsername().equals(username)).collect(Collectors.toList());
         List<ReportListElementDto> reportListElementDtos = new ArrayList<>();
         for (Report a : reports) {
-            if(!a.isDeleted()) {
+            if (!a.isDeleted()) {
                 reportListElementDtos.add(ReportConverter.toReportListElement(a));
             }
         }
@@ -104,10 +98,10 @@ public class ReportServiceImpl implements ReportService {
 
     @Override
     public List<ReportListElementDto> getAllReportsForUser(String username) {
-        List<Report> reports = reportRepository.findAll().stream().filter(x->x.getSender().getUsername().equals(username)).collect(Collectors.toList());
+        List<Report> reports = reportRepository.findAll().stream().filter(x -> x.getSender().getUsername().equals(username)).collect(Collectors.toList());
         List<ReportListElementDto> reportListElementDtos = new ArrayList<>();
         for (Report a : reports) {
-            if(!a.isDeleted()) {
+            if (!a.isDeleted()) {
                 reportListElementDtos.add(ReportConverter.toReportListElement(a));
             }
         }

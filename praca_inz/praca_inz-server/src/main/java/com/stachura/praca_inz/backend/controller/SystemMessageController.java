@@ -1,5 +1,6 @@
 package com.stachura.praca_inz.backend.controller;
 
+import com.stachura.praca_inz.backend.exception.service.ServiceException;
 import com.stachura.praca_inz.backend.model.SystemMessage;
 import com.stachura.praca_inz.backend.service.SystemMessageService;
 import com.stachura.praca_inz.backend.web.dto.SystemMessageListElementDto;
@@ -47,7 +48,11 @@ public class SystemMessageController {
     @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public ResponseEntity<?> create(@RequestBody SystemMessage systemMessage) {
-        systemMessageService.createNewSystemMessage(systemMessage);
+        try {
+            systemMessageService.createNewSystemMessage(systemMessage);
+        } catch (ServiceException e) {
+            e.printStackTrace();
+        }
         HttpHeaders headers = new HttpHeaders();
         ControllerLinkBuilder linkBuilder = linkTo(methodOn(SystemMessageController.class).get(systemMessage.getId()));
         headers.setLocation(linkBuilder.toUri());
@@ -57,7 +62,11 @@ public class SystemMessageController {
     @RequestMapping(method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public void update(@RequestBody SystemMessage systemMessage) {
-        systemMessageService.updateSystemMessage(systemMessage);
+        try {
+            systemMessageService.updateSystemMessage(systemMessage);
+        } catch (ServiceException e) {
+            e.printStackTrace();
+        }
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)

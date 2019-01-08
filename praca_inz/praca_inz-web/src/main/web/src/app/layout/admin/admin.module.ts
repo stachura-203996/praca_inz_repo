@@ -21,9 +21,6 @@ import {DeviceAddComponent} from "./components/structure-management/device/devic
 import {DeviceEditComponent} from "./components/structure-management/device/device-edit/device-edit.component";
 import {TransferListComponent} from "./components/structure-management/device/transfer-list/transfer-list.component";
 import {DeviceRequestListComponent} from "./components/structure-management/device/device-request-list/device-request-list.component";
-import { DeviceTypeListComponent } from './components/structure-management/device/device-type-list/device-type-list.component';
-import { DeviceTypeAddComponent } from './components/structure-management/device/device-type-add/device-type-add.component';
-import { DeviceTypeEditComponent } from './components/structure-management/device/device-type-edit/device-type-edit.component';
 import { DeviceParameterAddComponent } from './components/structure-management/device/device-parameter-add/device-parameter-add.component';
 import { DeviceParameterEditComponent } from './components/structure-management/device/device-parameter-edit/device-parameter-edit.component';
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
@@ -32,6 +29,15 @@ import {WarehouseAddComponent} from "./components/structure-management/warehouse
 import {WarehouseEditComponent} from "./components/structure-management/warehouse/warehouse-edit/warehouse-edit.component";
 import { RequestListComponent } from './components/structure-management/request/request-list/request-list.component';
 import { ReportListComponent } from './components/structure-management/report/report-list/report-list.component';
+import {SystemMessageAddComponent} from "./components/structure-management/system_messages/system-message-add/system-message-add.component";
+import {SystemMessageListComponent} from "./components/structure-management/system_messages/system-message-list/system-message-list.component";
+import {SystemMessageEditComponent} from "./components/structure-management/system_messages/system-message-edit/system-message-edit.component";
+import {DeviceModelListComponent} from "./components/structure-management/device/device-model-list/device-model-list.component";
+import {DeviceModelAddComponent} from "./components/structure-management/device/device-model-add/device-model-add.component";
+import {DeviceModelEditComponent} from "./components/structure-management/device/device-model-edit/device-model-edit.component";
+import { DeviceTypeListComponent } from './components/structure-management/device/device-type-list/device-type-list.component';
+import { DeliveryListComponent } from './components/structure-management/warehouse/delivery-list/delivery-list.component';
+import { ShipmentListComponent } from './components/structure-management/warehouse/shipment-list/shipment-list.component';
 
 @NgModule({
     imports: [
@@ -60,16 +66,22 @@ import { ReportListComponent } from './components/structure-management/report/re
         DeviceEditComponent,
         DeviceRequestListComponent,
         TransferListComponent,
-        DeviceTypeListComponent,
-        DeviceTypeAddComponent,
-        DeviceTypeEditComponent,
+        DeviceModelListComponent,
+        DeviceModelAddComponent,
+        DeviceModelEditComponent,
         DeviceParameterAddComponent,
         DeviceParameterEditComponent,
         WarehouseListComponent,
         WarehouseAddComponent,
         WarehouseEditComponent,
         RequestListComponent,
-        ReportListComponent
+        ReportListComponent,
+        SystemMessageAddComponent,
+        SystemMessageListComponent,
+        SystemMessageEditComponent,
+        DeviceTypeListComponent,
+        DeliveryListComponent,
+        ShipmentListComponent
     ]
 })
 export class AdminModule {

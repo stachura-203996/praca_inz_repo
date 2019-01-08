@@ -31,7 +31,7 @@ public class Shipment {
     private long version;
 
     @Column(name = "SHIPMENT_NUMBER", nullable = false)
-    private String deliveryNumber;
+    private String shipmentNumber;
 
     @Column(name = "TITLE", nullable = false)
     private String title;
@@ -61,9 +61,16 @@ public class Shipment {
     private Collection<Device> devices;
 
     @Basic
+    @NotNull
     @Column(name = "SHIPMENT_DATE")
     @Temporal(TemporalType.TIMESTAMP)
-    private java.util.Date utilTimestamp;
+    private java.util.Calendar createDate;
+
+    @Basic
+    @NotNull
+    @Column(name = "LAST_UPDATE")
+    @Temporal(TemporalType.TIMESTAMP)
+    private java.util.Calendar lastUpdate;
 
     @Column(name = "DELETED", nullable = false)
     private boolean deleted;

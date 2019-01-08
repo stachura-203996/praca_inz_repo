@@ -1,16 +1,14 @@
 package com.stachura.praca_inz.backend.service.impl;
 
-import com.stachura.praca_inz.backend.exception.EntityException;
+import com.stachura.praca_inz.backend.exception.repository.DatabaseErrorException;
+import com.stachura.praca_inz.backend.exception.repository.EntityException;
+import com.stachura.praca_inz.backend.exception.service.ServiceException;
 import com.stachura.praca_inz.backend.model.Notification;
-import com.stachura.praca_inz.backend.model.Notification;
-import com.stachura.praca_inz.backend.model.SystemMessage;
-import com.stachura.praca_inz.backend.model.Transfer;
 import com.stachura.praca_inz.backend.repository.interfaces.NotificationRepository;
+import com.stachura.praca_inz.backend.service.EmailService;
 import com.stachura.praca_inz.backend.service.NotificationService;
 import com.stachura.praca_inz.backend.web.dto.NotificationListElementDto;
-import com.stachura.praca_inz.backend.web.dto.TransferListElementDto;
 import com.stachura.praca_inz.backend.web.dto.converter.NotificationConverter;
-import com.stachura.praca_inz.backend.web.dto.converter.TransferConverter;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -28,6 +26,9 @@ public class NotificationServiceImpl implements NotificationService {
 
     @Autowired
     private NotificationRepository notificationRepository;
+
+    @Autowired
+    private EmailService emailService;
 
     @Override
     @Transactional(readOnly = true)
@@ -87,14 +88,6 @@ public class NotificationServiceImpl implements NotificationService {
         return notificationListElementDtos;
     }
 
-    /*@Override
-    @Transactional(readOnly = true)
-    @PreAuthorize("hasAuthority('NOTIFICATION_READ') and hasAuthority('DEPARTMENT_READ')")
-    public Notification getNotificationByName(String name) {
-        return notificationRepository.find(name);
-    }*/
-
-
     @Transactional(readOnly = true)
     @PreAuthorize("hasAuthority('NOTIFICATION_USER_LIST_READ')")
     public List<NotificationListElementDto> getAllNotifications() {
@@ -108,32 +101,25 @@ public class NotificationServiceImpl implements NotificationService {
         return notificationListElementDtos;
     }
 
-    //TODO EXCEPTIONS
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('NOTIFICATION_CREATE')")
-    public void createNewNotification(Notification notification) {
+    public void createNewNotification(Notification notification)throws ServiceException {
         try {
             notificationRepository.create(notification);
+            emailService.sendSimpleMessage(notification.getUser().getUserdata().getEmail(),notification.getTitle(),notification.getDescription());
+        } catch (DatabaseErrorException e) {
+            throw e;
         } catch (EntityException e) {
-
+            throw ServiceException.createServiceException(ServiceException.ENTITY_VALIDATION, e);
         }
     }
 
-    //TODO EXCEPTIONS
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('NOTIFICATION_UPDATE')")
-    public Notification updateNotification(Notification notification) {
-        Notification tmp = new Notification();
-        try {
-            if (!notificationRepository.find(notification.getId()).isDeleted()) {
-                tmp = notificationRepository.update(notification);
-            }
-        } catch (EntityException e) {
-            e.printStackTrace();
-        }
-        return tmp;
+    public void updateNotification(Notification notification) throws ServiceException {
+        notificationRepository.update(notification);
     }
 
     @Override

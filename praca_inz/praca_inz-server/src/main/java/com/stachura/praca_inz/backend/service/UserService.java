@@ -1,10 +1,9 @@
 package com.stachura.praca_inz.backend.service;
 
-import com.stachura.praca_inz.backend.model.Company;
-import com.stachura.praca_inz.backend.web.dto.LoggedUserDto;
-import com.stachura.praca_inz.backend.web.dto.ProfileInfoDto;
-import com.stachura.praca_inz.backend.web.dto.UserInfoDto;
-import com.stachura.praca_inz.backend.web.dto.UserListElementDto;
+import com.stachura.praca_inz.backend.web.dto.user.LoggedUserDto;
+import com.stachura.praca_inz.backend.web.dto.user.ProfileInfoDto;
+import com.stachura.praca_inz.backend.web.dto.user.UserInfoDto;
+import com.stachura.praca_inz.backend.web.dto.user.UserListElementDto;
 
 import java.util.List;
 

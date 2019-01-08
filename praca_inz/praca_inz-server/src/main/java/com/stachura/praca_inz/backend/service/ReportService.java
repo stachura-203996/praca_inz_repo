@@ -1,7 +1,8 @@
 package com.stachura.praca_inz.backend.service;
 
+import com.stachura.praca_inz.backend.exception.service.ServiceException;
 import com.stachura.praca_inz.backend.model.Report;
-import com.stachura.praca_inz.backend.web.dto.ReportListElementDto;
+import com.stachura.praca_inz.backend.web.dto.report.ReportListElementDto;
 
 import java.util.List;
 
@@ -10,15 +11,15 @@ public interface ReportService {
 
     List<ReportListElementDto> getAllReports();
 
-    void createNewReport(Report report);
+    Long createNewReport(Report report) throws ServiceException;
 
-    Report updateReport(Report report);
+    void updateReport(Report report) throws ServiceException;
 
     void deleteReportById(Long id);
 
     void deleteReport(Report report);
 
-    List<ReportListElementDto> getAllReportsFromEmployees(String username);
+    List<ReportListElementDto> getAllReportsFromOthers(String username);
 
     List<ReportListElementDto> getAllReportsForUser(String username);
 }

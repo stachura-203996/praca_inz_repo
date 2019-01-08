@@ -1,8 +1,10 @@
 package com.stachura.praca_inz.backend.controller;
 
+import com.stachura.praca_inz.backend.exception.service.ServiceException;
 import com.stachura.praca_inz.backend.model.Warehouse;
+import com.stachura.praca_inz.backend.repository.interfaces.UserRepository;
+import com.stachura.praca_inz.backend.service.UserService;
 import com.stachura.praca_inz.backend.service.WarehouseService;
-import com.stachura.praca_inz.backend.web.dto.DeviceListElementDto;
 import com.stachura.praca_inz.backend.web.dto.WarehouseListElementDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
@@ -26,6 +28,9 @@ public class WarehouseController {
     @Autowired
     private WarehouseService warehouseService;
 
+    @Autowired
+    UserRepository userRepository;
+
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
@@ -40,12 +45,20 @@ public class WarehouseController {
         return warehouseService.getWarehouseById(id);
     }
 
-    @RequestMapping(value = "/company/user",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/warehouseman",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
     List<WarehouseListElementDto> getAllWarehousesForUser() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         return warehouseService.getAllWarehousesForLoggedUser(auth.getName());
+    }
+
+    @RequestMapping(value = "/transfer-request",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(value = HttpStatus.OK)
+    public @ResponseBody
+    List<WarehouseListElementDto> getAllWarehousesForTransferRequest() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        return warehouseService.getAllForTransferRequest(userRepository.find(auth.getName()).getOffice().getId());
     }
 
     @RequestMapping(value = "/company/{id}",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -73,7 +86,11 @@ public class WarehouseController {
     @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public ResponseEntity<?> create(@RequestBody Warehouse warehouse) {
-        warehouseService.createNewWarehouse(warehouse);
+        try {
+            warehouseService.createNewWarehouse(warehouse);
+        } catch (ServiceException e) {
+            e.printStackTrace();
+        }
         HttpHeaders headers = new HttpHeaders();
         ControllerLinkBuilder linkBuilder = linkTo(methodOn(WarehouseController.class).get(warehouse.getId()));
         headers.setLocation(linkBuilder.toUri());
@@ -83,7 +100,11 @@ public class WarehouseController {
     @RequestMapping(method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public void update(@RequestBody Warehouse warehouse) {
-        warehouseService.updateWarehouse(warehouse);
+        try {
+            warehouseService.updateWarehouse(warehouse);
+        } catch (ServiceException e) {
+            e.printStackTrace();
+        }
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)

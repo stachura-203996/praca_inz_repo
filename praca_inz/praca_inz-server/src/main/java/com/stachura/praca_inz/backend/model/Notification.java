@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.stachura.praca_inz.backend.model.security.User;
 import lombok.Getter;
 import lombok.Setter;
+import org.aspectj.weaver.ast.Not;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 
 import javax.persistence.*;
@@ -18,7 +19,7 @@ import java.util.Date;
 @Table(name = "NOTIFICATION")
 @Getter
 @Setter
-public class Notification implements Serializable, Comparator<Notification> {
+public class Notification implements Serializable, Comparator<Notification>,Cloneable  {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -58,5 +59,18 @@ public class Notification implements Serializable, Comparator<Notification> {
     @Override
     public int compare(Notification o1, Notification o2) {
         return o1.getCalendarTimestamp().compareTo(o2.getCalendarTimestamp());
+    }
+
+
+    public Notification clone(){
+        Notification tmp=new Notification();
+        tmp.setUser(this.getUser());
+        tmp.setDescription(this.getDescription());
+        tmp.setTitle(this.getTitle());
+        tmp.setCalendarTimestamp(this.getCalendarTimestamp());
+        tmp.setId(this.getId());
+        tmp.setReaded(this.isReaded());
+        tmp.setDeleted(this.isDeleted());
+        return tmp;
     }
 }

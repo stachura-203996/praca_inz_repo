@@ -2,9 +2,11 @@ package com.stachura.praca_inz.backend.web.dto.converter;
 
 import com.stachura.praca_inz.backend.model.security.User;
 import com.stachura.praca_inz.backend.model.security.UserRole;
-import com.stachura.praca_inz.backend.web.dto.*;
+import com.stachura.praca_inz.backend.web.dto.user.LoggedUserDto;
+import com.stachura.praca_inz.backend.web.dto.user.ProfileInfoDto;
+import com.stachura.praca_inz.backend.web.dto.user.UserInfoDto;
+import com.stachura.praca_inz.backend.web.dto.user.UserListElementDto;
 
-import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 public class UserConverter {

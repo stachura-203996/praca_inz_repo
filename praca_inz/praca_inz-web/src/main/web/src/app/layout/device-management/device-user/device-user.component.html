@@ -1,11 +1,16 @@
-<!--<div class="col-sm-12 col-md-8 offset-md-2">-->
 <div class="col-md-12">
-    <h1>{{ 'YourDevices' | translate }}</h1>
+    <h1>{{ 'Devices' | translate }}</h1>
 
     <div class="row">
         <div class="col-lg-10">
             <input class="form-control" #searchBox id="search-box" (keyup)="filterDevices(searchBox.value)"
                    placeholder="Search..." i18n-placeholder="User search placeholder"/>
+        </div>
+        <div class="col-lg-2">
+            <button class="btn btn-primary float-right jh-create-entity" [routerLink]="['./add']">
+                <i class="fa fa-plus"></i>&nbsp;
+                <span>{{ 'CreateDevice' | translate }}</span>
+            </button>
         </div>
     </div>
     <br>
@@ -14,7 +19,12 @@
         <tr>
             <th>{{ 'Name' | translate }}</th>
             <th>{{ 'SerialNumber' | translate }}</th>
+            <th>{{'DeviceModel'|translate}}</th>
             <th>{{ 'DeviceType' | translate }}</th>
+            <th>{{'Manufacture'|translate}}</th>
+            <th>{{'Location'|translate}}</th>
+            <th>{{'LastUpdate'|translate}}</th>
+            <th>{{'Person responsible for'| translate}}</th>
             <th></th>
         </tr>
         </thead>
@@ -22,7 +32,12 @@
         <tr *ngFor="let device of devices">
             <td>{{device.name}}</td>
             <td>{{device.serialNumber}}</td>
+            <td>{{device.deviceModel}}</td>
             <td>{{device.deviceTypeName}}</td>
+            <td>{{device.manufacture}}</td>
+            <td>{{device.location}}</td>
+            <td>{{device.lastUpdate}}</td>
+            <td>{{device.username}}</td>
             <td class="text-right">
                 <div class="btn-group flex-btn-group-container">
                     <button type="submit"
@@ -31,14 +46,8 @@
                         <i class="fa fa-eye"></i>&nbsp;
                         <span class="d-none d-md-inline">View</span>
                     </button>
-                    <button type="submit"
-                            [routerLink]="['./edit/'+device.id]"
-                            queryParamsHandling="merge"
-                            class="btn btn-primary btn-sm">
-                        <i class="fa fa-pencil"></i>&nbsp;
-                        <span class="d-none d-md-inline">Edit</span>
-                    </button>
-                    <button type="button" (click)="transfer(device)"
+                    <button type="button"
+                            [routerLink]="['/page/devices/transfer/request/add/'+device.id]"
                             class="btn btn-warning btn-sm">
                         <i class="fa fa-exchange"></i>&nbsp;
                         <span class="d-none d-md-inline">Transfer</span>

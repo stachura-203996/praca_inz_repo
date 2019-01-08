@@ -1,4 +1,3 @@
-<!--<div class="col-sm-12 col-md-8 offset-md-2">-->
 <div class="col-md-12">
     <h1>{{ 'Devices' | translate }}</h1>
 
@@ -20,6 +19,7 @@
         <tr>
             <th>{{ 'Name' | translate }}</th>
             <th>{{ 'SerialNumber' | translate }}</th>
+            <th>{{'DeviceModel'|translate}}</th>
             <th>{{ 'DeviceType' | translate }}</th>
             <th>{{'Manufacture'|translate}}</th>
             <th>{{'Location'|translate}}</th>
@@ -32,6 +32,7 @@
         <tr *ngFor="let device of devices">
             <td>{{device.name}}</td>
             <td>{{device.serialNumber}}</td>
+            <td>{{device.deviceModel}}</td>
             <td>{{device.deviceTypeName}}</td>
             <td>{{device.manufacture}}</td>
             <td>{{device.location}}</td>
