@@ -1,5 +1,9 @@
 package com.stachura.praca_inz.backend.exception;
 
+import com.stachura.praca_inz.backend.exception.repository.DatabaseErrorException;
+import com.stachura.praca_inz.backend.exception.repository.EntityException;
+import com.stachura.praca_inz.backend.exception.repository.EntityIllegalArgumentException;
+import com.stachura.praca_inz.backend.exception.repository.EntityNotInDatabaseException;
 import com.stachura.praca_inz.backend.web.utils.GenericResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -17,13 +21,13 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 @ControllerAdvice
-public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
+public class ControllerResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
 
     @Qualifier("messageSource")
     @Autowired
     private MessageSource messages;
 
-    public RestResponseEntityExceptionHandler() {
+    public ControllerResponseEntityExceptionHandler() {
         super();
     }
 
@@ -46,22 +50,10 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
         return handleExceptionInternal(ex, bodyOfResponse, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
     }
 
-    @ExceptionHandler({ InvalidOldPasswordException.class })
-    public ResponseEntity<Object> handleInvalidOldPassword(final RuntimeException ex, final WebRequest request) {
-        logger.error("400 Status Code", ex);
-        final GenericResponse bodyOfResponse = new GenericResponse(messages.getMessage("message.invalidOldPassword", null, request.getLocale()), "InvalidOldPassword");
-        return handleExceptionInternal(ex, bodyOfResponse, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
-    }
 
-    @ExceptionHandler({ ReCaptchaInvalidException.class })
-    public ResponseEntity<Object> handleReCaptchaInvalid(final RuntimeException ex, final WebRequest request) {
-        logger.error("400 Status Code", ex);
-        final GenericResponse bodyOfResponse = new GenericResponse(messages.getMessage("message.invalidReCaptcha", null, request.getLocale()), "InvalidReCaptcha");
-        return handleExceptionInternal(ex, bodyOfResponse, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
-    }
 
     // 404
-    @ExceptionHandler({ UserNotFoundException.class })
+    @ExceptionHandler({ EntityIllegalArgumentException.class })
     public ResponseEntity<Object> handleUserNotFound(final RuntimeException ex, final WebRequest request) {
         logger.error("404 Status Code", ex);
         final GenericResponse bodyOfResponse = new GenericResponse(messages.getMessage("message.userNotFound", null, request.getLocale()), "UserNotFound");
@@ -69,7 +61,7 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
     }
 
     // 409
-    @ExceptionHandler({ UserAlreadyExistException.class })
+    @ExceptionHandler({ EntityNotInDatabaseException.class })
     public ResponseEntity<Object> handleUserAlreadyExist(final RuntimeException ex, final WebRequest request) {
         logger.error("409 Status Code", ex);
         final GenericResponse bodyOfResponse = new GenericResponse(messages.getMessage("message.regError", null, request.getLocale()), "UserAlreadyExist");
@@ -77,13 +69,19 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
     }
 
     // 500
-    @ExceptionHandler({ MailAuthenticationException.class })
+    @ExceptionHandler({ DatabaseErrorException.class })
     public ResponseEntity<Object> handleMail(final RuntimeException ex, final WebRequest request) {
         logger.error("500 Status Code", ex);
         final GenericResponse bodyOfResponse = new GenericResponse(messages.getMessage("message.email.config.error", null, request.getLocale()), "MailError");
         return new ResponseEntity<Object>(bodyOfResponse, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    @ExceptionHandler({ EntityException.class })
+    public ResponseEntity<Object> handleInvalidOldPassword(final RuntimeException ex, final WebRequest request) {
+        logger.error("400 Status Code", ex);
+        final GenericResponse bodyOfResponse = new GenericResponse(messages.getMessage("message.invalidOldPassword", null, request.getLocale()), "InvalidOldPassword");
+        return handleExceptionInternal(ex, bodyOfResponse, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
+    }
 
     @ExceptionHandler({ Exception.class })
     public ResponseEntity<Object> handleInternal(final RuntimeException ex, final WebRequest request) {
