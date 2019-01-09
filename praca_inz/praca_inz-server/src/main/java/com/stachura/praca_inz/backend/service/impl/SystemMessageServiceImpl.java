@@ -6,7 +6,8 @@ import com.stachura.praca_inz.backend.exception.service.ServiceException;
 import com.stachura.praca_inz.backend.model.SystemMessage;
 import com.stachura.praca_inz.backend.repository.interfaces.SystemMessageRepository;
 import com.stachura.praca_inz.backend.service.SystemMessageService;
-import com.stachura.praca_inz.backend.web.dto.SystemMessageListElementDto;
+import com.stachura.praca_inz.backend.web.dto.system_message.SystemMessageAddDto;
+import com.stachura.praca_inz.backend.web.dto.system_message.SystemMessageListElementDto;
 import com.stachura.praca_inz.backend.web.dto.converter.SystemMessageConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -52,9 +53,9 @@ public class SystemMessageServiceImpl implements SystemMessageService {
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('SYSTEM_MESSAGE_CREATE')")
-    public void createNewSystemMessage(SystemMessage systemMessage) throws ServiceException{
+    public void createNewSystemMessage(SystemMessageAddDto systemMessageAddDto) throws ServiceException{
         try {
-            systemMessageRepository.create(systemMessage);
+            systemMessageRepository.create(SystemMessageConverter.toSystemMessage(systemMessageAddDto));
         } catch (DatabaseErrorException e) {
             throw e;
         } catch (EntityException e) {
@@ -64,40 +65,8 @@ public class SystemMessageServiceImpl implements SystemMessageService {
 
     @Override
     @Transactional
-    @PreAuthorize("hasAuthority('SYSTEM_MESSAGE_UPDATE')")
-    public void updateSystemMessage(SystemMessage systemMessage) throws ServiceException {
-
-              systemMessageRepository.update(systemMessage);
-
-    }
-
-    @Override
-    @Transactional
     @PreAuthorize("hasAuthority('SYSTEM_MESSAGE_DELETE')")
     public void deleteSystemMessageById(Long id) {
         systemMessageRepository.find(id).setDeleted(true);
-    }
-
-    @Override
-    @Transactional
-    @PreAuthorize("hasAuthority('SYSTEM_MESSAGE_DELETE')")
-    public void deleteSystemMessage(SystemMessage systemMessage) {
-        systemMessageRepository.find(systemMessage.getId()).setDeleted(true);
-    }
-
-    @Override
-    @Transactional
-    @PreAuthorize("hasAuthority('SYSTEM_MESSAGE_LIST_READ')")
-    public List<SystemMessageListElementDto> getLast4SystemMessages() {
-        List<SystemMessage> systemMessages = systemMessageRepository.findAll().stream().sorted(Comparator.comparing(SystemMessage::getCalendarTimestamp).reversed()).collect(Collectors.toList());
-        List<SystemMessageListElementDto> systemMessageListElementDtos = new ArrayList<>();
-        int i=0;
-        for (SystemMessage a : systemMessages) {
-            if (!a.isDeleted()&&i<3) {
-                systemMessageListElementDtos.add(SystemMessageConverter.toSystemMessageListElement(a));
-                i++;
-            }
-        }
-        return systemMessageListElementDtos;
     }
 }

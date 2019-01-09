@@ -9,6 +9,8 @@ import {StructureListElement, StructureViewElement} from "../../../models/struct
 import {DeviceListElement} from "../../../models/device-elements";
 import {WarehouseService} from "../../warehouse-management/warehouse.service";
 import {WarehouseListElement} from "../../../models/warehouse-elements";
+import {UserRoles} from "../../../models/user-roles";
+import {UserService} from "../../admin/components/administration/user-management/user.service";
 
 
 @Component({
@@ -23,6 +25,7 @@ export class CompanyViewComponent implements OnInit {
     offices: StructureListElement[];
     departments: StructureListElement[];
     warehouses:WarehouseListElement[];
+    roles: UserRoles;
 
     constructor(
         private route: ActivatedRoute,
@@ -30,6 +33,7 @@ export class CompanyViewComponent implements OnInit {
         private warehouseService:WarehouseService,
         private departmentService: DepartmentService,
         private officeService: OfficeService,
+        private userService:UserService,
         private sessionContextService: SessionContextService,
         private deviceService: DeviceService
     ) {}
@@ -39,6 +43,12 @@ export class CompanyViewComponent implements OnInit {
         this.getDevicesForCompany();
         this.getOfficesForCompany();
         this.getDepartmentsForCompany();
+        this.getWarehouseForCompany();
+        this.getLoggedUserRoles();
+    }
+
+    getLoggedUserRoles() {
+        this.userService.getLoggedUserRoles().subscribe(x => this.roles = x);
     }
 
     getCompany() {

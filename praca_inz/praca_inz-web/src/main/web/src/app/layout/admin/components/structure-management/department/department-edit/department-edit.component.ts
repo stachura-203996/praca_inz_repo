@@ -7,6 +7,7 @@ import {StructureEditElement, StructureListElement} from "../../../../../../mode
 import {TranslateService} from "@ngx-translate/core";
 import {UserRoles} from "../../../../../../models/user-roles";
 import {UserService} from "../../../administration/user-management/user.service";
+import {LoggedUser} from "../../../../../../models/logged-user";
 
 
 @Component({
@@ -18,19 +19,20 @@ export class DepartmentEditComponent implements OnInit {
 
     structureEditElement: StructureEditElement;
 
-    companies: StructureListElement[];
+    companies = new Map<string, number>();
 
-    roles:UserRoles;
+    selectedOption: string;
+    roles: UserRoles;
+    currentUser: LoggedUser;
 
     constructor(private route: ActivatedRoute,private userService:UserService,private companyService: CompanyService,private translate:TranslateService, private departmentService: DepartmentService, private router: Router) {
-
-
     }
 
     ngOnInit() {
         this.getLoggedUserRoles();
         this.getDepartment();
         this.getCompanies();
+        this.getLoggedUser();
 
     }
 
@@ -40,9 +42,18 @@ export class DepartmentEditComponent implements OnInit {
     }
 
     getCompanies() {
-        this.companyService.getAll().subscribe(companyListElement => {
-            this.companies = companyListElement
+        this.companyService.getAll().subscribe((response: StructureListElement[]) => {
+            this.companies = response.reduce(function (companyMap, company) {
+                if (company.id) {
+                    companyMap.set(company.name, company.id)
+                }
+                return companyMap;
+            }, this.companies);
         });
+    }
+
+    getLoggedUser() {
+        this.userService.getLoggedUser().subscribe(x => this.currentUser = x);
     }
 
     getLoggedUserRoles() {
@@ -50,6 +61,11 @@ export class DepartmentEditComponent implements OnInit {
     }
 
     departmentUpdate() {
+        if(this.roles.admin) {
+            this.structureEditElement.parentId = this.companies.get(this.selectedOption);
+        } else {
+            this.structureEditElement.parentId=this.currentUser.companyId;
+        }
         this.departmentService.updateDepartment(this.structureEditElement).subscribe(resp => {
             this.router.navigateByUrl('/admin/departments');
         });

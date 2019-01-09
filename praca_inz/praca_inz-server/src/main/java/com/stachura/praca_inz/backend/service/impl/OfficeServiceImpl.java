@@ -3,9 +3,14 @@ package com.stachura.praca_inz.backend.service.impl;
 import com.stachura.praca_inz.backend.exception.repository.DatabaseErrorException;
 import com.stachura.praca_inz.backend.exception.repository.EntityException;
 import com.stachura.praca_inz.backend.exception.service.ServiceException;
+import com.stachura.praca_inz.backend.model.Department;
 import com.stachura.praca_inz.backend.model.Office;
+import com.stachura.praca_inz.backend.repository.interfaces.DepartmentRepository;
+import com.stachura.praca_inz.backend.repository.interfaces.DeviceRepository;
 import com.stachura.praca_inz.backend.repository.interfaces.OfficeRepository;
 import com.stachura.praca_inz.backend.service.OfficeService;
+import com.stachura.praca_inz.backend.web.dto.company.CompanyStructureAddDto;
+import com.stachura.praca_inz.backend.web.dto.company.CompanyStructureEditDto;
 import com.stachura.praca_inz.backend.web.dto.company.CompanyStructuresListElementDto;
 import com.stachura.praca_inz.backend.web.dto.converter.CompanyStructureConverter;
 import org.hibernate.Hibernate;
@@ -23,6 +28,9 @@ public class OfficeServiceImpl implements OfficeService {
 
     @Autowired
     private OfficeRepository officeRepository;
+
+    @Autowired
+    private DepartmentRepository departmentRepository;
 
     @Override
     @Transactional(readOnly = true)
@@ -82,9 +90,10 @@ public class OfficeServiceImpl implements OfficeService {
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('OFFICE_CREATE')")
-    public void create(Office office)throws ServiceException {
+    public void create(CompanyStructureAddDto companyStructureAddDto)throws ServiceException {
+        Department department=departmentRepository.find(companyStructureAddDto.getDepartmentId());
         try {
-            officeRepository.create(office);
+            officeRepository.create(CompanyStructureConverter.toOffice(companyStructureAddDto,department));
         } catch (DatabaseErrorException e) {
             throw e;
         } catch (EntityException e) {
@@ -95,8 +104,10 @@ public class OfficeServiceImpl implements OfficeService {
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('OFFICE_UPDATE')")
-    public void update(Office office) throws ServiceException {
-        officeRepository.update(office);
+    public void update(CompanyStructureEditDto companyStructureEditDto) throws ServiceException {
+        Office beforeOffice=officeRepository.find(companyStructureEditDto.getId());
+        Department department=departmentRepository.find(companyStructureEditDto.getParentId());
+        officeRepository.update(CompanyStructureConverter.toOffice(companyStructureEditDto,beforeOffice,department));
     }
 
     @Override

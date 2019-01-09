@@ -31,6 +31,8 @@ import {DeliveryListComponent} from "./components/structure-management/warehouse
 import {UserPasswordEditComponent} from "./components/administration/user-management/components/user-password-edit/user-password-edit.component";
 import {DeviceTransferComponent} from "./components/structure-management/device/device-transfer/device-transfer.component";
 import {DeviceTypeListComponent} from "./components/structure-management/device/device-type-list/device-type-list.component";
+import {SystemMessageListComponent} from "./components/administration/system_messages/system-message-list/system-message-list.component";
+import {SystemMessageAddComponent} from "./components/administration/system_messages/system-message-add/system-message-add.component";
 
 
 
@@ -66,7 +68,9 @@ const routes: Routes = [
     {path: 'deliveries', component: DeliveryListComponent},
     {path: 'requests', component: RequestListComponent},
     {path: 'reports', component: ReportListComponent},
-    {path: 'transfers', component: TransferListComponent}
+    {path: 'transfers', component: TransferListComponent},
+    {path: 'system/messages', component: SystemMessageListComponent},
+    {path: 'system/messages/add', component: SystemMessageAddComponent}
 
 
 ];

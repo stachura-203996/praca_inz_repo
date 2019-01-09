@@ -38,7 +38,7 @@ export class DepartmentService {
 
 
     getDepartmentEdit(id:string): Observable<StructureEditElement>{
-        return this.httpService.get<StructureEditElement>(this.departmentPath+'/'+id);
+        return this.httpService.get<StructureEditElement>(this.departmentPath+'/edit/'+id);
     }
 
     getDepartmentView(id:string): Observable<StructureViewElement>{

@@ -35,7 +35,7 @@ public class Userdata implements Serializable {
     @Column(name = "SURNAME", nullable = false)
     private String surname;
 
-    @Column(name = "EMAIL")
+    @Column(name = "EMAIL", nullable = false,unique = true)
     private String email;
 
     @Column(name = "POSITION")

@@ -4,7 +4,7 @@
 <div class="row">
     <div class="col-lg-10">
         <input class="form-control" #searchBox id="search-box" (keyup)="filterOffices(searchBox.value)"
-               placeholder="Search..." i18n-placeholder="User search placeholder"/>
+               placeholder="{{'Search...'|translate}}"/>
     </div>
     <div class="col-lg-2">
         <button class="btn btn-primary float-right jh-create-entity" [routerLink]="['./add']">
@@ -20,7 +20,7 @@
         <th>{{ 'Name' | translate }}</th>
         <th>{{ 'City' | translate }}</th>
         <th>{{'ZipCode'|translate}}</th>
-        <th>{{ 'Adress' | translate }}</th>
+        <th>{{ 'Address' | translate }}</th>
         <th>{{'Company'|translate}}</th>
         <th>{{'Department'|translate}}</th>
         <th></th>
@@ -40,19 +40,19 @@
                         [routerLink]="['/structures/offices/view/'+office.id]"
                         class="btn btn-info btn-sm">
                     <i class="fa fa-eye"></i>&nbsp;
-                    <span class="d-none d-md-inline">View</span>
+                    <span class="d-none d-md-inline">{{'View'|translate}}</span>
                 </button>
                 <button type="submit"
                         [routerLink]="['./edit/'+office.id]"
                         queryParamsHandling="merge"
                         class="btn btn-primary btn-sm">
                     <i class="fa fa-pencil"></i>&nbsp;
-                    <span class="d-none d-md-inline">Edit</span>
+                    <span class="d-none d-md-inline">{{'Edit'|translate}}</span>
                 </button>
                 <button type="button" (click)="delete(office.id)"
                         class="btn btn-danger btn-sm">
                     <i class="fa fa-times"></i>&nbsp;
-                    <span class="d-none d-md-inline">Delete</span>
+                    <span class="d-none d-md-inline">{{'Delete'|translate}}</span>
                 </button>
             </div>
         </td>

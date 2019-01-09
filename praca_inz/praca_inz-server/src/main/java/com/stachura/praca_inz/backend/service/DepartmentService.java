@@ -2,6 +2,8 @@ package com.stachura.praca_inz.backend.service;
 
 import com.stachura.praca_inz.backend.exception.service.ServiceException;
 import com.stachura.praca_inz.backend.model.Department;
+import com.stachura.praca_inz.backend.web.dto.company.CompanyStructureAddDto;
+import com.stachura.praca_inz.backend.web.dto.company.CompanyStructureEditDto;
 import com.stachura.praca_inz.backend.web.dto.company.CompanyStructuresListElementDto;
 
 import java.util.List;
@@ -15,9 +17,9 @@ public interface DepartmentService {
 
     List<CompanyStructuresListElementDto> getAllDepartmentsForCompany(Long id);
 
-    void createNewDepartment(Department department) throws ServiceException;
+    void createNewDepartment(CompanyStructureAddDto companyStructureAddDto) throws ServiceException;
 
-    void updateDepartment(Department department) throws ServiceException;
+    void updateDepartment(CompanyStructureEditDto companyStructureEditDto) throws ServiceException;
 
     void deleteDepartmentById(Long id);
 

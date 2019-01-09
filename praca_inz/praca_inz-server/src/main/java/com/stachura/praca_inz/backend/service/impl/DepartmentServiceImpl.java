@@ -4,11 +4,15 @@ import com.stachura.praca_inz.backend.Constants;
 import com.stachura.praca_inz.backend.exception.repository.DatabaseErrorException;
 import com.stachura.praca_inz.backend.exception.repository.EntityException;
 import com.stachura.praca_inz.backend.exception.service.ServiceException;
+import com.stachura.praca_inz.backend.model.Company;
 import com.stachura.praca_inz.backend.model.Department;
 import com.stachura.praca_inz.backend.model.security.User;
+import com.stachura.praca_inz.backend.repository.interfaces.CompanyRepository;
 import com.stachura.praca_inz.backend.repository.interfaces.DepartmentRepository;
 import com.stachura.praca_inz.backend.repository.interfaces.UserRepository;
 import com.stachura.praca_inz.backend.service.DepartmentService;
+import com.stachura.praca_inz.backend.web.dto.company.CompanyStructureAddDto;
+import com.stachura.praca_inz.backend.web.dto.company.CompanyStructureEditDto;
 import com.stachura.praca_inz.backend.web.dto.company.CompanyStructuresListElementDto;
 import com.stachura.praca_inz.backend.web.dto.converter.CompanyStructureConverter;
 import org.hibernate.Hibernate;
@@ -26,6 +30,9 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Autowired
     private DepartmentRepository departmentRepository;
+
+    @Autowired
+    private CompanyRepository companyRepository;
 
     @Autowired
     private UserRepository userRepository;
@@ -91,9 +98,10 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('DEPARTMENT_CREATE')")
-    public void createNewDepartment(Department department) throws ServiceException {
+    public void createNewDepartment(CompanyStructureAddDto companyStructureAddDto) throws ServiceException {
         try {
-            departmentRepository.create(department);
+            Company company=companyRepository.find(companyStructureAddDto.getDepartmentId());
+            departmentRepository.create(CompanyStructureConverter.toDepartment(companyStructureAddDto,company));
         } catch (DatabaseErrorException e) {
             throw e;
         } catch (EntityException e) {
@@ -104,10 +112,10 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('DEPARTMENT_UPDATE')")
-    public void updateDepartment(Department department) throws ServiceException {
-
-        departmentRepository.update(department);
-
+    public void updateDepartment(CompanyStructureEditDto companyStructureEditDto) throws ServiceException {
+        Department beforeDepartment=departmentRepository.find(companyStructureEditDto.getId());
+        Company company=companyRepository.find(companyStructureEditDto.getParentId());
+        departmentRepository.update( CompanyStructureConverter.toDepartment(companyStructureEditDto,beforeDepartment,company));
     }
 
     @Override

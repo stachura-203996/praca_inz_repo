@@ -2,10 +2,8 @@ package com.stachura.praca_inz.backend.controller;
 
 import com.stachura.praca_inz.backend.exception.service.ServiceException;
 import com.stachura.praca_inz.backend.model.Warehouse;
-import com.stachura.praca_inz.backend.repository.interfaces.UserRepository;
-import com.stachura.praca_inz.backend.service.UserService;
 import com.stachura.praca_inz.backend.service.WarehouseService;
-import com.stachura.praca_inz.backend.web.dto.WarehouseListElementDto;
+import com.stachura.praca_inz.backend.web.dto.warehouse.WarehouseListElementDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.http.HttpHeaders;

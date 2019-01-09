@@ -5,6 +5,7 @@ import com.stachura.praca_inz.backend.model.Company;
 import com.stachura.praca_inz.backend.service.CompanyService;
 import com.stachura.praca_inz.backend.web.dto.company.CompanyStructureAddDto;
 import com.stachura.praca_inz.backend.web.dto.company.CompanyStructureEditDto;
+import com.stachura.praca_inz.backend.web.dto.company.CompanyStructureViewDto;
 import com.stachura.praca_inz.backend.web.dto.company.CompanyStructuresListElementDto;
 import com.stachura.praca_inz.backend.web.dto.converter.CompanyStructureConverter;
 import org.apache.log4j.Logger;
@@ -37,33 +38,36 @@ public class CompanyController {
         return companyService.getAllCompanies();
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
     CompanyStructureEditDto getToEdit(@PathVariable Long id) {
         return CompanyStructureConverter.toCompanyStructureEdit(companyService.getCompanyById(id));
     }
 
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(value = HttpStatus.OK)
+    public @ResponseBody
+    CompanyStructureViewDto getToView(@PathVariable Long id) {
+        return CompanyStructureConverter.toCompanyStructureViewDto(companyService.getCompanyById(id));
+    }
+
     @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public ResponseEntity<?> create(@RequestBody CompanyStructureAddDto company) {
         try {
-            Long id=companyService.createNewCompany(company);
+            companyService.createNewCompany(company);
         } catch (ServiceException e) {
-
+            e.printStackTrace();
         }
-        HttpHeaders headers = new HttpHeaders();
-//        ControllerLinkBuilder linkBuilder = linkTo(methodOn(CompanyController.class).getOfficeById(company.getId()));
-//        headers.setLocation(linkBuilder.toUri());
-        return new ResponseEntity<>(headers, HttpStatus.CREATED);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @RequestMapping(method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public void update(@RequestBody CompanyStructureEditDto companyStructureEditDto) {
-        Company beforeCompany=companyService.getCompanyById(companyStructureEditDto.getId());
         try {
-            companyService.updateCompany(CompanyStructureConverter.toCompany(companyStructureEditDto,beforeCompany));
+            companyService.updateCompany(companyStructureEditDto);
         } catch (ServiceException e) {
             e.printStackTrace();
         }

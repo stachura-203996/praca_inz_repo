@@ -8,7 +8,7 @@ import com.stachura.praca_inz.backend.model.enums.WarehouseType;
 import com.stachura.praca_inz.backend.repository.interfaces.UserRepository;
 import com.stachura.praca_inz.backend.repository.interfaces.WarehouseRepository;
 import com.stachura.praca_inz.backend.service.WarehouseService;
-import com.stachura.praca_inz.backend.web.dto.WarehouseListElementDto;
+import com.stachura.praca_inz.backend.web.dto.warehouse.WarehouseListElementDto;
 import com.stachura.praca_inz.backend.web.dto.converter.WarehouseConverter;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +16,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;

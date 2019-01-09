@@ -1,39 +1,55 @@
 <div class="row">
     <div class="col-lg-12 ">
-        <form class="form-horizontal">
+        <form class="form-horizontal" #CompanyForm="ngForm" (ngSubmit)="companyUpdate()">
             <fieldset>
                 <h1>{{'EditCompany'|translate}}</h1>
                 <div class="form-group">
                     <div class="form-group">
-                        <label class="col-xl-5 control-label" for="Name">{{'CompanyName' | translate}}</label>
+                        <label class="col-xl-5 control-label" for="Name">{{'ElementName' | translate}}<span style="color:red">*</span></label>
                         <div class="col-xl-5">
                             <div class="input-group">
                                 <input id="Name" [(ngModel)]="structureEditElement.name" name="Name" type="text"
-                                       placeholder="Name" class="form-control input-xl" #name="ngModel" required>
+                                       placeholder="{{'ElementName'|translate}}" class="form-control input-xl" #name="ngModel" required>
                             </div>
                             <div *ngIf="name.invalid && (name.touched || name.dirty)"
                                  class="alert alert-danger col-sm-12">
-                                <div *ngIf="name.hasError('required')" i18n="@@quantityReq">
-                                    Name is required!
+                                <div *ngIf="name.hasError('required')">
+                                    {{'ElementName is required!'|translate}}
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-xl-9 control-label" for="Address">{{'Address' | translate}}</label>
+                        <label class="col-xl-9 control-label" for="Address">{{'Address' | translate}}<span style="color:red">*</span></label>
                         <div class="col-xl-9 ">
                             <div id="Address" class="row">
                                 <div class="col-xl-4">
                                     <div class="input-group">
                                         <input id="City" [(ngModel)]="structureEditElement.city" name="City" type="text"
-                                               placeholder="City" class="form-control input-xl">
+                                               placeholder="{{'City'|translate}}" class="form-control input-xl"
+                                               required maxlength="20"
+                                               #city="ngModel">
+                                    </div>
+                                    <div *ngIf="city.invalid && (city.touched || city.dirty)"
+                                         class="alert alert-danger col-sm-12">
+                                        <div *ngIf="city.hasError('required')">{{'City is required'|translate}}</div>
+                                        <div *ngIf="city.hasError('maxLength')">{{'City cannot be longer than 20 characters.'|translate}}                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-xl-4">
                                     <div class="input-group">
                                         <input id="Street" [(ngModel)]="structureEditElement.street" name="Street"
                                                type="text"
-                                               placeholder="Street" class="form-control input-xl">
+                                               placeholder="{{'Street'|translate}}" class="form-control input-xl"
+                                               required maxlength="20"
+                                               #street="ngModel">
+                                    </div>
+                                    <div *ngIf="street.invalid && (street.touched || street.dirty)"
+                                         class="alert alert-danger col-sm-12">
+                                        <div *ngIf="street.hasError('required')">{{'Street is required'|translate}}
+                                        </div>
+                                        <div *ngIf="street.hasError('maxLength')">{{'Street cannot be longer than 20 characters.'|translate}}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -41,44 +57,60 @@
                             <div class="row">
                                 <div class="col-xl-2">
                                     <div class="input-group">
-                                        <input id="houseNumber" [(ngModel)]="structureEditElement.buildingNumber"
-                                               name="houseNumber" type="text" placeholder="houseNumber"
-                                               class="form-control input-xl">
+                                        <input id="buildingNumber" [(ngModel)]="structureEditElement.buildingNumber"
+                                               name="buildingNumber" type="number" placeholder="{{'BuildingNumber'}}"
+                                               class="form-control input-xl"
+                                               min="1"
+                                               required
+                                               appNotNegative
+                                               appNotNaught
+                                               appNotRealNumber
+                                               #buildingNumber="ngModel">
+                                    </div>
+                                    <div *ngIf="buildingNumber.invalid && (buildingNumber.touched || buildingNumber.dirty)"
+                                         class="alert alert-danger col-sm-12">
+                                        <div *ngIf="buildingNumber.hasError('required')">{{'Building number is required'|translate}}
+                                        </div>
+                                        <div *ngIf="buildingNumber.hasError('naught')">{{'Building number can not be zero!'|translate}}
+                                        </div>
+                                        <div *ngIf="buildingNumber.hasError('realNumber')">{{'Building number must be positive integer!'|translate}}</div>
                                     </div>
                                 </div>
                                 <div class="col-xl-2">
                                     <div class="input-group">
                                         <input id="flatNumber" [(ngModel)]="structureEditElement.flatNumber"
-                                               name="flatNumber" type="text" placeholder="flatNumber"
-                                               class="form-control input-xl">
+                                               name="flatNumber" type="number" placeholder="{{'flatNumber'|translate}}"
+                                               class="form-control input-xl"
+                                               min="1"
+                                               appNotNegative
+                                               appNotNaught
+                                               #flat="ngModel">
                                     </div>
-                                </div>
-                                <div class="col-xl-2">
-                                    <div class="input-group">
-                                        <input id="zipCode" [(ngModel)]="structureEditElement.zipCode"
-                                               name="zipCode" type="text" placeholder="zipCode"
-                                               class="form-control input-xl">
+                                    <div *ngIf="flat.invalid && (flat.touched || flat.dirty)"
+                                         class="alert alert-danger col-sm-12">
+                                        <div *ngIf="flat.hasError('negative')">{{'Flat number cannot be negative!'|translate}}
+                                        </div>
+                                        <div *ngIf="flat.hasError('naught')">{{'Flat number can not be zero!'|translate}}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
                     <!-- Textarea -->
                     <div class="form-group">
-                        <label class="col-xl-7 control-label" for="Overview (max 200 words)">Overview (max 200 words)</label>
+                        <label class="col-xl-7 control-label" for="Overview (max 200 words)">{{'Overview (max 200 words)'|translate}}</label>
                         <div class="col-xl-7">
                     <textarea class="form-control" [(ngModel)]="structureEditElement.description" rows="10"
                               id="Overview (max 200 words)"
                               name="Overview (max 200 words)">{{'Overview'|translate}}</textarea>
                         </div>
                     </div>
-
                     <div class="form-group">
                         <div class="col-sm-4">
                             <div class="row">
                                 <div class="col-xl-6" align="center">
-                                    <a class="btn btn-success" (click)="companytUpdate()"><span class="glyphicon glyphicon-thumbs-up" ></span>{{'Submit'|translate}}</a>
+                                    <button type="submit" class="btn btn-success" [disabled]="!CompanyForm.form.valid"><span class="glyphicon glyphicon-thumbs-up" ></span>{{'Submit'|translate}}</button>
                                 </div>
                                 <div class="col-xl-6" align="center">
                                     <a class="btn btn-danger" (click)="clear()"><span class="glyphicon glyphicon-remove-sign" ></span>{{'Clear'|translate}}</a>
@@ -86,7 +118,6 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
             </fieldset>
         </form>

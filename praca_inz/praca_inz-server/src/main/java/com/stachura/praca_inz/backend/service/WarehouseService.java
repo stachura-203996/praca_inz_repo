@@ -2,7 +2,7 @@ package com.stachura.praca_inz.backend.service;
 
 import com.stachura.praca_inz.backend.exception.service.ServiceException;
 import com.stachura.praca_inz.backend.model.Warehouse;
-import com.stachura.praca_inz.backend.web.dto.WarehouseListElementDto;
+import com.stachura.praca_inz.backend.web.dto.warehouse.WarehouseListElementDto;
 
 
 import java.util.List;

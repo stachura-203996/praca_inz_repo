@@ -123,7 +123,7 @@ public class ReportController {
 
     Notification getReportSentNotifiaction(Report report,Long id){
         Notification notification = new Notification();
-        notification.setUrl("/page/employees/reports/view/" + id);
+        notification.setUrl("/ui/page/employees/reports/view/" + id);
         notification.setUser(report.getSender());
         notification.setReaded(false);
         notification.setTitle("Report sended");
@@ -136,7 +136,7 @@ public class ReportController {
 
     Notification getReportReceivedNotifiaction(Report report,Long id){
         Notification notification = new Notification();
-        notification.setUrl("/page/employees/reports/view/" + id);
+        notification.setUrl("/ui/page/employees/reports/view/" + id);
         notification.setUser(report.getReciever());
         notification.setReaded(false);
         notification.setTitle("Report recieved");

@@ -1,4 +1,4 @@
-package com.stachura.praca_inz.backend.web.dto;
+package com.stachura.praca_inz.backend.web.dto.warehouse;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.stachura.praca_inz.backend.model.Device;

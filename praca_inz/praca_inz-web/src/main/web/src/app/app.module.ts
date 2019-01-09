@@ -66,12 +66,7 @@ export const createTranslateLoader = (http: HttpClient) => {
     ],
     declarations: [
         AppComponent,
-        ConfirmDialogComponent,
-        PasswordMatchDirective,
-        EmailMatchDirective,
-        NotNaughtDirective,
-        NotNegativeDirective,
-        NotRealNumberDirective
+        ConfirmDialogComponent
     ],
     providers: [
         AuthGuard,

@@ -49,16 +49,12 @@
                             <input id="RepeatPassword" [(ngModel)]="registerUserData.passwordRepeated"
                                    name="RepeatPassword" type="password"
                                    placeholder="RepeatPassword" class="form-control input-xl" minlength="8"
-                                   #passwordRepeated="ngModel" appPasswordMatch=registerUserData.password/>
+                                   #passwordRepeated="ngModel" required appPasswordMatch="{{registerUserData.password}}"/>
                             <div
                                 *ngIf="passwordRepeated.invalid && (passwordRepeated.touched || passwordRepeated.dirty)"
                                 class="alert alert-danger col-sm-12">
-                                <div *ngIf="passwordRepeated.hasError('required')" i18n="@@passwordReq">Password is
-                                    required
-                                </div>
-                                <div *ngIf="passwordRepeated.hasError('minlength')" i18n="@@passwordMin">Password
-                                    must be at least 8 characters long
-                                </div>
+                                <div *ngIf="passwordRepeated.hasError('required')">{{'Password is required'|translate}}</div>
+                                <div *ngIf="passwordRepeated.hasError('minlength')" i18n="@@passwordMin">{{'Password must be at least 8 characters long'|translate}}                                </div>
                             </div>
                         </div>
                     </div>

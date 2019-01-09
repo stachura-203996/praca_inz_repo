@@ -9,6 +9,8 @@ import {StructureListElement, StructureViewElement} from "../../../models/struct
 import {DeviceListElement} from "../../../models/device-elements";
 import {WarehouseListElement} from "../../../models/warehouse-elements";
 import {WarehouseService} from "../../warehouse-management/warehouse.service";
+import {UserRoles} from "../../../models/user-roles";
+import {UserService} from "../../admin/components/administration/user-management/user.service";
 
 
 @Component({
@@ -21,13 +23,14 @@ export class OfficeViewComponent implements OnInit {
     office: StructureViewElement;
     warehouses:WarehouseListElement[];
     devices: DeviceListElement[];
-
+    roles: UserRoles;
 
     constructor(
         private route: ActivatedRoute,
         private warehouseService: WarehouseService,
         private departmentService: DepartmentService,
         private officeService: OfficeService,
+        private userService:UserService,
         private sessionContextService: SessionContextService,
         private deviceService: DeviceService
     ) {}
@@ -37,6 +40,7 @@ export class OfficeViewComponent implements OnInit {
         this.getDevicesForOffice();
         this.getDevicesForOffice();
         this.getWarehouseForOffice();
+        this.getLoggedUserRoles();
     }
 
     getOffice() {
@@ -44,6 +48,9 @@ export class OfficeViewComponent implements OnInit {
         this.officeService.getOfficeView(id).subscribe(x => this.office = x);
     }
 
+    getLoggedUserRoles() {
+        this.userService.getLoggedUserRoles().subscribe(x => this.roles = x);
+    }
 
     getDevicesForOffice() {
         const id = this.route.snapshot.paramMap.get('id');

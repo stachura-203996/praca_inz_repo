@@ -17,17 +17,10 @@ export class CompanyListComponent implements OnInit {
 
     constructor(private companyService : CompanyService,
                 private translate:TranslateService,
-    ) {
-
-    }
+    ) {}
 
     ngOnInit() {
-        // this.filterUsers(null);
         this.filterCompanies(null);
-    }
-
-    getCompanies(){
-        this.companyService.getAll().subscribe(companyListElement=> {this.companies=companyListElement});
     }
 
     getAddress(company:StructureListElement): string {
@@ -39,38 +32,27 @@ export class CompanyListComponent implements OnInit {
     }
 
     filterCompanies(searchText: string) {
-        this.companyService.getAll().subscribe(companies => {
-            if (!companies) {
+        this.companyService.getAll().subscribe(copmanies => {
+            if (!copmanies) {
                 this.companies = [];
                 return;
             }
             if (!searchText || searchText.length < 2) {
-                if (this.deletedFilter) {
-                    this.companies = companies.filter(it => {
-                        return it.deleted === !this.deletedFilter;
-                    });
-                } else {
-                    this.companies = companies;
-                }
-                return;
+                this.companies = copmanies;
             }
 
             searchText = searchText.toLowerCase();
-            this.companies = companies.filter(it => {
-                const range = it.name+' '+it.companyName+' '+it.departmentName+' '+it.description+' '+it.city+' '+it.street+' '+it.zipCode;
+            this.companies = copmanies.filter(it => {
+                const range = it.name + ' ' + it.zipCode + ' ' + it.street+' '+it.city+' '+it.description+' '+it.flatNumber+' '+it.buildingNumber;
                 const ok = range.toLowerCase().includes(searchText);
-                if (!this.deletedFilter) {
-                    return ok;
-                } else {
-                    return ok && it.deleted === !this.deletedFilter;
-                }
+                return ok;
             });
         });
     }
 
     delete(structure: StructureListElement) {
         this.companyService.deleteCompany(String(structure.id)).subscribe(resp => {
-            this.getCompanies()
+            this.filterCompanies(null)
         });
     }
 }

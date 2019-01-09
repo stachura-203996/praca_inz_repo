@@ -46,14 +46,6 @@ public class NotificationController {
         return notificationService.getUnreadedAllNotificationsForLoggedUser(auth.getName());
     }
 
-    @RequestMapping(value = "/user/last", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(value = HttpStatus.OK)
-    public @ResponseBody
-    List<NotificationListElementDto> getLast3UnreadedAllDevicesForLoggedUser() {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        return notificationService.getUnreadedAllNotificationsForLoggedUser(auth.getName());
-    }
-
     @RequestMapping(value = "/user/readed", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
@@ -71,10 +63,7 @@ public class NotificationController {
         } catch (ServiceException e) {
             e.printStackTrace();
         }
-        HttpHeaders headers = new HttpHeaders();
-//        ControllerLinkBuilder linkBuilder = linkTo(methodOn(OfficeController.class).getOfficeById(office.getId()));
-//        headers.setLocation(linkBuilder.toUri());
-        return new ResponseEntity<>(headers, HttpStatus.CREATED);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
 

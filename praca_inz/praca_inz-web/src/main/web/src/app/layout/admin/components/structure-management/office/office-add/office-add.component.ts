@@ -4,7 +4,6 @@ import {OfficeService} from "../office.service";
 import {DepartmentService} from "../../department/department.service";
 import {StructureAddElement, StructureListElement} from "../../../../../../models/structure-elements";
 import {TranslateService} from "@ngx-translate/core";
-import {CompanyService} from "../../../administration/company/company.service";
 import {UserRoles} from "../../../../../../models/user-roles";
 import {LoggedUser} from "../../../../../../models/logged-user";
 import {UserService} from "../../../administration/user-management/user.service";
@@ -18,9 +17,10 @@ export class OfficeAddComponent implements OnInit {
 
     @Input() structureAddElement: StructureAddElement = new StructureAddElement;
 
-    departments: StructureListElement[];
+    departments = new Map<string, number>();
+    selectedOption: string;
     roles: UserRoles;
-    currentUser: LoggedUser;
+
 
     constructor(
         private officeService: OfficeService,
@@ -32,27 +32,19 @@ export class OfficeAddComponent implements OnInit {
 
 
     ngOnInit() {
-        this.getLoggedUser();
         this.getLoggedUserRoles();
         this.getDepartments();
     }
 
     getDepartments() {
-        if (this.roles.admin) {
-            this.departmentService.getAll().subscribe(companyListElement => {
-                this.departments = companyListElement
-            });
-        } else{
-            this.departmentService.getAllForCompany(this.currentUser.companyId).subscribe(companyListElement => {
-                this.departments = companyListElement
-            });
-        }
-
-    }
-
-
-    getLoggedUser() {
-        this.userService.getLoggedUser().subscribe(x => this.currentUser = x);
+        this.departmentService.getAll().subscribe((response: StructureListElement[]) => {
+            this.departments = response.reduce(function (departmentMap, department) {
+                if (department.id) {
+                    departmentMap.set(department.name + " | " + department.companyName, department.id)
+                }
+                return departmentMap;
+            }, this.departments);
+        });
     }
 
     getLoggedUserRoles() {
@@ -60,6 +52,7 @@ export class OfficeAddComponent implements OnInit {
     }
 
     officeAdd() {
+        this.structureAddElement.departmentId = this.departments.get(this.selectedOption);
         this.officeService.createOffice(this.structureAddElement).subscribe(resp => {
             this.router.navigateByUrl('/admin/offices');
         });

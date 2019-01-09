@@ -1,14 +1,9 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {CompanyService} from "../company.service";
 import {ActivatedRoute, Router} from "@angular/router";
-import {
-    StructureAddElement,
-    StructureEditElement,
-    StructureListElement
-} from "../../../../../../models/structure-elements";
+import {StructureEditElement} from "../../../../../../models/structure-elements";
 import {TranslateService} from "@ngx-translate/core";
 import {DepartmentService} from "../../../structure-management/department/department.service";
-import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-company-edit',
@@ -21,10 +16,13 @@ export class CompanyEditComponent implements OnInit {
 
 
 
-    constructor(private route: ActivatedRoute,private companyService: CompanyService,private translate:TranslateService, private departmentService: DepartmentService, private router: Router) {
-
-
-    }
+    constructor(
+        private route: ActivatedRoute,
+        private companyService: CompanyService,
+        private translate:TranslateService,
+        private departmentService: DepartmentService,
+        private router: Router
+    ) {}
 
     ngOnInit() {
         this.getCompany();
@@ -35,7 +33,7 @@ export class CompanyEditComponent implements OnInit {
         this.companyService.getCompanyEdit(id).subscribe(x=>this.structureEditElement=x);
     }
 
-    companytUpdate() {
+    companyUpdate() {
         this.companyService.updateCompany(this.structureEditElement).subscribe(resp => {
             this.router.navigateByUrl('/admin/companies');
         });

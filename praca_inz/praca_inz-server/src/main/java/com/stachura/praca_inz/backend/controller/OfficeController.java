@@ -6,6 +6,7 @@ import com.stachura.praca_inz.backend.repository.interfaces.DepartmentRepository
 import com.stachura.praca_inz.backend.service.OfficeService;
 import com.stachura.praca_inz.backend.web.dto.company.CompanyStructureAddDto;
 import com.stachura.praca_inz.backend.web.dto.company.CompanyStructureEditDto;
+import com.stachura.praca_inz.backend.web.dto.company.CompanyStructureViewDto;
 import com.stachura.praca_inz.backend.web.dto.company.CompanyStructuresListElementDto;
 import com.stachura.praca_inz.backend.web.dto.converter.CompanyStructureConverter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +40,13 @@ public class OfficeController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
+    CompanyStructureViewDto getToView(@PathVariable Long id) {
+        return CompanyStructureConverter.toCompanyStructureViewDto(officeService.getOfficeById(id));
+    }
+
+    @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(value = HttpStatus.OK)
+    public @ResponseBody
     CompanyStructureEditDto get(@PathVariable Long id) {
         return CompanyStructureConverter.toCompanyStructureEdit(officeService.getOfficeById(id));
     }
@@ -62,14 +70,11 @@ public class OfficeController {
     @ResponseStatus(value = HttpStatus.OK)
     public ResponseEntity<?> create(@RequestBody CompanyStructureAddDto companyStructureAddDto) {
         try {
-            officeService.create(CompanyStructureConverter.toOffice(companyStructureAddDto,departmentRepository));
+            officeService.create(companyStructureAddDto);
         } catch (ServiceException e) {
             e.printStackTrace();
         }
-        HttpHeaders headers = new HttpHeaders();
-//        ControllerLinkBuilder linkBuilder = linkTo(methodOn(OfficeController.class).getOfficeById(office.getId()));
-//        headers.setLocation(linkBuilder.toUri());
-        return new ResponseEntity<>(headers, HttpStatus.CREATED);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @RequestMapping(method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -77,7 +82,7 @@ public class OfficeController {
     public void update(@RequestBody CompanyStructureEditDto companyStructureEditDto) {
         Office beforeOffice=officeService.getOfficeById(companyStructureEditDto.getId());
         try {
-            officeService.update(CompanyStructureConverter.toOffice(companyStructureEditDto,beforeOffice,departmentRepository));
+            officeService.update(companyStructureEditDto);
         } catch (ServiceException e) {
             e.printStackTrace();
         }

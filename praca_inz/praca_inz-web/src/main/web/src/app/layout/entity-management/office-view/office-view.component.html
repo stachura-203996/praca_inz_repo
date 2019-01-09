@@ -2,7 +2,7 @@
 <div class="row">
     <div class="col-lg-4 ">
         <div class="card">
-            <div class="card-header"><h4>{{'CompanyView'| translate}}</h4></div>
+            <div class="card-header"><h4>{{'OfficeView'| translate}}</h4></div>
             <div class="card-body">
 
                 <div class="box box-info">
@@ -15,14 +15,20 @@
                     <hr style="margin:5px 0 5px 0;">
 
                     <div class="row">
-                        <div class="col-sm-5 col-xs-6 tital ">{{'StructureName'|translate}}</div>
+                        <div class="col-sm-5 col-xs-6 tital ">{{'ElementName'|translate}}</div>
                         <div class="col-sm-7 col-xs-6 ">{{office.name}}</div>
                     </div>
                     <div class="clearfix"></div>
                     <div class="bot-border"></div>
                     <div class="row">
+                        <div class="col-sm-5 col-xs-6 tital ">{{'CompanyName'|translate}}</div>
+                        <div class="col-sm-7 col-xs-6 ">{{office.companyName}}</div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="bot-border"></div>
+                    <div class="row">
                         <div class="col-sm-5 col-xs-6 tital ">{{'DepartmentName'|translate}}</div>
-                        <div class="col-sm-7 col-xs-6 ">{{office.parentName}}</div>
+                        <div class="col-sm-7 col-xs-6 ">{{office.departmentName}}</div>
                     </div>
                     <div class="clearfix"></div>
                     <div class="bot-border"></div>
@@ -36,10 +42,9 @@
                     <div class="clearfix"></div>
                     <div class="bot-border"></div>
                     <br>
-                    <div class="row">
+                    <div class="row" *ngIf="roles.admin||roles.company_admin">
                         <div class="col-sm-6" align="center">
-                            <button [routerLink]="['/admin/offices/edit/'+office.id]" class="btn btn-primary"
-                                    i18n="@@editButton">Edit
+                            <button [routerLink]="['/admin/offices/edit/'+office.id]" class="btn btn-primary">{{'Edit'|translate}}
                             </button>
                         </div>
                     </div>
@@ -55,7 +60,7 @@
                         <div class="col-lg-10">
                             <h4>{{'Devices'|translate}}</h4>
                         </div>
-                        <div class="col-lg-2">
+                        <div class="col-lg-2" *ngIf="roles.admin||roles.company_admin">
                             <button class="btn btn-primary float-right jh-create-entity"
                                     [routerLink]="['/admin/devices']">
                                 <span>{{ 'DeviceManager' | translate }}</span>
@@ -64,18 +69,21 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <table class="table table-striped" align="center">
+                    <table class="table table-striped" align="center" *ngIf="devices">
                         <thead class="thead-inverse">
                         <tr>
                             <th>{{ 'Name' | translate }}</th>
                             <th>{{ 'SerialNumber' | translate }}</th>
+                            <th>{{ 'DeviceModel' | translate }}</th>
                             <th>{{ 'DeviceType' | translate }}</th>
+
                         </tr>
                         </thead>
                         <tbody>
                         <tr *ngFor="let device of devices">
                             <td>{{device.name}}</td>
                             <td>{{device.serialNumber}}</td>
+                            <td>{{device.deviceModel}}</td>
                             <td>{{device.deviceTypeName}}</td>
                         </tr>
                         </tbody>
@@ -89,7 +97,7 @@
                         <div class="col-lg-10">
                             <h4>{{'Warehouses'|translate}}</h4>
                         </div>
-                        <div class="col-lg-2">
+                        <div class="col-lg-2" *ngIf="roles.admin||roles.company_admin">
                             <button class="btn btn-primary float-right jh-create-entity"
                                     [routerLink]="['/admin/warehouses']">
                                 <span>{{ 'Warehousemanager' | translate }}</span>
@@ -98,7 +106,7 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <table class="table table-striped" align="center">
+                    <table class="table table-striped" align="center" *ngIf="warehouses">
                         <thead class="thead-inverse">
                         <tr>
                             <th>{{ 'Name' | translate }}</th>

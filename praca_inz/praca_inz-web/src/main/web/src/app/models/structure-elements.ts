@@ -7,7 +7,7 @@ export class StructureAddElement {
     flatNumber: string;
     zipCode: string;
     companyId:number;
-    departmentId:string
+    departmentId:number;
 }
 
 export class StructureEditElement {
@@ -46,7 +46,8 @@ export class StructureViewElement {
     buildingNumber: string;
     flatNumber: string;
     zipCode: string;
-    parentName: string;
+    companyName: string;
+    departmentName:string;
 }
 
 

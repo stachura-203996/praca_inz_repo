@@ -9,6 +9,7 @@ import com.stachura.praca_inz.backend.repository.interfaces.AddressRepository;
 import com.stachura.praca_inz.backend.repository.interfaces.CompanyRepository;
 import com.stachura.praca_inz.backend.service.CompanyService;
 import com.stachura.praca_inz.backend.web.dto.company.CompanyStructureAddDto;
+import com.stachura.praca_inz.backend.web.dto.company.CompanyStructureEditDto;
 import com.stachura.praca_inz.backend.web.dto.company.CompanyStructuresListElementDto;
 import com.stachura.praca_inz.backend.web.dto.converter.CompanyStructureConverter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -95,8 +96,9 @@ public class CompanyServiceImpl implements CompanyService {
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('COMPANY_UPDATE')")
-    public void updateCompany(Company company) throws ServiceException {
-        companyRepository.update(company);
+    public void updateCompany(CompanyStructureEditDto companyStructureEditDto) throws ServiceException {
+        Company beforeCompany=companyRepository.find(companyStructureEditDto.getId());
+        companyRepository.update(CompanyStructureConverter.toCompany(companyStructureEditDto,beforeCompany));
     }
 
     @Override

@@ -9,9 +9,10 @@ import {SessionContextService} from "../shared/services/session-context.service"
 })
 export class LoginService {
 
+    isActive: boolean;
 
     constructor(
-        private router: Router, private http: HttpClient, private cookieService: CookieService,private sessionContextService:SessionContextService) {
+        private router: Router, private http: HttpClient, private cookieService: CookieService, private sessionContextService: SessionContextService) {
     }
 
     obtainAccessToken(loginData) {
@@ -34,23 +35,49 @@ export class LoginService {
 
     }
 
-    saveToken(token) {
-        var expireDate = new Date().getTime()/1000 +token.expires_in;
-
-        this.cookieService.set('access_token', token.access_token, expireDate);
-        console.log('Obtained Access token');
-        this.router.navigateByUrl('/page')
+    checkToken() {
+        if(this.cookieService.check('access_token')) {
+            var cookie = this.cookieService.get('access_token');
+            let params = new URLSearchParams();
+            params.append('token', cookie);
+            let headers = new HttpHeaders({
+                'Content-type': 'application/x-www-form-urlencoded; charset=utf-8',
+                'Authorization': 'Basic c3ByaW5nLXNlY3VyaXR5LW9hdXRoMi1yZWFkLXdyaXRlLWNsaWVudDpzcHJpbmctc2VjdXJpdHktb2F1dGgyLXJlYWQtd3JpdGUtY2xpZW50LXBhc3N3b3JkMTIzNA=='
+            });
+            console.log(params.toString());
+            this.http.post('http://localhost:8081/oauth/check_token', params.toString(), {headers: headers})
+                .subscribe(
+                    data => this.checkIsActive(data),
+                    err => alert('Can not check')
+                );
+        }
     }
 
-    checkCredentials():boolean {
+    checkIsActive(data) {
+        if (data.active) {
+            localStorage.setItem('isLoggedin', 'true');
+        } else {
+            localStorage.setItem('isLoggedin', 'false');
+        }
+    }
+
+    saveToken(token) {
+        var expireDate = new Date().getTime() / 1000 + token.expires_in;
+        this.cookieService.set('access_token', token.access_token, expireDate);
+        localStorage.setItem('isLoggedin', 'true');
+        console.log('Obtained Access token');
+    }
+
+    checkCredentials(): boolean {
         return this.cookieService.check('access_token');
     }
 
-    revokeToken(){
+    revokeToken() {
 
     }
 
     logout() {
+        localStorage.setItem('isLoggedin', 'false');
         this.cookieService.delete('access_token');
         this.router.navigate(['/login']);
     }

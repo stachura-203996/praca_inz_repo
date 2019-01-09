@@ -8,6 +8,7 @@ import com.stachura.praca_inz.backend.repository.interfaces.CompanyRepository;
 import com.stachura.praca_inz.backend.repository.interfaces.DepartmentRepository;
 import com.stachura.praca_inz.backend.web.dto.company.CompanyStructureAddDto;
 import com.stachura.praca_inz.backend.web.dto.company.CompanyStructureEditDto;
+import com.stachura.praca_inz.backend.web.dto.company.CompanyStructureViewDto;
 import com.stachura.praca_inz.backend.web.dto.company.CompanyStructuresListElementDto;
 
 /**
@@ -95,7 +96,44 @@ public class CompanyStructureConverter {
                 .id(department.getId())
                 .name(department.getName())
                 .description(department.getDescription())
-                .parentId(String.valueOf(department.getCompany().getId()))
+                .parentId(department.getCompany().getId())
+                .build();
+    }
+
+    public static CompanyStructureViewDto toCompanyStructureViewDto(Company company){
+        return CompanyStructureViewDto.builder()
+                .id(company.getId())
+                .name(company.getName())
+                .description(company.getDescription())
+                .city(company.getAddress().getCity())
+                .street(company.getAddress().getStreet())
+                .buildingNumber(company.getAddress().getBuildingNumber())
+                .flatNumber(company.getAddress().getFlatNumber())
+                .zipCode(company.getAddress().getZipCode())
+                .build();
+    }
+
+    public static CompanyStructureViewDto toCompanyStructureViewDto(Department department){
+        return CompanyStructureViewDto.builder()
+                .id(department.getId())
+                .name(department.getName())
+                .description(department.getDescription())
+                .companyName(department.getCompany().getName())
+                .build();
+    }
+
+    public static CompanyStructureViewDto toCompanyStructureViewDto(Office office){
+        return CompanyStructureViewDto.builder()
+                .id(office.getId())
+                .name(office.getName())
+                .description(office.getDescription())
+                .city(office.getAddress().getCity())
+                .street(office.getAddress().getStreet())
+                .buildingNumber(office.getAddress().getBuildingNumber())
+                .flatNumber(office.getAddress().getFlatNumber())
+                .zipCode(office.getAddress().getZipCode())
+                .companyName(office.getDepartment().getCompany().getName())
+                .departmentName(office.getDepartment().getName())
                 .build();
     }
 
@@ -115,14 +153,14 @@ public class CompanyStructureConverter {
                 .buildingNumber(office.getAddress().getBuildingNumber())
                 .flatNumber(office.getAddress().getFlatNumber())
                 .zipCode(office.getAddress().getZipCode())
-                .parentId(String.valueOf(office.getDepartment().getId()))
+                .parentId(office.getDepartment().getId())
                 .build();
     }
 
-    public static Department toDepartment(CompanyStructureEditDto companyStructureEditDto, Department beforeDepartment, CompanyRepository companyRepository) {
+    public static Department toDepartment(CompanyStructureEditDto companyStructureEditDto, Department beforeDepartment, Company company) {
         beforeDepartment.setName(companyStructureEditDto.getName());
         beforeDepartment.setDescription(companyStructureEditDto.getDescription());
-        beforeDepartment.setCompany(companyRepository.find(companyStructureEditDto.getParentId()));
+        beforeDepartment.setCompany(company);
         return beforeDepartment;
     }
 
@@ -137,7 +175,7 @@ public class CompanyStructureConverter {
         return beforeCompany;
     }
 
-    public static Office toOffice(CompanyStructureEditDto companyStructureEditDto, Office beforeOffice,DepartmentRepository departmentRepository) {
+    public static Office toOffice(CompanyStructureEditDto companyStructureEditDto, Office beforeOffice,Department department) {
 
         beforeOffice.setName(companyStructureEditDto.getName());
         beforeOffice.setDescription(companyStructureEditDto.getDescription());
@@ -146,7 +184,7 @@ public class CompanyStructureConverter {
         beforeOffice.getAddress().setBuildingNumber(companyStructureEditDto.getBuildingNumber());
         beforeOffice.getAddress().setFlatNumber(companyStructureEditDto.getFlatNumber());
         beforeOffice.getAddress().setZipCode(companyStructureEditDto.getZipCode());
-        beforeOffice.setDepartment(departmentRepository.find(companyStructureEditDto.getParentId()));
+        beforeOffice.setDepartment(department);
         return beforeOffice;
     }
 
@@ -164,17 +202,17 @@ public class CompanyStructureConverter {
         return company;
     }
 
-    public static Department toDepartment(CompanyStructureAddDto companyStructureAddDto, CompanyRepository companyRepository) {
+    public static Department toDepartment(CompanyStructureAddDto companyStructureAddDto, Company company) {
         Department department = new Department();
         department.setName(companyStructureAddDto.getName());
         department.setDescription(companyStructureAddDto.getDescription());
-        department.setCompany(companyRepository.find(companyStructureAddDto.getCompanyId()));
+        department.setCompany(company);
         return department;
     }
 
-    public static Office toOffice(CompanyStructureAddDto companyStructureAddDto,DepartmentRepository departmentRepository) {
+    public static Office toOffice(CompanyStructureAddDto companyStructureAddDto,Department department) {
         Office office = new Office();
-        office.setDepartment(departmentRepository.find(companyStructureAddDto.getDepartmentId()));
+        office.setDepartment(department);
         office.setName(companyStructureAddDto.getName());
         office.setDescription(companyStructureAddDto.getDescription());
         Address adress = new Address();

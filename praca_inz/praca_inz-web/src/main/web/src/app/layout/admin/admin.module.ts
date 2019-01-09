@@ -39,6 +39,11 @@ import { DeviceTransferComponent } from './components/structure-management/devic
 import {SystemMessageAddComponent} from "./components/administration/system_messages/system-message-add/system-message-add.component";
 import {SystemMessageListComponent} from "./components/administration/system_messages/system-message-list/system-message-list.component";
 import { DeviceTypeAddComponent } from './components/structure-management/device/device-type-add/device-type-add.component';
+import {ShareModule} from "../../shared/modules/share/share.module";
+import {EmailMatchDirective} from "../../directives/email-match.directive";
+import {NotNaughtDirective} from "../../directives/not-naught.directive";
+import {NotNegativeDirective} from "../../directives/not-negative.directive";
+import {NotRealNumberDirective} from "../../directives/not-real-number.directive";
 
 @NgModule({
     imports: [
@@ -46,7 +51,8 @@ import { DeviceTypeAddComponent } from './components/structure-management/device
         AdminRoutingModule,
         TranslateModule,
         FormsModule,
-        NgbModule.forRoot()
+        ShareModule,
+        NgbModule
     ],
     declarations: [
         CompanyListComponent,

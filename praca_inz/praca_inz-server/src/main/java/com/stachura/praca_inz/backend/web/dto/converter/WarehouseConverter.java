@@ -1,7 +1,7 @@
 package com.stachura.praca_inz.backend.web.dto.converter;
 
 import com.stachura.praca_inz.backend.model.Warehouse;
-import com.stachura.praca_inz.backend.web.dto.WarehouseListElementDto;
+import com.stachura.praca_inz.backend.web.dto.warehouse.WarehouseListElementDto;
 
 public class WarehouseConverter {
 

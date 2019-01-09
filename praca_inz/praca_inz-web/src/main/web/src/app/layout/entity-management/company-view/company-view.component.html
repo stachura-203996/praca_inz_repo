@@ -35,7 +35,7 @@
                     <div class="clearfix"></div>
                     <div class="bot-border"></div>
                     <br>
-                    <div class="row">
+                    <div class="row" *ngIf="roles.admin||roles.company_admin">
                         <div class="col-sm-6" align="center">
                             <button [routerLink]="['/admin/companies/edit/'+company.id]" class="btn btn-primary">
                                 {{'Edit'|translate}}
@@ -54,7 +54,7 @@
                         <div class="col-lg-10">
                             <h4>{{'Devices'|translate}}</h4>
                         </div>
-                        <div class="col-lg-2">
+                        <div class="col-lg-2" *ngIf="roles.admin||roles.company_admin">
                             <button class="btn btn-primary float-right jh-create-entity"
                                     [routerLink]="['/admin/devices']">
                                 <span>{{ 'DevicesManager' | translate }}</span>
@@ -63,18 +63,21 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <table class="table table-striped" align="center">
+                    <table class="table table-striped" align="center" *ngIf="devices">
                         <thead class="thead-inverse">
                         <tr>
                             <th>{{ 'Name' | translate }}</th>
                             <th>{{ 'SerialNumber' | translate }}</th>
+                            <th>{{ 'DeviceModel' | translate }}</th>
                             <th>{{ 'DeviceType' | translate }}</th>
+
                         </tr>
                         </thead>
                         <tbody>
                         <tr *ngFor="let device of devices">
                             <td>{{device.name}}</td>
                             <td>{{device.serialNumber}}</td>
+                            <td>{{device.deviceModel}}</td>
                             <td>{{device.deviceTypeName}}</td>
                         </tr>
                         </tbody>
@@ -88,7 +91,7 @@
                         <div class="col-lg-10">
                             <h4>{{'Departments'|translate}}</h4>
                         </div>
-                        <div class="col-lg-2">
+                        <div class="col-lg-2" *ngIf="roles.admin||roles.company_admin">
                             <button class="btn btn-primary float-right jh-create-entity"
                                     [routerLink]="['/admin/departments']">
                                 <span>{{ 'DepartmentsManager' | translate }}</span>
@@ -97,7 +100,7 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <table class="table table-striped" align="center">
+                    <table class="table table-striped" align="center" *ngIf="departments">
                         <thead class="thead-inverse">
                         <tr>
                             <th>{{ 'ElementName' | translate }}</th>
@@ -118,7 +121,7 @@
                         <div class="col-lg-10">
                             <h4>{{'Offices'|translate}}</h4>
                         </div>
-                        <div class="col-lg-2">
+                        <div class="col-lg-2" *ngIf="roles.admin||roles.company_admin">
                             <button class="btn btn-primary float-right jh-create-entity"
                                     [routerLink]="['/admin/offices']">
                                 <span>{{ 'OfficesManager' | translate }}</span>
@@ -127,7 +130,7 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <table class="table table-striped" align="center">
+                    <table class="table table-striped" align="center" *ngIf="offices">
                         <thead class="thead-inverse">
                         <tr>
                             <th>{{ 'Name' | translate }}</th>
@@ -150,7 +153,7 @@
                 </div>
             </div>
             <br>
-            <div class="card">
+            <div class="card" >
                 <div class="card-header">
                     <div class="row">
                         <div class="col-lg-10">
@@ -164,8 +167,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="card-body">
-                    <table class="table table-striped" align="center">
+                <div class="card-body" >
+                    <table class="table table-striped" align="center" *ngIf="warehouses">
                         <thead class="thead-inverse">
                         <tr>
                             <th>{{ 'Name' | translate }}</th>
