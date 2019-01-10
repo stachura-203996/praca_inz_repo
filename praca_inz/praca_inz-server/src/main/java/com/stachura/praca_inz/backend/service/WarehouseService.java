@@ -2,26 +2,26 @@ package com.stachura.praca_inz.backend.service;
 
 import com.stachura.praca_inz.backend.exception.service.ServiceException;
 import com.stachura.praca_inz.backend.model.Warehouse;
+import com.stachura.praca_inz.backend.web.dto.warehouse.WarehouseAddDto;
+import com.stachura.praca_inz.backend.web.dto.warehouse.WarehouseEditDto;
 import com.stachura.praca_inz.backend.web.dto.warehouse.WarehouseListElementDto;
+import com.stachura.praca_inz.backend.web.dto.warehouse.WarehouseViewDto;
 
 
 import java.util.List;
 
 public interface WarehouseService {
 
-    Warehouse getWarehouseById(Long id);
-
-//    Warehouse getCompanyByName(String name);
 
     List<WarehouseListElementDto> getAllOfficeWarehouses();
 
-    void createNewWarehouse(Warehouse warehouse) throws ServiceException;
+    void createWarehouse(WarehouseAddDto warehouseAddDto)throws ServiceException;
 
-    void updateWarehouse(Warehouse warehouse) throws ServiceException;
+    void updateWarehouse(WarehouseEditDto warehouseEditDto) throws ServiceException;
 
     void deleteWarehouseById(Long id);
 
-    void deleteWarehouse(Warehouse warehouse);
+
 
     List<WarehouseListElementDto> getAllWarehousesForCompany(Long id);
 
@@ -34,4 +34,7 @@ public interface WarehouseService {
     List<WarehouseListElementDto> getAllForTransferRequest(String username);
 
 
+    WarehouseViewDto getWarehouseToView(Long id);
+
+    WarehouseEditDto getWarehouseToEdit(Long id);
 }

@@ -87,6 +87,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<UserListElementDto> getAllWarehousemen(Long id) {
+        List<User> users=userRepository.findAll().stream().filter(x->x.getOffice().getId().equals(id)&&x.getUserRoles().contains("WAREHOUSEMAN")).collect(Collectors.toList());
+        List<UserListElementDto> usersDto = new ArrayList<>();
+        for (User a : users) {
+            usersDto.add(UserConverter.toUserListElement(a));
+        }
+        return usersDto;
+    }
+
+    @Override
     @Transactional
     @PreAuthorize("hasAuthority('USER_UPDATE')")
     public void updateUser(User user) throws ServiceException {

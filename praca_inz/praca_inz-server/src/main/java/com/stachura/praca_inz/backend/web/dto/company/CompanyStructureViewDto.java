@@ -14,7 +14,6 @@ public class CompanyStructureViewDto {
     String street;
     String buildingNumber;
     String flatNumber;
-    String zipCode;
     String companyName;
     String departmentName;
 }

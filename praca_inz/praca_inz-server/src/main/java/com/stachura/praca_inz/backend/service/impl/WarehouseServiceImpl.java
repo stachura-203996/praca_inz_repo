@@ -3,13 +3,19 @@ package com.stachura.praca_inz.backend.service.impl;
 import com.stachura.praca_inz.backend.exception.repository.DatabaseErrorException;
 import com.stachura.praca_inz.backend.exception.repository.EntityException;
 import com.stachura.praca_inz.backend.exception.service.ServiceException;
+import com.stachura.praca_inz.backend.model.Office;
 import com.stachura.praca_inz.backend.model.Warehouse;
 import com.stachura.praca_inz.backend.model.enums.WarehouseType;
+import com.stachura.praca_inz.backend.model.security.User;
+import com.stachura.praca_inz.backend.repository.interfaces.OfficeRepository;
 import com.stachura.praca_inz.backend.repository.interfaces.UserRepository;
 import com.stachura.praca_inz.backend.repository.interfaces.WarehouseRepository;
 import com.stachura.praca_inz.backend.service.WarehouseService;
+import com.stachura.praca_inz.backend.web.dto.warehouse.WarehouseAddDto;
+import com.stachura.praca_inz.backend.web.dto.warehouse.WarehouseEditDto;
 import com.stachura.praca_inz.backend.web.dto.warehouse.WarehouseListElementDto;
 import com.stachura.praca_inz.backend.web.dto.converter.WarehouseConverter;
+import com.stachura.praca_inz.backend.web.dto.warehouse.WarehouseViewDto;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -29,17 +35,31 @@ public class WarehouseServiceImpl implements WarehouseService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private OfficeRepository officeRepository;
+
+
     @Override
     @Transactional(readOnly = true)
     @PreAuthorize("hasAuthority('WAREHOUSE_READ')")
-    public Warehouse getWarehouseById(Long id) {
+    public WarehouseViewDto getWarehouseToView(Long id) {
         Warehouse warehouse = warehouseRepository.find(id);
         if (warehouse.isDeleted()) {
             return null;
         }
-        return warehouse;
+        return WarehouseConverter.toWarehouseViewDto(warehouse);
     }
 
+    @Override
+    @Transactional(readOnly = true)
+    @PreAuthorize("hasAuthority('WAREHOUSE_READ')")
+    public WarehouseEditDto getWarehouseToEdit(Long id) {
+        Warehouse warehouse = warehouseRepository.find(id);
+        if (warehouse.isDeleted()) {
+            return null;
+        }
+        return WarehouseConverter.toWarehouseEditDto(warehouse);
+    }
 
     @Override
     @Transactional(readOnly = true)
@@ -68,7 +88,6 @@ public class WarehouseServiceImpl implements WarehouseService {
         }
         return warehouseListElementDtos;
     }
-
 
     @Override
     @Transactional(readOnly = true)
@@ -133,13 +152,14 @@ public class WarehouseServiceImpl implements WarehouseService {
         return warehouseDto;
     }
 
-
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('WAREHOUSE_CREATE')")
-    public void createNewWarehouse(Warehouse warehouse)throws ServiceException {
+    public void createWarehouse(WarehouseAddDto warehouseAddDto)throws ServiceException {
         try {
-            warehouseRepository.create(warehouse);
+            User user=userRepository.find(warehouseAddDto.getUserId());
+            Office office=officeRepository.find(warehouseAddDto.getOfficeId());
+            warehouseRepository.create(WarehouseConverter.toWarehouse(warehouseAddDto,user,office));
 
         } catch (DatabaseErrorException e) {
             throw e;
@@ -152,8 +172,11 @@ public class WarehouseServiceImpl implements WarehouseService {
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('WAREHOUSE_UPDATE')")
-    public void updateWarehouse(Warehouse warehouse) throws ServiceException {
-        warehouseRepository.update(warehouse);
+    public void updateWarehouse(WarehouseEditDto warehouseEditDto) throws ServiceException {
+        Warehouse beforeWarehouse=warehouseRepository.find(warehouseEditDto.getId());
+        User user=userRepository.find(warehouseEditDto.getUserId());
+        Office office=officeRepository.find(warehouseEditDto.getOfficeId());
+        warehouseRepository.update(WarehouseConverter.toWarehouse(warehouseEditDto,beforeWarehouse,user,office));
     }
 
     @Override
@@ -162,13 +185,5 @@ public class WarehouseServiceImpl implements WarehouseService {
     public void deleteWarehouseById(Long id) {
         warehouseRepository.find(id).setDeleted(true);
     }
-
-    @Override
-    @Transactional
-    @PreAuthorize("hasAuthority('WAREHOUSE_DELETE')")
-    public void deleteWarehouse(Warehouse warehouse) {
-        warehouseRepository.find(warehouse.getId()).setDeleted(true);
-    }
-
 
 }

@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -44,6 +45,7 @@ public class RegistrationServiceImpl implements RegistrationService {
     private PasswordEncoder passwordEncoder;
 
     @Override
+    @Transactional
     public void registerNewUserAccount(final RegistrationDto data, boolean verified) throws ServiceException {
         if (emailExist(data.getEmail())) {
             throw new UserAlreadyExistException("There is an user with that email adress: " + data.getEmail());
@@ -61,6 +63,7 @@ public class RegistrationServiceImpl implements RegistrationService {
         if(data.getRoles()!=null) {
             List<UserRole> userRoles = userRoleRepository.findAll().stream().filter(x -> data.getRoles().stream().anyMatch(name -> name.equals(x.getName())))
                     .collect(Collectors.toList());
+
             user.setUserRoles(userRoles);
         }
         Userdata userdata = new Userdata();
@@ -70,7 +73,6 @@ public class RegistrationServiceImpl implements RegistrationService {
         userdata.setName(data.getName());
         userdata.setWorkplace(data.getWorkplace());
         Address address=new Address();
-        address.setZipCode(data.getZipcode());
         address.setFlatNumber(data.getFlatNumber());
         address.setBuildingNumber(data.getHouseNumber());
         address.setStreet(data.getStreet());

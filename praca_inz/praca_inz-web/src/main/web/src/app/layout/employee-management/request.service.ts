@@ -47,7 +47,7 @@ export class RequestService {
     }
 
     getAllRequestsForWarehouseman() {
-        return this.httpService.get<RequestListElement[]>(this.requestPath + "/warehouseman/");
+        return this.httpService.get<RequestListElement[]>(this.requestPath + "/warehousemen/");
     }
 
     getAllRequestsFromOtherWarehouses() {

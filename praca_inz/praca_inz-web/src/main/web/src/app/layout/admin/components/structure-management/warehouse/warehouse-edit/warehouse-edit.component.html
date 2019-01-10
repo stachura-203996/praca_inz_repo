@@ -1,3 +1,63 @@
-<p>
-  warehouse-edit works!
-</p>
+<div class="row">
+    <div class="col-lg-12 ">
+        <form class="form-horizontal" #WarehouseForm="ngForm" (ngSubmit)="warehouseUpdate()">
+            <fieldset>
+                <h1>{{'EditWarehouse'|translate}}</h1>
+                <div class="form-group">
+                    <div class="form-group">
+                        <label class="col-xl-5 control-label" for="Name">{{'ElementName' | translate}}<span style="color:red">*</span></label>
+                        <div class="col-xl-5">
+                            <div class="input-group">
+                                <input id="Name" [(ngModel)]="warehouseEditElement.name" name="Name" type="text"
+                                       placeholder="{{'ElementName'|translate}}" class="form-control input-xl"
+                                       #name="ngModel" required>
+                            </div>
+                            <div *ngIf="name.invalid && (name.touched || name.dirty)"
+                                 class="alert alert-danger col-sm-12">
+                                <div *ngIf="name.hasError('required')">
+                                    {{'Name is required!'|translate}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-xl-5">
+                        <label  for="officeSelect">{{'Office'|translate}}<span style="color:red">*</span></label>
+                        <select class="form-control" id="officeSelect" [(ngModel)]="selectedOffice" (change)="getWarehousesmen()" name="officeSelect" required #office>
+                            <option *ngFor="let office of offices|keyvalue" [value]="office.key">{{office.key}}</option>
+                        </select>
+                        <div *ngIf="office.invalid && (office.touched || office.dirty)"
+                             class="alert alert-danger col-sm-12">
+                            <div *ngIf="office.hasError('required')">{{'Office is required!'|translate}}</div>
+                        </div>
+                    </div>
+                    <div class="form-group col-xl-5"  >
+                        <label  for="departmentSelect">{{'Warehouseman'|translate}}<span style="color:red">*</span></label>
+                        <select class="form-control" id="departmentSelect" [disabled]="!selectedOffice" [(ngModel)]="selectedWarehouseman" name="departmentSelect" required #warehouseman>
+                            <option *ngFor="let warehouseman of warehousemen|keyvalue" [value]="warehouseman.key">{{warehouseman.key}}</option>
+                        </select>
+                        <div *ngIf="warehouseman.invalid && (warehouseman.touched || warehouseman.dirty)"
+                             class="alert alert-danger col-sm-12">
+                            <div *ngIf="warehouseman.hasError('required')">{{'Warehouseman is required!'|translate}}</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-4">
+                            <div class="row">
+                                <div class="col-xl-6" align="center">
+                                    <button type="submit" class="btn btn-success" [disabled]="!WarehouseForm.form.valid"><span class="glyphicon glyphicon-thumbs-up" ></span>{{'Submit'|translate}}</button>
+                                </div>
+                                <div class="col-xl-6" align="center">
+                                    <a class="btn btn-danger" (click)="clear()"><span
+                                        class="glyphicon glyphicon-remove-sign"></span>{{'Clear'|translate}}</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>
+

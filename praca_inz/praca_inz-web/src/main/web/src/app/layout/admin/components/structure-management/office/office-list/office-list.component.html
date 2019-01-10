@@ -19,7 +19,6 @@
     <tr>
         <th>{{ 'Name' | translate }}</th>
         <th>{{ 'City' | translate }}</th>
-        <th>{{'ZipCode'|translate}}</th>
         <th>{{ 'Address' | translate }}</th>
         <th>{{'Company'|translate}}</th>
         <th>{{'Department'|translate}}</th>
@@ -30,7 +29,6 @@
     <tr *ngFor="let office of offices">
         <td>{{office.name}}</td>
         <td>{{office.city}}</td>
-        <td>{{office.zipCode}}</td>
         <td>{{getAddress(office)}}</td>
         <td>{{office.companyName}}</td>
         <td>{{office.departmentName}}</td>

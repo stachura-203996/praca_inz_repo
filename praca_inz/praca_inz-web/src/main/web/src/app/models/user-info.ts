@@ -16,7 +16,6 @@ export class UserInfo {
     street: string;
     houseNumber: string;
     flatNumber: string;
-    zipCode: string;
     dateOfJoining: string;
     roles: string[];
 }

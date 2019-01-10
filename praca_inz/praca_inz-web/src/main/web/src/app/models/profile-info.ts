@@ -13,7 +13,6 @@ export class ProfileInfo {
     street: string;
     houseNumber: string;
     flatNumber: string;
-    zipCode: string;
     dateOfJoining: string;
     roles: string[];
     workplace:string

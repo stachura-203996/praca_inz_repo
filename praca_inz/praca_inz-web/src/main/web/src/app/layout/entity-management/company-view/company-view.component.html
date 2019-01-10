@@ -135,7 +135,6 @@
                         <tr>
                             <th>{{ 'Name' | translate }}</th>
                             <th>{{ 'City' | translate }}</th>
-                            <th>{{'ZipCode'|translate}}</th>
                             <th>{{ 'Address' | translate }}</th>
                             <th>{{'Department'|translate}}</th>
                         </tr>
@@ -144,7 +143,6 @@
                         <tr *ngFor="let office of offices">
                             <td>{{office.name}}</td>
                             <td>{{office.city}}</td>
-                            <td>{{office.zipCode}}</td>
                             <td>{{getAddressStructure(office)}}</td>
                             <td>{{office.departmentName}}</td>
                         </tr>

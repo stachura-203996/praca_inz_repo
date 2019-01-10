@@ -28,7 +28,6 @@ public class RegistrationDto {
     private String street;
     private String houseNumber;
     private String flatNumber;
-    private String zipcode;
     private String position;
     private String workplace;
     private Long officeId;

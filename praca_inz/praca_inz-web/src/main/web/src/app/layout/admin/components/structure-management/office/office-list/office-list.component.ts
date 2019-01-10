@@ -47,7 +47,7 @@ export class OfficeListComponent implements OnInit {
 
             searchText = searchText.toLowerCase();
             this.offices = offices.filter(it => {
-                const range = it.name + ' ' + it.zipCode + ' ' + it.street+' '+it.city+' '+it.description+' '+it.flatNumber+' '+it.buildingNumber+' '+it.departmentName+' '+it.companyName;
+                const range = it.name + ' ' + it.street+' '+it.city+' '+it.description+' '+it.flatNumber+' '+it.buildingNumber+' '+it.departmentName+' '+it.companyName;
                 const ok = range.toLowerCase().includes(searchText);
                 return ok;
             });

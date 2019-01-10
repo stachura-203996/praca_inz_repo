@@ -20,8 +20,6 @@ import {DeviceListComponent} from "./components/structure-management/device/devi
 import {DeviceAddComponent} from "./components/structure-management/device/device-add/device-add.component";
 import {DeviceEditComponent} from "./components/structure-management/device/device-edit/device-edit.component";
 import {TransferListComponent} from "./components/structure-management/device/transfer-list/transfer-list.component";
-import { DeviceParameterAddComponent } from './components/structure-management/device/device-parameter-add/device-parameter-add.component';
-import { DeviceParameterEditComponent } from './components/structure-management/device/device-parameter-edit/device-parameter-edit.component';
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import { WarehouseListComponent } from './components/structure-management/warehouse/warehouse-list/warehouse-list.component';
 import {WarehouseAddComponent} from "./components/structure-management/warehouse/warehouse-add/warehouse-add.component";
@@ -40,10 +38,7 @@ import {SystemMessageAddComponent} from "./components/administration/system_mess
 import {SystemMessageListComponent} from "./components/administration/system_messages/system-message-list/system-message-list.component";
 import { DeviceTypeAddComponent } from './components/structure-management/device/device-type-add/device-type-add.component';
 import {ShareModule} from "../../shared/modules/share/share.module";
-import {EmailMatchDirective} from "../../directives/email-match.directive";
-import {NotNaughtDirective} from "../../directives/not-naught.directive";
-import {NotNegativeDirective} from "../../directives/not-negative.directive";
-import {NotRealNumberDirective} from "../../directives/not-real-number.directive";
+import { DeviceModelParametersChangeComponent } from './components/structure-management/device/device-model-parameters-change/device-model-parameters-change.component';
 
 @NgModule({
     imports: [
@@ -75,8 +70,6 @@ import {NotRealNumberDirective} from "../../directives/not-real-number.directive
         DeviceModelListComponent,
         DeviceModelAddComponent,
         DeviceModelEditComponent,
-        DeviceParameterAddComponent,
-        DeviceParameterEditComponent,
         WarehouseListComponent,
         WarehouseAddComponent,
         WarehouseEditComponent,
@@ -89,7 +82,8 @@ import {NotRealNumberDirective} from "../../directives/not-real-number.directive
         SummaryComponent,
         UserPasswordEditComponent,
         DeviceTransferComponent,
-        DeviceTypeAddComponent
+        DeviceTypeAddComponent,
+        DeviceModelParametersChangeComponent,
     ]
 })
 export class AdminModule {

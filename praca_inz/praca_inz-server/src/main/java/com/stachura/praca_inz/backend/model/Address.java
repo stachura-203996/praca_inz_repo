@@ -36,8 +36,6 @@ public class Address implements Serializable {
     @Column(name = "FLAT_NUMBER")
     private String flatNumber;
 
-    @Column(name = "ZIP_CODE")
-    private String zipCode;
 
     @Column(name = "DELETED", nullable = false)
     private boolean deleted;

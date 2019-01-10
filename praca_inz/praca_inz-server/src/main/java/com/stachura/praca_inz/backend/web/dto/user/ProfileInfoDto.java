@@ -27,7 +27,6 @@ public class ProfileInfoDto {
     private String street;
     private String houseNumber;
     private String flatNumber;
-    private String zipCode;
     private String workplace;
     private List<String> roles;
 }

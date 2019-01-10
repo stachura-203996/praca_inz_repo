@@ -48,7 +48,7 @@ export class LoginService {
             this.http.post('http://localhost:8081/oauth/check_token', params.toString(), {headers: headers})
                 .subscribe(
                     data => this.checkIsActive(data),
-                    err => alert('Can not check')
+                    err => localStorage.setItem('isLoggedin', 'false')
                 );
         }
     }
@@ -57,6 +57,7 @@ export class LoginService {
         if (data.active) {
             localStorage.setItem('isLoggedin', 'true');
         } else {
+            this.cookieService.delete('access_token');
             localStorage.setItem('isLoggedin', 'false');
         }
     }
@@ -77,7 +78,7 @@ export class LoginService {
     }
 
     logout() {
-        localStorage.setItem('isLoggedin', 'false');
+        localStorage.clear();
         this.cookieService.delete('access_token');
         this.router.navigate(['/login']);
     }

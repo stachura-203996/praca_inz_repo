@@ -21,7 +21,6 @@
             <th>{{ 'Name' | translate }}</th>
             <th>{{ 'Description' | translate }}</th>
             <th>{{ 'City' | translate }}</th>
-            <th>{{'ZipCode'|translate}}</th>
             <th>{{ 'Adress' | translate }}</th>
             <th></th>
         </tr>
@@ -31,7 +30,6 @@
             <td>{{company.name}}</td>
             <td id="description">{{company.description}}</td>
             <td>{{company.city}}</td>
-            <td>{{company.zipCode}}</td>
             <td>{{getAddress(company)}}</td>
             <td class="text-right">
                 <div class="btn-group flex-btn-group-container">

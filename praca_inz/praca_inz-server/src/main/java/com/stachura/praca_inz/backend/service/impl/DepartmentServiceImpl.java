@@ -100,7 +100,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     @PreAuthorize("hasAuthority('DEPARTMENT_CREATE')")
     public void createNewDepartment(CompanyStructureAddDto companyStructureAddDto) throws ServiceException {
         try {
-            Company company=companyRepository.find(companyStructureAddDto.getDepartmentId());
+            Company company=companyRepository.find(companyStructureAddDto.getCompanyId());
             departmentRepository.create(CompanyStructureConverter.toDepartment(companyStructureAddDto,company));
         } catch (DatabaseErrorException e) {
             throw e;

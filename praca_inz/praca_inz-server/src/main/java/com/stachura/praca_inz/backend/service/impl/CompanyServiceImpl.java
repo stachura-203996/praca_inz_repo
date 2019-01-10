@@ -73,7 +73,6 @@ public class CompanyServiceImpl implements CompanyService {
         address.setStreet(companyStructureAddDto.getStreet());
         address.setBuildingNumber(companyStructureAddDto.getBuildingNumber());
         address.setFlatNumber(companyStructureAddDto.getFlatNumber());
-        address.setZipCode(companyStructureAddDto.getZipCode());
         address.setDeleted(false);
         Company company = new Company();
         company.setDeleted(false);

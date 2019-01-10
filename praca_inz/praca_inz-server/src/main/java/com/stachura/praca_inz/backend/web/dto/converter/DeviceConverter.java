@@ -8,7 +8,6 @@ public class DeviceConverter {
     public static DeviceListElementDto toDeviceListElementDto(Device device){
         return DeviceListElementDto.builder()
                 .id(device.getId())
-                .name(device.getName())
                 .username(device.getWarehouse().getUser().getUsername())
                 .serialNumber(device.getSerialNumber())
                 .deviceModel(device.getDeviceModel().getName())

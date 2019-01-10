@@ -52,7 +52,6 @@
     "DevicesManager": "Menadżer urządzeń",
     "DepartmentsManager": "Menadżer urządzeń",
     "OfficesManager": "Menadżer urządzeń",
-    "ZipCode": "Kod pocztowy",
     "DeviceType": "Typ urządzenia",
     "Description": "Opis",
     "City": "Miasto",
@@ -158,5 +157,12 @@
     "DepartmentName":"Nazwa oddziału",
     "Department is required!":"Oddział jest wymagany",
     "EditOffice":"Edytuj biuro",
-    "CreateOffice":"Dodaj biuro"
+    "CreateOffice":"Dodaj biuro",
+    "yes":"tak",
+    "no":"no",
+    "CreateWarehouse":"Dodaj magazyn",
+    "Office is required!": "Biuro jest wymagane!",
+    "Warehouseman is required!":"Magazynier jest wymagany",
+    "Warehouseman":"Magazynier",
+    "EditWarehouse":"Edytuj magazyn"
 }

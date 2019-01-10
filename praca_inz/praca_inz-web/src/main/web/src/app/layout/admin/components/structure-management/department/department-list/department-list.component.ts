@@ -58,7 +58,7 @@ export class DepartmentListComponent implements OnInit {
 
             searchText = searchText.toLowerCase();
             this.departments = departments.filter(it => {
-                const range = it.name + ' ' + it.zipCode + ' ' + it.street+' '+it.city+' '+it.description+' '+it.flatNumber+' '+it.buildingNumber+' '+it.companyName;
+                const range = it.name + ' '+ it.street+' '+it.city+' '+it.description+' '+it.flatNumber+' '+it.buildingNumber+' '+it.companyName;
                 const ok = range.toLowerCase().includes(searchText);
                 return ok;
             });

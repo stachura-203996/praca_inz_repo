@@ -35,6 +35,10 @@ export class UserService {
         return this.httpService.get<UserListElement[]>(this.userPath);
     }
 
+    getAllWarehousemen(id:number): Observable<UserListElement[]> {
+        return this.httpService.get<UserListElement[]>(this.userPath+'/warehousemen/'+id);
+    }
+
     getUserInfoToView(username: string): Observable<UserInfo> {
         this.userPathDetail = this.userPath + '/view/' + username;
         return this.httpService.get<UserInfo>(this.userPathDetail);

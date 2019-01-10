@@ -29,6 +29,5 @@ public class UserInfoDto {
     private String street;
     private String houseNumber;
     private String flatNumber;
-    private String zipCode;
     private List<String> roles;
 }

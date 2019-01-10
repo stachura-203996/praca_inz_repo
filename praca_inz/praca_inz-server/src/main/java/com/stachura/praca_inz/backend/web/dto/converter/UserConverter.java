@@ -51,7 +51,6 @@ public class UserConverter {
                 .street(user.getUserdata().getAddress().getStreet())
                 .houseNumber(user.getUserdata().getAddress().getBuildingNumber())
                 .flatNumber(user.getUserdata().getAddress().getFlatNumber())
-                .zipCode(user.getUserdata().getAddress().getZipCode())
                 .roles(user.getUserRoles().stream().map(UserRole::getName).collect(Collectors.toList()))
                 .workplace(user.getUserdata().getWorkplace())
                 .build();
@@ -108,7 +107,6 @@ public class UserConverter {
                 .street(user.getUserdata().getAddress().getStreet())
                 .houseNumber(user.getUserdata().getAddress().getBuildingNumber())
                 .flatNumber(user.getUserdata().getAddress().getFlatNumber())
-                .zipCode(user.getUserdata().getAddress().getZipCode())
                 .roles(user.getUserRoles().stream().map(UserRole::getName).collect(Collectors.toList()))
                 .build();
     }

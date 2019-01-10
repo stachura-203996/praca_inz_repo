@@ -35,9 +35,6 @@ public class Device implements Serializable {
     @Column(name = "VERSION")
     private long version;
 
-    @Column(name = "NAME", nullable = false)
-    private String name;
-
     @Column(name = "SERIAL_NUMBER",nullable = false, unique = true)
     private String serialNumber;
 
@@ -66,9 +63,6 @@ public class Device implements Serializable {
     @JsonManagedReference
     private Set<Transfer> transfers = new HashSet<>();
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "device", fetch = FetchType.LAZY, orphanRemoval = true)
-    @JsonManagedReference
-    private Set<DeviceField> deviceFields = new HashSet<>();
 
 
     @ManyToOne(fetch = FetchType.LAZY)

@@ -26,10 +26,29 @@ export class UserAddComponent implements OnInit {
         private userService: UserService,
         private officeService: OfficeService,
         private translate: TranslateService,
+        private messageService:MessageService,
+        private i18nService:I18nService,
         private router: Router) {}
 
     ngOnInit() {
         this.getOffices();
+    }
+
+
+    setRoles(){
+        if(this.roles.admin){
+            this.registerUserData.roles.push("ADMIN")
+        }
+        if(this.roles.company_admin){
+            this.registerUserData.roles.push("COMPANY_MANAGER")
+        }
+        if(this.roles.warehouseman){
+            this.registerUserData.roles.push("WAREHOUSEMAN")
+        }
+        if(this.roles.manager){
+            this.registerUserData.roles.push("MANAGER")
+        }
+        this.registerUserData.roles.push("USER")
     }
 
     getOffices() {
@@ -45,6 +64,7 @@ export class UserAddComponent implements OnInit {
     }
 
     userAdd() {
+        this.setRoles();
         // this.messageService
         // .confirm(this.i18nService.getMessage('change.password'), this.i18nService.getMessage('changePassword.confirm.msg'),
         // this.i18nService.getMessage('yes'), this.i18nService.getMessage('no'))

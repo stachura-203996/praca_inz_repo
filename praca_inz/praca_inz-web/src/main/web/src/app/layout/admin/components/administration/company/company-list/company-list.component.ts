@@ -43,7 +43,7 @@ export class CompanyListComponent implements OnInit {
 
             searchText = searchText.toLowerCase();
             this.companies = copmanies.filter(it => {
-                const range = it.name + ' ' + it.zipCode + ' ' + it.street+' '+it.city+' '+it.description+' '+it.flatNumber+' '+it.buildingNumber;
+                const range = it.name + ' ' + it.street+' '+it.city+' '+it.description+' '+it.flatNumber+' '+it.buildingNumber;
                 const ok = range.toLowerCase().includes(searchText);
                 return ok;
             });

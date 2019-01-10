@@ -5,7 +5,6 @@ export class StructureAddElement {
     street: string;
     buildingNumber: string;
     flatNumber: string;
-    zipCode: string;
     companyId:number;
     departmentId:number;
 }
@@ -18,7 +17,6 @@ export class StructureEditElement {
     street: string;
     buildingNumber: string;
     flatNumber: string;
-    zipCode: string;
     parentId: number;
     version:string;
 }
@@ -31,7 +29,6 @@ export class StructureListElement {
     street: string;
     buildingNumber: string;
     flatNumber: string;
-    zipCode: string;
     companyName: string;
     departmentName:string;
     deleted:boolean;
@@ -45,7 +42,6 @@ export class StructureViewElement {
     street: string;
     buildingNumber: string;
     flatNumber: string;
-    zipCode: string;
     companyName: string;
     departmentName:string;
 }

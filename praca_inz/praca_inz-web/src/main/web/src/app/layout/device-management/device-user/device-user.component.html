@@ -17,7 +17,6 @@
     <table class="table table-striped" align="center">
         <thead class="thead-inverse">
         <tr>
-            <th>{{ 'Name' | translate }}</th>
             <th>{{ 'SerialNumber' | translate }}</th>
             <th>{{'DeviceModel'|translate}}</th>
             <th>{{ 'DeviceType' | translate }}</th>
@@ -30,7 +29,6 @@
         </thead>
         <tbody>
         <tr *ngFor="let device of devices">
-            <td>{{device.name}}</td>
             <td>{{device.serialNumber}}</td>
             <td>{{device.deviceModel}}</td>
             <td>{{device.deviceTypeName}}</td>

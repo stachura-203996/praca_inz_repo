@@ -18,16 +18,16 @@ TRUNCATE TABLE SYSTEM_MESSAGE CASCADE;
 TRUNCATE TABLE DEVICE_MODEL CASCADE;
 TRUNCATE TABLE DEVICE_TYPE CASCADE;
 TRUNCATE TABLE DELIVERY CASCADE;
-TRUNCATE TABLE SHIPMENT CASCADE;
 
 
-INSERT INTO ADDRESS(ID, VERSION,CITY,DELETED, BUILDING_NUMBER, STREET, ZIP_CODE) VALUES (1,0, 'Kraków',FALSE, 1, 'Street X', '12-341');
-INSERT INTO ADDRESS(ID, VERSION, CITY,DELETED , BUILDING_NUMBER, STREET, ZIP_CODE) VALUES (2,0, 'Warszawa',FALSE, 2, 'Street Y', '12-342');
-INSERT INTO ADDRESS(ID, VERSION, CITY,DELETED , BUILDING_NUMBER, STREET, ZIP_CODE,FLAT_NUMBER) VALUES (3,0, 'Łódź',FALSE, 3, 'Street Z', '12-343',2);
-INSERT INTO ADDRESS(ID, VERSION, CITY, DELETED, BUILDING_NUMBER, STREET, ZIP_CODE) VALUES (4,0, 'Lódz',FALSE,  4, 'Street XX', '12-344');
-INSERT INTO ADDRESS(ID, VERSION, CITY,DELETED , BUILDING_NUMBER, STREET, ZIP_CODE) VALUES (5,0, 'Rzeszów',FALSE,  5, 'Street YY', '12-345');
-INSERT INTO ADDRESS(ID, VERSION, CITY, DELETED, BUILDING_NUMBER, STREET, ZIP_CODE) VALUES (6,0, 'Lublin',FALSE,  6, 'Street ZZ', '12-346');
-INSERT INTO ADDRESS(ID, VERSION, CITY,DELETED , BUILDING_NUMBER, STREET, ZIP_CODE) VALUES (7,0, 'Sopot',FALSE , 7, 'Street XXX', '12-347');
+
+INSERT INTO ADDRESS(ID, VERSION,CITY,DELETED, BUILDING_NUMBER, STREET ) VALUES (1,0, 'Kraków',FALSE, 1, 'Street X');
+INSERT INTO ADDRESS(ID, VERSION, CITY,DELETED , BUILDING_NUMBER, STREET ) VALUES (2,0, 'Warszawa',FALSE, 2, 'Street Y');
+INSERT INTO ADDRESS(ID, VERSION, CITY,DELETED , BUILDING_NUMBER, STREET,FLAT_NUMBER) VALUES (3,0, 'Łódź',FALSE, 3, 'Street Z',2);
+INSERT INTO ADDRESS(ID, VERSION, CITY, DELETED, BUILDING_NUMBER, STREET) VALUES (4,0, 'Lódz',FALSE,  4, 'Street XX');
+INSERT INTO ADDRESS(ID, VERSION, CITY, DELETED, BUILDING_NUMBER, STREET) VALUES (5,0, 'Lublin',FALSE,  5, 'Street ZZ');
+INSERT INTO ADDRESS(ID, VERSION, CITY,DELETED , BUILDING_NUMBER, STREET) VALUES (6,0, 'Sopot',FALSE , 6, 'Street XXX');
+INSERT INTO ADDRESS(ID, VERSION, CITY,DELETED , BUILDING_NUMBER, STREET) VALUES (7,0, 'Sopot',FALSE , 7, 'Street XXX');
 
 INSERT INTO COMPANY(ID, VERSION, DELETED,NAME, MAIN_OFFICE_ADRESS_ID,DESCRIPTION) VALUES (1,0,FALSE, 'Transition Technologies',1, 'OPISsdsdsdsdsdsdsdsd  sdsdsdddd dddddddddddddddd dddddddddd ddddddddddd dddddddddddd dddddddddddddddd dddddddddddddddddddd dddddddddddddddddddddd ddddddddddd');
 
@@ -121,11 +121,7 @@ INSERT INTO AUTHORITY(ID, VERSION, NAME) VALUES (58,0, 'WAREHOUSE_READ');
 INSERT INTO AUTHORITY(ID, VERSION, NAME) VALUES (59,0, 'WAREHOUSE_UPDATE');
 INSERT INTO AUTHORITY(ID, VERSION, NAME) VALUES (60,0, 'WAREHOUSE_DELETE');
 INSERT INTO AUTHORITY(ID, VERSION, NAME) VALUES (61,0, 'WAREHOUSE_LIST_READ');
-INSERT INTO AUTHORITY(ID, VERSION, NAME) VALUES (62,0, 'SHIPMENT_CREATE');
-INSERT INTO AUTHORITY(ID, VERSION, NAME) VALUES (63,0, 'SHIPMENT_READ');
-INSERT INTO AUTHORITY(ID, VERSION, NAME) VALUES (64,0, 'SHIPMENT_UPDATE');
-INSERT INTO AUTHORITY(ID, VERSION, NAME) VALUES (65,0, 'SHIPMENT_DELETE');
-INSERT INTO AUTHORITY(ID, VERSION, NAME) VALUES (66,0, 'SHIPMENT_LIST_READ');
+
 
 INSERT INTO USER_(ID, VERSION, USER_NAME, PASSWORD, ACCOUNT_EXPIRED, ACCOUNT_LOCKED, CREDENTIALS_EXPIRED, ENABLED,USERDATA_ID,OFFICE_ID)
   VALUES (1,0, 'admin', /*admin1234*/'$2a$08$qvrzQZ7jJ7oy2p/msL4M0.l83Cd0jNsX6AJUitbgRXGzge4j035ha', FALSE, FALSE, FALSE, TRUE,1,1);
@@ -212,11 +208,6 @@ INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (1, 58);
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (1, 59);
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (1, 60);
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (1, 61);
-INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (1, 62);
-INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (1, 63);
-INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (1, 64);
-INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (1, 65);
-INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (1, 66);
 INSERT INTO public.users_roles_authorities (user_role_id, authority_id) VALUES (5, 10);
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (5, 6);
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (5, 7);
@@ -242,13 +233,13 @@ INSERT INTO public.device_model (id, cost, deleted, manufacture, name, version, 
 INSERT INTO public.device_model (id, cost, deleted, manufacture, name, version, company_id, device_type_id) VALUES (1, 2, false, 'pol', 'COMPUTER', 0, 1, 1);
 
 
-INSERT INTO public.device (id, deleted, last_update, name, serial_number, status, version, company_id, device_model_id, warehouse_id) VALUES (2, false, '2011-03-12 12:00:00.000000', 'Monitor', 'XYZ11ABC', 'REPOSE', 0, 1, 1, 1);
-INSERT INTO public.device (id, deleted, last_update, name, serial_number, status, version, company_id, device_model_id, warehouse_id) VALUES (1, false, '2018-03-12 12:00:00.000000', 'Komputer', 'xcxcxer43', 'REPOSE', 0, 1, 1, 1);
-INSERT INTO public.device (id, deleted, last_update, name, serial_number, status, version, company_id, device_model_id, warehouse_id) VALUES (3, false, '2011-03-12 12:30:00.000000', 'Klawiatura-bezprzewodowa', 'cxxcxc', 'REPOSE', 0, 1, 1, 1);
-INSERT INTO public.device (id, deleted, last_update, name, serial_number, status, version, company_id, device_model_id, warehouse_id) VALUES (4, false, '2011-03-12 12:00:00.000000', 'Myszka-laserowa', 'sdc3434xc', 'REPOSE', 0, 1, 1, 1);
-INSERT INTO public.device (id, deleted, last_update, name, serial_number, status, version, company_id, device_model_id, warehouse_id) VALUES (5, false, '2011-03-12 12:00:00.000000', 'Myszka-laserowa', '544343543', 'REPOSE', 0, 1, 1, 2);
-INSERT INTO public.device (id, deleted, last_update, name, serial_number, status, version, company_id, device_model_id, warehouse_id) VALUES (6, false, '2011-03-12 12:30:00.000000', 'Klawiatura-bezprzewodowa', '555nnm', 'REPOSE', 0, 1, 1, 2);
-INSERT INTO public.device (id, deleted, last_update, name, serial_number, status, version, company_id, device_model_id, warehouse_id) VALUES (7, false, '2018-03-12 12:00:00.000000', 'Komputer', 'kndvdfdfd', 'REPOSE', 0, 1, 1, 2);
+INSERT INTO public.device (id, deleted, last_update,  serial_number, status, version, company_id, device_model_id, warehouse_id) VALUES (2, false, '2011-03-12 12:00:00.000000', 'XYZ11ABC', 'REPOSE', 0, 1, 1, 1);
+INSERT INTO public.device (id, deleted, last_update,  serial_number, status, version, company_id, device_model_id, warehouse_id) VALUES (1, false, '2018-03-12 12:00:00.000000', 'xcxcxer43', 'REPOSE', 0, 1, 1, 1);
+INSERT INTO public.device (id, deleted, last_update, serial_number, status, version, company_id, device_model_id, warehouse_id) VALUES (3, false, '2011-03-12 12:30:00.000000', 'cxxcxc', 'REPOSE', 0, 1, 1, 1);
+INSERT INTO public.device (id, deleted, last_update,  serial_number, status, version, company_id, device_model_id, warehouse_id) VALUES (4, false, '2011-03-12 12:00:00.000000', 'sdc3434xc', 'REPOSE', 0, 1, 1, 1);
+INSERT INTO public.device (id, deleted, last_update,  serial_number, status, version, company_id, device_model_id, warehouse_id) VALUES (5, false, '2011-03-12 12:00:00.000000', '544343543', 'REPOSE', 0, 1, 1, 2);
+INSERT INTO public.device (id, deleted, last_update,  serial_number, status, version, company_id, device_model_id, warehouse_id) VALUES (6, false, '2011-03-12 12:30:00.000000', '555nnm', 'REPOSE', 0, 1, 1, 2);
+INSERT INTO public.device (id, deleted, last_update,  serial_number, status, version, company_id, device_model_id, warehouse_id) VALUES (7, false, '2018-03-12 12:00:00.000000', 'kndvdfdfd', 'REPOSE', 0, 1, 1, 2);
 
 INSERT INTO TRANSFER (ID,VERSION,DELETED,USERNAME,TITLE,TRANSFER_DATE,SENDER_WAREHOUSE_ID,RECIEVER_WAREHOUSE_ID,DEVICE_ID,STATUS) VALUES (1,0,FALSE,'admin' ,'TITLE','2011-03-12 12:00',1,2,1,'TRANSFERED');
 
@@ -261,8 +252,6 @@ INSERT INTO notification(ID,VERSION,DELETED,TITLE,DESCRIPTION,URL,READED,NOTIFIC
 INSERT INTO SYSTEM_MESSAGE(ID,VERSION,DELETED,TITLE,MESSAGE,MESSAGE_DATE) VALUES (1,0,FALSE,'Dzień wolny',' Jutro dzień wolny ogałaszam święto państwowe','2011-03-12 13:00');
 
 
-INSERT INTO public.shipment (id, shipment_date, deleted, description, last_update, shipment_number, status, title, username, version, reciever_warehouse_id, sender_warehouse_id) VALUES (1, '2019-01-02 16:52:04.902000', false, 'MMCSMXS', '2019-01-02 16:52:20.003000', 'SMD SS', 'WAITING', 'cccx', 'admin', 0, 1, 2);
-INSERT INTO public.delivery (id, delivery_date, deleted, description, last_update, delivery_number, status, title, username, version, reciever_warehouse_id, sender_warehouse_id) VALUES (1, '2019-01-02 16:52:04.902000', false, 'MMCSMXS', '2019-01-02 16:52:20.003000', 'SMD SS', 'WAITING', 'cccx', 'admin', 0, 1, 2);
 
 INSERT INTO report(ID,VERSION,DELETED,TITLE,SENDER_ID,RECIEVER_ID,REPORT_DATE,DISABLE_SENDER,DISABLE_RECIEVER,DESCRIPTION) VALUES (1,0,FALSE ,'title',1,1,'2011-03-12 13:00',FALSE,FALSE,'opis');
 

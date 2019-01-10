@@ -31,7 +31,6 @@ public class CompanyStructureConverter {
                 .street(company.getAddress().getStreet())
                 .buildingNumber(company.getAddress().getBuildingNumber())
                 .flatNumber(company.getAddress().getFlatNumber())
-                .zipCode(company.getAddress().getZipCode())
                 .build();
     }
 
@@ -66,7 +65,6 @@ public class CompanyStructureConverter {
                 .street(office.getAddress().getStreet())
                 .buildingNumber(office.getAddress().getBuildingNumber())
                 .flatNumber(office.getAddress().getFlatNumber())
-                .zipCode(office.getAddress().getZipCode())
                 .companyName(office.getDepartment().getCompany().getName())
                 .departmentName(office.getDepartment().getName())
                 .build();
@@ -87,7 +85,6 @@ public class CompanyStructureConverter {
                 .street(company.getAddress().getStreet())
                 .buildingNumber(company.getAddress().getBuildingNumber())
                 .flatNumber(company.getAddress().getFlatNumber())
-                .zipCode(company.getAddress().getZipCode())
                 .build();
     }
 
@@ -109,7 +106,6 @@ public class CompanyStructureConverter {
                 .street(company.getAddress().getStreet())
                 .buildingNumber(company.getAddress().getBuildingNumber())
                 .flatNumber(company.getAddress().getFlatNumber())
-                .zipCode(company.getAddress().getZipCode())
                 .build();
     }
 
@@ -131,7 +127,6 @@ public class CompanyStructureConverter {
                 .street(office.getAddress().getStreet())
                 .buildingNumber(office.getAddress().getBuildingNumber())
                 .flatNumber(office.getAddress().getFlatNumber())
-                .zipCode(office.getAddress().getZipCode())
                 .companyName(office.getDepartment().getCompany().getName())
                 .departmentName(office.getDepartment().getName())
                 .build();
@@ -152,7 +147,6 @@ public class CompanyStructureConverter {
                 .street(office.getAddress().getStreet())
                 .buildingNumber(office.getAddress().getBuildingNumber())
                 .flatNumber(office.getAddress().getFlatNumber())
-                .zipCode(office.getAddress().getZipCode())
                 .parentId(office.getDepartment().getId())
                 .build();
     }
@@ -171,7 +165,6 @@ public class CompanyStructureConverter {
         beforeCompany.getAddress().setStreet(companyStructureEditDto.getStreet());
         beforeCompany.getAddress().setBuildingNumber(companyStructureEditDto.getBuildingNumber());
         beforeCompany.getAddress().setFlatNumber(companyStructureEditDto.getFlatNumber());
-        beforeCompany.getAddress().setZipCode(companyStructureEditDto.getZipCode());
         return beforeCompany;
     }
 
@@ -183,7 +176,7 @@ public class CompanyStructureConverter {
         beforeOffice.getAddress().setStreet(companyStructureEditDto.getStreet());
         beforeOffice.getAddress().setBuildingNumber(companyStructureEditDto.getBuildingNumber());
         beforeOffice.getAddress().setFlatNumber(companyStructureEditDto.getFlatNumber());
-        beforeOffice.getAddress().setZipCode(companyStructureEditDto.getZipCode());
+
         beforeOffice.setDepartment(department);
         return beforeOffice;
     }
@@ -197,7 +190,6 @@ public class CompanyStructureConverter {
         adress.setStreet(companyStructureAddDto.getStreet());
         adress.setBuildingNumber(companyStructureAddDto.getBuildingNumber());
         adress.setFlatNumber(companyStructureAddDto.getFlatNumber());
-        adress.setZipCode(companyStructureAddDto.getZipCode());
         company.setAddress(adress);
         return company;
     }
@@ -220,8 +212,7 @@ public class CompanyStructureConverter {
         adress.setStreet(companyStructureAddDto.getStreet());
         adress.setBuildingNumber(companyStructureAddDto.getBuildingNumber());
         adress.setFlatNumber(companyStructureAddDto.getFlatNumber());
-        adress.setZipCode(companyStructureAddDto.getZipCode());
-        office.setAddress(adress);
+         office.setAddress(adress);
         return office;
     }
 }
