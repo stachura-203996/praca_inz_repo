@@ -40,7 +40,7 @@ public class WarehouseController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
-    WarehouseViewDto getWarehouseToView(@PathVariable Long id) {
+    WarehouseViewDto getWarehouseToView(@PathVariable Long id) throws ServiceException {
         return warehouseService.getWarehouseToView(id);
     }
 
@@ -48,7 +48,7 @@ public class WarehouseController {
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
-    WarehouseEditDto getWarehouseToEdit(@PathVariable Long id) {
+    WarehouseEditDto getWarehouseToEdit(@PathVariable Long id) throws ServiceException {
         return warehouseService.getWarehouseToEdit(id);
     }
 
@@ -63,7 +63,7 @@ public class WarehouseController {
     @RequestMapping(value = "/transfer-request",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
-    List<WarehouseListElementDto> getAllWarehousesForTransferRequest() {
+    List<WarehouseListElementDto> getAllWarehousesForTransferRequest() throws ServiceException {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         return warehouseService.getAllForTransferRequest(auth.getName());
     }
@@ -113,7 +113,7 @@ public class WarehouseController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public void delete(@PathVariable Long id) {
+    public void delete(@PathVariable Long id) throws ServiceException {
         warehouseService.deleteWarehouseById(id);
     }
 }

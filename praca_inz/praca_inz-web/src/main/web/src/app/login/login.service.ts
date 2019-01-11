@@ -63,10 +63,12 @@ export class LoginService {
     }
 
     saveToken(token) {
+
         var expireDate = new Date().getTime() / 1000 + token.expires_in;
         this.cookieService.set('access_token', token.access_token, expireDate);
         localStorage.setItem('isLoggedin', 'true');
         console.log('Obtained Access token');
+        window.location.href = 'http://localhost:8081/';
     }
 
     checkCredentials(): boolean {

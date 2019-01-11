@@ -1,9 +1,9 @@
 package com.stachura.praca_inz.backend.service.impl;
 
+import com.google.common.collect.Lists;
 import com.stachura.praca_inz.backend.exception.service.ServiceException;
-import com.stachura.praca_inz.backend.model.Company;
 import com.stachura.praca_inz.backend.model.security.User;
-import com.stachura.praca_inz.backend.repository.interfaces.UserRepository;
+import com.stachura.praca_inz.backend.repository.UserRepository;
 import com.stachura.praca_inz.backend.service.UserService;
 import com.stachura.praca_inz.backend.web.dto.user.*;
 import com.stachura.praca_inz.backend.web.dto.converter.UserConverter;
@@ -25,7 +25,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserListElementDto> getAllUsers() {
-        List<User> users=userRepository.findAll();
+        List<User> users= Lists.newArrayList(userRepository.findAll());
         List<UserListElementDto> usersDto = new ArrayList<>();
         for (User a : users) {
             usersDto.add(UserConverter.toUserListElement(a));
@@ -34,8 +34,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ProfileInfoDto getProfile(String name) {
-        User user = userRepository.find(name);
+    public ProfileInfoDto getProfile(String name) throws ServiceException {
+        User user = userRepository.findByUsername(name).orElseThrow(() -> new ServiceException());
         Hibernate.initialize(user.getUsername());
         Hibernate.initialize(user.getUserRoles());
         Hibernate.initialize(user.getAuthorities());
@@ -44,8 +44,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public LoggedUserDto getLoggedUser(String name) {
-        User user = userRepository.find(name);
+    public LoggedUserDto getLoggedUser(String name) throws ServiceException {
+        User user = userRepository.findByUsername(name).orElseThrow(() -> new ServiceException());
         Hibernate.initialize(user.getUsername());
         Hibernate.initialize(user.getUserRoles());
         Hibernate.initialize(user.getAuthorities());
@@ -55,8 +55,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserInfoDto getUserInfo(String name) {
-        User user = userRepository.find(name);
+    public UserInfoDto getUserInfo(String name) throws ServiceException {
+        User user = userRepository.findByUsername(name).orElseThrow(() -> new ServiceException());
         Hibernate.initialize(user.getUsername());
         Hibernate.initialize(user.getUserRoles());
         Hibernate.initialize(user.getAuthorities());
@@ -65,9 +65,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserListElementDto> getAllUsersForManager(String username) {
-        Long officeId=userRepository.find(username).getOffice().getId();
-        List<User> users=userRepository.findAll().stream().filter(x->x.getOffice().getDepartment().getCompany().getId().equals(officeId)).collect(Collectors.toList());
+    public List<UserListElementDto> getAllUsersForManager(String username) throws ServiceException {
+        Long officeId=userRepository.findByUsername(username).orElseThrow(() -> new ServiceException()).getOffice().getId();
+        List<User> users=Lists.newArrayList(userRepository.findAll()).stream().filter(x->x.getOffice().getDepartment().getCompany().getId().equals(officeId)).collect(Collectors.toList());
         List<UserListElementDto> usersDto = new ArrayList<>();
         for (User a : users) {
             usersDto.add(UserConverter.toUserListElement(a));
@@ -76,9 +76,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserListElementDto> getAllUsersForCompanyAdmin(String username) {
-        Long companyId=userRepository.find(username).getOffice().getDepartment().getCompany().getId();
-        List<User> users=userRepository.findAll().stream().filter(x->x.getOffice().getDepartment().getCompany().getId().equals(companyId)).collect(Collectors.toList());
+    public List<UserListElementDto> getAllUsersForCompanyAdmin(String username) throws ServiceException {
+        Long companyId=userRepository.findByUsername(username).orElseThrow(() -> new ServiceException()).getOffice().getDepartment().getCompany().getId();
+        List<User> users=Lists.newArrayList(userRepository.findAll()).stream().filter(x->x.getOffice().getDepartment().getCompany().getId().equals(companyId)).collect(Collectors.toList());
         List<UserListElementDto> usersDto = new ArrayList<>();
         for (User a : users) {
             usersDto.add(UserConverter.toUserListElement(a));
@@ -88,7 +88,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserListElementDto> getAllWarehousemen(Long id) {
-        List<User> users=userRepository.findAll().stream().filter(x->x.getOffice().getId().equals(id)&&x.getUserRoles().contains("WAREHOUSEMAN")).collect(Collectors.toList());
+        List<User> users=Lists.newArrayList(userRepository.findAll()).stream().filter(x->x.getOffice().getId().equals(id)&&x.getUserRoles().contains("WAREHOUSEMAN")).collect(Collectors.toList());
         List<UserListElementDto> usersDto = new ArrayList<>();
         for (User a : users) {
             usersDto.add(UserConverter.toUserListElement(a));
@@ -100,12 +100,12 @@ public class UserServiceImpl implements UserService {
     @Transactional
     @PreAuthorize("hasAuthority('USER_UPDATE')")
     public void updateUser(User user) throws ServiceException {
-        userRepository.update(user);
+        userRepository.save(user);
     }
 
     @Override
-    public UserRolesDto getLoggedUserRoles(String name) {
-        User user = userRepository.find(name);
+    public UserRolesDto getLoggedUserRoles(String name) throws ServiceException {
+        User user = userRepository.findByUsername(name).orElseThrow(() -> new ServiceException());
         return UserConverter.toUserRoles(user);
     }
 

@@ -171,7 +171,9 @@
     "Office is required!": "Office is required!",
     "Warehouseman is required!":"Warehouseman is required!",
     "Warehouseman":"Warehouseman",
-    "EditWarehouse":"Edit warehouse"
+    "EditWarehouse":"Edit warehouse",
+    "DeviceTypes":"Device types",
+    "CreateDeviceType":"Create device type"
 
 
 }

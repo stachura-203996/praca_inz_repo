@@ -8,20 +8,16 @@ import java.util.List;
 
 public interface DeliveryService {
 
-    Delivery getDeliveryById(Long id);
+    Delivery getDeliveryById(Long id) throws ServiceException;
 
-//    Delivery getDeliveryByName(String name);
+    List<DeliveryListElementDto> getAllDeliveries(String username) throws ServiceException;
 
-    List<DeliveryListElementDto> getAllDeliveries(String username);
-
-    List<DeliveryListElementDto> getAllDeliveriesForWarehouseman(Long id);
+    List<DeliveryListElementDto> getAllDeliveriesForWarehouseman(String username) throws ServiceException;
 
     void createNewDelivery(Delivery delivery) throws ServiceException;
 
     void updateDelivery(Delivery delivery) throws ServiceException;
 
-    void deleteDeliveryById(Long id);
-
-    void deleteDelivery(Delivery delivery);
+    void deleteDeliveryById(Long id) throws ServiceException;
 
 }

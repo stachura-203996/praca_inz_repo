@@ -8,19 +8,15 @@ import java.util.List;
 
 public interface NotificationService {
     
-    Notification getNotificationById(Long id);
+    Notification getNotificationById(Long id) throws ServiceException;
 
     List<NotificationListElementDto> getUnreadedAllNotificationsForLoggedUser(String username);
 
     List<NotificationListElementDto> getReadedAllNotificationsForLoggedUser(String username);
 
-    public List<NotificationListElementDto> getLast3UnreadedAllNotificationsForLoggedUser(String username);
-
     void createNewNotification(Notification notification) throws ServiceException;
 
     void updateNotification(Notification notification) throws ServiceException;
 
-    void deleteNotificationById(Long id);
-
-    void deleteNotification(Notification notification);
+    void deleteNotificationById(Long id) throws ServiceException;
 }

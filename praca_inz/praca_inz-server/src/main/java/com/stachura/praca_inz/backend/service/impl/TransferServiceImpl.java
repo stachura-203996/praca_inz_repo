@@ -1,10 +1,11 @@
 package com.stachura.praca_inz.backend.service.impl;
 
+import com.google.common.collect.Lists;
 import com.stachura.praca_inz.backend.exception.repository.DatabaseErrorException;
 import com.stachura.praca_inz.backend.exception.repository.EntityException;
 import com.stachura.praca_inz.backend.exception.service.ServiceException;
 import com.stachura.praca_inz.backend.model.Transfer;
-import com.stachura.praca_inz.backend.repository.interfaces.TransferRepository;
+import com.stachura.praca_inz.backend.repository.TransferRepository;
 import com.stachura.praca_inz.backend.service.TransferService;
 import com.stachura.praca_inz.backend.web.dto.TransferListElementDto;
 import com.stachura.praca_inz.backend.web.dto.converter.TransferConverter;
@@ -28,8 +29,8 @@ public class TransferServiceImpl implements TransferService {
     @Override
     @Transactional(readOnly = true)
     @PreAuthorize("hasAuthority('TRANSFER_READ')")
-    public Transfer getTransferById(Long id) {
-        Transfer transfer = transferRepository.find(id);
+    public Transfer getTransferById(Long id) throws ServiceException {
+        Transfer transfer = transferRepository.findById(id).orElseThrow(() -> new ServiceException());
         if (transfer.isDeleted()) {
             return null;
         }
@@ -40,7 +41,7 @@ public class TransferServiceImpl implements TransferService {
     @Transactional(readOnly = true)
     @PreAuthorize("hasAuthority('TRANSFER_LIST_READ')")
     public List<TransferListElementDto> getAllTransfersForLoggedUser(String username) {
-        List<Transfer> transfers = transferRepository.findAll().stream().filter(x -> x.getSenderWarehouse().getUser().getUsername().equals(username) &&
+        List<Transfer> transfers = Lists.newArrayList(transferRepository.findAll()).stream().filter(x -> x.getSenderWarehouse().getUser().getUsername().equals(username) &&
                 x.getRecieverWarehouse().getUser().getUsername().equals(username) || x.getUsername().equals(username)).collect(Collectors.toList());
         List<TransferListElementDto> transferListElementDtos = new ArrayList<>();
         for (Transfer a : transfers) {
@@ -57,7 +58,7 @@ public class TransferServiceImpl implements TransferService {
     @Transactional(readOnly = true)
     @PreAuthorize("hasAuthority('TRANSFER_READ')")
     public List<TransferListElementDto> getAllTransfers() {
-        List<Transfer> transfers = transferRepository.findAll();
+        List<Transfer> transfers =Lists.newArrayList(transferRepository.findAll());
         List<TransferListElementDto> transferListElementDtos = new ArrayList<>();
         for (Transfer a : transfers) {
             if (!a.isDeleted()) {
@@ -73,33 +74,27 @@ public class TransferServiceImpl implements TransferService {
     @Transactional
     @PreAuthorize("hasAuthority('TRANSFER_CREATE')")
     public void createNewTransfer(Transfer transfer)throws ServiceException {
-        try {
-            transferRepository.create(transfer);
-        } catch (DatabaseErrorException e) {
-            throw e;
-        } catch (EntityException e) {
-            throw ServiceException.createServiceException(ServiceException.ENTITY_VALIDATION, e);
-        }
+            transferRepository.save(transfer);
     }
 
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('TRANSFER_UPDATE')")
     public void updateTransfer(Transfer transfer) throws ServiceException {
-        transferRepository.update(transfer);
+        transferRepository.save(transfer);
     }
 
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('TRANSFER_DELETE')")
-    public void deleteTransferById(Long id) {
-        transferRepository.find(id).setDeleted(true);
+    public void deleteTransferById(Long id) throws ServiceException {
+        transferRepository.findById(id).orElseThrow(() -> new ServiceException()).setDeleted(true);
     }
 
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('TRANSFER_DELETE')")
-    public void deleteTransfer(Transfer transfer) {
-        transferRepository.find(transfer.getId()).setDeleted(true);
+    public void deleteTransfer(Transfer transfer) throws ServiceException {
+        transferRepository.findById(transfer.getId()).orElseThrow(() -> new ServiceException()).setDeleted(true);
     }
 }

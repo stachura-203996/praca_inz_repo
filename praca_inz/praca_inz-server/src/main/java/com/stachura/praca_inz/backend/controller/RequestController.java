@@ -1,16 +1,13 @@
 package com.stachura.praca_inz.backend.controller;
 
 import com.stachura.praca_inz.backend.exception.service.ServiceException;
-import com.stachura.praca_inz.backend.model.Device;
 import com.stachura.praca_inz.backend.model.Notification;
-import com.stachura.praca_inz.backend.model.Report;
 import com.stachura.praca_inz.backend.model.Request;
-import com.stachura.praca_inz.backend.model.enums.DeviceStatus;
 import com.stachura.praca_inz.backend.model.security.User;
-import com.stachura.praca_inz.backend.repository.interfaces.DeviceModelRepository;
-import com.stachura.praca_inz.backend.repository.interfaces.DeviceRepository;
-import com.stachura.praca_inz.backend.repository.interfaces.UserRepository;
-import com.stachura.praca_inz.backend.repository.interfaces.WarehouseRepository;
+import com.stachura.praca_inz.backend.repository.DeviceModelRepository;
+import com.stachura.praca_inz.backend.repository.DeviceRepository;
+import com.stachura.praca_inz.backend.repository.UserRepository;
+import com.stachura.praca_inz.backend.repository.WarehouseRepository;
 import com.stachura.praca_inz.backend.service.EmailService;
 import com.stachura.praca_inz.backend.service.NotificationService;
 import com.stachura.praca_inz.backend.service.RequestService;
@@ -46,6 +43,9 @@ public class RequestController {
     private NotificationService notificationService;
 
     @Autowired
+    private EmailService emailService;
+
+    @Autowired
     private DeviceRepository deviceRepository;
 
     @Autowired
@@ -75,7 +75,7 @@ public class RequestController {
     @RequestMapping(value = "/manager", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
-    List<RequestListElementDto> getAllRequestsForManager() {
+    List<RequestListElementDto> getAllRequestsForManager() throws ServiceException {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         return requestService.getAllRequestForManager(auth.getName());
     }
@@ -83,7 +83,7 @@ public class RequestController {
     @RequestMapping(value = "/other/users", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
-    List<RequestListElementDto> getAllRequestsFromOtherUsers() {
+    List<RequestListElementDto> getAllRequestsFromOtherUsers() throws ServiceException {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         return requestService.getAllRequestFromeOtherUsers(auth.getName());
     }
@@ -91,7 +91,7 @@ public class RequestController {
     @RequestMapping(value = "/warehouseman", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
-    List<RequestListElementDto> getAllForWarehouseman() {
+    List<RequestListElementDto> getAllForWarehouseman() throws ServiceException {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         return requestService.getAllRequestForWarehouseman(auth.getName());
     }
@@ -99,7 +99,7 @@ public class RequestController {
     @RequestMapping(value = "/other", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
-    List<RequestListElementDto> getAllFromOtherWarehouses() {
+    List<RequestListElementDto> getAllFromOtherWarehouses() throws ServiceException {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         return requestService.getAllRequestFromOtherWarehouses(auth.getName());
     }
@@ -114,31 +114,17 @@ public class RequestController {
     @RequestMapping(value = "/devices/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
-    List<DeviceListElementDto> getAllRequestDevices(@PathVariable Long id) {
+    List<DeviceListElementDto> getAllRequestDevices(@PathVariable Long id) throws ServiceException {
         return requestService.getAllRequestDevices(id);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
-    RequestViewDto getRequestById(@PathVariable Long id) {
+    RequestViewDto getRequestById(@PathVariable Long id) throws ServiceException {
         Request request=requestService.getRequestById(id);
         Hibernate.initialize(request.getDeviceModel());
         return RequestConverter.toRequestView(request);
-    }
-
-    @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(value = HttpStatus.OK)
-    public ResponseEntity<?> create(@RequestBody Request request) {
-        try {
-            requestService.createNewRequest(request);
-        } catch (ServiceException e) {
-            e.printStackTrace();
-        }
-        HttpHeaders headers = new HttpHeaders();
-        ControllerLinkBuilder linkBuilder = linkTo(methodOn(RequestController.class).getRequestById(request.getId()));
-        headers.setLocation(linkBuilder.toUri());
-        return new ResponseEntity<>(headers, HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "/transfer", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -146,16 +132,10 @@ public class RequestController {
     public ResponseEntity<?> createTransferRequest(@RequestBody TransferRequestAddDto transferRequestAddDto) {
         try {
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-            Request request = RequestConverter.toRequest(transferRequestAddDto, deviceRepository, warehouseRepository, userRepository.find(auth.getName()));
-            requestService.createNewRequest(request);
+            requestService.createNewTransferRequest(transferRequestAddDto,auth.getName());
 
-            List<User> userList=userRepository.findAll().stream().filter(x->x.getOffice().getId().equals(request.getUser().getOffice().getId())
-                    && x.getUserRoles().stream().anyMatch(z->z.getName().equals("MANAGER"))).collect(Collectors.toList());
+//                notificationService.createNewNotification(this.getRequestSentNotifiaction(request,u));
 
-            for (User u :userList) {
-                notificationService.createNewNotification(this.getRequestSentNotifiaction(request,u));
-                notificationService.createNewNotification(this.getRequestReceivedManagerNotifiaction(request,u));
-            }
         } catch (ServiceException e) {
             e.printStackTrace();
         }
@@ -168,7 +148,7 @@ public class RequestController {
     public ResponseEntity<?> createDeviceRequest(@RequestBody DeviceRequestAddDto deviceRequestAddDto) {
         try {
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-            requestService.createNewRequest(RequestConverter.toRequest(deviceRequestAddDto, deviceModelRepository, warehouseRepository, userRepository.find(auth.getName())));
+            requestService.createNewDeviceRequest(deviceRequestAddDto,auth.getName());
         } catch (ServiceException e) {
             e.printStackTrace();
         }
@@ -176,18 +156,6 @@ public class RequestController {
         return new ResponseEntity<>(headers, HttpStatus.CREATED);
     }
 
-    @RequestMapping(value = "/delivery", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(value = HttpStatus.OK)
-    public ResponseEntity<?> createDeliveryRequest(@RequestBody DeliveryRequestAddDto deliveryRequestAddDto) {
-        try {
-            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-            requestService.createNewRequest(RequestConverter.toRequest(deliveryRequestAddDto, deviceModelRepository, warehouseRepository, userRepository.find(auth.getName())));
-        } catch (ServiceException e) {
-            e.printStackTrace();
-        }
-        HttpHeaders headers = new HttpHeaders();
-        return new ResponseEntity<>(headers, HttpStatus.CREATED);
-    }
 
     @RequestMapping(value = "/status", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
@@ -221,56 +189,9 @@ public class RequestController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public void delete(@PathVariable Long id) {
+    public void delete(@PathVariable Long id) throws ServiceException {
         requestService.deleteRequestById(id);
     }
 
-
-    String getRequestUrl(Request request) {
-        String url=null;
-        switch (request.getRequestType()) {
-            case DEVICE_REQUEST:
-                url="/page/devices/request/view/" + request.getId();
-                break;
-            case TRANSFER_REQUEST:
-                url="/page/devices/transfer/request/view/"+request.getId();
-                break;
-            case DELIVERY_REQUEST:
-                url="/page/warehouses/delivery/request/view/" + request.getId();
-                break;
-
-            case SHIPMENT_REQUEST:
-                url= "/page/warehouses/shipment/request/view/" + request.getId();
-                break;
-        }
-        return url;
-    }
-
-    Notification getRequestSentNotifiaction(Request request,User reciever) {
-        Notification notification = new Notification();
-        notification.setUrl(getRequestUrl(request));
-        notification.setUser(request.getUser());
-        notification.setReaded(false);
-        notification.setTitle("Request sent");
-        notification.setCalendarTimestamp(Calendar.getInstance());
-        notification.setDeleted(false);
-        notification.setDescription("Your request was sent to:" + reciever.getUserdata().getName()+" "+reciever.getUserdata().getSurname()+" | "+reciever.getUsername()+ " Report title: " + request.getTitle()
-                + " Report description:" + request.getDescription());
-        return notification;
-    }
-
-    Notification getRequestReceivedManagerNotifiaction(Request request,User user) {
-        Notification notification = new Notification();
-        notification.setUrl(getRequestUrl(request));
-        notification.setUser(user);
-        notification.setReaded(false);
-        notification.setTitle("Request received");
-        notification.setCalendarTimestamp(Calendar.getInstance());
-        notification.setDeleted(false);
-        notification.setDescription("You get reguest from:" +request.getUser().getUserdata().getName()+" "+request.getUser().getUserdata().getSurname()+" | "+ request.getUser().getUsername()
-                + " Report title: " + request.getTitle()
-                + " Report description:" + request.getDescription());
-        return notification;
-    }
 }
 

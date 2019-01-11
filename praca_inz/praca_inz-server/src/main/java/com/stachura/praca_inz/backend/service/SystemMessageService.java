@@ -9,12 +9,12 @@ import java.util.List;
 
 public interface SystemMessageService {
 
-    SystemMessage getSystemMessageById(Long id);
+    SystemMessage getSystemMessageById(Long id) throws ServiceException;
 
     List<SystemMessageListElementDto> getAllSystemMessages();
 
     void createNewSystemMessage(SystemMessageAddDto systemMessageAddDto) throws ServiceException;
 
-    void deleteSystemMessageById(Long id);
+    void deleteSystemMessageById(Long id) throws ServiceException;
 
 }

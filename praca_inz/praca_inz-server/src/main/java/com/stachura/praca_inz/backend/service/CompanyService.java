@@ -10,9 +10,7 @@ import java.util.List;
 
 public interface CompanyService {
 
-    Company getCompanyById(Long id);
-
-    Company getCompanyByName(String name);
+    Company getCompanyById(Long id) throws ServiceException;
 
     List<CompanyStructuresListElementDto> getAllCompanies();
 
@@ -20,7 +18,6 @@ public interface CompanyService {
 
     void updateCompany(CompanyStructureEditDto companyStructureEditDto) throws ServiceException;
 
-    void deleteCompanyById(Long id);
+    void deleteCompanyById(Long id) throws ServiceException;
 
-    void deleteCompany(Company company);
 }

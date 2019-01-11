@@ -36,7 +36,6 @@ import { UserPasswordEditComponent } from './components/administration/user-mana
 import { DeviceTransferComponent } from './components/structure-management/device/device-transfer/device-transfer.component';
 import {SystemMessageAddComponent} from "./components/administration/system_messages/system-message-add/system-message-add.component";
 import {SystemMessageListComponent} from "./components/administration/system_messages/system-message-list/system-message-list.component";
-import { DeviceTypeAddComponent } from './components/structure-management/device/device-type-add/device-type-add.component';
 import {ShareModule} from "../../shared/modules/share/share.module";
 import { DeviceModelParametersChangeComponent } from './components/structure-management/device/device-model-parameters-change/device-model-parameters-change.component';
 
@@ -82,7 +81,6 @@ import { DeviceModelParametersChangeComponent } from './components/structure-man
         SummaryComponent,
         UserPasswordEditComponent,
         DeviceTransferComponent,
-        DeviceTypeAddComponent,
         DeviceModelParametersChangeComponent,
     ]
 })

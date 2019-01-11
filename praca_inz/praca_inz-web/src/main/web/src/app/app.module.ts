@@ -1,11 +1,10 @@
 import {CommonModule} from '@angular/common';
-import {HttpClient, HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from '@angular/common/http';
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
-
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {AuthGuard} from './shared';
@@ -22,17 +21,13 @@ import {SessionContextService} from "./shared/services/session-context.service";
 import {UserService} from "./layout/admin/components/administration/user-management/user.service";
 import {DeviceService} from "./layout/device-management/device.service";
 import {NotificationService} from "./layout/notification/notification.service";
-import {PasswordMatchDirective} from "./directives/password-match.directive";
 import {WarehouseService} from "./layout/warehouse-management/warehouse.service";
 import {SystemMessageService} from "./layout/main-page/system-message.service";
 import {ReportService} from "./layout/employee-management/report.service";
-import {EmailMatchDirective} from "./directives/email-match.directive";
-import {NotNaughtDirective} from "./directives/not-naught.directive";
-import {NotNegativeDirective} from "./directives/not-negative.directive";
-import {NotRealNumberDirective} from "./directives/not-real-number.directive";
 import {BsDropdownModule, BsModalService} from "ngx-bootstrap";
 import {MatSelectModule} from "@angular/material";
 import {ReactiveFormsModule} from "@angular/forms";
+import {HttpErrorInterceptor} from "./shared/interceptor/http-error.interceptor";
 
 
 export const createTranslateLoader = (http: HttpClient) => {
@@ -84,7 +79,12 @@ export const createTranslateLoader = (http: HttpClient) => {
         ReportService,
         SessionContextService,
         NotificationService,
-        WarehouseService
+        WarehouseService,
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: HttpErrorInterceptor,
+            multi: true
+        }
     ],
     bootstrap: [AppComponent]
 })

@@ -57,7 +57,6 @@ const routes: Routes = [
     {path: 'devices/model/add', component: DeviceModelAddComponent},
     {path: 'devices/model/edit/:id', component: DeviceModelEditComponent},
     {path: 'devices/type', component: DeviceTypeListComponent},
-    {path: 'devices/type/add', component: DeviceModelAddComponent},
     {path: 'warehouses', component: WarehouseListComponent},
     {path: 'warehouses/add', component: WarehouseAddComponent},
     {path: 'warehouses/edit/:id', component: WarehouseEditComponent},

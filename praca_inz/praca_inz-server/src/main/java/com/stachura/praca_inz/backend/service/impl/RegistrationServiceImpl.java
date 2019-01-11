@@ -1,5 +1,6 @@
 package com.stachura.praca_inz.backend.service.impl;
 
+import com.google.common.collect.Lists;
 import com.stachura.praca_inz.backend.exception.UserAlreadyExistException;
 import com.stachura.praca_inz.backend.exception.repository.EntityException;
 import com.stachura.praca_inz.backend.exception.service.ServiceException;
@@ -9,7 +10,7 @@ import com.stachura.praca_inz.backend.model.Warehouse;
 import com.stachura.praca_inz.backend.model.enums.WarehouseType;
 import com.stachura.praca_inz.backend.model.security.User;
 import com.stachura.praca_inz.backend.model.security.UserRole;
-import com.stachura.praca_inz.backend.repository.interfaces.*;
+import com.stachura.praca_inz.backend.repository.*;
 import com.stachura.praca_inz.backend.service.RegistrationService;
 import com.stachura.praca_inz.backend.web.dto.user.RegistrationDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,21 +48,21 @@ public class RegistrationServiceImpl implements RegistrationService {
     @Override
     @Transactional
     public void registerNewUserAccount(final RegistrationDto data, boolean verified) throws ServiceException {
-        if (emailExist(data.getEmail())) {
-            throw new UserAlreadyExistException("There is an user with that email adress: " + data.getEmail());
-        }
+//        if (emailExist(data.getEmail())) {
+//            throw new UserAlreadyExistException("There is an user with that email adress: " + data.getEmail());
+//        }
 
         User user = new User();
         user.setUsername(data.getUsername());
         user.setPassword(passwordEncoder.encode(data.getPassword()));
         user.setEnabled(true);
         user.setAccountExpired(false);
-        user.setOffice(officeRepository.find(data.getOfficeId()));
+        user.setOffice(officeRepository.findById(data.getOfficeId()).orElseThrow(() -> new ServiceException()));
         user.setAccountLocked(false);
         user.setCredentialsExpired(false);
 
-        if(data.getRoles()!=null) {
-            List<UserRole> userRoles = userRoleRepository.findAll().stream().filter(x -> data.getRoles().stream().anyMatch(name -> name.equals(x.getName())))
+        if (data.getRoles() != null) {
+            List<UserRole> userRoles = Lists.newArrayList(userRoleRepository.findAll()).stream().filter(x -> data.getRoles().stream().anyMatch(name -> name.equals(x.getName())))
                     .collect(Collectors.toList());
 
             user.setUserRoles(userRoles);
@@ -72,34 +73,30 @@ public class RegistrationServiceImpl implements RegistrationService {
         userdata.setPosition(data.getPosition());
         userdata.setName(data.getName());
         userdata.setWorkplace(data.getWorkplace());
-        Address address=new Address();
+        Address address = new Address();
         address.setFlatNumber(data.getFlatNumber());
         address.setBuildingNumber(data.getHouseNumber());
         address.setStreet(data.getStreet());
         address.setCity(data.getCity());
         userdata.setAddress(address);
 
-        Warehouse warehouse=new Warehouse();
+        Warehouse warehouse = new Warehouse();
         warehouse.setName(data.getUsername());
-        warehouse.setOffice(officeRepository.find(data.getOfficeId()));
+        warehouse.setOffice(officeRepository.findById(data.getOfficeId()).orElseThrow(() -> new ServiceException()));
         warehouse.setWarehouseType(WarehouseType.USER);
 
         warehouse.setDeleted(false);
 
 
-        try {
-            userdataRepository.create(userdata);
-            user.setUserdata(userdata);
-            userRepository.create(user);
-            warehouse.setUser(user);
-            warehouseRepository.create(warehouse);
-        } catch (EntityException e) {
-            e.printStackTrace();
-           throw new ServiceException(e.getMessage());
-        }
+        userdataRepository.save(userdata);
+        user.setUserdata(userdata);
+        userRepository.save(user);
+        warehouse.setUser(user);
+        warehouseRepository.save(warehouse);
+
     }
 
-    private boolean emailExist(final String email) {
-        return userdataRepository.findByEmail(email) != null;
-    }
+//    private boolean emailExist(final String email) {
+//        return userdataRepository.findByEmail(email) != null;
+//    }
 }

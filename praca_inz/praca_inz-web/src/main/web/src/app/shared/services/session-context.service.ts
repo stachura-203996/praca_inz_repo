@@ -15,8 +15,6 @@ export class SessionContextService {
 
     }
 
-
-
     watchSession(): Observable<any> {
         return this.userLoggedIn;
     }
@@ -25,34 +23,8 @@ export class SessionContextService {
         return this.loggedUser;
     }
 
-    setUser(user: LoggedUser): void {
-        localStorage.setItem('loggedUser', JSON.stringify(user));
-        this.userLoggedIn.next(true);
-    }
 
-    hasUserRole(role: string) {
-        if (this.loggedUser == null) {
-            return false;
-        }
-        return this.loggedUser.roles.includes(role);
-    }
 
-    setNameSurName(name: string, surname: string) {
-        this.loggedUser.username = this.getUser().username;
-        this.loggedUser.roles = this.getUser().roles;
-
-        if ((name === this.loggedUser.name) === (surname === this.loggedUser.surname)) {
-            this.loggedUser.name = name;
-            this.loggedUser.surname = surname;
-        } else if (name === this.loggedUser.name) {
-            this.loggedUser.name = this.getUser().name;
-            this.loggedUser.surname = surname;
-        } else {
-            this.loggedUser.name = name;
-            this.loggedUser.surname = this.getUser().surname;
-        }
-        localStorage.setItem('loggedUser', JSON.stringify(this.loggedUser));
-    }
 
     resetSession() {
         this.cookieService.delete('JSESSIONID');

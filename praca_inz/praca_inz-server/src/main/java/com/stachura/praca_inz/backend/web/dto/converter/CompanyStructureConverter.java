@@ -4,8 +4,6 @@ import com.stachura.praca_inz.backend.model.Address;
 import com.stachura.praca_inz.backend.model.Company;
 import com.stachura.praca_inz.backend.model.Department;
 import com.stachura.praca_inz.backend.model.Office;
-import com.stachura.praca_inz.backend.repository.interfaces.CompanyRepository;
-import com.stachura.praca_inz.backend.repository.interfaces.DepartmentRepository;
 import com.stachura.praca_inz.backend.web.dto.company.CompanyStructureAddDto;
 import com.stachura.praca_inz.backend.web.dto.company.CompanyStructureEditDto;
 import com.stachura.praca_inz.backend.web.dto.company.CompanyStructureViewDto;

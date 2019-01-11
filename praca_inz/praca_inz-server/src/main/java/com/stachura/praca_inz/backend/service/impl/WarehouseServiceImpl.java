@@ -1,5 +1,6 @@
 package com.stachura.praca_inz.backend.service.impl;
 
+import com.google.common.collect.Lists;
 import com.stachura.praca_inz.backend.exception.repository.DatabaseErrorException;
 import com.stachura.praca_inz.backend.exception.repository.EntityException;
 import com.stachura.praca_inz.backend.exception.service.ServiceException;
@@ -7,9 +8,9 @@ import com.stachura.praca_inz.backend.model.Office;
 import com.stachura.praca_inz.backend.model.Warehouse;
 import com.stachura.praca_inz.backend.model.enums.WarehouseType;
 import com.stachura.praca_inz.backend.model.security.User;
-import com.stachura.praca_inz.backend.repository.interfaces.OfficeRepository;
-import com.stachura.praca_inz.backend.repository.interfaces.UserRepository;
-import com.stachura.praca_inz.backend.repository.interfaces.WarehouseRepository;
+import com.stachura.praca_inz.backend.repository.OfficeRepository;
+import com.stachura.praca_inz.backend.repository.UserRepository;
+import com.stachura.praca_inz.backend.repository.WarehouseRepository;
 import com.stachura.praca_inz.backend.service.WarehouseService;
 import com.stachura.praca_inz.backend.web.dto.warehouse.WarehouseAddDto;
 import com.stachura.praca_inz.backend.web.dto.warehouse.WarehouseEditDto;
@@ -42,8 +43,8 @@ public class WarehouseServiceImpl implements WarehouseService {
     @Override
     @Transactional(readOnly = true)
     @PreAuthorize("hasAuthority('WAREHOUSE_READ')")
-    public WarehouseViewDto getWarehouseToView(Long id) {
-        Warehouse warehouse = warehouseRepository.find(id);
+    public WarehouseViewDto getWarehouseToView(Long id) throws ServiceException {
+        Warehouse warehouse = warehouseRepository.findById(id).orElseThrow(() -> new ServiceException());
         if (warehouse.isDeleted()) {
             return null;
         }
@@ -53,8 +54,8 @@ public class WarehouseServiceImpl implements WarehouseService {
     @Override
     @Transactional(readOnly = true)
     @PreAuthorize("hasAuthority('WAREHOUSE_READ')")
-    public WarehouseEditDto getWarehouseToEdit(Long id) {
-        Warehouse warehouse = warehouseRepository.find(id);
+    public WarehouseEditDto getWarehouseToEdit(Long id) throws ServiceException {
+        Warehouse warehouse = warehouseRepository.findById(id).orElseThrow(() -> new ServiceException());
         if (warehouse.isDeleted()) {
             return null;
         }
@@ -65,7 +66,7 @@ public class WarehouseServiceImpl implements WarehouseService {
     @Transactional(readOnly = true)
     @PreAuthorize("hasAuthority('WAREHOUSE_LIST_READ')")
     public List<WarehouseListElementDto> getAllOfficeWarehouses() {
-        List<Warehouse> warehouses = warehouseRepository.findAll().stream().filter(x -> x.getOffice() != null).collect(Collectors.toList());
+        List<Warehouse> warehouses = Lists.newArrayList(warehouseRepository.findAll()).stream().filter(x -> x.getOffice() != null).collect(Collectors.toList());
         List<WarehouseListElementDto> warehouseListElementDtos = new ArrayList<>();
         for (Warehouse a : warehouses) {
             if (!a.isDeleted()) {
@@ -79,7 +80,7 @@ public class WarehouseServiceImpl implements WarehouseService {
     @Transactional(readOnly = true)
     @PreAuthorize("hasAuthority('WAREHOUSE_LIST_READ')")
     public List<WarehouseListElementDto> getAllWarehousesForCompany(Long id) {
-        List<Warehouse> warehouses = warehouseRepository.findAll().stream().filter(x -> x.getOffice() != null && x.getOffice().getDepartment().getCompany().getId().equals(id)).collect(Collectors.toList());
+        List<Warehouse> warehouses = Lists.newArrayList(warehouseRepository.findAll()).stream().filter(x -> x.getOffice() != null && x.getOffice().getDepartment().getCompany().getId().equals(id)).collect(Collectors.toList());
         List<WarehouseListElementDto> warehouseListElementDtos = new ArrayList<>();
         for (Warehouse a : warehouses) {
             if (!a.isDeleted()) {
@@ -93,7 +94,7 @@ public class WarehouseServiceImpl implements WarehouseService {
     @Transactional(readOnly = true)
     @PreAuthorize("hasAuthority('WAREHOUSE_LIST_READ')")
     public List<WarehouseListElementDto> getAllwarehousesForDepartment(Long id) {
-        List<Warehouse> warehouses = warehouseRepository.findAll().stream().filter(x -> x.getOffice() != null && x.getOffice().getDepartment().getId().equals(id)).collect(Collectors.toList());
+        List<Warehouse> warehouses = Lists.newArrayList(warehouseRepository.findAll()).stream().filter(x -> x.getOffice() != null && x.getOffice().getDepartment().getId().equals(id)).collect(Collectors.toList());
         List<WarehouseListElementDto> warehouseListElementDtos = new ArrayList<>();
         for (Warehouse a : warehouses) {
             if (!a.isDeleted()) {
@@ -107,7 +108,7 @@ public class WarehouseServiceImpl implements WarehouseService {
     @Transactional(readOnly = true)
     @PreAuthorize("hasAuthority('WAREHOUSE_LIST_READ')")
     public List<WarehouseListElementDto> getAllWarehousesForOffice(Long id) {
-        List<Warehouse> warehouses = warehouseRepository.findAll().stream().filter(x -> x.getOffice() != null && x.getOffice().getId().equals(id)).collect(Collectors.toList());
+        List<Warehouse> warehouses = Lists.newArrayList(warehouseRepository.findAll()).stream().filter(x -> x.getOffice() != null && x.getOffice().getId().equals(id)).collect(Collectors.toList());
         List<WarehouseListElementDto> warehouseListElementDtos = new ArrayList<>();
         for (Warehouse a : warehouses) {
             if (!a.isDeleted()) {
@@ -122,7 +123,7 @@ public class WarehouseServiceImpl implements WarehouseService {
     @Transactional(readOnly = true)
     @PreAuthorize("hasAuthority('WAREHOUSE_LIST_READ')")
     public List<WarehouseListElementDto> getAllWarehousesForLoggedUser(String username) {
-        List<Warehouse> warehouses = warehouseRepository.findAll().stream().filter(x -> x.getUser().getUsername().equals(username) &&
+        List<Warehouse> warehouses = Lists.newArrayList(warehouseRepository.findAll()).stream().filter(x -> x.getUser().getUsername().equals(username) &&
                 x.getOffice() != null && x.getWarehouseType().name().equals(WarehouseType.OFFICE.name())).collect(Collectors.toList());
         List<WarehouseListElementDto> warehouseDto = new ArrayList<>();
         for (Warehouse a : warehouses) {
@@ -138,9 +139,9 @@ public class WarehouseServiceImpl implements WarehouseService {
     @Override
     @Transactional(readOnly = true)
     @PreAuthorize("hasAuthority('WAREHOUSE_LIST_READ')")
-    public List<WarehouseListElementDto> getAllForTransferRequest(String username) {
-        Long id =userRepository.find(username).getOffice().getId();
-        List<Warehouse> warehouses = warehouseRepository.findAll().stream().filter(x -> x.getOffice().getId().equals(id)).collect(Collectors.toList());
+    public List<WarehouseListElementDto> getAllForTransferRequest(String username) throws ServiceException {
+        Long id =userRepository.findByUsername(username).orElseThrow(() -> new ServiceException()).getOffice().getId();
+        List<Warehouse> warehouses = Lists.newArrayList(warehouseRepository.findAll()).stream().filter(x -> x.getOffice().getId().equals(id)).collect(Collectors.toList());
         List<WarehouseListElementDto> warehouseDto = new ArrayList<>();
         for (Warehouse a : warehouses) {
             if (!a.isDeleted()) {
@@ -156,16 +157,11 @@ public class WarehouseServiceImpl implements WarehouseService {
     @Transactional
     @PreAuthorize("hasAuthority('WAREHOUSE_CREATE')")
     public void createWarehouse(WarehouseAddDto warehouseAddDto)throws ServiceException {
-        try {
-            User user=userRepository.find(warehouseAddDto.getUserId());
-            Office office=officeRepository.find(warehouseAddDto.getOfficeId());
-            warehouseRepository.create(WarehouseConverter.toWarehouse(warehouseAddDto,user,office));
 
-        } catch (DatabaseErrorException e) {
-            throw e;
-        } catch (EntityException e) {
-            throw ServiceException.createServiceException(ServiceException.ENTITY_VALIDATION, e);
-        }
+            User user=userRepository.findById(warehouseAddDto.getUserId()).orElseThrow(() -> new ServiceException());
+            Office office=officeRepository.findById(warehouseAddDto.getOfficeId()).orElseThrow(() -> new ServiceException());
+            warehouseRepository.save(WarehouseConverter.toWarehouse(warehouseAddDto,user,office));
+
 
     }
 
@@ -173,17 +169,17 @@ public class WarehouseServiceImpl implements WarehouseService {
     @Transactional
     @PreAuthorize("hasAuthority('WAREHOUSE_UPDATE')")
     public void updateWarehouse(WarehouseEditDto warehouseEditDto) throws ServiceException {
-        Warehouse beforeWarehouse=warehouseRepository.find(warehouseEditDto.getId());
-        User user=userRepository.find(warehouseEditDto.getUserId());
-        Office office=officeRepository.find(warehouseEditDto.getOfficeId());
-        warehouseRepository.update(WarehouseConverter.toWarehouse(warehouseEditDto,beforeWarehouse,user,office));
+        Warehouse beforeWarehouse=warehouseRepository.findById(warehouseEditDto.getId()).orElseThrow(() -> new ServiceException());
+        User user=userRepository.findById(warehouseEditDto.getUserId()).orElseThrow(() -> new ServiceException());
+        Office office=officeRepository.findById(warehouseEditDto.getOfficeId()).orElseThrow(() -> new ServiceException());
+        warehouseRepository.save(WarehouseConverter.toWarehouse(warehouseEditDto,beforeWarehouse,user,office));
     }
 
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('WAREHOUSE_DELETE')")
-    public void deleteWarehouseById(Long id) {
-        warehouseRepository.find(id).setDeleted(true);
+    public void deleteWarehouseById(Long id) throws ServiceException {
+        warehouseRepository.findById(id).orElseThrow(() -> new ServiceException()).setDeleted(true);
     }
 
 }

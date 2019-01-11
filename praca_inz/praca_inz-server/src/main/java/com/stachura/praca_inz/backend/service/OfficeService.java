@@ -9,9 +9,7 @@ import com.stachura.praca_inz.backend.web.dto.company.CompanyStructuresListEleme
 import java.util.List;
 
 public interface OfficeService {
-    Office getOfficeById(Long id);
-
-//    Office getCompanyById(String name);
+    Office getOfficeById(Long id) throws ServiceException;
 
     List<CompanyStructuresListElementDto> getAllOfficesForCompany(Long id);
 
@@ -23,7 +21,6 @@ public interface OfficeService {
 
     void update(CompanyStructureEditDto companyStructureEditDto) throws ServiceException;
 
-    void delete(Long id);
+    void delete(Long id) throws ServiceException;
 
-    void delete(Office office);
 }

@@ -2,15 +2,23 @@
     <h1>{{ 'DeviceTypes' | translate }}</h1>
 
     <div class="row">
-        <div class="col-lg-10">
+        <div class="col-xl-9">
             <input class="form-control" #searchBox id="search-box" (keyup)="filterDeviceTypes(searchBox.value)"
-                   placeholder="Search..." i18n-placeholder="User search placeholder"/>
+                   placeholder="{{'Search...'|translate}}"/>
         </div>
-        <div class="col-lg-2">
-            <button class="btn btn-primary float-right jh-create-entity" [routerLink]="['./add']">
-                <i class="fa fa-plus"></i>&nbsp;
-                <span>{{ 'CreateDeviceType' | translate }}</span>
-            </button>
+        <div class="col-xl-3">
+            <form #DeviceTypeForm="ngForm" (ngSubmit)="addDeviceType()">
+                <div class="row">
+                    <input id="Name" [(ngModel)]="deviceType" name="Name" type="text"
+                           placeholder="{{'ElementName'|translate}}" class="form-control input-xl"
+                           #name="ngModel" required>
+                    <button class="btn btn-primary float-right jh-create-entity" type="submit"
+                            [disabled]="!DeviceTypeForm.form.valid">
+                        <i class="fa fa-plus"></i>&nbsp;
+                        <span>{{ 'CreateDeviceType' | translate }}</span>
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
     <br>
@@ -29,7 +37,7 @@
                     <button type="button" (click)="delete(device)"
                             class="btn btn-danger btn-sm">
                         <i class="fa fa-times"></i>&nbsp;
-                        <span class="d-none d-md-inline">Delete</span>
+                        <span class="d-none d-md-inline">{{'Delete'|translate}}</span>
                     </button>
                 </div>
             </td>

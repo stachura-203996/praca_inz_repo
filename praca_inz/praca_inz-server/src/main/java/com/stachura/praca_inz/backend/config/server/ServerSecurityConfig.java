@@ -24,6 +24,7 @@ public class ServerSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private static final String ERROR_PATTERN="/error/**";
 
+
     @Qualifier("userDetailsServiceImpl")
     @Autowired
     private UserDetailsService userDetailsService;

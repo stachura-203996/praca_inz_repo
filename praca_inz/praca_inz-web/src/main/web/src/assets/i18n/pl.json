@@ -164,5 +164,7 @@
     "Office is required!": "Biuro jest wymagane!",
     "Warehouseman is required!":"Magazynier jest wymagany",
     "Warehouseman":"Magazynier",
-    "EditWarehouse":"Edytuj magazyn"
+    "EditWarehouse":"Edytuj magazyn",
+    "DeviceTypes":"Typy urządzeń",
+    "CreateDeviceType":"Dodaj typ urządzenia"
 }

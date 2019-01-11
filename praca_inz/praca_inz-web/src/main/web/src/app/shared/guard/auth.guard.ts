@@ -10,10 +10,11 @@ export class AuthGuard {
     canActivate() {
 
         this.service.checkToken();
-        if ( this.service.checkCredentials()&&localStorage.getItem('isLoggedin')=='true') {
+        if (localStorage.getItem('isLoggedin')) {
             return true;
         }
-        this.service.logout()
+
+        this.router.navigate(['/login']);
         return false;
     }
 }

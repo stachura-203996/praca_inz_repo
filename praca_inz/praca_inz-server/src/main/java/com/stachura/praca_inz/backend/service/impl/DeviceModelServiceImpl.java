@@ -1,11 +1,12 @@
 package com.stachura.praca_inz.backend.service.impl;
 
+import com.google.common.collect.Lists;
 import com.stachura.praca_inz.backend.exception.repository.DatabaseErrorException;
 import com.stachura.praca_inz.backend.exception.repository.EntityException;
 import com.stachura.praca_inz.backend.exception.service.ServiceException;
 import com.stachura.praca_inz.backend.model.DeviceModel;
 import com.stachura.praca_inz.backend.model.Parameter;
-import com.stachura.praca_inz.backend.repository.interfaces.DeviceModelRepository;
+import com.stachura.praca_inz.backend.repository.DeviceModelRepository;
 import com.stachura.praca_inz.backend.service.DeviceModelService;
 import com.stachura.praca_inz.backend.web.dto.device.DeviceModelListElementDto;
 import com.stachura.praca_inz.backend.web.dto.device.DeviceModelViewDto;
@@ -30,8 +31,8 @@ public class DeviceModelServiceImpl implements DeviceModelService {
     @Override
     @Transactional(readOnly = true)
     @PreAuthorize("hasAuthority('DEVICE_MODEL_READ')")
-    public DeviceModelViewDto getDeviceModelViewById(Long id) {
-        DeviceModel deviceModel = deviceModelRepository.find(id);
+    public DeviceModelViewDto getDeviceModelViewById(Long id) throws ServiceException {
+        DeviceModel deviceModel = deviceModelRepository.findById(id).orElseThrow(() -> new ServiceException());
         if (deviceModel.isDeleted()) {
             return null;
         }
@@ -39,8 +40,8 @@ public class DeviceModelServiceImpl implements DeviceModelService {
     }
 
     @Override
-    public List<ParameterListElementDto> getDeviceParameters(Long id) {
-        DeviceModel deviceModel = deviceModelRepository.find(id);
+    public List<ParameterListElementDto> getDeviceParameters(Long id) throws ServiceException {
+        DeviceModel deviceModel = deviceModelRepository.findById(id).orElseThrow(() -> new ServiceException());
         Set<Parameter> parameters = deviceModel.getParameters();
         if (deviceModel.isDeleted()) {
             return null;
@@ -57,7 +58,7 @@ public class DeviceModelServiceImpl implements DeviceModelService {
     @Transactional(readOnly = true)
     @PreAuthorize("hasAuthority('DEVICE_MODEL_READ')")
     public List<DeviceModelListElementDto> getAllDeviceModels() {
-        List<DeviceModel> deviceModels = deviceModelRepository.findAll();
+        List<DeviceModel> deviceModels = Lists.newArrayList(deviceModelRepository.findAll());
         List<DeviceModelListElementDto> deviceModelsDto = new ArrayList<>();
         for (DeviceModel a : deviceModels) {
             if (!a.isDeleted()) {
@@ -71,14 +72,7 @@ public class DeviceModelServiceImpl implements DeviceModelService {
     @Transactional
     @PreAuthorize("hasAuthority('DEVICE_MODEL_CREATE')")
     public void createNewDeviceModel(DeviceModel deviceModel) throws ServiceException {
-        try {
-            deviceModelRepository.create(deviceModel);
-        } catch (DatabaseErrorException e) {
-            throw e;
-        } catch (EntityException e) {
-            throw ServiceException.createServiceException(ServiceException.ENTITY_VALIDATION, e);
-        }
-
+            deviceModelRepository.save(deviceModel);
     }
 
 
@@ -86,22 +80,14 @@ public class DeviceModelServiceImpl implements DeviceModelService {
     @Transactional
     @PreAuthorize("hasAuthority('DEVICE_MODEL_UPDATE')")
     public void updateDeviceModel(DeviceModel deviceModel) throws ServiceException {
-
-        deviceModelRepository.update(deviceModel);
-
+        deviceModelRepository.save(deviceModel);
     }
 
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('DEVICE_MODEL_DELETE')")
-    public void deleteDeviceModelById(Long id) {
-        deviceModelRepository.find(id).setDeleted(true);
+    public void deleteDeviceModelById(Long id) throws ServiceException {
+        deviceModelRepository.findById(id).orElseThrow(() -> new ServiceException()).setDeleted(true);
     }
 
-    @Override
-    @Transactional
-    @PreAuthorize("hasAuthority('DEVICE_MODEL_DELETE')")
-    public void deleteDeviceModel(DeviceModel deviceModel) {
-        deviceModelRepository.find(deviceModel.getId()).setDeleted(true);
-    }
 }

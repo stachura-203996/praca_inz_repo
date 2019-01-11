@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface DeviceService {
 
-    Device getDeviceById(Long id);
+    Device getDeviceById(Long id) throws ServiceException;
 
 //    Device getDeviceByName(String name);
 
@@ -29,9 +29,7 @@ public interface DeviceService {
 
     void updateDevice(Device device) throws SecurityException, EntityException, ServiceException;
 
-    void deleteDeviceById(Long id);
-
-    void deleteDevice(Device device);
+    void deleteDeviceById(Long id) throws ServiceException;
 
     List<DeviceListElementDto> getAllDevicesForLoggedWarehouseman(String username);
 

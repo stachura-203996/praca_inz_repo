@@ -41,14 +41,14 @@ public class CompanyController {
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
-    CompanyStructureEditDto getToEdit(@PathVariable Long id) {
+    CompanyStructureEditDto getToEdit(@PathVariable Long id) throws ServiceException {
         return CompanyStructureConverter.toCompanyStructureEdit(companyService.getCompanyById(id));
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
-    CompanyStructureViewDto getToView(@PathVariable Long id) {
+    CompanyStructureViewDto getToView(@PathVariable Long id) throws ServiceException {
         return CompanyStructureConverter.toCompanyStructureViewDto(companyService.getCompanyById(id));
     }
 
@@ -75,7 +75,7 @@ public class CompanyController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public void delete(@PathVariable Long id) {
+    public void delete(@PathVariable Long id) throws ServiceException {
         companyService.deleteCompanyById(id);
     }
 }

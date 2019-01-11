@@ -10,21 +10,21 @@ public interface UserService {
 
     List<UserListElementDto> getAllUsers();
 
-    ProfileInfoDto getProfile(String name);
+    ProfileInfoDto getProfile(String name) throws ServiceException;
 
-    LoggedUserDto getLoggedUser(String name);
+    LoggedUserDto getLoggedUser(String name) throws ServiceException;
 
-    UserInfoDto getUserInfo(String name);
+    UserInfoDto getUserInfo(String name) throws ServiceException;
 
-    List<UserListElementDto> getAllUsersForManager(String username);
+    List<UserListElementDto> getAllUsersForManager(String username) throws ServiceException;
 
-    List<UserListElementDto> getAllUsersForCompanyAdmin(String username);
+    List<UserListElementDto> getAllUsersForCompanyAdmin(String username) throws ServiceException;
 
     List<UserListElementDto> getAllWarehousemen(Long id);
 
     void updateUser(User user) throws ServiceException;
 
-    UserRolesDto getLoggedUserRoles(String name);
+    UserRolesDto getLoggedUserRoles(String name) throws ServiceException;
 
 
 }

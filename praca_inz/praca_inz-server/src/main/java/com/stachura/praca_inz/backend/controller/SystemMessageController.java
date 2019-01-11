@@ -35,7 +35,7 @@ public class SystemMessageController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
-    SystemMessage get(@PathVariable Long id) {
+    SystemMessage get(@PathVariable Long id) throws ServiceException {
         return systemMessageService.getSystemMessageById(id);
     }
 
@@ -53,7 +53,7 @@ public class SystemMessageController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public void delete(@PathVariable Long id) {
+    public void delete(@PathVariable Long id) throws ServiceException {
         systemMessageService.deleteSystemMessageById(id);
     }
 }

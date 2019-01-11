@@ -9,11 +9,9 @@ import com.stachura.praca_inz.backend.web.dto.company.CompanyStructuresListEleme
 import java.util.List;
 
 public interface DepartmentService {
-    Department getDepartmentById(Long id);
+    Department getDepartmentById(Long id) throws ServiceException;
 
-    Department getDepartmentByName(String name);
-
-    List<CompanyStructuresListElementDto> getAllDepartments(String username);
+    List<CompanyStructuresListElementDto> getAllDepartments(String username) throws ServiceException;
 
     List<CompanyStructuresListElementDto> getAllDepartmentsForCompany(Long id);
 
@@ -21,7 +19,6 @@ public interface DepartmentService {
 
     void updateDepartment(CompanyStructureEditDto companyStructureEditDto) throws ServiceException;
 
-    void deleteDepartmentById(Long id);
+    void deleteDepartmentById(Long id) throws ServiceException;
 
-    void deleteDepartment(Department department);
 }

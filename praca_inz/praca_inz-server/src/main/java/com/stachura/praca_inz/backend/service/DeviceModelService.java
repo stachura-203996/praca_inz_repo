@@ -10,11 +10,9 @@ import java.util.List;
 
 public interface DeviceModelService {
 
-    DeviceModelViewDto getDeviceModelViewById(Long id);
+    DeviceModelViewDto getDeviceModelViewById(Long id) throws ServiceException;
 
-
-
-    List<ParameterListElementDto> getDeviceParameters(Long id);
+    List<ParameterListElementDto> getDeviceParameters(Long id) throws ServiceException;
 
     List<DeviceModelListElementDto> getAllDeviceModels();
 
@@ -22,7 +20,6 @@ public interface DeviceModelService {
 
     void updateDeviceModel(DeviceModel deviceModel)throws SecurityException, ServiceException;
 
-    void deleteDeviceModelById(Long id);
+    void deleteDeviceModelById(Long id) throws ServiceException;
 
-    void deleteDeviceModel(DeviceModel deviceModel);
 }

@@ -7,7 +7,6 @@ import {
     StructureEditElement,
     StructureListElement, StructureViewElement
 } from "../../../../../models/structure-elements";
-import {DepartmentEditComponent} from "./department-edit/department-edit.component";
 
 @Injectable({
   providedIn: 'root'

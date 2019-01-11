@@ -33,11 +33,6 @@ public class NotificationController {
     @Autowired
     private EmailService emailService;
 
-    /**
-     * Metoda zwracająca obiekt typu {@link List<NotificationListElementDto>} składający się z aktualnie dostępnych benefitów na wymiane
-     *
-     * @return lista dostepnych benefitów
-     */
     @RequestMapping(value = "/user", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
@@ -69,7 +64,7 @@ public class NotificationController {
 
     @RequestMapping(method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public void update(@RequestBody NotificationListElementDto notificationListElementDto) {
+    public void update(@RequestBody NotificationListElementDto notificationListElementDto) throws ServiceException {
         Notification notification= notificationService.getNotificationById(notificationListElementDto.getId());
         try {
             notificationService.updateNotification(NotificationConverter.toNotification(notificationListElementDto,notification));
@@ -80,7 +75,7 @@ public class NotificationController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public void delete(@PathVariable Long id) {
+    public void delete(@PathVariable Long id) throws ServiceException {
         notificationService.deleteNotificationById(id);
     }
 }

@@ -32,7 +32,7 @@ public class DeviceModel implements Serializable {
     @Column(name = "VERSION")
     private long version;
 
-    @Column(name = "NAME", nullable = false)
+    @Column(name = "NAME", nullable = false,unique = true)
     private String name;
 
     @Column(name = "MANUFACTURE" ,nullable = false)

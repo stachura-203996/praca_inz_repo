@@ -53,14 +53,14 @@ public class TransferController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
-    Transfer get(@PathVariable Long id) {
+    Transfer get(@PathVariable Long id) throws ServiceException {
         return transferService.getTransferById(id);
     }
 
 
     @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public ResponseEntity<?> create(@RequestBody Transfer transfer) {
+    public ResponseEntity<?> create(@RequestBody Transfer transfer) throws ServiceException {
         try {
             transferService.createNewTransfer(transfer);
         } catch (ServiceException e) {
@@ -84,7 +84,7 @@ public class TransferController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public void delete(@PathVariable Long id) {
+    public void delete(@PathVariable Long id) throws ServiceException {
         transferService.deleteTransferById(id);
     }
 }

@@ -19,7 +19,7 @@ public interface WarehouseService {
 
     void updateWarehouse(WarehouseEditDto warehouseEditDto) throws ServiceException;
 
-    void deleteWarehouseById(Long id);
+    void deleteWarehouseById(Long id) throws ServiceException;
 
 
 
@@ -31,10 +31,10 @@ public interface WarehouseService {
 
     List<WarehouseListElementDto> getAllWarehousesForLoggedUser(String username);
 
-    List<WarehouseListElementDto> getAllForTransferRequest(String username);
+    List<WarehouseListElementDto> getAllForTransferRequest(String username) throws ServiceException;
 
 
-    WarehouseViewDto getWarehouseToView(Long id);
+    WarehouseViewDto getWarehouseToView(Long id) throws ServiceException;
 
-    WarehouseEditDto getWarehouseToEdit(Long id);
+    WarehouseEditDto getWarehouseToEdit(Long id) throws ServiceException;
 }

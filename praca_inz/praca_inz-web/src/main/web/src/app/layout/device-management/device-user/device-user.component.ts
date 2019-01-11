@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {TranslateService} from "@ngx-translate/core";
 import {DeviceService} from "../device.service";
 import {DeviceListElement} from "../../../models/device-elements";
-import {Router} from "@angular/router";
 
 @Component({
     selector: 'app-device-user',

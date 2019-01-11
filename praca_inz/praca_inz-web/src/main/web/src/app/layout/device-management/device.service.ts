@@ -3,7 +3,7 @@ import {HttpService} from "../../shared/services/http.service";
 import {Configuration} from "../../app.constants";
 import {Observable} from "rxjs";
 import {TransferListElement} from "../../models/transfer-list-element";
-import {StructureEditElement, StructureViewElement} from "../../models/structure-elements";
+import {StructureAddElement, StructureEditElement, StructureViewElement} from "../../models/structure-elements";
 import {
     DeviceEditElement,
     DeviceListElement,
@@ -102,7 +102,11 @@ export class DeviceService {
         return this.httpService.get<DeviceModelListElement[]>(this.devicePath + "/type");
     }
 
-    deleteDeviceTypes(id :string): Observable<any>{
+    createDeviceType(data:string): Observable<any>{
+        return this.httpService.post<string>(this.devicePath+'/type/',data);
+    }
+
+    deleteDeviceTypes(id :number): Observable<any>{
         return this.httpService.delete<any>(this.devicePath+'/type/'+id);
     }
 

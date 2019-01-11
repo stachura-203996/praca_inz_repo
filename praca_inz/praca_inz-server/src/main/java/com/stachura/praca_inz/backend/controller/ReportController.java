@@ -3,15 +3,15 @@ package com.stachura.praca_inz.backend.controller;
 import com.stachura.praca_inz.backend.exception.service.ServiceException;
 import com.stachura.praca_inz.backend.model.Notification;
 import com.stachura.praca_inz.backend.model.Report;
-import com.stachura.praca_inz.backend.repository.interfaces.UserRepository;
+import com.stachura.praca_inz.backend.repository.UserRepository;
 import com.stachura.praca_inz.backend.service.NotificationService;
 import com.stachura.praca_inz.backend.service.ReportService;
 import com.stachura.praca_inz.backend.web.dto.converter.ReportConverter;
 import com.stachura.praca_inz.backend.web.dto.report.ReportAddDto;
 import com.stachura.praca_inz.backend.web.dto.report.ReportListElementDto;
 import com.stachura.praca_inz.backend.web.dto.report.ReportViewDto;
+import com.stachura.praca_inz.backend.web.utils.NotificationMessages;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -75,20 +75,15 @@ public class ReportController {
     @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public ResponseEntity<?> create(@RequestBody ReportAddDto reportAddDto) {
-        Long id = null;
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         try {
-            Report report =ReportConverter.toReport(reportAddDto,userRepository,auth.getName());
-            id = reportService.createNewReport(report);
-            notificationService.createNewNotification(getReportSentNotifiaction(report,id));
-            notificationService.createNewNotification(getReportReceivedNotifiaction(report,id));
+            Report report = reportService.createNewReport(reportAddDto,auth.getName());
+            notificationService.createNewNotification(NotificationMessages.getReportSentNotifiaction(report));
+            notificationService.createNewNotification(NotificationMessages.getReportReceivedNotifiaction(report));
         } catch (ServiceException e) {
             e.printStackTrace();
         }
-        HttpHeaders headers = new HttpHeaders();
-        ControllerLinkBuilder linkBuilder = linkTo(methodOn(ReportController.class).getReportsById(id));
-        headers.setLocation(linkBuilder.toUri());
-        return new ResponseEntity<>(headers, HttpStatus.CREATED);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @RequestMapping(method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -103,48 +98,23 @@ public class ReportController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public void delete(@PathVariable Long id) {
+    public void delete(@PathVariable Long id) throws ServiceException {
         reportService.deleteReportById(id);
     }
 
     @RequestMapping(value = "/sender/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public void diabledBySender(@PathVariable Long id) {
+    public void diabledBySender(@PathVariable Long id) throws ServiceException {
         reportService.disableBySender(id);
     }
 
     @RequestMapping(value = "/reciever/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public void disableByReciever(@PathVariable Long id) {
+    public void disableByReciever(@PathVariable Long id) throws ServiceException {
         reportService.disableByReciever(id);
     }
 
 
 
-    Notification getReportSentNotifiaction(Report report,Long id){
-        Notification notification = new Notification();
-        notification.setUrl("/ui/page/employees/reports/view/" + id);
-        notification.setUser(report.getSender());
-        notification.setReaded(false);
-        notification.setTitle("Report sended");
-        notification.setCalendarTimestamp(Calendar.getInstance());
-        notification.setDeleted(false);
-        notification.setDescription("Your report was sent to: " + report.getReciever().getUsername() + " Report title: " + report.getTitle()
-                + "Report description: " + report.getDescription());
-        return notification;
-    }
-
-    Notification getReportReceivedNotifiaction(Report report,Long id){
-        Notification notification = new Notification();
-        notification.setUrl("/ui/page/employees/reports/view/" + id);
-        notification.setUser(report.getReciever());
-        notification.setReaded(false);
-        notification.setTitle("Report recieved");
-        notification.setCalendarTimestamp(Calendar.getInstance());
-        notification.setDeleted(false);
-        notification.setDescription("You get report from: " + report.getSender().getUsername() + "Report title: " + report.getTitle()
-                + "Report description: " + report.getDescription());
-        return notification;
-    }
 
 }
