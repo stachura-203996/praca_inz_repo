@@ -32,40 +32,43 @@
                     <div class="bot-border"></div>
 
                     <div class="row">
-                        <div class="col-sm-5 col-xs-6 tital ">{{'Name'| translate}}</div>
+                        <div class="col-sm-5 col-xs-6 tital ">{{'FirstName'| translate}}</div>
                         <div class="col-sm-7 col-xs-6 ">{{user.name}}</div>
                     </div>
                     <div class="clearfix"></div>
                     <div class="bot-border"></div>
 
                     <div class="row">
-                        <div class="col-sm-5 col-xs-6 tital ">{{'Surname'| translate}}</div>
+                        <div class="col-sm-5 col-xs-6 tital ">{{'LastName'| translate}}</div>
                         <div class="col-sm-7">{{user.surname}}</div>
                     </div>
                     <div class="clearfix"></div>
                     <div class="bot-border"></div>
                     <div class="row">
                         <div class="col-sm-5 col-xs-6 tital ">{{'Company'| translate}}</div>
-                        <div class="col-sm-7">{{user.company}}</div>
+                        <div class="col-sm-7"><a
+                            href="/structures/companies/view/{{user.companyId}}">{{user.company}}</a></div>
                     </div>
                     <div class="clearfix"></div>
                     <div class="bot-border"></div>
                     <div class="row">
                         <div class="col-sm-5 col-xs-6 tital ">{{'Department'| translate}}</div>
-                        <div class="col-sm-7">{{user.department}}</div>
+                        <div class="col-sm-7"><a href="/structures/departments/view/{{user.departmentId}}">{{user.department}}</a>
+                        </div>
                     </div>
                     <div class="clearfix"></div>
                     <div class="bot-border"></div>
                     <div class="row">
                         <div class="col-sm-5 col-xs-6 tital ">{{'Office'| translate}}</div>
-                        <div class="col-sm-7">{{user.office}}</div>
+                        <div class="col-sm-7"><a href="/structures/offices/view/{{user.officeId}}">{{user.office}}</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-5 col-xs-6 tital ">{{'Workplace'| translate}}</div>
+                        <div class="col-sm-7">{{user.workplace}}</div>
                     </div>
                     <div class="clearfix"></div>
                     <div class="bot-border"></div>
-                    <div class="row">
-                        <div class="col-sm-5 col-xs-6 tital ">{{'Workplace'| translate}}</div>
-                        <div class="col-sm-7">{{user.dateOfJoining}}</div>
-                    </div>
                     <div class="clearfix"></div>
                     <div class="bot-border"></div>
                     <div class="row">
@@ -75,8 +78,17 @@
                     <div class="clearfix"></div>
                     <div class="bot-border"></div>
                     <div class="row">
-                        <div class="col-sm-5 col-xs-6 tital ">{{'Address'| translate}}</div>
+                        <div class="col-sm-5 col-xs-6 tital ">{{'Adress'| translate}}</div>
                         <div class="col-sm-7">{{getAddress()}}</div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="bot-border"></div>
+                    <div class="row">
+                        <div class="col-sm-5 col-xs-6 tital ">{{'Roles'| translate}}</div>
+                        <div class="col-sm-7">
+                            <div class="row" *ngFor="let authority of user.roles"><span class="badge badge-info">{{ authority }}</span>
+                            </div>
+                        </div>
                     </div>
                     <div class="clearfix"></div>
                     <div class="bot-border"></div>
@@ -86,15 +98,6 @@
                     </div>
                     <div class="clearfix"></div>
                     <div class="bot-border"></div>
-                    <div class="row">
-                        <div class="col-sm-5 col-xs-6 tital ">{{'Authorities'| translate}}</div>
-                        <div id="role" *ngFor="let authority of user.roles">
-                            <span class="badge badge-info">{{ authority }}</span>
-                        </div>
-                    </div>
-                    <div class="clearfix"></div>
-                    <div class="bot-border"></div>
-
                     <br>
                     <div class="row">
                         <div class="col-sm-6" align="center">
@@ -143,9 +146,7 @@
                         </tbody>
                     </table>
                 </div>
-                <!--</div>-->
             </div>
-            <!--<div class="col-lg-8">-->
             <br>
             <div class="card">
                 <div class="card-header">
@@ -166,7 +167,7 @@
                         <thead class="thead-inverse">
                         <tr>
                             <th>{{ 'Name' | translate }}</th>
-                            <th>{{ 'DeviceName' | translate }}</th>
+                            <th>{{ 'DeviceModel' | translate }}</th>
                             <th>{{'DeviceSerialNumber'| translate}}</th>
                             <th>{{ 'Date' | translate }}</th>
                             <th>{{'Sender'| translate}}</th>
@@ -176,7 +177,7 @@
                         <tbody>
                         <tr *ngFor="let transfer of transfers">
                             <td>{{transfer.title}}</td>
-                            <td>{{transfer.deviceName}}</td>
+                            <td>{{transfer.deviceModelName}}</td>
                             <td>{{transfer.deviceSerialNumber}}</td>
                             <td>{{transfer.date}}</td>
                             <td>{{transfer.senderWarehouseName}}</td>
@@ -184,67 +185,6 @@
                         </tr>
                         </tbody>
                     </table>
-                </div>
-            </div>
-            <br>
-            <div class="card">
-                <div class="card-header">
-                    <div class="row">
-                        <div class="col-lg-10">
-                            <h4>Requests list</h4>
-                        </div>
-                        <div class="col-lg-2">
-                            <button class="btn btn-primary float-right jh-create-entity"
-                                    [routerLink]="['/devices/request']">
-                                <span>{{ 'YourRequestsManager' | translate }}</span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <br>
-                    <ngb-tabset>
-                        <ngb-tab title="Simple">
-                            <ng-template ngbTabContent>
-                                <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu
-                                    stumptown aliqua, retro synth
-                                    master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica.
-                                    Reprehenderit butcher retro keffiyeh
-                                    dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex
-                                    squid. Aliquip placeat salvia cillum
-                                    iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi
-                                    qui.</p>
-                            </ng-template>
-                        </ngb-tab>
-                        <ngb-tab>
-                            <ng-template ngbTabTitle><b>Fancy</b> title</ng-template>
-                            <ng-template ngbTabContent>
-                                <p>Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson
-                                    artisan four loko farm-to-table
-                                    craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk
-                                    aliquip jean shorts ullamco ad vinyl
-                                    cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus
-                                    mollit. Keytar helvetica VHS salvia
-                                    yr, vero magna velit sapiente labore stumptown. Vegan fanny pack odio cillum wes
-                                    anderson 8-bit, sustainable jean
-                                    shorts beard ut DIY ethical culpa terry richardson biodiesel. Art party
-                                    scenester stumptown, tumblr butcher vero
-                                    sint qui sapiente accusamus tattooed echo park.</p>
-                            </ng-template>
-                        </ngb-tab>
-                        <ngb-tab title="Disabled" [disabled]="true">
-                            <ng-template ngbTabContent>
-                                <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu
-                                    stumptown aliqua, retro synth
-                                    master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica.
-                                    Reprehenderit butcher retro keffiyeh
-                                    dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex
-                                    squid. Aliquip placeat salvia cillum
-                                    iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi
-                                    qui.</p>
-                            </ng-template>
-                        </ngb-tab>
-                    </ngb-tabset>
                 </div>
             </div>
         </div>

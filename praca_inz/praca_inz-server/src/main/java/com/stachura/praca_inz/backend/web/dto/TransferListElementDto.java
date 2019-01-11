@@ -14,6 +14,6 @@ public class TransferListElementDto {
     private String date;
     private String senderWarehouseName;
     private String recieverWarehouseName;
-    private String deviceName;
+    private String deviceModelName;
     private String deviceSerialNumber;
 }

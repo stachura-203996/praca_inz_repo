@@ -12,6 +12,8 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,27 +33,28 @@ public class DeviceModelController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
-    DeviceModelViewDto get(@PathVariable Long id) {
+    DeviceModelViewDto get(@PathVariable Long id) throws ServiceException {
         return deviceModelService.getDeviceModelViewById(id);
     }
 
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
-    List<DeviceModelListElementDto> getAll() {
-        return deviceModelService.getAllDeviceModels();
+    List<DeviceModelListElementDto> getAll() throws ServiceException {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        return deviceModelService.getAllDeviceModels(auth.getName());
     }
 
     @RequestMapping(value = "/parameters/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
-    List<ParameterListElementDto> getParameters(@PathVariable Long id) {
+    List<ParameterListElementDto> getParameters(@PathVariable Long id) throws ServiceException {
         return deviceModelService.getDeviceParameters(id);
     }
 
     @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public ResponseEntity<?> create(@RequestBody DeviceModel deviceModel) {
+    public ResponseEntity<?> create(@RequestBody DeviceModel deviceModel) throws ServiceException {
         try {
             deviceModelService.createNewDeviceModel(deviceModel);
         } catch (ServiceException e) {
@@ -75,7 +78,7 @@ public class DeviceModelController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public void delete(@PathVariable Long id) {
+    public void delete(@PathVariable Long id) throws ServiceException {
         deviceModelService.deleteDeviceModelById(id);
     }
 }

@@ -22,7 +22,7 @@ export class OfficeService {
     }
 
     getOfficeEdit(id:string): Observable<StructureEditElement>{
-        return this.httpService.get<StructureEditElement>(this.officePath+'/'+id);
+        return this.httpService.get<StructureEditElement>(this.officePath+'/edit/'+id);
     }
 
     getAllForCompany(id:number): Observable<StructureListElement[]> {

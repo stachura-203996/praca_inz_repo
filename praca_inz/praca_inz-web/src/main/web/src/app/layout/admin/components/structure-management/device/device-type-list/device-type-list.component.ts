@@ -13,6 +13,8 @@ export class DeviceTypeListComponent implements OnInit {
 
     deviceTypes: DeviceTypeListElement[];
 
+    deviceType:string;
+
     constructor(private deviceService: DeviceService, private translate: TranslateService) {
     }
 
@@ -22,14 +24,21 @@ export class DeviceTypeListComponent implements OnInit {
 
 
     getDevicesTypes() {
-        this.deviceService.getAllDevicesModels().subscribe(deviceListElement => {
-            this.deviceTypes = deviceListElement
+        if(!this.deviceTypes.some(x=>x.name==this.deviceType)) {
+            this.deviceService.getAllDevicesTypes().subscribe(deviceListElement => {
+                this.deviceTypes = deviceListElement
+            });
+        }
+    }
+
+    addDeviceType(){
+        this.deviceService.createDeviceType(this.deviceType).subscribe(x=>{
+            this.getDevicesTypes();
         });
     }
 
-
     filterDeviceTypes(searchText: string) {
-        this.deviceService.getAllDevicesModels().subscribe(deviceTypes => {
+        this.deviceService.getAllDevicesTypes().subscribe(deviceTypes => {
             if (!deviceTypes) {
                 this.deviceTypes = [];
                 return;
@@ -40,7 +49,7 @@ export class DeviceTypeListComponent implements OnInit {
 
             searchText = searchText.toLowerCase();
             this.deviceTypes = deviceTypes.filter(it => {
-                const range = it.name + ' ' + it.manufacture + ' ' + it.type;
+                const range = it.name;
                 const ok = range.toLowerCase().includes(searchText);
                 return ok;
             });
@@ -48,7 +57,7 @@ export class DeviceTypeListComponent implements OnInit {
     }
 
     delete(deviceType: DeviceTypeListElement) {
-        this.deviceService.deleteDeviceTypes(String(deviceType.id)).subscribe(resp => {
+        this.deviceService.deleteDeviceTypes(deviceType.id).subscribe(resp => {
             this.getDevicesTypes()
         });
     }

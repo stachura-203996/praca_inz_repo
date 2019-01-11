@@ -83,6 +83,7 @@ export class DeviceTypeListElement {
     id: number;
     name: string;
 }
+
 export class ParameterListElement{
     id: number;
     name: string;

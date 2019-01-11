@@ -1,4 +1,4 @@
-import {Directive, Input} from '@angular/core';
+import {Attribute, Directive, Input} from '@angular/core';
 import {AbstractControl, NG_VALIDATORS, Validator, ValidatorFn} from '@angular/forms';
 
 
@@ -20,6 +20,7 @@ export class PasswordMatchDirective implements Validator {
   validate(control: AbstractControl): { [key: string]: any } {
     return this.password ? passwordMatchValidator(this.password)(control) : null;
   }
+
 
   constructor() {
   }

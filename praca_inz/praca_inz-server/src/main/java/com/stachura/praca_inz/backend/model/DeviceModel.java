@@ -32,7 +32,7 @@ public class DeviceModel implements Serializable {
     @Column(name = "VERSION")
     private long version;
 
-    @Column(name = "NAME", nullable = false)
+    @Column(name = "NAME", nullable = false,unique = true)
     private String name;
 
     @Column(name = "MANUFACTURE" ,nullable = false)
@@ -52,17 +52,6 @@ public class DeviceModel implements Serializable {
     @JsonBackReference
     private Company company;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "deviceModel", fetch = FetchType.LAZY, orphanRemoval = true)
-    @JsonManagedReference
-    private Set<DeviceField> deviceFields = new HashSet<>();
-
-
-    public void setDeviceTypes(Set<DeviceField> deviceFields) {
-        this.deviceFields.clear();
-        if (deviceFields != null) {
-            this.deviceFields.addAll(deviceFields);
-        }
-    }
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "deviceModel", fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonManagedReference

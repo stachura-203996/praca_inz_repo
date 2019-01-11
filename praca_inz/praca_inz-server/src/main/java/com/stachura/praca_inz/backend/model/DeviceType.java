@@ -26,7 +26,7 @@ public class DeviceType {
     @Column(name = "VERSION")
     private long version;
 
-    @Column(name = "NAME", nullable = false)
+    @Column(name = "NAME", nullable = false,unique = true)
     private String name;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "deviceType", fetch = FetchType.LAZY, orphanRemoval = true)

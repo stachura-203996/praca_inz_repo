@@ -3,9 +3,11 @@ export class ProfileInfo {
     username: string;
     position: string;
     company: string;
+    companyId:number;
     department: string;
+    departmentId:number;
     office: string;
-    middlename: string;
+    officeId:number;
     name: string;
     surname: string;
     city: string;
@@ -13,8 +15,7 @@ export class ProfileInfo {
     street: string;
     houseNumber: string;
     flatNumber: string;
-    zipCode: string;
     dateOfJoining: string;
     roles: string[];
-    workplace:string
+    workplace:string;
 }

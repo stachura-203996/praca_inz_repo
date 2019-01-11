@@ -8,6 +8,7 @@ import lombok.Setter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -35,7 +36,7 @@ public class Userdata implements Serializable {
     @Column(name = "SURNAME", nullable = false)
     private String surname;
 
-    @Column(name = "EMAIL")
+    @Column(name = "EMAIL", nullable = false,unique = true)
     private String email;
 
     @Column(name = "POSITION")
@@ -43,6 +44,15 @@ public class Userdata implements Serializable {
 
     @Column(name = "WORKPLACE")
     private String workplace;
+
+    @Column(name="LANGUAGE")
+    private String language;
+
+    @Basic
+    @NotNull
+    @Column(name = "JOIN_DATE")
+    @Temporal(TemporalType.TIMESTAMP)
+    private java.util.Calendar dateOfJoin;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "ADDRESS_ID")

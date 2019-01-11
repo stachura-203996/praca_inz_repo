@@ -22,13 +22,13 @@ public class UserInfoDto {
     private String office;
     private Long officeId;
     private String name;
-    private String middlename;
     private String surname;
     private String city;
     private String email;
     private String street;
     private String houseNumber;
     private String flatNumber;
-    private String zipCode;
     private List<String> roles;
+    private String dateOfJoining;
+    private String workplace;
 }

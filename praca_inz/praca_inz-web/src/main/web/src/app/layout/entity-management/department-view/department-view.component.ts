@@ -9,6 +9,8 @@ import {StructureListElement, StructureViewElement} from "../../../models/struct
 import {DeviceListElement} from "../../../models/device-elements";
 import {WarehouseListElement} from "../../../models/warehouse-elements";
 import {WarehouseService} from "../../warehouse-management/warehouse.service";
+import {UserRoles} from "../../../models/user-roles";
+import {UserService} from "../../admin/components/administration/user-management/user.service";
 
 @Component({
   selector: 'app-department-view',
@@ -21,12 +23,14 @@ export class DepartmentViewComponent implements OnInit {
     devices: DeviceListElement[];
     offices: StructureListElement[];
     warehouses:WarehouseListElement[];
+    roles: UserRoles;
 
     constructor(
         private route: ActivatedRoute,
         private companyService: CompanyService,
         private warehouseService:WarehouseService,
         private departmentService: DepartmentService,
+        private userService:UserService,
         private officeService: OfficeService,
         private sessionContextService: SessionContextService,
         private deviceService: DeviceService
@@ -36,7 +40,8 @@ export class DepartmentViewComponent implements OnInit {
         this.getDepartment();
         this.getDevicesForOffice();
         this.getOfficesForDepartment();
-        this.getWarehouseForDepartment()
+        this.getWarehouseForDepartment();
+        this.getLoggedUserRoles();
     }
 
     getDepartment() {
@@ -52,6 +57,9 @@ export class DepartmentViewComponent implements OnInit {
         });
     }
 
+    getLoggedUserRoles() {
+        this.userService.getLoggedUserRoles().subscribe(x => this.roles = x);
+    }
 
     getWarehouseForDepartment() {
         const id = this.route.snapshot.paramMap.get('id');

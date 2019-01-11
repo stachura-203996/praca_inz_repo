@@ -2,13 +2,9 @@ package com.stachura.praca_inz.backend.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.stachura.praca_inz.backend.model.DeviceField;
-import com.stachura.praca_inz.backend.model.Warehouse;
 import com.stachura.praca_inz.backend.model.enums.RequestType;
 import com.stachura.praca_inz.backend.model.enums.Status;
 import com.stachura.praca_inz.backend.model.security.User;
-import com.stachura.praca_inz.backend.model.security.UserRole;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -16,9 +12,6 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Collection;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity(name="REQUEST")
 @EnableAutoConfiguration

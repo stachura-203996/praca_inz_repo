@@ -13,8 +13,7 @@ import {LoggedUser} from "../../../../../../models/logged-user";
     styleUrls: ['./department-list.component.scss']
 })
 export class DepartmentListComponent implements OnInit {
-
-    public deletedFilter = false;
+    
     departments: StructureListElement[];
 
     roles: UserRoles;
@@ -26,14 +25,8 @@ export class DepartmentListComponent implements OnInit {
     ngOnInit() {
         this.getLoggedUserRoles();
         this.getLoggedUser();
-        this.getDepartments();
+        this.filterDepartments(null);
 
-    }
-
-    getDepartments() {
-        this.departmentService.getAll().subscribe(departmentListElement => {
-            this.departments = departmentListElement
-        });
     }
 
 
@@ -60,34 +53,21 @@ export class DepartmentListComponent implements OnInit {
                 return;
             }
             if (!searchText || searchText.length < 2) {
-                if (this.deletedFilter) {
-                    this.departments = departments.filter(it => {
-                        return it.deleted === !this.deletedFilter;
-                    });
-                } else {
-                    this.departments = departments;
-                }
-                return;
+                this.departments = departments;
             }
 
             searchText = searchText.toLowerCase();
             this.departments = departments.filter(it => {
-                const range = it.name + ' ' + it.companyName + ' ' + it.departmentName + ' ' + it.description + ' ' + it.city + ' ' + it.street + ' ' + it.zipCode;
+                const range = it.name + ' '+ it.street+' '+it.city+' '+it.description+' '+it.flatNumber+' '+it.buildingNumber+' '+it.companyName;
                 const ok = range.toLowerCase().includes(searchText);
-                if (!this.deletedFilter) {
-                    return ok;
-                } else {
-                    return ok && it.deleted === !this.deletedFilter;
-                }
+                return ok;
             });
         });
-
-
     }
 
     delete(structure: StructureListElement) {
         this.departmentService.deleteDepartament(String(structure.id)).subscribe(resp => {
-            this.getDepartments()
+            this.filterDepartments(null);
         });
     }
 

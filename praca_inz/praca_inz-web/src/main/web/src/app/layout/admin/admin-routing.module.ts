@@ -17,8 +17,6 @@ import {DeviceListComponent} from "./components/structure-management/device/devi
 import {DeviceAddComponent} from "./components/structure-management/device/device-add/device-add.component";
 import {DeviceEditComponent} from "./components/structure-management/device/device-edit/device-edit.component";
 import {TransferListComponent} from "./components/structure-management/device/transfer-list/transfer-list.component";
-import {DeviceParameterAddComponent} from "./components/structure-management/device/device-parameter-add/device-parameter-add.component";
-import {DeviceParameterEditComponent} from "./components/structure-management/device/device-parameter-edit/device-parameter-edit.component";
 import {WarehouseListComponent} from "./components/structure-management/warehouse/warehouse-list/warehouse-list.component";
 import {WarehouseAddComponent} from "./components/structure-management/warehouse/warehouse-add/warehouse-add.component";
 import {WarehouseEditComponent} from "./components/structure-management/warehouse/warehouse-edit/warehouse-edit.component";
@@ -28,10 +26,11 @@ import {DeviceModelAddComponent} from "./components/structure-management/device/
 import {DeviceModelEditComponent} from "./components/structure-management/device/device-model-edit/device-model-edit.component";
 import {DeviceModelListComponent} from "./components/structure-management/device/device-model-list/device-model-list.component";
 import {DeliveryListComponent} from "./components/structure-management/warehouse/delivery-list/delivery-list.component";
-import {ShipmentListComponent} from "./components/structure-management/warehouse/shipment-list/shipment-list.component";
 import {UserPasswordEditComponent} from "./components/administration/user-management/components/user-password-edit/user-password-edit.component";
 import {DeviceTransferComponent} from "./components/structure-management/device/device-transfer/device-transfer.component";
 import {DeviceTypeListComponent} from "./components/structure-management/device/device-type-list/device-type-list.component";
+import {SystemMessageListComponent} from "./components/administration/system_messages/system-message-list/system-message-list.component";
+import {SystemMessageAddComponent} from "./components/administration/system_messages/system-message-add/system-message-add.component";
 
 
 
@@ -58,17 +57,15 @@ const routes: Routes = [
     {path: 'devices/model/add', component: DeviceModelAddComponent},
     {path: 'devices/model/edit/:id', component: DeviceModelEditComponent},
     {path: 'devices/type', component: DeviceTypeListComponent},
-    {path: 'devices/type/add', component: DeviceModelAddComponent},
-    {path: 'devices/parameter/add', component: DeviceParameterAddComponent},
-    {path: 'devices/parameter/edit/:id', component: DeviceParameterEditComponent},
     {path: 'warehouses', component: WarehouseListComponent},
     {path: 'warehouses/add', component: WarehouseAddComponent},
     {path: 'warehouses/edit/:id', component: WarehouseEditComponent},
     {path: 'deliveries', component: DeliveryListComponent},
-    {path: 'shipments', component: ShipmentListComponent},
     {path: 'requests', component: RequestListComponent},
     {path: 'reports', component: ReportListComponent},
-    {path: 'transfers', component: TransferListComponent}
+    {path: 'transfers', component: TransferListComponent},
+    {path: 'system/messages', component: SystemMessageListComponent},
+    {path: 'system/messages/add', component: SystemMessageAddComponent}
 
 
 ];

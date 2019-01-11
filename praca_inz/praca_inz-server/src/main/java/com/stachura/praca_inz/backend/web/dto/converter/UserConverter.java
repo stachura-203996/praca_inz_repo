@@ -4,16 +4,12 @@ import com.stachura.praca_inz.backend.model.security.User;
 import com.stachura.praca_inz.backend.model.security.UserRole;
 import com.stachura.praca_inz.backend.web.dto.user.*;
 
+import java.text.SimpleDateFormat;
 import java.util.stream.Collectors;
 
 public class UserConverter {
 
-    /**
-     * Metoda konwertująca encję {@link User} na obiekt {@link UserListElementDto} przesyłany do widoku
-     *
-     * @param user encja konta
-     * @return obiekt z informacjami o użytkowniku
-     */
+
     public static UserListElementDto toUserListElement(User user) {
         return UserListElementDto.builder()
                 .id(user.getId())
@@ -27,16 +23,8 @@ public class UserConverter {
                 .build();
     }
 
-
-
-
-    /**
-     * Metoda konwertująca encję {@link User} na obiekt {@link ProfileInfoDto} przesyłany do widoku
-     *
-     * @param user encja konta
-     * @return obiekt z informacjami do profilu zalogowanego użytkownika
-     */
     public static ProfileInfoDto toProfileInfo(User user) {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         return ProfileInfoDto.builder()
                 .id(user.getId())
                 .username(user.getUsername())
@@ -46,12 +34,12 @@ public class UserConverter {
                 .office(user.getOffice().getName())
                 .name(user.getUserdata().getName())
                 .surname(user.getUserdata().getSurname())
+                .dateOfJoining(formatter.format(user.getUserdata().getDateOfJoin().getTime()))
                 .city(user.getUserdata().getAddress().getCity())
                 .email(user.getUserdata().getEmail())
                 .street(user.getUserdata().getAddress().getStreet())
                 .houseNumber(user.getUserdata().getAddress().getBuildingNumber())
                 .flatNumber(user.getUserdata().getAddress().getFlatNumber())
-                .zipCode(user.getUserdata().getAddress().getZipCode())
                 .roles(user.getUserRoles().stream().map(UserRole::getName).collect(Collectors.toList()))
                 .workplace(user.getUserdata().getWorkplace())
                 .build();
@@ -91,6 +79,7 @@ public class UserConverter {
      * @return obiekt z informacjami o zalogowanym użytkowniku
      */
     public static UserInfoDto toUserInfo(User user) {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         return UserInfoDto.builder()
                 .id(user.getId())
                 .username(user.getUsername())
@@ -105,10 +94,10 @@ public class UserConverter {
                 .surname(user.getUserdata().getSurname())
                 .city(user.getUserdata().getAddress().getCity())
                 .email(user.getUserdata().getEmail())
+                .dateOfJoining(formatter.format(user.getUserdata().getDateOfJoin().getTime()))
                 .street(user.getUserdata().getAddress().getStreet())
                 .houseNumber(user.getUserdata().getAddress().getBuildingNumber())
                 .flatNumber(user.getUserdata().getAddress().getFlatNumber())
-                .zipCode(user.getUserdata().getAddress().getZipCode())
                 .roles(user.getUserRoles().stream().map(UserRole::getName).collect(Collectors.toList()))
                 .build();
     }

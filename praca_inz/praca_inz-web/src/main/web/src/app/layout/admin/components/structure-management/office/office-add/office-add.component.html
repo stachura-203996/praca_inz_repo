@@ -1,11 +1,11 @@
 <div class="row">
     <div class="col-lg-12 ">
-        <form class="form-horizontal">
+        <form class="form-horizontal" #OfficeForm="ngForm" (ngSubmit)="officeAdd()">
             <fieldset>
                 <h1>{{'CreateOffice'|translate}}</h1>
                 <div class="form-group">
                     <div class="form-group">
-                        <label class="col-xl-5 control-label" for="Name">{{'ElementName' | translate}}</label>
+                        <label class="col-xl-5 control-label" for="Name">{{'ElementName' | translate}}<span style="color:red">*</span></label>
                         <div class="col-xl-5">
                             <div class="input-group">
                                 <input id="Name" [(ngModel)]="structureAddElement.name" name="Name" type="text"
@@ -14,57 +14,97 @@
                             </div>
                             <div *ngIf="name.invalid && (name.touched || name.dirty)"
                                  class="alert alert-danger col-sm-12">
-                                <div *ngIf="name.hasError('required')" i18n="@@quantityReq">
+                                <div *ngIf="name.hasError('required')">
                                     {{'Name is required!'|translate}}
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="form-group col-xl-5">
-                        <label for="companySelect">{{'Department'|translate}}</label>
-                        <select class="form-control" id="companySelect" [(ngModel)]="structureAddElement.departmentId">
-                            <option *ngFor="let department of departments" [value]="department.id">{{department.name}}</option>
+                    <div class="form-group col-xl-5" *ngIf="roles.admin">
+                        <label  for="departmentSelect">{{'Department'|translate}}<span style="color:red">*</span></label>
+                        <select class="form-control" id="departmentSelect" [(ngModel)]="selectedOption" name="departmentSelect" required #department>
+                            <option *ngFor="let department of departments|keyvalue" [value]="department.key">{{department.key}}</option>
                         </select>
+                        <div *ngIf="department.invalid && (department.touched || department.dirty)"
+                             class="alert alert-danger col-sm-12">
+                            <div *ngIf="department.hasError('required')">{{'Department is required!'|translate}}</div>
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-xl-9 control-label" for="Address">{{'Address' | translate}}</label>
+                        <div class="row"><label class="col-xl-9 control-label" for="Address">{{'Address' | translate}}<span style="color:red">*</span></label></div>
                         <div class="col-xl-9 ">
                             <div id="Address" class="row">
                                 <div class="col-xl-4">
                                     <div class="input-group">
                                         <input id="City" [(ngModel)]="structureAddElement.city" name="City" type="text"
-                                               placeholder="City" class="form-control input-xl">
+                                               placeholder="{{'City'|translate}}" class="form-control input-xl"
+                                               required maxlength="20"
+                                               #city="ngModel">
+                                    </div>
+                                    <div *ngIf="city.invalid && (city.touched || city.dirty)"
+                                         class="alert alert-danger col-sm-12">
+                                        <div *ngIf="city.hasError('required')">{{'City is required'|translate}}</div>
+                                        <div *ngIf="city.hasError('maxLength')">{{'City cannot be longer than 20 characters.'|translate}}                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-xl-4">
                                     <div class="input-group">
                                         <input id="Street" [(ngModel)]="structureAddElement.street" name="Street"
                                                type="text"
-                                               placeholder="Street" class="form-control input-xl">
+                                               placeholder="{{'Street'|translate}}" class="form-control input-xl"
+                                               required maxlength="20"
+                                               #street="ngModel">
+                                    </div>
+                                    <div *ngIf="street.invalid && (street.touched || street.dirty)"
+                                         class="alert alert-danger col-sm-12">
+                                        <div *ngIf="street.hasError('required')">{{'Street is required'|translate}}
+                                        </div>
+                                        <div *ngIf="street.hasError('maxLength')">{{'Street cannot be longer than 20 characters.'|translate}}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <br>
                             <div class="row">
-                                <div class="col-xl-2">
+                                <div class="col-xl-3">
                                     <div class="input-group">
-                                        <input id="houseNumber" [(ngModel)]="structureAddElement.buildingNumber"
-                                               name="houseNumber" type="text" placeholder="houseNumber"
-                                               class="form-control input-xl">
+                                        <input id="buildingNumber" [(ngModel)]="structureAddElement.buildingNumber"
+                                               name="buildingNumber" type="number" placeholder="{{'BuildingNumber'|translate}}"
+                                               class="form-control input-xl"
+                                               min="1"
+                                               required
+                                               appNotNegative
+                                               appNotNaught
+                                               appNotRealNumber
+                                               #buildingNumber="ngModel">
+                                    </div>
+                                    <div *ngIf="buildingNumber.invalid && (buildingNumber.touched || buildingNumber.dirty)"
+                                         class="alert alert-danger col-sm-12">
+                                        <div *ngIf="buildingNumber.hasError('required')">{{'Building number is required'|translate}}
+                                        </div>
+                                        <div *ngIf="buildingNumber.hasError('naught')">{{'Building number can not be zero!'|translate}}
+                                        </div>
+                                        <div *ngIf="buildingNumber.hasError('realNumber')">{{'Building number must be positive integer!'|translate}}</div>
+                                        <div *ngIf="buildingNumber.hasError('negative')">{{'Building number can not be negative!'|translate}}
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-xl-2">
+                                <div class="col-xl-3">
                                     <div class="input-group">
                                         <input id="flatNumber" [(ngModel)]="structureAddElement.flatNumber"
-                                               name="flatNumber" type="text" placeholder="flatNumber"
-                                               class="form-control input-xl">
+                                               name="flatNumber" type="number" placeholder="{{'placeNumber'|translate}}"
+                                               class="form-control input-xl"
+                                               min="1"
+                                               appNotNegative
+                                               appNotNaught
+                                               #flat="ngModel">
                                     </div>
-                                </div>
-                                <div class="col-xl-2">
-                                    <div class="input-group">
-                                        <input id="zipCode" [(ngModel)]="structureAddElement.zipCode"
-                                               name="zipCode" type="text" placeholder="zipCode"
-                                               class="form-control input-xl">
+                                    <div *ngIf="flat.invalid && (flat.touched || flat.dirty)"
+                                         class="alert alert-danger col-sm-12">
+                                        <div *ngIf="flat.hasError('negative')">{{'Flat number cannot be negative!'|translate}}
+                                        </div>
+                                        <div *ngIf="flat.hasError('naught')">{{'Flat number can not be zero!'|translate}}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -72,7 +112,7 @@
                     </div>
                     <!-- Textarea -->
                     <div class="form-group">
-                        <label class="col-xl-7 control-label" for="Overview">Overview (max 200 words)</label>
+                        <label class="col-xl-7 control-label" for="Overview">{{'Overview'|translate}}</label>
                         <div class="col-xl-7">
                     <textarea class="form-control" [(ngModel)]="structureAddElement.description" rows="10"
                               id="Overview"
@@ -84,8 +124,7 @@
                         <div class="col-sm-4">
                             <div class="row">
                                 <div class="col-xl-6" align="center">
-                                    <a class="btn btn-success" (click)="officeAdd()"><span
-                                        class="glyphicon glyphicon-thumbs-up"></span>{{'Submit'|translate}}</a>
+                                    <button type="submit" class="btn btn-success" [disabled]="!OfficeForm.form.valid"><span class="glyphicon glyphicon-thumbs-up" ></span>{{'Submit'|translate}}</button>
                                 </div>
                                 <div class="col-xl-6" align="center">
                                     <a class="btn btn-danger" (click)="clear()"><span

@@ -2,10 +2,11 @@ package com.stachura.praca_inz.backend.controller;
 
 import com.stachura.praca_inz.backend.exception.service.ServiceException;
 import com.stachura.praca_inz.backend.model.Warehouse;
-import com.stachura.praca_inz.backend.repository.interfaces.UserRepository;
-import com.stachura.praca_inz.backend.service.UserService;
 import com.stachura.praca_inz.backend.service.WarehouseService;
-import com.stachura.praca_inz.backend.web.dto.WarehouseListElementDto;
+import com.stachura.praca_inz.backend.web.dto.warehouse.WarehouseAddDto;
+import com.stachura.praca_inz.backend.web.dto.warehouse.WarehouseEditDto;
+import com.stachura.praca_inz.backend.web.dto.warehouse.WarehouseListElementDto;
+import com.stachura.praca_inz.backend.web.dto.warehouse.WarehouseViewDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.http.HttpHeaders;
@@ -28,21 +29,28 @@ public class WarehouseController {
     @Autowired
     private WarehouseService warehouseService;
 
-    @Autowired
-    UserRepository userRepository;
 
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
-    List<WarehouseListElementDto> getAll() {
-        return warehouseService.getAllOfficeWarehouses();
+    List<WarehouseListElementDto> getAll() throws ServiceException {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        return warehouseService.getAllOfficeWarehouses(auth.getName());
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
-    Warehouse get(@PathVariable Long id) {
-        return warehouseService.getWarehouseById(id);
+    WarehouseViewDto getWarehouseToView(@PathVariable Long id) throws ServiceException {
+        return warehouseService.getWarehouseToView(id);
+    }
+
+
+    @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(value = HttpStatus.OK)
+    public @ResponseBody
+    WarehouseEditDto getWarehouseToEdit(@PathVariable Long id) throws ServiceException {
+        return warehouseService.getWarehouseToEdit(id);
     }
 
     @RequestMapping(value = "/warehouseman",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -56,17 +64,9 @@ public class WarehouseController {
     @RequestMapping(value = "/transfer-request",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
-    List<WarehouseListElementDto> getAllWarehousesForTransferRequest() {
+    List<WarehouseListElementDto> getAllWarehousesForTransferRequest() throws ServiceException {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        return warehouseService.getAllForTransferRequest(userRepository.find(auth.getName()).getOffice().getId());
-    }
-
-    @RequestMapping(value = "/shipment-request",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(value = HttpStatus.OK)
-    public @ResponseBody
-    List<WarehouseListElementDto> getAllWarehousesForShipmentRequest() {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        return warehouseService.getAllForShipmentRequest(userRepository.find(auth.getName()).getOffice().getId());
+        return warehouseService.getAllForTransferRequest(auth.getName());
     }
 
     @RequestMapping(value = "/company/{id}",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -93,23 +93,20 @@ public class WarehouseController {
 
     @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public ResponseEntity<?> create(@RequestBody Warehouse warehouse) {
+    public ResponseEntity<?> create(@RequestBody WarehouseAddDto warehouseAddDto) {
         try {
-            warehouseService.createNewWarehouse(warehouse);
+            warehouseService.createWarehouse(warehouseAddDto);
         } catch (ServiceException e) {
             e.printStackTrace();
         }
-        HttpHeaders headers = new HttpHeaders();
-        ControllerLinkBuilder linkBuilder = linkTo(methodOn(WarehouseController.class).get(warehouse.getId()));
-        headers.setLocation(linkBuilder.toUri());
-        return new ResponseEntity<>(headers, HttpStatus.CREATED);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @RequestMapping(method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public void update(@RequestBody Warehouse warehouse) {
+    public void update(@RequestBody WarehouseEditDto warehouseEditDto) {
         try {
-            warehouseService.updateWarehouse(warehouse);
+            warehouseService.updateWarehouse(warehouseEditDto);
         } catch (ServiceException e) {
             e.printStackTrace();
         }
@@ -117,7 +114,7 @@ public class WarehouseController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public void delete(@PathVariable Long id) {
+    public void delete(@PathVariable Long id) throws ServiceException {
         warehouseService.deleteWarehouseById(id);
     }
 }

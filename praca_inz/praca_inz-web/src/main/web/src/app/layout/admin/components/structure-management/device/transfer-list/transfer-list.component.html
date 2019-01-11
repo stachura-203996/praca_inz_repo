@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col-lg-10">
             <input class="form-control" #searchBox id="search-box" (keyup)="filterTransfers(searchBox.value)"
-                   placeholder="Search..." i18n-placeholder="User search placeholder"/>
+                   placeholder="{{'Search...'|translate}}"/>
         </div>
     </div>
     <br>
@@ -12,7 +12,7 @@
         <thead class="thead-inverse">
         <tr>
             <th>{{ 'Name' | translate }}</th>
-            <th>{{ 'DeviceName' | translate }}</th>
+            <th>{{ 'DeviceModelName' | translate }}</th>
             <th>{{'DeviceSerialNumber'| translate}}</th>
             <th>{{ 'Date' | translate }}</th>
             <th>{{'Sender'| translate}}</th>
@@ -23,7 +23,7 @@
         <tbody>
         <tr *ngFor="let transfer of transfers">
             <td>{{transfer.title}}</td>
-            <td>{{transfer.deviceName}}</td>
+            <td>{{transfer.deviceModelName}}</td>
             <td>{{transfer.deviceSerialNumber}}</td>
             <td>{{transfer.date}}</td>
             <td>{{transfer.senderWarehouseName}}</td>

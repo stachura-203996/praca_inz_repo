@@ -6,8 +6,6 @@ export class RequestListElement {
     username: string;
     status: string;
     type:string
-    acceptedToSend: boolean;
-    acceptedToRecive: boolean;
     recieverWarehouseName:string;
     senderWarehouseName:string;
     createDate:string;
@@ -45,14 +43,6 @@ export class DeliveryRequestAddElement {
     deviceModel:number;
 }
 
-export class ShipmentRequestAddElement {
-    id: number;
-    title: string;
-    amount:string;
-    description: string;
-    deviceId:number;
-    recieverWarehouseId:number;
-}
 
 //VIEW
 

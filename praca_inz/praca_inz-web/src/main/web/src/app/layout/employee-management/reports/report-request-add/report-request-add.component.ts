@@ -55,7 +55,11 @@ export class ReportRequestAddComponent implements OnInit {
 
     reportAdd(){
         this.reportAddElement.reciever = this.recivers.get(this.request.username);
-        this.reportAddElement.title=this.request.title+" - Manager report"
+        if(this.request.status=="IN_WAREHOUSE"){
+            this.reportAddElement.title=this.request.title+" - Manager report"
+        } else{
+            this.reportAddElement.title=this.request.title+" - Warehouseman report"
+        }
         this.reportService.createReport(this.reportAddElement).subscribe(resp => {
             this.router.navigateByUrl('/employees/reports');
         });

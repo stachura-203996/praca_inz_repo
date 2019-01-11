@@ -24,12 +24,10 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-
-
     @RequestMapping(value = "/profile", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
-    ProfileInfoDto getProfileInfo() {
+    ProfileInfoDto getProfileInfo() throws ServiceException {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         return userService.getProfile(auth.getName());
     }
@@ -37,14 +35,14 @@ public class UserController {
     @RequestMapping(value = "/view/{username}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
-    UserInfoDto getUserInfo(@PathVariable String username) {
+    UserInfoDto getUserInfo(@PathVariable String username) throws ServiceException {
         return userService.getUserInfo(username);
     }
 
     @RequestMapping(value = "/logged", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
-    LoggedUserDto getLoggedUserInfo() {
+    LoggedUserDto getLoggedUserInfo() throws ServiceException {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         return userService.getLoggedUser(auth.getName());
     }
@@ -52,7 +50,7 @@ public class UserController {
     @RequestMapping(value = "/logged/roles", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
-    UserRolesDto getLoggedUserRoles() {
+    UserRolesDto getLoggedUserRoles() throws ServiceException {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         return userService.getLoggedUserRoles(auth.getName());
     }
@@ -68,7 +66,7 @@ public class UserController {
     @RequestMapping(value = "/company/admin", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
-    List<UserListElementDto> getAllForCompanyAdmin() {
+    List<UserListElementDto> getAllForCompanyAdmin() throws ServiceException {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         return userService.getAllUsersForCompanyAdmin(auth.getName());
     }
@@ -76,13 +74,18 @@ public class UserController {
     @RequestMapping(value = "/subordinates", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
-    List<UserListElementDto> getAllForManager() {
+    List<UserListElementDto> getAllForManager() throws ServiceException {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         return userService.getAllUsersForManager(auth.getName());
     }
 
-
-
+    @RequestMapping(value = "/warehousemen/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(value = HttpStatus.OK)
+    public @ResponseBody
+    List<UserListElementDto> getAllWarehousemen(@PathVariable Long id) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        return userService.getAllWarehousemen(id);
+    }
 
     @RequestMapping(method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
@@ -93,12 +96,4 @@ public class UserController {
             e.printStackTrace();
         }
     }
-
-
-    //    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
-//    @ResponseStatus(value = HttpStatus.OK)
-//    public void deleteCompanyById(@PathVariable Long id) {
-//        userService.deleteCompanyById(id);
-//    }
-
 }

@@ -7,7 +7,6 @@ import {
     StructureEditElement,
     StructureListElement, StructureViewElement
 } from "../../../../../models/structure-elements";
-import {DepartmentEditComponent} from "./department-edit/department-edit.component";
 
 @Injectable({
   providedIn: 'root'
@@ -38,7 +37,7 @@ export class DepartmentService {
 
 
     getDepartmentEdit(id:string): Observable<StructureEditElement>{
-        return this.httpService.get<StructureEditElement>(this.departmentPath+'/'+id);
+        return this.httpService.get<StructureEditElement>(this.departmentPath+'/edit/'+id);
     }
 
     getDepartmentView(id:string): Observable<StructureViewElement>{

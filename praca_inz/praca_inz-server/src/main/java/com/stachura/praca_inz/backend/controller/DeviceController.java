@@ -29,8 +29,9 @@ public class DeviceController {
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
-    List<DeviceListElementDto> getAll() {
-        return deviceService.getAllDevices();
+    List<DeviceListElementDto> getAll() throws ServiceException {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        return deviceService.getAllDevices(auth.getName());
     }
 
     @RequestMapping(value = "/company/{id}",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -95,29 +96,26 @@ public class DeviceController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
-    Device get(@PathVariable Long id) {
+    Device get(@PathVariable Long id) throws ServiceException {
         return deviceService.getDeviceById(id);
     }
 
     @RequestMapping(value = "/parameters/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
-    Device getParameters(@PathVariable Long id) {
+    Device getParameters(@PathVariable Long id) throws ServiceException {
         return deviceService.getDeviceById(id);
     }
 
     @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public ResponseEntity<?> create(@RequestBody Device device) {
+    public ResponseEntity<?> create(@RequestBody Device device) throws ServiceException {
         try {
             deviceService.createNewDevice(device);
         } catch (ServiceException e) {
             e.printStackTrace();
         }
-        HttpHeaders headers = new HttpHeaders();
-        ControllerLinkBuilder linkBuilder = linkTo(methodOn(DeviceController.class).get(device.getId()));
-        headers.setLocation(linkBuilder.toUri());
-        return new ResponseEntity<>(headers, HttpStatus.CREATED);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @RequestMapping(method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -132,7 +130,7 @@ public class DeviceController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public void delete(@PathVariable Long id) {
+    public void delete(@PathVariable Long id) throws ServiceException {
         deviceService.deleteDeviceById(id);
     }
 }

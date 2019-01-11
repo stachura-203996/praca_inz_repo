@@ -4,6 +4,6 @@ export class TransferListElement {
     date: string;
     senderWarehouseName: string;
     recieverWarehouseName:string;
-    deviceName:string;
+    deviceModelName:string;
     deviceSerialNumber:string;
 }

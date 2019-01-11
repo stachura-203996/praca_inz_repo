@@ -9,11 +9,12 @@ export class AuthGuard {
 
     canActivate() {
 
-        if(this.service.checkCredentials()){
+        this.service.checkToken();
+        if (localStorage.getItem('isLoggedin')) {
             return true;
-        }else {
-             this.router.navigate(['/login']);
-            return false;
         }
+
+        this.router.navigate(['/login']);
+        return false;
     }
 }

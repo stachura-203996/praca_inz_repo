@@ -18,7 +18,8 @@ export class OfficeEditComponent implements OnInit {
 
     structureEditElement: StructureEditElement;
 
-    departments: StructureListElement[];
+    departments = new Map<string, number>();
+    selectedOption: string;
     roles: UserRoles;
 
     constructor(
@@ -44,13 +45,20 @@ export class OfficeEditComponent implements OnInit {
     getLoggedUserRoles() {
         this.userService.getLoggedUserRoles().subscribe(x => this.roles = x);
     }
+
     getDepartments() {
-        this.departmentService.getAll().subscribe(departmentListElement => {
-            this.departments = departmentListElement
+        this.departmentService.getAll().subscribe((response: StructureListElement[]) => {
+            this.departments = response.reduce(function (departmentMap, department) {
+                if (department.id) {
+                    departmentMap.set(department.name + " | " + department.companyName, department.id)
+                }
+                return departmentMap;
+            }, this.departments);
         });
     }
 
     officeUpdate() {
+        this.structureEditElement.parentId = this.departments.get(this.selectedOption);
         this.officeService.updateOffice(this.structureEditElement).subscribe(resp => {
             this.router.navigateByUrl('/admin/offices');
         });

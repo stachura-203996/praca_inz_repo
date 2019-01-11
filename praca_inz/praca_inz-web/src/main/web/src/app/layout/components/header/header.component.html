@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg fixed-top">
-    <a class="navbar-brand" href="#">Inventory system </a>
+    <a class="navbar-brand" href="/page">Inventory system </a>
     <button class="navbar-toggler" type="button" (click)="toggleSidebar()">
         <i class="fa fa-bars text-muted" aria-hidden="true"></i>
     </button>
@@ -30,10 +30,10 @@
                     <i class="fa fa-tasks"></i> <b class="caret"></b><span class="sr-only">(current)</span>
                 </a>
                 <div class="dropdown-menu-right" ngbDropdownMenu>
-                    <a href="/employees/reports" class="dropdown-item">
+                    <a [routerLink]="['/employees/reports']" class="dropdown-item">
                         {{ 'Reports' | translate }}
                     </a>
-                    <a href="/employees/requests" class="dropdown-item">
+                    <a [routerLink]="['/employees/requests']" class="dropdown-item">
                         {{ 'Requests' | translate }}
                     </a>
                 </div>

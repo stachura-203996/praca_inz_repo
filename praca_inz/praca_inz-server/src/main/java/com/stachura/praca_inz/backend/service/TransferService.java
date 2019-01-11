@@ -9,18 +9,17 @@ import java.util.List;
 
 public interface TransferService {
 
-    Transfer getTransferById(Long id);
+    Transfer getTransferById(Long id) throws ServiceException;
 
-    //    Transfer getTransferByName(String name);
     List<TransferListElementDto> getAllTransfersForLoggedUser(String username);
 
-    List<TransferListElementDto> getAllTransfers();
+    List<TransferListElementDto> getAllTransfers(String username) throws ServiceException;
 
     void createNewTransfer(Transfer transfer) throws ServiceException;
 
     void updateTransfer(Transfer transfer) throws ServiceException;
 
-    void deleteTransferById(Long id);
+    void deleteTransferById(Long id) throws ServiceException;
 
-    void deleteTransfer(Transfer transfer);
+    void deleteTransfer(Transfer transfer) throws ServiceException;
 }

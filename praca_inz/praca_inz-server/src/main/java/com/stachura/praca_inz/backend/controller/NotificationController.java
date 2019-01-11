@@ -33,23 +33,10 @@ public class NotificationController {
     @Autowired
     private EmailService emailService;
 
-    /**
-     * Metoda zwracająca obiekt typu {@link List<NotificationListElementDto>} składający się z aktualnie dostępnych benefitów na wymiane
-     *
-     * @return lista dostepnych benefitów
-     */
     @RequestMapping(value = "/user", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
     List<NotificationListElementDto> getUnreadedAllDevicesForLoggedUser() {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        return notificationService.getUnreadedAllNotificationsForLoggedUser(auth.getName());
-    }
-
-    @RequestMapping(value = "/user/last", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(value = HttpStatus.OK)
-    public @ResponseBody
-    List<NotificationListElementDto> getLast3UnreadedAllDevicesForLoggedUser() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         return notificationService.getUnreadedAllNotificationsForLoggedUser(auth.getName());
     }
@@ -71,16 +58,13 @@ public class NotificationController {
         } catch (ServiceException e) {
             e.printStackTrace();
         }
-        HttpHeaders headers = new HttpHeaders();
-//        ControllerLinkBuilder linkBuilder = linkTo(methodOn(OfficeController.class).getOfficeById(office.getId()));
-//        headers.setLocation(linkBuilder.toUri());
-        return new ResponseEntity<>(headers, HttpStatus.CREATED);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
 
     @RequestMapping(method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public void update(@RequestBody NotificationListElementDto notificationListElementDto) {
+    public void update(@RequestBody NotificationListElementDto notificationListElementDto) throws ServiceException {
         Notification notification= notificationService.getNotificationById(notificationListElementDto.getId());
         try {
             notificationService.updateNotification(NotificationConverter.toNotification(notificationListElementDto,notification));
@@ -91,7 +75,7 @@ public class NotificationController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public void delete(@PathVariable Long id) {
+    public void delete(@PathVariable Long id) throws ServiceException {
         notificationService.deleteNotificationById(id);
     }
 }

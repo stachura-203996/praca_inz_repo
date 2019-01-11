@@ -1,3 +1,55 @@
-<p>
-  system-message-add works!
-</p>
+<div class="row">
+    <div class="col-lg-12 ">
+        <form class="form-horizontal" #CompanyForm="ngForm" (ngSubmit)="messageAdd()">
+            <fieldset>
+                <h1>{{'CreateSystemMessage'|translate}}</h1>
+                <div class="form-group">
+                    <div class="form-group">
+                        <label class="col-xl-5 control-label" for="Title">{{'Title' | translate}}<span style="color:red">*</span></label>
+                        <div class="col-xl-5">
+                            <div class="input-group">
+                                <input id="Title" [(ngModel)]="systemMessageAddElement.title" name="Title" type="text"
+                                       placeholder="{{'ElementName'|translate}}" class="form-control input-xl" #title="ngModel" required>
+                            </div>
+                            <div *ngIf="title.invalid && (title.touched || title.dirty)"
+                                 class="alert alert-danger col-sm-12">
+                                <div *ngIf="title.hasError('required')">
+                                    {{'ElementName is required!'|translate}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Textarea -->
+                    <div class="form-group">
+                        <label class="col-xl-7 control-label" for="Message">{{'Message'|translate}}<span style="color:red">*</span></label>
+                        <div class="col-xl-7">
+                    <textarea class="form-control" [(ngModel)]="systemMessageAddElement.message" rows="10"
+                              id="Message"
+                              name="Message" #message="ngModel" required>{{'Message'|translate}}</textarea>
+                        </div>
+                        <div *ngIf="message.invalid && (message.touched || message.dirty)"
+                             class="alert alert-danger col-sm-12">
+                            <div *ngIf="message.hasError('required')">
+                                {{'Message is required!'|translate}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-4">
+                            <div class="row">
+                                <div class="col-xl-6" align="center">
+                                    <button type="submit" class="btn btn-success" [disabled]="!CompanyForm.form.valid"><span class="glyphicon glyphicon-thumbs-up" ></span>{{'Submit'|translate}}</button>
+                                </div>
+                                <div class="col-xl-6" align="center">
+                                    <a class="btn btn-danger" (click)="clear()"><span class="glyphicon glyphicon-remove-sign" ></span>{{'Clear'|translate}}</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>
+

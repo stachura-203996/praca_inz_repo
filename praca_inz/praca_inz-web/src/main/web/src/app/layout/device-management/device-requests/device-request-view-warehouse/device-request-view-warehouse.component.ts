@@ -8,6 +8,7 @@ import {RequestService} from "../../../employee-management/request.service";
 import {Configuration} from "../../../../app.constants";
 import {UserService} from "../../../admin/components/administration/user-management/user.service";
 import {DeviceService} from "../../device.service";
+import {FormControl} from "@angular/forms";
 
 @Component({
   selector: 'app-device-request-view-warehouse',
@@ -16,6 +17,8 @@ import {DeviceService} from "../../device.service";
 })
 export class DeviceRequestViewWarehouseComponent implements OnInit {
 
+
+    form = new FormControl();
     request: RequestViewElement;
     changeRequestStatusElement:ChangeRequestStatusElement=new ChangeRequestStatusElement();
     roles:UserRoles;

@@ -1,10 +1,11 @@
 package com.stachura.praca_inz.backend.service.impl;
 
+import com.google.common.collect.Lists;
 import com.stachura.praca_inz.backend.exception.repository.DatabaseErrorException;
 import com.stachura.praca_inz.backend.exception.repository.EntityException;
 import com.stachura.praca_inz.backend.exception.service.ServiceException;
 import com.stachura.praca_inz.backend.model.Notification;
-import com.stachura.praca_inz.backend.repository.interfaces.NotificationRepository;
+import com.stachura.praca_inz.backend.repository.NotificationRepository;
 import com.stachura.praca_inz.backend.service.EmailService;
 import com.stachura.praca_inz.backend.service.NotificationService;
 import com.stachura.praca_inz.backend.web.dto.NotificationListElementDto;
@@ -37,8 +38,8 @@ public class NotificationServiceImpl implements NotificationService {
     @Override
     @Transactional(readOnly = true)
     @PreAuthorize("hasAuthority('NOTIFICATION_READ')")
-    public Notification getNotificationById(Long id) {
-        Notification notification = notificationRepository.find(id);
+    public Notification getNotificationById(Long id) throws ServiceException {
+        Notification notification = notificationRepository.findById(id).orElseThrow(() -> new ServiceException());
         if (notification.isDeleted()) {
             return null;
         }
@@ -49,7 +50,7 @@ public class NotificationServiceImpl implements NotificationService {
     @Transactional(readOnly = true)
     @PreAuthorize("hasAuthority('NOTIFICATION_READ')")
     public List<NotificationListElementDto> getUnreadedAllNotificationsForLoggedUser(String username) {
-        List<Notification> notifications = notificationRepository.findAll().stream().filter(x -> x.getUser().getUsername().equals(username) && !x.isReaded()).sorted(Comparator.comparing(Notification::getCalendarTimestamp).reversed()).collect(Collectors.toList());
+        List<Notification> notifications = Lists.newArrayList(notificationRepository.findAll()).stream().filter(x -> x.getUser().getUsername().equals(username) && !x.isReaded()).sorted(Comparator.comparing(Notification::getCalendarTimestamp).reversed()).collect(Collectors.toList());
         List<NotificationListElementDto> notificationListElementDtos = new ArrayList<>();
         for (Notification a : notifications) {
             if (!a.isDeleted()) {
@@ -60,28 +61,12 @@ public class NotificationServiceImpl implements NotificationService {
         return notificationListElementDtos;
     }
 
-    @Override
-    @Transactional(readOnly = true)
-    @PreAuthorize("hasAuthority('NOTIFICATION_READ')")
-    public List<NotificationListElementDto> getLast3UnreadedAllNotificationsForLoggedUser(String username) {
-        List<Notification> notifications = notificationRepository.findAll().stream().filter(x -> x.getUser().getUsername().equals(username) && !x.isReaded()).sorted(Comparator.comparing(Notification::getCalendarTimestamp).reversed()).collect(Collectors.toList());
-        List<NotificationListElementDto> notificationListElementDtos = new ArrayList<>();
-        int i=0;
-        for (Notification a : notifications) {
-            if (!a.isDeleted()&& i<3) {
-                Hibernate.initialize(a.getUser());
-                notificationListElementDtos.add(NotificationConverter.toNotificationListElementDto(a));
-                i++;
-            }
-        }
-        return notificationListElementDtos;
-    }
 
     @Override
     @Transactional(readOnly = true)
     @PreAuthorize("hasAuthority('NOTIFICATION_READ')")
     public List<NotificationListElementDto> getReadedAllNotificationsForLoggedUser(String username) {
-        List<Notification> notifications = notificationRepository.findAll().stream().filter(x -> x.getUser().getUsername().equals(username)&&x.isReaded()).sorted(Comparator.comparing(Notification::getCalendarTimestamp).reversed()).collect(Collectors.toList());
+        List<Notification> notifications = Lists.newArrayList(notificationRepository.findAll()).stream().filter(x -> x.getUser().getUsername().equals(username)&&x.isReaded()).sorted(Comparator.comparing(Notification::getCalendarTimestamp).reversed()).collect(Collectors.toList());
         List<NotificationListElementDto> notificationListElementDtos = new ArrayList<>();
         for (Notification a : notifications) {
             if (!a.isDeleted()) {
@@ -95,7 +80,7 @@ public class NotificationServiceImpl implements NotificationService {
     @Transactional(readOnly = true)
     @PreAuthorize("hasAuthority('NOTIFICATION_USER_LIST_READ')")
     public List<NotificationListElementDto> getAllNotifications() {
-        List<Notification> notifications = notificationRepository.findAll().stream().sorted(Comparator.comparing(Notification::getCalendarTimestamp).reversed()).collect(Collectors.toList());
+        List<Notification> notifications =Lists.newArrayList(notificationRepository.findAll()).stream().sorted(Comparator.comparing(Notification::getCalendarTimestamp).reversed()).collect(Collectors.toList());
         List<NotificationListElementDto> notificationListElementDtos = new ArrayList<>();
         for (Notification a : notifications) {
             if (!a.isDeleted()) {
@@ -109,36 +94,24 @@ public class NotificationServiceImpl implements NotificationService {
     @Transactional
     @PreAuthorize("hasAuthority('NOTIFICATION_CREATE')")
     public void createNewNotification(Notification notification)throws ServiceException {
-        try {
-            notificationRepository.create(notification);
+            notificationRepository.save(notification);
             String link = "<a href=\"http://localhost:"+ port +notification.getUrl()+"\">Click</a>";
             String description=notification.getDescription()+"<br>"+link;
             emailService.sendMessageWithLink(notification.getUser().getUserdata().getEmail(),notification.getTitle(),description);
-        } catch (DatabaseErrorException e) {
-            throw e;
-        } catch (EntityException e) {
-            throw ServiceException.createServiceException(ServiceException.ENTITY_VALIDATION, e);
-        }
     }
 
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('NOTIFICATION_UPDATE')")
     public void updateNotification(Notification notification) throws ServiceException {
-        notificationRepository.update(notification);
+        notificationRepository.save(notification);
     }
 
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('NOTIFICATION_DELETE')")
-    public void deleteNotificationById(Long id) {
-        notificationRepository.find(id).setDeleted(true);
+    public void deleteNotificationById(Long id) throws ServiceException {
+        notificationRepository.findById(id).orElseThrow(() -> new ServiceException()).setDeleted(true);
     }
 
-    @Override
-    @Transactional
-    @PreAuthorize("hasAuthority('NOTIFICATION_DELETE')")
-    public void deleteNotification(Notification notification) {
-        notificationRepository.find(notification.getId()).setDeleted(true);
-    }
 }

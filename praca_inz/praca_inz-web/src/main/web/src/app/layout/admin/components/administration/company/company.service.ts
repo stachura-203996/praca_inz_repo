@@ -23,12 +23,12 @@ export class CompanyService {
         return this.httpService.get<StructureListElement[]>(this.companyPath);
     }
 
-    getCompany(id:string){
+    getCompany(id:string):Observable<StructureViewElement>{
         return this.httpService.get<StructureViewElement>(this.companyPath+'/'+id);
     }
 
     getCompanyEdit(id:string): Observable<StructureEditElement>{
-        return this.httpService.get<StructureEditElement>(this.companyPath+'/'+id);
+        return this.httpService.get<StructureEditElement>(this.companyPath+'/edit/'+id);
     }
 
     createCompany(data: StructureAddElement): Observable<any>  {

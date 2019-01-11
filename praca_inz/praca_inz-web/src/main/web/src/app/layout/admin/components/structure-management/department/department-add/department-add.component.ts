@@ -22,7 +22,6 @@ export class DepartmentAddComponent implements OnInit {
     companies = new Map<string, number>();
 
     selectedOption: string;
-    id: number;
     roles: UserRoles;
     currentUser: LoggedUser;
 

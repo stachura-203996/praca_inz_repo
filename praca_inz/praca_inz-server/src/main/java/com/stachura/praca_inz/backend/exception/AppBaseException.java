@@ -6,8 +6,8 @@ import org.springframework.transaction.annotation.Transactional;
 /**
  * Klasa reprezentująca bazowy wyjątek aplikacyjny
  */
-//TODO tu jakaś adnotacja ma byc ale jeszcze nie wiem ApplicationException
-//@Transactional(rollback = true)
+
+@Transactional/*(rollbackFor= true)*/
 public class AppBaseException extends Exception {
 
     protected AppBaseException() {

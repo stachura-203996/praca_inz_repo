@@ -13,7 +13,7 @@ public class TransferConverter {
                 .date(transfer.getTransferDate().getTime().toString())
                 .senderWarehouseName(transfer.getSenderWarehouse().getName())
                 .recieverWarehouseName(transfer.getRecieverWarehouse().getName())
-                .deviceName(transfer.getDevice().getName())
+                .deviceModelName(transfer.getDevice().getDeviceModel().getName())
                 .deviceSerialNumber(transfer.getDevice().getSerialNumber())
                 .build();
     }

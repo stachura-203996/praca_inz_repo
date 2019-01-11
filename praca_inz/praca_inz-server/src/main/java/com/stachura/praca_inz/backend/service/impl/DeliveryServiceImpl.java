@@ -1,13 +1,14 @@
 package com.stachura.praca_inz.backend.service.impl;
 
+import com.google.common.collect.Lists;
 import com.stachura.praca_inz.backend.Constants;
 import com.stachura.praca_inz.backend.exception.repository.DatabaseErrorException;
 import com.stachura.praca_inz.backend.exception.repository.EntityException;
 import com.stachura.praca_inz.backend.exception.service.ServiceException;
 import com.stachura.praca_inz.backend.model.Delivery;
 import com.stachura.praca_inz.backend.model.security.User;
-import com.stachura.praca_inz.backend.repository.interfaces.DeliveryRepository;
-import com.stachura.praca_inz.backend.repository.interfaces.UserRepository;
+import com.stachura.praca_inz.backend.repository.DeliveryRepository;
+import com.stachura.praca_inz.backend.repository.UserRepository;
 import com.stachura.praca_inz.backend.service.DeliveryService;
 import com.stachura.praca_inz.backend.web.dto.DeliveryListElementDto;
 import com.stachura.praca_inz.backend.web.dto.converter.DeliveryConverter;
@@ -32,8 +33,8 @@ public class DeliveryServiceImpl implements DeliveryService {
     @Override
     @Transactional(readOnly = true)
     @PreAuthorize("hasAuthority('DELIVERY_READ')")
-    public Delivery getDeliveryById(Long id) {
-        Delivery delivery = deliveryRepository.find(id);
+    public Delivery getDeliveryById(Long id) throws ServiceException {
+        Delivery delivery = deliveryRepository.findById(id).orElseThrow(() -> new ServiceException());
         if (delivery.isDeleted()) {
             return null;
         }
@@ -43,13 +44,13 @@ public class DeliveryServiceImpl implements DeliveryService {
     @Override
     @Transactional(readOnly = true)
     @PreAuthorize("hasAuthority('DELIVERY_LIST_READ')")
-    public List<DeliveryListElementDto> getAllDeliveries(String username) {
+    public List<DeliveryListElementDto> getAllDeliveries(String username) throws ServiceException {
         List<Delivery> deliveries;
-        User user=userRepository.find(username);
+        User user=userRepository.findByUsername(username).orElseThrow(() -> new ServiceException());
         if (user.getUserRoles().stream().anyMatch(x->x.getName().equals(Constants.ADMIN_ROLE))) {
-            deliveries = deliveryRepository.findAll();
+            deliveries = Lists.newArrayList(deliveryRepository.findAll());
         } else {
-            deliveries = deliveryRepository.findAll().stream().filter(x->x.getSenderWarehouse().getOffice().getDepartment().getCompany()
+            deliveries = Lists.newArrayList(deliveryRepository.findAll()).stream().filter(x->x.getSenderWarehouse().getOffice().getDepartment().getCompany()
                     .getId().equals(user.getOffice().getDepartment().getCompany().getId())).collect(Collectors.toList());
         }
         List<DeliveryListElementDto> companiesDto = new ArrayList<>();
@@ -64,8 +65,9 @@ public class DeliveryServiceImpl implements DeliveryService {
     @Override
     @Transactional(readOnly = true)
     @PreAuthorize("hasAuthority('DELIVERY_LIST_READ')")
-    public List<DeliveryListElementDto> getAllDeliveriesForWarehouseman(Long id) {
-        List<Delivery> deliveries = deliveryRepository.findAll().stream().filter(x -> x.getSenderWarehouse().getUser().getId().equals(id)).collect(Collectors.toList());
+    public List<DeliveryListElementDto> getAllDeliveriesForWarehouseman(String username) throws ServiceException {
+        Long id=userRepository.findByUsername(username).orElseThrow(() -> new ServiceException()).getId();
+        List<Delivery> deliveries = Lists.newArrayList(deliveryRepository.findAll()).stream().filter(x -> x.getSenderWarehouse().getUser().getId().equals(id)).collect(Collectors.toList());
         List<DeliveryListElementDto> companiesDto = new ArrayList<>();
         for (Delivery a : deliveries) {
             if (!a.isDeleted()) {
@@ -79,37 +81,23 @@ public class DeliveryServiceImpl implements DeliveryService {
     @Transactional
     @PreAuthorize("hasAuthority('DELIVERY_CREATE')")
     public void createNewDelivery(Delivery delivery) throws ServiceException {
-        try {
-            deliveryRepository.create(delivery);
-
-        } catch (DatabaseErrorException e) {
-            throw e;
-        } catch (EntityException e) {
-            throw ServiceException.createServiceException(ServiceException.ENTITY_VALIDATION, e);
-        }
-
+            deliveryRepository.save(delivery);
     }
 
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('DELIVERY_UPDATE')")
     public void updateDelivery(Delivery delivery) throws ServiceException {
-        deliveryRepository.update(delivery);
+        deliveryRepository.save(delivery);
     }
 
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('DELIVERY_DELETE')")
-    public void deleteDeliveryById(Long id) {
-        deliveryRepository.find(id).setDeleted(true);
+    public void deleteDeliveryById(Long id) throws ServiceException {
+        deliveryRepository.findById(id).orElseThrow(() -> new ServiceException()).setDeleted(true);
     }
 
-    @Override
-    @Transactional
-    @PreAuthorize("hasAuthority('DELIVERY_DELETE')")
-    public void deleteDelivery(Delivery delivery) {
-        deliveryRepository.find(delivery.getId()).setDeleted(true);
-    }
 
 
 }

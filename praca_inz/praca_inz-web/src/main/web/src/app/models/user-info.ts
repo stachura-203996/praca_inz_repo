@@ -8,7 +8,6 @@ export class UserInfo {
     departmentId:number;
     office: string;
     officeId:number;
-    middlename: string;
     name: string;
     surname: string;
     city: string;
@@ -16,7 +15,7 @@ export class UserInfo {
     street: string;
     houseNumber: string;
     flatNumber: string;
-    zipCode: string;
     dateOfJoining: string;
     roles: string[];
+    workplace:string;
 }

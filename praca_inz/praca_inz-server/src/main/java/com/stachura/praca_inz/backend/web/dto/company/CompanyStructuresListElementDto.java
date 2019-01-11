@@ -18,7 +18,6 @@ public class CompanyStructuresListElementDto {
     private String street;
     private String buildingNumber;
     private String flatNumber;
-    private String zipCode;
     private String companyName;
     private String departmentName;
 

@@ -1,3 +1,43 @@
-<p>
-  system-message-list works!
-</p>
+<div class="col-md-12" *ngIf="systemMessages">
+    <h1>{{ 'SystemMessages' | translate }}</h1>
+
+    <div class="row">
+        <div class="col-lg-10">
+            <input class="form-control" #searchBox id="search-box" (keyup)="filterMessages(searchBox.value)"
+                   placeholder="{{'Search...'|translate}}"/>
+        </div>
+        <div class="col-lg-2">
+            <button class="btn btn-primary float-right jh-create-entity" [routerLink]="['./add']">
+                <i class="fa fa-plus"></i>&nbsp;
+                <span>{{ 'CreateSystemMessage' | translate }}</span>
+            </button>
+        </div>
+    </div>
+    <br>
+    <table class="table table-striped" align="center">
+        <thead class="thead-inverse">
+        <tr>
+            <th>{{ 'Title' | translate }}</th>
+            <th>{{ 'Message' | translate }}</th>
+            <th>{{ 'Date' | translate }}</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let message of systemMessages">
+            <td>{{message.title}}</td>
+            <td id="description">{{message.message}}</td>
+            <td>{{message.messageDate}}</td>
+            <td class="text-right">
+                <div class="btn-group flex-btn-group-container">
+                    <button type="button" (click)="delete(message)"
+                            class="btn btn-danger btn-sm">
+                        <i class="fa fa-times"></i>&nbsp;
+                        <span class="d-none d-md-inline">{{'Delete'|translate}}</span>
+                    </button>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
