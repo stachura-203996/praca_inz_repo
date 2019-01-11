@@ -19,5 +19,6 @@ public class DeviceListElementDto {
     String lastUpdate;
     String location;
     String status;
-
+    String userName;
+    String userSurname;
 }

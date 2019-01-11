@@ -7,7 +7,6 @@ import lombok.*;
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 public class DeviceAddDto {
-    private Long id ;
     private Long companyId;
     private Long warehouseId;
     private String serialNumber;

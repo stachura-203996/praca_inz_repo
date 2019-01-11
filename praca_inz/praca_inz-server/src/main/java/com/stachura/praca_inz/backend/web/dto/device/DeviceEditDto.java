@@ -7,7 +7,7 @@ import lombok.*;
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 public class DeviceEditDto {
-    private Long id ;
+    private Long id;
     private long version;
     private Long companyId;
     private Long warehouseId;

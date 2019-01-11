@@ -21,11 +21,19 @@ export class DepartmentEditComponent implements OnInit {
 
     companies = new Map<string, number>();
 
-    selectedOption: string;
+    revertCompanies=new Map<number,string>();
+
+    selectedOption: string=this.revertCompanies.get(this.structureEditElement.parentId);
     roles: UserRoles;
     currentUser: LoggedUser;
 
-    constructor(private route: ActivatedRoute,private userService:UserService,private companyService: CompanyService,private translate:TranslateService, private departmentService: DepartmentService, private router: Router) {
+    constructor(
+        private route: ActivatedRoute,
+        private userService:UserService,
+        private companyService: CompanyService,
+        private translate:TranslateService,
+        private departmentService: DepartmentService,
+        private router: Router) {
     }
 
     ngOnInit() {
@@ -33,6 +41,7 @@ export class DepartmentEditComponent implements OnInit {
         this.getDepartment();
         this.getCompanies();
         this.getLoggedUser();
+        this.getRevertCompanies();
 
     }
 
@@ -49,6 +58,17 @@ export class DepartmentEditComponent implements OnInit {
                 }
                 return companyMap;
             }, this.companies);
+        });
+    }
+
+    getRevertCompanies() {
+        this.companyService.getAll().subscribe((response: StructureListElement[]) => {
+            this.revertCompanies = response.reduce(function (companyMap, company) {
+                if (company.id) {
+                    companyMap.set(company.id, company.name)
+                }
+                return companyMap;
+            }, this.revertCompanies);
         });
     }
 

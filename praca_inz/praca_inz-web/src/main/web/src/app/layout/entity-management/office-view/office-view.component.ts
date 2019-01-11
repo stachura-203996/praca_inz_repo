@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
-import {CompanyService} from "../../admin/components/administration/company/company.service";
 import {DepartmentService} from "../../admin/components/structure-management/department/department.service";
 import {OfficeService} from "../../admin/components/structure-management/office/office.service";
 import {SessionContextService} from "../../../shared/services/session-context.service";
@@ -66,11 +65,11 @@ export class OfficeViewComponent implements OnInit {
         });
     }
 
-    getAddressStructure(structure:StructureListElement): string {
-        if (structure.flatNumber == null || structure.flatNumber === "0") {
-            return (structure.street + ' ' + structure.buildingNumber);
+    getAddress(): string {
+        if (this.office.flatNumber == null || this.office.flatNumber === "0") {
+            return (this.office.street + ' ' + this.office.buildingNumber);
         } else {
-            return (structure.street + ' ' + structure.buildingNumber + ' / ' + structure.flatNumber);
+            return (this.office.street + ' ' + this.office.buildingNumber + ' / ' + this.office.flatNumber);
         }
     }
 

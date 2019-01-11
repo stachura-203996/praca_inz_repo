@@ -5,10 +5,11 @@ import {Observable} from "rxjs";
 import {TransferListElement} from "../../models/transfer-list-element";
 import {StructureAddElement, StructureEditElement, StructureViewElement} from "../../models/structure-elements";
 import {
+    DeviceAddElement,
     DeviceEditElement,
     DeviceListElement,
     DeviceModelListElement, DeviceModelViewElement,
-    DeviceTypeListElement,
+    DeviceTypeListElement, DeviceViewElement,
     ParameterListElement
 } from "../../models/device-elements";
 
@@ -27,7 +28,11 @@ export class DeviceService {
     //Devices
 
     getDevice(id: string) {
-        return this.httpService.get<StructureViewElement>(this.devicePath + '/' + id);
+        return this.httpService.get<DeviceViewElement>(this.devicePath + '/' + id);
+    }
+
+    getDeviceEdit(id: string) {
+        return this.httpService.get<DeviceEditElement>(this.devicePath + '/edit/' + id);
     }
 
     getAllDevices(): Observable<DeviceListElement[]> {
@@ -70,6 +75,9 @@ export class DeviceService {
         return this.httpService.delete<any>(this.devicePath+'/'+id);
     }
 
+    createDevice(data:DeviceAddElement): Observable<any>{
+        return this.httpService.post<DeviceAddElement>(this.devicePath,data);
+    }
 
     //Device Models
 

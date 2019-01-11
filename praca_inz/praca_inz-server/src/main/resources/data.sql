@@ -292,13 +292,13 @@ INSERT INTO public.device_model (id, cost, deleted, manufacture, name, version, 
 INSERT INTO public.device_model (id, cost, deleted, manufacture, name, version, company_id, device_type_id) VALUES (1, 2, false, 'pol', 'COMPUTER', 0, 1, 1);
 
 
-INSERT INTO public.device (id, deleted, last_update,  serial_number, status, version, company_id, device_model_id, warehouse_id) VALUES (2, false, '2011-03-12 12:00:00.000000', 'XYZ11ABC', 'REPOSE', 0, 1, 1, 1);
-INSERT INTO public.device (id, deleted, last_update,  serial_number, status, version, company_id, device_model_id, warehouse_id) VALUES (1, false, '2018-03-12 12:00:00.000000', 'xcxcxer43', 'REPOSE', 0, 1, 1, 1);
-INSERT INTO public.device (id, deleted, last_update, serial_number, status, version, company_id, device_model_id, warehouse_id) VALUES (3, false, '2011-03-12 12:30:00.000000', 'cxxcxc', 'REPOSE', 0, 1, 1, 1);
-INSERT INTO public.device (id, deleted, last_update,  serial_number, status, version, company_id, device_model_id, warehouse_id) VALUES (4, false, '2011-03-12 12:00:00.000000', 'sdc3434xc', 'REPOSE', 0, 1, 1, 1);
-INSERT INTO public.device (id, deleted, last_update,  serial_number, status, version, company_id, device_model_id, warehouse_id) VALUES (5, false, '2011-03-12 12:00:00.000000', '544343543', 'REPOSE', 0, 1, 1, 2);
-INSERT INTO public.device (id, deleted, last_update,  serial_number, status, version, company_id, device_model_id, warehouse_id) VALUES (6, false, '2011-03-12 12:30:00.000000', '555nnm', 'REPOSE', 0, 1, 1, 2);
-INSERT INTO public.device (id, deleted, last_update,  serial_number, status, version, company_id, device_model_id, warehouse_id) VALUES (7, false, '2018-03-12 12:00:00.000000', 'kndvdfdfd', 'REPOSE', 0, 1, 1, 2);
+INSERT INTO public.device (id, deleted, last_update,  serial_number, status, version, company_id, device_model_id, warehouse_id,CREATE_DATE) VALUES (2, false, '2011-03-12 12:00:00.000000', 'XYZ11ABC', 'REPOSE', 0, 1, 1, 1, '2011-03-12 12:00:00.000000');
+INSERT INTO public.device (id, deleted, last_update,  serial_number, status, version, company_id, device_model_id, warehouse_id,CREATE_DATE) VALUES (1, false, '2018-03-12 12:00:00.000000', 'xcxcxer43', 'REPOSE', 0, 1, 1, 1, '2011-03-12 12:00:00.000000');
+INSERT INTO public.device (id, deleted, last_update, serial_number, status, version, company_id, device_model_id, warehouse_id,CREATE_DATE) VALUES (3, false, '2011-03-12 12:30:00.000000', 'cxxcxc', 'REPOSE', 0, 1, 1, 1, '2011-03-12 12:00:00.000000');
+INSERT INTO public.device (id, deleted, last_update,  serial_number, status, version, company_id, device_model_id, warehouse_id,CREATE_DATE) VALUES (4, false, '2011-03-12 12:00:00.000000', 'sdc3434xc', 'REPOSE', 0, 1, 1, 1, '2011-03-12 12:00:00.000000');
+INSERT INTO public.device (id, deleted, last_update,  serial_number, status, version, company_id, device_model_id, warehouse_id,CREATE_DATE) VALUES (5, false, '2011-03-12 12:00:00.000000', '544343543', 'REPOSE', 0, 1, 1, 2, '2011-03-12 12:00:00.000000');
+INSERT INTO public.device (id, deleted, last_update,  serial_number, status, version, company_id, device_model_id, warehouse_id,CREATE_DATE) VALUES (6, false, '2011-03-12 12:30:00.000000', '555nnm', 'REPOSE', 0, 1, 1, 2, '2011-03-12 12:00:00.000000');
+INSERT INTO public.device (id, deleted, last_update,  serial_number, status, version, company_id, device_model_id, warehouse_id,CREATE_DATE) VALUES (7, false, '2018-03-12 12:00:00.000000', 'kndvdfdfd', 'REPOSE', 0, 1, 1, 2, '2011-03-12 12:00:00.000000');
 
 INSERT INTO TRANSFER (ID,VERSION,DELETED,USERNAME,TITLE,TRANSFER_DATE,SENDER_WAREHOUSE_ID,RECIEVER_WAREHOUSE_ID,DEVICE_ID,STATUS) VALUES (1,0,FALSE,'admin' ,'TITLE','2011-03-12 12:00',1,2,1,'TRANSFERED');
 

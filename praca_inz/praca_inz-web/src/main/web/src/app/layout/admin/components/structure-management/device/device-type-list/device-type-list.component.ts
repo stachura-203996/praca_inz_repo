@@ -13,7 +13,7 @@ export class DeviceTypeListComponent implements OnInit {
 
     deviceTypes: DeviceTypeListElement[];
 
-    deviceType:string;
+    deviceType: string;
 
     constructor(private deviceService: DeviceService, private translate: TranslateService) {
     }
@@ -24,17 +24,17 @@ export class DeviceTypeListComponent implements OnInit {
 
 
     getDevicesTypes() {
-        if(!this.deviceTypes.some(x=>x.name==this.deviceType)) {
-            this.deviceService.getAllDevicesTypes().subscribe(deviceListElement => {
-                this.deviceTypes = deviceListElement
-            });
-        }
+        this.deviceService.getAllDevicesTypes().subscribe(deviceListElement => {
+            this.deviceTypes = deviceListElement
+        });
     }
 
-    addDeviceType(){
-        this.deviceService.createDeviceType(this.deviceType).subscribe(x=>{
-            this.getDevicesTypes();
-        });
+    addDeviceType() {
+        if (!this.deviceTypes.some(x => x.name == this.deviceType)) {
+            this.deviceService.createDeviceType(this.deviceType).subscribe(x => {
+                this.getDevicesTypes();
+            });
+        }
     }
 
     filterDeviceTypes(searchText: string) {

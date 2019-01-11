@@ -1,14 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 
-import {SessionContextService} from "../../../../../../../shared/services/session-context.service";
 import {ActivatedRoute} from "@angular/router";
-import {UserInfo} from "../../../../../../../models/user-info";
-import {UserService} from "../../user.service";
+import {UserInfo} from "../../../models/user-info";
+import {DeviceListElement} from "../../../models/device-elements";
+import {TransferListElement} from "../../../models/transfer-list-element";
+import {UserRoles} from "../../../models/user-roles";
+import {UserService} from "../../admin/components/administration/user-management/user.service";
+import {DeviceService} from "../../device-management/device.service";
 
-import {TransferListElement} from "../../../../../../../models/transfer-list-element";
-import {DeviceService} from "../../../../../../device-management/device.service";
-import {DeviceListElement} from "../../../../../../../models/device-elements";
-import {UserRoles} from "../../../../../../../models/user-roles";
 
 
 @Component({

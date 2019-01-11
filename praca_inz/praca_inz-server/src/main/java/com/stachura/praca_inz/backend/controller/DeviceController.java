@@ -3,7 +3,10 @@ package com.stachura.praca_inz.backend.controller;
 import com.stachura.praca_inz.backend.exception.service.ServiceException;
 import com.stachura.praca_inz.backend.model.Device;
 import com.stachura.praca_inz.backend.service.DeviceService;
+import com.stachura.praca_inz.backend.web.dto.device.DeviceAddDto;
+import com.stachura.praca_inz.backend.web.dto.device.DeviceEditDto;
 import com.stachura.praca_inz.backend.web.dto.device.DeviceListElementDto;
+import com.stachura.praca_inz.backend.web.dto.device.DeviceViewDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.http.HttpHeaders;
@@ -96,36 +99,35 @@ public class DeviceController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
-    Device get(@PathVariable Long id) throws ServiceException {
-        return deviceService.getDeviceById(id);
+    DeviceViewDto getDeviceToView(@PathVariable Long id) throws ServiceException {
+        return deviceService.getDeviceToView(id);
+    }
+
+    @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(value = HttpStatus.OK)
+    public @ResponseBody
+    DeviceEditDto getDeviceToEdit(@PathVariable Long id) throws ServiceException {
+        return deviceService.getDeviceToEdit(id);
     }
 
     @RequestMapping(value = "/parameters/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
     Device getParameters(@PathVariable Long id) throws ServiceException {
-        return deviceService.getDeviceById(id);
+           return deviceService.getDeviceParameters(id);
     }
 
     @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public ResponseEntity<?> create(@RequestBody Device device) throws ServiceException {
-        try {
-            deviceService.createNewDevice(device);
-        } catch (ServiceException e) {
-            e.printStackTrace();
-        }
+    public ResponseEntity<?> create(@RequestBody DeviceAddDto deviceAddDto) throws ServiceException {
+        deviceService.createNewDevice(deviceAddDto);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @RequestMapping(method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public void update(@RequestBody Device device) {
-        try {
-            deviceService.updateDevice(device);
-        } catch (ServiceException e) {
-            e.printStackTrace();
-        }
+    public void update(@RequestBody DeviceEditDto deviceEditDto) throws ServiceException {
+            deviceService.updateDevice(deviceEditDto);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)

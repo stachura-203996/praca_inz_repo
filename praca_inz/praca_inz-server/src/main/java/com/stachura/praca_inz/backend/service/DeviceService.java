@@ -3,13 +3,14 @@ package com.stachura.praca_inz.backend.service;
 import com.stachura.praca_inz.backend.exception.repository.EntityException;
 import com.stachura.praca_inz.backend.exception.service.ServiceException;
 import com.stachura.praca_inz.backend.model.Device;
+import com.stachura.praca_inz.backend.web.dto.device.DeviceAddDto;
+import com.stachura.praca_inz.backend.web.dto.device.DeviceEditDto;
 import com.stachura.praca_inz.backend.web.dto.device.DeviceListElementDto;
+import com.stachura.praca_inz.backend.web.dto.device.DeviceViewDto;
 
 import java.util.List;
 
 public interface DeviceService {
-
-    Device getDeviceById(Long id) throws ServiceException;
 
     List<DeviceListElementDto> getAllDevices(String username) throws ServiceException;
 
@@ -23,9 +24,9 @@ public interface DeviceService {
 
     List<DeviceListElementDto> getAllDevicesForLoggedUser(String username);
 
-    void createNewDevice(Device device) throws SecurityException, ServiceException;
+    void createNewDevice(DeviceAddDto deviceAddDto) throws SecurityException, ServiceException;
 
-    void updateDevice(Device device) throws SecurityException, EntityException, ServiceException;
+    void updateDevice(DeviceEditDto deviceEditDto) throws SecurityException, EntityException, ServiceException;
 
     void deleteDeviceById(Long id) throws ServiceException;
 
@@ -33,4 +34,9 @@ public interface DeviceService {
 
     List<DeviceListElementDto> getAllDevicesForShipmentRequest(String name);
 
+    DeviceViewDto getDeviceToView(Long id)throws ServiceException;
+
+    DeviceEditDto getDeviceToEdit(Long id)throws ServiceException;
+
+    Device getDeviceParameters(Long id);
 }

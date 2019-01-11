@@ -12,7 +12,6 @@ import {DepartmentEditComponent} from "./components/structure-management/departm
 import {UserListComponent} from "./components/administration/user-management/components/user-list/user-list.component";
 import {UserAddComponent} from "./components/administration/user-management/components/user-add/user-add.component";
 import {UserEditComponent} from "./components/administration/user-management/components/user-edit/user-edit.component";
-import {UserViewComponent} from "./components/administration/user-management/components/user-view/user-view.component";
 import {DeviceListComponent} from "./components/structure-management/device/device-list/device-list.component";
 import {DeviceAddComponent} from "./components/structure-management/device/device-add/device-add.component";
 import {DeviceEditComponent} from "./components/structure-management/device/device-edit/device-edit.component";
@@ -48,7 +47,6 @@ const routes: Routes = [
     {path: 'users/add', component:UserAddComponent},
     {path: 'users/edit/:id', component:UserEditComponent},
     {path: 'users/edit/password/:id', component:UserPasswordEditComponent},
-    {path: 'users/view/:username', component:UserViewComponent},
     {path: 'devices', component: DeviceListComponent},
     {path: 'devices/add', component:DeviceAddComponent},
     {path: 'devices/edit/:id', component:DeviceEditComponent},

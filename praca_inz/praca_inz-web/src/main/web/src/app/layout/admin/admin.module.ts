@@ -12,7 +12,6 @@ import {DepartmentEditComponent} from "./components/structure-management/departm
 import {OfficeListComponent} from "./components/structure-management/office/office-list/office-list.component";
 import {OfficeAddComponent} from "./components/structure-management/office/office-add/office-add.component";
 import {OfficeEditComponent} from "./components/structure-management/office/office-edit/office-edit.component";
-import {UserViewComponent} from "./components/administration/user-management/components/user-view/user-view.component";
 import {UserEditComponent} from "./components/administration/user-management/components/user-edit/user-edit.component";
 import {UserAddComponent} from "./components/administration/user-management/components/user-add/user-add.component";
 import {UserListComponent} from "./components/administration/user-management/components/user-list/user-list.component";
@@ -58,7 +57,6 @@ import { DeviceModelParametersChangeComponent } from './components/structure-man
         OfficeListComponent,
         OfficeAddComponent,
         OfficeEditComponent,
-        UserViewComponent,
         UserEditComponent,
         UserAddComponent,
         UserListComponent,

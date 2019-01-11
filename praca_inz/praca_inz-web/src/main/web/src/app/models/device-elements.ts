@@ -7,32 +7,27 @@ export class DeviceListElement {
     manufacture:string;
     lastUpdate:string
     location:string;
+    userName:string;
+    userSurname:string
     username:string;
     status:string;
 }
 
 
 export class DeviceAddElement {
-    name: string;
     serialNumber: string;
-    deviceModel:string;
-    deviceTypeName:string;
-    manufacture:string;
-    lastUpdate:string
-    location:string;
-    username:string;
+    companyId:number;
+    warehouseId:number;
+    deviceModelId:number;
 }
 
 export class DeviceEditElement {
-    id: number;
-    name: string;
+    id:number
     serialNumber: string;
-    deviceModel:string;
-    deviceTypeName:string;
-    manufacture:string;
-    lastUpdate:string
-    location:string;
-    username:string;
+    companyId:number;
+    warehouseId:number;
+    deviceModelId:number;
+    version:string;
 }
 
 export class DeviceViewElement {

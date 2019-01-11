@@ -166,5 +166,17 @@
     "Warehouseman":"Magazynier",
     "EditWarehouse":"Edytuj magazyn",
     "DeviceTypes":"Typy urządzeń",
-    "CreateDeviceType":"Dodaj typ urządzenia"
+    "CreateDeviceType":"Dodaj typ urządzenia",
+    "Devices list":"Lista urządzeń",
+    "ChangePassword":"Zmień hasło",
+    "Transfers list":"Lista transferów",
+    "YourDeviceManager":"Menadżer towich urządzeń",
+    "UserDeviceManager":"Menadżer urządzeń użytkownika",
+    "YourTransferManager":"Menadżer twoich transferów",
+    "UserTransferManager":"Menadżer transferów użytkownika",
+    "UserProfile":"Profil użytkownika",
+    "UserInfo":"Podgląd użytkownika",
+  "Comapny is required!":"Nazwa firmy jest wymagana!",
+    "Warehouse is required!":"Nazwa magazynu jest wymagana!",
+    "Device model is required!":"Nazwa modelu urządenia jest wymagana!"
 }

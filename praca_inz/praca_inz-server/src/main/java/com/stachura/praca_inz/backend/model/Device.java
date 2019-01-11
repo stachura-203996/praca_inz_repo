@@ -26,7 +26,7 @@ import java.util.Set;
 public class Device implements Serializable {
 
     @Id
-    @SequenceGenerator(name = "DeviceGen", sequenceName = "device_id_seq",initialValue = 5,allocationSize = 1)
+    @SequenceGenerator(name = "DeviceGen", sequenceName = "device_id_seq",initialValue = 8,allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "DeviceGen")
     @Column(name = "ID", updatable = false, nullable = false)
     private Long id = null;
@@ -52,6 +52,12 @@ public class Device implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Calendar lastUpdate;
 
+    @Basic
+    @NotNull
+    @Column(name = "CREATE_DATE")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Calendar createDate;
+
     @Column(name = "DELETED", nullable = false)
     private boolean deleted;
 
@@ -62,8 +68,6 @@ public class Device implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "device", fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonManagedReference
     private Set<Transfer> transfers = new HashSet<>();
-
-
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference

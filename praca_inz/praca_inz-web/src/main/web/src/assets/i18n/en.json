@@ -3,7 +3,6 @@
     "Charts": "Charts",
     "Tables": "Tables",
     "Forms": "Forms",
-    "Bootstrap Element": "Bootstrap Element",
     "Bootstrap Grid": "Bootstrap Grid",
     "Component": "Component",
     "AddUser": "Add user",
@@ -151,7 +150,6 @@
     "Building number can not be negative!":"Building number can not be negative!",
     "Password is required":"Password is required",
     "Password must be at least 8 characters long":"Password must be at least 8 characters long",
-
     "Company is required!":"Company is required!",
     "CompanyView":"Company view",
     "DepartmentView":"Department view",
@@ -173,7 +171,20 @@
     "Warehouseman":"Warehouseman",
     "EditWarehouse":"Edit warehouse",
     "DeviceTypes":"Device types",
-    "CreateDeviceType":"Create device type"
+    "CreateDeviceType":"Create device type",
+    "Devices list":"Devices list",
+    "ChangePassword":"Change password",
+    "Transfers list":"Transfers list",
+    "UserDeviceManager":"User device manager",
+    "YourDeviceManager":"Your device manager",
+    "YourTransferManager":"Your transfer manager",
+    "UserTransferManager":"User transfer manager",
+    "UserProfile":"User profile",
+    "UserInfo":"User view",
+    "Comapny is required!":"Comapny is required!",
+    "Warehouse is required!":"Warehouse is required!",
+    "Device model is required!":"Device model is required!"
+
 
 
 }

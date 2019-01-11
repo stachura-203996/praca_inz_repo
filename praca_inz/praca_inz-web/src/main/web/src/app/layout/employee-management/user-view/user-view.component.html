@@ -45,28 +45,28 @@
                     <div class="row">
                         <div class="col-sm-5 col-xs-6 tital ">{{'Company'| translate}}</div>
                         <div class="col-sm-7"><a
-                            href="/structures/companies/view/{{user.companyId}}">{{user.company}}</a></div>
+                            href="/ui/structures/companies/view/{{user.companyId}}">{{user.company}}</a></div>
                     </div>
                     <div class="clearfix"></div>
                     <div class="bot-border"></div>
                     <div class="row">
                         <div class="col-sm-5 col-xs-6 tital ">{{'Department'| translate}}</div>
-                        <div class="col-sm-7"><a href="/structures/departments/view/{{user.departmentId}}">{{user.department}}</a>
+                        <div class="col-sm-7"><a href="/ui/structures/departments/view/{{user.departmentId}}">{{user.department}}</a>
                         </div>
                     </div>
                     <div class="clearfix"></div>
                     <div class="bot-border"></div>
                     <div class="row">
                         <div class="col-sm-5 col-xs-6 tital ">{{'Office'| translate}}</div>
-                        <div class="col-sm-7"><a href="/structures/offices/view/{{user.officeId}}">{{user.office}}</a>
+                        <div class="col-sm-7"><a href="/ui/structures/offices/view/{{user.officeId}}">{{user.office}}</a>
                         </div>
                     </div>
+                    <div class="clearfix"></div>
+                    <div class="bot-border"></div>
                     <div class="row">
                         <div class="col-sm-5 col-xs-6 tital ">{{'Workplace'| translate}}</div>
                         <div class="col-sm-7">{{user.workplace}}</div>
                     </div>
-                    <div class="clearfix"></div>
-                    <div class="bot-border"></div>
                     <div class="clearfix"></div>
                     <div class="bot-border"></div>
                     <div class="row">
@@ -82,29 +82,31 @@
                     <div class="clearfix"></div>
                     <div class="bot-border"></div>
                     <div class="row">
-                        <div class="col-sm-5 col-xs-6 tital ">{{'Roles'| translate}}</div>
-                        <div class="col-sm-7">
-                            <div class="row" *ngFor="let authority of user.roles"><span class="badge badge-info">{{ authority }}</span>
-                            </div>
-                        </div>
+                        <div class="col-sm-5 col-xs-6 tital ">{{'DateOfJoining'| translate}}</div>
+                        <div class="col-sm-7">{{user.dateOfJoining}}</div>
                     </div>
                     <div class="clearfix"></div>
                     <div class="bot-border"></div>
                     <div class="row">
-                        <div class="col-sm-5 col-xs-6 tital ">{{'DateOfJoining'| translate}}</div>
-                        <div class="col-sm-7">{{user.dateOfJoining}}</div>
+                        <div class="col-sm-5 col-xs-6 tital ">{{'Roles'| translate}}</div>
+                        <div class="col-sm-7">
+                            <br>
+                            <div class="row" *ngFor="let authority of user.roles"><span class="badge badge-info">{{ authority }}</span>
+                            </div>
+                            <br>
+                        </div>
                     </div>
                     <div class="clearfix"></div>
                     <div class="bot-border"></div>
                     <br>
                     <div class="row">
                         <div class="col-sm-6" align="center" *ngIf="roles.admin">
-                            <button [routerLink]="['/admin/users/edit/'+user.id]" class="btn btn-primary" i18n="@@editButton">Edit
+                            <button [routerLink]="['/admin/users/edit/'+user.id]" class="btn btn-primary" i18n="@@editButton">{{'Edit'|translate}}
                             </button>
                         </div>
                         <div class="col-sm-6" align="center" *ngIf="roles.admin">
                             <button [routerLink]="['/admin/users/password/'+user.id]" class="btn btn-primary"
-                                    i18n="@@changePasswordButton">Change Password
+                                    i18n="@@changePasswordButton">{{'ChangePassword'|translate}}
                             </button>
                         </div>
                     </div>
@@ -118,7 +120,7 @@
                 <div class="card-header">
                     <div class="row">
                         <div class="col-lg-10">
-                            <h4>Devices list</h4>
+                            <h4>{{'Devices list'|translate}}</h4>
                         </div>
                         <div class="col-lg-2">
                             <button class="btn btn-primary float-right jh-create-entity" [routerLink]="['/devices']">
@@ -131,14 +133,14 @@
                     <table class="table table-striped" align="center">
                         <thead class="thead-inverse">
                         <tr>
-                            <th>{{ 'Name' | translate }}</th>
+                            <th>{{ 'DeviceModel' | translate }}</th>
                             <th>{{ 'SerialNumber' | translate }}</th>
                             <th>{{ 'DeviceType' | translate }}</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr *ngFor="let device of devices">
-                            <td>{{device.name}}</td>
+                            <td>{{device.deviceModel}}</td>
                             <td>{{device.serialNumber}}</td>
                             <td>{{device.deviceTypeName}}</td>
                         </tr>
@@ -151,7 +153,7 @@
                 <div class="card-header">
                     <div class="row">
                         <div class="col-lg-10">
-                            <h4>Transfers list</h4>
+                            <h4>{{'Transfers list'|translate}}</h4>
                         </div>
                         <div class="col-lg-2">
                             <button class="btn btn-primary float-right jh-create-entity"
@@ -165,8 +167,8 @@
                     <table class="table table-striped" align="center">
                         <thead class="thead-inverse">
                         <tr>
-                            <th>{{ 'Name' | translate }}</th>
-                            <th>{{ 'DeviceName' | translate }}</th>
+                            <th>{{ 'Title' | translate }}</th>
+                            <th>{{ 'DeviceModel' | translate }}</th>
                             <th>{{'DeviceSerialNumber'| translate}}</th>
                             <th>{{ 'Date' | translate }}</th>
                             <th>{{'Sender'| translate}}</th>
@@ -176,7 +178,7 @@
                         <tbody>
                         <tr *ngFor="let transfer of transfers">
                             <td>{{transfer.title}}</td>
-                            <td>{{transfer.deviceName}}</td>
+                            <td>{{transfer.deviceModelName}}</td>
                             <td>{{transfer.deviceSerialNumber}}</td>
                             <td>{{transfer.date}}</td>
                             <td>{{transfer.senderWarehouseName}}</td>
