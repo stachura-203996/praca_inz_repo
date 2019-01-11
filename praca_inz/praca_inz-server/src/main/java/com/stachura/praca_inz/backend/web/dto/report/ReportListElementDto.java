@@ -17,6 +17,4 @@ public class ReportListElementDto {
     private String sender;
     private String receiver;
     private String reportDate;
-    private String description;
-
 }

@@ -15,6 +15,7 @@ public class DeviceConverter {
                 .deviceTypeName(device.getDeviceModel().getDeviceType().getName())
                 .manufacture(device.getDeviceModel().getManufacture())
                 .lastUpdate(device.getLastUpdate().getTime().toString())
+                .status(device.getStatus().name())
                 .location(device.getCompany().getName()+
                         " > " + device.getWarehouse().getOffice().getDepartment().getName()+
                         " > " + device.getWarehouse().getOffice().getName()+

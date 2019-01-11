@@ -40,7 +40,7 @@ export class WarehouseService {
         return this.httpService.get<WarehouseListElement[]>(this.warehousePath+'/warehouseman');
     }
 
-    getAllForCompany(id:string): Observable<WarehouseListElement[]> {
+    getAllForCompany(id:number): Observable<WarehouseListElement[]> {
         return this.httpService.get<WarehouseListElement[]>(this.warehousePath+'/company/'+id);
     }
 
@@ -60,10 +60,18 @@ export class WarehouseService {
         return this.httpService.get<WarehouseViewElement>(this.warehousePath+'/'+id);
     }
 
+    deleteWarehouse(id :string): Observable<any>{
+        return this.httpService.delete<any>(this.warehousePath+'/'+id);
+    }
+
     //Deliveries
 
     getAllDeliveries(): Observable<DeliveryListElement[]> {
         return this.httpService.get<DeliveryListElement[]>(this.deliveryPath);
+    }
+
+    getAllDeliveriesForCompany(id:number): Observable<DeliveryListElement[]> {
+        return this.httpService.get<DeliveryListElement[]>(this.deliveryPath+'/company/'+id);
     }
 
     getAllDeliveriesForWarehouse(): Observable<DeliveryListElement[]> {
@@ -77,7 +85,14 @@ export class WarehouseService {
         return this.httpService.get<ShipmentListElement[]>(this.shipmentPath);
     }
 
+    getAllShipmentsForCompany(id:number): Observable<ShipmentListElement[]> {
+        return this.httpService.get<ShipmentListElement[]>(this.shipmentPath+'/company/'+id);
+    }
+
     getAllShipmentsForWarehouse(): Observable<ShipmentListElement[]> {
         return this.httpService.get<ShipmentListElement[]>(this.shipmentPath+'/warehouseman');
     }
+
+
+
 }

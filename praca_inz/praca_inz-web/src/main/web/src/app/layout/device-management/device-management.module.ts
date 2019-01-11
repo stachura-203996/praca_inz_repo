@@ -12,12 +12,11 @@ import {FormsModule} from "@angular/forms";
 
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import {DeviceRequestAddComponent} from "./device-requests/device-request-add/device-request-add.component";
-import {DeviceRequestEditComponent} from "./device-requests/device-request-edit/device-request-edit.component";
 import {DeviceRequestViewComponent} from "./device-requests/device-request-view/device-request-view.component";
 import {TransferRequestAddComponent} from "./transfer-requests/transfer-request-add/transfer-request-add.component";
 import {TransferRequestViewComponent} from "./transfer-requests/transfer-request-view/transfer-request-view.component";
-import {TransferRequestEditComponent} from "./transfer-requests/transfer-request-edit/transfer-request-edit.component";
 import {DeviceModelViewComponent} from "./device-model-view/device-model-view.component";
+import { DeviceRequestViewWarehouseComponent } from './device-requests/device-request-view-warehouse/device-request-view-warehouse.component';
 
 
 @NgModule({
@@ -32,14 +31,13 @@ import {DeviceModelViewComponent} from "./device-model-view/device-model-view.co
         DeviceUserComponent,
         TransferUserComponent,
         DeviceRequestAddComponent,
-        DeviceRequestEditComponent,
         DeviceViewComponent,
         DeviceRequestViewComponent,
         TransferViewComponent,
         DeviceModelViewComponent,
         TransferRequestAddComponent,
         TransferRequestViewComponent,
-        TransferRequestEditComponent
+        DeviceRequestViewWarehouseComponent
     ]
 })
 export class DeviceManagementModule {

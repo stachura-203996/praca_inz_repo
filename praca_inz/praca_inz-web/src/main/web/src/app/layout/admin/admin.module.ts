@@ -20,7 +20,6 @@ import {DeviceListComponent} from "./components/structure-management/device/devi
 import {DeviceAddComponent} from "./components/structure-management/device/device-add/device-add.component";
 import {DeviceEditComponent} from "./components/structure-management/device/device-edit/device-edit.component";
 import {TransferListComponent} from "./components/structure-management/device/transfer-list/transfer-list.component";
-import {DeviceRequestListComponent} from "./components/structure-management/device/device-request-list/device-request-list.component";
 import { DeviceParameterAddComponent } from './components/structure-management/device/device-parameter-add/device-parameter-add.component';
 import { DeviceParameterEditComponent } from './components/structure-management/device/device-parameter-edit/device-parameter-edit.component';
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
@@ -29,15 +28,18 @@ import {WarehouseAddComponent} from "./components/structure-management/warehouse
 import {WarehouseEditComponent} from "./components/structure-management/warehouse/warehouse-edit/warehouse-edit.component";
 import { RequestListComponent } from './components/structure-management/request/request-list/request-list.component';
 import { ReportListComponent } from './components/structure-management/report/report-list/report-list.component';
-import {SystemMessageAddComponent} from "./components/structure-management/system_messages/system-message-add/system-message-add.component";
-import {SystemMessageListComponent} from "./components/structure-management/system_messages/system-message-list/system-message-list.component";
-import {SystemMessageEditComponent} from "./components/structure-management/system_messages/system-message-edit/system-message-edit.component";
 import {DeviceModelListComponent} from "./components/structure-management/device/device-model-list/device-model-list.component";
 import {DeviceModelAddComponent} from "./components/structure-management/device/device-model-add/device-model-add.component";
 import {DeviceModelEditComponent} from "./components/structure-management/device/device-model-edit/device-model-edit.component";
 import { DeviceTypeListComponent } from './components/structure-management/device/device-type-list/device-type-list.component';
 import { DeliveryListComponent } from './components/structure-management/warehouse/delivery-list/delivery-list.component';
 import { ShipmentListComponent } from './components/structure-management/warehouse/shipment-list/shipment-list.component';
+import { SummaryComponent } from './components/structure-management/summary/summary.component';
+import { UserPasswordEditComponent } from './components/administration/user-management/components/user-password-edit/user-password-edit.component';
+import { DeviceTransferComponent } from './components/structure-management/device/device-transfer/device-transfer.component';
+import {SystemMessageAddComponent} from "./components/administration/system_messages/system-message-add/system-message-add.component";
+import {SystemMessageListComponent} from "./components/administration/system_messages/system-message-list/system-message-list.component";
+import { DeviceTypeAddComponent } from './components/structure-management/device/device-type-add/device-type-add.component';
 
 @NgModule({
     imports: [
@@ -64,7 +66,6 @@ import { ShipmentListComponent } from './components/structure-management/warehou
         DeviceListComponent,
         DeviceAddComponent,
         DeviceEditComponent,
-        DeviceRequestListComponent,
         TransferListComponent,
         DeviceModelListComponent,
         DeviceModelAddComponent,
@@ -78,10 +79,13 @@ import { ShipmentListComponent } from './components/structure-management/warehou
         ReportListComponent,
         SystemMessageAddComponent,
         SystemMessageListComponent,
-        SystemMessageEditComponent,
         DeviceTypeListComponent,
         DeliveryListComponent,
-        ShipmentListComponent
+        ShipmentListComponent,
+        SummaryComponent,
+        UserPasswordEditComponent,
+        DeviceTransferComponent,
+        DeviceTypeAddComponent
     ]
 })
 export class AdminModule {

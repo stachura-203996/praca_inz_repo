@@ -12,7 +12,7 @@ public interface DeliveryService {
 
 //    Delivery getDeliveryByName(String name);
 
-    List<DeliveryListElementDto> getAllDeliveries();
+    List<DeliveryListElementDto> getAllDeliveries(String username);
 
     List<DeliveryListElementDto> getAllDeliveriesForWarehouseman(Long id);
 

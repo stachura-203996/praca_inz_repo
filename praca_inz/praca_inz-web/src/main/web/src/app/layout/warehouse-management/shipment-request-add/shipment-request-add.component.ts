@@ -23,19 +23,14 @@ export class ShipmentRequestAddComponent implements OnInit {
     selectedDevice:string;
 
 
-    constructor(private route: ActivatedRoute,private deviceService:DeviceService,private warehouseService:WarehouseService,private requestService:RequestService,private translate:TranslateService,private router:Router) {
-        this.translate.addLangs(['en','pl']);
-        this.translate.setDefaultLang('pl');
-        const browserLang = this.translate.getBrowserLang();
-        this.translate.use(browserLang.match(/en|pl/) ? browserLang : 'pl');
-    }
+    constructor(private route: ActivatedRoute,private deviceService:DeviceService,private warehouseService:WarehouseService,private requestService:RequestService,private translate:TranslateService,private router:Router) {}
 
     ngOnInit() {
         this.getWarehouses();
     }
 
     filterDevices(searchText: string) {
-        this.deviceService.getAllDevicesForShipmentRequest().subscribe(devices => {
+        this.deviceService.getAllDevicesForRequest().subscribe(devices => {
             if (!devices) {
                 this.devices = [];
                 return;
@@ -55,7 +50,7 @@ export class ShipmentRequestAddComponent implements OnInit {
 
     getWarehouses(){
         this.warehouseService.getAllForShipmentRequest().subscribe(warehouses=> {this.warehouses=warehouses});
-        this.deviceService.getAllDevicesForShipmentRequest().subscribe(devices=> {this.devices=devices});
+        this.deviceService.getAllDevicesForRequest().subscribe(devices=> {this.devices=devices});
         this.deviceService.getAllDevicesModels().subscribe(devicesModels=>{this.devicesModels=devicesModels});
     }
 

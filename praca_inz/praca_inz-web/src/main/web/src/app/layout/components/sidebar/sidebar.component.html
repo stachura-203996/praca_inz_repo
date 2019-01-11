@@ -1,10 +1,10 @@
 <nav class="sidebar" [ngClass]="{sidebarPushRight: isActive, collapsed: collapsed}">
     <div class="list-group">
-        <a routerLink="/main-page" [routerLinkActive]="['router-link-active']" class="list-group-item">
+        <a routerLink="/main-page" *ngIf="(roles.user)" [routerLinkActive]="['router-link-active']" class="list-group-item">
             <i class="fa fa-fw fa-home"></i>&nbsp;
             <span>{{ 'HomePage' | translate }}</span>
         </a>
-        <div class="nested-menu">
+        <div class="nested-menu" *ngIf="(roles.admin)">
             <a class="list-group-item" (click)="addExpandClass('userManagementPanel')">
                 <i class="fa fa-book"></i>&nbsp;
                 <span>{{ 'Administration' | translate }}</span>
@@ -24,7 +24,7 @@
                 </ul>
             </li>
         </div>
-        <div class="nested-menu">
+        <div class="nested-menu" *ngIf="(roles.admin || roles.company_admin)">
             <a class="list-group-item" (click)="addExpandClass('companyManagementPanel')">
                 <i class="fa fa-sitemap"></i>&nbsp;
                 <span>{{ 'Structures' | translate }}</span>
@@ -52,6 +52,11 @@
                         </a>
                     </li>
                     <li>
+                        <a [routerLink]="['/admin/devices/type']">
+                            <span>{{ 'DevicesTypes' | translate }}</span>
+                        </a>
+                    </li>
+                    <li>
                         <a [routerLink]="['/admin/requests']">
                             <span>{{ 'Requests' | translate }}</span>
                         </a>
@@ -62,7 +67,7 @@
                         </a>
                     </li>
                     <li>
-                        <a [routerLink]="['/admin/devices/transfer']">
+                        <a [routerLink]="['/admin/transfers']">
                             <span>{{ 'Transfers' | translate }}</span>
                         </a>
                     </li>
@@ -84,23 +89,17 @@
                 </ul>
             </li>
         </div>
-        <div class="nested-menu">
+        <div class="nested-menu" *ngIf="(roles.user || roles.manager)">
             <a class="list-group-item" (click)="addExpandClass('employeesManagementPanel')">
                 <i class="fa fa-briefcase"></i>&nbsp;
                 <span>{{ 'EmployeeManager' | translate }}</span>
             </a>
             <li class="nested" [class.expand]="showMenu === 'employeesManagementPanel'">
                 <ul class="submenu">
-                    <li>
+                    <li *ngIf="(roles.manager)">
                         <a [routerLink]="['employees/subordinates']">
                             <i class="fa fa-monument"></i>&nbsp;
                             <span>{{ 'Employees' | translate }}</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a [routerLink]="['/employees/reports']">
-                            <i class="fa fa-monument"></i>&nbsp;
-                            <span>{{ 'Reports' | translate }}</span>
                         </a>
                     </li>
                     <li>
@@ -115,10 +114,22 @@
                             <span>{{ 'Requests' | translate }}</span>
                         </a>
                     </li>
+                    <li>
+                        <a [routerLink]="['/employees/reports']">
+                            <i class="fa fa-monument"></i>&nbsp;
+                            <span>{{ 'Reports' | translate }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/employees/reports/add']">
+                            <i class="fa fa-monument"></i>&nbsp;
+                            <span>{{ 'CreateReport' | translate }}</span>
+                        </a>
+                    </li>
                 </ul>
             </li>
         </div>
-        <div class="nested-menu">
+        <div class="nested-menu" *ngIf="(roles.user)">
             <a class="list-group-item" (click)="addExpandClass('devicesManagementPanel')">
                 <i class="fa fa-desktop"></i>&nbsp;
                 <span>{{ 'Devices' | translate }}</span>
@@ -146,7 +157,7 @@
                 </ul>
             </li>
         </div>
-        <div class="nested-menu">
+        <div class="nested-menu" *ngIf="roles.warehouseman">
             <a class="list-group-item" (click)="addExpandClass('warehouseManagementPanel')">
                 <i class="fa fa-houzz"></i>&nbsp;
                 <span>{{ 'Warehouse' | translate }}</span>
@@ -178,15 +189,15 @@
                         </a>
                     </li>
                     <li>
-                        <a [routerLink]="['/warehouses/shipment']">
-                            <i  class="fa fa-monument"></i>&nbsp;
-                            <span>{{ 'Shipments' | translate }}</span>
-                        </a>
-                    </li>
-                    <li>
                         <a [routerLink]="['/warehouses/delivery/request/add']">
                             <i  class="fa fa-monument"></i>&nbsp;
                             <span>{{ 'DeliveryRequestAdd' | translate }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/warehouses/shipment']">
+                            <i  class="fa fa-monument"></i>&nbsp;
+                            <span>{{ 'Shipments' | translate }}</span>
                         </a>
                     </li>
                     <li>
@@ -217,11 +228,6 @@
                                 {{ 'English' | translate }}
                             </a>
                         </li>
-                        <li>
-                            <a href="javascript:void(0)" (click)="changeLang('de')">
-                                {{ 'German' | translate }}
-                            </a>
-                        </li>
                     </ul>
                 </li>
             </div>
@@ -236,11 +242,11 @@
                                 <span><i class="fa fa-fw fa-user"></i> {{ 'Profile' | translate }}</span>
                             </a>
                         </li>
-                        <li>
-                            <a href="javascript:void(0)">
-                                <span><i class="fa fa-fw fa-gear"></i> {{ 'Settings' | translate }}</span>
-                            </a>
-                        </li>
+                        <!--<li>-->
+                            <!--<a href="javascript:void(0)">-->
+                                <!--<span><i class="fa fa-fw fa-gear"></i> {{ 'Settings' | translate }}</span>-->
+                            <!--</a>-->
+                        <!--</li>-->
                         <li>
                             <a [routerLink]="['/login']" (click)="onLoggedout()">
                                 <span><i class="fa fa-fw fa-power-off"></i> {{ 'Log Out' | translate }}</span>

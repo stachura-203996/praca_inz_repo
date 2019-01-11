@@ -9,7 +9,7 @@ import { RequestUserComponent } from './request-user/request-user.component';
 import {ReportUserComponent} from "./reports/report-user/report-user.component";
 import {ReportViewComponent} from "./reports/report-view/report-view.component";
 import {ReportAddComponent} from "./reports/report-add/report-add.component";
-import { ReportEditComponent } from './reports/report-edit/report-edit.component';
+import { ReportRequestAddComponent } from './reports/report-request-add/report-request-add.component';
 
 
 @NgModule({
@@ -20,7 +20,7 @@ import { ReportEditComponent } from './reports/report-edit/report-edit.component
         FormsModule,
         NgbModule.forRoot()
     ],
-    declarations: [EmployeesListComponent, ReportUserComponent, ReportViewComponent, ReportAddComponent, RequestUserComponent, ReportEditComponent]
+    declarations: [EmployeesListComponent, ReportUserComponent, ReportViewComponent, ReportAddComponent, RequestUserComponent, ReportRequestAddComponent]
 })
 export class EmployeeManagementModule {
 }

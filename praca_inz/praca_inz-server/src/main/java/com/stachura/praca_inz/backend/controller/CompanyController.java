@@ -48,7 +48,7 @@ public class CompanyController {
     @ResponseStatus(value = HttpStatus.OK)
     public ResponseEntity<?> create(@RequestBody CompanyStructureAddDto company) {
         try {
-            Long id=companyService.createNewCompany(CompanyStructureConverter.toCompany(company));
+            Long id=companyService.createNewCompany(company);
         } catch (ServiceException e) {
 
         }

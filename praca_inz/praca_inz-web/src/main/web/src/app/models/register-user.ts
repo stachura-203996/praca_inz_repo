@@ -9,4 +9,9 @@ export class RegisterUser {
     street: string;
     houseNumber: number;
     flatNumber: number;
+    zipcode: string;
+    position: string;
+    workplace: string;
+    officeId:number;
+    roles:string[];
 }

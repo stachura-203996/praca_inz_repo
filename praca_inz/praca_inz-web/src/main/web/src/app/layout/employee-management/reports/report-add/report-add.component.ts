@@ -1,4 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+
+import {DeviceModelListElement} from "../../../../models/device-elements";
+import {ActivatedRoute, Router} from "@angular/router";
+import {DeviceService} from "../../../device-management/device.service";
+import {RequestService} from "../../request.service";
+import {TranslateService} from "@ngx-translate/core";
+import {ReportAddElement} from "../../../../models/report-elements";
+import {ReportService} from "../../report.service";
+import {UserListElement} from "../../../../models/user-list-element";
+import {UserService} from "../../../admin/components/administration/user-management/user.service";
+import {StructureListElement} from "../../../../models/structure-elements";
 
 @Component({
   selector: 'app-report-add',
@@ -7,9 +18,39 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReportAddComponent implements OnInit {
 
-  constructor() { }
+    @Input() reportAddElement: ReportAddElement= new ReportAddElement();
 
-  ngOnInit() {
-  }
+     recivers=new Map<string, number>();
+     selectedOption: string;
 
+    constructor(private route: ActivatedRoute,private userService:UserService,private reportService:ReportService,private translate:TranslateService,private router:Router) {}
+
+    ngOnInit() {
+        this.getRecievers();
+    }
+
+
+    getRecievers() {
+        this.userService.getAll().subscribe((response: UserListElement[]) => {
+            this.recivers = response.reduce(function(companyMap, company){
+                if(company.id){
+                    companyMap.set(company.name,company.id)
+                }
+                return companyMap;
+            },this.recivers);
+        });
+
+    }
+
+
+    reportAdd(){
+        this.reportAddElement.reciever = this.recivers.get(this.selectedOption);
+        this.reportService.createReport(this.reportAddElement).subscribe(resp => {
+            this.router.navigateByUrl('/employees/reports');
+        });
+    }
+
+    clear() {
+        this.reportAddElement=new ReportAddElement();
+    }
 }

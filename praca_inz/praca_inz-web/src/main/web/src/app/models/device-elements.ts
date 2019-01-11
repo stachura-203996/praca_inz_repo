@@ -8,7 +8,9 @@ export class DeviceListElement {
     lastUpdate:string
     location:string;
     username:string;
+    status:string;
 }
+
 
 export class DeviceAddElement {
     name: string;

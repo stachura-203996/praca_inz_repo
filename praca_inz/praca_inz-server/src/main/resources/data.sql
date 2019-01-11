@@ -45,9 +45,10 @@ INSERT INTO DEPARTMENT(ID, VERSION, DELETED,NAME, COMPANY_ID) VALUES (5,0,FALSE 
  INSERT INTO OFFICE(ID, VERSION,DELETED, NAME, ADDRESS_ID, DEPARTMENT_ID) VALUES (4,0, FALSE ,'Office of A Los Angeles', 7, 3);
 
 
- INSERT INTO USERDATA(ID, VERSION, NAME, SURNAME, EMAIL,ADDRESS_ID ) VALUES (1,0, 'John', 'William','email@email.com', 1);
- INSERT INTO USERDATA(ID, VERSION, NAME, SURNAME, ADDRESS_ID ) VALUES (2,0, 'Robert', 'James', 2);
- INSERT INTO USERDATA(ID, VERSION, NAME, SURNAME, ADDRESS_ID ) VALUES (3,0, 'Donald', 'Tyler', 3);
+ INSERT INTO USERDATA(ID, VERSION, NAME, SURNAME, EMAIL,ADDRESS_ID ) VALUES (1,0, 'Tomasz', 'Stachura','email@email.com', 1);
+ INSERT INTO USERDATA(ID, VERSION, NAME, SURNAME, EMAIL,ADDRESS_ID ) VALUES (2,0, 'Robert', 'William','email@email.com', 2);
+ INSERT INTO USERDATA(ID, VERSION, NAME, SURNAME, EMAIL,ADDRESS_ID ) VALUES (3,0, 'David', 'William','email@email.com', 3);
+ INSERT INTO USERDATA(ID, VERSION, NAME, SURNAME, EMAIL,ADDRESS_ID ) VALUES (4,0, 'John', 'William','email@email.com', 4);
 
 INSERT INTO OAUTH_CLIENT_DETAILS(CLIENT_ID, RESOURCE_IDS, CLIENT_SECRET, SCOPE, AUTHORIZED_GRANT_TYPES, AUTHORITIES, ACCESS_TOKEN_VALIDITY, REFRESH_TOKEN_VALIDITY)
 	VALUES ('spring-security-oauth2-read-client', 'resource-server-rest-api',
@@ -136,17 +137,19 @@ INSERT INTO USER_(ID, VERSION, USER_NAME, PASSWORD, ACCOUNT_EXPIRED, ACCOUNT_LOC
   VALUES (3,0, 'modifier', /*modifier1234*/'$2a$08$kPjzxewXRGNRiIuL4FtQH.mhMn7ZAFBYKB3ROz.J24IX8vDAcThsG', FALSE, FALSE, FALSE, TRUE,3,3);
 
 INSERT INTO USER_(ID, VERSION, USER_NAME, PASSWORD, ACCOUNT_EXPIRED, ACCOUNT_LOCKED, CREDENTIALS_EXPIRED, ENABLED,USERDATA_ID,OFFICE_ID)
-  VALUES (4,0, 'reader2', /*reader1234*/'$2a$08$vVXqh6S8TqfHMs1SlNTu/.J25iUCrpGBpyGExA.9yI.IlDRadR6Ea', FALSE, FALSE, FALSE, TRUE,3,4);
+  VALUES (4,0, 'reader2', /*reader1234*/'$2a$08$vVXqh6S8TqfHMs1SlNTu/.J25iUCrpGBpyGExA.9yI.IlDRadR6Ea', FALSE, FALSE, FALSE, TRUE,4,4);
 
 INSERT INTO USER_ROLE(ID,VERSION,NAME,ACTIVE) VALUES (1,0,'ADMIN',TRUE );
 INSERT INTO USER_ROLE(ID,VERSION,NAME,ACTIVE) VALUES (2,0,'USER',TRUE );
 INSERT INTO USER_ROLE(ID,VERSION,NAME,ACTIVE) VALUES (3,0,'MANAGER',TRUE );
 INSERT INTO USER_ROLE(ID,VERSION,NAME,ACTIVE) VALUES (4,0,'WAREHOUSEMAN',TRUE );
+INSERT INTO USER_ROLE(ID,VERSION,NAME,ACTIVE) VALUES (5,0,'COMPANY_ADMIN',TRUE );
 
 INSERT INTO USERS_ROLES(USER_ID,USER_ROLE_ID) VALUES(1,1);
 INSERT INTO USERS_ROLES(USER_ID,USER_ROLE_ID) VALUES(1,2);
 INSERT INTO USERS_ROLES(USER_ID,USER_ROLE_ID) VALUES(1,3);
 INSERT INTO USERS_ROLES(USER_ID,USER_ROLE_ID) VALUES(1,4);
+INSERT INTO USERS_ROLES(USER_ID,USER_ROLE_ID) VALUES(1,5);
 
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (1, 1);
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (1, 2);
@@ -227,37 +230,35 @@ INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (4, 9);
 INSERT  INTO WAREHOUSE (ID, VERSION,DELETED,USER_ID,NAME,OFFICE_ID,WAREHOUSE_TYPE) VALUES (1,0,FALSE ,1,'admin',1,'USER');
 INSERT INTO  WAREHOUSE(ID, VERSION,DELETED,USER_ID,NAME,OFFICE_ID,WAREHOUSE_TYPE) VALUES (2,0,FALSE ,1,'OFFICE_WAREHOUSE',1,'OFFICE');
 
-INSERT INTO public.device_type (id,name, version) VALUES (1, 'komputer', 0);
-INSERT INTO public.device_model (id, deleted, manufacture, name, version, company_id, device_type_id) VALUES (1, false, 'pol', 'COMPUTER', 0, 1, 1);
+INSERT INTO public.device_type (id, name, version) VALUES (1, 'komputer', 0);
+INSERT INTO public.device_type (id, name, version) VALUES (2, 'mysz', 0);
 
-INSERT INTO DEVICE(ID, VERSION,DELETED,NAME,SERIAL_NUMBER, WAREHOUSE_ID,DEVICE_MODEL_ID,LAST_UPDATE,COMPANY_ID) VALUES (1,0,FALSE ,'Komputer', 'XYZ10ABC', 1,1,'2018-03-12 12:00',1);
-INSERT INTO DEVICE(ID,VERSION,DELETED,NAME, SERIAL_NUMBER, WAREHOUSE_ID,DEVICE_MODEL_ID,LAST_UPDATE,COMPANY_ID) VALUES (2,0,FALSE ,'Monitor', 'XYZ11ABC', 1,1,'2011-03-12 12:00',1);
- INSERT INTO DEVICE(ID,VERSION,DELETED,NAME, SERIAL_NUMBER, WAREHOUSE_ID,DEVICE_MODEL_ID,LAST_UPDATE,COMPANY_ID) VALUES (3,0,FALSE ,'Klawiatura-bezprzewodowa', 'XYZ12ABC', 1,1,'2011-03-12 12:30',1);
-INSERT INTO DEVICE(ID,VERSION,DELETED,NAME, SERIAL_NUMBER, WAREHOUSE_ID,DEVICE_MODEL_ID,LAST_UPDATE,COMPANY_ID) VALUES (4,0,FALSE ,'Myszka-laserowa' ,'XYZ13ABC', 1,1,'2011-03-12 12:00',1);
+INSERT INTO public.device_model (id, cost, deleted, manufacture, name, version, company_id, device_type_id) VALUES (2, 2, false, 'hjh', 'myszka', 0, 1, 2);
+INSERT INTO public.device_model (id, cost, deleted, manufacture, name, version, company_id, device_type_id) VALUES (1, 2, false, 'pol', 'COMPUTER', 0, 1, 1);
+
+
+INSERT INTO DEVICE(ID, VERSION,DELETED,NAME,SERIAL_NUMBER, WAREHOUSE_ID,DEVICE_MODEL_ID,LAST_UPDATE,COMPANY_ID,STATUS) VALUES (1,0,FALSE ,'Komputer', 'XYZ10ABC', 1,1,'2018-03-12 12:00',1,'REPOSE');
+INSERT INTO DEVICE(ID,VERSION,DELETED,NAME, SERIAL_NUMBER, WAREHOUSE_ID,DEVICE_MODEL_ID,LAST_UPDATE,COMPANY_ID,STATUS) VALUES (2,0,FALSE ,'Monitor', 'XYZ11ABC', 1,1,'2011-03-12 12:00',1,'REPOSE');
+ INSERT INTO DEVICE(ID,VERSION,DELETED,NAME, SERIAL_NUMBER, WAREHOUSE_ID,DEVICE_MODEL_ID,LAST_UPDATE,COMPANY_ID,STATUS) VALUES (3,0,FALSE ,'Klawiatura-bezprzewodowa', 'XYZ12ABC', 1,1,'2011-03-12 12:30',1,'REPOSE');
+INSERT INTO DEVICE(ID,VERSION,DELETED,NAME, SERIAL_NUMBER, WAREHOUSE_ID,DEVICE_MODEL_ID,LAST_UPDATE,COMPANY_ID,STATUS) VALUES (4,0,FALSE ,'Myszka-laserowa' ,'XYZ13ABC', 1,1,'2011-03-12 12:00',1,'REPOSE');
 
 INSERT INTO TRANSFER (ID,VERSION,DELETED,USERNAME,TITLE,TRANSFER_DATE,SENDER_WAREHOUSE_ID,RECIEVER_WAREHOUSE_ID,DEVICE_ID,STATUS) VALUES (1,0,FALSE,'admin' ,'TITLE','2011-03-12 12:00',1,2,1,'TRANSFERED');
 
-INSERT INTO notification(ID,VERSION,DELETED,TITLE,DESCRIPTION,URL,READED,NOTIFICATION_DATE,USER_ID) VALUES (2,0,FALSE ,'Title','Description','/devices/transfer/view/1',FALSE ,'2011-03-12 12:30',1);
-INSERT INTO notification(ID,VERSION,DELETED,TITLE,DESCRIPTION,URL,READED,NOTIFICATION_DATE,USER_ID) VALUES (3,0,FALSE ,'Title','Description','/devices/transfer/view/2',FALSE ,'2011-03-12 12:32',1);
-INSERT INTO notification(ID,VERSION,DELETED,TITLE,DESCRIPTION,URL,READED,NOTIFICATION_DATE,USER_ID) VALUES (4,0,FALSE ,'Title','Description','/devices/transfer/view/1',FALSE ,'2011-03-12 12:35',1);
-INSERT INTO notification(ID,VERSION,DELETED,TITLE,DESCRIPTION,URL,READED,NOTIFICATION_DATE,USER_ID) VALUES (5,0,FALSE ,'Title','Description','/devices/transfer/view/2',FALSE ,'2011-03-12 12:40',1);
+INSERT INTO notification(ID,VERSION,DELETED,TITLE,DESCRIPTION,URL,READED,NOTIFICATION_DATE,USER_ID) VALUES (1,0,FALSE ,'Title','Description','/devices/transfer/view/1',FALSE ,'2011-03-12 12:30',1);
+INSERT INTO notification(ID,VERSION,DELETED,TITLE,DESCRIPTION,URL,READED,NOTIFICATION_DATE,USER_ID) VALUES (2,0,FALSE ,'Title','Description','/devices/transfer/view/2',FALSE ,'2011-03-12 12:32',1);
+INSERT INTO notification(ID,VERSION,DELETED,TITLE,DESCRIPTION,URL,READED,NOTIFICATION_DATE,USER_ID) VALUES (3,0,FALSE ,'Title','Description','/devices/transfer/view/1',FALSE ,'2011-03-12 12:35',1);
+INSERT INTO notification(ID,VERSION,DELETED,TITLE,DESCRIPTION,URL,READED,NOTIFICATION_DATE,USER_ID) VALUES (4,0,FALSE ,'Title','Description','/devices/transfer/view/2',FALSE ,'2011-03-12 12:40',1);
 
 
-INSERT INTO SYSTEM_MESSAGE(ID,VERSION,DELETED,TITLE,MESSAGE,MESSAGE_DATE) VALUES (1,0,FALSE,'TITLE','1','2011-03-12 12:30');
-INSERT INTO SYSTEM_MESSAGE(ID,VERSION,DELETED,TITLE,MESSAGE,MESSAGE_DATE) VALUES (2,0,FALSE,'TITLE','2','2011-03-12 12:33');
-INSERT INTO SYSTEM_MESSAGE(ID,VERSION,DELETED,TITLE,MESSAGE,MESSAGE_DATE) VALUES (3,0,FALSE,'TITLE','3','2011-03-12 12:40');
-INSERT INTO SYSTEM_MESSAGE(ID,VERSION,DELETED,TITLE,MESSAGE,MESSAGE_DATE) VALUES (4,0,FALSE,'TITLE','4','2011-03-12 13:00');
-INSERT INTO SYSTEM_MESSAGE(ID,VERSION,DELETED,TITLE,MESSAGE,MESSAGE_DATE) VALUES (6,0,FALSE,'Darmowa wyżerka','5 W tym tygodniu przyjeżdza do firmy catering, wszystkie potrawy przygotowane przez tą firmę będą darmowe.Prosze zabrać ze sobą sztućce.','2011-03-12 12:40');
-
-
-INSERT INTO SYSTEM_MESSAGE(ID,VERSION,DELETED,TITLE,MESSAGE,MESSAGE_DATE) VALUES (7,0,FALSE,'Dzień wolny','6 Jutro dzień wolny ogałaszam święto państwowe','2011-03-12 13:00');
+INSERT INTO SYSTEM_MESSAGE(ID,VERSION,DELETED,TITLE,MESSAGE,MESSAGE_DATE) VALUES (1,0,FALSE,'Dzień wolny',' Jutro dzień wolny ogałaszam święto państwowe','2011-03-12 13:00');
 
 
 INSERT INTO public.shipment (id, shipment_date, deleted, description, last_update, shipment_number, status, title, username, version, reciever_warehouse_id, sender_warehouse_id) VALUES (1, '2019-01-02 16:52:04.902000', false, 'MMCSMXS', '2019-01-02 16:52:20.003000', 'SMD SS', 'WAITING', 'cccx', 'admin', 0, 1, 2);
 INSERT INTO public.delivery (id, delivery_date, deleted, description, last_update, delivery_number, status, title, username, version, reciever_warehouse_id, sender_warehouse_id) VALUES (1, '2019-01-02 16:52:04.902000', false, 'MMCSMXS', '2019-01-02 16:52:20.003000', 'SMD SS', 'WAITING', 'cccx', 'admin', 0, 1, 2);
-INSERT INTO report(ID,VERSION,DELETED,TITLE,SENDER_ID,RECIEVER_ID,REPORT_DATE) VALUES (1,0,FALSE ,'title',1,1,'2011-03-12 13:00');
 
-INSERT INTO public.request (id, accepted_to_recieve, accepted_to_send, deleted, description, request_type, status, title, request_date, version, reciever_warehouse_id, sender_warehouse_id, user_id) VALUES (4, false, false, false, 'opis', 'SHIPMENT_REQUEST', 'WAITING', 'title', '2011-03-12 13:00:00.000000', 0, 1, 2, 1);
-INSERT INTO public.request (id, accepted_to_recieve, accepted_to_send, deleted, description, request_type, status, title, request_date, version, reciever_warehouse_id, sender_warehouse_id, user_id) VALUES (1, false, false, false, 'opis', 'DELIVERY_REQUEST', 'WAITING', 'title', '2011-03-12 13:00:00.000000', 0, 1, 2, 1);
-INSERT INTO public.request (id, accepted_to_recieve, accepted_to_send, deleted, description, request_type, status, title, request_date, version, reciever_warehouse_id, sender_warehouse_id, user_id) VALUES (2, false, false, false, 'opis', 'TRANSFER_REQUEST', 'WAITING', 'title', '2011-03-12 13:00:00.000000', 0, 1, 2, 1);
-INSERT INTO public.request (id, accepted_to_recieve, accepted_to_send, deleted, description, request_type, status, title, request_date, version, reciever_warehouse_id, sender_warehouse_id, user_id) VALUES (3, false, false, false, 'opis', 'DEVICE_REQUEST', 'WAITING', 'title', '2011-03-12 13:00:00.000000', 0, 1, 2, 1);
+INSERT INTO report(ID,VERSION,DELETED,TITLE,SENDER_ID,RECIEVER_ID,REPORT_DATE,DISABLE_SENDER,DISABLE_RECIEVER,DESCRIPTION) VALUES (1,0,FALSE ,'title',1,1,'2011-03-12 13:00',FALSE,FALSE,'opis');
+
+INSERT INTO public.request (id, deleted, description, request_type, status, title, request_date, version, reciever_warehouse_id, sender_warehouse_id, user_id,AMOUNT) VALUES (4,false ,'opis', 'SHIPMENT_REQUEST', 'WAITING', 'title', '2011-03-12 13:00:00.000000', 0 , 1, 2, 1,2);
+INSERT INTO public.request (id,deleted, description, request_type, status, title, request_date, version, reciever_warehouse_id, sender_warehouse_id, user_id,AMOUNT) VALUES (1, false,'opis', 'DELIVERY_REQUEST', 'WAITING', 'title', '2011-03-12 13:00:00.000000', 0, 1, 2, 1,2);
+INSERT INTO public.request (id, deleted, description, request_type, status, title, request_date, version, reciever_warehouse_id, sender_warehouse_id, user_id,AMOUNT) VALUES (2, false,'opis', 'TRANSFER_REQUEST', 'WAITING', 'title', '2011-03-12 13:00:00.000000', 0, 1, 2, 1,1);
+INSERT INTO public.request (id, deleted, description, request_type, status, title, request_date, version, reciever_warehouse_id, sender_warehouse_id, user_id,AMOUNT) VALUES (3,false,'opis', 'DEVICE_REQUEST', 'WAITING', 'title', '2011-03-12 13:00:00.000000', 0, 1, 2, 1,4);

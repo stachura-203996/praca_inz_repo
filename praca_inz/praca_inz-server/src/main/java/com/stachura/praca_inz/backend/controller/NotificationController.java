@@ -5,6 +5,8 @@ import com.stachura.praca_inz.backend.model.Notification;
 import com.stachura.praca_inz.backend.service.EmailService;
 import com.stachura.praca_inz.backend.service.NotificationService;
 import com.stachura.praca_inz.backend.web.dto.NotificationListElementDto;
+import com.stachura.praca_inz.backend.web.dto.company.CompanyStructureAddDto;
+import com.stachura.praca_inz.backend.web.dto.converter.CompanyStructureConverter;
 import com.stachura.praca_inz.backend.web.dto.converter.NotificationConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
@@ -58,6 +60,21 @@ public class NotificationController {
     List<NotificationListElementDto> getReadedAllDevicesForLoggedUser() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         return notificationService.getReadedAllNotificationsForLoggedUser(auth.getName());
+    }
+
+    @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(value = HttpStatus.OK)
+    public ResponseEntity<?> create(@RequestBody NotificationListElementDto notificationListElementDto) {
+        try {
+            Notification notification=notificationService.getNotificationById(notificationListElementDto.getId());
+            notificationService.createNewNotification(NotificationConverter.toNotification(notificationListElementDto,notification));
+        } catch (ServiceException e) {
+            e.printStackTrace();
+        }
+        HttpHeaders headers = new HttpHeaders();
+//        ControllerLinkBuilder linkBuilder = linkTo(methodOn(OfficeController.class).getOfficeById(office.getId()));
+//        headers.setLocation(linkBuilder.toUri());
+        return new ResponseEntity<>(headers, HttpStatus.CREATED);
     }
 
 

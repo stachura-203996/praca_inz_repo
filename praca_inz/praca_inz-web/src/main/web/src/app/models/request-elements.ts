@@ -11,13 +11,14 @@ export class RequestListElement {
     recieverWarehouseName:string;
     senderWarehouseName:string;
     createDate:string;
-
-    toString(): string {
-        return this.title + ' ' + this.username + ' '+ this.recieverWarehouseName+' '+ this.senderWarehouseName+''+this.createDate;
-    }
+    version:string
 }
 
-
+export class ChangeRequestStatusElement{
+    id: number;
+    status: string;
+    version:string;
+}
 //ADD
 
 export class TransferRequestAddElement {
@@ -31,53 +32,43 @@ export class TransferRequestAddElement {
 export class DeviceRequestAddElement {
     id: number;
     title: string;
+    amount:string;
     description: string;
-    deviceModel:number;
+    deviceModelId:number;
 }
 
 export class DeliveryRequestAddElement {
     id: number;
     title: string;
+    amount:string;
     description: string;
-    deviceModel:string;
+    deviceModel:number;
 }
 
 export class ShipmentRequestAddElement {
     id: number;
     title: string;
+    amount:string;
     description: string;
     deviceId:number;
     recieverWarehouseId:number;
 }
 
-//EDIT
+//VIEW
 
-export class TransferRequestEditElement {
+export class RequestViewElement {
     id: number;
     title: string;
-    description: string;
-    deviceId:string;
-    recieverWarehouseId:number;
+    username: string;
+    status: string;
+    type:string;
+    deviceModelName:string;
+    recieverWarehouseName:string;
+    senderWarehouseName:string;
+    createDate:string;
+    description:string;
+    version:string;
+    amount:string;
 }
 
-export class DeviceRequestEditElement {
-    id: number;
-    title: string;
-    description: string;
-    deviceModel:number
-}
 
-export class DeliveryRequestEditElement {
-    id: number;
-    title: string;
-    description: string;
-    deviceModel:number;
-}
-
-export class ShipmentRequestEditElement {
-    id: number;
-    title: string;
-    description: string;
-    deviceId:number;
-    recieverWarehouseId:number;
-}

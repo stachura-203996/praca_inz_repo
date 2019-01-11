@@ -1,8 +1,11 @@
 package com.stachura.praca_inz.backend.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.stachura.praca_inz.backend.model.enums.DeviceStatus;
 import com.stachura.praca_inz.backend.model.enums.Status;
+import com.stachura.praca_inz.backend.model.security.UserRole;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -11,6 +14,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -22,7 +26,8 @@ import java.util.Set;
 public class Device implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "DeviceGen", sequenceName = "device_id_seq",initialValue = 5,allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "DeviceGen")
     @Column(name = "ID", updatable = false, nullable = false)
     private Long id = null;
 
@@ -38,9 +43,9 @@ public class Device implements Serializable {
 
     @Column(name = "STATUS", nullable = false)
     @Enumerated(EnumType.STRING)
-    private Status status;
+    private DeviceStatus status;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY,optional = false)
     @JsonBackReference
     private DeviceModel deviceModel;
 
@@ -64,6 +69,7 @@ public class Device implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "device", fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonManagedReference
     private Set<DeviceField> deviceFields = new HashSet<>();
+
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference

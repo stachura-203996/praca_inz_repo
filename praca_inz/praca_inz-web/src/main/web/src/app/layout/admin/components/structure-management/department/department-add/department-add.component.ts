@@ -6,41 +6,76 @@ import {Router} from "@angular/router";
 import {DepartmentService} from "../department.service";
 import {StructureAddElement, StructureListElement} from "../../../../../../models/structure-elements";
 import {TranslateService} from "@ngx-translate/core";
+import {UserRoles} from "../../../../../../models/user-roles";
+import {LoggedUser} from "../../../../../../models/logged-user";
+import {UserService} from "../../../administration/user-management/user.service";
 
 @Component({
-  selector: 'app-department-add',
-  templateUrl: './department-add.component.html',
-  styleUrls: ['./department-add.component.scss']
+    selector: 'app-department-add',
+    templateUrl: './department-add.component.html',
+    styleUrls: ['./department-add.component.scss']
 })
 export class DepartmentAddComponent implements OnInit {
 
-    @Input() structureAddElement: StructureAddElement= new StructureAddElement;
+    @Input() structureAddElement: StructureAddElement = new StructureAddElement;
 
-    companies: StructureListElement[];
+    companies = new Map<string, number>();
 
-    constructor(private companyService:CompanyService,private departmentService:DepartmentService,private translate:TranslateService,private router:Router) {
-        this.translate.addLangs(['en','pl']);
-        this.translate.setDefaultLang('pl');
-        const browserLang = this.translate.getBrowserLang();
-        this.translate.use(browserLang.match(/en|pl/) ? browserLang : 'pl');
+    selectedOption: string;
+    id: number;
+    roles: UserRoles;
+    currentUser: LoggedUser;
+
+    constructor(
+        private companyService: CompanyService,
+        private userService: UserService,
+        private departmentService: DepartmentService,
+        private translate: TranslateService,
+        private router: Router) {
+
     }
 
     ngOnInit() {
+        this.getLoggedUser();
+        this.getLoggedUserRoles();
         this.getCompanies();
+
     }
 
-    getCompanies(){
-        this.companyService.getAll().subscribe(companyListElement=> {this.companies=companyListElement});
+
+    getLoggedUser() {
+        this.userService.getLoggedUser().subscribe(x => this.currentUser = x);
     }
 
-    departmentAdd(){
+    getLoggedUserRoles() {
+        this.userService.getLoggedUserRoles().subscribe(x => this.roles = x);
+    }
+
+    getCompanies() {
+            this.companyService.getAll().subscribe((response: StructureListElement[]) => {
+                this.companies = response.reduce(function (companyMap, company) {
+                    if (company.id) {
+                        companyMap.set(company.name, company.id)
+                    }
+                    return companyMap;
+                }, this.companies);
+            });
+    }
+
+    departmentAdd() {
+        if(this.roles.admin) {
+            this.structureAddElement.companyId = this.companies.get(this.selectedOption);
+        } else {
+            this.structureAddElement.companyId=this.currentUser.companyId;
+        }
         this.departmentService.createDepartment(this.structureAddElement).subscribe(resp => {
             this.router.navigateByUrl('/admin/departments');
         });
+
     }
 
     clear() {
-        this.structureAddElement=new StructureAddElement();
+        this.structureAddElement = new StructureAddElement();
     }
 
 }

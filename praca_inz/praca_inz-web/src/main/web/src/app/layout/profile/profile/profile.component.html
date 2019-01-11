@@ -32,14 +32,14 @@
                     <div class="bot-border"></div>
 
                     <div class="row">
-                        <div class="col-sm-5 col-xs-6 tital ">{{'FirstName'| translate}}</div>
+                        <div class="col-sm-5 col-xs-6 tital ">{{'Name'| translate}}</div>
                         <div class="col-sm-7 col-xs-6 ">{{user.name}}</div>
                     </div>
                     <div class="clearfix"></div>
                     <div class="bot-border"></div>
 
                     <div class="row">
-                        <div class="col-sm-5 col-xs-6 tital ">{{'LastName'| translate}}</div>
+                        <div class="col-sm-5 col-xs-6 tital ">{{'Surname'| translate}}</div>
                         <div class="col-sm-7">{{user.surname}}</div>
                     </div>
                     <div class="clearfix"></div>
@@ -63,13 +63,19 @@
                     <div class="clearfix"></div>
                     <div class="bot-border"></div>
                     <div class="row">
+                        <div class="col-sm-5 col-xs-6 tital ">{{'Workplace'| translate}}</div>
+                        <div class="col-sm-7">{{user.dateOfJoining}}</div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="bot-border"></div>
+                    <div class="row">
                         <div class="col-sm-5 col-xs-6 tital ">{{'Email'| translate}}</div>
                         <div class="col-sm-7">{{user.email}}</div>
                     </div>
                     <div class="clearfix"></div>
                     <div class="bot-border"></div>
                     <div class="row">
-                        <div class="col-sm-5 col-xs-6 tital ">{{'Adress'| translate}}</div>
+                        <div class="col-sm-5 col-xs-6 tital ">{{'Address'| translate}}</div>
                         <div class="col-sm-7">{{getAddress()}}</div>
                     </div>
                     <div class="clearfix"></div>
@@ -80,15 +86,23 @@
                     </div>
                     <div class="clearfix"></div>
                     <div class="bot-border"></div>
+                    <div class="row">
+                        <div class="col-sm-5 col-xs-6 tital ">{{'Authorities'| translate}}</div>
+                        <div id="role" *ngFor="let authority of user.roles">
+                            <span class="badge badge-info">{{ authority }}</span>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="bot-border"></div>
+
                     <br>
                     <div class="row">
                         <div class="col-sm-6" align="center">
-                            <button [routerLink]="['/profile/edit']" class="btn btn-primary" i18n="@@editButton">Edit
+                            <button [routerLink]="['/profile/edit']" class="btn btn-primary">{{'Edit'|translate}}
                             </button>
                         </div>
                         <div class="col-sm-6" align="center">
-                            <button [routerLink]="['/profile/password']" class="btn btn-primary"
-                                    i18n="@@changePasswordButton">Change Password
+                            <button [routerLink]="['/profile/password']" class="btn btn-primary">{{'Change Password'|translate}}
                             </button>
                         </div>
                     </div>

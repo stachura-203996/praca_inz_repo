@@ -1,12 +1,13 @@
+<div class="col-xl-12"  *ngIf="departments">
 <h1>{{ 'Departments' | translate }}</h1>
 
 <div class="row">
     <div class="col-lg-10">
-        <input class="form-control" #searchBox id="search-box" (keyup)="filterUsers(searchBox.value)"
-               placeholder="{{'Search...'|translate}}" i18n-placeholder="User search placeholder"/>
+        <input class="form-control" #searchBox id="search-box" (keyup)="filterDepartments(searchBox.value)"
+               placeholder="{{'Search...'|translate}}"/>
     </div>
     <div class="col-lg-2">
-        <button class="btn btn-primary float-right jh-create-entity" [routerLink]="['./add']">
+        <button *ngIf="departments" class="btn btn-primary float-right jh-create-entity" [routerLink]="['./add']">
             <i class="fa fa-plus"></i>&nbsp;
             <span>{{ 'CreateDepartment' | translate }}</span>
         </button>
@@ -50,4 +51,4 @@
     </tr>
     </tbody>
 </table>
-
+</div>

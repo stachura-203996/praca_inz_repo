@@ -1,3 +1,84 @@
-<p>
-  transfer-request-view works!
-</p>
+<div class="col-xl-10">
+    <h2>{{'RequestView'|translate}}</h2>
+    <hr/>
+    <div class="col-xl-7">
+        <div class="row">
+            <div class="col-sm-5 col-xs-6 tital ">{{'Title'|translate}}</div>
+            <div class="col-sm-7 col-xs-6 ">{{request.title}}</div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="bot-border"></div>
+        <div class="row">
+            <div class="col-sm-5 col-xs-6 tital ">{{'Username'|translate}}</div>
+            <div class="col-sm-7 col-xs-6 ">{{request.username}}</div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="bot-border"></div>
+        <div class="row">
+            <div class="col-sm-5 col-xs-6 tital ">{{'Status'|translate}}</div>
+            <div class="col-sm-7 col-xs-6 ">{{request.status}}</div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="bot-border"></div>
+        <div class="row">
+            <div class="col-sm-5 col-xs-6 tital ">{{'Type'|translate}}</div>
+            <div class="col-sm-7 col-xs-6 ">{{request.type}}</div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="bot-border"></div>
+        <div class="row" *ngFor="let device of devices">
+            <div class="col-sm-5 col-xs-6 tital ">{{'Device'|translate}}</div>
+            <div class="box">
+                <div class="col-sm-7 col-xs-6 ">{{device.name}}</div>
+                <div class="col-sm-7 col-xs-6 ">{{device.serialNumber}}</div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="bot-border"></div>
+        <div class="row">
+            <div class="col-sm-5 col-xs-6 tital ">{{'DeviceModel'|translate}}</div>
+            <div class="col-sm-7 col-xs-6 ">{{request.deviceModelName}}</div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="bot-border"></div>
+        <div class="row">
+            <div class="col-sm-5 col-xs-6 tital ">{{'Reciever'| translate}}</div>
+            <div class="col-sm-7 col-xs-6 ">{{request.recieverWarehouseName}}</div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="bot-border"></div>
+
+        <div class="row">
+            <div class="col-sm-5 col-xs-6 tital ">{{'Date'| translate}}</div>
+            <div class="col-sm-7 col-xs-6 ">{{request.createDate}}</div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="bot-border"></div>
+
+        <div class="row">
+            <div class="col-sm-5 col-xs-6 tital ">{{'Description'| translate}}</div>
+            <div id="description" class="col-sm-7 col-xs-6 ">{{request.description}}</div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="bot-border"></div>
+
+        <br>
+        <div class="row">
+            <div class="col-sm-4" align="center">
+                <button *ngIf="currentUser.username==request.username && request.status=='WAITING'" (click)="cancel()" class="btn btn-error">
+                    {{'Cancel'|translate}}
+                </button>
+            </div>
+            <div class="col-sm-4" align="center">
+                <button *ngIf="roles.manager && request.status=='WAITING'" (click)="reject()" class="btn btn-error">
+                    {{'Reject'|translate}}
+                </button>
+            </div>
+            <div class="col-sm-4" align="center">
+                <button *ngIf="roles.manager && request.status=='WAITING'" (click)="accept()" class="btn btn-succes">
+                    {{'Accept'|translate}}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

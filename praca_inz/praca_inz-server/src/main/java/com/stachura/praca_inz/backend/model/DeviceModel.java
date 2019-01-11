@@ -23,7 +23,8 @@ import java.util.Set;
 public class DeviceModel implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "DeviceModelGen", sequenceName = "device_model_id_seq",initialValue = 3,allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "DeviceModelGen")
     @Column(name = "ID", updatable = false, nullable = false)
     private Long id = null;
 
@@ -34,8 +35,11 @@ public class DeviceModel implements Serializable {
     @Column(name = "NAME", nullable = false)
     private String name;
 
-    @Column(name = "MANUFACTURE")
+    @Column(name = "MANUFACTURE" ,nullable = false)
     private String manufacture;
+
+    @Column(name = "COST", nullable = false)
+    private long cost;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference

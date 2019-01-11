@@ -48,28 +48,28 @@ export class CompanyViewComponent implements OnInit {
 
     getDepartmentsForCompany() {
         const id = this.route.snapshot.paramMap.get('id');
-        this.departmentService.getAllForCompany(id).subscribe(departmentListElement => {
+        this.departmentService.getAllForCompany(Number(id)).subscribe(departmentListElement => {
             this.departments = departmentListElement
         });
     }
 
     getOfficesForCompany() {
         const id = this.route.snapshot.paramMap.get('id');
-        this.officeService.getAllForCompany(id).subscribe(officeListElement => {
+        this.officeService.getAllForCompany(Number(id)).subscribe(officeListElement => {
             this.offices = officeListElement
         });
     }
 
     getWarehouseForCompany() {
         const id = this.route.snapshot.paramMap.get('id');
-        this.warehouseService.getAllForCompany(id).subscribe(warehouseListElement => {
+        this.warehouseService.getAllForCompany(Number(id)).subscribe(warehouseListElement => {
             this.warehouses = warehouseListElement
         });
     }
 
     getDevicesForCompany() {
         const id = this.route.snapshot.paramMap.get('id');
-        this.deviceService.getAllDevicesForCompany(id).subscribe(deviceListElement => {
+        this.deviceService.getAllDevicesForCompany(Number(id)).subscribe(deviceListElement => {
             this.devices = deviceListElement
         });
     }

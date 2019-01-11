@@ -1,10 +1,13 @@
 package com.stachura.praca_inz.backend.service.impl;
 
+import com.stachura.praca_inz.backend.Constants;
 import com.stachura.praca_inz.backend.exception.repository.DatabaseErrorException;
 import com.stachura.praca_inz.backend.exception.repository.EntityException;
 import com.stachura.praca_inz.backend.exception.service.ServiceException;
 import com.stachura.praca_inz.backend.model.Department;
+import com.stachura.praca_inz.backend.model.security.User;
 import com.stachura.praca_inz.backend.repository.interfaces.DepartmentRepository;
+import com.stachura.praca_inz.backend.repository.interfaces.UserRepository;
 import com.stachura.praca_inz.backend.service.DepartmentService;
 import com.stachura.praca_inz.backend.web.dto.company.CompanyStructuresListElementDto;
 import com.stachura.praca_inz.backend.web.dto.converter.CompanyStructureConverter;
@@ -23,6 +26,9 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Autowired
     private DepartmentRepository departmentRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Override
     @Transactional(readOnly = true)
@@ -49,8 +55,14 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Override
     @Transactional(readOnly = true)
     @PreAuthorize("hasAuthority('DEPARTMENT_LIST_READ')")
-    public List<CompanyStructuresListElementDto> getAllDepartments() {
-        List<Department> departments = departmentRepository.findAll();
+    public List<CompanyStructuresListElementDto> getAllDepartments(String username) {
+        User user=userRepository.find(username);
+        List<Department> departments;
+        if(user.getUserRoles().stream().anyMatch(x->x.getName().equals(Constants.ADMIN_ROLE))) {
+             departments = departmentRepository.findAll();
+        } else{
+          departments = departmentRepository.findAll().stream().filter(x->x.getCompany().getId().equals(user.getOffice().getDepartment().getCompany().getId())).collect(Collectors.toList());
+        }
         List<CompanyStructuresListElementDto> structuresListElementDtos = new ArrayList<>();
         for (Department a : departments) {
             if (!a.isDeleted()) {

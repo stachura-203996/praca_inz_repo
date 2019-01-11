@@ -5,6 +5,8 @@ import {DepartmentService} from "../department.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {StructureEditElement, StructureListElement} from "../../../../../../models/structure-elements";
 import {TranslateService} from "@ngx-translate/core";
+import {UserRoles} from "../../../../../../models/user-roles";
+import {UserService} from "../../../administration/user-management/user.service";
 
 
 @Component({
@@ -18,17 +20,18 @@ export class DepartmentEditComponent implements OnInit {
 
     companies: StructureListElement[];
 
-    constructor(private route: ActivatedRoute,private companyService: CompanyService,private translate:TranslateService, private departmentService: DepartmentService, private router: Router) {
-        this.translate.addLangs(['en','pl']);
-        this.translate.setDefaultLang('pl');
-        const browserLang = this.translate.getBrowserLang();
-        this.translate.use(browserLang.match(/en|pl/) ? browserLang : 'pl');
+    roles:UserRoles;
+
+    constructor(private route: ActivatedRoute,private userService:UserService,private companyService: CompanyService,private translate:TranslateService, private departmentService: DepartmentService, private router: Router) {
+
 
     }
 
     ngOnInit() {
+        this.getLoggedUserRoles();
         this.getDepartment();
         this.getCompanies();
+
     }
 
     getDepartment() {
@@ -40,6 +43,10 @@ export class DepartmentEditComponent implements OnInit {
         this.companyService.getAll().subscribe(companyListElement => {
             this.companies = companyListElement
         });
+    }
+
+    getLoggedUserRoles() {
+        this.userService.getLoggedUserRoles().subscribe(x => this.roles = x);
     }
 
     departmentUpdate() {
