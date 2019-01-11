@@ -14,7 +14,7 @@ public interface DeviceModelService {
 
     List<ParameterListElementDto> getDeviceParameters(Long id) throws ServiceException;
 
-    List<DeviceModelListElementDto> getAllDeviceModels();
+    List<DeviceModelListElementDto> getAllDeviceModels(String username) throws ServiceException;
 
     void createNewDeviceModel(DeviceModel deviceModel) throws ServiceException;
 

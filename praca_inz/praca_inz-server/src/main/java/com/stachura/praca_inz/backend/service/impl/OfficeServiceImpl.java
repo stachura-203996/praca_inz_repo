@@ -1,13 +1,17 @@
 package com.stachura.praca_inz.backend.service.impl;
 
 import com.google.common.collect.Lists;
+import com.stachura.praca_inz.backend.Constants;
 import com.stachura.praca_inz.backend.exception.repository.DatabaseErrorException;
 import com.stachura.praca_inz.backend.exception.repository.EntityException;
 import com.stachura.praca_inz.backend.exception.service.ServiceException;
 import com.stachura.praca_inz.backend.model.Department;
+import com.stachura.praca_inz.backend.model.DeviceModel;
 import com.stachura.praca_inz.backend.model.Office;
+import com.stachura.praca_inz.backend.model.security.User;
 import com.stachura.praca_inz.backend.repository.DepartmentRepository;
 import com.stachura.praca_inz.backend.repository.OfficeRepository;
+import com.stachura.praca_inz.backend.repository.UserRepository;
 import com.stachura.praca_inz.backend.service.OfficeService;
 import com.stachura.praca_inz.backend.web.dto.company.CompanyStructureAddDto;
 import com.stachura.praca_inz.backend.web.dto.company.CompanyStructureEditDto;
@@ -31,6 +35,9 @@ public class OfficeServiceImpl implements OfficeService {
 
     @Autowired
     private DepartmentRepository departmentRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Override
     @Transactional(readOnly = true)
@@ -74,8 +81,14 @@ public class OfficeServiceImpl implements OfficeService {
     @Override
     @Transactional(readOnly = true)
     @PreAuthorize("hasAuthority('OFFICE_LIST_READ')")
-    public List<CompanyStructuresListElementDto> getAll() {
-        List<Office> offices = Lists.newArrayList(officeRepository.findAll());
+    public List<CompanyStructuresListElementDto> getAll(String username) throws ServiceException {
+        List<Office> offices;
+        User user=userRepository.findByUsername(username).orElseThrow(()->new ServiceException());
+        if(user.getUserRoles().stream().anyMatch(x->x.getName().equals(Constants.ADMIN_ROLE))) {
+            offices = Lists.newArrayList(officeRepository.findAll());
+        } else{
+            offices = Lists.newArrayList(officeRepository.findAll()).stream().filter(x->x.getDepartment().getCompany().getId().equals(user.getOffice().getDepartment().getCompany().getId())).collect(Collectors.toList());
+        }
         List<CompanyStructuresListElementDto> officesDto = new ArrayList<>();
         for (Office a : offices) {
             if (!a.isDeleted()) {

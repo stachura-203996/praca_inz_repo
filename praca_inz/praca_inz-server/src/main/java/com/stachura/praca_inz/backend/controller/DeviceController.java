@@ -29,8 +29,9 @@ public class DeviceController {
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
-    List<DeviceListElementDto> getAll() {
-        return deviceService.getAllDevices();
+    List<DeviceListElementDto> getAll() throws ServiceException {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        return deviceService.getAllDevices(auth.getName());
     }
 
     @RequestMapping(value = "/company/{id}",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)

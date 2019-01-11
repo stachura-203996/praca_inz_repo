@@ -24,9 +24,11 @@ export class DeviceTypeListComponent implements OnInit {
 
 
     getDevicesTypes() {
-        this.deviceService.getAllDevicesTypes().subscribe(deviceListElement => {
-            this.deviceTypes = deviceListElement
-        });
+        if(!this.deviceTypes.some(x=>x.name==this.deviceType)) {
+            this.deviceService.getAllDevicesTypes().subscribe(deviceListElement => {
+                this.deviceTypes = deviceListElement
+            });
+        }
     }
 
     addDeviceType(){

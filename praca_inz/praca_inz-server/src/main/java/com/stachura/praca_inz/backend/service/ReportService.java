@@ -10,7 +10,7 @@ import java.util.List;
 public interface ReportService {
     Report getReportById(Long id);
 
-    List<ReportListElementDto> getAllReports();
+    List<ReportListElementDto> getAllReports(String username) throws ServiceException;
 
     Report createNewReport(ReportAddDto reportAddDto, String username) throws ServiceException;
 

@@ -29,8 +29,9 @@ public class TransferController {
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
-    List<TransferListElementDto> getAll() {
-        return transferService.getAllTransfers();
+    List<TransferListElementDto> getAll() throws ServiceException {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        return transferService.getAllTransfers(auth.getName());
     }
 
 

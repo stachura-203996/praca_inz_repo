@@ -11,9 +11,7 @@ public interface DeviceService {
 
     Device getDeviceById(Long id) throws ServiceException;
 
-//    Device getDeviceByName(String name);
-
-    List<DeviceListElementDto> getAllDevices();
+    List<DeviceListElementDto> getAllDevices(String username) throws ServiceException;
 
     List<DeviceListElementDto> getAllDevicesForCompany(Long id);
 

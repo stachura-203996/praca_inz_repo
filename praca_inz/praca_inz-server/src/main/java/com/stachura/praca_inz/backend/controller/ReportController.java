@@ -45,8 +45,9 @@ public class ReportController {
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
-    List<ReportListElementDto> getAllReports() {
-        return reportService.getAllReports();
+    List<ReportListElementDto> getAllReports() throws ServiceException {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        return reportService.getAllReports(auth.getName());
     }
 
     @RequestMapping(value = "/user", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)

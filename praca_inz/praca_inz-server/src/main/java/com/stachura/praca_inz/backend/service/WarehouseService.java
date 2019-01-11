@@ -13,7 +13,7 @@ import java.util.List;
 public interface WarehouseService {
 
 
-    List<WarehouseListElementDto> getAllOfficeWarehouses();
+    List<WarehouseListElementDto> getAllOfficeWarehouses(String username) throws ServiceException;
 
     void createWarehouse(WarehouseAddDto warehouseAddDto)throws ServiceException;
 

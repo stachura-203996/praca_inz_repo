@@ -1,9 +1,11 @@
 package com.stachura.praca_inz.backend.service.impl;
 
 import com.google.common.collect.Lists;
+import com.stachura.praca_inz.backend.Constants;
 import com.stachura.praca_inz.backend.exception.repository.DatabaseErrorException;
 import com.stachura.praca_inz.backend.exception.repository.EntityException;
 import com.stachura.praca_inz.backend.exception.service.ServiceException;
+import com.stachura.praca_inz.backend.model.Office;
 import com.stachura.praca_inz.backend.model.Report;
 import com.stachura.praca_inz.backend.model.security.User;
 import com.stachura.praca_inz.backend.repository.ReportRepository;
@@ -48,8 +50,14 @@ public class ReportServiceImpl implements ReportService {
     @Override
     @Transactional(readOnly = true)
     @PreAuthorize("hasAuthority('REPORT_LIST_READ')")
-    public List<ReportListElementDto> getAllReports() {
-        List<Report> reports = Lists.newArrayList(reportRepository.findAll());
+    public List<ReportListElementDto> getAllReports(String username) throws ServiceException {
+        List<Report> reports;
+        User user=userRepository.findByUsername(username).orElseThrow(()->new ServiceException());
+        if(user.getUserRoles().stream().anyMatch(x->x.getName().equals(Constants.ADMIN_ROLE))) {
+            reports = Lists.newArrayList(reportRepository.findAll());
+        } else{
+            reports = Lists.newArrayList(reportRepository.findAll()).stream().filter(x->x.getSender().getOffice().getDepartment().getCompany().getId().equals(user.getOffice().getDepartment().getCompany().getId())).collect(Collectors.toList());
+        }
         List<ReportListElementDto> reportListElementDtos = new ArrayList<>();
         for (Report a : reports) {
             if (!a.isDeleted()) {

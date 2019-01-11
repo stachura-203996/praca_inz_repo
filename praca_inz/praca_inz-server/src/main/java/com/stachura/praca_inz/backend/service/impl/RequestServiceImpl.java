@@ -1,6 +1,7 @@
 package com.stachura.praca_inz.backend.service.impl;
 
 import com.google.common.collect.Lists;
+import com.stachura.praca_inz.backend.Constants;
 import com.stachura.praca_inz.backend.exception.repository.DatabaseErrorException;
 import com.stachura.praca_inz.backend.exception.repository.EntityException;
 import com.stachura.praca_inz.backend.exception.service.ServiceException;
@@ -64,8 +65,15 @@ public class RequestServiceImpl implements RequestService {
     @Override
     @Transactional(readOnly = true)
     @PreAuthorize("hasAuthority('REQUEST_LIST_READ')")
-    public List<RequestListElementDto> getAllRequests(String type) {
-        List<Request> requests = Lists.newArrayList(requestRepository.findAll()).stream().filter(x -> x.getRequestType().name().equals(type)).collect(Collectors.toList());
+    public List<RequestListElementDto> getAllRequests(String type,String username) throws ServiceException {
+        List<Request> requests;
+        User user=userRepository.findByUsername(username).orElseThrow(()->new ServiceException());
+        if(user.getUserRoles().stream().anyMatch(x->x.getName().equals(Constants.ADMIN_ROLE))) {
+            requests = Lists.newArrayList(requestRepository.findAll()).stream().filter(x -> x.getRequestType().name().equals(type)).collect(Collectors.toList());
+        } else{
+            requests = Lists.newArrayList(requestRepository.findAll()).stream().filter(x -> x.getRequestType().name().equals(type) && x.getUser().getOffice().getDepartment().getCompany().getId()
+                    .equals(user.getOffice().getDepartment().getCompany().getId())).collect(Collectors.toList());
+        }
         List<RequestListElementDto> requestListElementDtos = new ArrayList<>();
         for (Request a : requests) {
             if (!a.isDeleted()) {

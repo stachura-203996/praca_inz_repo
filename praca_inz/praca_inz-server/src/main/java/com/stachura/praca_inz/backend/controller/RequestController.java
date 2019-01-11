@@ -60,8 +60,9 @@ public class RequestController {
     @RequestMapping(value = "/type/{type}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
-    List<RequestListElementDto> getAllRequestsForUser(@PathVariable String type) {
-        return requestService.getAllRequests(type);
+    List<RequestListElementDto> getAllRequests(@PathVariable String type) throws ServiceException {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        return requestService.getAllRequests(type,auth.getName());
     }
 
     @RequestMapping(value = "/user", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)

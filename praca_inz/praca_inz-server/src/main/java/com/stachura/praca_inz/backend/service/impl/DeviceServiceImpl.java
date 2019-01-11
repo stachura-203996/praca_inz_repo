@@ -1,6 +1,7 @@
 package com.stachura.praca_inz.backend.service.impl;
 
 import com.google.common.collect.Lists;
+import com.stachura.praca_inz.backend.Constants;
 import com.stachura.praca_inz.backend.exception.repository.DatabaseErrorException;
 import com.stachura.praca_inz.backend.exception.repository.EntityException;
 import com.stachura.praca_inz.backend.exception.service.ServiceException;
@@ -8,7 +9,9 @@ import com.stachura.praca_inz.backend.model.Device;
 import com.stachura.praca_inz.backend.model.Office;
 import com.stachura.praca_inz.backend.model.enums.DeviceStatus;
 import com.stachura.praca_inz.backend.model.enums.WarehouseType;
+import com.stachura.praca_inz.backend.model.security.User;
 import com.stachura.praca_inz.backend.repository.DeviceRepository;
+import com.stachura.praca_inz.backend.repository.UserRepository;
 import com.stachura.praca_inz.backend.service.DeviceService;
 import com.stachura.praca_inz.backend.web.dto.device.DeviceListElementDto;
 import com.stachura.praca_inz.backend.web.dto.converter.DeviceConverter;
@@ -29,6 +32,9 @@ public class DeviceServiceImpl implements DeviceService {
     @Autowired
     private DeviceRepository deviceRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
     @Override
     @Transactional(readOnly = true)
     @PreAuthorize("hasAuthority('DEVICE_READ')")
@@ -43,8 +49,14 @@ public class DeviceServiceImpl implements DeviceService {
     @Override
     @Transactional(readOnly = true)
     @PreAuthorize("hasAuthority('DEVICE_LIST_READ')")
-    public List<DeviceListElementDto> getAllDevices() {
-        List<Device> devices = Lists.newArrayList(deviceRepository.findAll());
+    public List<DeviceListElementDto> getAllDevices(String username) throws ServiceException {
+        List<Device> devices;
+        User user=userRepository.findByUsername(username).orElseThrow(()->new ServiceException());
+        if(user.getUserRoles().stream().anyMatch(x->x.getName().equals(Constants.ADMIN_ROLE))) {
+            devices = Lists.newArrayList(deviceRepository.findAll());
+        } else{
+            devices = Lists.newArrayList(deviceRepository.findAll()).stream().filter(x->x.getCompany().getId().equals(user.getOffice().getDepartment().getCompany().getId())).collect(Collectors.toList());
+        }
         List<DeviceListElementDto> devicesDto = new ArrayList<>();
         for (Device a : devices) {
             if (!a.isDeleted()) {

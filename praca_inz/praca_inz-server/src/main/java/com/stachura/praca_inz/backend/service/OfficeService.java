@@ -15,7 +15,7 @@ public interface OfficeService {
 
     List<CompanyStructuresListElementDto> getAllOfficesForDepartment(Long id);
 
-    List<CompanyStructuresListElementDto> getAll();
+    List<CompanyStructuresListElementDto> getAll(String username) throws ServiceException;
 
     void create(CompanyStructureAddDto companyStructureAddDto) throws ServiceException;
 

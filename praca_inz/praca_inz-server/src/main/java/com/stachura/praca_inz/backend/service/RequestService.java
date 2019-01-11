@@ -14,7 +14,7 @@ public interface RequestService {
 
     Request getRequestById(Long id) throws ServiceException;
 
-    List<RequestListElementDto> getAllRequests(String type);
+    List<RequestListElementDto> getAllRequests(String type,String username) throws ServiceException;
 
     List<RequestListElementDto> getAllRequestsForUser(String username);
 

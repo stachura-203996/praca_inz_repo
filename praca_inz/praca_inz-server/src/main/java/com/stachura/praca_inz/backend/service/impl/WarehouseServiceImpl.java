@@ -1,10 +1,12 @@
 package com.stachura.praca_inz.backend.service.impl;
 
 import com.google.common.collect.Lists;
+import com.stachura.praca_inz.backend.Constants;
 import com.stachura.praca_inz.backend.exception.repository.DatabaseErrorException;
 import com.stachura.praca_inz.backend.exception.repository.EntityException;
 import com.stachura.praca_inz.backend.exception.service.ServiceException;
 import com.stachura.praca_inz.backend.model.Office;
+import com.stachura.praca_inz.backend.model.Transfer;
 import com.stachura.praca_inz.backend.model.Warehouse;
 import com.stachura.praca_inz.backend.model.enums.WarehouseType;
 import com.stachura.praca_inz.backend.model.security.User;
@@ -65,8 +67,15 @@ public class WarehouseServiceImpl implements WarehouseService {
     @Override
     @Transactional(readOnly = true)
     @PreAuthorize("hasAuthority('WAREHOUSE_LIST_READ')")
-    public List<WarehouseListElementDto> getAllOfficeWarehouses() {
-        List<Warehouse> warehouses = Lists.newArrayList(warehouseRepository.findAll()).stream().filter(x -> x.getOffice() != null).collect(Collectors.toList());
+    public List<WarehouseListElementDto> getAllOfficeWarehouses(String username) throws ServiceException {
+        List<Warehouse> warehouses;
+        User user=userRepository.findByUsername(username).orElseThrow(()->new ServiceException());
+        if(user.getUserRoles().stream().anyMatch(x->x.getName().equals(Constants.ADMIN_ROLE))) {
+            warehouses = Lists.newArrayList(warehouseRepository.findAll()).stream().filter(x->x.getWarehouseType().equals(WarehouseType.OFFICE)).collect(Collectors.toList());
+        } else{
+            warehouses=Lists.newArrayList(warehouseRepository.findAll()).stream().filter(x->x.getWarehouseType().equals(WarehouseType.OFFICE)&&
+                    x.getOffice().getDepartment().getCompany().getId().equals(user.getOffice().getDepartment().getCompany().getId())).collect(Collectors.toList());
+        }
         List<WarehouseListElementDto> warehouseListElementDtos = new ArrayList<>();
         for (Warehouse a : warehouses) {
             if (!a.isDeleted()) {
