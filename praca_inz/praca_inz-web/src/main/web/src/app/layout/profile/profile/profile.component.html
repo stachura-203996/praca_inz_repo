@@ -32,40 +32,43 @@
                     <div class="bot-border"></div>
 
                     <div class="row">
-                        <div class="col-sm-5 col-xs-6 tital ">{{'Name'| translate}}</div>
+                        <div class="col-sm-5 col-xs-6 tital ">{{'FirstName'| translate}}</div>
                         <div class="col-sm-7 col-xs-6 ">{{user.name}}</div>
                     </div>
                     <div class="clearfix"></div>
                     <div class="bot-border"></div>
 
                     <div class="row">
-                        <div class="col-sm-5 col-xs-6 tital ">{{'Surname'| translate}}</div>
+                        <div class="col-sm-5 col-xs-6 tital ">{{'LastName'| translate}}</div>
                         <div class="col-sm-7">{{user.surname}}</div>
                     </div>
                     <div class="clearfix"></div>
                     <div class="bot-border"></div>
                     <div class="row">
                         <div class="col-sm-5 col-xs-6 tital ">{{'Company'| translate}}</div>
-                        <div class="col-sm-7">{{user.company}}</div>
+                        <div class="col-sm-7"><a
+                            href="/structures/companies/view/{{user.companyId}}">{{user.company}}</a></div>
                     </div>
                     <div class="clearfix"></div>
                     <div class="bot-border"></div>
                     <div class="row">
                         <div class="col-sm-5 col-xs-6 tital ">{{'Department'| translate}}</div>
-                        <div class="col-sm-7">{{user.department}}</div>
+                        <div class="col-sm-7"><a href="/structures/departments/view/{{user.departmentId}}">{{user.department}}</a>
+                        </div>
                     </div>
                     <div class="clearfix"></div>
                     <div class="bot-border"></div>
                     <div class="row">
                         <div class="col-sm-5 col-xs-6 tital ">{{'Office'| translate}}</div>
-                        <div class="col-sm-7">{{user.office}}</div>
+                        <div class="col-sm-7"><a href="/structures/offices/view/{{user.officeId}}">{{user.office}}</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-5 col-xs-6 tital ">{{'Workplace'| translate}}</div>
+                        <div class="col-sm-7">{{user.workplace}}</div>
                     </div>
                     <div class="clearfix"></div>
                     <div class="bot-border"></div>
-                    <div class="row">
-                        <div class="col-sm-5 col-xs-6 tital ">{{'Workplace'| translate}}</div>
-                        <div class="col-sm-7">{{user.dateOfJoining}}</div>
-                    </div>
                     <div class="clearfix"></div>
                     <div class="bot-border"></div>
                     <div class="row">
@@ -75,8 +78,17 @@
                     <div class="clearfix"></div>
                     <div class="bot-border"></div>
                     <div class="row">
-                        <div class="col-sm-5 col-xs-6 tital ">{{'Address'| translate}}</div>
+                        <div class="col-sm-5 col-xs-6 tital ">{{'Adress'| translate}}</div>
                         <div class="col-sm-7">{{getAddress()}}</div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="bot-border"></div>
+                    <div class="row">
+                        <div class="col-sm-5 col-xs-6 tital ">{{'Roles'| translate}}</div>
+                        <div class="col-sm-7">
+                            <div class="row" *ngFor="let authority of user.roles"><span class="badge badge-info">{{ authority }}</span>
+                            </div>
+                        </div>
                     </div>
                     <div class="clearfix"></div>
                     <div class="bot-border"></div>
@@ -86,15 +98,6 @@
                     </div>
                     <div class="clearfix"></div>
                     <div class="bot-border"></div>
-                    <div class="row">
-                        <div class="col-sm-5 col-xs-6 tital ">{{'Authorities'| translate}}</div>
-                        <div id="role" *ngFor="let authority of user.roles">
-                            <span class="badge badge-info">{{ authority }}</span>
-                        </div>
-                    </div>
-                    <div class="clearfix"></div>
-                    <div class="bot-border"></div>
-
                     <br>
                     <div class="row">
                         <div class="col-sm-6" align="center">
@@ -143,9 +146,7 @@
                         </tbody>
                     </table>
                 </div>
-                <!--</div>-->
             </div>
-            <!--<div class="col-lg-8">-->
             <br>
             <div class="card">
                 <div class="card-header">
@@ -166,7 +167,7 @@
                         <thead class="thead-inverse">
                         <tr>
                             <th>{{ 'Name' | translate }}</th>
-                            <th>{{ 'DeviceName' | translate }}</th>
+                            <th>{{ 'DeviceModel' | translate }}</th>
                             <th>{{'DeviceSerialNumber'| translate}}</th>
                             <th>{{ 'Date' | translate }}</th>
                             <th>{{'Sender'| translate}}</th>
@@ -176,7 +177,7 @@
                         <tbody>
                         <tr *ngFor="let transfer of transfers">
                             <td>{{transfer.title}}</td>
-                            <td>{{transfer.deviceName}}</td>
+                            <td>{{transfer.deviceModelName}}</td>
                             <td>{{transfer.deviceSerialNumber}}</td>
                             <td>{{transfer.date}}</td>
                             <td>{{transfer.senderWarehouseName}}</td>

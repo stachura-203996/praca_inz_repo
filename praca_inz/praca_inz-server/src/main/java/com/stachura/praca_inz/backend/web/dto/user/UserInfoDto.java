@@ -22,7 +22,6 @@ public class UserInfoDto {
     private String office;
     private Long officeId;
     private String name;
-    private String middlename;
     private String surname;
     private String city;
     private String email;
@@ -30,4 +29,6 @@ public class UserInfoDto {
     private String houseNumber;
     private String flatNumber;
     private List<String> roles;
+    private String dateOfJoining;
+    private String workplace;
 }
