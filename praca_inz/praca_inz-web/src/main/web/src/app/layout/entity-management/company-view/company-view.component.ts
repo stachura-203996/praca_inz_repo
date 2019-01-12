@@ -100,5 +100,8 @@ export class CompanyViewComponent implements OnInit {
         }
     }
 
+    getPersonResponsibleFor(data:WarehouseListElement){
+        return data.userName+' '+data.userSurname;
+    }
 
 }

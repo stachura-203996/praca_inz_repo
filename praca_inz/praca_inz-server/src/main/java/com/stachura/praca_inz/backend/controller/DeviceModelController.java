@@ -49,7 +49,7 @@ public class DeviceModelController {
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
     List<ParameterListElementDto> getParameters(@PathVariable Long id) throws ServiceException {
-        return deviceModelService.getDeviceParameters(id);
+        return deviceModelService.getDeviceModelParameters(id);
     }
 
     @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)

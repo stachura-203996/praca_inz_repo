@@ -89,7 +89,7 @@ public class WarehouseServiceImpl implements WarehouseService {
     @Transactional(readOnly = true)
     @PreAuthorize("hasAuthority('WAREHOUSE_LIST_READ')")
     public List<WarehouseListElementDto> getAllWarehousesForCompany(Long id) {
-        List<Warehouse> warehouses = Lists.newArrayList(warehouseRepository.findAll()).stream().filter(x -> x.getOffice() != null && x.getOffice().getDepartment().getCompany().getId().equals(id)).collect(Collectors.toList());
+        List<Warehouse> warehouses = Lists.newArrayList(warehouseRepository.findAll()).stream().filter(x -> x.getWarehouseType().equals(WarehouseType.OFFICE) && x.getOffice().getDepartment().getCompany().getId().equals(id)).collect(Collectors.toList());
         List<WarehouseListElementDto> warehouseListElementDtos = new ArrayList<>();
         for (Warehouse a : warehouses) {
             if (!a.isDeleted()) {
@@ -103,7 +103,7 @@ public class WarehouseServiceImpl implements WarehouseService {
     @Transactional(readOnly = true)
     @PreAuthorize("hasAuthority('WAREHOUSE_LIST_READ')")
     public List<WarehouseListElementDto> getAllwarehousesForDepartment(Long id) {
-        List<Warehouse> warehouses = Lists.newArrayList(warehouseRepository.findAll()).stream().filter(x -> x.getOffice() != null && x.getOffice().getDepartment().getId().equals(id)).collect(Collectors.toList());
+        List<Warehouse> warehouses = Lists.newArrayList(warehouseRepository.findAll()).stream().filter(x -> x.getWarehouseType().equals(WarehouseType.OFFICE) && x.getOffice().getDepartment().getId().equals(id)).collect(Collectors.toList());
         List<WarehouseListElementDto> warehouseListElementDtos = new ArrayList<>();
         for (Warehouse a : warehouses) {
             if (!a.isDeleted()) {
@@ -117,7 +117,7 @@ public class WarehouseServiceImpl implements WarehouseService {
     @Transactional(readOnly = true)
     @PreAuthorize("hasAuthority('WAREHOUSE_LIST_READ')")
     public List<WarehouseListElementDto> getAllWarehousesForOffice(Long id) {
-        List<Warehouse> warehouses = Lists.newArrayList(warehouseRepository.findAll()).stream().filter(x -> x.getOffice() != null && x.getOffice().getId().equals(id)).collect(Collectors.toList());
+        List<Warehouse> warehouses = Lists.newArrayList(warehouseRepository.findAll()).stream().filter(x -> x.getWarehouseType().equals(WarehouseType.OFFICE) && x.getOffice().getId().equals(id)).collect(Collectors.toList());
         List<WarehouseListElementDto> warehouseListElementDtos = new ArrayList<>();
         for (Warehouse a : warehouses) {
             if (!a.isDeleted()) {

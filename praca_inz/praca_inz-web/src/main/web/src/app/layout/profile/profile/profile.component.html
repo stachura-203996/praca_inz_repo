@@ -46,7 +46,7 @@
                     <div class="row">
                         <div class="col-sm-5 col-xs-6 tital ">{{'Company'| translate}}</div>
                         <div class="col-sm-7"><a
-                            href="/ui/structures/companies/view/{{user.companyId}}">{{user.company}}</a></div>
+                            href="'/ui/structures/companies/view/'+{{user.companyId}}">{{user.company}}</a></div>
                     </div>
                     <div class="clearfix"></div>
                     <div class="bot-border"></div>
@@ -102,11 +102,11 @@
                     <br>
                     <div class="row">
                         <div class="col-sm-6" align="center">
-                            <button [routerLink]="['/profile/edit']" class="btn btn-primary">{{'Edit'|translate}}
+                            <button [routerLink]="['./edit']" class="btn btn-primary">{{'Edit'|translate}}
                             </button>
                         </div>
                         <div class="col-sm-6" align="center">
-                            <button [routerLink]="['/profile/password']" class="btn btn-primary">{{'ChangePassword'|translate}}
+                            <button [routerLink]="['./password']" class="btn btn-primary">{{'ChangePassword'|translate}}
                             </button>
                         </div>
                     </div>

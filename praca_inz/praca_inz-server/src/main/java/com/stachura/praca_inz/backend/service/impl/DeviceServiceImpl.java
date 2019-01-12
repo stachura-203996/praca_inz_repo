@@ -9,11 +9,9 @@ import com.stachura.praca_inz.backend.model.enums.WarehouseType;
 import com.stachura.praca_inz.backend.model.security.User;
 import com.stachura.praca_inz.backend.repository.*;
 import com.stachura.praca_inz.backend.service.DeviceService;
-import com.stachura.praca_inz.backend.web.dto.device.DeviceAddDto;
-import com.stachura.praca_inz.backend.web.dto.device.DeviceEditDto;
-import com.stachura.praca_inz.backend.web.dto.device.DeviceListElementDto;
+import com.stachura.praca_inz.backend.web.dto.converter.ParameterConverter;
+import com.stachura.praca_inz.backend.web.dto.device.*;
 import com.stachura.praca_inz.backend.web.dto.converter.DeviceConverter;
-import com.stachura.praca_inz.backend.web.dto.device.DeviceViewDto;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -23,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -243,8 +242,18 @@ public class DeviceServiceImpl implements DeviceService {
     }
 
     @Override
-    public Device getDeviceParameters(Long id) {
-        return null;
+    public List<ParameterListElementDto> getDeviceParameters(Long id) throws ServiceException {
+        Device device = deviceRepository.findById(id).orElseThrow(() -> new ServiceException());
+        Set<Parameter> parameters = device.getDeviceModel().getParameters();
+        if (device.isDeleted()) {
+            return null;
+        }
+        List<ParameterListElementDto> parameterListElementDtos = new ArrayList<>();
+        for (Parameter a : parameters) {
+            parameterListElementDtos.add(ParameterConverter.toParameterListElementDto(a));
+        }
+
+        return parameterListElementDtos;
     }
 
 }

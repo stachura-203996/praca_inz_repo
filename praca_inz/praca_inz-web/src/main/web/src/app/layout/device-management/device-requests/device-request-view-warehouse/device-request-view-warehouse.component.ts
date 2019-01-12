@@ -48,7 +48,7 @@ export class DeviceRequestViewWarehouseComponent implements OnInit {
         this.deviceService.getAllDevicesForWarehouseman().subscribe((response: DeviceListElement[]) => {
             this.devices = response.reduce(function (deviceMap, device) {
                 if (device.id) {
-                    deviceMap.set(device.name+" "+device.serialNumber, device.id)
+                    deviceMap.set(device.deviceModel+" "+device.serialNumber, device.id)
                 }
                 return deviceMap;
             }, this.devices);

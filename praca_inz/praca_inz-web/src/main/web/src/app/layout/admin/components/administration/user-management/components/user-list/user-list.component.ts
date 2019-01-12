@@ -18,9 +18,8 @@ export class UserListComponent implements OnInit {
     users: UserListElement[];
 
 
-    constructor(private userService : UserService,
-                private translate:TranslateService,
-
+    constructor(private userService: UserService,
+                private translate: TranslateService,
     ) {
 
         this.translate.addLangs(['en','pl']);
@@ -31,12 +30,8 @@ export class UserListComponent implements OnInit {
     }
 
     ngOnInit() {
-        // this.filterUsers(null);
-        this.getUsers();
-    }
+        this.filterUsers(null);
 
-    getUsers(){
-        this.userService.getAll().subscribe(userListElements=> {this.users=userListElements});
     }
 
 
@@ -70,69 +65,10 @@ export class UserListComponent implements OnInit {
         });
     }
 
-    // getRoles(userId: number): void {
-    //     this.userService.getAccessLevels(userId)
-    //         .subscribe(levels => this.selectedUserAccessLevels = levels);
-    // }
 
-    activateAccount(id: number) {
-        // this.userService.activateAccount(id).subscribe(() => this.messageService
-        //     .success(this.i18nService.getMessage('user.account.activate.success')));
-    }
-
-    deactivateAccount(id: number) {
-        // this.userService.deactivateAccount(id).subscribe(() => this.messageService
-        //     .success(this.i18nService.getMessage('user.account.deactivate.success')));
-    }
-
-    activateAccessLevel(userId: number, accessLevelId: number) {
-        // this.userService.activateAccessLevel(userId, accessLevelId).subscribe(() => this.messageService
-        //     .success(this.i18nService.getMessage('user.access_level.activate.success')));
-    }
-
-    deactivateAccessLevel(userId: number, accessLevelId: number) {
-        // this.userService.deactivateAccessLevel(userId, accessLevelId).subscribe(() => this.messageService
-        //     .success(this.i18nService.getMessage('user.access_level.deactivate.success')));
-    }
-
-    changeAccessLevelState(event, userId: number, accessLevelId: number) {
-        // if (event.target.checked) {
-        //     this.activateAccessLevel(userId, accessLevelId);
-        // } else {
-        //     this.deactivateAccessLevel(userId, accessLevelId);
-        // }
-    }
-
-    verifyUser(userId: number) {
-        // this.messageService
-        //     .confirm(this.i18nService.getMessage('user.verify'), this.i18nService.getMessage('user.verify.confirm.msg'),
-        //         this.i18nService.getMessage('yes'), this.i18nService.getMessage('no'))
-        //     .subscribe(confirmed => {
-        //         if (confirmed) {
-        //             this.userService.verifyUser(userId).subscribe(() => {
-        //                 this.users.find(user => user.id === userId).verified = true;
-        //
-        //                 if (this.notVerifiedFilter) {
-        //                     this.filterUsers(null);
-        //                 }
-        //
-        //                 this.messageService
-        //                     .success(this.i18nService.getMessage('user.verify.success.msg'));
-        //             });
-        //         }
-        //     });
-    }
-
-    delete(user: UserListComponent) {
-        // const modalRef = this.modalService.open(UserMgmtDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
-        // modalRef.componentInstance.user = user;
-        // modalRef.result.then(
-        //     result => {
-        //         // Left blank intentionally, nothing to do here
-        //     },
-        //     reason => {
-        //         // Left blank intentionally, nothing to do here
-        //     }
-        // );
+    delete(user: UserListElement) {
+        this.userService.deleteUser(String(user.id)).subscribe(resp => {
+            this.filterUsers(null)
+        });
     }
 }

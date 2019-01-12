@@ -15,5 +15,5 @@ public class PasswordInfoDto implements Serializable {
 
     private String newPassword;
     private String oldPassword;
-    private long userdataVersion;
+    private long userVersion;
 }

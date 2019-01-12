@@ -75,4 +75,16 @@ export class DepartmentViewComponent implements OnInit {
         });
     }
 
+
+    getAddressStructure(structure:StructureListElement): string {
+        if (structure.flatNumber == null || structure.flatNumber === "0") {
+            return (structure.street + ' ' + structure.buildingNumber);
+        } else {
+            return (structure.street + ' ' + structure.buildingNumber + ' / ' + structure.flatNumber);
+        }
+    }
+
+    getPersonResponsibleFor(data:WarehouseListElement){
+        return data.userName+' '+data.userSurname;
+    }
 }

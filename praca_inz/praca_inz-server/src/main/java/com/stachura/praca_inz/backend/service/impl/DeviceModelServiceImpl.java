@@ -48,7 +48,7 @@ public class DeviceModelServiceImpl implements DeviceModelService {
     }
 
     @Override
-    public List<ParameterListElementDto> getDeviceParameters(Long id) throws ServiceException {
+    public List<ParameterListElementDto> getDeviceModelParameters(Long id) throws ServiceException {
         DeviceModel deviceModel = deviceModelRepository.findById(id).orElseThrow(() -> new ServiceException());
         Set<Parameter> parameters = deviceModel.getParameters();
         if (deviceModel.isDeleted()) {

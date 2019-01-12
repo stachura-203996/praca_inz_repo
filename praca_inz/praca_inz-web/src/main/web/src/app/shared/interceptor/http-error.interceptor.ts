@@ -9,9 +9,7 @@ import {
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
 import {Router} from "@angular/router";
-import {MessageService} from "../services/message.service";
-import {SessionContextService} from "../services/session-context.service";
-import {I18nService} from "../services/i18n/i18n.service";
+import {LoginService} from "../../login/login.service";
 
 export class HttpErrorInterceptor implements HttpInterceptor {
 
@@ -21,11 +19,9 @@ export class HttpErrorInterceptor implements HttpInterceptor {
     private forbiddenErrorCode = 403;
     private internalErrorCode = 500;
     //
-    // constructor(private router: Router,
-    //             private messageService: MessageService,
-    //             private sessionContextService: SessionContextService,
-    //             private i18nService: I18nService) {
-    // }
+    constructor(private router: Router,
+               private  loginService:LoginService) {
+    }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         return next.handle(request)
@@ -41,7 +37,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
                         // The response body may contain clues as to what went wrong,
                         if (error.status === this.notAuthorizedUserErrorCode || error.status === this.internalErrorCode) {
                             // this.messageService.error(this.i18nService.getMessage('session.expired.error'));
-                            // this.router.navigateByUrl('/login');
+                            // this.loginService.logout();
                         } else if (error.status === this.forbiddenErrorCode) {
                             // this.messageService.error(this.i18nService.getMessage('login.error.msg'));
                         } else if (error.status === this.badRequest) {

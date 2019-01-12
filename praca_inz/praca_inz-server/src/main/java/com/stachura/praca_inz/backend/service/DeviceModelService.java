@@ -12,7 +12,7 @@ public interface DeviceModelService {
 
     DeviceModelViewDto getDeviceModelViewById(Long id) throws ServiceException;
 
-    List<ParameterListElementDto> getDeviceParameters(Long id) throws ServiceException;
+    List<ParameterListElementDto> getDeviceModelParameters(Long id) throws ServiceException;
 
     List<DeviceModelListElementDto> getAllDeviceModels(String username) throws ServiceException;
 

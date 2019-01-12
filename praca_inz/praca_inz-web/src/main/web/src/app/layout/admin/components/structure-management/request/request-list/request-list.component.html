@@ -1,9 +1,9 @@
-<div class="col-xl-12" *ngIf="transferRequests&&deviceRequests&&deliveryRequests&&shipmentRequests">
+<div class="col-xl-12" *ngIf="transferRequests && deviceRequests">
     <h1>{{ 'Requests' | translate }}</h1>
     <br>
     <ngb-tabset>
         <ngb-tab *ngIf="transferRequests">
-            <ng-template ngbTabTitle>{{'TranferRequests'|translate}}</ng-template>
+            <ng-template ngbTabTitle>{{'TransferRequests'|translate}}</ng-template>
             <ng-template ngbTabContent>
                 <table class="table table-striped" align="center">
                     <thead class="thead-inverse">
@@ -29,25 +29,25 @@
                                         (click)="viewPage(request)"
                                         class="btn btn-info btn-sm">
                                     <i class="fa fa-eye"></i>&nbsp;
-                                    <span class="d-none d-md-inline">View</span>
+                                    <span class="d-none d-md-inline">{{'View'|translate}}</span>
                                 </button>
                                 <button type="submit" *ngIf="request.status=='WAITING'"
                                         (click)="editPage(request)"
                                         queryParamsHandling="merge"
                                         class="btn btn-primary btn-sm">
                                     <i class="fa fa-pencil"></i>&nbsp;
-                                    <span class="d-none d-md-inline">Edit</span>
+                                    <span class="d-none d-md-inline">{{'Edit'|translate}}</span>
                                 </button>
                                 <button type="button" (click)="cancel(request)"
                                         class="btn btn-warning btn-sm">
                                     <i class="fa fa-times"></i>&nbsp;
-                                    <span class="d-none d-md-inline">Cancel</span>
+                                    <span class="d-none d-md-inline">{{'Cancel'|translate}}</span>
                                 </button>
                                 <button type="button" (click)="delete(request)"
                                         *ngIf="request.status=='CLOSED'"
                                         class="btn btn-danger btn-sm">
                                     <i class="fa fa-times"></i>&nbsp;
-                                    <span class="d-none d-md-inline">Delete</span>
+                                    <span class="d-none d-md-inline">{{'Delete'|translate}}</span>
                                 </button>
                             </div>
                         </td>
@@ -56,7 +56,7 @@
                 </table>
             </ng-template>
         </ngb-tab>
-        <ngb-tab *ngIf="deliveryRequests">
+        <ngb-tab *ngIf="deviceRequests">
             <ng-template ngbTabTitle>{{'DeviceRequests'|translate}}</ng-template>
             <ng-template ngbTabContent>
                 <table class="table table-striped" align="center">
@@ -83,25 +83,25 @@
                                         (click)="viewPage(request)"
                                         class="btn btn-info btn-sm">
                                     <i class="fa fa-eye"></i>&nbsp;
-                                    <span class="d-none d-md-inline">View</span>
+                                    <span class="d-none d-md-inline">{{'View'|translate}}</span>
                                 </button>
                                 <button type="submit" *ngIf="request.status=='WAITING'"
                                         (click)="editPage(request)"
                                         queryParamsHandling="merge"
                                         class="btn btn-primary btn-sm">
                                     <i class="fa fa-pencil"></i>&nbsp;
-                                    <span class="d-none d-md-inline">Edit</span>
+                                    <span class="d-none d-md-inline">{{'Edit'|translate}}</span>
                                 </button>
                                 <button type="button" (click)="cancel(request)"
                                         class="btn btn-warning btn-sm">
                                     <i class="fa fa-times"></i>&nbsp;
-                                    <span class="d-none d-md-inline">Cancel</span>
+                                    <span class="d-none d-md-inline">{{'Cancel'|translate}}</span>
                                 </button>
                                 <button type="button" (click)="delete(request)"
                                         *ngIf="request.status=='CLOSED'"
                                         class="btn btn-danger btn-sm">
                                     <i class="fa fa-times"></i>&nbsp;
-                                    <span class="d-none d-md-inline">Delete</span>
+                                    <span class="d-none d-md-inline">{{'Delete'|translate}}</span>
                                 </button>
                             </div>
                         </td>

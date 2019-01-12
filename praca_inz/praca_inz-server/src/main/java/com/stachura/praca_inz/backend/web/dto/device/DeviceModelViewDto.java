@@ -11,7 +11,8 @@ public class DeviceModelViewDto {
     Long id;
     String name;
     String manufacture;
-    String owner;
     String numberOfDevices;
     String type;
+    long cost;
+    String companyName;
 }

@@ -50,7 +50,7 @@ const routes: Routes = [
     {path: 'devices', component: DeviceListComponent},
     {path: 'devices/add', component:DeviceAddComponent},
     {path: 'devices/edit/:id', component:DeviceEditComponent},
-    {path: 'devices/transfer', component: DeviceTransferComponent},
+    {path: 'devices/transfer/:id', component: DeviceTransferComponent},
     {path: 'devices/model', component: DeviceModelListComponent},
     {path: 'devices/model/add', component: DeviceModelAddComponent},
     {path: 'devices/model/edit/:id', component: DeviceModelEditComponent},

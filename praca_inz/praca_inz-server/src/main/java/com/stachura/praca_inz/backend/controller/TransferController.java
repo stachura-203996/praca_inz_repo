@@ -3,6 +3,7 @@ package com.stachura.praca_inz.backend.controller;
 import com.stachura.praca_inz.backend.exception.service.ServiceException;
 import com.stachura.praca_inz.backend.model.Transfer;
 import com.stachura.praca_inz.backend.service.TransferService;
+import com.stachura.praca_inz.backend.web.dto.TransferAddDto;
 import com.stachura.praca_inz.backend.web.dto.TransferListElementDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
@@ -61,16 +62,10 @@ public class TransferController {
 
     @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public ResponseEntity<?> create(@RequestBody Transfer transfer) throws ServiceException {
-        try {
-            transferService.createNewTransfer(transfer);
-        } catch (ServiceException e) {
-            e.printStackTrace();
-        }
-        HttpHeaders headers = new HttpHeaders();
-        ControllerLinkBuilder linkBuilder = linkTo(methodOn(TransferController.class).get(transfer.getId()));
-        headers.setLocation(linkBuilder.toUri());
-        return new ResponseEntity<>(headers, HttpStatus.CREATED);
+    public ResponseEntity<?> create(@RequestBody TransferAddDto transferAddDto) throws ServiceException {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        transferService.createNewTransfer(transferAddDto,auth.getName());
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @RequestMapping(method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)

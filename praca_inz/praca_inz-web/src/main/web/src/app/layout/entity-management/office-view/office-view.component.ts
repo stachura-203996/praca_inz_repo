@@ -73,4 +73,8 @@ export class OfficeViewComponent implements OnInit {
         }
     }
 
+    getPersonResponsibleFor(data:WarehouseListElement){
+        return data.userName+' '+data.userSurname;
+    }
+
 }

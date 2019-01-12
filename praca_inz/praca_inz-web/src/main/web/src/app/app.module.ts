@@ -28,6 +28,8 @@ import {BsDropdownModule, BsModalService} from "ngx-bootstrap";
 import {MatSelectModule} from "@angular/material";
 import {ReactiveFormsModule} from "@angular/forms";
 import {HttpErrorInterceptor} from "./shared/interceptor/http-error.interceptor";
+import {FullRouteGuard} from "./shared/guard/full-route-guard.service";
+import {GeneralRouteGuard} from "./shared/guard/general-route-guard.service";
 
 
 export const createTranslateLoader = (http: HttpClient) => {
@@ -65,6 +67,8 @@ export const createTranslateLoader = (http: HttpClient) => {
     ],
     providers: [
         AuthGuard,
+        FullRouteGuard,
+        GeneralRouteGuard,
         LoginService,
         CookieService,
         UserService,

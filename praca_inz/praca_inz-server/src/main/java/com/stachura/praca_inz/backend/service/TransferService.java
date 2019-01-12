@@ -2,6 +2,7 @@ package com.stachura.praca_inz.backend.service;
 
 import com.stachura.praca_inz.backend.exception.service.ServiceException;
 import com.stachura.praca_inz.backend.model.Transfer;
+import com.stachura.praca_inz.backend.web.dto.TransferAddDto;
 import com.stachura.praca_inz.backend.web.dto.TransferListElementDto;
 
 
@@ -15,7 +16,7 @@ public interface TransferService {
 
     List<TransferListElementDto> getAllTransfers(String username) throws ServiceException;
 
-    void createNewTransfer(Transfer transfer) throws ServiceException;
+    void createNewTransfer(TransferAddDto transferAddDto,String username) throws ServiceException;
 
     void updateTransfer(Transfer transfer) throws ServiceException;
 

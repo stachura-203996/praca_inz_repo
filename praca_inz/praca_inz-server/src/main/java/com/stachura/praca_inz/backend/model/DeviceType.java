@@ -17,7 +17,7 @@ import java.util.Set;
 public class DeviceType {
 
     @Id
-    @SequenceGenerator(name = "DeviceTypeGen", sequenceName = "device_type_id_seq",initialValue = 3,allocationSize = 1)
+    @SequenceGenerator(name = "DeviceTypeGen", sequenceName = "device_type_id_seq",initialValue = 7,allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "DeviceTypeGen")
     @Column(name = "ID", updatable = false, nullable = false)
     private Long id = null;

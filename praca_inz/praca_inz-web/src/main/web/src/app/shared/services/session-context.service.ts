@@ -23,9 +23,6 @@ export class SessionContextService {
         return this.loggedUser;
     }
 
-
-
-
     resetSession() {
         this.cookieService.delete('JSESSIONID');
         localStorage.removeItem('loggedUser');

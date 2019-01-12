@@ -3,7 +3,7 @@
 <div class="row">
     <div class="col-lg-10">
         <input class="form-control" #searchBox id="search-box" (keyup)="filterWarehouses(searchBox.value)"
-               placeholder="Search..." i18n-placeholder="User search placeholder"/>
+               placeholder="{{'Search...'|translate}}"/>
     </div>
     <div class="col-lg-2">
         <button class="btn btn-primary float-right jh-create-entity" [routerLink]="['./add']">
@@ -19,7 +19,7 @@
         <th>{{ 'ElementName' | translate }}</th>
         <th>{{ 'OfficeName' | translate }}</th>
         <th>{{'Location'| translate}}</th>
-        <th>{{ 'Person responsible for' | translate }}</th>
+        <th>{{ 'PersonResponsibleFor' | translate }}</th>
         <th>{{'DevicesNumber'|translate}}</th>
         <th></th>
     </tr>

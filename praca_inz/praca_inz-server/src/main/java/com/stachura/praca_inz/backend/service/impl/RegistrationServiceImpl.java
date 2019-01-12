@@ -19,6 +19,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Calendar;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -73,6 +74,7 @@ public class RegistrationServiceImpl implements RegistrationService {
         userdata.setPosition(data.getPosition());
         userdata.setName(data.getName());
         userdata.setWorkplace(data.getWorkplace());
+        userdata.setDateOfJoin(Calendar.getInstance());
         Address address = new Address();
         address.setFlatNumber(data.getFlatNumber());
         address.setBuildingNumber(data.getHouseNumber());
@@ -81,7 +83,6 @@ public class RegistrationServiceImpl implements RegistrationService {
         userdata.setAddress(address);
 
         Warehouse warehouse = new Warehouse();
-        warehouse.setName(data.getUsername());
         warehouse.setOffice(officeRepository.findById(data.getOfficeId()).orElseThrow(() -> new ServiceException()));
         warehouse.setWarehouseType(WarehouseType.USER);
 
@@ -92,6 +93,7 @@ public class RegistrationServiceImpl implements RegistrationService {
         user.setUserdata(userdata);
         userRepository.save(user);
         warehouse.setUser(user);
+        warehouse.setName(user.getUserdata().getName() + "|" + user.getUserdata().getSurname() + "|" + user.getUsername() + "|WAREHOUSE");
         warehouseRepository.save(warehouse);
 
     }

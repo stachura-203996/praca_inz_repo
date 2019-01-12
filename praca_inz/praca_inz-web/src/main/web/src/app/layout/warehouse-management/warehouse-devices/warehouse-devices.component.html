@@ -17,20 +17,18 @@
     <table class="table table-striped" align="center">
         <thead class="thead-inverse">
         <tr>
-            <th>{{ 'Name' | translate }}</th>
             <th>{{ 'SerialNumber' | translate }}</th>
             <th>{{'DeviceModel'|translate}}</th>
             <th>{{ 'DeviceType' | translate }}</th>
             <th>{{'Manufacture'|translate}}</th>
             <th>{{'Location'|translate}}</th>
             <th>{{'LastUpdate'|translate}}</th>
-            <th>{{'Person responsible for'| translate}}</th>
+            <th>{{'PersonResponsibleFor'| translate}}</th>
             <th></th>
         </tr>
         </thead>
         <tbody>
         <tr *ngFor="let device of devices">
-            <td>{{device.name}}</td>
             <td>{{device.serialNumber}}</td>
             <td>{{device.deviceModel}}</td>
             <td>{{device.deviceTypeName}}</td>
@@ -46,22 +44,10 @@
                         <i class="fa fa-eye"></i>&nbsp;
                         <span class="d-none d-md-inline">View</span>
                     </button>
-                    <button type="submit"
-                            [routerLink]="['./edit/'+device.id]"
-                            queryParamsHandling="merge"
-                            class="btn btn-primary btn-sm">
-                        <i class="fa fa-pencil"></i>&nbsp;
-                        <span class="d-none d-md-inline">Edit</span>
-                    </button>
                     <button type="button" (click)="transfer(device)"
                             class="btn btn-warning btn-sm">
                         <i class="fa fa-exchange"></i>&nbsp;
                         <span class="d-none d-md-inline">Transfer</span>
-                    </button>
-                    <button type="button" (click)="delete(device)"
-                            class="btn btn-danger btn-sm">
-                        <i class="fa fa-times"></i>&nbsp;
-                        <span class="d-none d-md-inline">Delete</span>
                     </button>
                 </div>
             </td>

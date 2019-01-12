@@ -18,12 +18,6 @@ public class RegistrationController {
     @Autowired
     private RegistrationService registrationService;
 
-    /**
-     * Metoda rejestrująca konto nowego użytkownika przez administratora
-     *
-     * @param data obiekt nowego użytkownika
-     * @return odpowiedź z informacją o powodzeniu operacji
-     */
     @RequestMapping(value = "/admin", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public ResponseEntity<?>  addUser(@RequestBody RegistrationDto data) {

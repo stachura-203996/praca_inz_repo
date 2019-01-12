@@ -15,7 +15,7 @@ const routes: Routes = [
     {path: 'reports/add', component: ReportAddComponent},
     {path: 'reports/request/add/:id', component: ReportRequestAddComponent},
     {path: 'requests', component: RequestUserComponent},
-    {path: 'user/view/:id', component: UserViewComponent},
+    {path: 'user/view/:username', component: UserViewComponent},
 
 ];
 

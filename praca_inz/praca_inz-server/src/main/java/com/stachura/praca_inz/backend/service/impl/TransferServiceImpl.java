@@ -5,11 +5,17 @@ import com.stachura.praca_inz.backend.Constants;
 import com.stachura.praca_inz.backend.exception.repository.DatabaseErrorException;
 import com.stachura.praca_inz.backend.exception.repository.EntityException;
 import com.stachura.praca_inz.backend.exception.service.ServiceException;
+import com.stachura.praca_inz.backend.model.Device;
 import com.stachura.praca_inz.backend.model.Transfer;
+import com.stachura.praca_inz.backend.model.Warehouse;
+import com.stachura.praca_inz.backend.model.enums.WarehouseType;
 import com.stachura.praca_inz.backend.model.security.User;
+import com.stachura.praca_inz.backend.repository.DeviceRepository;
 import com.stachura.praca_inz.backend.repository.TransferRepository;
 import com.stachura.praca_inz.backend.repository.UserRepository;
+import com.stachura.praca_inz.backend.repository.WarehouseRepository;
 import com.stachura.praca_inz.backend.service.TransferService;
+import com.stachura.praca_inz.backend.web.dto.TransferAddDto;
 import com.stachura.praca_inz.backend.web.dto.TransferListElementDto;
 import com.stachura.praca_inz.backend.web.dto.converter.TransferConverter;
 import org.hibernate.Hibernate;
@@ -31,6 +37,12 @@ public class TransferServiceImpl implements TransferService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private WarehouseRepository warehouseRepository;
+
+    @Autowired
+    private DeviceRepository deviceRepository;
 
     @Override
     @Transactional(readOnly = true)
@@ -65,11 +77,11 @@ public class TransferServiceImpl implements TransferService {
     @PreAuthorize("hasAuthority('TRANSFER_READ')")
     public List<TransferListElementDto> getAllTransfers(String username) throws ServiceException {
         List<Transfer> transfers;
-        User user=userRepository.findByUsername(username).orElseThrow(()->new ServiceException());
-        if(user.getUserRoles().stream().anyMatch(x->x.getName().equals(Constants.ADMIN_ROLE))) {
+        User user = userRepository.findByUsername(username).orElseThrow(() -> new ServiceException());
+        if (user.getUserRoles().stream().anyMatch(x -> x.getName().equals(Constants.ADMIN_ROLE))) {
             transfers = Lists.newArrayList(transferRepository.findAll());
-        } else{
-            transfers = Lists.newArrayList(transferRepository.findAll()).stream().filter(x->x.getRecieverWarehouse().getOffice().getDepartment().getCompany().getId().equals(user.getOffice().getDepartment().getCompany().getId())).collect(Collectors.toList());
+        } else {
+            transfers = Lists.newArrayList(transferRepository.findAll()).stream().filter(x -> x.getRecieverWarehouse().getOffice().getDepartment().getCompany().getId().equals(user.getOffice().getDepartment().getCompany().getId())).collect(Collectors.toList());
         }
         List<TransferListElementDto> transferListElementDtos = new ArrayList<>();
         for (Transfer a : transfers) {
@@ -85,8 +97,11 @@ public class TransferServiceImpl implements TransferService {
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('TRANSFER_CREATE')")
-    public void createNewTransfer(Transfer transfer)throws ServiceException {
-            transferRepository.save(transfer);
+    public void createNewTransfer(TransferAddDto transferAddDto, String username) throws ServiceException {
+        Warehouse sender = Lists.newArrayList(warehouseRepository.findAll()).stream().filter(x -> x.getUser().getUsername().equals(username) && x.getWarehouseType().equals(WarehouseType.USER)).findFirst().orElseThrow(() -> new ServiceException());
+        Warehouse reciever = warehouseRepository.findById(transferAddDto.getRecieverWarehouseId()).orElseThrow(() -> new ServiceException());
+        Device device= deviceRepository.findById(transferAddDto.getDeviceId()).orElseThrow(()->new ServiceException());
+        transferRepository.save(TransferConverter.toTransfer(transferAddDto, username, sender, reciever, device));
     }
 
     @Override

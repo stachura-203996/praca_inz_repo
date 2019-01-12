@@ -12,6 +12,7 @@ import {
     DeviceTypeListElement, DeviceViewElement,
     ParameterListElement
 } from "../../models/device-elements";
+import {TransferAddElement} from "../../models/transfer-add-element";
 
 
 @Injectable({
@@ -99,10 +100,13 @@ export class DeviceService {
 
     //Parameters
 
-    getAllParametersForDeviceModel(id: string): Observable<ParameterListElement[]> {
+    getAllParametersForDeviceModel(id: number): Observable<ParameterListElement[]> {
         return this.httpService.get<ParameterListElement[]>(this.devicePath + "/model/parameters/"+id);
     }
 
+    getAllParametersForDevice(id: string):Observable<ParameterListElement[]>  {
+        return this.httpService.get<ParameterListElement[]>(this.devicePath + "/parameters/"+id);
+    }
 
     //Device Types
 
@@ -134,6 +138,9 @@ export class DeviceService {
     }
 
 
+    createTransfer(data: TransferAddElement) {
+        return this.httpService.post<TransferAddElement>(this.transferPath,data);
+    }
 }
 
 

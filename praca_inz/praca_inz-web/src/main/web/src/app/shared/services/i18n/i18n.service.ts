@@ -13,11 +13,11 @@ export class I18nService {
   }
 
   refresh(): void {
-    this.http.get('./assets/i18n/messages-' + navigator.language.substring(0, 2) + '.json')
+    this.http.get('./assets/i18n/' + navigator.language.substring(0, 2) + '.json')
       .subscribe(data => {
           this.messages = data;
         }, () => {
-          this.http.get('./assets/i18n/messages-pl.json').subscribe(data => {
+          this.http.get('./assets/i18n/pl.json').subscribe(data => {
               this.messages = data;
             }, (err: HttpErrorResponse) => {
               this.messages = {};

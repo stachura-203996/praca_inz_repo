@@ -7,10 +7,13 @@ import com.stachura.praca_inz.backend.web.dto.device.DeviceModelViewDto;
 public class DeviceModelConverter {
 
 
-    public static DeviceModelListElementDto toDeviceModelListElement(DeviceModel type){
+    public static DeviceModelListElementDto toDeviceModelListElement(DeviceModel deviceModel){
         return DeviceModelListElementDto.builder()
-                .id(type.getId())
-                .name(type.getName())
+                .id(deviceModel.getId())
+                .name(deviceModel.getName())
+                .companyName(deviceModel.getCompany().getName())
+                .manufacture(deviceModel.getManufacture())
+                .deviceTypeName(deviceModel.getDeviceType().getName())
                 .build();
 
     }
@@ -21,8 +24,9 @@ public class DeviceModelConverter {
                 .manufacture(deviceModel.getManufacture())
                 .name(deviceModel.getName())
                 .type(deviceModel.getDeviceType().getName())
+                .cost(deviceModel.getCost())
                 .numberOfDevices(String.valueOf(deviceModel.getDevices().size()))
-                .owner(deviceModel.getCompany().getName())
+                .companyName(deviceModel.getCompany().getName())
                 .build();
     }
 

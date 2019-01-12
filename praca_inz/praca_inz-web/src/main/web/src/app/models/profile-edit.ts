@@ -1,4 +1,4 @@
-export class UserEdit {
+export class ProfileEdit {
     id: number;
     username: string;
     email: string;
@@ -11,7 +11,6 @@ export class UserEdit {
     position: string;
     workplace: string;
     officeId:number;
-    roles:string[];
     versionUser:string;
     versionUserdata:string;
     versionWarehouse:string;

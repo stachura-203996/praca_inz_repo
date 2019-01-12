@@ -38,7 +38,7 @@ export class WarehouseDevicesComponent implements OnInit {
 
             searchText = searchText.toLowerCase();
             this.devices = devices.filter(it => {
-                const range = it.name+ ' ' + it.manufacture+ ' ' + it.location+ ' ' + it.serialNumber+ ' '+ it.deviceTypeName+ ' '+it.lastUpdate;
+                const range =it.manufacture+ ' ' + it.location+ ' ' + it.serialNumber+ ' '+ it.deviceModel+ ' '+it.lastUpdate+' '+it.deviceTypeName;
                 const ok = range.toLowerCase().includes(searchText);
                 return ok;
             });
@@ -57,6 +57,10 @@ export class WarehouseDevicesComponent implements OnInit {
         //         // Left blank intentionally, nothing to do here
         //     }
         // );
+    }
+
+    getUserInfo(device:DeviceListElement){
+        return device.userName+' '+device.userSurname+' | '+device.username
     }
 
     delete(device: DeviceListElement) {

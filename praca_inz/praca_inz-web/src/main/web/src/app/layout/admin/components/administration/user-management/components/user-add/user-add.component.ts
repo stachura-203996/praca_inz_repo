@@ -19,7 +19,11 @@ export class UserAddComponent implements OnInit {
     @Input() registerUserData: RegisterUser = new RegisterUser;
 
     offices = new Map<string, number>();
-    roles: UserRoles;
+    admin=false;
+    company_admin=false;
+    warehouseman=false;
+    manager=false;
+    selectedRoles:string[]=[];
     selectedOption: string;
 
     constructor(
@@ -36,19 +40,25 @@ export class UserAddComponent implements OnInit {
 
 
     setRoles(){
-        if(this.roles.admin){
-            this.registerUserData.roles.push("ADMIN")
+        console.log("admin: "+this.admin);
+        console.log("company_admin: "+this.company_admin);
+        console.log("manager: "+this.manager);
+        console.log("warehouseman: "+this.warehouseman);
+
+        if(this.admin){
+            this.selectedRoles.push("ADMIN");
         }
-        if(this.roles.company_admin){
-            this.registerUserData.roles.push("COMPANY_MANAGER")
+        if(this.company_admin){
+            this.selectedRoles.push("COMPANY_ADMIN");
         }
-        if(this.roles.warehouseman){
-            this.registerUserData.roles.push("WAREHOUSEMAN")
+        if(this.warehouseman){
+            this.selectedRoles.push("WAREHOUSEMAN");
         }
-        if(this.roles.manager){
-            this.registerUserData.roles.push("MANAGER")
+        if(this.manager){
+            this.selectedRoles.push("MANAGER");
         }
-        this.registerUserData.roles.push("USER")
+        this.selectedRoles.push("USER");
+        this.registerUserData.roles=this.selectedRoles;
     }
 
     getOffices() {

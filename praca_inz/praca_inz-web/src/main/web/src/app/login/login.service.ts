@@ -30,45 +30,19 @@ export class LoginService {
         this.http.post('http://localhost:8081/oauth/token', params.toString(), {headers: headers})
             .subscribe(
                 data => this.saveToken(data),
-                err => alert('Invalid Credentials')
+                err => alert('Błędny login lub hasło użytkownika')
             );
 
     }
 
-    checkToken() {
-        if(this.cookieService.check('access_token')) {
-            var cookie = this.cookieService.get('access_token');
-            let params = new URLSearchParams();
-            params.append('token', cookie);
-            let headers = new HttpHeaders({
-                'Content-type': 'application/x-www-form-urlencoded; charset=utf-8',
-                'Authorization': 'Basic c3ByaW5nLXNlY3VyaXR5LW9hdXRoMi1yZWFkLXdyaXRlLWNsaWVudDpzcHJpbmctc2VjdXJpdHktb2F1dGgyLXJlYWQtd3JpdGUtY2xpZW50LXBhc3N3b3JkMTIzNA=='
-            });
-            console.log(params.toString());
-            this.http.post('http://localhost:8081/oauth/check_token', params.toString(), {headers: headers})
-                .subscribe(
-                    data => this.checkIsActive(data),
-                    err => localStorage.setItem('isLoggedin', 'false')
-                );
-        }
-    }
-
-    checkIsActive(data) {
-        if (data.active) {
-            localStorage.setItem('isLoggedin', 'true');
-        } else {
-            this.cookieService.delete('access_token');
-            localStorage.setItem('isLoggedin', 'false');
-        }
-    }
 
     saveToken(token) {
-
-        var expireDate = new Date().getTime() / 1000 + token.expires_in;
-        this.cookieService.set('access_token', token.access_token, expireDate);
-        localStorage.setItem('isLoggedin', 'true');
+        var expire = new Date();
+        var time = Date.now()+(1000*token.expires_in);
+        expire.setTime(time);
+        this.cookieService.set('access_token', token.access_token, expire);
         console.log('Obtained Access token');
-        window.location.href = 'http://localhost:8081/';
+        window.location.href = 'http://localhost:8081/ui/';
     }
 
     checkCredentials(): boolean {
@@ -81,6 +55,8 @@ export class LoginService {
 
     logout() {
         localStorage.clear();
+        this.cookieService.deleteAll('/ui')
+        this.cookieService.delete('JSESSIONID');
         this.cookieService.delete('access_token');
         this.router.navigate(['/login']);
     }

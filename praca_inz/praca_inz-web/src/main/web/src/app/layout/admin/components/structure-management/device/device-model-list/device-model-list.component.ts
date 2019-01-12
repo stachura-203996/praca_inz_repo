@@ -46,7 +46,7 @@ export class DeviceModelListComponent implements OnInit {
 
             searchText = searchText.toLowerCase();
             this.deviceModels = deviceModels.filter(it => {
-                const range = it.name + ' ' + it.manufacture + ' ' + it.type;
+                const range = it.name + ' ' + it.manufacture + ' ' + it.deviceTypeName;
                 const ok = range.toLowerCase().includes(searchText);
                 return ok;
             });

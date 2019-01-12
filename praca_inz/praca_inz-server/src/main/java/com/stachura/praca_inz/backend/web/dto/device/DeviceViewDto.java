@@ -8,13 +8,15 @@ import lombok.*;
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 public class DeviceViewDto {
     Long id;
-    String name;
     String serialNumber;
     String deviceModel;
+    Long deviceModelId;
     String deviceTypeName;
     String username;
     String manufacture;
     String lastUpdate;
     String location;
     String status;
+    String userName;
+    String userSurname;
 }

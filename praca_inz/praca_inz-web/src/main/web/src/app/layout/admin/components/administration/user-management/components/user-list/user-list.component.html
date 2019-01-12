@@ -1,11 +1,10 @@
-<div [@routerTransition]>
-<!--<div class="col-sm-12">-->
+<div class="col-xl-12">
     <h1>{{ 'UserList' | translate }}</h1>
 
     <div class="row">
         <div class="col-lg-10">
             <input class="form-control" #searchBox id="search-box" (keyup)="filterUsers(searchBox.value)"
-                   placeholder="Search..." i18n-placeholder="User search placeholder"/>
+                   placeholder="{{'Search...'|translate}}" i18n-placeholder="User search placeholder"/>
         </div>
         <div class="col-lg-2">
             <button class="btn btn-primary float-right jh-create-entity" [routerLink]="['./add']">
@@ -43,19 +42,26 @@
                                 [routerLink]="['/employees/user/view/'+user.username]"
                                 class="btn btn-info btn-sm">
                             <i class="fa fa-eye"></i>&nbsp;
-                            <span class="d-none d-md-inline">View</span>
+                            <span class="d-none d-md-inline">{{'View'|translate}}</span>
                         </button>
                         <button type="submit"
-                                [routerLink]="['./edit/'+user.username]"
+                                [routerLink]="['./edit/'+user.id]"
                                 queryParamsHandling="merge"
                                 class="btn btn-primary btn-sm">
                             <i class="fa fa-pencil"></i>&nbsp;
-                            <span class="d-none d-md-inline">Edit</span>
+                            <span class="d-none d-md-inline">{{'Edit'|translate}}</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['./edit/password/'+user.id]"
+                                queryParamsHandling="merge"
+                                class="btn btn-primary btn-sm">
+                            <i class="fa fa-pencil"></i>&nbsp;
+                            <span class="d-none d-md-inline">{{'ChangePassword'|translate}}</span>
                         </button>
                         <button type="button" (click)="delete(user)"
                                 class="btn btn-danger btn-sm" >
                             <i class="fa fa-times"></i>&nbsp;
-                            <span class="d-none d-md-inline">Delete</span>
+                            <span class="d-none d-md-inline">{{'Delete'|translate}}</span>
                         </button>
                     </div>
                 </td>
@@ -63,4 +69,4 @@
         </tbody>
     </table>
 </div>
-<!--</div>-->
+

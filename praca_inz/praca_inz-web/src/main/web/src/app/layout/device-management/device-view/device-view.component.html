@@ -1,3 +1,108 @@
-<p>
-  device-view works!
-</p>
+<div class="row">
+    <div class="col-lg-4 ">
+        <div class="card">
+            <div class="card-header"><h4>{{'DeviceView'| translate}}</h4></div>
+            <div class="card-body">
+
+                <div class="box box-info">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <span><h4 style="color:#00b1b1;">{{device.serialNumber}}</h4></span>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <hr style="margin:5px 0 5px 0;">
+
+                    <div class="row">
+                        <div class="col-sm-5 col-xs-6 tital ">{{'SerialNumber'|translate}}</div>
+                        <div class="col-sm-7 col-xs-6 ">{{device.serialNumber}}</div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="bot-border"></div>
+                    <div class="row">
+                        <div class="col-sm-5 col-xs-6 tital ">{{'DeviceModel'| translate}}</div>
+                        <div class="col-sm-7 col-xs-6 ">
+                            <div class="box" id="city">{{device.deviceModel}}</div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="bot-border"></div>
+                    <div class="row">
+                        <div class="col-sm-5 col-xs-6 tital ">{{'DeviceType'| translate}}</div>
+                        <div class="col-sm-7">{{device.deviceTypeName}}</div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="bot-border"></div>
+                    <div class="row">
+                        <div class="col-sm-5 col-xs-6 tital ">{{'Manufacture'| translate}}</div>
+                        <div class="col-sm-7 col-xs-6 ">{{device.manufacture}}</div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="bot-border"></div>
+                    <div class="row">
+                        <div class="col-sm-5 col-xs-6 tital ">{{'Location'| translate}}</div>
+                        <div class="col-sm-7 col-xs-6 ">
+                            <div class="box">{{device.location}}</div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="bot-border"></div>
+                    <div class="row">
+                        <div class="col-sm-5 col-xs-6 tital ">{{'Status'| translate}}</div>
+                        <div class="col-sm-7 col-xs-6 ">{{device.status}}</div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="bot-border"></div>
+                    <div class="row">
+                        <div class="col-sm-5 col-xs-6 tital ">{{'LastUpdate'| translate}}</div>
+                        <div class="col-sm-7 col-xs-6 ">{{device.lastUpdate}}</div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="bot-border"></div>
+                    <br>
+                    <div class="row" *ngIf="roles.admin||roles.company_admin">
+                        <div class="col-sm-6" align="center">
+                            <button [routerLink]="['/admin/devices/edit/'+device.id]" class="btn btn-primary">
+                                {{'Edit'|translate}}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-8">
+        <div class="box">
+            <div class="card">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-lg-10">
+                            <h4>{{'Parameters'|translate}}</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped" align="center" *ngIf="parameters">
+                        <thead class="thead-inverse">
+                        <tr>
+                            <th>{{ 'ElementName' | translate }}</th>
+                            <th>{{ 'Value' | translate }}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let property of parameters">
+                            <td>{{property.name}}</td>
+                            <td>{{property.value}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+

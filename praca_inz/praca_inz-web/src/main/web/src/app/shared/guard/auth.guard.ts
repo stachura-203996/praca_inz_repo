@@ -9,8 +9,8 @@ export class AuthGuard {
 
     canActivate() {
 
-        this.service.checkToken();
-        if (localStorage.getItem('isLoggedin')) {
+
+        if (this.service.checkCredentials()) {
             return true;
         }
 

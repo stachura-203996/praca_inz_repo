@@ -23,7 +23,7 @@ export class DepartmentEditComponent implements OnInit {
 
     revertCompanies=new Map<number,string>();
 
-    selectedOption: string=this.revertCompanies.get(this.structureEditElement.parentId);
+    selectedOption: string;
     roles: UserRoles;
     currentUser: LoggedUser;
 
@@ -70,6 +70,7 @@ export class DepartmentEditComponent implements OnInit {
                 return companyMap;
             }, this.revertCompanies);
         });
+        this.selectedOption=this.revertCompanies.get(this.structureEditElement.parentId)
     }
 
     getLoggedUser() {

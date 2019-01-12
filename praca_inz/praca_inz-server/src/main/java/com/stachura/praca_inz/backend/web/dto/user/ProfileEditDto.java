@@ -2,15 +2,13 @@ package com.stachura.praca_inz.backend.web.dto.user;
 
 import lombok.*;
 
-import java.io.Serializable;
 import java.util.List;
 
 @Data
 @Builder
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
-public class UserEditDto implements Serializable {
-
+public class ProfileEditDto {
     private Long id;
     private String username;
     private String email;
@@ -23,7 +21,6 @@ public class UserEditDto implements Serializable {
     private String position;
     private String workplace;
     private Long officeId;
-    private List<String> roles;
     private long versionUser;
     private long versionUserdata;
     private long versionWarehouse;

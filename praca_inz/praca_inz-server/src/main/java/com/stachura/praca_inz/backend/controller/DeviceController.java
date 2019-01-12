@@ -3,10 +3,7 @@ package com.stachura.praca_inz.backend.controller;
 import com.stachura.praca_inz.backend.exception.service.ServiceException;
 import com.stachura.praca_inz.backend.model.Device;
 import com.stachura.praca_inz.backend.service.DeviceService;
-import com.stachura.praca_inz.backend.web.dto.device.DeviceAddDto;
-import com.stachura.praca_inz.backend.web.dto.device.DeviceEditDto;
-import com.stachura.praca_inz.backend.web.dto.device.DeviceListElementDto;
-import com.stachura.praca_inz.backend.web.dto.device.DeviceViewDto;
+import com.stachura.praca_inz.backend.web.dto.device.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.http.HttpHeaders;
@@ -113,7 +110,7 @@ public class DeviceController {
     @RequestMapping(value = "/parameters/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
-    Device getParameters(@PathVariable Long id) throws ServiceException {
+    List<ParameterListElementDto> getParameters(@PathVariable Long id) throws ServiceException {
            return deviceService.getDeviceParameters(id);
     }
 

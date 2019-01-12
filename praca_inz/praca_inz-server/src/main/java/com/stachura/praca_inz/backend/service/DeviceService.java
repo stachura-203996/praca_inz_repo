@@ -3,10 +3,7 @@ package com.stachura.praca_inz.backend.service;
 import com.stachura.praca_inz.backend.exception.repository.EntityException;
 import com.stachura.praca_inz.backend.exception.service.ServiceException;
 import com.stachura.praca_inz.backend.model.Device;
-import com.stachura.praca_inz.backend.web.dto.device.DeviceAddDto;
-import com.stachura.praca_inz.backend.web.dto.device.DeviceEditDto;
-import com.stachura.praca_inz.backend.web.dto.device.DeviceListElementDto;
-import com.stachura.praca_inz.backend.web.dto.device.DeviceViewDto;
+import com.stachura.praca_inz.backend.web.dto.device.*;
 
 import java.util.List;
 
@@ -38,5 +35,5 @@ public interface DeviceService {
 
     DeviceEditDto getDeviceToEdit(Long id)throws ServiceException;
 
-    Device getDeviceParameters(Long id);
+    List<ParameterListElementDto> getDeviceParameters(Long id) throws ServiceException;
 }

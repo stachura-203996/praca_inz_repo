@@ -1,6 +1,5 @@
 export class DeviceListElement {
     id: number;
-    name: string;
     serialNumber: string;
     deviceModel:string;
     deviceTypeName:string;
@@ -12,7 +11,6 @@ export class DeviceListElement {
     username:string;
     status:string;
 }
-
 
 export class DeviceAddElement {
     serialNumber: string;
@@ -32,24 +30,27 @@ export class DeviceEditElement {
 
 export class DeviceViewElement {
     id: number;
-    name: string;
     serialNumber: string;
     deviceModel:string;
+    deviceModelId:number;
     deviceTypeName:string;
     manufacture:string;
     lastUpdate:string
     location:string;
+    userName:string;
+    userSurname:string
     username:string;
+    status:string;
 }
 
 export class DeviceModelViewElement {
     id: number;
     name: string;
     manufacture:string;
-    owner:string;
     numberOfDevices;
     type:string;
-
+    cost:string;
+    companyName:string;
 }
 export class DeviceModelAddElement {
     name: string;
@@ -70,8 +71,8 @@ export class DeviceModelListElement {
     id: number;
     name: string;
     manufacture:string;
-    type:string;
-
+    deviceTypeName:string;
+    companyName:string;
 }
 
 export class DeviceTypeListElement {

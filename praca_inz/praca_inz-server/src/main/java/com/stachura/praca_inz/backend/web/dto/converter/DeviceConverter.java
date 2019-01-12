@@ -7,12 +7,14 @@ import com.stachura.praca_inz.backend.web.dto.device.DeviceEditDto;
 import com.stachura.praca_inz.backend.web.dto.device.DeviceListElementDto;
 import com.stachura.praca_inz.backend.web.dto.device.DeviceViewDto;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class DeviceConverter {
 
     //LIST
     public static DeviceListElementDto toDeviceListElementDto(Device device){
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         return DeviceListElementDto.builder()
                 .id(device.getId())
                 .username(device.getWarehouse().getUser().getUsername())
@@ -20,7 +22,7 @@ public class DeviceConverter {
                 .deviceModel(device.getDeviceModel().getName())
                 .deviceTypeName(device.getDeviceModel().getDeviceType().getName())
                 .manufacture(device.getDeviceModel().getManufacture())
-                .lastUpdate(device.getLastUpdate().getTime().toString())
+                .lastUpdate(formatter.format(device.getLastUpdate().getTime()))
                 .status(device.getStatus().name())
                 .location(device.getCompany().getName()+
                         " > " + device.getWarehouse().getOffice().getDepartment().getName()+
@@ -56,6 +58,7 @@ public class DeviceConverter {
         beforeDevice.setSerialNumber(deviceEditDto.getSerialNumber());
         beforeDevice.setLastUpdate(Calendar.getInstance());
         beforeDevice.setDeviceModel(deviceModel);
+        beforeDevice.setVersion(deviceEditDto.getVersion());
         return beforeDevice;
     }
 
@@ -73,6 +76,23 @@ public class DeviceConverter {
     //VIEW
 
     public static DeviceViewDto toDeviceViewDto(Device device) {
-        return DeviceViewDto.builder().build();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        return DeviceViewDto.builder()
+                .id(device.getId())
+                .username(device.getWarehouse().getUser().getUsername())
+                .serialNumber(device.getSerialNumber())
+                .deviceModel(device.getDeviceModel().getName())
+                .deviceModelId(device.getDeviceModel().getId())
+                .deviceTypeName(device.getDeviceModel().getDeviceType().getName())
+                .manufacture(device.getDeviceModel().getManufacture())
+                .lastUpdate(formatter.format(device.getLastUpdate().getTime()))
+                .status(device.getStatus().name())
+                .location(device.getCompany().getName()+
+                        " > " + device.getWarehouse().getOffice().getDepartment().getName()+
+                        " > " + device.getWarehouse().getOffice().getName()+
+                        " > " + device.getWarehouse().getName())
+                .userName(device.getWarehouse().getUser().getUserdata().getName())
+                .userSurname(device.getWarehouse().getUser().getUserdata().getSurname())
+                .build();
     }
 }
