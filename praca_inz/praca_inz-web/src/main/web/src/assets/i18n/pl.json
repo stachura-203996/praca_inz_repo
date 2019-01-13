@@ -227,6 +227,10 @@
     "CreateParameter":"Dodaj parametr",
     "CreateDeviceModel":"Dodaj model urządzenia",
     "Main page":"Strona startowa",
-    "System messages":"Wiadomości systemowe"
+    "System messages":"Wiadomości systemowe",
+    "DeviceModelView":"Podgląd modelu urządzenia",
+    "NumberOfDevices":"Liczba urządzeń",
+    "CreateDate":"Data utworzenia",
+    "DeviceModelName":"Model urządzenia"
 
 }

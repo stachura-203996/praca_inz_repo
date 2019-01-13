@@ -232,7 +232,11 @@
     "CreateParameter":"Create parameter",
     "CreateDeviceModel":"Create device model",
     "Main page":"Main page",
-    "System messages":"System messages"
+    "System messages":"System messages",
+    "DeviceModelView":"Device model view",
+    "NumberOfDevices":"Number of devices",
+    "CreateDate":"Create date",
+    "DeviceModelName":"Device model name"
 
 
 
