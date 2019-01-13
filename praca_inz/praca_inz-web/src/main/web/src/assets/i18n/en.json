@@ -226,7 +226,13 @@
     "OrderedBy":"Ordered by",
     "CreateTransferRequest":"Create transfer request",
     "Receiver":"Receiver",
-    "WarehouseDeliveries":"Warehouse deliveries"
+    "WarehouseDeliveries":"Warehouse deliveries",
+    "EditDeviceModel":"Edit device model",
+    "Parameters":"Parameters",
+    "CreateParameter":"Create parameter",
+    "CreateDeviceModel":"Create device model",
+    "Main page":"Main page",
+    "System messages":"System messages"
 
 
 

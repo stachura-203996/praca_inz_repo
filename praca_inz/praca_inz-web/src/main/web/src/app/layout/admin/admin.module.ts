@@ -36,7 +36,6 @@ import { DeviceTransferComponent } from './components/structure-management/devic
 import {SystemMessageAddComponent} from "./components/administration/system_messages/system-message-add/system-message-add.component";
 import {SystemMessageListComponent} from "./components/administration/system_messages/system-message-list/system-message-list.component";
 import {ShareModule} from "../../shared/modules/share/share.module";
-import { DeviceModelParametersChangeComponent } from './components/structure-management/device/device-model-parameters-change/device-model-parameters-change.component';
 
 @NgModule({
     imports: [
@@ -78,8 +77,7 @@ import { DeviceModelParametersChangeComponent } from './components/structure-man
         DeliveryListComponent,
         SummaryComponent,
         UserPasswordEditComponent,
-        DeviceTransferComponent,
-        DeviceModelParametersChangeComponent,
+        DeviceTransferComponent
     ]
 })
 export class AdminModule {

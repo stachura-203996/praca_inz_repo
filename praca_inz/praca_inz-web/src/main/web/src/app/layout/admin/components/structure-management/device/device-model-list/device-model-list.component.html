@@ -21,6 +21,7 @@
             <th>{{ 'ElementName' | translate }}</th>
             <th>{{'Manufacture'|translate}}</th>
             <th>{{'Type'|translate}}</th>
+            <th>{{'Cost'|translate}}</th>
             <th></th>
         </tr>
         </thead>
@@ -29,16 +30,17 @@
             <td>{{device.name}}</td>
             <td>{{device.manufacture}}</td>
             <td>{{device.deviceTypeName}}</td>
+            <td>{{device.cost}}</td>
             <td class="text-right">
                 <div class="btn-group flex-btn-group-container">
                     <button type="submit"
-                            [routerLink]="['/devices/model/view/'+device.id]"
+                            [routerLink]="['/page/devices/model/view/'+device.id]"
                             class="btn btn-info btn-sm">
                         <i class="fa fa-eye"></i>&nbsp;
                         <span class="d-none d-md-inline">{{'View'|translate}}</span>
                     </button>
                     <button type="submit"
-                            [routerLink]="['./edit/'+device.id]"
+                            [routerLink]="['/devices/model/edit/'+device.id]"
                             queryParamsHandling="merge"
                             class="btn btn-primary btn-sm">
                         <i class="fa fa-pencil"></i>&nbsp;

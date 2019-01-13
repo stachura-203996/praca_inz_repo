@@ -3,9 +3,7 @@ package com.stachura.praca_inz.backend.controller;
 import com.stachura.praca_inz.backend.exception.service.ServiceException;
 import com.stachura.praca_inz.backend.model.DeviceModel;
 import com.stachura.praca_inz.backend.service.DeviceModelService;
-import com.stachura.praca_inz.backend.web.dto.device.DeviceModelListElementDto;
-import com.stachura.praca_inz.backend.web.dto.device.DeviceModelViewDto;
-import com.stachura.praca_inz.backend.web.dto.device.ParameterListElementDto;
+import com.stachura.praca_inz.backend.web.dto.device.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.http.HttpHeaders;
@@ -37,6 +35,13 @@ public class DeviceModelController {
         return deviceModelService.getDeviceModelViewById(id);
     }
 
+    @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(value = HttpStatus.OK)
+    public @ResponseBody
+    DeviceModelEditDto getToEdit(@PathVariable Long id) throws ServiceException {
+        return deviceModelService.getDeviceModelEdit(id);
+    }
+
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
@@ -54,31 +59,31 @@ public class DeviceModelController {
 
     @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public ResponseEntity<?> create(@RequestBody DeviceModel deviceModel) throws ServiceException {
-        try {
-            deviceModelService.createNewDeviceModel(deviceModel);
-        } catch (ServiceException e) {
-            e.printStackTrace();
-        }
-        HttpHeaders headers = new HttpHeaders();
-        ControllerLinkBuilder linkBuilder = linkTo(methodOn(DeviceModelController.class).get(deviceModel.getId()));
-        headers.setLocation(linkBuilder.toUri());
-        return new ResponseEntity<>(headers, HttpStatus.CREATED);
+    public Long create(@RequestBody DeviceModelAddDto deviceModelAddDto) throws ServiceException {
+        return  deviceModelService.createNewDeviceModel(deviceModelAddDto);
+    }
+
+    @RequestMapping(value = "/parameters/{id}",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(value = HttpStatus.OK)
+    public Long createParameter(@RequestBody ParameterListElementDto parameterListElementDto,@PathVariable Long id) throws ServiceException {
+        return  deviceModelService.createNewParameter(parameterListElementDto,id);
     }
 
     @RequestMapping(method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public void update(@RequestBody DeviceModel deviceModel) {
-        try {
-            deviceModelService.updateDeviceModel(deviceModel);
-        } catch (ServiceException e) {
-            e.printStackTrace();
-        }
+    public void update(@RequestBody DeviceModelEditDto deviceModelEditDto) throws ServiceException {
+            deviceModelService.updateDeviceModel(deviceModelEditDto);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public void delete(@PathVariable Long id) throws ServiceException {
         deviceModelService.deleteDeviceModelById(id);
+    }
+
+    @RequestMapping(value = "/parameter/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(value = HttpStatus.OK)
+    public void deleteParameter(@PathVariable Long id) throws ServiceException {
+        deviceModelService.deleteParameterById(id);
     }
 }

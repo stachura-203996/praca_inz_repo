@@ -1,8 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {TransferRequestAddElement} from "../../../../../../models/request-elements";
 import {ActivatedRoute, Router} from "@angular/router";
 import {WarehouseService} from "../../../../../warehouse-management/warehouse.service";
-import {RequestService} from "../../../../../employee-management/request.service";
 import {TranslateService} from "@ngx-translate/core";
 import {WarehouseListElement} from "../../../../../../models/warehouse-elements";
 import {TransferAddElement} from "../../../../../../models/transfer-add-element";

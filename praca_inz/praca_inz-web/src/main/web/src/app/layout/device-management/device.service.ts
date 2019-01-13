@@ -7,7 +7,7 @@ import {StructureAddElement, StructureEditElement, StructureViewElement} from ".
 import {
     DeviceAddElement,
     DeviceEditElement,
-    DeviceListElement,
+    DeviceListElement, DeviceModelAddElement, DeviceModelEditElement,
     DeviceModelListElement, DeviceModelViewElement,
     DeviceTypeListElement, DeviceViewElement,
     ParameterListElement
@@ -86,6 +86,10 @@ export class DeviceService {
         return this.httpService.get<DeviceModelViewElement>(this.devicePath + '/model/' + id);
     }
 
+    getDeviceModelEdit(id: string) {
+        return this.httpService.get<DeviceModelEditElement>(this.devicePath + '/model/edit/' + id);
+    }
+
     getAllDevicesModels(): Observable<DeviceModelListElement[]> {
         return this.httpService.get<DeviceModelListElement[]>(this.devicePath + "/model");
     }
@@ -98,6 +102,14 @@ export class DeviceService {
         return this.httpService.delete<any>(this.devicePath+'/model/'+id);
     }
 
+    updateDeviceModel(data:DeviceModelEditElement){
+        return this.httpService.put<DeviceModelEditElement>(this.devicePath+"/model/", data);
+    }
+
+    createDeviceModel(data:DeviceModelAddElement): Observable<any>{
+        return this.httpService.post<DeviceModelAddElement>(this.devicePath+"/model/",data);
+    }
+
     //Parameters
 
     getAllParametersForDeviceModel(id: number): Observable<ParameterListElement[]> {
@@ -106,6 +118,14 @@ export class DeviceService {
 
     getAllParametersForDevice(id: string):Observable<ParameterListElement[]>  {
         return this.httpService.get<ParameterListElement[]>(this.devicePath + "/parameters/"+id);
+    }
+
+    createParameter(data:ParameterListElement,id:number): Observable<any>{
+        return this.httpService.post<DeviceModelAddElement>(this.devicePath+"/model/parameters/"+id,data);
+    }
+
+    deleteParameter(id :number): Observable<any>{
+        return this.httpService.delete<any>(this.devicePath+'/model/parameter/'+id);
     }
 
     //Device Types

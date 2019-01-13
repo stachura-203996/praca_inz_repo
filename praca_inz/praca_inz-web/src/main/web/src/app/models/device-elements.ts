@@ -59,8 +59,9 @@ export class DeviceModelViewElement {
 export class DeviceModelAddElement {
     name: string;
     manufacture:string;
-    type:string;
-
+    typeId:number;
+    cost:string
+    companyId:number
 }
 
 export class DeviceModelEditElement {
@@ -68,6 +69,11 @@ export class DeviceModelEditElement {
     name: string;
     manufacture:string;
     type:string;
+    typeId:number;
+    cost:string
+    companyId:number
+    companyname:string;
+    version:string;
 
 }
 
@@ -75,6 +81,7 @@ export class DeviceModelListElement {
     id: number;
     name: string;
     manufacture:string;
+    cost:string
     deviceTypeName:string;
     companyName:string;
 }

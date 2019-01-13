@@ -221,6 +221,12 @@
     "OrderedBy":"Zamówione przez",
     "CreateTransferRequest":"Wyślij zgłoszenie przeniesienia",
     "Receiver":"Odbiorca",
-    "WarehouseDeliveries":"Dostawy"
+    "WarehouseDeliveries":"Dostawy",
+    "EditDeviceModel":"Edytuj model urządzenia",
+    "Parameters":"Parametry",
+    "CreateParameter":"Dodaj parametr",
+    "CreateDeviceModel":"Dodaj model urządzenia",
+    "Main page":"Strona startowa",
+    "System messages":"Wiadomości systemowe"
 
 }

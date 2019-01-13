@@ -2,9 +2,7 @@ package com.stachura.praca_inz.backend.service;
 
 import com.stachura.praca_inz.backend.exception.service.ServiceException;
 import com.stachura.praca_inz.backend.model.DeviceModel;
-import com.stachura.praca_inz.backend.web.dto.device.DeviceModelListElementDto;
-import com.stachura.praca_inz.backend.web.dto.device.DeviceModelViewDto;
-import com.stachura.praca_inz.backend.web.dto.device.ParameterListElementDto;
+import com.stachura.praca_inz.backend.web.dto.device.*;
 
 import java.util.List;
 
@@ -16,10 +14,15 @@ public interface DeviceModelService {
 
     List<DeviceModelListElementDto> getAllDeviceModels(String username) throws ServiceException;
 
-    void createNewDeviceModel(DeviceModel deviceModel) throws ServiceException;
+    Long createNewDeviceModel(DeviceModelAddDto deviceModelAddDto) throws ServiceException;
 
-    void updateDeviceModel(DeviceModel deviceModel)throws SecurityException, ServiceException;
+    void updateDeviceModel(DeviceModelEditDto deviceModelEditDto)throws SecurityException, ServiceException;
 
     void deleteDeviceModelById(Long id) throws ServiceException;
 
+    DeviceModelEditDto getDeviceModelEdit(Long id) throws ServiceException;
+
+    Long createNewParameter(ParameterListElementDto parameterListElementDto,Long id) throws ServiceException;
+
+    void deleteParameterById(Long id);
 }
