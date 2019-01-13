@@ -19,7 +19,6 @@ export class OfficeEditComponent implements OnInit {
     structureEditElement: StructureEditElement;
 
     departments = new Map<string, number>();
-    selectedOption: string;
     roles: UserRoles;
 
     constructor(
@@ -58,7 +57,7 @@ export class OfficeEditComponent implements OnInit {
     }
 
     officeUpdate() {
-        this.structureEditElement.parentId = this.departments.get(this.selectedOption);
+        this.structureEditElement.parentId = this.departments.get(this.structureEditElement.parentName);
         this.officeService.updateOffice(this.structureEditElement).subscribe(resp => {
             this.router.navigateByUrl('/admin/offices');
         });

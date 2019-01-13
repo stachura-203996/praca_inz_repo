@@ -9,11 +9,13 @@ import com.stachura.praca_inz.backend.repository.DeviceRepository;
 import com.stachura.praca_inz.backend.repository.WarehouseRepository;
 import com.stachura.praca_inz.backend.web.dto.request.*;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class RequestConverter {
 
     public static RequestListElementDto toRequestListElement(Request request) {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         return RequestListElementDto.builder()
                 .id(request.getId())
                 .title(request.getTitle())
@@ -22,11 +24,12 @@ public class RequestConverter {
                 .type(request.getRequestType().name())
                 .recieverWarehouseName(request.getRecieverWarehouse().getName())
                 .senderWarehouseName(request.getSenderWarehouse() == null ? " " : request.getSenderWarehouse().getName())
-                .createDate(request.getCreateDate().getTime().toString())
+                .createDate(formatter.format(request.getCreateDate().getTime()))
                 .build();
     }
 
     public static RequestViewDto toRequestView(Request request) {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         return RequestViewDto.builder()
                 .id(request.getId())
                 .title(request.getTitle())
@@ -37,7 +40,7 @@ public class RequestConverter {
                 .type(request.getRequestType().name())
                 .recieverWarehouseName(request.getRecieverWarehouse().getName())
                 .senderWarehouseName(request.getSenderWarehouse() == null ? " " : request.getSenderWarehouse().getName())
-                .createDate(request.getCreateDate().getTime().toString())
+                .createDate(formatter.format(request.getCreateDate().getTime()))
                 .amount(request.getAmount())
                 .build();
     }

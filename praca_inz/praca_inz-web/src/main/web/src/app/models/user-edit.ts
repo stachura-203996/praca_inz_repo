@@ -15,4 +15,5 @@ export class UserEdit {
     versionUser:string;
     versionUserdata:string;
     versionWarehouse:string;
+    officeName:string;
 }

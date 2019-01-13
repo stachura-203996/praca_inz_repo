@@ -22,7 +22,7 @@
                     </div>
                     <div class="form-group col-xl-5">
                         <label  for="officeSelect">{{'Office'|translate}}<span style="color:red">*</span></label>
-                        <select class="form-control" id="officeSelect" [(ngModel)]="selectedOffice" (change)="getWarehousesmen()" name="officeSelect" required #office>
+                        <select class="form-control" id="officeSelect" [(ngModel)]="warehouseEditElement.officeName" (change)="getWarehousesmen()" name="officeSelect" required #office>
                             <option *ngFor="let office of offices|keyvalue" [value]="office.key">{{office.key}}</option>
                         </select>
                         <div *ngIf="office.invalid && (office.touched || office.dirty)"
@@ -32,7 +32,7 @@
                     </div>
                     <div class="form-group col-xl-5"  >
                         <label  for="departmentSelect">{{'Warehouseman'|translate}}<span style="color:red">*</span></label>
-                        <select class="form-control" id="departmentSelect" [disabled]="!selectedOffice" [(ngModel)]="selectedWarehouseman" name="departmentSelect" required #warehouseman>
+                        <select class="form-control" id="departmentSelect" [disabled]="!warehouseEditElement.officeName" [(ngModel)]="warehouseEditElement.selectedUser" name="departmentSelect" required #warehouseman>
                             <option *ngFor="let warehouseman of warehousemen|keyvalue" [value]="warehouseman.key">{{warehouseman.key}}</option>
                         </select>
                         <div *ngIf="warehouseman.invalid && (warehouseman.touched || warehouseman.dirty)"
@@ -40,7 +40,6 @@
                             <div *ngIf="warehouseman.hasError('required')">{{'Warehouseman is required!'|translate}}</div>
                         </div>
                     </div>
-
                     <div class="form-group">
                         <div class="col-sm-4">
                             <div class="row">
@@ -54,7 +53,6 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
             </fieldset>
         </form>

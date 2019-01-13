@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col-lg-10">
             <input class="form-control" #searchBox id="search-box" (keyup)="filterSubordinates(searchBox.value)"
-                   placeholder="Search..." i18n-placeholder="User search placeholder"/>
+                   placeholder="{{'Search...'|translate}}" />
         </div>
     </div>
     <br>
@@ -30,7 +30,7 @@
                             [routerLink]="['./user/view/'+user.username]"
                             class="btn btn-info btn-sm">
                         <i class="fa fa-eye"></i>&nbsp;
-                        <span class="d-none d-md-inline">View</span>
+                        <span class="d-none d-md-inline">{{'View'|translate}}</span>
                     </button>
                 </div>
             </td>

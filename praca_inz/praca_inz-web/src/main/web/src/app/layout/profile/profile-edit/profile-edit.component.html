@@ -147,7 +147,7 @@
                     </div>
                     <div class="form-group col-xl-5">
                         <label for="companySelect">{{'Office'|translate}}<span style="color:red">*</span></label>
-                        <select class="form-control" id="companySelect" [(ngModel)]="selectedOption" name="first"
+                        <select class="form-control" id="companySelect" [(ngModel)]="userEditElement.officeName" name="first"
                                 required #office="ngModel">
                             <option *ngFor="let office of offices|keyvalue" [value]="office.key">{{office.key}}</option>
                         </select>

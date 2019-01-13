@@ -25,4 +25,5 @@ public class WarehouseListElementDto {
     private String companyName;
     private String departmentName;
     private String devicesNumber;
+
 }

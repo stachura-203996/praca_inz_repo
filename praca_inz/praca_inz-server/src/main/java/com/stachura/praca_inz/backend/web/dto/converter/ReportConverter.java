@@ -7,28 +7,31 @@ import com.stachura.praca_inz.backend.web.dto.report.ReportAddDto;
 import com.stachura.praca_inz.backend.web.dto.report.ReportListElementDto;
 import com.stachura.praca_inz.backend.web.dto.report.ReportViewDto;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class ReportConverter {
 
     public static ReportListElementDto toReportListElement(Report report){
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         return ReportListElementDto.builder()
                 .id(report.getId())
                 .title(report.getTitle())
                 .sender(report.getSender().getUsername())
                 .receiver(report.getReciever().getUsername())
-                .reportDate(report.getCalendarTimestamp().getTime().toString())
+                .reportDate(formatter.format(report.getCalendarTimestamp().getTime()))
                 .build();
     }
 
     public static ReportViewDto toReportViewElement(Report report){
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         return ReportViewDto.builder()
                 .id(report.getId())
                 .title(report.getTitle())
                 .sender(report.getSender().getUsername())
                 .receiver(report.getReciever().getUsername())
                 .description(report.getDescription())
-                .reportDate(report.getCalendarTimestamp().getTime().toString())
+                .reportDate(formatter.format(report.getCalendarTimestamp().getTime()))
                 .build();
     }
 

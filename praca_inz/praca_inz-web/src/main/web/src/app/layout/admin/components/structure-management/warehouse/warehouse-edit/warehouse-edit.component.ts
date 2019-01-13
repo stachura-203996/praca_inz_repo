@@ -22,10 +22,6 @@ export class WarehouseEditComponent implements OnInit {
     offices = new Map<string, number>();
     warehousemen = new Map<string, number>();
 
-
-    selectedOffice: string;
-    selectedWarehouseman: string;
-
     constructor(
         private route: ActivatedRoute,
         private officeService: OfficeService,
@@ -62,10 +58,10 @@ export class WarehouseEditComponent implements OnInit {
 
 
     getWarehousesmen() {
-        this.userService.getAllWarehousemen(this.offices.get(this.selectedOffice)).subscribe((response: UserListElement[]) => {
+        this.userService.getAllWarehousemen(this.offices.get(this.warehouseEditElement.officeName)).subscribe((response: UserListElement[]) => {
             this.warehousemen = response.reduce(function (warehousemanMap, warehouseman) {
                 if (warehouseman.id) {
-                    warehousemanMap.set(warehouseman.name, warehouseman.id)
+                    warehousemanMap.set(warehouseman.name+" "+warehouseman.surname+" | "+warehouseman.username, warehouseman.id)
                 }
                 return warehousemanMap;
             }, this.warehousemen);
@@ -74,8 +70,8 @@ export class WarehouseEditComponent implements OnInit {
 
     warehouseUpdate() {
 
-        this.warehouseEditElement.officeId = this.offices.get(this.selectedOffice);
-        this.warehouseEditElement.userId = this.warehousemen.get(this.selectedWarehouseman);
+        this.warehouseEditElement.officeId = this.offices.get(this.warehouseEditElement.officeName);
+        this.warehouseEditElement.userId = this.warehousemen.get(this.warehouseEditElement.selectedUser);
 
         this.warehouseService.createWarehouse(this.warehouseEditElement).subscribe(resp => {
             this.router.navigateByUrl('/admin/departments');

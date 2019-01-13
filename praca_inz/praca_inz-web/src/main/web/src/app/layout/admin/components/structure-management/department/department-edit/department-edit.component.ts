@@ -83,7 +83,7 @@ export class DepartmentEditComponent implements OnInit {
 
     departmentUpdate() {
         if(this.roles.admin) {
-            this.structureEditElement.parentId = this.companies.get(this.selectedOption);
+            this.structureEditElement.parentId = this.companies.get(this.structureEditElement.parentName);
         } else {
             this.structureEditElement.parentId=this.currentUser.companyId;
         }

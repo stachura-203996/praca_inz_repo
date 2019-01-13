@@ -18,6 +18,7 @@ export class StructureEditElement {
     buildingNumber: string;
     flatNumber: string;
     parentId: number;
+    parentName:string;
     version:string;
 }
 

@@ -36,6 +36,8 @@ export class UserPasswordEditComponent implements OnInit {
         //         this.i18nService.getMessage('yes'), this.i18nService.getMessage('no'))
         //     .subscribe(confirmed => {
         //         if (confirmed) {
+
+                    this.passwordDataByAdmin.id= this.route.snapshot.paramMap.get('id');
                     this.userService.changePasswordByAdmin(this.passwordDataByAdmin).subscribe(rep=>{
                        this.router.navigateByUrl('/admin/users')
                     });

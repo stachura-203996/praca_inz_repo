@@ -92,6 +92,7 @@ public class CompanyStructureConverter {
                 .name(department.getName())
                 .description(department.getDescription())
                 .parentId(department.getCompany().getId())
+                .parentName(department.getCompany().getName())
                 .build();
     }
 
@@ -146,6 +147,7 @@ public class CompanyStructureConverter {
                 .buildingNumber(office.getAddress().getBuildingNumber())
                 .flatNumber(office.getAddress().getFlatNumber())
                 .parentId(office.getDepartment().getId())
+                .parentName(office.getDepartment().getName())
                 .build();
     }
 

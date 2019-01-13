@@ -20,7 +20,7 @@
                     </div>
                     <div class="form-group col-xl-5" *ngIf="roles.admin">
                         <label for="companySelect">{{'Company'|translate}}<span style="color:red">*</span></label>
-                        <select class="form-control" id="companySelect" [(ngModel)]="selectedCompany" name="companySelect" required #company>
+                        <select class="form-control" id="companySelect" [(ngModel)]="deviceEditElement.companyName" name="companySelect" required #company>
                             <option *ngFor="let company of companies|keyvalue" [value]="company.key">{{company.key}}</option>
                         </select>
                         <div *ngIf="company.invalid && (company.touched || company.dirty)"
@@ -30,7 +30,7 @@
                     </div>
                     <div class="form-group col-xl-5" *ngIf="roles.admin">
                         <label for="companySelect">{{'Warehouse'|translate}}<span style="color:red">*</span></label>
-                        <select class="form-control" id="warehouseSelect" [(ngModel)]="selectedWarehouse" name="warehouseSelect" required #warehouse>
+                        <select class="form-control" id="warehouseSelect" [(ngModel)]="deviceEditElement.warehouseName" name="warehouseSelect" required #warehouse>
                             <option *ngFor="let warehouse of warehouses|keyvalue" [value]="warehouse.key">{{warehouse.key}}</option>
                         </select>
                         <div *ngIf="warehouse.invalid && (warehouse.touched || warehouse.dirty)"
@@ -40,7 +40,7 @@
                     </div>
                     <div class="form-group col-xl-5" *ngIf="roles.admin">
                         <label for="companySelect">{{'DeviceModel'|translate}}<span style="color:red">*</span></label>
-                        <select class="form-control" id="deviceModelSelect" [(ngModel)]="selectedModel" name="deviceModelSelect" required #deviceModel>
+                        <select class="form-control" id="deviceModelSelect" [(ngModel)]="deviceEditElement.deviceModelName" name="deviceModelSelect" required #deviceModel>
                             <option *ngFor="let deviceModel of deviceModels|keyvalue" [value]="deviceModel.key">{{deviceModel.key}}</option>
                         </select>
                         <div *ngIf="deviceModel.invalid && (deviceModel.touched || deviceModel.dirty)"

@@ -37,7 +37,6 @@ export class WarehouseAddComponent implements OnInit {
 
     ngOnInit() {
         this.getOffices();
-        this.getWarehousesman()
     }
 
     getOffices() {
@@ -55,7 +54,7 @@ export class WarehouseAddComponent implements OnInit {
         this.userService.getAllWarehousemen(this.offices.get(this.selectedOffice)).subscribe((response: UserListElement[]) => {
             this.warehousemen = response.reduce(function (warehousemanMap, warehouseman) {
                 if (warehouseman.id) {
-                    warehousemanMap.set(warehouseman.name, warehouseman.id)
+                    warehousemanMap.set(warehouseman.name+" "+warehouseman.surname+" | "+warehouseman.username, warehouseman.id)
                 }
                 return warehousemanMap;
             }, this.warehousemen);
@@ -68,7 +67,7 @@ export class WarehouseAddComponent implements OnInit {
         this.warehouseAddElement.userId = this.warehousemen.get(this.selectedWarehouseman);
 
         this.warehouseService.createWarehouse(this.warehouseAddElement).subscribe(resp => {
-            this.router.navigateByUrl('/admin/departments');
+            this.router.navigateByUrl('/admin/warehouses');
         });
 
     }

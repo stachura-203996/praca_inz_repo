@@ -25,6 +25,10 @@ export class DeviceEditElement {
     companyId:number;
     warehouseId:number;
     deviceModelId:number;
+    companyName:string;
+    warehouseName:string;
+    deviceModelName:string;
+
     version:string;
 }
 

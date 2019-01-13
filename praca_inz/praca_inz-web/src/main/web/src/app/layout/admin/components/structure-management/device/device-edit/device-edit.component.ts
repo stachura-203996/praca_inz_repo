@@ -25,10 +25,6 @@ export class DeviceEditComponent implements OnInit {
     warehouses = new Map<string, number>();
     companies = new Map<string, number>();
 
-    selectedModel: string;
-    selectedWarehouse: string;
-    selectedCompany: string;
-
     roles: UserRoles;
     currentUser: LoggedUser;
 
@@ -101,12 +97,12 @@ export class DeviceEditComponent implements OnInit {
 
     deviceEdit() {
         if (this.roles.admin) {
-            this.deviceEditElement.companyId = this.companies.get(this.selectedCompany);
+            this.deviceEditElement.companyId = this.companies.get(this.deviceEditElement.companyName);
         } else {
             this.deviceEditElement.companyId = this.currentUser.companyId;
         }
-        this.deviceEditElement.warehouseId = this.warehouses.get(this.selectedWarehouse);
-        this.deviceEditElement.deviceModelId = this.deviceModels.get(this.selectedModel);
+        this.deviceEditElement.warehouseId = this.warehouses.get(this.deviceEditElement.warehouseName);
+        this.deviceEditElement.deviceModelId = this.deviceModels.get(this.deviceEditElement.deviceModelName);
         this.deviceService.updateDevice(this.deviceEditElement).subscribe(resp => {
             this.router.navigateByUrl('/admin/devices');
         });

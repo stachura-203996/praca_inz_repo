@@ -54,6 +54,8 @@ public class WarehouseConverter {
                 .officeId(warehouse.getOffice().getId())
                 .userId(warehouse.getUser().getId())
                 .version(warehouse.getVersion())
+                .officeName(warehouse.getOffice().getName())
+                .selectedUser(warehouse.getUser().getUserdata().getName()+" "+warehouse.getUser().getUserdata().getName()+" | "+warehouse.getUser().getUsername())
                 .build();
     }
 

@@ -22,7 +22,7 @@ export class ProfileEditComponent implements OnInit {
     userEditElement: ProfileEdit;
 
     offices = new Map<string, number>();
-    selectedOption: string;
+
 
     constructor(
         private route: ActivatedRoute,
@@ -58,7 +58,7 @@ export class ProfileEditComponent implements OnInit {
 
 
     profileUpdate() {
-        this.userEditElement.officeId = this.offices.get(this.selectedOption);
+        this.userEditElement.officeId = this.offices.get(this.userEditElement.officeName);
         this.profileService.updateAccountByUser(this.userEditElement)
             .subscribe(resp => {
                 this.router.navigateByUrl('/profile');

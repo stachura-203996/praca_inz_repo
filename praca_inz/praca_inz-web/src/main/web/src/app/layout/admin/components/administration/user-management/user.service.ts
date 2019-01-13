@@ -83,7 +83,7 @@ export class UserService {
     }
 
     changePasswordByAdmin(data: PasswordDataForAdmin):Observable<any>  {
-        return this.httpService.put<any>(this.userPath + '/password', data);
+        return this.httpService.put<any>(this.userPath + '/password/admin', data);
     }
 
     deleteUser(id: string) {

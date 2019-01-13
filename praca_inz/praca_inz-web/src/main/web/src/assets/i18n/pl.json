@@ -211,6 +211,16 @@
     "RegisterUser":"Dodaj użytkownika",
     "UserList":"Lista użytkowników",
     "EditUser":"Edytuj użytkownika",
-    "ProfileEdit":"Edytuj profil"
+    "ProfileEdit":"Edytuj profil",
+    "New Password":"Nowe hasło",
+    "Old Password":"Stare hasło",
+    "This field is required.":"To pole jest wymagane!",
+    "Repeat New Password":"Powtórz nowe hasło",
+    "DeviceRequests":"Zapotrzebowania na urządzenia",
+    "DeliveryNumber":"Numer dostawy",
+    "OrderedBy":"Zamówione przez",
+    "CreateTransferRequest":"Wyślij zgłoszenie przeniesienia",
+    "Receiver":"Odbiorca",
+    "WarehouseDeliveries":"Dostawy"
 
 }

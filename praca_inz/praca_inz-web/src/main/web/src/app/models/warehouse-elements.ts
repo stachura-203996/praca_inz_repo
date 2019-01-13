@@ -29,6 +29,8 @@ export class WarehouseEditElement {
     userId:number;
     officeId:number;
     version:number;
+    selectedUser:string
+    officeName:string;
 }
 
 

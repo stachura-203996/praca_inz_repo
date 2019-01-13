@@ -22,7 +22,7 @@
                     </div>
                     <div class="form-group col-xl-5" *ngIf="roles.admin">
                         <label for="departmentSelect">{{'Department'|translate}}<span style="color:red">*</span></label>
-                        <select class="form-control" id="departmentSelect" [(ngModel)]="selectedOption" name="departmentSelect" required #department>
+                        <select class="form-control" id="departmentSelect" [(ngModel)]="structureEditElement.parentName" name="departmentSelect" required #department>
                             <option *ngFor="let department of departments|keyvalue" [value]="department.key">{{department.key}}</option>
                         </select>
                         <div *ngIf="department.invalid && (department.touched || department.dirty)"

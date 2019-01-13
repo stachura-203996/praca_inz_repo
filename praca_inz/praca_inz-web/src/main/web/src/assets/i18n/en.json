@@ -216,7 +216,17 @@
     "RegisterUser":"Add new user",
     "EditUser":"Edit user",
     "ProfileEdit":"Edit profile",
-    "ChangePassword":"Change password"
+    "ChangePassword":"Change password",
+    "Old Password":"Old Password",
+    "New Password":"New Password",
+    "This field is required.":"This field is required.",
+    "Repeat New Password":"Repeat New Password",
+    "DeviceRequests":"Device requests",
+    "DeliveryNumber":"Delivery number",
+    "OrderedBy":"Ordered by",
+    "CreateTransferRequest":"Create transfer request",
+    "Receiver":"Receiver",
+    "WarehouseDeliveries":"Warehouse deliveries"
 
 
 

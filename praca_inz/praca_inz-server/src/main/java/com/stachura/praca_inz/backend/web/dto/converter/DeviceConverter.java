@@ -69,6 +69,9 @@ public class DeviceConverter {
                 .deviceModelId(device.getDeviceModel().getId())
                 .companyId(device.getCompany().getId())
                 .warehouseId(device.getWarehouse().getId())
+                .companyName(device.getCompany().getName())
+                .warehouseName(device.getWarehouse().getName())
+                .deviceModelName(device.getDeviceModel().getName())
                 .version(device.getVersion())
                 .build();
     }

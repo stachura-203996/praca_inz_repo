@@ -54,7 +54,7 @@ export class UserListComponent implements OnInit {
 
             searchText = searchText.toLowerCase();
             this.users = users.filter(it => {
-                const fullname = it.name + ' ' + it.surname;
+                const fullname = it.name + ' ' + it.surname+' '+it.email+' '+it.username;
                 const ok = fullname.toLowerCase().includes(searchText);
                 if (!this.notVerifiedFilter) {
                     return ok;

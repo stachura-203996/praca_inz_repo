@@ -31,7 +31,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
                     let errorMessage = '';
                     if (error.error instanceof ErrorEvent) {
                         // client-side error
-                        errorMessage = `Error: ${error.error.message}`;
+                        console.error('An error occurred:', error.error.message);
                     } else {
                         // The backend returned an unsuccessful response code.
                         // The response body may contain clues as to what went wrong,
@@ -43,13 +43,13 @@ export class HttpErrorInterceptor implements HttpInterceptor {
                         } else if (error.status === this.badRequest) {
                             // this.messageService.error(this.i18nService.getMessage('bad.request.error'));
                         } else {
-                            // console.error(
-                            //     `Backend returned code ${error.status}, ` +
-                            //     `body was: ${error.error}`);
+                            console.error(
+                                `Backend returned code ${error.status}, ` +
+                                `body was: ${error.error}`);
                         }
 
                     }
-                    window.alert(errorMessage);
+                    // window.alert(errorMessage);
                     return throwError(errorMessage);
                 })
             )

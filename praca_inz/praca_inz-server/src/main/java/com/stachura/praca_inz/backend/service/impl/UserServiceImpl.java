@@ -4,10 +4,13 @@ import com.google.common.collect.Lists;
 import com.stachura.praca_inz.backend.exception.service.ServiceException;
 import com.stachura.praca_inz.backend.model.enums.WarehouseType;
 import com.stachura.praca_inz.backend.model.security.User;
+import com.stachura.praca_inz.backend.model.security.UserRole;
 import com.stachura.praca_inz.backend.repository.UserRepository;
+import com.stachura.praca_inz.backend.service.EmailService;
 import com.stachura.praca_inz.backend.service.UserService;
 import com.stachura.praca_inz.backend.web.dto.user.*;
 import com.stachura.praca_inz.backend.web.dto.converter.UserConverter;
+import com.stachura.praca_inz.backend.web.utils.PasswordGenerator;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -29,6 +32,9 @@ public class UserServiceImpl implements UserService {
     @Qualifier("userPasswordEncoder")
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    EmailService emailService;
 
     @Override
     public List<UserListElementDto> getAllUsers() {
@@ -134,7 +140,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserListElementDto> getAllWarehousemen(Long id) {
-        List<User> users = Lists.newArrayList(userRepository.findAll()).stream().filter(x -> x.getOffice().getId().equals(id) && x.getUserRoles().contains("WAREHOUSEMAN")).collect(Collectors.toList());
+        List<User> users = Lists.newArrayList(userRepository.findAll()).stream().filter(x -> x.getOffice().getId().equals(id) && x.getUserRoles().stream().map(UserRole::getName).collect(Collectors.toList()).contains("WAREHOUSEMAN")).collect(Collectors.toList());
         List<UserListElementDto> usersDto = new ArrayList<>();
         for (User a : users) {
             if (a.isEnabled()) {
@@ -167,7 +173,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public PasswordInfoForAdmin getPasswordForAdmin(Long id) throws ServiceException {
         User user = userRepository.findById(id).orElseThrow(() -> new ServiceException());
-        return PasswordInfoForAdmin.builder().userVersion(user.getVersion()).build();
+        return PasswordInfoForAdmin.builder().userVersion(user.getVersion()).id(id).build();
     }
 
     @Override
@@ -205,6 +211,21 @@ public class UserServiceImpl implements UserService {
             throw ServiceException.createServiceException(ServiceException.SAME_PASSWORD);
         }
 
+    }
+
+    @Override
+    public void resetPassword(String username) throws ServiceException {
+        User user=userRepository.findByUsername(username).orElseThrow(()->new ServiceException());
+        PasswordGenerator passwordGenerator = new PasswordGenerator.PasswordGeneratorBuilder()
+                .useDigits(true)
+                .useLower(true)
+                .useUpper(true)
+                .build();
+        String password = passwordGenerator.generate(8);
+        emailService.sendSimpleMessage(user.getUserdata().getEmail(),"Password reset",password);
+        passwordEncoder.encode(password);
+
+        userRepository.save(user);
     }
 
 

@@ -84,6 +84,7 @@ public class UserConverter {
                 .versionUser(user.getVersion())
                 .versionUserdata(user.getUserdata().getVersion())
                 .versionWarehouse(warehouse.getVersion())
+                .officeName(user.getOffice().getName())
                 .build();
     }
 
@@ -105,6 +106,7 @@ public class UserConverter {
                 .versionUser(user.getVersion())
                 .versionUserdata(user.getUserdata().getVersion())
                 .versionWarehouse(warehouse.getVersion())
+                .officeName(user.getOffice().getName())
                 .build();
     }
 

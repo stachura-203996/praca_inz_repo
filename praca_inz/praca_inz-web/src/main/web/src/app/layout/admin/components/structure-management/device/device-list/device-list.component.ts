@@ -60,7 +60,7 @@ export class DeviceListComponent implements OnInit {
     }
 
     transfer(device: DeviceListElement) {
-      this.router.navigateByUrl('/ui/page/admin/devices/transfer'+device.id)
+      this.router.navigateByUrl('/admin/devices/transfer'+device.id)
     }
 
     delete(device: DeviceListElement) {

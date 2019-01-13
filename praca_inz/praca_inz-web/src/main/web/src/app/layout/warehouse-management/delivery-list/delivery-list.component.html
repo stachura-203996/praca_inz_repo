@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-lg-10">
             <input class="form-control" #searchBox id="search-box" (keyup)="filterDeliveries(searchBox.value)"
-                   placeholder="Search..." i18n-placeholder="User search placeholder"/>
+                   placeholder="{{'Search...'|translate}}" />
         </div>
     </div>
     <br>
@@ -17,7 +17,7 @@
             <th>{{'Status'| translate}}</th>
             <th>{{'Sender'| translate}}</th>
             <th>{{'Reciever' | translate}}</th>
-            <th>{{'CreatDate'| translate}}</th>
+            <th>{{'CreateDate'| translate}}</th>
             <th>{{'LastUpdate' | translate}}</th>
             <th>{{'OrderedBy' | translate}}</th>
             <th></th>
@@ -39,7 +39,7 @@
                             [routerLink]="['./view/'+delivery.id]"
                             class="btn btn-info btn-sm">
                         <i class="fa fa-eye"></i>&nbsp;
-                        <span class="d-none d-md-inline">View</span>
+                        <span class="d-none d-md-inline">{{'View'|translate}}</span>
                     </button>
                 </div>
             </td>

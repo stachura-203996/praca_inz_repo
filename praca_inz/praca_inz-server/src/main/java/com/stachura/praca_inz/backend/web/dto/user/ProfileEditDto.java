@@ -24,4 +24,5 @@ public class ProfileEditDto {
     private long versionUser;
     private long versionUserdata;
     private long versionWarehouse;
+    private String officeName;
 }

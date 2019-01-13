@@ -48,6 +48,7 @@ public class ServerSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers(ERROR_PATTERN).permitAll()
                 .antMatchers("/").permitAll()
+                .antMatchers("/reset/**").permitAll()
                 .antMatchers("/ui/**").permitAll()
                 .antMatchers("/index.html").permitAll()
                 .antMatchers("/login").permitAll()

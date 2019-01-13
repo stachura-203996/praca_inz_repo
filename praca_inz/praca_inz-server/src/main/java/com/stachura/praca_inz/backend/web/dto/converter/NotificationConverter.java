@@ -3,16 +3,19 @@ package com.stachura.praca_inz.backend.web.dto.converter;
 import com.stachura.praca_inz.backend.model.Notification;
 import com.stachura.praca_inz.backend.web.dto.NotificationListElementDto;
 
+import java.text.SimpleDateFormat;
+
 public class NotificationConverter {
 
     public static NotificationListElementDto toNotificationListElementDto(Notification notification) {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         return NotificationListElementDto.builder()
                 .id(notification.getId())
                 .title(notification.getTitle())
                 .description(notification.getDescription())
                 .readed(notification.isReaded())
                 .url(notification.getUrl())
-                .calendarTimestamp(notification.getCalendarTimestamp().getTime().toString())
+                .calendarTimestamp(formatter.format(notification.getCalendarTimestamp().getTime()))
                 .build();
     }
 

@@ -22,7 +22,6 @@ export class UserEditComponent implements OnInit {
     offices = new Map<string, number>();
     roles:UserRoles;
     selectedRoles:string[]=[];
-    selectedOption: string;
 
     constructor(
         private route: ActivatedRoute,
@@ -86,7 +85,7 @@ export class UserEditComponent implements OnInit {
 
     userAdd() {
         this.setRoles();
-        this.userEditElement.officeId = this.offices.get(this.selectedOption);
+        this.userEditElement.officeId = this.offices.get(this.userEditElement.officeName);
         this.userService.updateAccountByAdmin(this.userEditElement)
             .subscribe(resp => {
                 this.router.navigateByUrl('/admin/users');

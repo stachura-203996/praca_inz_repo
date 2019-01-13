@@ -21,13 +21,17 @@ TRUNCATE TABLE DELIVERY CASCADE;
 
 
 
-INSERT INTO ADDRESS(ID, VERSION,CITY,DELETED, BUILDING_NUMBER, STREET ) VALUES (1,0, 'Kraków',FALSE, 60, 'Podole');
-INSERT INTO ADDRESS(ID, VERSION, CITY,DELETED , BUILDING_NUMBER, STREET ) VALUES (2,0, 'Warszawa',FALSE, 2, 'Żelazna');
-INSERT INTO ADDRESS(ID, VERSION, CITY,DELETED , BUILDING_NUMBER, STREET,FLAT_NUMBER) VALUES (3,0, 'Łódź',FALSE, 3, 'Piotrkowaska',2);
-INSERT INTO ADDRESS(ID, VERSION, CITY, DELETED, BUILDING_NUMBER, STREET) VALUES (4,0, 'Lódź',FALSE,  4, 'Kościuszki');
-INSERT INTO ADDRESS(ID, VERSION, CITY, DELETED, BUILDING_NUMBER, STREET) VALUES (5,0, 'Lublin',FALSE,  5, 'Lipowa');
-INSERT INTO ADDRESS(ID, VERSION, CITY,DELETED , BUILDING_NUMBER, STREET) VALUES (6,0, 'Sopot',FALSE , 6, 'Grunwaldzka');
-INSERT INTO ADDRESS(ID, VERSION, CITY,DELETED , BUILDING_NUMBER, STREET) VALUES (7,0, 'Szczecin',FALSE , 7, 'Kolumba');
+INSERT INTO public.address (id, building_number, city, deleted, flat_number, street, version) VALUES (1, '60', 'Kraków', false, null, 'Podole', 0);
+INSERT INTO public.address (id, building_number, city, deleted, flat_number, street, version) VALUES (2, '2', 'Warszawa', false, null, 'żelazna', 0);
+INSERT INTO public.address (id, building_number, city, deleted, flat_number, street, version) VALUES (3, '3', 'Łódź', false, '2', 'Piotrkowaska', 0);
+INSERT INTO public.address (id, building_number, city, deleted, flat_number, street, version) VALUES (4, '4', 'Łódź', false, null, 'Kościuszki', 0);
+INSERT INTO public.address (id, building_number, city, deleted, flat_number, street, version) VALUES (5, '5', 'Lublin', false, null, 'Lipowa', 0);
+INSERT INTO public.address (id, building_number, city, deleted, flat_number, street, version) VALUES (6, '6', 'Sopot', false, null, 'Grunwaldzka', 0);
+INSERT INTO public.address (id, building_number, city, deleted, flat_number, street, version) VALUES (7, '7', 'Szczecin', false, null, 'Kolumba', 0);
+INSERT INTO public.address (id, building_number, city, deleted, flat_number, street, version) VALUES (8, '1', 'Zakopane', false, null, 'Krupówki', 0);
+INSERT INTO public.address (id, building_number, city, deleted, flat_number, street, version) VALUES (9, '1', 'Zakopane', false, null, 'Krupówki', 0);
+INSERT INTO public.address (id, building_number, city, deleted, flat_number, street, version) VALUES (10, '1', 'Zakopane', false, null, 'Krupówki', 0);
+
 
 INSERT INTO COMPANY(ID, VERSION, DELETED,NAME, MAIN_OFFICE_ADRESS_ID,DESCRIPTION) VALUES (1,0,FALSE, 'Transition Technologies',1, 'Transition Technologies PSC specjalizuje się w tworzeniu rozwiązań IT dla przemysłu. Szczególnie Connected Product Lifecycle Management i zastosowaniu w przemyśle najnowszych technologii Internetu Przedmiotów (IoT) i Rozszerzonej Rzeczywistości (AR), dzięki którym nasi Klienci mogą realizować koncepcję Przemysłu 4.0. Nasza firma to ponad 400 entuzjastów programowania, innowacji technologicznych oraz metodyk programowania, którzy w swojej pracy zawsze kierują się wzajemną pomocą, dobrą atmosferą oraz kreatywnym podejściem. W procesie wytwarzania oprogramowania zawsze korzystamy z najnowszych narzędzi, dlatego od wielu lat jesteśmy partnerem Atlassian. W oparciu o produkty tej firmy wdrażamy rozwiązania oraz rozwijamy produkty dla naszych Partnerów.');
 
@@ -45,10 +49,10 @@ INSERT INTO DEPARTMENT(ID, VERSION, DELETED,NAME, COMPANY_ID) VALUES (5,0,FALSE 
  INSERT INTO OFFICE(ID, VERSION,DELETED, NAME, ADDRESS_ID, DEPARTMENT_ID) VALUES (4,0, FALSE ,'Office of A Los Angeles', 7, 3);
 
 
- INSERT INTO USERDATA(ID, VERSION, NAME, SURNAME, EMAIL,ADDRESS_ID,JOIN_DATE ) VALUES (1,0, 'Tomasz', 'Stachura','email1@email.com', 1,'2011-03-12 12:00:00.000000');
- INSERT INTO USERDATA(ID, VERSION, NAME, SURNAME, EMAIL,ADDRESS_ID,JOIN_DATE ) VALUES (2,0, 'Robert', 'William','email2@email.com', 2,'2011-03-12 12:00:00.000000');
- INSERT INTO USERDATA(ID, VERSION, NAME, SURNAME, EMAIL,ADDRESS_ID,JOIN_DATE ) VALUES (3,0, 'David', 'William','email3@email.com', 3,'2011-03-12 12:00:00.000000');
- INSERT INTO USERDATA(ID, VERSION, NAME, SURNAME, EMAIL,ADDRESS_ID,JOIN_DATE ) VALUES (4,0, 'John', 'William','email4@email.com', 4,'2011-03-12 12:00:00.000000');
+ INSERT INTO public.userdata (id, join_date, email, language, name, position, surname, version, workplace, address_id) VALUES (1, '2011-03-12 12:00:00.000000', 'email1@email.com', null, 'Tomasz', null, 'Stachura', 0, null, 1);
+INSERT INTO public.userdata (id, join_date, email, language, name, position, surname, version, workplace, address_id) VALUES (4, '2019-01-13 02:28:56.848000', 'email4@email.com', null, 'John', null, 'William', 2, null, 8);
+INSERT INTO public.userdata (id, join_date, email, language, name, position, surname, version, workplace, address_id) VALUES (2, '2019-01-13 02:30:31.659000', 'email2@email.com', null, 'Robert', null, 'William', 1, null, 9);
+INSERT INTO public.userdata (id, join_date, email, language, name, position, surname, version, workplace, address_id) VALUES (3, '2019-01-13 02:30:51.643000', 'email3@email.com', null, 'David', null, 'William', 1, null, 10);
 
 INSERT INTO OAUTH_CLIENT_DETAILS(CLIENT_ID, RESOURCE_IDS, CLIENT_SECRET, SCOPE, AUTHORIZED_GRANT_TYPES, AUTHORITIES, ACCESS_TOKEN_VALIDITY, REFRESH_TOKEN_VALIDITY)
 	VALUES ('spring-security-oauth2-read-client', 'resource-server-rest-api',
@@ -125,18 +129,10 @@ INSERT INTO AUTHORITY(ID, VERSION, NAME) VALUES (62,0, 'USER_DELETE');
 INSERT INTO AUTHORITY(ID, VERSION, NAME) VALUES (63,0, 'ACCOUNT_UPDATE_ADMIN');
 INSERT INTO AUTHORITY(ID, VERSION, NAME) VALUES (64,0, 'ACCOUNT_UPDATE_USER');
 
-
-INSERT INTO USER_(ID, VERSION, USER_NAME, PASSWORD, ACCOUNT_EXPIRED, ACCOUNT_LOCKED, CREDENTIALS_EXPIRED, ENABLED,USERDATA_ID,OFFICE_ID)
-  VALUES (1,0, 'admin', /*admin1234*/'$2a$08$qvrzQZ7jJ7oy2p/msL4M0.l83Cd0jNsX6AJUitbgRXGzge4j035ha', FALSE, FALSE, FALSE, TRUE,1,1);
-
-INSERT INTO USER_(ID, VERSION, USER_NAME, PASSWORD, ACCOUNT_EXPIRED, ACCOUNT_LOCKED, CREDENTIALS_EXPIRED, ENABLED,USERDATA_ID,OFFICE_ID)
-  VALUES (2,0, 'reader', /*reader1234*/'$2a$08$dwYz8O.qtUXboGosJFsS4u19LHKW7aCQ0LXXuNlRfjjGKwj5NfKSe', FALSE, FALSE, FALSE, TRUE,2,2);
-
-INSERT INTO USER_(ID, VERSION, USER_NAME, PASSWORD, ACCOUNT_EXPIRED, ACCOUNT_LOCKED, CREDENTIALS_EXPIRED, ENABLED,USERDATA_ID,OFFICE_ID)
-  VALUES (3,0, 'modifier', /*modifier1234*/'$2a$08$kPjzxewXRGNRiIuL4FtQH.mhMn7ZAFBYKB3ROz.J24IX8vDAcThsG', FALSE, FALSE, FALSE, TRUE,3,3);
-
-INSERT INTO USER_(ID, VERSION, USER_NAME, PASSWORD, ACCOUNT_EXPIRED, ACCOUNT_LOCKED, CREDENTIALS_EXPIRED, ENABLED,USERDATA_ID,OFFICE_ID)
-  VALUES (4,0, 'reader2', /*reader1234*/'$2a$08$vVXqh6S8TqfHMs1SlNTu/.J25iUCrpGBpyGExA.9yI.IlDRadR6Ea', FALSE, FALSE, FALSE, TRUE,4,4);
+INSERT INTO public.user_ (id, account_expired, account_locked, credentials_expired, enabled, password, user_name, version, office_id, userdata_id) VALUES (1, false, false, false, true, '$2a$08$qvrzQZ7jJ7oy2p/msL4M0.l83Cd0jNsX6AJUitbgRXGzge4j035ha', 'admin', 0, 1, 1);
+INSERT INTO public.user_ (id, account_expired, account_locked, credentials_expired, enabled, password, user_name, version, office_id, userdata_id) VALUES (3, false, false, false, true, '$2a$08$kPjzxewXRGNRiIuL4FtQH.mhMn7ZAFBYKB3ROz.J24IX8vDAcThsG', 'manager', 3, 3, 3);
+INSERT INTO public.user_ (id, account_expired, account_locked, credentials_expired, enabled, password, user_name, version, office_id, userdata_id) VALUES (4, false, false, false, true, '$2a$08$vVXqh6S8TqfHMs1SlNTu/.J25iUCrpGBpyGExA.9yI.IlDRadR6Ea', 'warehouseman', 2, 4, 4);
+INSERT INTO public.user_ (id, account_expired, account_locked, credentials_expired, enabled, password, user_name, version, office_id, userdata_id) VALUES (2, false, false, false, true, '$2a$08$jjxh5zATwI2f.jxdTVlcSO5TtiUnxXEsGLn7KYLgI8YUvo7EfMan2', 'company_admin', 5, 2, 2);
 
 INSERT INTO USER_ROLE(ID,VERSION,NAME,ACTIVE) VALUES (1,0,'ADMIN',TRUE );
 INSERT INTO USER_ROLE(ID,VERSION,NAME,ACTIVE) VALUES (2,0,'USER',TRUE );
@@ -144,11 +140,17 @@ INSERT INTO USER_ROLE(ID,VERSION,NAME,ACTIVE) VALUES (3,0,'MANAGER',TRUE );
 INSERT INTO USER_ROLE(ID,VERSION,NAME,ACTIVE) VALUES (4,0,'WAREHOUSEMAN',TRUE );
 INSERT INTO USER_ROLE(ID,VERSION,NAME,ACTIVE) VALUES (5,0,'COMPANY_ADMIN',TRUE );
 
-INSERT INTO USERS_ROLES(USER_ID,USER_ROLE_ID) VALUES(1,1);
-INSERT INTO USERS_ROLES(USER_ID,USER_ROLE_ID) VALUES(1,2);
-INSERT INTO USERS_ROLES(USER_ID,USER_ROLE_ID) VALUES(1,3);
-INSERT INTO USERS_ROLES(USER_ID,USER_ROLE_ID) VALUES(1,4);
-INSERT INTO USERS_ROLES(USER_ID,USER_ROLE_ID) VALUES(1,5);
+INSERT INTO public.users_roles (user_id, user_role_id) VALUES (1, 1);
+INSERT INTO public.users_roles (user_id, user_role_id) VALUES (1, 2);
+INSERT INTO public.users_roles (user_id, user_role_id) VALUES (1, 3);
+INSERT INTO public.users_roles (user_id, user_role_id) VALUES (1, 4);
+INSERT INTO public.users_roles (user_id, user_role_id) VALUES (1, 5);
+INSERT INTO public.users_roles (user_id, user_role_id) VALUES (4, 2);
+INSERT INTO public.users_roles (user_id, user_role_id) VALUES (4, 4);
+INSERT INTO public.users_roles (user_id, user_role_id) VALUES (2, 2);
+INSERT INTO public.users_roles (user_id, user_role_id) VALUES (2, 5);
+INSERT INTO public.users_roles (user_id, user_role_id) VALUES (3, 2);
+INSERT INTO public.users_roles (user_id, user_role_id) VALUES (3, 3);
 
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (1, 1);
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (1, 2);

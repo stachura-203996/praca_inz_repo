@@ -7,15 +7,17 @@ import com.stachura.praca_inz.backend.model.enums.Status;
 import com.stachura.praca_inz.backend.web.dto.TransferAddDto;
 import com.stachura.praca_inz.backend.web.dto.TransferListElementDto;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
 public class TransferConverter {
     public static TransferListElementDto toTransferListElementDto(Transfer transfer) {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         return TransferListElementDto.builder()
                 .id(transfer.getId())
                 .title(transfer.getTitle())
-                .date(transfer.getTransferDate().getTime().toString())
+                .date(formatter.format(transfer.getTransferDate().getTime()))
                 .senderWarehouseName(transfer.getSenderWarehouse().getName())
                 .recieverWarehouseName(transfer.getRecieverWarehouse().getName())
                 .deviceModelName(transfer.getDevice().getDeviceModel().getName())

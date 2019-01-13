@@ -38,4 +38,6 @@ public interface UserService {
     PasswordInfoDto getPassword(String username) throws ServiceException;
 
     void updatePassword(PasswordInfoDto passwordInfoDto, String username) throws ServiceException;
+
+    void resetPassword(String email) throws ServiceException;
 }

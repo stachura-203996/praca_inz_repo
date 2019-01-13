@@ -52,4 +52,12 @@ export class DeliveryListComponent implements OnInit {
                 });
             });
     }
+
+    getUser(deliver:DeliveryListElement){
+
+    }
+
+    addDevice(device:DeliveryListElement){
+
+    }
 }

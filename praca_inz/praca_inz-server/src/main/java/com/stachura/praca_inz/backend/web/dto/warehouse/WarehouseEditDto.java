@@ -12,4 +12,7 @@ public class WarehouseEditDto {
     private Long userId;
     private Long officeId;
     private Long version;
+    private String selectedUser;
+    private String officeName;
+
 }
