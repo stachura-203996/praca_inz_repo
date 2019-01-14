@@ -3,6 +3,8 @@ import {UserListElement} from "../../../../../../../models/user-list-element";
 import {UserService} from "../../user.service";
 import {TranslateService} from "@ngx-translate/core";
 import {routerTransition} from "../../../../../../../router.animations";
+import {MessageService} from "../../../../../../../shared/services/message.service";
+import {Configuration} from "../../../../../../../app.constants";
 
 
 @Component({
@@ -19,6 +21,8 @@ export class UserListComponent implements OnInit {
 
     constructor(private userService: UserService,
                 private translate: TranslateService,
+                private messageService:MessageService,
+                private configuration:Configuration
     ) {}
 
     ngOnInit() {
@@ -59,8 +63,35 @@ export class UserListComponent implements OnInit {
 
 
     delete(user: UserListElement) {
-        this.userService.deleteUser(String(user.id)).subscribe(resp => {
-            this.filterUsers(null)
-        });
+        var entity: string;
+        var message: string;
+        var yes: string;
+        var no: string;
+
+        this.translate.get('user.delete').subscribe(x => entity = x);
+        this.translate.get('confirm.user.delete').subscribe(x => message = x);
+        this.translate.get('yes').subscribe(x => yes = x);
+        this.translate.get('no').subscribe(x => no = x);
+
+
+        this.messageService.confirm(entity, message, yes, no)
+            .subscribe(confirmed => {
+                if (confirmed) {
+                    this.userService.deleteUser(String(user.id)).subscribe(resp => {
+                        this.filterUsers(null)
+                    }, error => {
+                        if (error === this.configuration.ERROR_NO_OBJECT_IN_DATABASE) {
+                            this.translate.get('no.object.in.database.error').subscribe(x => {
+                                this.messageService.error(x);
+                            })
+                        } else {
+                            this.translate.get('unknown.error').subscribe(x => {
+                                this.messageService.error(x);
+                            })
+                        }
+
+                    });
+                }
+            });
     }
 }

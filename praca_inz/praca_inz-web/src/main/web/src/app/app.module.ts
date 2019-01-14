@@ -23,7 +23,7 @@ import {NotificationService} from "./layout/notification/notification.service";
 import {WarehouseService} from "./layout/warehouse-management/warehouse.service";
 import {SystemMessageService} from "./layout/main-page/system-message.service";
 import {ReportService} from "./layout/employee-management/report.service";
-import {BsDropdownModule, BsModalService} from "ngx-bootstrap";
+import {BsDropdownModule, BsModalService, ModalModule} from "ngx-bootstrap";
 import {MatSelectModule} from "@angular/material";
 import {ReactiveFormsModule} from "@angular/forms";
 import {HttpErrorInterceptor} from "./shared/interceptor/http-error.interceptor";
@@ -53,13 +53,14 @@ export const createTranslateLoader = (http: HttpClient) => {
                 deps: [HttpClient]
             }
         }),
+        ModalModule.forRoot(),
         AppRoutingModule,
         ToastrModule.forRoot(),
         BsDropdownModule.forRoot(),
     ],
     declarations: [
         AppComponent,
-        ConfirmDialogComponent,
+        ConfirmDialogComponent
     ],
     providers: [
         AuthGuard,
@@ -85,7 +86,8 @@ export const createTranslateLoader = (http: HttpClient) => {
             multi: true
         }
     ],
-    bootstrap: [AppComponent]
+    bootstrap: [AppComponent],
+    entryComponents: [ConfirmDialogComponent]
 })
 export class AppModule {
 }

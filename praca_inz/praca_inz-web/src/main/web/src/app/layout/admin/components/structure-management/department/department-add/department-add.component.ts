@@ -9,6 +9,8 @@ import {TranslateService} from "@ngx-translate/core";
 import {UserRoles} from "../../../../../../models/user-roles";
 import {LoggedUser} from "../../../../../../models/logged-user";
 import {UserService} from "../../../administration/user-management/user.service";
+import {MessageService} from "../../../../../../shared/services/message.service";
+import {Configuration} from "../../../../../../app.constants";
 
 @Component({
     selector: 'app-department-add',
@@ -30,7 +32,10 @@ export class DepartmentAddComponent implements OnInit {
         private userService: UserService,
         private departmentService: DepartmentService,
         private translate: TranslateService,
-        private router: Router) {
+        private messageService: MessageService,
+        private router: Router,
+        private configuration: Configuration
+    ) {
 
     }
 
@@ -51,26 +56,59 @@ export class DepartmentAddComponent implements OnInit {
     }
 
     getCompanies() {
-            this.companyService.getAll().subscribe((response: StructureListElement[]) => {
-                this.companies = response.reduce(function (companyMap, company) {
-                    if (company.id) {
-                        companyMap.set(company.name, company.id)
-                    }
-                    return companyMap;
-                }, this.companies);
-            });
+        this.companyService.getAll().subscribe((response: StructureListElement[]) => {
+            this.companies = response.reduce(function (companyMap, company) {
+                if (company.id) {
+                    companyMap.set(company.name, company.id)
+                }
+                return companyMap;
+            }, this.companies);
+        });
     }
 
     departmentAdd() {
-        if(this.roles.admin) {
-            this.structureAddElement.companyId = this.companies.get(this.selectedOption);
-        } else {
-            this.structureAddElement.companyId=this.currentUser.companyId;
-        }
-        this.departmentService.createDepartment(this.structureAddElement).subscribe(resp => {
-            this.router.navigateByUrl('/admin/departments');
-        });
+        var entity: string;
+        var message: string;
+        var yes: string;
+        var no: string;
 
+        this.translate.get('department.add').subscribe(x => entity = x);
+        this.translate.get('confirm.add').subscribe(x => message = x);
+        this.translate.get('yes').subscribe(x => yes = x);
+        this.translate.get('no').subscribe(x => no = x);
+
+
+        this.messageService
+            .confirm(entity, message, yes, no)
+            .subscribe(confirmed => {
+                if (confirmed) {
+                    if (this.roles.admin) {
+                        this.structureAddElement.companyId = this.companies.get(this.selectedOption);
+                    } else {
+                        this.structureAddElement.companyId = this.currentUser.companyId;
+                    }
+                    this.departmentService.createDepartment(this.structureAddElement).subscribe(resp => {
+                        this.router.navigateByUrl('/admin/departments');
+                        this.translate.get('success.department.add').subscribe(x => {
+                            this.messageService.success(x)
+                        })
+                    }, error => {
+                        if (error === this.configuration.ERROR_DEPARTMENT_NAME_TAKEN) {
+                            this.translate.get('department.name.taken.error').subscribe(x => {
+                                this.messageService.error(x);
+                            })
+                        } else if (error === this.configuration.ERROR_NO_OBJECT_IN_DATABASE) {
+                            this.translate.get('no.object.in.database.error').subscribe(x => {
+                                this.messageService.error(x);
+                            })
+                        } else {
+                            this.translate.get('unknown.error').subscribe(x => {
+                                this.messageService.error(x);
+                            })
+                        }
+                    });
+                }
+            });
     }
 
     clear() {

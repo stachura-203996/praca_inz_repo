@@ -8,6 +8,8 @@ import {TranslateService} from "@ngx-translate/core";
 import {UserRoles} from "../../../../../../models/user-roles";
 import {UserService} from "../../../administration/user-management/user.service";
 import {LoggedUser} from "../../../../../../models/logged-user";
+import {MessageService} from "../../../../../../shared/services/message.service";
+import {Configuration} from "../../../../../../app.constants";
 
 
 @Component({
@@ -33,6 +35,8 @@ export class DepartmentEditComponent implements OnInit {
         private companyService: CompanyService,
         private translate:TranslateService,
         private departmentService: DepartmentService,
+        private messageService:MessageService,
+        private configuration:Configuration,
         private router: Router) {
     }
 
@@ -47,7 +51,17 @@ export class DepartmentEditComponent implements OnInit {
 
     getDepartment() {
         const id = this.route.snapshot.paramMap.get('id');
-        this.departmentService.getDepartmentEdit(id).subscribe(x=>this.structureEditElement=x);
+        this.departmentService.getDepartmentEdit(id).subscribe(x=>{this.structureEditElement=x}, error => {
+            if (error === this.configuration.ERROR_NO_OBJECT_IN_DATABASE) {
+                this.translate.get('no.object.in.database.error').subscribe(x => {
+                    this.messageService.error(x);
+                })
+            } else {
+                this.translate.get('unknown.error').subscribe(x => {
+                    this.messageService.error(x);
+                })
+            }
+        });
     }
 
     getCompanies() {
@@ -82,14 +96,51 @@ export class DepartmentEditComponent implements OnInit {
     }
 
     departmentUpdate() {
-        if(this.roles.admin) {
-            this.structureEditElement.parentId = this.companies.get(this.structureEditElement.parentName);
-        } else {
-            this.structureEditElement.parentId=this.currentUser.companyId;
-        }
-        this.departmentService.updateDepartment(this.structureEditElement).subscribe(resp => {
-            this.router.navigateByUrl('/admin/departments');
-        });
+        var entity:string;
+        var message:string;
+        var yes:string;
+        var no:string;
+
+        this.translate.get('department.edit').subscribe(x=>entity=x);
+        this.translate.get('confirm.edit').subscribe(x=>message=x);
+        this.translate.get('yes').subscribe(x=>yes=x);
+        this.translate.get('no').subscribe(x=>no=x);
+
+
+        this.messageService
+            .confirm(entity,message,yes,no)
+            .subscribe(confirmed => {
+                if (confirmed) {
+                    if(this.roles.admin) {
+                        this.structureEditElement.parentId = this.companies.get(this.structureEditElement.parentName);
+                    } else {
+                        this.structureEditElement.parentId=this.currentUser.companyId;
+                    }
+                    this.departmentService.updateDepartment(this.structureEditElement).subscribe(resp => {
+                        this.router.navigateByUrl('/admin/departments');
+                    }, error => {
+                        if (error === this.configuration.OPTIMISTIC_LOCK) {
+                            this.translate.get('optimistic.lock').subscribe(x => {
+                                this.messageService.error(x);
+                            })
+
+                        } else  if (error === this.configuration.ERROR_DEPARTMENT_NAME_TAKEN) {
+                            this.translate.get('department.name.taken.error').subscribe(x => {
+                                this.messageService.error(x);
+                            })
+                        } else if (error === this.configuration.ERROR_NO_OBJECT_IN_DATABASE) {
+                            this.translate.get('no.object.in.database.error').subscribe(x => {
+                                this.messageService.error(x);
+                            })
+                        } else {
+                            this.translate.get('unknown.error').subscribe(x => {
+                                this.messageService.error(x);
+                            })
+                        }
+
+                    });
+                }
+            });
     }
 
     clear() {

@@ -4,6 +4,8 @@ import {TranslateService} from "@ngx-translate/core";
 import {StructureListElement} from "../../../../../../models/structure-elements";
 import {UserRoles} from "../../../../../../models/user-roles";
 import {LoggedUser} from "../../../../../../models/logged-user";
+import {MessageService} from "../../../../../../shared/services/message.service";
+import {Configuration} from "../../../../../../app.constants";
 
 @Component({
     selector: 'app-office-list',
@@ -19,6 +21,8 @@ export class OfficeListComponent implements OnInit {
     constructor(
         private officeService: OfficeService,
         private translate: TranslateService,
+        private messageService: MessageService,
+        private configuration: Configuration
     ) {
     }
 
@@ -47,7 +51,7 @@ export class OfficeListComponent implements OnInit {
 
             searchText = searchText.toLowerCase();
             this.offices = offices.filter(it => {
-                const range = it.name + ' ' + it.street+' '+it.city+' '+it.description+' '+it.flatNumber+' '+it.buildingNumber+' '+it.departmentName+' '+it.companyName;
+                const range = it.name + ' ' + it.street + ' ' + it.city + ' ' + it.description + ' ' + it.flatNumber + ' ' + it.buildingNumber + ' ' + it.departmentName + ' ' + it.companyName;
                 const ok = range.toLowerCase().includes(searchText);
                 return ok;
             });
@@ -55,8 +59,39 @@ export class OfficeListComponent implements OnInit {
     }
 
     delete(id: string) {
-        this.officeService.deleteDepartament(id).subscribe(resp => {
-            this.filterOffices(null);
-        });
+        var entity: string;
+        var message: string;
+        var yes: string;
+        var no: string;
+
+        this.translate.get('office.delete').subscribe(x => entity = x);
+        this.translate.get('confirm.delete').subscribe(x => message = x);
+        this.translate.get('yes').subscribe(x => yes = x);
+        this.translate.get('no').subscribe(x => no = x);
+
+
+        this.messageService
+            .confirm(entity, message, yes, no)
+            .subscribe(confirmed => {
+                if (confirmed) {
+                    this.officeService.deleteDepartament(id).subscribe(resp => {
+                        this.filterOffices(null);
+                        this.translate.get('success.office.delete').subscribe(x=>{
+                            this.messageService.success(x)
+                        })
+                    }, error => {
+                        if (error === this.configuration.ERROR_NO_OBJECT_IN_DATABASE) {
+                            this.translate.get('no.object.in.database.error').subscribe(x => {
+                                this.messageService.error(x);
+                            })
+                        } else {
+                            this.translate.get('unknown.error').subscribe(x => {
+                                this.messageService.error(x);
+                            })
+                        }
+
+                    });
+                }
+            });
     }
 }

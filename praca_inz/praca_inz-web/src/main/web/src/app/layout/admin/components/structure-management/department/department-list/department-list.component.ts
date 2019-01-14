@@ -5,6 +5,8 @@ import {StructureListElement} from "../../../../../../models/structure-elements"
 import {UserRoles} from "../../../../../../models/user-roles";
 import {UserService} from "../../../administration/user-management/user.service";
 import {LoggedUser} from "../../../../../../models/logged-user";
+import {MessageService} from "../../../../../../shared/services/message.service";
+import {Configuration} from "../../../../../../app.constants";
 
 
 @Component({
@@ -13,13 +15,19 @@ import {LoggedUser} from "../../../../../../models/logged-user";
     styleUrls: ['./department-list.component.scss']
 })
 export class DepartmentListComponent implements OnInit {
-    
+
     departments: StructureListElement[];
 
     roles: UserRoles;
     currentUser: LoggedUser;
 
-    constructor(private departmentService: DepartmentService, private userService: UserService, private translate: TranslateService) {
+    constructor(
+        private departmentService: DepartmentService,
+        private userService: UserService,
+        private translate: TranslateService,
+        private messageService: MessageService,
+        private configuration: Configuration
+    ) {
     }
 
     ngOnInit() {
@@ -30,7 +38,11 @@ export class DepartmentListComponent implements OnInit {
     }
 
 
-    getAddress(department: StructureListElement): string {
+    getAddress(department
+                   :
+                   StructureListElement
+    ):
+        string {
         if (department.flatNumber == null || department.flatNumber === "0") {
             return (department.street + ' ' + department.buildingNumber);
         } else {
@@ -46,7 +58,10 @@ export class DepartmentListComponent implements OnInit {
         this.userService.getLoggedUserRoles().subscribe(x => this.roles = x);
     }
 
-    filterDepartments(searchText: string) {
+    filterDepartments(searchText
+                          :
+                          string
+    ) {
         this.departmentService.getAll().subscribe(departments => {
             if (!departments) {
                 this.departments = [];
@@ -58,17 +73,50 @@ export class DepartmentListComponent implements OnInit {
 
             searchText = searchText.toLowerCase();
             this.departments = departments.filter(it => {
-                const range = it.name + ' '+ it.street+' '+it.city+' '+it.description+' '+it.flatNumber+' '+it.buildingNumber+' '+it.companyName;
+                const range = it.name + ' ' + it.street + ' ' + it.city + ' ' + it.description + ' ' + it.flatNumber + ' ' + it.buildingNumber + ' ' + it.companyName;
                 const ok = range.toLowerCase().includes(searchText);
                 return ok;
             });
         });
     }
 
-    delete(structure: StructureListElement) {
-        this.departmentService.deleteDepartament(String(structure.id)).subscribe(resp => {
-            this.filterDepartments(null);
-        });
-    }
+    delete(structure
+               :
+               StructureListElement
+    ) {
+        var entity: string;
+        var message: string;
+        var yes: string;
+        var no: string;
 
+        this.translate.get('department.delete').subscribe(x => entity = x);
+        this.translate.get('confirm.delete').subscribe(x => message = x);
+        this.translate.get('yes').subscribe(x => yes = x);
+        this.translate.get('no').subscribe(x => no = x);
+
+
+        this.messageService
+            .confirm(entity, message, yes, no)
+            .subscribe(confirmed => {
+                if (confirmed) {
+                    this.departmentService.deleteDepartament(String(structure.id)).subscribe(resp => {
+                        this.filterDepartments(null);
+                        this.translate.get('success.department.delete').subscribe(x=>{
+                            this.messageService.success(x)
+                        })
+                    }, error => {
+                        if (error === this.configuration.ERROR_NO_OBJECT_IN_DATABASE) {
+                            this.translate.get('no.object.in.database.error').subscribe(x => {
+                                this.messageService.error(x);
+                            })
+                        } else {
+                            this.translate.get('unknown.error').subscribe(x => {
+                                this.messageService.error(x);
+                            })
+                        }
+
+                    });
+                }
+            });
+    }
 }

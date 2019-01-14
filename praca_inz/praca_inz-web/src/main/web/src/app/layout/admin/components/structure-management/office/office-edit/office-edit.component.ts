@@ -8,6 +8,8 @@ import {OfficeService} from "../office.service";
 import {UserRoles} from "../../../../../../models/user-roles";
 import {LoggedUser} from "../../../../../../models/logged-user";
 import {UserService} from "../../../administration/user-management/user.service";
+import {MessageService} from "../../../../../../shared/services/message.service";
+import {Configuration} from "../../../../../../app.constants";
 
 @Component({
     selector: 'app-office-edit',
@@ -27,6 +29,8 @@ export class OfficeEditComponent implements OnInit {
         private userService:UserService,
         private translate: TranslateService,
         private officeService: OfficeService,
+        private messageService:MessageService,
+        private configuration:Configuration,
         private router: Router
     ) {}
 
@@ -38,7 +42,17 @@ export class OfficeEditComponent implements OnInit {
 
     getOffice() {
         const id = this.route.snapshot.paramMap.get('id');
-        this.officeService.getOfficeEdit(id).subscribe(x => this.structureEditElement = x);
+        this.officeService.getOfficeEdit(id).subscribe(x =>{ this.structureEditElement = x}, error => {
+            if (error === this.configuration.ERROR_NO_OBJECT_IN_DATABASE) {
+                this.translate.get('no.object.in.database.error').subscribe(x => {
+                    this.messageService.error(x);
+                })
+            } else {
+                this.translate.get('unknown.error').subscribe(x => {
+                    this.messageService.error(x);
+                })
+            }
+        });
     }
 
     getLoggedUserRoles() {
@@ -57,10 +71,47 @@ export class OfficeEditComponent implements OnInit {
     }
 
     officeUpdate() {
-        this.structureEditElement.parentId = this.departments.get(this.structureEditElement.parentName);
-        this.officeService.updateOffice(this.structureEditElement).subscribe(resp => {
-            this.router.navigateByUrl('/admin/offices');
-        });
+        var entity:string;
+        var message:string;
+        var yes:string;
+        var no:string;
+
+        this.translate.get('office.edit').subscribe(x=>entity=x);
+        this.translate.get('confirm.edit').subscribe(x=>message=x);
+        this.translate.get('yes').subscribe(x=>yes=x);
+        this.translate.get('no').subscribe(x=>no=x);
+
+
+        this.messageService
+            .confirm(entity,message,yes,no)
+            .subscribe(confirmed => {
+                if (confirmed) {
+                        this.structureEditElement.parentId = this.departments.get(this.structureEditElement.parentName);
+                        this.officeService.updateOffice(this.structureEditElement).subscribe(resp => {
+                            this.router.navigateByUrl('/admin/offices');
+                        }, error => {
+                            if (error === this.configuration.OPTIMISTIC_LOCK) {
+                                this.translate.get('optimistic.lock').subscribe(x => {
+                                    this.messageService.error(x);
+                                })
+
+                            } else  if (error === this.configuration.ERROR_OFFICE_NAME_TAKEN) {
+                                this.translate.get('office.name.taken.error').subscribe(x => {
+                                    this.messageService.error(x);
+                                })
+                            } else if (error === this.configuration.ERROR_NO_OBJECT_IN_DATABASE) {
+                                this.translate.get('no.object.in.database.error').subscribe(x => {
+                                    this.messageService.error(x);
+                                })
+                            } else {
+                                this.translate.get('unknown.error').subscribe(x => {
+                                    this.messageService.error(x);
+                                })
+                            }
+
+                        });
+                }
+            });
     }
 
     clear() {

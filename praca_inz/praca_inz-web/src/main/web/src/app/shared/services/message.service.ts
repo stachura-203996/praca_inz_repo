@@ -31,7 +31,7 @@ export class MessageService {
   }
 
   info(message: string, title?: string) {
-    this.toastr.infoToastr(message, title)
+    this.toastr.infoToastr(message, title);
   }
 
   warning(message: string, title?: string) {
