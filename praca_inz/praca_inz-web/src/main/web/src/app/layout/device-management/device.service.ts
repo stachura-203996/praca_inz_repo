@@ -49,7 +49,7 @@ export class DeviceService {
     }
 
     getAllDevicesForWarehouseman(): Observable<DeviceListElement[]> {
-        return this.httpService.get<DeviceListElement[]>(this.devicePath + "/warehousemen");
+        return this.httpService.get<DeviceListElement[]>(this.devicePath + "/warehouseman");
     }
 
     getAllDevicesForUser(username: String): Observable<DeviceListElement[]> {

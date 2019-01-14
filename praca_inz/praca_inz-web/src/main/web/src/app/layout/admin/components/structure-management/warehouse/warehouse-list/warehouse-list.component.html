@@ -4,7 +4,7 @@
 <div class="row">
     <div class="col-lg-10">
         <input class="form-control" #searchBox id="search-box" (keyup)="filterWarehouses(searchBox.value)"
-               placeholder="Search..." i18n-placeholder="User search placeholder"/>
+               placeholder="{{'Search...'|translate}}"/>
     </div>
     <div class="col-lg-2">
         <button class="btn btn-primary float-right jh-create-entity" [routerLink]="['./add']">
@@ -19,7 +19,7 @@
     <tr>
         <th>{{ 'ElementName' | translate }}</th>
         <th>{{ 'OfficeName' | translate }}</th>
-        <th>{{ 'Username' | translate }}</th>
+        <th>{{ 'PersonResponsibleFor' | translate }}</th>
         <th>{{'DevicesNumber'|translate}}</th>
         <th></th>
     </tr>
@@ -28,7 +28,7 @@
     <tr *ngFor="let warehouse of warehouses">
         <td>{{warehouse.name}}</td>
         <td>{{warehouse.officeName}}</td>
-        <td>{{warehouse.username}}</td>
+        <td>{{getUserInfo(warehouse)}}</td>
         <td>{{warehouse.devicesNumber}}</td>
         <td class="text-right">
             <div class="btn-group flex-btn-group-container">
@@ -40,15 +40,14 @@
                 </button>
                 <button type="submit"
                         [routerLink]="['./edit/'+warehouse.id]"
-                        queryParamsHandling="merge"
                         class="btn btn-primary btn-sm">
                     <i class="fa fa-pencil"></i>&nbsp;
-                    <span class="d-none d-md-inline">Edit</span>
+                    <span class="d-none d-md-inline">{{'Edit'|translate}}</span>
                 </button>
                 <button type="button" (click)="delete(warehouse)"
                         class="btn btn-danger btn-sm">
                     <i class="fa fa-times"></i>&nbsp;
-                    <span class="d-none d-md-inline">Delete</span>
+                    <span class="d-none d-md-inline">{{'Delete'|translate}}</span>
                 </button>
             </div>
         </td>

@@ -10,6 +10,7 @@ import com.stachura.praca_inz.backend.model.enums.DeviceStatus;
 import com.stachura.praca_inz.backend.model.enums.Status;
 import com.stachura.praca_inz.backend.model.enums.WarehouseType;
 import com.stachura.praca_inz.backend.model.security.User;
+import com.stachura.praca_inz.backend.model.security.UserRole;
 import com.stachura.praca_inz.backend.repository.*;
 import com.stachura.praca_inz.backend.service.NotificationService;
 import com.stachura.praca_inz.backend.service.RequestService;
@@ -20,6 +21,7 @@ import com.stachura.praca_inz.backend.web.dto.request.DeviceRequestAddDto;
 import com.stachura.praca_inz.backend.web.dto.request.RequestListElementDto;
 import com.stachura.praca_inz.backend.web.dto.converter.RequestConverter;
 import com.stachura.praca_inz.backend.web.dto.request.TransferRequestAddDto;
+import com.stachura.praca_inz.backend.web.utils.NotificationMessages;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
@@ -50,6 +52,9 @@ public class RequestServiceImpl implements RequestService {
 
     @Autowired
     private WarehouseRepository warehouseRepository;
+
+    @Autowired
+    private NotificationService notificationService;
 
     @Override
     @Transactional(readOnly = true)
@@ -179,6 +184,12 @@ public class RequestServiceImpl implements RequestService {
         Warehouse reciever = warehouseRepository.findById(transferRequestAddDto.getRecieverWarehouseId()).orElseThrow(() -> new ServiceException());
         Device device = deviceRepository.findById(transferRequestAddDto.getDeviceId()).orElseThrow(() -> new ServiceException());
         Request request=RequestConverter.toRequest(transferRequestAddDto, device, reciever, user);
+        List<User> managers= Lists.newArrayList(userRepository.findAll()).stream().filter(x->x.getUserRoles().stream().filter(z->z.getName().equals("MANAGER")).findFirst().isPresent()
+                && x.getOffice().getId().equals(user.getOffice().getId())).collect(Collectors.toList());
+        for(User m:managers){
+            notificationService.createNewNotification(NotificationMessages.getRequestReceivedManagerNotifiaction(request,m));
+        }
+       notificationService.createNewNotification(NotificationMessages.getRequestSentNotifiaction(request,user));
         requestRepository.save(request);
 
         for (Device d : request.getDevices()) {

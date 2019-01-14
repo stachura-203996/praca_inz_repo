@@ -75,6 +75,7 @@ public class RegistrationServiceImpl implements RegistrationService {
         userdata.setName(data.getName());
         userdata.setWorkplace(data.getWorkplace());
         userdata.setDateOfJoin(Calendar.getInstance());
+        userdata.setLanguage(data.getLanguage());
         Address address = new Address();
         address.setFlatNumber(data.getFlatNumber());
         address.setBuildingNumber(data.getHouseNumber());

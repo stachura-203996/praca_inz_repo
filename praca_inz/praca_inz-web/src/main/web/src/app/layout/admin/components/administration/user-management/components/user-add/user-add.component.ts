@@ -2,11 +2,9 @@ import {Component, Input, OnInit} from '@angular/core';
 import {RegisterUser} from "../../../../../../../models/register-user";
 import {Router} from "@angular/router";
 import {UserService} from "../../user.service";
-import {I18nService} from "../../../../../../../shared/services/i18n/i18n.service";
 import {MessageService} from "../../../../../../../shared/services/message.service";
 import {OfficeService} from "../../../../structure-management/office/office.service";
 import {StructureListElement} from "../../../../../../../models/structure-elements";
-import {UserRoles} from "../../../../../../../models/user-roles";
 import {TranslateService} from "@ngx-translate/core";
 
 @Component({
@@ -18,6 +16,7 @@ export class UserAddComponent implements OnInit {
 
     @Input() registerUserData: RegisterUser = new RegisterUser;
 
+    languages:string[]=['PL','ENG'];
     offices = new Map<string, number>();
     admin=false;
     company_admin=false;
@@ -31,7 +30,6 @@ export class UserAddComponent implements OnInit {
         private officeService: OfficeService,
         private translate: TranslateService,
         private messageService:MessageService,
-        private i18nService:I18nService,
         private router: Router) {}
 
     ngOnInit() {

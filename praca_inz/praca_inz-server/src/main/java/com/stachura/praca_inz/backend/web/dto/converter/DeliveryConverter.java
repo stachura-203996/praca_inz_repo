@@ -13,11 +13,14 @@ public class DeliveryConverter {
                     .id(delivery.getId())
                     .deliveryNumber(delivery.getDeliveryNumber())
                     .createDate(formatter.format(delivery.getCreateDate().getTime()))
-                    .lastUpdate(formatter.format(delivery.getLastUpdate().getTime()))
                     .receiver(delivery.getRecieverWarehouse().getName())
                     .sender(delivery.getSenderWarehouse().getName())
-                    .status(delivery.getStatus().name())
-                    .username(delivery.getUsername())
+                    .confirmed(delivery.isConfirmed())
+                    .companyId(delivery.getDeviceModel().getCompany().getId())
+                    .serialNumber(delivery.getSerialNumber())
+                    .deviceModelId(delivery.getDeviceModel().getId())
+                    .warehouseId(delivery.getSenderWarehouse().getId())
+                    .deviceModelName(delivery.getDeviceModel().getName())
                     .title(delivery.getTitle())
                     .build();
     }

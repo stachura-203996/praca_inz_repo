@@ -18,6 +18,6 @@ public class DeviceListElementDto {
     String lastUpdate;
     String location;
     String status;
-    String userName;
+    String name;
     String userSurname;
 }

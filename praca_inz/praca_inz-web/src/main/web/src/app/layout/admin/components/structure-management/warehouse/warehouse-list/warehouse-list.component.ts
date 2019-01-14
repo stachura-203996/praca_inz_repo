@@ -73,4 +73,8 @@ export class WarehouseListComponent implements OnInit {
         });
     }
 
+    getUserInfo(warehouse:WarehouseListElement){
+        return warehouse.userName+" "+warehouse.userSurname+" | "+warehouse.username;
+    }
+
 }

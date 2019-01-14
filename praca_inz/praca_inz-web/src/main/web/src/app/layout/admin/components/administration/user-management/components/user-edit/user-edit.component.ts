@@ -3,7 +3,6 @@ import {UserService} from "../../user.service";
 import {OfficeService} from "../../../../structure-management/office/office.service";
 import {TranslateService} from "@ngx-translate/core";
 import {MessageService} from "../../../../../../../shared/services/message.service";
-import {I18nService} from "../../../../../../../shared/services/i18n/i18n.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {StructureListElement} from "../../../../../../../models/structure-elements";
 import {UserRoles} from "../../../../../../../models/user-roles";
@@ -18,7 +17,7 @@ export class UserEditComponent implements OnInit {
 
 
     userEditElement: UserEdit;
-
+    languages:string[]=['PL','ENG'];
     offices = new Map<string, number>();
     roles:UserRoles;
     selectedRoles:string[]=[];
@@ -29,7 +28,6 @@ export class UserEditComponent implements OnInit {
         private officeService: OfficeService,
         private translate: TranslateService,
         private messageService:MessageService,
-        private i18nService:I18nService,
         private router: Router) {}
 
     ngOnInit() {

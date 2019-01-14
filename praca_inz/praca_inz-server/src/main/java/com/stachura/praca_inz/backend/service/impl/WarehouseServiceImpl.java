@@ -166,7 +166,6 @@ public class WarehouseServiceImpl implements WarehouseService {
     @Transactional
     @PreAuthorize("hasAuthority('WAREHOUSE_CREATE')")
     public void createWarehouse(WarehouseAddDto warehouseAddDto)throws ServiceException {
-
             User user=userRepository.findById(warehouseAddDto.getUserId()).orElseThrow(() -> new ServiceException());
             Office office=officeRepository.findById(warehouseAddDto.getOfficeId()).orElseThrow(() -> new ServiceException());
             warehouseRepository.save(WarehouseConverter.toWarehouse(warehouseAddDto,user,office));

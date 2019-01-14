@@ -28,4 +28,5 @@ public class UserEditDto implements Serializable {
     private long versionUserdata;
     private long versionWarehouse;
     private String officeName;
+    private String language;
 }

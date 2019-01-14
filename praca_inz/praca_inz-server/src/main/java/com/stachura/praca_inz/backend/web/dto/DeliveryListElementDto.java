@@ -10,10 +10,13 @@ public class DeliveryListElementDto {
     Long id;
     String title;
     String deliveryNumber;
-    String username;
-    String status;
     String createDate;
-    String lastUpdate;
     String sender;
     String receiver;
+    String serialNumber;
+    boolean confirmed;
+    private Long companyId;
+    private Long warehouseId;
+    private Long deviceModelId;
+    private String deviceModelName;
 }

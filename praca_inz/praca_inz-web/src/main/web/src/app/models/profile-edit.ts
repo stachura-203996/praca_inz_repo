@@ -15,4 +15,5 @@ export class ProfileEdit {
     versionUserdata:string;
     versionWarehouse:string;
     officeName:string;
+    language:string;
 }

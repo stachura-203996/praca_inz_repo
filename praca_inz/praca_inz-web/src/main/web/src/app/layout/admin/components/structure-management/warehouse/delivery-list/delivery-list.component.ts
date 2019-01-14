@@ -5,6 +5,8 @@ import {TranslateService} from "@ngx-translate/core";
 import {UserRoles} from "../../../../../../models/user-roles";
 import {LoggedUser} from "../../../../../../models/logged-user";
 import {UserService} from "../../../administration/user-management/user.service";
+import {DeviceAddElement} from "../../../../../../models/device-elements";
+import {DeviceService} from "../../../../../device-management/device.service";
 
 @Component({
     selector: 'app-delivery-list',
@@ -18,6 +20,7 @@ export class DeliveryListComponent implements OnInit {
 
     constructor(
         private warehouseService: WarehouseService,
+        private deviceService:DeviceService,
         private userService: UserService,
         private translate: TranslateService) {
     }
@@ -52,12 +55,13 @@ export class DeliveryListComponent implements OnInit {
                 });
             });
     }
-
-    getUser(deliver:DeliveryListElement){
-
+    confirm(deliver:DeliveryListElement){
+        var device:DeviceAddElement=new DeviceAddElement();
+        device.warehouseId=deliver.warehouseId;
+        device.serialNumber=deliver.serialNumber;
+        device.deviceModelId=deliver.deviceModelId;
+        device.companyId=deliver.companyId;
+        this.deviceService.createDevice(device).subscribe();
     }
 
-    addDevice(device:DeliveryListElement){
-
-    }
 }

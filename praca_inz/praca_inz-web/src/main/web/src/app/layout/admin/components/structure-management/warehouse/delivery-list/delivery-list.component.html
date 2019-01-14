@@ -13,12 +13,11 @@
         <tr>
             <th>{{ 'ElementName' | translate }}</th>
             <th>{{ 'DeliveryNumber' | translate }}</th>
-            <th>{{'Status'| translate}}</th>
+            <th>{{'SerialNumber'| translate}}</th>
+            <th>{{'DeviceModel'|translate}}</th>
             <th>{{'Sender'| translate}}</th>
             <th>{{'Reciever' | translate}}</th>
             <th>{{'CreateDate'| translate}}</th>
-            <th>{{'LastUpdate' | translate}}</th>
-            <th>{{'OrderedBy' | translate}}</th>
             <th></th>
         </tr>
         </thead>
@@ -26,19 +25,18 @@
         <tr *ngFor="let delivery of deliveries">
             <td>{{delivery.title}}</td>
             <td>{{delivery.deliveryNumber}}</td>
-            <td>{{delivery.status}}</td>
+            <td>{{delivery.serialNumber}}</td>
+            <td>{{delivery.deviceModelName}}</td>
             <td>{{delivery.sender}}</td>
             <td>{{delivery.receiver}}</td>
             <td>{{delivery.createDate}}</td>
-            <td>{{delivery.lastUpdate}}</td>
-            <td>{{delivery.username}}</td>
             <td class="text-right">
-                <div class="btn-group flex-btn-group-container">
+                <div *ngIf="!delivery.confirmed" class="btn-group flex-btn-group-container">
                     <button type="submit"
-                            (click)="addDevice()"
+                            (click)="confirm(delivery)"
                             class="btn btn-info btn-sm">
                         <i class="fa fa-eye"></i>&nbsp;
-                        <span class="d-none d-md-inline">{{'AddDevice'|translate}}</span>
+                        <span class="d-none d-md-inline">{{'ConfirmReceipt'|translate}}</span>
                     </button>
                 </div>
             </td>

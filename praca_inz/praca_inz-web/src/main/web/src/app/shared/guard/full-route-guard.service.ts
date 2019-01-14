@@ -3,30 +3,28 @@ import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from '
 
 import {UrlAvailabilityForUserRoles} from './url-availability-for-user-roles';
 import {MessageService} from "../services/message.service";
-import {I18nService} from "../services/i18n/i18n.service";
 import {LoginService} from "../../login/login.service";
 import {UserService} from "../../layout/admin/components/administration/user-management/user.service";
-import {LoggedUser} from "../../models/logged-user";
-
+import {TranslateService} from "@ngx-translate/core";
 
 @Injectable()
 export class FullRouteGuard implements CanActivate {
 
-    user: LoggedUser;
+
 
     constructor(private loginService: LoginService,
                 private userService: UserService,
+                private translate:TranslateService,
                 private messageService: MessageService,
-                private i18nService: I18nService,
                 private router: Router) {
     }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
         let available = false;
-        this.userService.getLoggedUser().subscribe(x=>this.user=x);
+        const user=this.loginService.user;
 
-        if (this.user) {
-            for (const role of this.user.roles) {
+        if (user) {
+            for (const role of user.roles) {
 
                 if (UrlAvailabilityForUserRoles[role].includes(state.url)) {
                     available = true;
@@ -40,7 +38,10 @@ export class FullRouteGuard implements CanActivate {
 
             return available;
         } else {
-            this.messageService.error(this.i18nService.getMessage('session.expired.error'));
+
+            this.translate.get('session.expired.error').subscribe(x=>{
+                this.messageService.error(x);
+            });
             this.loginService.logout();
             return false;
         }

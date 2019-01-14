@@ -32,11 +32,11 @@ export class ReportAddComponent implements OnInit {
 
     getRecievers() {
         this.userService.getAll().subscribe((response: UserListElement[]) => {
-            this.recivers = response.reduce(function(companyMap, company){
-                if(company.id){
-                    companyMap.set(company.name,company.id)
+            this.recivers = response.reduce(function(userMap, user){
+                if(user.id){
+                    userMap.set(user.name+" "+user.surname+" | "+user.username,user.id)
                 }
-                return companyMap;
+                return userMap;
             },this.recivers);
         });
 

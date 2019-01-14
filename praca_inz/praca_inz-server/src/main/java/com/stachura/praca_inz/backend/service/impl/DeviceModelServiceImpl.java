@@ -111,7 +111,11 @@ public class DeviceModelServiceImpl implements DeviceModelService {
         DeviceType deviceType=deviceTypeRepository.findById(deviceModelAddDto.getTypeId()).orElseThrow(()->new ServiceException());
         Company company=companyRepository.findById(deviceModelAddDto.getCompanyId()).orElseThrow(()->new ServiceException());
          DeviceModel deviceModel=DeviceModelConverter.toDeviceModel(deviceModelAddDto,company,deviceType);
-        deviceModelRepository.save(deviceModel);
+        try {
+            deviceModelRepository.save(deviceModel);
+        }catch (Exception e){
+            throw new ServiceException(ServiceException.DB_READ_ERROR);
+        }
         return  deviceModel.getId();
     }
 

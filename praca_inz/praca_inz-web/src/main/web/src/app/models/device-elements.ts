@@ -6,7 +6,7 @@ export class DeviceListElement {
     manufacture:string;
     lastUpdate:string
     location:string;
-    userName:string;
+    name:string;
     userSurname:string
     username:string;
     status:string;

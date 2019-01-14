@@ -3,6 +3,7 @@ import {ToastrService} from 'ngx-toastr';
 import {BsModalService} from 'ngx-bootstrap';
 import {Observable} from "rxjs";
 import {ConfirmDialogComponent} from "../../confirm-dialog/confirm-dialog.component";
+import {TranslateService} from "@ngx-translate/core";
 
 @Injectable({
     providedIn: 'root'
@@ -10,6 +11,7 @@ import {ConfirmDialogComponent} from "../../confirm-dialog/confirm-dialog.compon
 export class MessageService {
 
   constructor(private toastrService: ToastrService,
+              private translate:TranslateService,
               private modalService: BsModalService) {
   }
 

@@ -60,7 +60,7 @@ export class WarehouseDevicesComponent implements OnInit {
     }
 
     getUserInfo(device:DeviceListElement){
-        return device.userName+' '+device.userSurname+' | '+device.username
+        return device.name+' '+device.userSurname+' | '+device.username
     }
 
     delete(device: DeviceListElement) {

@@ -101,6 +101,8 @@ public class TransferServiceImpl implements TransferService {
         Warehouse sender = Lists.newArrayList(warehouseRepository.findAll()).stream().filter(x -> x.getUser().getUsername().equals(username) && x.getWarehouseType().equals(WarehouseType.USER)).findFirst().orElseThrow(() -> new ServiceException());
         Warehouse reciever = warehouseRepository.findById(transferAddDto.getRecieverWarehouseId()).orElseThrow(() -> new ServiceException());
         Device device= deviceRepository.findById(transferAddDto.getDeviceId()).orElseThrow(()->new ServiceException());
+        device.setWarehouse(reciever);
+        deviceRepository.save(device);
         transferRepository.save(TransferConverter.toTransfer(transferAddDto, username, sender, reciever, device));
     }
 

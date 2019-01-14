@@ -28,7 +28,7 @@ public class DeviceConverter {
                         " > " + device.getWarehouse().getOffice().getDepartment().getName()+
                         " > " + device.getWarehouse().getOffice().getName()+
                         " > " + device.getWarehouse().getName())
-                .userName(device.getWarehouse().getUser().getUserdata().getName())
+                .name(device.getWarehouse().getUser().getUserdata().getName())
                 .userSurname(device.getWarehouse().getUser().getUserdata().getSurname())
                 .build();
     }

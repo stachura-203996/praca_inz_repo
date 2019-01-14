@@ -46,7 +46,6 @@
                     </button>
                     <button *ngIf="device.status=='REPOSE'" type="submit"
                             [routerLink]="['./edit/'+device.id]"
-                            queryParamsHandling="merge"
                             class="btn btn-primary btn-sm">
                         <i class="fa fa-pencil"></i>&nbsp;
                         <span class="d-none d-md-inline">{{'Edit'|translate}}</span>

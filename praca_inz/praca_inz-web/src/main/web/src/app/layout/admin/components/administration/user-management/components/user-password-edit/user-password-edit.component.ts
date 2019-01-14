@@ -1,6 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {MessageService} from "../../../../../../../shared/services/message.service";
-import {I18nService} from "../../../../../../../shared/services/i18n/i18n.service";
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {UserService} from "../../user.service";
 import {PasswordDataForAdmin} from "../../../../../../../models/change-password-by-admin-model";
@@ -15,8 +13,6 @@ export class UserPasswordEditComponent implements OnInit {
     passwordDataByAdmin: PasswordDataForAdmin = new PasswordDataForAdmin();
 
     constructor(private userService: UserService,
-                // private messageService: MessageService,
-                // private i18nService: I18nService,
                 private router: Router,
                 private route: ActivatedRoute) {
     }

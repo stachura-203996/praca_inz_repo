@@ -226,6 +226,17 @@
                             </div>
                         </div>
                     </div>
+                    <div class="form-group col-xl-5">
+                        <label for="Language">{{'Language'|translate}}<span style="color:red">*</span></label>
+                        <select class="form-control" id="Language" [(ngModel)]="selectedOption" name="first"
+                                required #language="ngModel">
+                            <option *ngFor="let language of languages" [value]="language">{{language}}</option>
+                        </select>
+                        <div *ngIf="language.invalid && (language.touched || language.dirty)"
+                             class="alert alert-danger col-sm-12">
+                            <div *ngIf="language.hasError('required')">{{'Language is required'|translate}}</div>
+                        </div>
+                    </div>
                     <br>
                     <div class="col-xl-5">
                         <div class="form-group">

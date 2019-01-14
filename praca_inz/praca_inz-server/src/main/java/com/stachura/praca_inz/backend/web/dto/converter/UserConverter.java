@@ -43,6 +43,7 @@ public class UserConverter {
                 .flatNumber(user.getUserdata().getAddress().getFlatNumber())
                 .roles(user.getUserRoles().stream().map(UserRole::getName).collect(Collectors.toList()))
                 .workplace(user.getUserdata().getWorkplace())
+                .language(user.getUserdata().getLanguage())
                 .build();
     }
 
@@ -85,6 +86,7 @@ public class UserConverter {
                 .versionUserdata(user.getUserdata().getVersion())
                 .versionWarehouse(warehouse.getVersion())
                 .officeName(user.getOffice().getName())
+                .language(user.getUserdata().getLanguage())
                 .build();
     }
 
@@ -107,6 +109,7 @@ public class UserConverter {
                 .versionUserdata(user.getUserdata().getVersion())
                 .versionWarehouse(warehouse.getVersion())
                 .officeName(user.getOffice().getName())
+                .language(user.getUserdata().getLanguage())
                 .build();
     }
 
@@ -131,6 +134,7 @@ public class UserConverter {
                 .houseNumber(user.getUserdata().getAddress().getBuildingNumber())
                 .flatNumber(user.getUserdata().getAddress().getFlatNumber())
                 .roles(user.getUserRoles().stream().map(UserRole::getName).collect(Collectors.toList()))
+                .language(user.getUserdata().getLanguage())
                 .build();
     }
 }

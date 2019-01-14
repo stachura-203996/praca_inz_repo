@@ -27,7 +27,7 @@ export class WarehouseService {
     }
 
     getAllForWarehouseman(): Observable<WarehouseListElement[]> {
-        return this.httpService.get<WarehouseListElement[]>(this.warehousePath+'/warehousemen');
+        return this.httpService.get<WarehouseListElement[]>(this.warehousePath+'/warehouseman');
     }
 
     getAllForCompany(id:number): Observable<WarehouseListElement[]> {

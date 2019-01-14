@@ -4,10 +4,7 @@ import {TranslateService} from "@ngx-translate/core";
 import {DeviceService} from "../../../../../device-management/device.service";
 import {DeviceListElement} from "../../../../../../models/device-elements";
 import {Router} from "@angular/router";
-import {UserRoles} from "../../../../../../models/user-roles";
-import {LoggedUser} from "../../../../../../models/logged-user";
 import {UserService} from "../../../administration/user-management/user.service";
-import {I18nService} from "../../../../../../shared/services/i18n/i18n.service";
 
 
 @Component({
@@ -21,7 +18,6 @@ export class DeviceListComponent implements OnInit {
     devices: DeviceListElement[];
 
     constructor(
-         private i18nService:I18nService,
         private deviceService : DeviceService,
         private userService:UserService,
         private translate:TranslateService,
@@ -52,7 +48,7 @@ export class DeviceListComponent implements OnInit {
 
             searchText = searchText.toLowerCase();
             this.devices = devices.filter(it => {
-                const range = it.deviceModel+ ' ' + it.manufacture+ ' ' + it.location+ ' ' + it.serialNumber+ ' '+ it.deviceTypeName+ ' '+it.lastUpdate;
+                const range = it.deviceModel+ ' ' + it.manufacture+ ' ' + it.location+ ' ' + it.serialNumber+' '+ it.deviceTypeName+ ' '+it.lastUpdate;
                 const ok = range.toLowerCase().includes(searchText);
                 return ok;
             });
@@ -60,7 +56,7 @@ export class DeviceListComponent implements OnInit {
     }
 
     transfer(device: DeviceListElement) {
-      this.router.navigateByUrl('/admin/devices/transfer'+device.id)
+      this.router.navigateByUrl('/admin/devices/transfer/'+device.id)
     }
 
     delete(device: DeviceListElement) {
@@ -70,6 +66,6 @@ export class DeviceListComponent implements OnInit {
     }
 
     getUserInfo(device:DeviceListElement){
-        return device.userName+' '+device.userSurname+' | '+device.username
+        return device.name+' '+device.userSurname+' | '+device.username
     }
 }

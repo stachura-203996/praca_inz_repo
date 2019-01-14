@@ -38,21 +38,15 @@ public class Delivery implements Serializable {
     @Column(name = "TITLE", nullable = false)
     private String title;
 
-    @Column(name = "USERNAME", nullable = false)
-    private String username;
+    @Column(name = "CONFIRMED")
+    private boolean confirmed;
 
-    @Column(name = "STATUS", nullable = false)
-    @Enumerated(EnumType.STRING)
-    private Status status;
+    @Column(name = "SERIAL_NUMBER")
+    private String serialNumber;
 
-    @Column(name = "DESCRIPTION")
-    private String description;
-
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "DELIVERY_DEVICES", joinColumns = @JoinColumn(name = "DELIVERY_ID", referencedColumnName = "ID"), inverseJoinColumns = @JoinColumn(name = "DEVICE_ID", referencedColumnName = "ID"))
-    @OrderBy
-    @JsonIgnore
-    private Collection<Device> devices;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonBackReference
+    private DeviceModel deviceModel;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
@@ -68,11 +62,6 @@ public class Delivery implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private java.util.Calendar createDate;
 
-    @Basic
-    @NotNull
-    @Column(name = "LAST_UPDATE")
-    @Temporal(TemporalType.TIMESTAMP)
-    private java.util.Calendar lastUpdate;
 
     @Column(name = "DELETED", nullable = false)
     private boolean deleted;

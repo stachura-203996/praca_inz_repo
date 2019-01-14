@@ -236,8 +236,17 @@
     "DeviceModelView":"Device model view",
     "NumberOfDevices":"Number of devices",
     "CreateDate":"Create date",
-    "DeviceModelName":"Device model name"
-
-
-
+    "DeviceModelName":"Device model name",
+    "bad.request.error":"Bad request",
+    "session.expired.error": "Your session has expired, please log in again.",
+    "login.error.msg": "Incorrect username or password.",
+    "Log in":"Log in",
+    "ForgetPassword":"Reset password",
+    "BackToLoginScrean":"Back to login screen",
+    "BadLogin":"Wrong login or password",
+    "ResetYourPassword":"Reset your password",
+    "ConfirmReceipt":"Confirm receipt",
+    "Send":"Send",
+    "Language is required":"Język jest wymagany",
+    "Cost":"Cost"
 }

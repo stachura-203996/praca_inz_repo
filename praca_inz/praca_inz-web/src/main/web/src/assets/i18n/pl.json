@@ -231,6 +231,17 @@
     "DeviceModelView":"Podgląd modelu urządzenia",
     "NumberOfDevices":"Liczba urządzeń",
     "CreateDate":"Data utworzenia",
-    "DeviceModelName":"Model urządzenia"
+    "DeviceModelName":"Model urządzenia",
+    "bad.request.error":"Błędne zapytanie",
+    "session.expired.error": "Twoja sesja wygasła, proszę zalogować się ponownie.",
+    "login.error.msg": "Zły login lub hasło.",
+    "Log in":"Zaloguj się",
+    "ForgetPassword":"Resetuj hasło",
+    "BackToLoginScrean":"Powróć do okna logowania",
+    "BadLogin":"Zły login lub hasło",
+    "ResetYourPassword":"Zresetuj swoje hasło",
+    "ConfirmReceipt":"Potwierdź odbiór",
+    "Send":"Wyślij",
+    "Cost":"Koszt"
 
 }

@@ -29,4 +29,5 @@ public class ProfileInfoDto {
     private String workplace;
     private List<String> roles;
     private String dateOfJoining;
+    private String language;
 }

@@ -28,7 +28,7 @@ public class WarehouseConverter {
                 .companyName(warehouse.getOffice().getDepartment().getCompany().getName())
                 .departmentName(warehouse.getOffice().getDepartment().getName())
                 .userName(warehouse.getUser().getUserdata().getName())
-                .userName(warehouse.getUser().getUserdata().getSurname())
+                .userSurname(warehouse.getUser().getUserdata().getSurname())
                 .officeName(warehouse.getOffice().getName())
                 .devicesNumber(String.valueOf(warehouse.getDevices().size()))
                 .build();
@@ -42,7 +42,7 @@ public class WarehouseConverter {
                 .companyName(warehouse.getOffice().getDepartment().getCompany().getName())
                 .departmentName(warehouse.getOffice().getDepartment().getName())
                 .userName(warehouse.getUser().getUserdata().getName())
-                .userName(warehouse.getUser().getUserdata().getSurname())
+                .userSurname(warehouse.getUser().getUserdata().getSurname())
                 .officeName(warehouse.getOffice().getName())
                 .devicesNumber(String.valueOf(warehouse.getDevices().size()))
                 .build();

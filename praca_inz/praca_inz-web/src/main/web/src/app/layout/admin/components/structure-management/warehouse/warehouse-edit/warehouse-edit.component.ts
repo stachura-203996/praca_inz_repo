@@ -73,8 +73,8 @@ export class WarehouseEditComponent implements OnInit {
         this.warehouseEditElement.officeId = this.offices.get(this.warehouseEditElement.officeName);
         this.warehouseEditElement.userId = this.warehousemen.get(this.warehouseEditElement.selectedUser);
 
-        this.warehouseService.createWarehouse(this.warehouseEditElement).subscribe(resp => {
-            this.router.navigateByUrl('/admin/departments');
+        this.warehouseService.updateWarehouse(this.warehouseEditElement).subscribe(resp => {
+            this.router.navigateByUrl('/admin/warehouses');
         });
 
     }

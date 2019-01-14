@@ -223,8 +223,7 @@ public class UserServiceImpl implements UserService {
                 .build();
         String password = passwordGenerator.generate(8);
         emailService.sendSimpleMessage(user.getUserdata().getEmail(),"Password reset",password);
-        passwordEncoder.encode(password);
-
+        user.setPassword(passwordEncoder.encode(password));
         userRepository.save(user);
     }
 

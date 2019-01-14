@@ -14,6 +14,7 @@ import com.stachura.praca_inz.backend.service.RequestService;
 import com.stachura.praca_inz.backend.web.dto.converter.RequestConverter;
 import com.stachura.praca_inz.backend.web.dto.device.DeviceListElementDto;
 import com.stachura.praca_inz.backend.web.dto.request.*;
+import com.stachura.praca_inz.backend.web.utils.NotificationMessages;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
@@ -134,8 +135,6 @@ public class RequestController {
         try {
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
             requestService.createNewTransferRequest(transferRequestAddDto,auth.getName());
-
-//                notificationService.createNewNotification(this.getRequestSentNotifiaction(request,u));
 
         } catch (ServiceException e) {
             e.printStackTrace();

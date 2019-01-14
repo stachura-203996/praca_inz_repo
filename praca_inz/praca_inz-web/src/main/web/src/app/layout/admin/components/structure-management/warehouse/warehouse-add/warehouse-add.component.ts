@@ -51,6 +51,7 @@ export class WarehouseAddComponent implements OnInit {
     }
 
     getWarehousesman() {
+        this.warehousemen=new Map<string, number>();
         this.userService.getAllWarehousemen(this.offices.get(this.selectedOffice)).subscribe((response: UserListElement[]) => {
             this.warehousemen = response.reduce(function (warehousemanMap, warehouseman) {
                 if (warehouseman.id) {

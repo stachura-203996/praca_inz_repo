@@ -105,6 +105,8 @@ export class DeviceModelEditComponent implements OnInit {
         parameter.value=this.parameterValue;
         this.deviceService.createParameter(parameter,Number(id)).subscribe(rep=>{
             this.getParameters();
+        },error1 => {
+            // this.me
         });
 
     }

@@ -3,6 +3,13 @@ import {CookieService} from "ngx-cookie-service";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {SessionContextService} from "../shared/services/session-context.service";
+import {LoggedUser} from "../models/logged-user";
+import {UserService} from "../layout/admin/components/administration/user-management/user.service";
+import {Observable} from "rxjs";
+import {HttpService} from "../shared/services/http.service";
+import {Configuration} from "../app.constants";
+import {MessageService} from "../shared/services/message.service";
+import {TranslateService} from "@ngx-translate/core";
 
 @Injectable({
     providedIn: 'root'
@@ -10,9 +17,17 @@ import {SessionContextService} from "../shared/services/session-context.service"
 export class LoginService {
 
     isActive: boolean;
+    user:LoggedUser;
+    private userPath = this.configuration.ServerWithApiUrl + '/users';
 
     constructor(
-        private router: Router, private http: HttpClient, private cookieService: CookieService, private sessionContextService: SessionContextService) {
+        private router: Router,
+        private configuration: Configuration,
+        private http: HttpClient,
+        private cookieService: CookieService,
+        private messageService:MessageService,
+        private translate:TranslateService,
+        private httpService: HttpService) {
     }
 
     obtainAccessToken(loginData) {
@@ -30,11 +45,12 @@ export class LoginService {
         this.http.post('http://localhost:8081/oauth/token', params.toString(), {headers: headers})
             .subscribe(
                 data => this.saveToken(data),
-                err => alert('Błędny login lub hasło użytkownika')
+                err => this.translate.get('BadLogin') .subscribe(x=>{
+                    this.messageService.error(x);
+                })
             );
 
     }
-
 
     saveToken(token) {
         var expire = new Date();
@@ -42,6 +58,7 @@ export class LoginService {
         expire.setTime(time);
         this.cookieService.set('access_token', token.access_token, expire);
         console.log('Obtained Access token');
+        // this.saveLoggedUser();
         window.location.href = 'http://localhost:8081/ui/';
     }
 
@@ -53,7 +70,19 @@ export class LoginService {
 
     }
 
+    resetPassword(username:string){
+        let headers = new HttpHeaders();
+        let params = new URLSearchParams();
+
+        this.http.put('http://localhost:8081/reset/'+username,{})
+    }
+
+    saveLoggedUser(): Observable<LoggedUser> {
+        return this.httpService.get<LoggedUser>(this.userPath + '/logged');
+    }
+
     logout() {
+        this.user=null;
         localStorage.clear();
         this.cookieService.deleteAll('/ui')
         this.cookieService.delete('JSESSIONID');

@@ -1,10 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {DeviceService} from "../../../../../device-management/device.service";
 import {TranslateService} from "@ngx-translate/core";
-import {DeviceListElement, DeviceModelListElement} from "../../../../../../models/device-elements";
-import {StructureListElement} from "../../../../../../models/structure-elements";
-import {UserRoles} from "../../../../../../models/user-roles";
-import {LoggedUser} from "../../../../../../models/logged-user";
+import {DeviceModelListElement} from "../../../../../../models/device-elements";
 import {UserService} from "../../../administration/user-management/user.service";
 
 @Component({
@@ -53,10 +50,7 @@ export class DeviceModelListComponent implements OnInit {
         });
     }
 
-    delete(deviceModel
-               :
-               DeviceModelListElement
-    ) {
+    delete(deviceModel: DeviceModelListElement) {
         this.deviceService.deleteDeviceModel(String(deviceModel.id)).subscribe(resp => {
             this.getDevicesModels()
         });

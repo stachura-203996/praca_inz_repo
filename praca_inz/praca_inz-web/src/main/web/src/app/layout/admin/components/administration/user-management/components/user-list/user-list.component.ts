@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {AccountLevel} from "../../../../../../../models/account-level";
 import {UserListElement} from "../../../../../../../models/user-list-element";
 import {UserService} from "../../user.service";
 import {TranslateService} from "@ngx-translate/core";
@@ -20,14 +19,7 @@ export class UserListComponent implements OnInit {
 
     constructor(private userService: UserService,
                 private translate: TranslateService,
-    ) {
-
-        this.translate.addLangs(['en','pl']);
-        this.translate.setDefaultLang('en');
-        const browserLang = this.translate.getBrowserLang();// private messageService: MessageService,
-        // private i18nService: I18nServiceerLang();
-        this.translate.use(browserLang.match(/en|pl/) ? browserLang : 'pl');
-    }
+    ) {}
 
     ngOnInit() {
         this.filterUsers(null);

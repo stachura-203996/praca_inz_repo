@@ -36,11 +36,17 @@ public class NotificationMessages {
         notification.setUrl(getRequestUrl(request));
         notification.setUser(request.getUser());
         notification.setReaded(false);
-        notification.setTitle("Request sent");
         notification.setCalendarTimestamp(Calendar.getInstance());
         notification.setDeleted(false);
-        notification.setDescription("Your request was sent to:" + reciever.getUserdata().getName() + " " + reciever.getUserdata().getSurname() + " | " + reciever.getUsername() + " Report title: " + request.getTitle()
-                + " Report description:" + request.getDescription());
+        if(reciever.getUserdata().getLanguage()=="ENG") {
+            notification.setTitle("Request sent");
+            notification.setDescription("Your request was sent to:" + reciever.getUserdata().getName() + " " + reciever.getUserdata().getSurname() + " | " + reciever.getUsername() + " Report title: " + request.getTitle()
+                    + " Report description:" + request.getDescription());
+        }  else{
+            notification.setTitle("Zgłoszenie wysłane");
+            notification.setDescription("Twoje zgłoszenie zostało wysłane do:" + reciever.getUserdata().getName() + " " + reciever.getUserdata().getSurname() + " | " + reciever.getUsername() + " Tytył raportu: " + request.getTitle()
+                    + " Opis raportu:" + request.getDescription());
+        }
         return notification;
     }
 
@@ -49,39 +55,59 @@ public class NotificationMessages {
         notification.setUrl(getRequestUrl(request));
         notification.setUser(user);
         notification.setReaded(false);
-        notification.setTitle("Request received");
         notification.setCalendarTimestamp(Calendar.getInstance());
         notification.setDeleted(false);
-        notification.setDescription("You get reguest from:" + request.getUser().getUserdata().getName() + " " + request.getUser().getUserdata().getSurname() + " | " + request.getUser().getUsername()
-                + " Report title: " + request.getTitle()
-                + " Report description:" + request.getDescription());
+        if(user.getUserdata().getLanguage()=="ENG") {
+            notification.setTitle("Request received");
+            notification.setDescription("You get reguest from:" + request.getUser().getUserdata().getName() + " " + request.getUser().getUserdata().getSurname() + " | " + request.getUser().getUsername()
+                    + " Report title: " + request.getTitle()
+                    + " Report description:" + request.getDescription());
+        } else {
+            notification.setTitle("Nowe zgłoszenie");
+            notification.setDescription("Dostałeś zgłoszenie od:" + request.getUser().getUserdata().getName() + " " + request.getUser().getUserdata().getSurname() + " | " + request.getUser().getUsername()
+                    + " Tytuł raportu: " + request.getTitle()
+                    + " Opis raportu:" + request.getDescription());
+        }
         return notification;
+
     }
 
 
     public static Notification getReportSentNotifiaction(Report report) {
         Notification notification = new Notification();
-        notification.setUrl("/ui/page/employees/reports/view/" + report.getId());
         notification.setUser(report.getSender());
         notification.setReaded(false);
-        notification.setTitle("Report sended");
         notification.setCalendarTimestamp(Calendar.getInstance());
         notification.setDeleted(false);
-        notification.setDescription("Your report was sent to: " + report.getReciever().getUsername() + " Report title: " + report.getTitle()
-                + "Report description: " + report.getDescription());
+        notification.setUrl("/ui/page/employees/reports/view/" + report.getId());
+        if(report.getSender().getUserdata().getLanguage()=="ENG") {
+            notification.setTitle("Report sended");
+            notification.setDescription("Your report was sent to: " + report.getReciever().getUsername() + " Report title: " + report.getTitle()
+                    + "Report description: " + report.getDescription());
+        } else {
+            notification.setTitle("Raport wysłany");
+            notification.setDescription("Twój raport został wysłany do: " + report.getReciever().getUsername() + " Tytuł raportu: " + report.getTitle()
+                    + " Opis raportu: " + report.getDescription());
+        }
         return notification;
     }
 
     public static Notification getReportReceivedNotifiaction(Report report) {
         Notification notification = new Notification();
-        notification.setUrl("/ui/page/employees/reports/view/" + report.getId());
         notification.setUser(report.getReciever());
         notification.setReaded(false);
-        notification.setTitle("Report recieved");
         notification.setCalendarTimestamp(Calendar.getInstance());
         notification.setDeleted(false);
-        notification.setDescription("You get report from: " + report.getSender().getUsername() + "Report title: " + report.getTitle()
-                + "Report description: " + report.getDescription());
+        notification.setUrl("/ui/page/employees/reports/view/" + report.getId());
+        if(report.getReciever().getUserdata().getLanguage()=="ENG") {
+            notification.setTitle("Report recieved");
+            notification.setDescription("You get report from: " + report.getSender().getUsername() + "Report title: " + report.getTitle()
+                    + "Report description: " + report.getDescription());
+        } else {
+            notification.setTitle("Nowy raport");
+            notification.setDescription("Otrzymałeś raport od: " + report.getSender().getUsername() + "Tytuł raportu: " + report.getTitle()
+                    + " Opis raportu: " + report.getDescription());
+        }
         return notification;
     }
 

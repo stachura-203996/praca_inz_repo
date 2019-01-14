@@ -4,9 +4,6 @@ import lombok.*;
 
 import java.util.List;
 
-/**
- * Obiekt przesyłany do widoku z informacjami o zalogowanym użytkowniku
- */
 @Data
 @Builder
 @AllArgsConstructor(access = AccessLevel.PUBLIC)

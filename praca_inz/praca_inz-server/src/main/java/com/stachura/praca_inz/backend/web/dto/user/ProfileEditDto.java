@@ -25,4 +25,5 @@ public class ProfileEditDto {
     private long versionUserdata;
     private long versionWarehouse;
     private String officeName;
+    private String language;
 }

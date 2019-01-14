@@ -61,4 +61,8 @@ public class DeviceModel implements Serializable {
     @JsonManagedReference
     private Set<Device> devices = new HashSet<>();
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "deviceModel", fetch = FetchType.LAZY, orphanRemoval = true)
+    @JsonManagedReference
+    private Set<Device> deliveries = new HashSet<>();
+
 }

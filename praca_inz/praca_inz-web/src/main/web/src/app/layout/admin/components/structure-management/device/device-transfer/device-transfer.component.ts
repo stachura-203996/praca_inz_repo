@@ -48,7 +48,7 @@ export class DeviceTransferComponent implements OnInit {
         this.transferAddElement.recieverWarehouseId = this.warehouses.get(this.selectedOption);
         this.transferAddElement.deviceId = this.route.snapshot.paramMap.get('id');
         this.deviceService.createTransfer(this.transferAddElement).subscribe(resp => {
-            this.router.navigateByUrl('/ui/page/admin/transfers');
+            this.router.navigateByUrl('/admin/transfers');
         });
     }
 
