@@ -56,7 +56,7 @@ export class CompanyEditComponent implements OnInit {
         var yes: string;
         var no: string;
 
-        this.translate.get('comapny.edit').subscribe(x => entity = x);
+        this.translate.get('company.edit').subscribe(x => entity = x);
         this.translate.get('confirm.edit').subscribe(x => message = x);
         this.translate.get('yes').subscribe(x => yes = x);
         this.translate.get('no').subscribe(x => no = x);

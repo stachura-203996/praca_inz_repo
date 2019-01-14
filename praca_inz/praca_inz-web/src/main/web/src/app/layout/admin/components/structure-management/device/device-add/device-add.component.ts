@@ -10,6 +10,8 @@ import {DeviceAddElement, DeviceModelListElement} from "../../../../../../models
 import {DeviceService} from "../../../../../device-management/device.service";
 import {WarehouseService} from "../../../../../warehouse-management/warehouse.service";
 import {WarehouseListElement} from "../../../../../../models/warehouse-elements";
+import {MessageService} from "../../../../../../shared/services/message.service";
+import {Configuration} from "../../../../../../app.constants";
 
 @Component({
     selector: 'app-device-add',
@@ -38,6 +40,8 @@ export class DeviceAddComponent implements OnInit {
         private warehouseService: WarehouseService,
         private userService: UserService,
         private translate: TranslateService,
+        private messageService: MessageService,
+        private configuration: Configuration,
         private router: Router) {
 
     }
@@ -93,16 +97,50 @@ export class DeviceAddComponent implements OnInit {
     }
 
     deviceAdd() {
-        if (this.roles.admin) {
-            this.deviceAddElement.companyId = this.companies.get(this.selectedCompany);
-        } else {
-            this.deviceAddElement.companyId = this.currentUser.companyId;
-        }
-        this.deviceAddElement.warehouseId = this.warehouses.get(this.selectedWarehouse);
-        this.deviceAddElement.deviceModelId = this.deviceModels.get(this.selectedModel);
-        this.deviceService.createDevice(this.deviceAddElement).subscribe(resp => {
-            this.router.navigateByUrl('/admin/devices');
-        });
+        var entity: string;
+        var message: string;
+        var yes: string;
+        var no: string;
+
+        this.translate.get('device.add').subscribe(x => entity = x);
+        this.translate.get('confirm.add').subscribe(x => message = x);
+        this.translate.get('yes').subscribe(x => yes = x);
+        this.translate.get('no').subscribe(x => no = x);
+
+
+        this.messageService
+            .confirm(entity, message, yes, no)
+            .subscribe(confirmed => {
+                if (confirmed) {
+                    if (this.roles.admin) {
+                        this.deviceAddElement.companyId = this.companies.get(this.selectedCompany);
+                    } else {
+                        this.deviceAddElement.companyId = this.currentUser.companyId;
+                    }
+                    this.deviceAddElement.warehouseId = this.warehouses.get(this.selectedWarehouse);
+                    this.deviceAddElement.deviceModelId = this.deviceModels.get(this.selectedModel);
+                    this.deviceService.createDevice(this.deviceAddElement).subscribe(resp => {
+                        this.router.navigateByUrl('/admin/devices');
+                        this.translate.get('success.device.add').subscribe(x => {
+                            this.messageService.success(x)
+                        })
+                    }, error => {
+                        if (error === this.configuration.ERROR_SERIAL_NUMBER_NAME_TAKEN) {
+                            this.translate.get('device.serial.number.taken.error').subscribe(x => {
+                                this.messageService.error(x);
+                            })
+                        } else if (error === this.configuration.ERROR_NO_OBJECT_IN_DATABASE) {
+                            this.translate.get('no.object.in.database.error').subscribe(x => {
+                                this.messageService.error(x);
+                            })
+                        } else {
+                            this.translate.get('unknown.error').subscribe(x => {
+                                this.messageService.error(x);
+                            })
+                        }
+                    });
+                }
+            });
 
     }
 

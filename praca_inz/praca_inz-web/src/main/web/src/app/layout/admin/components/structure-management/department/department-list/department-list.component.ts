@@ -25,8 +25,9 @@ export class DepartmentListComponent implements OnInit {
         private departmentService: DepartmentService,
         private userService: UserService,
         private translate: TranslateService,
-        private messageService: MessageService,
-        private configuration: Configuration
+        private configuration: Configuration,
+        private messageService: MessageService
+
     ) {
     }
 
@@ -38,10 +39,7 @@ export class DepartmentListComponent implements OnInit {
     }
 
 
-    getAddress(department
-                   :
-                   StructureListElement
-    ):
+    getAddress(department: StructureListElement):
         string {
         if (department.flatNumber == null || department.flatNumber === "0") {
             return (department.street + ' ' + department.buildingNumber);
@@ -51,17 +49,34 @@ export class DepartmentListComponent implements OnInit {
     }
 
     getLoggedUser() {
-        this.userService.getLoggedUser().subscribe(x => this.currentUser = x);
+        this.userService.getLoggedUser().subscribe(x => {this.currentUser = x}, error => {
+            if (error === this.configuration.ERROR_NO_OBJECT_IN_DATABASE) {
+                this.translate.get('no.object.in.database.error').subscribe(x => {
+                    this.messageService.error(x);
+                })
+            } else {
+                this.translate.get('unknown.error').subscribe(x => {
+                    this.messageService.error(x);
+                })
+            }
+        });
     }
 
     getLoggedUserRoles() {
-        this.userService.getLoggedUserRoles().subscribe(x => this.roles = x);
+        this.userService.getLoggedUserRoles().subscribe(x => {this.roles = x}, error => {
+            if (error === this.configuration.ERROR_NO_OBJECT_IN_DATABASE) {
+                this.translate.get('no.object.in.database.error').subscribe(x => {
+                    this.messageService.error(x);
+                })
+            } else {
+                this.translate.get('unknown.error').subscribe(x => {
+                    this.messageService.error(x);
+                })
+            }
+        });
     }
 
-    filterDepartments(searchText
-                          :
-                          string
-    ) {
+    filterDepartments(searchText: string) {
         this.departmentService.getAll().subscribe(departments => {
             if (!departments) {
                 this.departments = [];
@@ -80,10 +95,7 @@ export class DepartmentListComponent implements OnInit {
         });
     }
 
-    delete(structure
-               :
-               StructureListElement
-    ) {
+    delete(structure: StructureListElement) {
         var entity: string;
         var message: string;
         var yes: string;

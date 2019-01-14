@@ -18,6 +18,7 @@ public class DeviceModelConverter {
                 .companyName(deviceModel.getCompany().getName())
                 .manufacture(deviceModel.getManufacture())
                 .cost(deviceModel.getCost())
+                .numberOfDevices(String.valueOf(deviceModel.getDevices().size()))
                 .deviceTypeName(deviceModel.getDeviceType().getName())
                 .build();
 

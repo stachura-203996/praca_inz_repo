@@ -13,4 +13,5 @@ public class DeviceModelListElementDto {
     String manufacture;
     long cost;
     String companyName;
+    String numberOfDevices;
 }

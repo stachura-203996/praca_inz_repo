@@ -14,6 +14,5 @@ public class DeviceEditDto {
     private String serialNumber;
     private Long deviceModelId;
     private String companyName;
-    private String warehouseName;
     private String deviceModelName;
 }

@@ -15,6 +15,8 @@ import {TranslateService} from "@ngx-translate/core";
 import {Router} from "@angular/router";
 import {WarehouseListElement} from "../../../../../../models/warehouse-elements";
 import {StructureListElement} from "../../../../../../models/structure-elements";
+import {MessageService} from "../../../../../../shared/services/message.service";
+import {Configuration} from "../../../../../../app.constants";
 
 @Component({
     selector: 'app-device-model-add',
@@ -46,6 +48,8 @@ export class DeviceModelAddComponent implements OnInit {
         private warehouseService: WarehouseService,
         private userService: UserService,
         private translate: TranslateService,
+        private messageService: MessageService,
+        private configuration: Configuration,
         private router: Router) {
 
     }
@@ -109,26 +113,58 @@ export class DeviceModelAddComponent implements OnInit {
     }
 
     deviceAdd() {
-        if (this.roles.admin) {
-            this.deviceModelAddElement.companyId = this.companies.get(this.selectedCompany);
-        } else {
-            this.deviceModelAddElement.companyId = this.currentUser.companyId;
-        }
+
+        var entity: string;
+        var message: string;
+        var yes: string;
+        var no: string;
+
+        this.translate.get('device.model.add').subscribe(x => entity = x);
+        this.translate.get('confirm.add').subscribe(x => message = x);
+        this.translate.get('yes').subscribe(x => yes = x);
+        this.translate.get('no').subscribe(x => no = x);
 
 
-        this.deviceModelAddElement.typeId = this.deviceTypes.get(this.selectedType);
-        this.deviceService.createDeviceModel(this.deviceModelAddElement).subscribe(resp => {
-            for(var i=0; i< this.parameters.length; i++){
-              const parameter:ParameterListElement=new ParameterListElement();
-              parameter.value=this.parameters[i]["value"];
-              parameter.name=this.parameters[i]["name"];
-              this.deviceService.createParameter(parameter,resp).subscribe();
-              if(i==this.parameters.length-1){
-                  this.router.navigateByUrl('/admin/devices/model');
-              }
-            }
-
-        });
+        this.messageService
+            .confirm(entity, message, yes, no)
+            .subscribe(confirmed => {
+                if (confirmed) {
+                    if (this.roles.admin) {
+                        this.deviceModelAddElement.companyId = this.companies.get(this.selectedCompany);
+                    } else {
+                        this.deviceModelAddElement.companyId = this.currentUser.companyId;
+                    }
+                    this.deviceModelAddElement.typeId = this.deviceTypes.get(this.selectedType);
+                    this.deviceService.createDeviceModel(this.deviceModelAddElement).subscribe(resp => {
+                        for(var i=0; i< this.parameters.length; i++){
+                          const parameter:ParameterListElement=new ParameterListElement();
+                          parameter.value=this.parameters[i]["value"];
+                          parameter.name=this.parameters[i]["name"];
+                          this.deviceService.createParameter(parameter,resp).subscribe();
+                          if(i==this.parameters.length-1){
+                              this.router.navigateByUrl('/admin/devices/model');
+                              this.translate.get('success.device.model.add').subscribe(x => {
+                                  this.messageService.success(x)
+                              })
+                          }
+                        }
+                    }, error => {
+                        if (error === this.configuration.ERROR_DEVICE_MODEL_NAME_NAME_TAKEN) {
+                            this.translate.get('device.model.name.taken.error').subscribe(x => {
+                                this.messageService.error(x);
+                            })
+                        } else if (error === this.configuration.ERROR_NO_OBJECT_IN_DATABASE) {
+                            this.translate.get('no.object.in.database.error').subscribe(x => {
+                                this.messageService.error(x);
+                            })
+                        } else {
+                            this.translate.get('unknown.error').subscribe(x => {
+                                this.messageService.error(x);
+                            })
+                        }
+                    });
+                }
+            });
 
     }
 

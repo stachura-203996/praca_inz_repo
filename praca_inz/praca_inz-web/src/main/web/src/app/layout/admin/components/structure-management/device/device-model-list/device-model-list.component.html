@@ -22,6 +22,7 @@
             <th>{{'Manufacture'|translate}}</th>
             <th>{{'Type'|translate}}</th>
             <th>{{'Cost'|translate}}</th>
+            <th>{{'NumberOfDevices'|translate}}</th>
             <th></th>
         </tr>
         </thead>
@@ -31,6 +32,7 @@
             <td>{{device.manufacture}}</td>
             <td>{{device.deviceTypeName}}</td>
             <td>{{device.cost}}</td>
+            <td>{{device.numberOfDevices}}</td>
             <td class="text-right">
                 <div class="btn-group flex-btn-group-container">
                     <button type="submit"
@@ -41,7 +43,6 @@
                     </button>
                     <button type="submit"
                             [routerLink]="['/devices/model/edit/'+device.id]"
-                            queryParamsHandling="merge"
                             class="btn btn-primary btn-sm">
                         <i class="fa fa-pencil"></i>&nbsp;
                         <span class="d-none d-md-inline">{{'Edit'|translate}}</span>

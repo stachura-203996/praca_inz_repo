@@ -104,4 +104,16 @@ export class RequestUserComponent implements OnInit {
             }
         }
     }
+
+    getStatus(status:string):string{
+        var tmp:string;
+        this.translate.get(status).subscribe(x=>tmp=x);
+        return tmp;
+    }
+
+    getType(type:string):string{
+        var tmp:string;
+        this.translate.get(type).subscribe(x=>tmp=x);
+        return tmp;
+    }
 }

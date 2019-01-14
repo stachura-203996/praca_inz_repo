@@ -91,7 +91,7 @@
                         <div class="col-sm-5 col-xs-6 tital ">{{'Roles'| translate}}</div>
                         <div class="col-sm-7">
                             <br>
-                            <div class="row" *ngFor="let authority of user.roles"><span class="badge badge-info">{{ authority }}</span>
+                            <div class="row" *ngFor="let authority of user.roles"><span class="badge badge-info">{{ getAuthorityTranslation(authority) }}</span>
                             </div>
                             <br>
                         </div>

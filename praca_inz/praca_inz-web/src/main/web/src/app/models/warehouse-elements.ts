@@ -7,7 +7,7 @@ export class WarehouseListElement {
     officeName: string;
     companyName: string;
     departmentName: string;
-    devicesNumber: string;
+    devicesNumber: number;
     deleted: boolean;
 }
 

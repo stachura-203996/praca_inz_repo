@@ -26,7 +26,6 @@ export class DeviceEditElement {
     warehouseId:number;
     deviceModelId:number;
     companyName:string;
-    warehouseName:string;
     deviceModelName:string;
 
     version:string;
@@ -51,7 +50,7 @@ export class DeviceModelViewElement {
     id: number;
     name: string;
     manufacture:string;
-    numberOfDevices;
+    numberOfDevices:number;
     type:string;
     cost:string;
     companyName:string;
@@ -81,6 +80,7 @@ export class DeviceModelListElement {
     id: number;
     name: string;
     manufacture:string;
+    numberOfDevices:number;
     cost:string
     deviceTypeName:string;
     companyName:string;

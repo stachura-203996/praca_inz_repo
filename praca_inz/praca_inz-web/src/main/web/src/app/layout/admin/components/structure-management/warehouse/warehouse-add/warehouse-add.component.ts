@@ -9,6 +9,8 @@ import {OfficeService} from "../../office/office.service";
 import {UserListElement} from "../../../../../../models/user-list-element";
 import {WarehouseAddElement} from "../../../../../../models/warehouse-elements";
 import {WarehouseService} from "../../../../../warehouse-management/warehouse.service";
+import {MessageService} from "../../../../../../shared/services/message.service";
+import {Configuration} from "../../../../../../app.constants";
 
 @Component({
     selector: 'app-warehouse-add',
@@ -31,6 +33,8 @@ export class WarehouseAddComponent implements OnInit {
         private userService: UserService,
         private warehouseService: WarehouseService,
         private translate: TranslateService,
+        private messageService: MessageService,
+        private configuration: Configuration,
         private router: Router) {
 
     }
@@ -63,13 +67,46 @@ export class WarehouseAddComponent implements OnInit {
     }
 
     warehouseAdd() {
+        var entity: string;
+        var message: string;
+        var yes: string;
+        var no: string;
 
-        this.warehouseAddElement.officeId = this.offices.get(this.selectedOffice);
-        this.warehouseAddElement.userId = this.warehousemen.get(this.selectedWarehouseman);
+        this.translate.get('warehouse.add').subscribe(x => entity = x);
+        this.translate.get('confirm.add').subscribe(x => message = x);
+        this.translate.get('yes').subscribe(x => yes = x);
+        this.translate.get('no').subscribe(x => no = x);
 
-        this.warehouseService.createWarehouse(this.warehouseAddElement).subscribe(resp => {
-            this.router.navigateByUrl('/admin/warehouses');
-        });
+
+        this.messageService
+            .confirm(entity, message, yes, no)
+            .subscribe(confirmed => {
+                if (confirmed) {
+                    this.warehouseAddElement.officeId = this.offices.get(this.selectedOffice);
+                    this.warehouseAddElement.userId = this.warehousemen.get(this.selectedWarehouseman);
+
+                    this.warehouseService.createWarehouse(this.warehouseAddElement).subscribe(resp => {
+                        this.router.navigateByUrl('/admin/warehouses');
+                        this.translate.get('success.warehouse.add').subscribe(x => {
+                            this.messageService.success(x)
+                        })
+                    }, error => {
+                        if (error === this.configuration.ERROR_WAREHOUSE_NAME_TAKEN) {
+                            this.translate.get('warehouse.name.taken.error').subscribe(x => {
+                                this.messageService.error(x);
+                            })
+                        } else if (error === this.configuration.ERROR_NO_OBJECT_IN_DATABASE) {
+                            this.translate.get('no.object.in.database.error').subscribe(x => {
+                                this.messageService.error(x);
+                            })
+                        } else {
+                            this.translate.get('unknown.error').subscribe(x => {
+                                this.messageService.error(x);
+                            })
+                        }
+                    });
+                }
+            });
 
     }
 

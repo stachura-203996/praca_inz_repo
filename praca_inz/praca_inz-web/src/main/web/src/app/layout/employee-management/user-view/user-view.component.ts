@@ -7,6 +7,7 @@ import {TransferListElement} from "../../../models/transfer-list-element";
 import {UserRoles} from "../../../models/user-roles";
 import {UserService} from "../../admin/components/administration/user-management/user.service";
 import {DeviceService} from "../../device-management/device.service";
+import {TranslateService} from "@ngx-translate/core";
 
 
 
@@ -28,6 +29,7 @@ export class UserViewComponent implements OnInit {
         private route: ActivatedRoute,
         private userService: UserService,
         private deviceService: DeviceService,
+        private translate:TranslateService
     ) {
     }
 
@@ -71,5 +73,11 @@ export class UserViewComponent implements OnInit {
         this.deviceService.getAllDevicesForUser(username).subscribe(deviceListElement => {
             this.devices = deviceListElement
         });
+    }
+
+    getAuthorityTranslation(authority:string):string{
+        var tmp:string;
+        this.translate.get(authority).subscribe(x=>tmp=x);
+        return tmp;
     }
 }

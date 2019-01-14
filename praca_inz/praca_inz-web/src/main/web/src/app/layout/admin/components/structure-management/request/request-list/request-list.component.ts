@@ -5,6 +5,8 @@ import {RequestListElement} from "../../../../../../models/request-elements";
 import {Router} from "@angular/router";
 import {RequestService} from "../../../../../employee-management/request.service";
 import {UserService} from "../../../administration/user-management/user.service";
+import {Configuration} from "../../../../../../app.constants";
+import {MessageService} from "../../../../../../shared/services/message.service";
 
 @Component({
     selector: 'app-request-list',
@@ -23,6 +25,8 @@ export class RequestListComponent implements OnInit {
         private requestService: RequestService,
         private userService: UserService,
         private translate: TranslateService,
+        private configuration: Configuration,
+        private messageService: MessageService,
         private router: Router) {
 
     }
@@ -41,7 +45,6 @@ export class RequestListComponent implements OnInit {
         });
     }
 
-
     getAddress(office: StructureListElement): string {
         if (office.flatNumber == null || office.flatNumber === "0") {
             return (office.street + ' ' + office.buildingNumber);
@@ -49,7 +52,6 @@ export class RequestListComponent implements OnInit {
             return (office.street + ' ' + office.buildingNumber + ' / ' + office.flatNumber);
         }
     }
-
 
     viewPage(request: RequestListElement) {
         switch (request.type) {
@@ -78,15 +80,85 @@ export class RequestListComponent implements OnInit {
     }
 
     cancel(structure: RequestListElement) {
-        this.requestService.cancelRequest(structure).subscribe(resp => {
-            this.getRequests();
-        });
+
+        var entity: string;
+        var message: string;
+        var yes: string;
+        var no: string;
+
+        this.translate.get('request.cancel').subscribe(x => entity = x);
+        this.translate.get('confirm.cancel').subscribe(x => message = x);
+        this.translate.get('yes').subscribe(x => yes = x);
+        this.translate.get('no').subscribe(x => no = x);
+
+
+        this.messageService
+            .confirm(entity, message, yes, no)
+            .subscribe(confirmed => {
+                if (confirmed) {
+                    this.requestService.cancelRequest(structure).subscribe(resp => {
+                        this.getRequests();
+                        this.translate.get('success.request.cancel').subscribe(x=>{
+                            this.messageService.success(x)
+                        })
+                    }, error => {
+                        if (error === this.configuration.ERROR_NO_OBJECT_IN_DATABASE) {
+                            this.translate.get('no.object.in.database.error').subscribe(x => {
+                                this.messageService.error(x);
+                            })
+                        } else {
+                            this.translate.get('unknown.error').subscribe(x => {
+                                this.messageService.error(x);
+                            })
+                        }
+
+                    });
+                }
+            });
     }
 
     delete(structure: RequestListElement) {
-        this.requestService.deleteRequest(String(structure.id)).subscribe(resp => {
-            this.getRequests()
-        });
+        var entity: string;
+        var message: string;
+        var yes: string;
+        var no: string;
+
+        this.translate.get('request.delete').subscribe(x => entity = x);
+        this.translate.get('confirm.delete').subscribe(x => message = x);
+        this.translate.get('yes').subscribe(x => yes = x);
+        this.translate.get('no').subscribe(x => no = x);
+
+
+        this.messageService
+            .confirm(entity, message, yes, no)
+            .subscribe(confirmed => {
+                if (confirmed) {
+                    this.requestService.deleteRequest(String(structure.id)).subscribe(resp => {
+                        this.getRequests()
+                        this.translate.get('success.request.delete').subscribe(x=>{
+                            this.messageService.success(x)
+                        })
+                    }, error => {
+                        if (error === this.configuration.ERROR_NO_OBJECT_IN_DATABASE) {
+                            this.translate.get('no.object.in.database.error').subscribe(x => {
+                                this.messageService.error(x);
+                            })
+                        } else {
+                            this.translate.get('unknown.error').subscribe(x => {
+                                this.messageService.error(x);
+                            })
+                        }
+
+                    });
+                }
+            });
     }
+
+    getStatus(status:string):string{
+        var tmp:string;
+        this.translate.get(status).subscribe(x=>tmp=x);
+        return tmp;
+    }
+
 
 }

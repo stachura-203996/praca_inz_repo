@@ -39,4 +39,12 @@ export class Configuration {
     //Office response codes
     public ERROR_OFFICE_NAME_TAKEN: "on_taken";
 
+    //Warehouse response codes
+    public ERROR_WAREHOUSE_NAME_TAKEN: "wn_taken";
+
+    //Device response codes
+    public ERROR_SERIAL_NUMBER_NAME_TAKEN: "sn_taken";
+
+    //Device mode response codes
+    public ERROR_DEVICE_MODEL_NAME_NAME_TAKEN: "dmn_taken";
 }

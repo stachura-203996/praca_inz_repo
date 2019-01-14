@@ -61,6 +61,12 @@ export class UserListComponent implements OnInit {
         });
     }
 
+    getAuthorityTranslation(authority:string):string{
+        var tmp:string;
+        this.translate.get(authority).subscribe(x=>tmp=x);
+        return tmp;
+    }
+
 
     delete(user: UserListElement) {
         var entity: string;

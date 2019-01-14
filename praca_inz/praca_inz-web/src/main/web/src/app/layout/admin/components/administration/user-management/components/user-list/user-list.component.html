@@ -32,7 +32,7 @@
                 <td>{{user.username}}</td>
                 <td>
                     <div *ngFor="let authority of user.roles">
-                        <span class="badge badge-info">{{ authority }}</span>
+                        <span class="badge badge-info">{{ getAuthorityTranslation(authority)}}</span>
                     </div>
                 </td>
                 <td>{{user.email}}</td>

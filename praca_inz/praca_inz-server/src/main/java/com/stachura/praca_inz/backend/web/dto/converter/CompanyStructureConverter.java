@@ -149,7 +149,7 @@ public class CompanyStructureConverter {
                 .buildingNumber(office.getAddress().getBuildingNumber())
                 .flatNumber(office.getAddress().getFlatNumber())
                 .parentId(office.getDepartment().getId())
-                .parentName(office.getDepartment().getName())
+                .parentName(office.getDepartment().getName()+" | "+office.getDepartment().getCompany().getName())
                 .verison(office.getVersion())
                 .build();
     }

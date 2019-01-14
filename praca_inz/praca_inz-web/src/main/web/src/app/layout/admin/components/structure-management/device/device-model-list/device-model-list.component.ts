@@ -3,6 +3,8 @@ import {DeviceService} from "../../../../../device-management/device.service";
 import {TranslateService} from "@ngx-translate/core";
 import {DeviceModelListElement} from "../../../../../../models/device-elements";
 import {UserService} from "../../../administration/user-management/user.service";
+import {Configuration} from "../../../../../../app.constants";
+import {MessageService} from "../../../../../../shared/services/message.service";
 
 @Component({
     selector: 'app-device-model-list',
@@ -16,7 +18,9 @@ export class DeviceModelListComponent implements OnInit {
     constructor(
         private deviceService: DeviceService,
         private translate: TranslateService,
-        private userService: UserService
+        private userService: UserService,
+        private configuration: Configuration,
+        private messageService: MessageService
     ) {
     }
 
@@ -26,9 +30,9 @@ export class DeviceModelListComponent implements OnInit {
 
 
     getDevicesModels() {
-            this.deviceService.getAllDevicesModels().subscribe(deviceListElement => {
-                this.deviceModels = deviceListElement
-            });
+        this.deviceService.getAllDevicesModels().subscribe(deviceListElement => {
+            this.deviceModels = deviceListElement
+        });
     }
 
     filterDeviceModels(searchText: string) {
@@ -51,8 +55,45 @@ export class DeviceModelListComponent implements OnInit {
     }
 
     delete(deviceModel: DeviceModelListElement) {
-        this.deviceService.deleteDeviceModel(String(deviceModel.id)).subscribe(resp => {
-            this.getDevicesModels()
-        });
+        var entity: string;
+        var message: string;
+        var yes: string;
+        var no: string;
+
+        this.translate.get('device.model.delete').subscribe(x => entity = x);
+        this.translate.get('confirm.delete').subscribe(x => message = x);
+        this.translate.get('yes').subscribe(x => yes = x);
+        this.translate.get('no').subscribe(x => no = x);
+
+        if (deviceModel.numberOfDevices == 0) {
+
+            this.messageService
+                .confirm(entity, message, yes, no)
+                .subscribe(confirmed => {
+                    if (confirmed) {
+                        this.deviceService.deleteDeviceModel(String(deviceModel.id)).subscribe(resp => {
+                            this.getDevicesModels()
+                            this.translate.get('success.device.model.delete').subscribe(x => {
+                                this.messageService.success(x)
+                            })
+                        }, error => {
+                            if (error === this.configuration.ERROR_NO_OBJECT_IN_DATABASE) {
+                                this.translate.get('no.object.in.database.error').subscribe(x => {
+                                    this.messageService.error(x);
+                                })
+                            } else {
+                                this.translate.get('unknown.error').subscribe(x => {
+                                    this.messageService.error(x);
+                                })
+                            }
+
+                        });
+                    }
+                });
+        } else {
+            this.translate.get("device.model.used").subscribe(x=>{
+                this.messageService.error(x)
+            });
+        }
     }
 }

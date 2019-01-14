@@ -5,6 +5,7 @@ import {TransferListElement} from "../../../models/transfer-list-element";
 import {ProfileService} from "../profile.service";
 import {SessionContextService} from "../../../shared/services/session-context.service";
 import {DeviceService} from "../../device-management/device.service";
+import {TranslateService} from "@ngx-translate/core";
 
 
 @Component({
@@ -17,6 +18,7 @@ export class ProfileComponent implements OnInit {
     user: ProfileInfo;
     devices: DeviceListElement[];
     transfers: TransferListElement[];
+    translate:TranslateService
     isUserLoggedIn = this.sessionContextService.getUser() !== null;
 
 
@@ -50,16 +52,10 @@ export class ProfileComponent implements OnInit {
         }
     }
 
-    transfer(device: DeviceListElement) {
-        // const modalRef = this.modalService.open(UserMgmtDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
-        // modalRef.componentInstance.user = user;
-        // modalRef.result.then(
-        //     result => {
-        //         // Left blank intentionally, nothing to do here
-        //     },
-        //     reason => {
-        //         // Left blank intentionally, nothing to do here
-        //     }
-        // );
+    getAuthorityTranslation(authority:string):string{
+        var tmp:string;
+        this.translate.get(authority).subscribe(x=>tmp=x);
+        return tmp;
     }
+
 }

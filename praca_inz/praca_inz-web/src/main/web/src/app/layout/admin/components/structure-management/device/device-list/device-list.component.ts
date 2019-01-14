@@ -5,6 +5,8 @@ import {DeviceService} from "../../../../../device-management/device.service";
 import {DeviceListElement} from "../../../../../../models/device-elements";
 import {Router} from "@angular/router";
 import {UserService} from "../../../administration/user-management/user.service";
+import {Configuration} from "../../../../../../app.constants";
+import {MessageService} from "../../../../../../shared/services/message.service";
 
 
 @Component({
@@ -20,7 +22,9 @@ export class DeviceListComponent implements OnInit {
     constructor(
         private deviceService : DeviceService,
         private userService:UserService,
-        private translate:TranslateService,
+        private translate: TranslateService,
+        private configuration: Configuration,
+        private messageService: MessageService,
         private router:Router
     ) {
     }
@@ -61,7 +65,22 @@ export class DeviceListComponent implements OnInit {
 
     delete(device: DeviceListElement) {
         this.deviceService.deleteDevice(String(device.id)).subscribe(resp => {
-            this.getDevices()
+            this.getDevices();
+            this.translate.get('success.device.delete').subscribe(x=>{
+                this.messageService.success(x)
+            })
+
+        }, error => {
+            if (error === this.configuration.ERROR_NO_OBJECT_IN_DATABASE) {
+                this.translate.get('no.object.in.database.error').subscribe(x => {
+                    this.messageService.error(x);
+                })
+            } else {
+                this.translate.get('unknown.error').subscribe(x => {
+                    this.messageService.error(x);
+                })
+            }
+
         });
     }
 

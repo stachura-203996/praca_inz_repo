@@ -45,9 +45,7 @@ export class DepartmentEditComponent implements OnInit {
         this.getDepartment();
         this.getCompanies();
         this.getLoggedUser();
-        this.getRevertCompanies();
-
-    }
+      }
 
     getDepartment() {
         const id = this.route.snapshot.paramMap.get('id');
@@ -75,24 +73,33 @@ export class DepartmentEditComponent implements OnInit {
         });
     }
 
-    getRevertCompanies() {
-        this.companyService.getAll().subscribe((response: StructureListElement[]) => {
-            this.revertCompanies = response.reduce(function (companyMap, company) {
-                if (company.id) {
-                    companyMap.set(company.id, company.name)
-                }
-                return companyMap;
-            }, this.revertCompanies);
-        });
-        this.selectedOption=this.revertCompanies.get(this.structureEditElement.parentId)
-    }
 
     getLoggedUser() {
-        this.userService.getLoggedUser().subscribe(x => this.currentUser = x);
+        this.userService.getLoggedUser().subscribe(x => {this.currentUser = x}, error => {
+            if (error === this.configuration.ERROR_NO_OBJECT_IN_DATABASE) {
+                this.translate.get('no.object.in.database.error').subscribe(x => {
+                    this.messageService.error(x);
+                })
+            } else {
+                this.translate.get('unknown.error').subscribe(x => {
+                    this.messageService.error(x);
+                })
+            }
+        });
     }
 
     getLoggedUserRoles() {
-        this.userService.getLoggedUserRoles().subscribe(x => this.roles = x);
+        this.userService.getLoggedUserRoles().subscribe(x => {this.roles = x}, error => {
+            if (error === this.configuration.ERROR_NO_OBJECT_IN_DATABASE) {
+                this.translate.get('no.object.in.database.error').subscribe(x => {
+                    this.messageService.error(x);
+                })
+            } else {
+                this.translate.get('unknown.error').subscribe(x => {
+                    this.messageService.error(x);
+                })
+            }
+        });
     }
 
     departmentUpdate() {
@@ -118,6 +125,9 @@ export class DepartmentEditComponent implements OnInit {
                     }
                     this.departmentService.updateDepartment(this.structureEditElement).subscribe(resp => {
                         this.router.navigateByUrl('/admin/departments');
+                        this.translate.get('success.department.edit').subscribe(x => {
+                            this.messageService.success(x)
+                        })
                     }, error => {
                         if (error === this.configuration.OPTIMISTIC_LOCK) {
                             this.translate.get('optimistic.lock').subscribe(x => {

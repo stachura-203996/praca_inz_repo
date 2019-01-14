@@ -7,6 +7,8 @@ import {TranslateService} from "@ngx-translate/core";
 import {ActivatedRoute, Router} from "@angular/router";
 import {StructureListElement} from "../../../../../../models/structure-elements";
 import {UserListElement} from "../../../../../../models/user-list-element";
+import {MessageService} from "../../../../../../shared/services/message.service";
+import {Configuration} from "../../../../../../app.constants";
 
 @Component({
     selector: 'app-warehouse-edit',
@@ -26,6 +28,8 @@ export class WarehouseEditComponent implements OnInit {
         private userService: UserService,
         private warehouseService: WarehouseService,
         private translate: TranslateService,
+        private messageService:MessageService,
+        private configuration:Configuration,
         private router: Router) {
 
     }
@@ -39,7 +43,17 @@ export class WarehouseEditComponent implements OnInit {
 
     getWarehouse() {
         const id = this.route.snapshot.paramMap.get('id');
-        this.warehouseService.getWarehouseEdit(id).subscribe(x => this.warehouseEditElement = x);
+        this.warehouseService.getWarehouseEdit(id).subscribe(x => {this.warehouseEditElement = x}, error => {
+            if (error === this.configuration.ERROR_NO_OBJECT_IN_DATABASE) {
+                this.translate.get('no.object.in.database.error').subscribe(x => {
+                    this.messageService.error(x);
+                })
+            } else {
+                this.translate.get('unknown.error').subscribe(x => {
+                    this.messageService.error(x);
+                })
+            }
+        });
     }
 
 
@@ -67,13 +81,52 @@ export class WarehouseEditComponent implements OnInit {
     }
 
     warehouseUpdate() {
+        var entity:string;
+        var message:string;
+        var yes:string;
+        var no:string;
 
-        this.warehouseEditElement.officeId = this.offices.get(this.warehouseEditElement.officeName);
-        this.warehouseEditElement.userId = this.warehousemen.get(this.warehouseEditElement.selectedUser);
+        this.translate.get('warehouse.edit').subscribe(x=>entity=x);
+        this.translate.get('confirm.edit').subscribe(x=>message=x);
+        this.translate.get('yes').subscribe(x=>yes=x);
+        this.translate.get('no').subscribe(x=>no=x);
 
-        this.warehouseService.updateWarehouse(this.warehouseEditElement).subscribe(resp => {
-            this.router.navigateByUrl('/admin/warehouses');
-        });
+
+        this.messageService
+            .confirm(entity,message,yes,no)
+            .subscribe(confirmed => {
+                if (confirmed) {
+                    this.warehouseEditElement.officeId = this.offices.get(this.warehouseEditElement.officeName);
+                    this.warehouseEditElement.userId = this.warehousemen.get(this.warehouseEditElement.selectedUser);
+
+                    this.warehouseService.updateWarehouse(this.warehouseEditElement).subscribe(resp => {
+                        this.router.navigateByUrl('/admin/warehouses');
+                        this.translate.get('success.warehouse.edit').subscribe(x => {
+                            this.messageService.success(x)
+                        })
+                    }, error => {
+                        if (error === this.configuration.OPTIMISTIC_LOCK) {
+                            this.translate.get('optimistic.lock').subscribe(x => {
+                                this.messageService.error(x);
+                            })
+
+                        } else  if (error === this.configuration.ERROR_WAREHOUSE_NAME_TAKEN) {
+                            this.translate.get('warehouse.name.taken.error').subscribe(x => {
+                                this.messageService.error(x);
+                            })
+                        } else if (error === this.configuration.ERROR_NO_OBJECT_IN_DATABASE) {
+                            this.translate.get('no.object.in.database.error').subscribe(x => {
+                                this.messageService.error(x);
+                            })
+                        } else {
+                            this.translate.get('unknown.error').subscribe(x => {
+                                this.messageService.error(x);
+                            })
+                        }
+
+                    });
+                }
+            });
 
     }
 

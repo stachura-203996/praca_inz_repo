@@ -33,8 +33,9 @@ export class DepartmentAddComponent implements OnInit {
         private departmentService: DepartmentService,
         private translate: TranslateService,
         private messageService: MessageService,
-        private router: Router,
-        private configuration: Configuration
+        private configuration: Configuration,
+        private router: Router
+
     ) {
 
     }
@@ -48,11 +49,31 @@ export class DepartmentAddComponent implements OnInit {
 
 
     getLoggedUser() {
-        this.userService.getLoggedUser().subscribe(x => this.currentUser = x);
+        this.userService.getLoggedUser().subscribe(x => {this.currentUser = x}, error => {
+            if (error === this.configuration.ERROR_NO_OBJECT_IN_DATABASE) {
+                this.translate.get('no.object.in.database.error').subscribe(x => {
+                    this.messageService.error(x);
+                })
+            } else {
+                this.translate.get('unknown.error').subscribe(x => {
+                    this.messageService.error(x);
+                })
+            }
+        });
     }
 
     getLoggedUserRoles() {
-        this.userService.getLoggedUserRoles().subscribe(x => this.roles = x);
+        this.userService.getLoggedUserRoles().subscribe(x => {this.roles = x}, error => {
+            if (error === this.configuration.ERROR_NO_OBJECT_IN_DATABASE) {
+                this.translate.get('no.object.in.database.error').subscribe(x => {
+                    this.messageService.error(x);
+                })
+            } else {
+                this.translate.get('unknown.error').subscribe(x => {
+                    this.messageService.error(x);
+                })
+            }
+        });
     }
 
     getCompanies() {

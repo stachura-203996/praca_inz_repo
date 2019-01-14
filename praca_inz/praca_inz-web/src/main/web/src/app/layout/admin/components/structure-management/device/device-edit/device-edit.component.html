@@ -29,16 +29,6 @@
                         </div>
                     </div>
                     <div class="form-group col-xl-5" *ngIf="roles.admin">
-                        <label for="companySelect">{{'Warehouse'|translate}}<span style="color:red">*</span></label>
-                        <select class="form-control" id="warehouseSelect" [(ngModel)]="deviceEditElement.warehouseName" name="warehouseSelect" required #warehouse>
-                            <option *ngFor="let warehouse of warehouses|keyvalue" [value]="warehouse.key">{{warehouse.key}}</option>
-                        </select>
-                        <div *ngIf="warehouse.invalid && (warehouse.touched || warehouse.dirty)"
-                             class="alert alert-danger col-sm-12">
-                            <div *ngIf="warehouse.hasError('required')">{{'Warehouse is required!'|translate}}</div>
-                        </div>
-                    </div>
-                    <div class="form-group col-xl-5" *ngIf="roles.admin">
                         <label for="companySelect">{{'DeviceModel'|translate}}<span style="color:red">*</span></label>
                         <select class="form-control" id="deviceModelSelect" [(ngModel)]="deviceEditElement.deviceModelName" name="deviceModelSelect" required #deviceModel>
                             <option *ngFor="let deviceModel of deviceModels|keyvalue" [value]="deviceModel.key">{{deviceModel.key}}</option>

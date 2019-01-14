@@ -7,6 +7,8 @@ import {LoggedUser} from "../../../../../../models/logged-user";
 import {UserService} from "../../../administration/user-management/user.service";
 import {DeviceAddElement} from "../../../../../../models/device-elements";
 import {DeviceService} from "../../../../../device-management/device.service";
+import {Configuration} from "../../../../../../app.constants";
+import {MessageService} from "../../../../../../shared/services/message.service";
 
 @Component({
     selector: 'app-delivery-list',
@@ -22,13 +24,13 @@ export class DeliveryListComponent implements OnInit {
         private warehouseService: WarehouseService,
         private deviceService:DeviceService,
         private userService: UserService,
+        private configuration: Configuration,
+        private messageService: MessageService,
         private translate: TranslateService) {
     }
 
     ngOnInit() {
-
         this.getDeliveries()
-
     }
 
     getDeliveries() {
@@ -55,13 +57,47 @@ export class DeliveryListComponent implements OnInit {
                 });
             });
     }
+
     confirm(deliver:DeliveryListElement){
-        var device:DeviceAddElement=new DeviceAddElement();
-        device.warehouseId=deliver.warehouseId;
-        device.serialNumber=deliver.serialNumber;
-        device.deviceModelId=deliver.deviceModelId;
-        device.companyId=deliver.companyId;
-        this.deviceService.createDevice(device).subscribe();
+        var entity: string;
+        var message: string;
+        var yes: string;
+        var no: string;
+
+        this.translate.get('delivery.confirm').subscribe(x => entity = x);
+        this.translate.get('confirm.delete').subscribe(x => message = x);
+        this.translate.get('yes').subscribe(x => yes = x);
+        this.translate.get('no').subscribe(x => no = x);
+
+
+        this.messageService
+            .confirm(entity, message, yes, no)
+            .subscribe(confirmed => {
+                if (confirmed) {
+                    var device:DeviceAddElement=new DeviceAddElement();
+                    device.warehouseId=deliver.warehouseId;
+                    device.serialNumber=deliver.serialNumber;
+                    device.deviceModelId=deliver.deviceModelId;
+                    device.companyId=deliver.companyId;
+                    this.deviceService.createDevice(device).subscribe(rep=>{
+                        this.getDeliveries();
+                        this.translate.get('success.delivery.confirm').subscribe(x=>{
+                            this.messageService.success(x)
+                        })
+                    }, error => {
+                        if (error === this.configuration.ERROR_NO_OBJECT_IN_DATABASE) {
+                            this.translate.get('no.object.in.database.error').subscribe(x => {
+                                this.messageService.error(x);
+                            })
+                        } else {
+                            this.translate.get('unknown.error').subscribe(x => {
+                                this.messageService.error(x);
+                            })
+                        }
+
+                    });
+                }
+            });
     }
 
 }
