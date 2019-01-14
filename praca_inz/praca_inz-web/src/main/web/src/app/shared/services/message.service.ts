@@ -1,5 +1,4 @@
 import {Injectable} from '@angular/core';
-import {ToastrService} from 'ngx-toastr';
 import {BsModalService} from 'ngx-bootstrap';
 import {Observable} from "rxjs";
 import {ConfirmDialogComponent} from "../../confirm-dialog/confirm-dialog.component";
