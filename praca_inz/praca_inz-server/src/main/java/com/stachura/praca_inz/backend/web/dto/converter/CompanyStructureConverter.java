@@ -83,6 +83,7 @@ public class CompanyStructureConverter {
                 .street(company.getAddress().getStreet())
                 .buildingNumber(company.getAddress().getBuildingNumber())
                 .flatNumber(company.getAddress().getFlatNumber())
+                .verison(company.getVersion())
                 .build();
     }
 
@@ -93,6 +94,7 @@ public class CompanyStructureConverter {
                 .description(department.getDescription())
                 .parentId(department.getCompany().getId())
                 .parentName(department.getCompany().getName())
+                .verison(department.getVersion())
                 .build();
     }
 
@@ -148,6 +150,7 @@ public class CompanyStructureConverter {
                 .flatNumber(office.getAddress().getFlatNumber())
                 .parentId(office.getDepartment().getId())
                 .parentName(office.getDepartment().getName())
+                .verison(office.getVersion())
                 .build();
     }
 
@@ -155,6 +158,7 @@ public class CompanyStructureConverter {
         beforeDepartment.setName(companyStructureEditDto.getName());
         beforeDepartment.setDescription(companyStructureEditDto.getDescription());
         beforeDepartment.setCompany(company);
+        beforeDepartment.setVersion(companyStructureEditDto.getVerison());
         return beforeDepartment;
     }
 
@@ -165,6 +169,7 @@ public class CompanyStructureConverter {
         beforeCompany.getAddress().setStreet(companyStructureEditDto.getStreet());
         beforeCompany.getAddress().setBuildingNumber(companyStructureEditDto.getBuildingNumber());
         beforeCompany.getAddress().setFlatNumber(companyStructureEditDto.getFlatNumber());
+        beforeCompany.setVersion(companyStructureEditDto.getVerison());
         return beforeCompany;
     }
 
@@ -176,7 +181,7 @@ public class CompanyStructureConverter {
         beforeOffice.getAddress().setStreet(companyStructureEditDto.getStreet());
         beforeOffice.getAddress().setBuildingNumber(companyStructureEditDto.getBuildingNumber());
         beforeOffice.getAddress().setFlatNumber(companyStructureEditDto.getFlatNumber());
-
+        beforeOffice.setVersion(companyStructureEditDto.getVerison());
         beforeOffice.setDepartment(department);
         return beforeOffice;
     }

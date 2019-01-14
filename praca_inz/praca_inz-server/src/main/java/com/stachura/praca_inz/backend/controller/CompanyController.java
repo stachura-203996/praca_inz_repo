@@ -1,5 +1,6 @@
 package com.stachura.praca_inz.backend.controller;
 
+import com.stachura.praca_inz.backend.exception.AppBaseException;
 import com.stachura.praca_inz.backend.exception.service.ServiceException;
 import com.stachura.praca_inz.backend.model.Company;
 import com.stachura.praca_inz.backend.service.CompanyService;
@@ -14,6 +15,8 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,6 +26,7 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
 @RestController
 @RequestMapping("/secured/structure/company")
+@Transactional(propagation = Propagation.REQUIRES_NEW,rollbackFor = AppBaseException.class)
 public class CompanyController {
 
 

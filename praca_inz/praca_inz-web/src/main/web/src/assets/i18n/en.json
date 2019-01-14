@@ -249,5 +249,7 @@
     "Send":"Send",
     "Language is required":"Język jest wymagany",
     "Cost":"Cost",
-    "Change password":"Change password"
+    "Change password":"Change password",
+    "PssswordResetSuccess":"Password is reseted",
+    "PssswordResetError":"Password reset error"
 }

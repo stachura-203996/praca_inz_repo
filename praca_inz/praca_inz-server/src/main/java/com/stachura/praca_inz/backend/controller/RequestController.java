@@ -1,5 +1,6 @@
 package com.stachura.praca_inz.backend.controller;
 
+import com.stachura.praca_inz.backend.exception.AppBaseException;
 import com.stachura.praca_inz.backend.exception.service.ServiceException;
 import com.stachura.praca_inz.backend.model.Notification;
 import com.stachura.praca_inz.backend.model.Request;
@@ -24,6 +25,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Calendar;
@@ -35,6 +38,7 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 @RestController
 @RequestMapping("/secured/request")
+@Transactional(propagation = Propagation.REQUIRES_NEW,rollbackFor = AppBaseException.class)
 public class RequestController {
 
     @Autowired

@@ -243,6 +243,8 @@
     "ConfirmReceipt":"Potwierdź odbiór",
     "Send":"Wyślij",
     "Cost":"Koszt",
-    "Change password":"Zmień hasło"
+    "Change password":"Zmień hasło",
+    "PssswordResetSuccess":"Hasło zostało zresetowane",
+    "PssswordResetError":"Zmiana hasła nie powiodła się"
 
 }

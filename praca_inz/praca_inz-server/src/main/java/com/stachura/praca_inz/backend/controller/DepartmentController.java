@@ -17,12 +17,13 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 
 @RestController
 @RequestMapping("/secured/structure/department")
-@Transactional(propagation = Propagation.REQUIRES_NEW,rollbackFor = AppBaseException.class)
+@Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = AppBaseException.class)
 public class DepartmentController {
 
     @Autowired
@@ -37,7 +38,7 @@ public class DepartmentController {
     }
 
 
-    @RequestMapping(value = "/company/{id}",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/company/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
     List<CompanyStructuresListElementDto> getAllDepartmentsForCompany(@PathVariable Long id) {
@@ -61,23 +62,16 @@ public class DepartmentController {
 
     @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public ResponseEntity<?> create(@RequestBody CompanyStructureAddDto companyStructureAddDto) {
-        try {
-            departmentService.createNewDepartment(companyStructureAddDto);
-        } catch (ServiceException e) {
-            e.printStackTrace();
-        }
+    public ResponseEntity<?> create(@RequestBody CompanyStructureAddDto companyStructureAddDto) throws ServiceException {
+        departmentService.createNewDepartment(companyStructureAddDto);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @RequestMapping(method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public void update(@RequestBody CompanyStructureEditDto companyStructureEditDto) {
-        try {
+    public void update(@RequestBody CompanyStructureEditDto companyStructureEditDto) throws ServiceException {
             departmentService.updateDepartment(companyStructureEditDto);
-        } catch (ServiceException e) {
-            e.printStackTrace();
-        }
+
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
