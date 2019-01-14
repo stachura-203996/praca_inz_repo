@@ -1,8 +1,7 @@
 package com.stachura.praca_inz.backend.controller;
 
-import com.stachura.praca_inz.backend.exception.AppBaseException;
-import com.stachura.praca_inz.backend.exception.service.ServiceException;
-import com.stachura.praca_inz.backend.model.Notification;
+import com.stachura.praca_inz.backend.exception.EntityNotInDatabaseException;
+import com.stachura.praca_inz.backend.exception.base.AppBaseException;
 import com.stachura.praca_inz.backend.model.Report;
 import com.stachura.praca_inz.backend.repository.UserRepository;
 import com.stachura.praca_inz.backend.service.NotificationService;
@@ -13,8 +12,6 @@ import com.stachura.praca_inz.backend.web.dto.report.ReportListElementDto;
 import com.stachura.praca_inz.backend.web.dto.report.ReportViewDto;
 import com.stachura.praca_inz.backend.web.utils.NotificationMessages;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.mvc.ControllerLinkBuilder;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -24,11 +21,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Calendar;
 import java.util.List;
-
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 @RestController
 @RequestMapping("/secured/report")
@@ -49,7 +42,7 @@ public class ReportController {
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
-    List<ReportListElementDto> getAllReports() throws ServiceException {
+    List<ReportListElementDto> getAllReports() throws AppBaseException {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         return reportService.getAllReports(auth.getName());
     }
@@ -73,7 +66,7 @@ public class ReportController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
-    ReportViewDto getReportsById(@PathVariable Long id) {
+    ReportViewDto getReportsById(@PathVariable Long id) throws AppBaseException {
         return ReportConverter.toReportViewElement(reportService.getReportById(id));
     }
 
@@ -85,7 +78,7 @@ public class ReportController {
             Report report = reportService.createNewReport(reportAddDto,auth.getName());
             notificationService.createNewNotification(NotificationMessages.getReportSentNotifiaction(report));
             notificationService.createNewNotification(NotificationMessages.getReportReceivedNotifiaction(report));
-        } catch (ServiceException e) {
+        } catch (AppBaseException e) {
             e.printStackTrace();
         }
         return new ResponseEntity<>(HttpStatus.CREATED);
@@ -96,30 +89,27 @@ public class ReportController {
     public void update(@RequestBody Report report) {
         try {
             reportService.updateReport(report);
-        } catch (ServiceException e) {
+        } catch (AppBaseException e) {
             e.printStackTrace();
         }
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public void delete(@PathVariable Long id) throws ServiceException {
+    public void delete(@PathVariable Long id) throws AppBaseException {
         reportService.deleteReportById(id);
     }
 
     @RequestMapping(value = "/sender/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public void diabledBySender(@PathVariable Long id) throws ServiceException {
+    public void diabledBySender(@PathVariable Long id) throws AppBaseException {
         reportService.disableBySender(id);
     }
 
     @RequestMapping(value = "/reciever/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public void disableByReciever(@PathVariable Long id) throws ServiceException {
+    public void disableByReciever(@PathVariable Long id) throws AppBaseException {
         reportService.disableByReciever(id);
     }
-
-
-
 
 }

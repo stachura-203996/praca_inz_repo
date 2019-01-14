@@ -2,9 +2,8 @@ package com.stachura.praca_inz.backend.service.impl;
 
 import com.google.common.collect.Lists;
 import com.stachura.praca_inz.backend.Constants;
-import com.stachura.praca_inz.backend.exception.repository.DatabaseErrorException;
-import com.stachura.praca_inz.backend.exception.repository.EntityException;
-import com.stachura.praca_inz.backend.exception.service.ServiceException;
+import com.stachura.praca_inz.backend.exception.EntityNotInDatabaseException;
+import com.stachura.praca_inz.backend.exception.base.AppBaseException;
 import com.stachura.praca_inz.backend.model.Company;
 import com.stachura.praca_inz.backend.model.Department;
 import com.stachura.praca_inz.backend.model.security.User;
@@ -41,8 +40,8 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Override
     @Transactional(readOnly = true)
     @PreAuthorize("hasAuthority('DEPARTMENT_READ')")
-    public Department getDepartmentById(Long id) throws ServiceException {
-        Department department = departmentRepository.findById(id).orElseThrow(() -> new ServiceException());
+    public Department getDepartmentById(Long id) throws AppBaseException {
+        Department department = departmentRepository.findById(id).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
         if (department.isDeleted()) {
             return null;
         }
@@ -52,8 +51,8 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Override
     @Transactional(readOnly = true)
     @PreAuthorize("hasAuthority('DEPARTMENT_LIST_READ')")
-    public List<CompanyStructuresListElementDto> getAllDepartments(String username) throws ServiceException {
-        User user=userRepository.findByUsername(username).orElseThrow(() -> new ServiceException());
+    public List<CompanyStructuresListElementDto> getAllDepartments(String username) throws AppBaseException {
+        User user=userRepository.findByUsername(username).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
         List<Department> departments;
         if(user.getUserRoles().stream().anyMatch(x->x.getName().equals(Constants.ADMIN_ROLE))) {
              departments = Lists.newArrayList(departmentRepository.findAll());
@@ -88,31 +87,29 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('DEPARTMENT_CREATE')")
-    public void createNewDepartment(CompanyStructureAddDto companyStructureAddDto) throws ServiceException {
+    public void createNewDepartment(CompanyStructureAddDto companyStructureAddDto) throws AppBaseException {
         try {
-            Company company=companyRepository.findById(companyStructureAddDto.getCompanyId()).orElseThrow(() -> new ServiceException());
+            Company company=companyRepository.findById(companyStructureAddDto.getCompanyId()).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
             departmentRepository.save(CompanyStructureConverter.toDepartment(companyStructureAddDto,company));
-        } catch (DatabaseErrorException e) {
-            throw e;
-        } catch (EntityException e) {
-            throw ServiceException.createServiceException(ServiceException.ENTITY_VALIDATION, e);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('DEPARTMENT_UPDATE')")
-    public void updateDepartment(CompanyStructureEditDto companyStructureEditDto) throws ServiceException {
-        Department beforeDepartment=departmentRepository.findById(companyStructureEditDto.getId()).orElseThrow(() -> new ServiceException());
-        Company company=companyRepository.findById(companyStructureEditDto.getParentId()).orElseThrow(() -> new ServiceException());
+    public void updateDepartment(CompanyStructureEditDto companyStructureEditDto) throws AppBaseException {
+        Department beforeDepartment=departmentRepository.findById(companyStructureEditDto.getId()).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
+        Company company=companyRepository.findById(companyStructureEditDto.getParentId()).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
         departmentRepository.save( CompanyStructureConverter.toDepartment(companyStructureEditDto,beforeDepartment,company));
     }
 
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('DEPARTMENT_DELETE')")
-    public void deleteDepartmentById(Long id) throws ServiceException {
-        departmentRepository.findById(id).orElseThrow(() -> new ServiceException()).setDeleted(true);
+    public void deleteDepartmentById(Long id) throws AppBaseException {
+        departmentRepository.findById(id).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT)).setDeleted(true);
 
     }
 

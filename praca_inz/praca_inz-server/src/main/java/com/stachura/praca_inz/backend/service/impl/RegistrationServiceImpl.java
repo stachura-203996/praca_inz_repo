@@ -1,9 +1,10 @@
 package com.stachura.praca_inz.backend.service.impl;
 
 import com.google.common.collect.Lists;
-import com.stachura.praca_inz.backend.exception.UserAlreadyExistException;
-import com.stachura.praca_inz.backend.exception.repository.EntityException;
-import com.stachura.praca_inz.backend.exception.service.ServiceException;
+import com.stachura.praca_inz.backend.exception.EntityNotInDatabaseException;
+import com.stachura.praca_inz.backend.exception.base.AppBaseException;
+import com.stachura.praca_inz.backend.exception.DatabaseErrorException;
+
 import com.stachura.praca_inz.backend.model.Address;
 import com.stachura.praca_inz.backend.model.Userdata;
 import com.stachura.praca_inz.backend.model.Warehouse;
@@ -24,7 +25,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class RegistrationServiceImpl implements RegistrationService {
+public class
+RegistrationServiceImpl implements RegistrationService {
 
     @Autowired
     private UserdataRepository userdataRepository;
@@ -48,17 +50,21 @@ public class RegistrationServiceImpl implements RegistrationService {
 
     @Override
     @Transactional
-    public void registerNewUserAccount(final RegistrationDto data, boolean verified) throws ServiceException {
-//        if (emailExist(data.getEmail())) {
-//            throw new UserAlreadyExistException("There is an user with that email adress: " + data.getEmail());
-//        }
+    public void registerNewUserAccount(final RegistrationDto data, boolean verified) throws AppBaseException {
+
+        if (userdataRepository.findByEmail(data.getEmail()).isPresent()) {
+            throw new DatabaseErrorException(DatabaseErrorException.EMAIL_TAKEN);
+        }
+        if (userRepository.findByUsername(data.getUsername()).isPresent()) {
+            throw new DatabaseErrorException(DatabaseErrorException.USERNAME_TAKEN);
+        }
 
         User user = new User();
         user.setUsername(data.getUsername());
         user.setPassword(passwordEncoder.encode(data.getPassword()));
         user.setEnabled(true);
         user.setAccountExpired(false);
-        user.setOffice(officeRepository.findById(data.getOfficeId()).orElseThrow(() -> new ServiceException()));
+        user.setOffice(officeRepository.findById(data.getOfficeId()).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT)));
         user.setAccountLocked(false);
         user.setCredentialsExpired(false);
 
@@ -84,22 +90,22 @@ public class RegistrationServiceImpl implements RegistrationService {
         userdata.setAddress(address);
 
         Warehouse warehouse = new Warehouse();
-        warehouse.setOffice(officeRepository.findById(data.getOfficeId()).orElseThrow(() -> new ServiceException()));
+        warehouse.setOffice(officeRepository.findById(data.getOfficeId()).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT)));
         warehouse.setWarehouseType(WarehouseType.USER);
 
         warehouse.setDeleted(false);
 
-
-        userdataRepository.save(userdata);
-        user.setUserdata(userdata);
-        userRepository.save(user);
-        warehouse.setUser(user);
-        warehouse.setName(user.getUserdata().getName() + "|" + user.getUserdata().getSurname() + "|" + user.getUsername() + "|WAREHOUSE");
-        warehouseRepository.save(warehouse);
+        try {
+            userdataRepository.save(userdata);
+            user.setUserdata(userdata);
+            userRepository.save(user);
+            warehouse.setUser(user);
+            warehouse.setName(user.getUserdata().getName() + "|" + user.getUserdata().getSurname() + "|" + user.getUsername() + "|WAREHOUSE");
+            warehouseRepository.save(warehouse);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
 
     }
 
-//    private boolean emailExist(final String email) {
-//        return userdataRepository.findByEmail(email) != null;
-//    }
 }

@@ -1,7 +1,6 @@
 package com.stachura.praca_inz.backend.controller;
 
-import com.stachura.praca_inz.backend.exception.AppBaseException;
-import com.stachura.praca_inz.backend.exception.service.ServiceException;
+import com.stachura.praca_inz.backend.exception.base.AppBaseException;
 import com.stachura.praca_inz.backend.service.DeviceTypeService;
 import com.stachura.praca_inz.backend.web.dto.DeviceTypeListElementDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,10 +32,10 @@ public class DeviceTypeController {
 
     @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public ResponseEntity<?> create(@RequestBody String type) throws ServiceException {
+    public ResponseEntity<?> create(@RequestBody String type) throws AppBaseException {
         try {
             deviceTypeService.createNewDeviceType(type);
-        } catch (ServiceException e) {
+        } catch (AppBaseException e) {
             e.printStackTrace();
         }
         return new ResponseEntity<>(HttpStatus.CREATED);
@@ -44,7 +43,7 @@ public class DeviceTypeController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public void delete(@PathVariable Long id) throws ServiceException {
+    public void delete(@PathVariable Long id) throws AppBaseException {
         deviceTypeService.deleteDeviceTypeById(id);
     }
 }

@@ -1,8 +1,6 @@
 package com.stachura.praca_inz.backend.controller;
 
-import com.stachura.praca_inz.backend.exception.AppBaseException;
-import com.stachura.praca_inz.backend.exception.service.ServiceException;
-import com.stachura.praca_inz.backend.model.Company;
+import com.stachura.praca_inz.backend.exception.base.AppBaseException;
 import com.stachura.praca_inz.backend.service.CompanyService;
 import com.stachura.praca_inz.backend.web.dto.company.CompanyStructureAddDto;
 import com.stachura.praca_inz.backend.web.dto.company.CompanyStructureEditDto;
@@ -11,7 +9,6 @@ import com.stachura.praca_inz.backend.web.dto.company.CompanyStructuresListEleme
 import com.stachura.praca_inz.backend.web.dto.converter.CompanyStructureConverter;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -20,9 +17,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
-
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
 @RestController
 @RequestMapping("/secured/structure/company")
@@ -45,14 +39,14 @@ public class CompanyController {
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
-    CompanyStructureEditDto getToEdit(@PathVariable Long id) throws ServiceException {
+    CompanyStructureEditDto getToEdit(@PathVariable Long id) throws AppBaseException {
         return CompanyStructureConverter.toCompanyStructureEdit(companyService.getCompanyById(id));
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
-    CompanyStructureViewDto getToView(@PathVariable Long id) throws ServiceException {
+    CompanyStructureViewDto getToView(@PathVariable Long id) throws AppBaseException {
         return CompanyStructureConverter.toCompanyStructureViewDto(companyService.getCompanyById(id));
     }
 
@@ -61,7 +55,7 @@ public class CompanyController {
     public ResponseEntity<?> create(@RequestBody CompanyStructureAddDto company) {
         try {
             companyService.createNewCompany(company);
-        } catch (ServiceException e) {
+        } catch (AppBaseException e) {
             e.printStackTrace();
         }
         return new ResponseEntity<>(HttpStatus.CREATED);
@@ -72,14 +66,14 @@ public class CompanyController {
     public void update(@RequestBody CompanyStructureEditDto companyStructureEditDto) {
         try {
             companyService.updateCompany(companyStructureEditDto);
-        } catch (ServiceException e) {
+        } catch (AppBaseException e) {
             e.printStackTrace();
         }
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public void delete(@PathVariable Long id) throws ServiceException {
+    public void delete(@PathVariable Long id) throws AppBaseException {
         companyService.deleteCompanyById(id);
     }
 }

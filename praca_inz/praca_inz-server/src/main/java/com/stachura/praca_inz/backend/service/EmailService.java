@@ -4,28 +4,6 @@ import org.springframework.mail.SimpleMailMessage;
 
 public interface EmailService {
 
-
-    void sendRequestSentMessage();
-
-    void sendRequestRecievedMessage();
-
-    void sendRequestAcceptedMessage();
-
-    void sendRequestRejectedMessage();
-
-    void sendTransfeExecutedMessage();
-
-    void sendDeliveryExecutedMessage();
-
-    void sendShipmentExecutedMessage();
-
-    void sendDeviceRequestExecuted();
-
-    void sendReportSentMessage();
-
-    void sendReportRecievedMessage();
-
-
     void sendSimpleMessage(String to,
                            String subject,
                            String text);

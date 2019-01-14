@@ -1,17 +1,12 @@
 package com.stachura.praca_inz.backend.controller;
 
-import com.stachura.praca_inz.backend.exception.AppBaseException;
-import com.stachura.praca_inz.backend.exception.service.ServiceException;
+import com.stachura.praca_inz.backend.exception.base.AppBaseException;
 import com.stachura.praca_inz.backend.model.Notification;
 import com.stachura.praca_inz.backend.service.EmailService;
 import com.stachura.praca_inz.backend.service.NotificationService;
 import com.stachura.praca_inz.backend.web.dto.NotificationListElementDto;
-import com.stachura.praca_inz.backend.web.dto.company.CompanyStructureAddDto;
-import com.stachura.praca_inz.backend.web.dto.converter.CompanyStructureConverter;
 import com.stachura.praca_inz.backend.web.dto.converter.NotificationConverter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.mvc.ControllerLinkBuilder;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -22,9 +17,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 @RestController
 @RequestMapping("/secured/notification")
@@ -59,7 +51,7 @@ public class NotificationController {
         try {
             Notification notification=notificationService.getNotificationById(notificationListElementDto.getId());
             notificationService.createNewNotification(NotificationConverter.toNotification(notificationListElementDto,notification));
-        } catch (ServiceException e) {
+        } catch (AppBaseException e) {
             e.printStackTrace();
         }
         return new ResponseEntity<>(HttpStatus.CREATED);
@@ -68,18 +60,18 @@ public class NotificationController {
 
     @RequestMapping(method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public void update(@RequestBody NotificationListElementDto notificationListElementDto) throws ServiceException {
+    public void update(@RequestBody NotificationListElementDto notificationListElementDto) throws AppBaseException {
         Notification notification= notificationService.getNotificationById(notificationListElementDto.getId());
         try {
             notificationService.updateNotification(NotificationConverter.toNotification(notificationListElementDto,notification));
-        } catch (ServiceException e) {
+        } catch (AppBaseException e) {
             e.printStackTrace();
         }
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public void delete(@PathVariable Long id) throws ServiceException {
+    public void delete(@PathVariable Long id) throws AppBaseException {
         notificationService.deleteNotificationById(id);
     }
 }

@@ -1,7 +1,9 @@
 package com.stachura.praca_inz.backend.service.impl;
 
 import com.google.common.collect.Lists;
-import com.stachura.praca_inz.backend.exception.service.ServiceException;
+import com.stachura.praca_inz.backend.exception.EntityNotInDatabaseException;
+import com.stachura.praca_inz.backend.exception.EntityOptimisticLockException;
+import com.stachura.praca_inz.backend.exception.base.AppBaseException;
 import com.stachura.praca_inz.backend.model.Address;
 import com.stachura.praca_inz.backend.model.Userdata;
 import com.stachura.praca_inz.backend.model.Warehouse;
@@ -17,6 +19,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.OptimisticLockException;
 import java.util.Calendar;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -46,10 +49,10 @@ private WarehouseRepository warehouseRepository;
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('ACCOUNT_UPDATE_ADMIN')")
-    public void updateAccountbyAdmin(UserEditDto userEditDto) throws ServiceException {
-        User user = userRepository.findById(userEditDto.getId()).orElseThrow((()->new ServiceException()));
+    public void updateAccountbyAdmin(UserEditDto userEditDto) throws AppBaseException {
+        User user = userRepository.findById(userEditDto.getId()).orElseThrow((()->new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT)));
         user.setUsername(userEditDto.getUsername());
-        user.setOffice(officeRepository.findById(userEditDto.getOfficeId()).orElseThrow(() -> new ServiceException()));
+        user.setOffice(officeRepository.findById(userEditDto.getOfficeId()).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT)));
         user.setAccountLocked(false);
         user.setCredentialsExpired(false);
         user.setVersion(userEditDto.getVersionUser());
@@ -60,7 +63,7 @@ private WarehouseRepository warehouseRepository;
 
             user.setUserRoles(userRoles);
         }
-        Userdata userdata = userdataRepository.findById(user.getUserdata().getId()).orElseThrow(()->new ServiceException());
+        Userdata userdata = userdataRepository.findById(user.getUserdata().getId()).orElseThrow(()->new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
         userdata.setEmail(userEditDto.getEmail());
         userdata.setSurname(userEditDto.getSurname());
         userdata.setPosition(userEditDto.getPosition());
@@ -76,8 +79,8 @@ private WarehouseRepository warehouseRepository;
         userdata.setLanguage(userEditDto.getLanguage());
         userdata.setVersion(userEditDto.getVersionUserdata());
 
-        Warehouse warehouse = user.getWarehouses().stream().filter(x->x.getWarehouseType().equals(WarehouseType.USER)).findFirst().orElseThrow(()->new ServiceException());
-        warehouse.setOffice(officeRepository.findById(userEditDto.getOfficeId()).orElseThrow(() -> new ServiceException()));
+        Warehouse warehouse = user.getWarehouses().stream().filter(x->x.getWarehouseType().equals(WarehouseType.USER)).findFirst().orElseThrow(()->new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
+        warehouse.setOffice(officeRepository.findById(userEditDto.getOfficeId()).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT)));
         warehouse.setWarehouseType(WarehouseType.USER);
         warehouse.setVersion(userEditDto.getVersionWarehouse());
         userdataRepository.save(userdata);
@@ -91,15 +94,15 @@ private WarehouseRepository warehouseRepository;
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('ACCOUNT_UPDATE_USER')")
-    public void updateProfileByUser(ProfileEditDto profileEditDto) throws ServiceException {
-        User user = userRepository.findById(profileEditDto.getId()).orElseThrow((()->new ServiceException()));
+    public void updateProfileByUser(ProfileEditDto profileEditDto) throws AppBaseException {
+        User user = userRepository.findById(profileEditDto.getId()).orElseThrow((()->new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT)));
         user.setUsername(profileEditDto.getUsername());
-        user.setOffice(officeRepository.findById(profileEditDto.getOfficeId()).orElseThrow(() -> new ServiceException()));
+        user.setOffice(officeRepository.findById(profileEditDto.getOfficeId()).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT)));
         user.setAccountLocked(false);
         user.setCredentialsExpired(false);
         user.setVersion(profileEditDto.getVersionUser());
 
-        Userdata userdata = userdataRepository.findById(user.getUserdata().getId()).orElseThrow(()->new ServiceException());
+        Userdata userdata = userdataRepository.findById(user.getUserdata().getId()).orElseThrow(()->new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
         userdata.setEmail(profileEditDto.getEmail());
         userdata.setSurname(profileEditDto.getSurname());
         userdata.setPosition(profileEditDto.getPosition());
@@ -115,15 +118,19 @@ private WarehouseRepository warehouseRepository;
         userdata.setLanguage(profileEditDto.getLanguage());
         userdata.setVersion(profileEditDto.getVersionUserdata());
 
-        Warehouse warehouse = user.getWarehouses().stream().filter(x->x.getWarehouseType().equals(WarehouseType.USER)).findFirst().orElseThrow(()->new ServiceException());
-        warehouse.setOffice(officeRepository.findById(profileEditDto.getOfficeId()).orElseThrow(() -> new ServiceException()));
+        Warehouse warehouse = user.getWarehouses().stream().filter(x->x.getWarehouseType().equals(WarehouseType.USER)).findFirst().orElseThrow(()->new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
+        warehouse.setOffice(officeRepository.findById(profileEditDto.getOfficeId()).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT)));
         warehouse.setWarehouseType(WarehouseType.USER);
         warehouse.setVersion(profileEditDto.getVersionWarehouse());
+        try{
         userdataRepository.save(userdata);
         user.setUserdata(userdata);
         userRepository.save(user);
         warehouse.setUser(user);
         warehouse.setName(user.getUserdata().getName() + "|" + user.getUserdata().getSurname() + "|" + user.getUsername() + "|WAREHOUSE");
         warehouseRepository.save(warehouse);
+        }catch (OptimisticLockException e){
+            new EntityOptimisticLockException(EntityOptimisticLockException.OPTIMISTIC_LOCK);
+        }
     }
 }

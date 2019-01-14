@@ -1,7 +1,6 @@
 package com.stachura.praca_inz.backend.controller;
 
-import com.stachura.praca_inz.backend.exception.AppBaseException;
-import com.stachura.praca_inz.backend.exception.service.ServiceException;
+import com.stachura.praca_inz.backend.exception.base.AppBaseException;
 import com.stachura.praca_inz.backend.service.AccountEditService;
 import com.stachura.praca_inz.backend.web.dto.user.ProfileEditDto;
 import com.stachura.praca_inz.backend.web.dto.user.UserEditDto;
@@ -24,14 +23,14 @@ public class AccountEditController {
 
     @RequestMapping(value = "/admin", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public ResponseEntity<?> saveAccountAfterEdit(@RequestBody UserEditDto data) throws ServiceException {
+    public ResponseEntity<?> saveAccountAfterEdit(@RequestBody UserEditDto data) throws AppBaseException {
         accountEditService.updateAccountbyAdmin(data);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "/self", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public ResponseEntity<?> safeProfileAfterEdit(@RequestBody ProfileEditDto data)throws ServiceException {
+    public ResponseEntity<?> safeProfileAfterEdit(@RequestBody ProfileEditDto data)throws AppBaseException {
 
         accountEditService.updateProfileByUser(data);
         return new ResponseEntity<>(HttpStatus.CREATED);

@@ -1,10 +1,7 @@
 package com.stachura.praca_inz.backend.controller;
 
-import com.stachura.praca_inz.backend.exception.AppBaseException;
-import com.stachura.praca_inz.backend.exception.service.ServiceException;
-import com.stachura.praca_inz.backend.model.Notification;
+import com.stachura.praca_inz.backend.exception.base.AppBaseException;
 import com.stachura.praca_inz.backend.model.Request;
-import com.stachura.praca_inz.backend.model.security.User;
 import com.stachura.praca_inz.backend.repository.DeviceModelRepository;
 import com.stachura.praca_inz.backend.repository.DeviceRepository;
 import com.stachura.praca_inz.backend.repository.UserRepository;
@@ -15,10 +12,8 @@ import com.stachura.praca_inz.backend.service.RequestService;
 import com.stachura.praca_inz.backend.web.dto.converter.RequestConverter;
 import com.stachura.praca_inz.backend.web.dto.device.DeviceListElementDto;
 import com.stachura.praca_inz.backend.web.dto.request.*;
-import com.stachura.praca_inz.backend.web.utils.NotificationMessages;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -29,12 +24,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Calendar;
 import java.util.List;
-import java.util.stream.Collectors;
-
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 @RestController
 @RequestMapping("/secured/request")
@@ -65,7 +55,7 @@ public class RequestController {
     @RequestMapping(value = "/type/{type}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
-    List<RequestListElementDto> getAllRequests(@PathVariable String type) throws ServiceException {
+    List<RequestListElementDto> getAllRequests(@PathVariable String type) throws AppBaseException {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         return requestService.getAllRequests(type,auth.getName());
     }
@@ -81,7 +71,7 @@ public class RequestController {
     @RequestMapping(value = "/manager", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
-    List<RequestListElementDto> getAllRequestsForManager() throws ServiceException {
+    List<RequestListElementDto> getAllRequestsForManager() throws AppBaseException {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         return requestService.getAllRequestForManager(auth.getName());
     }
@@ -89,7 +79,7 @@ public class RequestController {
     @RequestMapping(value = "/other/users", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
-    List<RequestListElementDto> getAllRequestsFromOtherUsers() throws ServiceException {
+    List<RequestListElementDto> getAllRequestsFromOtherUsers() throws AppBaseException {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         return requestService.getAllRequestFromeOtherUsers(auth.getName());
     }
@@ -97,7 +87,7 @@ public class RequestController {
     @RequestMapping(value = "/warehouseman", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
-    List<RequestListElementDto> getAllForWarehouseman() throws ServiceException {
+    List<RequestListElementDto> getAllForWarehouseman() throws AppBaseException {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         return requestService.getAllRequestForWarehouseman(auth.getName());
     }
@@ -105,7 +95,7 @@ public class RequestController {
     @RequestMapping(value = "/other", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
-    List<RequestListElementDto> getAllFromOtherWarehouses() throws ServiceException {
+    List<RequestListElementDto> getAllFromOtherWarehouses() throws AppBaseException {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         return requestService.getAllRequestFromOtherWarehouses(auth.getName());
     }
@@ -120,14 +110,14 @@ public class RequestController {
     @RequestMapping(value = "/devices/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
-    List<DeviceListElementDto> getAllRequestDevices(@PathVariable Long id) throws ServiceException {
+    List<DeviceListElementDto> getAllRequestDevices(@PathVariable Long id) throws AppBaseException {
         return requestService.getAllRequestDevices(id);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
-    RequestViewDto getRequestById(@PathVariable Long id) throws ServiceException {
+    RequestViewDto getRequestById(@PathVariable Long id) throws AppBaseException {
         Request request=requestService.getRequestById(id);
         Hibernate.initialize(request.getDeviceModel());
         return RequestConverter.toRequestView(request);
@@ -140,7 +130,7 @@ public class RequestController {
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
             requestService.createNewTransferRequest(transferRequestAddDto,auth.getName());
 
-        } catch (ServiceException e) {
+        } catch (AppBaseException e) {
             e.printStackTrace();
         }
         HttpHeaders headers = new HttpHeaders();
@@ -153,7 +143,7 @@ public class RequestController {
         try {
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
             requestService.createNewDeviceRequest(deviceRequestAddDto,auth.getName());
-        } catch (ServiceException e) {
+        } catch (AppBaseException e) {
             e.printStackTrace();
         }
         HttpHeaders headers = new HttpHeaders();
@@ -166,7 +156,7 @@ public class RequestController {
     public void changeStatus(@RequestBody ChangeStatusDto changeStatusDto) {
         try {
             requestService.realizeRequest(changeStatusDto);
-        } catch (ServiceException e) {
+        } catch (AppBaseException e) {
             e.printStackTrace();
         }
     }
@@ -176,7 +166,7 @@ public class RequestController {
     public void changeStatus(@RequestBody List<Long> devices,@PathVariable Long id) {
         try {
             requestService.addDevicesToRequest(devices,id);
-        } catch (ServiceException e) {
+        } catch (AppBaseException e) {
             e.printStackTrace();
         }
     }
@@ -186,14 +176,14 @@ public class RequestController {
     public void update(@RequestBody Request request) {
         try {
             requestService.updateRequest(request);
-        } catch (ServiceException e) {
+        } catch (AppBaseException e) {
             e.printStackTrace();
         }
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public void delete(@PathVariable Long id) throws ServiceException {
+    public void delete(@PathVariable Long id) throws AppBaseException {
         requestService.deleteRequestById(id);
     }
 

@@ -1,9 +1,11 @@
-package com.stachura.praca_inz.backend.exception.repository;
+package com.stachura.praca_inz.backend.exception;
+
+import com.stachura.praca_inz.backend.exception.base.AppBaseException;
 
 /**
  * Klasa wyjątku rzucanego przy wyszukiwaniu obiektu, który nie istnieje w bazie danych, o podanym parametrze
  */
-public class EntityNotInDatabaseException extends EntityException {
+public class EntityNotInDatabaseException extends AppBaseException {
 
     public static final String NO_OBJECT = "error_no_object_in_database";
 

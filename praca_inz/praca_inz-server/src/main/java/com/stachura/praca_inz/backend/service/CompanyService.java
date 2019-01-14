@@ -1,6 +1,6 @@
 package com.stachura.praca_inz.backend.service;
 
-import com.stachura.praca_inz.backend.exception.service.ServiceException;
+import com.stachura.praca_inz.backend.exception.base.AppBaseException;
 import com.stachura.praca_inz.backend.model.Company;
 import com.stachura.praca_inz.backend.web.dto.company.CompanyStructureAddDto;
 import com.stachura.praca_inz.backend.web.dto.company.CompanyStructureEditDto;
@@ -10,14 +10,14 @@ import java.util.List;
 
 public interface CompanyService {
 
-    Company getCompanyById(Long id) throws ServiceException;
+    Company getCompanyById(Long id) throws  AppBaseException;
 
     List<CompanyStructuresListElementDto> getAllCompanies();
 
-    Long createNewCompany(CompanyStructureAddDto company) throws ServiceException;
+    Long createNewCompany(CompanyStructureAddDto company) throws AppBaseException;
 
-    void updateCompany(CompanyStructureEditDto companyStructureEditDto) throws ServiceException;
+    void updateCompany(CompanyStructureEditDto companyStructureEditDto) throws  AppBaseException;
 
-    void deleteCompanyById(Long id) throws ServiceException;
+    void deleteCompanyById(Long id) throws  AppBaseException;
 
 }

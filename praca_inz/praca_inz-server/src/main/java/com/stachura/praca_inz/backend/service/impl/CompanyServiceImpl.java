@@ -1,6 +1,8 @@
 package com.stachura.praca_inz.backend.service.impl;
 
-import com.stachura.praca_inz.backend.exception.service.ServiceException;
+import com.stachura.praca_inz.backend.exception.EntityNotInDatabaseException;
+import com.stachura.praca_inz.backend.exception.EntityOptimisticLockException;
+import com.stachura.praca_inz.backend.exception.base.AppBaseException;
 import com.stachura.praca_inz.backend.model.Address;
 import com.stachura.praca_inz.backend.model.Company;
 import com.stachura.praca_inz.backend.repository.AddressRepository;
@@ -15,6 +17,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.OptimisticLockException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,8 +34,8 @@ public class CompanyServiceImpl implements CompanyService {
     @Override
     @Transactional(readOnly = true)
     @PreAuthorize("hasAuthority('COMPANY_READ')")
-    public Company getCompanyById(Long id) throws ServiceException {
-        Company company = companyRepository.findById(id).orElseThrow(() -> new ServiceException());
+    public Company getCompanyById(Long id) throws AppBaseException {
+        Company company = companyRepository.findById(id).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
         if (company.isDeleted()) {
             return null;
         }
@@ -70,27 +73,37 @@ public class CompanyServiceImpl implements CompanyService {
         company.setDeleted(false);
         company.setName(companyStructureAddDto.getName());
         company.setDescription(companyStructureAddDto.getDescription());
-        addressRepository.save(address);
-        company.setAddress(address);
-        companyRepository.save(company);
-        return company.getId();
+        try {
+            addressRepository.save(address);
+            company.setAddress(address);
+            companyRepository.save(company);
 
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return company.getId();
     }
 
 
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('COMPANY_UPDATE')")
-    public void updateCompany(CompanyStructureEditDto companyStructureEditDto) throws ServiceException {
-        Company beforeCompany = companyRepository.findById(companyStructureEditDto.getId()).orElseThrow(() -> new ServiceException());
-        companyRepository.save(CompanyStructureConverter.toCompany(companyStructureEditDto, beforeCompany));
+    public void updateCompany(CompanyStructureEditDto companyStructureEditDto) throws AppBaseException {
+        Company beforeCompany = companyRepository.findById(companyStructureEditDto.getId()).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
+        try {
+            companyRepository.save(CompanyStructureConverter.toCompany(companyStructureEditDto, beforeCompany));
+        }catch (OptimisticLockException e){
+            throw new EntityOptimisticLockException(EntityOptimisticLockException.OPTIMISTIC_LOCK);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('COMPANY_DELETE')")
-    public void deleteCompanyById(Long id) throws ServiceException {
-        companyRepository.findById(id).orElseThrow(() -> new ServiceException()).setDeleted(true);
+    public void deleteCompanyById(Long id) throws AppBaseException {
+        companyRepository.findById(id).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT)).setDeleted(true);
     }
 
 }

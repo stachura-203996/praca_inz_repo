@@ -1,7 +1,6 @@
 package com.stachura.praca_inz.backend.controller;
 
-import com.stachura.praca_inz.backend.exception.AppBaseException;
-import com.stachura.praca_inz.backend.exception.service.ServiceException;
+import com.stachura.praca_inz.backend.exception.base.AppBaseException;
 import com.stachura.praca_inz.backend.service.DepartmentService;
 import com.stachura.praca_inz.backend.web.dto.company.CompanyStructureAddDto;
 import com.stachura.praca_inz.backend.web.dto.company.CompanyStructureEditDto;
@@ -32,7 +31,7 @@ public class DepartmentController {
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
-    List<CompanyStructuresListElementDto> getAll() throws ServiceException {
+    List<CompanyStructuresListElementDto> getAll() throws AppBaseException {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         return departmentService.getAllDepartments(auth.getName());
     }
@@ -48,35 +47,35 @@ public class DepartmentController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
-    CompanyStructureViewDto getToView(@PathVariable Long id) throws ServiceException {
+    CompanyStructureViewDto getToView(@PathVariable Long id) throws AppBaseException {
         return CompanyStructureConverter.toCompanyStructureViewDto(departmentService.getDepartmentById(id));
     }
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
-    CompanyStructureEditDto get(@PathVariable Long id) throws ServiceException {
+    CompanyStructureEditDto get(@PathVariable Long id) throws AppBaseException {
         return CompanyStructureConverter.toCompanyStructureEdit(departmentService.getDepartmentById(id));
     }
 
 
     @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public ResponseEntity<?> create(@RequestBody CompanyStructureAddDto companyStructureAddDto) throws ServiceException {
+    public ResponseEntity<?> create(@RequestBody CompanyStructureAddDto companyStructureAddDto) throws AppBaseException {
         departmentService.createNewDepartment(companyStructureAddDto);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @RequestMapping(method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public void update(@RequestBody CompanyStructureEditDto companyStructureEditDto) throws ServiceException {
+    public void update(@RequestBody CompanyStructureEditDto companyStructureEditDto) throws AppBaseException {
             departmentService.updateDepartment(companyStructureEditDto);
 
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public void delete(@PathVariable Long id) throws ServiceException {
+    public void delete(@PathVariable Long id) throws AppBaseException {
         departmentService.deleteDepartmentById(id);
     }
 }

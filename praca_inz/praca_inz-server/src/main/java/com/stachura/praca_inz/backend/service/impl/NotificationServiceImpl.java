@@ -1,9 +1,8 @@
 package com.stachura.praca_inz.backend.service.impl;
 
 import com.google.common.collect.Lists;
-import com.stachura.praca_inz.backend.exception.repository.DatabaseErrorException;
-import com.stachura.praca_inz.backend.exception.repository.EntityException;
-import com.stachura.praca_inz.backend.exception.service.ServiceException;
+import com.stachura.praca_inz.backend.exception.EntityNotInDatabaseException;
+import com.stachura.praca_inz.backend.exception.base.AppBaseException;
 import com.stachura.praca_inz.backend.model.Notification;
 import com.stachura.praca_inz.backend.repository.NotificationRepository;
 import com.stachura.praca_inz.backend.service.EmailService;
@@ -38,8 +37,8 @@ public class NotificationServiceImpl implements NotificationService {
     @Override
     @Transactional(readOnly = true)
     @PreAuthorize("hasAuthority('NOTIFICATION_READ')")
-    public Notification getNotificationById(Long id) throws ServiceException {
-        Notification notification = notificationRepository.findById(id).orElseThrow(() -> new ServiceException());
+    public Notification getNotificationById(Long id) throws AppBaseException {
+        Notification notification = notificationRepository.findById(id).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
         if (notification.isDeleted()) {
             return null;
         }
@@ -93,7 +92,7 @@ public class NotificationServiceImpl implements NotificationService {
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('NOTIFICATION_CREATE')")
-    public void createNewNotification(Notification notification)throws ServiceException {
+    public void createNewNotification(Notification notification)throws AppBaseException {
             notificationRepository.save(notification);
             String link = "<a href=\"http://localhost:"+ port +notification.getUrl()+"\">Click</a>";
             String description=notification.getDescription()+"<br>"+link;
@@ -103,15 +102,15 @@ public class NotificationServiceImpl implements NotificationService {
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('NOTIFICATION_UPDATE')")
-    public void updateNotification(Notification notification) throws ServiceException {
+    public void updateNotification(Notification notification) throws AppBaseException {
         notificationRepository.save(notification);
     }
 
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('NOTIFICATION_DELETE')")
-    public void deleteNotificationById(Long id) throws ServiceException {
-        notificationRepository.findById(id).orElseThrow(() -> new ServiceException()).setDeleted(true);
+    public void deleteNotificationById(Long id) throws AppBaseException {
+        notificationRepository.findById(id).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT)).setDeleted(true);
     }
 
 }

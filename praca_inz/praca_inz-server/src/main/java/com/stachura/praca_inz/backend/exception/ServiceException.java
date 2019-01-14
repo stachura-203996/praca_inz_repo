@@ -1,6 +1,6 @@
-package com.stachura.praca_inz.backend.exception.service;
+package com.stachura.praca_inz.backend.exception;
 
-import com.stachura.praca_inz.backend.exception.AppBaseException;
+import com.stachura.praca_inz.backend.exception.base.AppBaseException;
 
 
 public class ServiceException extends AppBaseException {
@@ -14,12 +14,7 @@ public class ServiceException extends AppBaseException {
     public static final String JSON_PARSE_ERROR = "json_parse_error";
     public static final String ENTITY_VALIDATION = "entity_validation_error";
     public static final String MAIL_ERROR = "send_mail_error";
-    public static final String DB_READ_ERROR = "database_read_error";
-    public static final String DB_WRITE_ERROR = "database_write_error";
-    public static final String NOT_ENOUGH_POINTS = "not_enough_points";
-    public static final String COLLEAGUE_VALIDATION_FAILED = "colleague_validation_failed";
-    public static final String SUBORDINATE_VALIDATION_FAILED = "subordinate_validation_failed";
-    public static final String NOT_ENOUGH_BENEFITS = "not_enough_benefits";
+
 
     public ServiceException() {
     }

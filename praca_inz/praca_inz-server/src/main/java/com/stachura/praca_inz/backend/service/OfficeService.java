@@ -1,6 +1,6 @@
 package com.stachura.praca_inz.backend.service;
 
-import com.stachura.praca_inz.backend.exception.service.ServiceException;
+import com.stachura.praca_inz.backend.exception.base.AppBaseException;
 import com.stachura.praca_inz.backend.model.Office;
 import com.stachura.praca_inz.backend.web.dto.company.CompanyStructureAddDto;
 import com.stachura.praca_inz.backend.web.dto.company.CompanyStructureEditDto;
@@ -9,18 +9,18 @@ import com.stachura.praca_inz.backend.web.dto.company.CompanyStructuresListEleme
 import java.util.List;
 
 public interface OfficeService {
-    Office getOfficeById(Long id) throws ServiceException;
+    Office getOfficeById(Long id) throws AppBaseException;
 
     List<CompanyStructuresListElementDto> getAllOfficesForCompany(Long id);
 
     List<CompanyStructuresListElementDto> getAllOfficesForDepartment(Long id);
 
-    List<CompanyStructuresListElementDto> getAll(String username) throws ServiceException;
+    List<CompanyStructuresListElementDto> getAll(String username) throws AppBaseException;
 
-    void create(CompanyStructureAddDto companyStructureAddDto) throws ServiceException;
+    void create(CompanyStructureAddDto companyStructureAddDto) throws AppBaseException;
 
-    void update(CompanyStructureEditDto companyStructureEditDto) throws ServiceException;
+    void update(CompanyStructureEditDto companyStructureEditDto) throws AppBaseException;
 
-    void delete(Long id) throws ServiceException;
+    void delete(Long id) throws AppBaseException;
 
 }

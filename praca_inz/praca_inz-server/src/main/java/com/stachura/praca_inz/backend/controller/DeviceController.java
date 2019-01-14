@@ -1,13 +1,9 @@
 package com.stachura.praca_inz.backend.controller;
 
-import com.stachura.praca_inz.backend.exception.AppBaseException;
-import com.stachura.praca_inz.backend.exception.service.ServiceException;
-import com.stachura.praca_inz.backend.model.Device;
+import com.stachura.praca_inz.backend.exception.base.AppBaseException;
 import com.stachura.praca_inz.backend.service.DeviceService;
 import com.stachura.praca_inz.backend.web.dto.device.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.mvc.ControllerLinkBuilder;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -18,9 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 @RestController
 @RequestMapping("/secured/device")
@@ -33,7 +26,7 @@ public class DeviceController {
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
-    List<DeviceListElementDto> getAll() throws ServiceException {
+    List<DeviceListElementDto> getAll() throws AppBaseException {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         return deviceService.getAllDevices(auth.getName());
     }
@@ -100,40 +93,40 @@ public class DeviceController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
-    DeviceViewDto getDeviceToView(@PathVariable Long id) throws ServiceException {
+    DeviceViewDto getDeviceToView(@PathVariable Long id) throws AppBaseException {
         return deviceService.getDeviceToView(id);
     }
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
-    DeviceEditDto getDeviceToEdit(@PathVariable Long id) throws ServiceException {
+    DeviceEditDto getDeviceToEdit(@PathVariable Long id) throws AppBaseException {
         return deviceService.getDeviceToEdit(id);
     }
 
     @RequestMapping(value = "/parameters/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
-    List<ParameterListElementDto> getParameters(@PathVariable Long id) throws ServiceException {
+    List<ParameterListElementDto> getParameters(@PathVariable Long id) throws AppBaseException {
            return deviceService.getDeviceParameters(id);
     }
 
     @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public ResponseEntity<?> create(@RequestBody DeviceAddDto deviceAddDto) throws ServiceException {
+    public ResponseEntity<?> create(@RequestBody DeviceAddDto deviceAddDto) throws AppBaseException {
         deviceService.createNewDevice(deviceAddDto);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @RequestMapping(method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public void update(@RequestBody DeviceEditDto deviceEditDto) throws ServiceException {
+    public void update(@RequestBody DeviceEditDto deviceEditDto) throws AppBaseException {
             deviceService.updateDevice(deviceEditDto);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public void delete(@PathVariable Long id) throws ServiceException {
+    public void delete(@PathVariable Long id) throws AppBaseException {
         deviceService.deleteDeviceById(id);
     }
 }

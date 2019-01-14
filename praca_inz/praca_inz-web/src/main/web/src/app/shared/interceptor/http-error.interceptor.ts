@@ -52,7 +52,9 @@ export class HttpErrorInterceptor implements HttpInterceptor {
                             this.translate.get("bad.request.error").subscribe( x => {
                                 this.messageService.error(x);
                             });
-                        } else if(error.status!=this.okCode) {
+                        } else if(error.status!=this.okCode){
+
+                        } else {
                             console.error(
                                 `Backend returned code ${error.status}, ` +
                                 `body was: ${error.error}`);

@@ -1,4 +1,4 @@
-package com.stachura.praca_inz.backend.exception;
+package com.stachura.praca_inz.backend.exception.base;
 
 
 import org.springframework.transaction.annotation.Transactional;

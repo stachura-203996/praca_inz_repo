@@ -1,7 +1,9 @@
 package com.stachura.praca_inz.backend.service.impl;
 
 import com.google.common.collect.Lists;
-import com.stachura.praca_inz.backend.exception.service.ServiceException;
+import com.stachura.praca_inz.backend.exception.EntityNotInDatabaseException;
+import com.stachura.praca_inz.backend.exception.ServiceException;
+import com.stachura.praca_inz.backend.exception.base.AppBaseException;
 import com.stachura.praca_inz.backend.model.enums.WarehouseType;
 import com.stachura.praca_inz.backend.model.security.User;
 import com.stachura.praca_inz.backend.model.security.UserRole;
@@ -49,8 +51,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ProfileInfoDto getProfile(String name) throws ServiceException {
-        User user = userRepository.findByUsername(name).orElseThrow(() -> new ServiceException());
+    public ProfileInfoDto getProfile(String name) throws AppBaseException {
+        User user = userRepository.findByUsername(name).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
         Hibernate.initialize(user.getUsername());
         Hibernate.initialize(user.getUserRoles());
         Hibernate.initialize(user.getAuthorities());
@@ -62,22 +64,22 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ProfileEditDto getProfileEdit(String username) throws ServiceException {
-        User user = userRepository.findByUsername(username).orElseThrow(() -> new ServiceException());
+    public ProfileEditDto getProfileEdit(String username) throws AppBaseException {
+        User user = userRepository.findByUsername(username).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
         Hibernate.initialize(user.getUsername());
         Hibernate.initialize(user.getUserRoles());
         Hibernate.initialize(user.getAuthorities());
         Hibernate.initialize(user.getNotifications());
 
         if (user.isEnabled()) {
-            return UserConverter.toProfileEditDto(user, user.getWarehouses().stream().filter(x -> x.getWarehouseType().equals(WarehouseType.USER)).findFirst().orElseThrow(() -> new ServiceException()));
+            return UserConverter.toProfileEditDto(user, user.getWarehouses().stream().filter(x -> x.getWarehouseType().equals(WarehouseType.USER)).findFirst().orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT)));
         }
         return null;
     }
 
     @Override
-    public LoggedUserDto getLoggedUser(String name) throws ServiceException {
-        User user = userRepository.findByUsername(name).orElseThrow(() -> new ServiceException());
+    public LoggedUserDto getLoggedUser(String name) throws AppBaseException {
+        User user = userRepository.findByUsername(name).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
         Hibernate.initialize(user.getUsername());
         Hibernate.initialize(user.getUserRoles());
         Hibernate.initialize(user.getAuthorities());
@@ -87,8 +89,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserInfoDto getUserInfo(String name) throws ServiceException {
-        User user = userRepository.findByUsername(name).orElseThrow(() -> new ServiceException());
+    public UserInfoDto getUserInfo(String name) throws AppBaseException {
+        User user = userRepository.findByUsername(name).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
         Hibernate.initialize(user.getUsername());
         Hibernate.initialize(user.getUserRoles());
         Hibernate.initialize(user.getAuthorities());
@@ -100,21 +102,21 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserEditDto getUserEdit(Long id) throws ServiceException {
-        User user = userRepository.findById(id).orElseThrow(() -> new ServiceException());
+    public UserEditDto getUserEdit(Long id) throws AppBaseException {
+        User user = userRepository.findById(id).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
         Hibernate.initialize(user.getUsername());
         Hibernate.initialize(user.getUserRoles());
         Hibernate.initialize(user.getAuthorities());
         Hibernate.initialize(user.getNotifications());
         if (user.isEnabled()) {
-            return UserConverter.toUserEditDto(user, user.getWarehouses().stream().filter(x -> x.getWarehouseType().equals(WarehouseType.USER)).findFirst().orElseThrow(() -> new ServiceException()));
+            return UserConverter.toUserEditDto(user, user.getWarehouses().stream().filter(x -> x.getWarehouseType().equals(WarehouseType.USER)).findFirst().orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT)));
         }
         return null;
     }
 
     @Override
-    public List<UserListElementDto> getAllUsersForManager(String username) throws ServiceException {
-        Long officeId = userRepository.findByUsername(username).orElseThrow(() -> new ServiceException()).getOffice().getId();
+    public List<UserListElementDto> getAllUsersForManager(String username) throws AppBaseException {
+        Long officeId = userRepository.findByUsername(username).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT)).getOffice().getId();
         List<User> users = Lists.newArrayList(userRepository.findAll()).stream().filter(x -> x.getOffice().getDepartment().getCompany().getId().equals(officeId)).collect(Collectors.toList());
         List<UserListElementDto> usersDto = new ArrayList<>();
         for (User a : users) {
@@ -126,8 +128,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserListElementDto> getAllUsersForCompanyAdmin(String username) throws ServiceException {
-        Long companyId = userRepository.findByUsername(username).orElseThrow(() -> new ServiceException()).getOffice().getDepartment().getCompany().getId();
+    public List<UserListElementDto> getAllUsersForCompanyAdmin(String username) throws AppBaseException {
+        Long companyId = userRepository.findByUsername(username).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT)).getOffice().getDepartment().getCompany().getId();
         List<User> users = Lists.newArrayList(userRepository.findAll()).stream().filter(x -> x.getOffice().getDepartment().getCompany().getId().equals(companyId)).collect(Collectors.toList());
         List<UserListElementDto> usersDto = new ArrayList<>();
         for (User a : users) {
@@ -152,33 +154,33 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserRolesDto getLoggedUserRoles(String name) throws ServiceException {
-        User user = userRepository.findByUsername(name).orElseThrow(() -> new ServiceException());
+    public UserRolesDto getLoggedUserRoles(String name) throws AppBaseException {
+        User user = userRepository.findByUsername(name).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
         return UserConverter.toUserRoles(user);
     }
 
     @Override
-    public UserRolesDto getUserRoles(Long id) throws ServiceException {
-        User user = userRepository.findById(id).orElseThrow(() -> new ServiceException());
+    public UserRolesDto getUserRoles(Long id) throws AppBaseException {
+        User user = userRepository.findById(id).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
         return UserConverter.toUserRoles(user);
     }
 
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('USER_DELETE')")
-    public void deleteUser(Long id) throws ServiceException {
-        userRepository.findById(id).orElseThrow(() -> new ServiceException()).setEnabled(false);
+    public void deleteUser(Long id) throws AppBaseException {
+        userRepository.findById(id).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT)).setEnabled(false);
     }
 
     @Override
-    public PasswordInfoForAdmin getPasswordForAdmin(Long id) throws ServiceException {
-        User user = userRepository.findById(id).orElseThrow(() -> new ServiceException());
+    public PasswordInfoForAdmin getPasswordForAdmin(Long id) throws AppBaseException {
+        User user = userRepository.findById(id).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
         return PasswordInfoForAdmin.builder().userVersion(user.getVersion()).id(id).build();
     }
 
     @Override
-    public void updatePasswordForAdmin(PasswordInfoForAdmin passwordInfoForAdmin) throws ServiceException {
-        User user = userRepository.findById(passwordInfoForAdmin.getId()).orElseThrow(() -> new ServiceException());
+    public void updatePasswordForAdmin(PasswordInfoForAdmin passwordInfoForAdmin) throws AppBaseException {
+        User user = userRepository.findById(passwordInfoForAdmin.getId()).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
         user.setPassword(passwordEncoder.encode(passwordInfoForAdmin.getNewPassword()));
         user.setVersion(passwordInfoForAdmin.getUserVersion());
         userRepository.save(user);
@@ -187,20 +189,20 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public PasswordInfoDto getPassword(String username) throws ServiceException {
-        User user = userRepository.findByUsername(username).orElseThrow(() -> new ServiceException());
+    public PasswordInfoDto getPassword(String username) throws AppBaseException {
+        User user = userRepository.findByUsername(username).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
         return PasswordInfoDto.builder().userVersion(user.getVersion()).build();
     }
 
     @Override
-    public void updatePassword(PasswordInfoDto passwordInfoDto, String username) throws ServiceException {
-        User user = userRepository.findByUsername(username).orElseThrow(() -> new ServiceException());
+    public void updatePassword(PasswordInfoDto passwordInfoDto, String username) throws AppBaseException {
+        User user = userRepository.findByUsername(username).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
 
         if (!(passwordInfoDto.getNewPassword().length() >= 8 && passwordInfoDto.getOldPassword().length() >= 8)) {
-            throw ServiceException.createServiceException(ServiceException.INCORRECT_LENGTH_PASSWORD);
+            throw new ServiceException(ServiceException.INCORRECT_LENGTH_PASSWORD);
         }
         if (!passwordEncoder.matches(passwordInfoDto.getOldPassword(), user.getPassword())) {
-            throw ServiceException.createServiceException(ServiceException.INCORRECT_PASSWORD);
+            throw new ServiceException(ServiceException.INCORRECT_PASSWORD);
         }
         if (!passwordEncoder.matches(passwordInfoDto.getNewPassword(), user.getPassword())) {
             user.setPassword(passwordEncoder.encode(passwordInfoDto.getNewPassword()));
@@ -208,14 +210,14 @@ public class UserServiceImpl implements UserService {
             userRepository.save(user);
 
         } else {
-            throw ServiceException.createServiceException(ServiceException.SAME_PASSWORD);
+            throw new ServiceException(ServiceException.SAME_PASSWORD);
         }
 
     }
 
     @Override
-    public void resetPassword(String username) throws ServiceException {
-        User user=userRepository.findByUsername(username).orElseThrow(()->new ServiceException());
+    public void resetPassword(String username) throws AppBaseException {
+        User user=userRepository.findByUsername(username).orElseThrow(()->new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
         PasswordGenerator passwordGenerator = new PasswordGenerator.PasswordGeneratorBuilder()
                 .useDigits(true)
                 .useLower(true)

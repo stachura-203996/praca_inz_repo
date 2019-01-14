@@ -2,11 +2,9 @@ package com.stachura.praca_inz.backend.service.impl;
 
 import com.google.common.collect.Lists;
 import com.stachura.praca_inz.backend.Constants;
-import com.stachura.praca_inz.backend.exception.repository.DatabaseErrorException;
-import com.stachura.praca_inz.backend.exception.repository.EntityException;
-import com.stachura.praca_inz.backend.exception.service.ServiceException;
+import com.stachura.praca_inz.backend.exception.EntityNotInDatabaseException;
+import com.stachura.praca_inz.backend.exception.base.AppBaseException;
 import com.stachura.praca_inz.backend.model.Department;
-import com.stachura.praca_inz.backend.model.DeviceModel;
 import com.stachura.praca_inz.backend.model.Office;
 import com.stachura.praca_inz.backend.model.security.User;
 import com.stachura.praca_inz.backend.repository.DepartmentRepository;
@@ -42,8 +40,8 @@ public class OfficeServiceImpl implements OfficeService {
     @Override
     @Transactional(readOnly = true)
     @PreAuthorize("hasAuthority('OFFICE_READ')")
-    public Office getOfficeById(Long id) throws ServiceException {
-        Office office = officeRepository.findById(id).orElseThrow(() -> new ServiceException());
+    public Office getOfficeById(Long id) throws AppBaseException {
+        Office office = officeRepository.findById(id).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
         if (office.isDeleted()) {
             return null;
         }
@@ -81,9 +79,9 @@ public class OfficeServiceImpl implements OfficeService {
     @Override
     @Transactional(readOnly = true)
     @PreAuthorize("hasAuthority('OFFICE_LIST_READ')")
-    public List<CompanyStructuresListElementDto> getAll(String username) throws ServiceException {
+    public List<CompanyStructuresListElementDto> getAll(String username) throws AppBaseException {
         List<Office> offices;
-        User user=userRepository.findByUsername(username).orElseThrow(()->new ServiceException());
+        User user=userRepository.findByUsername(username).orElseThrow(()->new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
         if(user.getUserRoles().stream().anyMatch(x->x.getName().equals(Constants.ADMIN_ROLE))) {
             offices = Lists.newArrayList(officeRepository.findAll());
         } else{
@@ -103,8 +101,8 @@ public class OfficeServiceImpl implements OfficeService {
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('OFFICE_CREATE')")
-    public void create(CompanyStructureAddDto companyStructureAddDto)throws ServiceException {
-        Department department=departmentRepository.findById(companyStructureAddDto.getDepartmentId()).orElseThrow(() -> new ServiceException());
+    public void create(CompanyStructureAddDto companyStructureAddDto)throws AppBaseException {
+        Department department=departmentRepository.findById(companyStructureAddDto.getDepartmentId()).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
         officeRepository.save(CompanyStructureConverter.toOffice(companyStructureAddDto,department));
 
     }
@@ -112,16 +110,16 @@ public class OfficeServiceImpl implements OfficeService {
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('OFFICE_UPDATE')")
-    public void update(CompanyStructureEditDto companyStructureEditDto) throws ServiceException {
-        Office beforeOffice=officeRepository.findById(companyStructureEditDto.getId()).orElseThrow(() -> new ServiceException());
-        Department department=departmentRepository.findById(companyStructureEditDto.getParentId()).orElseThrow(() -> new ServiceException());
+    public void update(CompanyStructureEditDto companyStructureEditDto) throws AppBaseException {
+        Office beforeOffice=officeRepository.findById(companyStructureEditDto.getId()).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
+        Department department=departmentRepository.findById(companyStructureEditDto.getParentId()).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
         officeRepository.save(CompanyStructureConverter.toOffice(companyStructureEditDto,beforeOffice,department));
     }
 
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('OFFICE_DELETE')")
-    public void delete(Long id) throws ServiceException {
-        officeRepository.findById(id).orElseThrow(() -> new ServiceException()).setDeleted(true);
+    public void delete(Long id) throws AppBaseException {
+        officeRepository.findById(id).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT)).setDeleted(true);
     }
 }
