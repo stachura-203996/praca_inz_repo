@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-lg-12 ">
-        <form class="form-horizontal">
+        <form class="form-horizontal"  #reportForm="ngForm" (ngSubmit)="reportAdd()">
             <fieldset>
                 <h1>{{'SendReport'|translate}}</h1>
                 <div class="form-group">
@@ -14,7 +14,7 @@
                             </div>
                             <div *ngIf="title.invalid && (title.touched || title.dirty)"
                                  class="alert alert-danger col-sm-12">
-                                <div *ngIf="title.hasError('required')" i18n="@@quantityReq">
+                                <div *ngIf="title.hasError('required')">
                                     {{'Title is required!'|translate}}
                                 </div>
                             </div>
@@ -24,18 +24,31 @@
                     <!--Option-->
                     <div class="form-group col-xl-5">
                         <label for="userSelect">{{'User'|translate}}<span style="color:red">*</span></label>
-                        <select class="form-control" id="userSelect" [(ngModel)]="selectedOption" name="userSelect">
+                        <select class="form-control" id="userSelect" [(ngModel)]="selectedOption" name="userSelect" #user="ngModel" required>
                             <option *ngFor="let receiver of recivers|keyvalue" [value]="receiver.key">{{receiver.key}}</option>
                         </select>
+                    </div>
+                    <div *ngIf="user.invalid && (user.touched || user.dirty)"
+                         class="alert alert-danger col-sm-12">
+                        <div *ngIf="user.hasError('required')">
+                            {{'User is required!'|translate}}
+                        </div>
                     </div>
 
                     <!-- Textarea -->
                     <div class="form-group">
-                        <label class="col-xl-5 control-label" for="Overview">{{'Overview'|translate}}</label>
+                        <label class="col-xl-5 control-label" for="Overview">{{'Overview'|translate}}<span style="color:red">*</span></label>
                         <div class="col-xl-5">
                     <textarea class="form-control" [(ngModel)]="reportAddElement.description" rows="10"
                               id="Overview"
+                              #overview="ngModel" required
                               name="{{'Overview (max 200 words)'|translate}}">{{'Overview'|translate}}</textarea>
+                        </div>
+                    </div>
+                    <div *ngIf="overview.invalid && (overview.touched || overview.dirty)"
+                         class="alert alert-danger col-sm-12">
+                        <div *ngIf="overview.hasError('required')">
+                            {{'Overview is required!'|translate}}
                         </div>
                     </div>
 
@@ -44,8 +57,7 @@
                         <div class="col-sm-4">
                             <div class="row">
                                 <div class="col-xl-6" align="center">
-                                    <a class="btn btn-success" (click)="reportAdd()"><span
-                                        class="glyphicon glyphicon-thumbs-up"></span>{{'Send'|translate}}</a>
+                                    <button type="submit" class="btn btn-success" [disabled]="!reportForm.form.valid"><span class="glyphicon glyphicon-thumbs-up" ></span>{{'Submit'|translate}}</button>
                                 </div>
                                 <div class="col-xl-6" align="center">
                                     <a class="btn btn-danger" (click)="clear()"><span

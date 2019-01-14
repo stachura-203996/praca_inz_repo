@@ -1,6 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {UserRoles} from "../../../../../../models/user-roles";
-import {LoggedUser} from "../../../../../../models/logged-user";
+import {Component, OnInit} from '@angular/core';
 import {UserService} from "../../../administration/user-management/user.service";
 import {WarehouseAddElement, WarehouseEditElement} from "../../../../../../models/warehouse-elements";
 import {OfficeService} from "../../office/office.service";
@@ -35,7 +33,7 @@ export class WarehouseEditComponent implements OnInit {
     ngOnInit() {
         this.getWarehouse();
         this.getOffices();
-
+        this.getWarehousesmen();
 
     }
 

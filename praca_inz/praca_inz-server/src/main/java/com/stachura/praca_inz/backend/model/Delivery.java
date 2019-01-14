@@ -38,10 +38,10 @@ public class Delivery implements Serializable {
     @Column(name = "TITLE", nullable = false)
     private String title;
 
-    @Column(name = "CONFIRMED")
+    @Column(name = "CONFIRMED", nullable = false)
     private boolean confirmed;
 
-    @Column(name = "SERIAL_NUMBER")
+    @Column(name = "SERIAL_NUMBER", nullable = false)
     private String serialNumber;
 
     @ManyToOne(fetch = FetchType.LAZY)

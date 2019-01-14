@@ -10,8 +10,13 @@ import {NgbDropdownModule} from "@ng-bootstrap/ng-bootstrap";
 import {ForgetPasswordComponent} from "./forget-password/forget-password.component";
 
 @NgModule({
-    imports: [CommonModule, LoginRoutingModule,FormsModule, TranslateModule,
-        NgbDropdownModule],
+    imports: [
+        CommonModule,
+        LoginRoutingModule,
+        FormsModule,
+        TranslateModule,
+        NgbDropdownModule
+    ],
     declarations: [LoginComponent,ForgetPasswordComponent]
 })
 export class LoginModule {}

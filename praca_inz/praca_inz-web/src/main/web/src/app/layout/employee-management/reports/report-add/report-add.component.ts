@@ -1,9 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 
-import {DeviceModelListElement} from "../../../../models/device-elements";
 import {ActivatedRoute, Router} from "@angular/router";
-import {DeviceService} from "../../../device-management/device.service";
-import {RequestService} from "../../request.service";
 import {TranslateService} from "@ngx-translate/core";
 import {ReportAddElement} from "../../../../models/report-elements";
 import {ReportService} from "../../report.service";

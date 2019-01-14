@@ -24,6 +24,7 @@ export class UserAddComponent implements OnInit {
     manager=false;
     selectedRoles:string[]=[];
     selectedOption: string;
+    selectedlanguage:string;
 
     constructor(
         private userService: UserService,

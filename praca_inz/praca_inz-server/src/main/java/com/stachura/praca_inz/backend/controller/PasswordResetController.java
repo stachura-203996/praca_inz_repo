@@ -14,7 +14,7 @@ public class PasswordResetController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "/{username}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/{username}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public void update(@PathVariable String username) throws ServiceException {
         userService.resetPassword(username);

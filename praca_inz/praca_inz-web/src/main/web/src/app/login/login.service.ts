@@ -2,7 +2,6 @@ import {Injectable} from '@angular/core';
 import {CookieService} from "ngx-cookie-service";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Router} from "@angular/router";
-import {SessionContextService} from "../shared/services/session-context.service";
 import {LoggedUser} from "../models/logged-user";
 import {UserService} from "../layout/admin/components/administration/user-management/user.service";
 import {Observable} from "rxjs";
@@ -17,7 +16,7 @@ import {TranslateService} from "@ngx-translate/core";
 export class LoginService {
 
     isActive: boolean;
-    user:LoggedUser;
+    user: LoggedUser;
     private userPath = this.configuration.ServerWithApiUrl + '/users';
 
     constructor(
@@ -25,8 +24,8 @@ export class LoginService {
         private configuration: Configuration,
         private http: HttpClient,
         private cookieService: CookieService,
-        private messageService:MessageService,
-        private translate:TranslateService,
+        private messageService: MessageService,
+        private translate: TranslateService,
         private httpService: HttpService) {
     }
 
@@ -45,8 +44,9 @@ export class LoginService {
         this.http.post('http://localhost:8081/oauth/token', params.toString(), {headers: headers})
             .subscribe(
                 data => this.saveToken(data),
-                err => this.translate.get('BadLogin') .subscribe(x=>{
+                err => this.translate.get('BadLogin').subscribe(x => {
                     this.messageService.error(x);
+                    console.log(x);
                 })
             );
 
@@ -54,7 +54,7 @@ export class LoginService {
 
     saveToken(token) {
         var expire = new Date();
-        var time = Date.now()+(1000*token.expires_in);
+        var time = Date.now() + (1000 * token.expires_in);
         expire.setTime(time);
         this.cookieService.set('access_token', token.access_token, expire);
         console.log('Obtained Access token');
@@ -70,11 +70,16 @@ export class LoginService {
 
     }
 
-    resetPassword(username:string){
-        let headers = new HttpHeaders();
-        let params = new URLSearchParams();
-
-        this.http.put('http://localhost:8081/reset/'+username,{})
+    resetPassword(username: string) {
+        this.http.get<any>('http://localhost:8081/reset/' + username).subscribe(rep => {
+            this.translate.get('PssswordResetSuccess').subscribe(x => {
+                this.messageService.success(x);
+            }), error => {
+                this.translate.get('PssswordResetError').subscribe(x => {
+                    this.messageService.error(x);
+                })
+            }
+        });
     }
 
     saveLoggedUser(): Observable<LoggedUser> {
@@ -82,7 +87,7 @@ export class LoginService {
     }
 
     logout() {
-        this.user=null;
+        this.user = null;
         localStorage.clear();
         this.cookieService.deleteAll('/ui')
         this.cookieService.delete('JSESSIONID');

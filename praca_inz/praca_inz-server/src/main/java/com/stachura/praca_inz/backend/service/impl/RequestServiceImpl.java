@@ -124,8 +124,8 @@ public class RequestServiceImpl implements RequestService {
     @PreAuthorize("hasAuthority('REQUEST_LIST_READ')")
     public List<RequestListElementDto> getAllRequestFromeOtherUsers(String username) throws ServiceException {
         User user = userRepository.findByUsername(username).orElseThrow(() -> new ServiceException());
-        List<Request> requests = Lists.newArrayList(requestRepository.findAll()).stream().filter(x -> !x.getUser().getUsername().equals(username) && x.getStatus().name().equals(Status.IN_WAREHOUSE.name())
-                && x.getSenderWarehouse().getUser().getId().equals(user.getId()) || x.getRecieverWarehouse().getUser().getId().equals(user.getId())).collect(Collectors.toList());
+        List<Request> requests = Lists.newArrayList(requestRepository.findAll()).stream().filter(x ->x.getStatus().equals(Status.IN_WAREHOUSE)
+                && x.getUser().getOffice().getId().equals(user.getOffice().getId())).collect(Collectors.toList());
         List<RequestListElementDto> requestListElementDtos = new ArrayList<>();
         for (Request a : requests) {
             if (!a.isDeleted()) {

@@ -19,6 +19,7 @@ export class ForgetPasswordComponent implements OnInit {
 
     reset() {
         this.loginService.resetPassword(this.loginData)
-        this.router.navigateByUrl('/login')
+
+        // this.router.navigateByUrl('/login')
     }
 }

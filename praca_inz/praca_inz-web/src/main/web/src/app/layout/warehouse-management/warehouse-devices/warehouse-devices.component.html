@@ -36,12 +36,7 @@
                             [routerLink]="['./view/'+device.id]"
                             class="btn btn-info btn-sm">
                         <i class="fa fa-eye"></i>&nbsp;
-                        <span class="d-none d-md-inline">View</span>
-                    </button>
-                    <button type="button" (click)="transfer(device)"
-                            class="btn btn-warning btn-sm">
-                        <i class="fa fa-exchange"></i>&nbsp;
-                        <span class="d-none d-md-inline">Transfer</span>
+                        <span class="d-none d-md-inline">{{'View'|translate}}</span>
                     </button>
                 </div>
             </td>

@@ -9,8 +9,6 @@ import { WarehouseRequestListComponent } from './warehouse-request-list/warehous
 import { DeliveryListComponent } from './delivery-list/delivery-list.component';
 import { WarehouseDevicesComponent } from './warehouse-devices/warehouse-devices.component';
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
-import { DeviceModelListComponent } from './device-model-list/device-model-list.component';
-import { SummaryComponent } from './summary/summary.component';
 
 
 @NgModule({
@@ -27,8 +25,6 @@ import { SummaryComponent } from './summary/summary.component';
         WarehouseRequestListComponent,
         DeliveryListComponent,
         WarehouseDevicesComponent,
-        DeviceModelListComponent,
-        SummaryComponent
     ]
 })
 export class WarehouseManagementModule {

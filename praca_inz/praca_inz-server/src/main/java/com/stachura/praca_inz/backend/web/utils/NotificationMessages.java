@@ -19,13 +19,6 @@ public class NotificationMessages {
             case TRANSFER_REQUEST:
                 url = "/page/devices/transfer/request/view/" + request.getId();
                 break;
-            case DELIVERY_REQUEST:
-                url = "/page/warehouses/delivery/request/view/" + request.getId();
-                break;
-
-            case SHIPMENT_REQUEST:
-                url = "/page/warehouses/shipment/request/view/" + request.getId();
-                break;
         }
         return url;
     }

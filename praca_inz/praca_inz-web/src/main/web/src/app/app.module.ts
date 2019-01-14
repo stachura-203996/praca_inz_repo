@@ -15,7 +15,7 @@ import {HttpService} from "./shared/services/http.service";
 import {Configuration} from "./app.constants";
 import {ProfileService} from "./layout/profile/profile.service";
 import {MessageService} from "./shared/services/message.service";
-import {ToastContainerModule, ToastrModule} from "ngx-toastr";
+
 import {SessionContextService} from "./shared/services/session-context.service";
 import {UserService} from "./layout/admin/components/administration/user-management/user.service";
 import {DeviceService} from "./layout/device-management/device.service";
@@ -29,6 +29,8 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {HttpErrorInterceptor} from "./shared/interceptor/http-error.interceptor";
 import {FullRouteGuard} from "./shared/guard/full-route-guard.service";
 import {GeneralRouteGuard} from "./shared/guard/general-route-guard.service";
+import {ToastrModule} from "ng6-toastr-notifications";
+
 
 
 export const createTranslateLoader = (http: HttpClient) => {
@@ -52,12 +54,7 @@ export const createTranslateLoader = (http: HttpClient) => {
             }
         }),
         AppRoutingModule,
-        ToastrModule.forRoot({
-            positionClass: 'toast-top-center',
-            maxOpened: 2,
-            autoDismiss: true
-        }),
-        ToastContainerModule,
+        ToastrModule.forRoot(),
         BsDropdownModule.forRoot(),
     ],
     declarations: [

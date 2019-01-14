@@ -17,7 +17,8 @@ import {FormControl} from "@angular/forms";
 })
 export class DeviceRequestViewWarehouseComponent implements OnInit {
 
-
+    toppings = new FormControl();
+    toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato'];
     form = new FormControl();
     request: RequestViewElement;
     changeRequestStatusElement:ChangeRequestStatusElement=new ChangeRequestStatusElement();

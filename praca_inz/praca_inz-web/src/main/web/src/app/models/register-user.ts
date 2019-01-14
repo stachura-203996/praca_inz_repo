@@ -14,4 +14,5 @@ export class RegisterUser {
     workplace: string;
     officeId:number;
     roles:string[];
+    language:string;
 }

@@ -73,6 +73,7 @@ private WarehouseRepository warehouseRepository;
         address.setStreet(userEditDto.getStreet());
         address.setCity(userEditDto.getCity());
         userdata.setAddress(address);
+        userdata.setLanguage(userEditDto.getLanguage());
         userdata.setVersion(userEditDto.getVersionUserdata());
 
         Warehouse warehouse = user.getWarehouses().stream().filter(x->x.getWarehouseType().equals(WarehouseType.USER)).findFirst().orElseThrow(()->new ServiceException());
@@ -111,6 +112,7 @@ private WarehouseRepository warehouseRepository;
         address.setStreet(profileEditDto.getStreet());
         address.setCity(profileEditDto.getCity());
         userdata.setAddress(address);
+        userdata.setLanguage(profileEditDto.getLanguage());
         userdata.setVersion(profileEditDto.getVersionUserdata());
 
         Warehouse warehouse = user.getWarehouses().stream().filter(x->x.getWarehouseType().equals(WarehouseType.USER)).findFirst().orElseThrow(()->new ServiceException());

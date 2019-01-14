@@ -3,15 +3,14 @@ import {ToastrService} from 'ngx-toastr';
 import {BsModalService} from 'ngx-bootstrap';
 import {Observable} from "rxjs";
 import {ConfirmDialogComponent} from "../../confirm-dialog/confirm-dialog.component";
-import {TranslateService} from "@ngx-translate/core";
+import {ToastrManager} from "ng6-toastr-notifications";
 
 @Injectable({
     providedIn: 'root'
 })
 export class MessageService {
 
-  constructor(private toastrService: ToastrService,
-              private translate:TranslateService,
+  constructor(public toastr: ToastrManager,
               private modalService: BsModalService) {
   }
 
@@ -29,18 +28,19 @@ export class MessageService {
   }
 
   success(message: string, title?: string) {
-    this.toastrService.success(message, title);
+    this.toastr.successToastr(message, title);
   }
 
   info(message: string, title?: string) {
-    this.toastrService.info(message, title);
+    this.toastr.infoToastr(message, title)
   }
 
   warning(message: string, title?: string) {
-    this.toastrService.warning(message, title);
+      this.toastr.warningToastr(message, title);
   }
 
   error(message: string, title?: string) {
-    this.toastrService.error(message, title);
+      this.toastr.errorToastr(message, title);
+
   }
 }

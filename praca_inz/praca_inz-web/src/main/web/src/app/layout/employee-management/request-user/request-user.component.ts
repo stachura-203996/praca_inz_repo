@@ -85,16 +85,8 @@ export class RequestUserComponent implements OnInit {
                 this.router.navigateByUrl('/page/devices/request/view/' + request.id);
                 break;
             }
-            case this.configuration.DELIVERY_REQUEST: {
-                this.router.navigateByUrl('/page/warehouses/delivery/request/view/' + request.id);
-                break;
-            }
             case this.configuration.TRANSFER_REQUEST: {
                 this.router.navigateByUrl('/devices/transfer/request/view/' + request.id);
-                break;
-            }
-            case this.configuration.SHIPMENT_REQUEST: {
-                this.router.navigateByUrl('/page/warehouses/shipment/request/view/' + request.id);
                 break;
             }
         }
@@ -106,16 +98,8 @@ export class RequestUserComponent implements OnInit {
                 this.router.navigateByUrl('/page/devices/request/edit/' + request.id);
                 break;
             }
-            case this.configuration.DELIVERY_REQUEST: {
-                this.router.navigateByUrl('/page/warehouses/delivery/request/edit/' + request.id);
-                break;
-            }
             case this.configuration.TRANSFER_REQUEST: {
                 this.router.navigateByUrl('/page/devices/transfer/request/edit/' + request.id);
-                break;
-            }
-            case this.configuration.SHIPMENT_REQUEST: {
-                this.router.navigateByUrl('/page/warehouses/shipment/request/edit/' + request.id);
                 break;
             }
         }

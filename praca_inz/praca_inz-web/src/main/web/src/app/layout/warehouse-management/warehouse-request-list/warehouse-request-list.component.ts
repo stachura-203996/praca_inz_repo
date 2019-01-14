@@ -27,17 +27,10 @@ export class WarehouseRequestListComponent implements OnInit {
     }
 
     ngOnInit() {
-        // this.filterUsers(null);
         this.getRequests();
     }
 
     getRequests() {
-        this.requestService.getAllRequestsForWarehouseman().subscribe(requests => {
-            this.warehousesRequests = requests
-        });
-        this.requestService.getAllRequestsFromOtherWarehouses().subscribe(requests => {
-            this.otherWarehousesRequests = requests
-        });
         this.requestService.getAllRequestsFromOtherUsers().subscribe(requests => {
             this.employeesRequests = requests
         });
@@ -55,21 +48,7 @@ export class WarehouseRequestListComponent implements OnInit {
 
 
     viewPage(request: RequestListElement) {
-        switch (request.type) {
-            case this.configuration.DEVICE_REQUEST: {
-                this.router.navigateByUrl('/page/devices/request/warehouse/view/' + request.id);
-                break;
-            }
-            case this.configuration.DELIVERY_REQUEST: {
-                this.router.navigateByUrl('/page/warehouses/delivery/request/view/' + request.id);
-                break;
-            }
-
-            case this.configuration.SHIPMENT_REQUEST: {
-                this.router.navigateByUrl('/page/warehouses/shipment/request/view/' + request.id);
-                break;
-            }
-        }
+        this.router.navigateByUrl('/page/devices/request/warehouse/view/' + request.id);
     }
 
 }
