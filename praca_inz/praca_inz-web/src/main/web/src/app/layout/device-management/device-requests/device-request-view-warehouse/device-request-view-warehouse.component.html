@@ -16,13 +16,13 @@
         <div class="bot-border"></div>
         <div class="row">
             <div class="col-sm-5 col-xs-6 tital ">{{'Status'|translate}}</div>
-            <div class="col-sm-7 col-xs-6 ">{{request.status}}</div>
+            <div class="col-sm-7 col-xs-6 ">{{translateAll(request.status)}}</div>
         </div>
         <div class="clearfix"></div>
         <div class="bot-border"></div>
         <div class="row">
             <div class="col-sm-5 col-xs-6 tital ">{{'Type'|translate}}</div>
-            <div class="col-sm-7 col-xs-6 ">{{request.type}}</div>
+            <div class="col-sm-7 col-xs-6 ">{{translateAll(request.type)}}</div>
         </div>
         <div class="clearfix"></div>
         <div class="bot-border"></div>
@@ -49,17 +49,69 @@
         </div>
         <div class="clearfix"></div>
         <div class="bot-border"></div>
-        <div class="row">
-            <div class="col-sm-5 col-xs-6 tital ">{{'Devices'|translate}}</div>
-            <div class="col-sm-7 col-xs-6 ">
-                <mat-form-field>
-                    <mat-select placeholder="Toppings" [formControl]="toppings" multiple>
-                        <mat-option *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>
-                    </mat-select>
-                </mat-form-field>
+    </div>
+    <br>
+        <div class="col-lg-10">
+            <div class="box">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <h4>{{'Devices'|translate}}</h4>
+                            </div>
+                            <div class="col-xl-9">
+                                <form #ParameterForm="ngForm" (ngSubmit)="add()">
+                                    <div class="row">
+                                        <div class="col-xl-7" *ngIf="roles.warehouseman">
+                                            <select class="form-control" id="device" [(ngModel)]="selectedOption" name="device" required #device>
+                                                <option  *ngFor="let device of devices|keyvalue" [value]="device.key">{{device.key}}</option>
+                                            </select>
+                                            <div *ngIf="device.invalid && (device.touched || device.dirty)"
+                                                 class="alert alert-danger col-sm-12">
+                                                <div *ngIf="device.hasError('required')">{{'Device is required!'|translate}}</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-5">
+                                            <button class="btn btn-primary float-right jh-create-entity" type="submit"
+                                                    [disabled]="!ParameterForm.form.valid || selectedOptions.length==request.amount">
+                                                <i class="fa fa-plus"></i>&nbsp;
+                                                <span>{{ 'Add device' | translate }}</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-striped" align="center" *ngIf="selectedOptions">
+                            <thead class="thead-inverse">
+                            <tr>
+                                <th>{{ 'Device' | translate }}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let select of selectedOptions">
+                                <td>{{select.option}}</td>
+                                <td class="text-right">
+                                    <div class="btn-group flex-btn-group-container">
+                                        <button type="button" (click)="delete(select.option)"
+                                                class="btn btn-danger btn-sm">
+                                            <i class="fa fa-times"></i>&nbsp;
+                                            <span class="d-none d-md-inline">{{'Delete'|translate}}</span>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
+
         <br>
+        <div class="col-xl-7">
         <div class="row">
             <div class="col-sm-4" align="center">
                 <button *ngIf="roles.warehouseman && request.status=='IN_WAREHOUSE'" (click)="reject()"
@@ -68,11 +120,12 @@
                 </button>
             </div>
             <div class="col-sm-4" align="center">
-                <button *ngIf="roles.warehouseman && request.status=='IN_WAREHOUSE'" (click)="submit()"
+                <button *ngIf="roles.warehouseman && request.status=='IN_WAREHOUSE'" [disabled]="selectedOptions.length==request.amount" (click)="submit()"
                         class="btn btn-succes">
                     {{'Accept'|translate}}
                 </button>
             </div>
         </div>
+        </div>
     </div>
-</div>
+

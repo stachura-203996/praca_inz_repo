@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {DeviceUserComponent} from "./device-user/device-user.component";
 import {DeviceViewComponent} from "./device-view/device-view.component";
-import {TransferViewComponent} from "./transfer-view/transfer-view.component";
 import {TransferUserComponent} from "./transfer-user/transfer-user.component";
 import {DeviceRequestAddComponent} from "./device-requests/device-request-add/device-request-add.component";
 import {DeviceRequestViewComponent} from "./device-requests/device-request-view/device-request-view.component";
@@ -18,7 +17,6 @@ const routes: Routes = [
     {path:'transfer', component: TransferUserComponent},
     {path:'transfer/request/add/:id', component: TransferRequestAddComponent},
     {path:'transfer/request/view/:id', component: TransferRequestViewComponent},
-    {path:'transfer/view/:id', component: TransferViewComponent},
     {path: 'request/add', component: DeviceRequestAddComponent},
     {path: 'request/view/:id', component: DeviceRequestViewComponent},
     {path: 'request/warehouse/view/:id', component: DeviceRequestViewWarehouseComponent},

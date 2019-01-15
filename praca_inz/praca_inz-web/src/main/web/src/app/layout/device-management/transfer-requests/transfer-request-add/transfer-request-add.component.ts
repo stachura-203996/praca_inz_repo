@@ -6,6 +6,8 @@ import {RequestService} from "../../../employee-management/request.service";
 import {WarehouseListElement} from "../../../../models/warehouse-elements";
 import {WarehouseService} from "../../../warehouse-management/warehouse.service";
 import {StructureListElement} from "../../../../models/structure-elements";
+import {MessageService} from "../../../../shared/services/message.service";
+import {Configuration} from "../../../../app.constants";
 
 @Component({
   selector: 'app-transfer-request-add',
@@ -21,7 +23,14 @@ export class TransferRequestAddComponent implements OnInit {
 
     warehouses = new Map<string, number>();
 
-    constructor(private route: ActivatedRoute,private warehouseService:WarehouseService,private requestService:RequestService,private translate:TranslateService,private router:Router) {
+    constructor(
+        private route: ActivatedRoute,
+        private warehouseService:WarehouseService,
+        private requestService:RequestService,
+        private translate:TranslateService,
+        private messageService: MessageService,
+        private configuration: Configuration,
+        private router:Router) {
 
     }
 
@@ -30,7 +39,8 @@ export class TransferRequestAddComponent implements OnInit {
     }
 
     getWarehouses(){
-        this.warehouseService.getAllForTransferRequest().subscribe((response: WarehouseListElement[]) => {
+        var id= this.route.snapshot.paramMap.get('id');
+        this.warehouseService.getAllForTransferRequest(Number(id)).subscribe((response: WarehouseListElement[]) => {
             this.warehouses = response.reduce(function (companyMap, company) {
                 if (company.id) {
                     companyMap.set(company.name, company.id)
@@ -41,11 +51,41 @@ export class TransferRequestAddComponent implements OnInit {
     }
 
     transferRequestAdd(){
-        this.transferRequestAddElement.recieverWarehouseId = this.warehouses.get(this.selectedOption);
-        this.transferRequestAddElement.deviceId = this.route.snapshot.paramMap.get('id');
-        this.requestService.createTransferRequest(this.transferRequestAddElement).subscribe(resp => {
-            this.router.navigateByUrl('/employees/requests');
-        });
+        var entity: string;
+        var message: string;
+        var yes: string;
+        var no: string;
+
+        this.translate.get('transfer.request.add').subscribe(x => entity = x);
+        this.translate.get('confirm.add').subscribe(x => message = x);
+        this.translate.get('yes').subscribe(x => yes = x);
+        this.translate.get('no').subscribe(x => no = x);
+
+
+        this.messageService
+            .confirm(entity, message, yes, no)
+            .subscribe(confirmed => {
+                if (confirmed) {
+                    this.transferRequestAddElement.recieverWarehouseId = this.warehouses.get(this.selectedOption);
+                    this.transferRequestAddElement.deviceId = this.route.snapshot.paramMap.get('id');
+                    this.requestService.createTransferRequest(this.transferRequestAddElement).subscribe(resp => {
+                        this.router.navigateByUrl('/employees/requests');
+                        this.translate.get('success.device.transfer.add').subscribe(x => {
+                            this.messageService.success(x)
+                        })
+                    }, error => {
+                        if (error === this.configuration.ERROR_NO_OBJECT_IN_DATABASE) {
+                            this.translate.get('no.object.in.database.error').subscribe(x => {
+                                this.messageService.error(x);
+                            })
+                        } else {
+                            this.translate.get('unknown.error').subscribe(x => {
+                                this.messageService.error(x);
+                            })
+                        }
+                    });
+                }
+            });
     }
 
     clear() {

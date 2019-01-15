@@ -163,7 +163,7 @@ public class RequestController {
 
     @RequestMapping(value = "/devices/{id}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public void changeStatus(@RequestBody List<Long> devices,@PathVariable Long id) {
+    public void addDevicesToRequest(@RequestBody List<Long> devices,@PathVariable Long id) {
         try {
             requestService.addDevicesToRequest(devices,id);
         } catch (AppBaseException e) {

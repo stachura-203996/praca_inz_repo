@@ -7,6 +7,7 @@ import {MessageService} from "../../../shared/services/message.service";
 import {StructureListElement} from "../../../models/structure-elements";
 import {ProfileService} from "../profile.service";
 import {ProfileEdit} from "../../../models/profile-edit";
+import {Configuration} from "../../../app.constants";
 
 @Component({
   selector: 'app-profile-edit',
@@ -28,6 +29,7 @@ export class ProfileEditComponent implements OnInit {
         private officeService: OfficeService,
         private translate: TranslateService,
         private messageService:MessageService,
+        private configuration: Configuration,
         private router: Router) {}
 
     ngOnInit() {
@@ -55,10 +57,48 @@ export class ProfileEditComponent implements OnInit {
 
 
     profileUpdate() {
-        this.userEditElement.officeId = this.offices.get(this.userEditElement.officeName);
-        this.profileService.updateAccountByUser(this.userEditElement)
-            .subscribe(resp => {
-                this.router.navigateByUrl('/profile');
+        var entity: string;
+        var message: string;
+        var yes: string;
+        var no: string;
+
+        this.translate.get('profile.edit').subscribe(x => entity = x);
+        this.translate.get('confirm.edit').subscribe(x => message = x);
+        this.translate.get('yes').subscribe(x => yes = x);
+        this.translate.get('no').subscribe(x => no = x);
+
+        this.messageService
+            .confirm(entity, message, yes, no)
+            .subscribe(confirmed => {
+                if (confirmed) {
+                    this.userEditElement.officeId = this.offices.get(this.userEditElement.officeName);
+                    this.profileService.updateAccountByUser(this.userEditElement)
+                        .subscribe(resp => {
+                            this.router.navigateByUrl('/profile');
+                            this.translate.get('success.profile.edit').subscribe(x=>{
+                                this.messageService.success(x)
+                            })
+                        }, error => {
+                            if (error === this.configuration.OPTIMISTIC_LOCK) {
+                                this.translate.get('optimistic.lock').subscribe(x => {
+                                    this.messageService.error(x);
+                                })
+                            } else  if (error === this.configuration.ERROR_USERNAME_TAKEN) {
+                                this.translate.get('username.taken.error').subscribe(x => {
+                                    this.messageService.error(x);
+                                })
+                            } else if (error === this.configuration.ERROR_EMAIL_TAKEN) {
+                                this.translate.get('email.taken.error').subscribe(x => {
+                                    this.messageService.error(x);
+                                })
+                            } else {
+                                this.translate.get('unknown.error').subscribe(x => {
+                                    this.messageService.error(x);
+                                })
+                            }
+
+                        });
+                }
             });
     }
 

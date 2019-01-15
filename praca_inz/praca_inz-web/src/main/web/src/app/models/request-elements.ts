@@ -58,7 +58,7 @@ export class RequestViewElement {
     createDate:string;
     description:string;
     version:string;
-    amount:string;
+    amount:number;
 }
 
 

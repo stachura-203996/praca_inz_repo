@@ -8,6 +8,8 @@ import {UserRoles} from "../../../../models/user-roles";
 import {LoggedUser} from "../../../../models/logged-user";
 import {DeviceListElement} from "../../../../models/device-elements";
 import {DeviceService} from "../../device.service";
+import {TranslateService} from "@ngx-translate/core";
+import {MessageService} from "../../../../shared/services/message.service";
 
 @Component({
   selector: 'app-transfer-request-view',
@@ -28,6 +30,8 @@ export class TransferRequestViewComponent implements OnInit {
         private configuration:Configuration,
         private userService:UserService,
         private deviceService:DeviceService,
+        private translate: TranslateService,
+        private messageService: MessageService,
         private  router:Router
     ) {}
 
@@ -57,31 +61,121 @@ export class TransferRequestViewComponent implements OnInit {
     }
 
     cancel(){
-        this.changeRequestStatusElement.id=this.request.id;
-        this.changeRequestStatusElement.version=this.request.version;
-        this.changeRequestStatusElement.status=this.configuration.REQUEST_STATUS_CANCELED;
-        this.requestService.changeRequestStatus(this.changeRequestStatusElement).subscribe(rep=>{
-            this.router.navigateByUrl('')
-        });
+        var entity: string;
+        var message: string;
+        var yes: string;
+        var no: string;
+
+        this.translate.get('transfer.request.cancel').subscribe(x => entity = x);
+        this.translate.get('confirm.cancel').subscribe(x => message = x);
+        this.translate.get('yes').subscribe(x => yes = x);
+        this.translate.get('no').subscribe(x => no = x);
+
+
+        this.messageService
+            .confirm(entity, message, yes, no)
+            .subscribe(confirmed => {
+                if (confirmed) {
+                    this.changeRequestStatusElement.id=this.request.id;
+                    this.changeRequestStatusElement.version=this.request.version;
+                    this.changeRequestStatusElement.status=this.configuration.REQUEST_STATUS_CANCELED;
+                    this.requestService.changeRequestStatus(this.changeRequestStatusElement).subscribe(rep=>{
+                        this.router.navigateByUrl('')
+                        this.translate.get('success.transfer.request.cancel').subscribe(x => {
+                            this.messageService.success(x)
+                        })
+                    }, error => {
+                        if (error === this.configuration.ERROR_NO_OBJECT_IN_DATABASE) {
+                            this.translate.get('no.object.in.database.error').subscribe(x => {
+                                this.messageService.error(x);
+                            })
+                        } else {
+                            this.translate.get('unknown.error').subscribe(x => {
+                                this.messageService.error(x);
+                            })
+                        }
+                    });
+                }
+            });
     }
 
     reject() {
-        this.changeRequestStatusElement.id=this.request.id;
-        this.changeRequestStatusElement.version=this.request.version;
-        this.changeRequestStatusElement.status=this.configuration.REQUEST_STATUS_REJECTED;
-        this.requestService.changeRequestStatus(this.changeRequestStatusElement).subscribe(rep=>{
-            this.router.navigateByUrl('/employees/reports/request/add/'+this.request.id)
-        });
+        var entity: string;
+        var message: string;
+        var yes: string;
+        var no: string;
+
+        this.translate.get('transfer.request.reject').subscribe(x => entity = x);
+        this.translate.get('confirm.cancel').subscribe(x => message = x);
+        this.translate.get('yes').subscribe(x => yes = x);
+        this.translate.get('no').subscribe(x => no = x);
+
+
+        this.messageService
+            .confirm(entity, message, yes, no)
+            .subscribe(confirmed => {
+                if (confirmed) {
+                    this.changeRequestStatusElement.id=this.request.id;
+                    this.changeRequestStatusElement.version=this.request.version;
+                    this.changeRequestStatusElement.status=this.configuration.REQUEST_STATUS_REJECTED;
+                    this.requestService.changeRequestStatus(this.changeRequestStatusElement).subscribe(rep=>{
+                        this.router.navigateByUrl('/employees/reports/request/add/'+this.request.id)
+                        this.translate.get('success.transfer.request.reject').subscribe(x => {
+                            this.messageService.success(x)
+                        })
+                    }, error => {
+                        if (error === this.configuration.ERROR_NO_OBJECT_IN_DATABASE) {
+                            this.translate.get('no.object.in.database.error').subscribe(x => {
+                                this.messageService.error(x);
+                            })
+                        } else {
+                            this.translate.get('unknown.error').subscribe(x => {
+                                this.messageService.error(x);
+                            })
+                        }
+                    });
+                }
+            });
 
     }
 
     accept() {
-        this.changeRequestStatusElement.id=this.request.id;
-        this.changeRequestStatusElement.version=this.request.version;
-        this.changeRequestStatusElement.status=this.configuration.REQUEST_STATUS_ACCEPTED;
-        this.requestService.changeRequestStatus(this.changeRequestStatusElement).subscribe(rep=>{
-            this.router.navigateByUrl('/employees/reports/request/add/'+this.request.id)
-        });
+        var entity: string;
+        var message: string;
+        var yes: string;
+        var no: string;
+
+        this.translate.get('transfer.request.accept').subscribe(x => entity = x);
+        this.translate.get('confirm.cancel').subscribe(x => message = x);
+        this.translate.get('yes').subscribe(x => yes = x);
+        this.translate.get('no').subscribe(x => no = x);
+
+
+        this.messageService
+            .confirm(entity, message, yes, no)
+            .subscribe(confirmed => {
+                if (confirmed) {
+                    this.changeRequestStatusElement.id=this.request.id;
+                    this.changeRequestStatusElement.version=this.request.version;
+                    this.changeRequestStatusElement.status=this.configuration.REQUEST_STATUS_ACCEPTED;
+                    this.requestService.changeRequestStatus(this.changeRequestStatusElement).subscribe(rep=>{
+                        this.router.navigateByUrl('/employees/reports/request/add/'+this.request.id)
+                        this.translate.get('success.transfer.request.accept').subscribe(x => {
+                            this.messageService.success(x)
+                        })
+                    }, error => {
+                        if (error === this.configuration.ERROR_NO_OBJECT_IN_DATABASE) {
+                            this.translate.get('no.object.in.database.error').subscribe(x => {
+                                this.messageService.error(x);
+                            })
+                        } else {
+                            this.translate.get('unknown.error').subscribe(x => {
+                                this.messageService.error(x);
+                            })
+                        }
+                    });
+                }
+            });
 
     }
 

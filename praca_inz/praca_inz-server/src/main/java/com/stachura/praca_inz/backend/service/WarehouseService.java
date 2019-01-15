@@ -30,7 +30,7 @@ public interface WarehouseService {
 
     List<WarehouseListElementDto> getAllWarehousesForLoggedUser(String username);
 
-    List<WarehouseListElementDto> getAllForTransferRequest(String username) throws AppBaseException;
+    List<WarehouseListElementDto> getAllForTransferRequest(String username,Long id) throws AppBaseException;
 
 
     WarehouseViewDto getWarehouseToView(Long id) throws AppBaseException;

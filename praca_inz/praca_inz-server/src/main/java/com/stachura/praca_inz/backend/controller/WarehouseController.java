@@ -58,12 +58,12 @@ public class WarehouseController {
         return warehouseService.getAllWarehousesForLoggedUser(auth.getName());
     }
 
-    @RequestMapping(value = "/transfer-request",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/transfer-request/{id}",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
-    List<WarehouseListElementDto> getAllWarehousesForTransferRequest() throws AppBaseException {
+    List<WarehouseListElementDto> getAllWarehousesForTransferRequest(@PathVariable Long id) throws AppBaseException {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        return warehouseService.getAllForTransferRequest(auth.getName());
+        return warehouseService.getAllForTransferRequest(auth.getName(),id);
     }
 
     @RequestMapping(value = "/company/{id}",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)

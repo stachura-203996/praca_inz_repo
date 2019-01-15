@@ -46,19 +46,6 @@ export class WarehouseDevicesComponent implements OnInit {
     }
 
 
-    transfer(device: DeviceListElement) {
-        // const modalRef = this.modalService.open(UserMgmtDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
-        // modalRef.componentInstance.user = user;
-        // modalRef.result.then(
-        //     result => {
-        //         // Left blank intentionally, nothing to do here
-        //     },
-        //     reason => {
-        //         // Left blank intentionally, nothing to do here
-        //     }
-        // );
-    }
-
     getUserInfo(device:DeviceListElement){
         return device.name+' '+device.userSurname+' | '+device.username
     }

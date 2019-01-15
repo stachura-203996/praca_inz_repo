@@ -5,6 +5,8 @@ import {DeviceRequestAddElement} from "../../../../models/request-elements";
 import {RequestService} from "../../../employee-management/request.service";
 import {DeviceListElement, DeviceModelListElement} from "../../../../models/device-elements";
 import {DeviceService} from "../../device.service";
+import {MessageService} from "../../../../shared/services/message.service";
+import {Configuration} from "../../../../app.constants";
 
 @Component({
   selector: 'app-device-request-add',
@@ -18,7 +20,14 @@ export class DeviceRequestAddComponent implements OnInit {
     deviceModels= new Map<string, number>();
     selectedOption: string;
 
-    constructor(private route: ActivatedRoute,private deviceService:DeviceService,private requestService:RequestService,private translate:TranslateService,private router:Router) {
+    constructor(
+        private route: ActivatedRoute,
+        private deviceService:DeviceService,
+        private requestService:RequestService,
+        private translate:TranslateService,
+        private messageService: MessageService,
+        private configuration: Configuration,
+        private router:Router) {
 
     }
 
@@ -39,10 +48,40 @@ export class DeviceRequestAddComponent implements OnInit {
     }
 
     deviceRequestAdd(){
-        this.deviceRequestAddElement.deviceModelId=this.deviceModels.get(this.selectedOption);
-        this.requestService.createDeviceRequest(this.deviceRequestAddElement).subscribe(resp => {
-            this.router.navigateByUrl('/employees/requests');
-        });
+        var entity: string;
+        var message: string;
+        var yes: string;
+        var no: string;
+
+        this.translate.get('device.request.add').subscribe(x => entity = x);
+        this.translate.get('confirm.add').subscribe(x => message = x);
+        this.translate.get('yes').subscribe(x => yes = x);
+        this.translate.get('no').subscribe(x => no = x);
+
+
+        this.messageService
+            .confirm(entity, message, yes, no)
+            .subscribe(confirmed => {
+                if (confirmed) {
+                    this.deviceRequestAddElement.deviceModelId=this.deviceModels.get(this.selectedOption);
+                    this.requestService.createDeviceRequest(this.deviceRequestAddElement).subscribe(resp => {
+                        this.router.navigateByUrl('/employees/requests');
+                        this.translate.get('success.device.request.add').subscribe(x => {
+                            this.messageService.success(x)
+                        })
+                    }, error => {
+                         if (error === this.configuration.ERROR_NO_OBJECT_IN_DATABASE) {
+                            this.translate.get('no.object.in.database.error').subscribe(x => {
+                                this.messageService.error(x);
+                            })
+                        } else {
+                            this.translate.get('unknown.error').subscribe(x => {
+                                this.messageService.error(x);
+                            })
+                        }
+                    });
+                }
+            });
     }
 
     clear() {

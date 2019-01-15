@@ -22,8 +22,8 @@ export class WarehouseService {
         return this.httpService.get<WarehouseListElement[]>(this.warehousePath);
     }
 
-    getAllForTransferRequest(){
-        return this.httpService.get<WarehouseListElement[]>(this.warehousePath+'/transfer-request');
+    getAllForTransferRequest(id:number){
+        return this.httpService.get<WarehouseListElement[]>(this.warehousePath+'/transfer-request/'+id);
     }
 
     getAllForWarehouseman(): Observable<WarehouseListElement[]> {

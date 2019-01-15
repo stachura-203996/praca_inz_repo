@@ -75,7 +75,7 @@ export class RequestService {
     }
 
     addDevicesToRequest(data:number[],id:number):Observable<any>{
-        return this.httpService.put<DeviceListElement[]>(this.requestPath + '/devices/'+id, data);
+        return this.httpService.put<number[]>(this.requestPath + '/devices/'+id, data);
     }
 
     //CANCEL

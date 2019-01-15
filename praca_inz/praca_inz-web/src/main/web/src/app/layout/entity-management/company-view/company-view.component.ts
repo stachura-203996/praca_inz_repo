@@ -10,6 +10,9 @@ import {WarehouseService} from "../../warehouse-management/warehouse.service";
 import {WarehouseListElement} from "../../../models/warehouse-elements";
 import {UserRoles} from "../../../models/user-roles";
 import {UserService} from "../../admin/components/administration/user-management/user.service";
+import {TranslateService} from "@ngx-translate/core";
+import {MessageService} from "../../../shared/services/message.service";
+import {Configuration} from "../../../app.constants";
 
 
 @Component({
@@ -23,18 +26,22 @@ export class CompanyViewComponent implements OnInit {
     devices: DeviceListElement[];
     offices: StructureListElement[];
     departments: StructureListElement[];
-    warehouses:WarehouseListElement[];
+    warehouses: WarehouseListElement[];
     roles: UserRoles;
 
     constructor(
         private route: ActivatedRoute,
         private companyService: CompanyService,
-        private warehouseService:WarehouseService,
+        private warehouseService: WarehouseService,
         private departmentService: DepartmentService,
         private officeService: OfficeService,
-        private userService:UserService,
-        private deviceService: DeviceService
-    ) {}
+        private userService: UserService,
+        private deviceService: DeviceService,
+        private translate: TranslateService,
+        private messageService: MessageService,
+        private configuration: Configuration,
+    ) {
+    }
 
     ngOnInit() {
         this.getCompany();
@@ -51,7 +58,19 @@ export class CompanyViewComponent implements OnInit {
 
     getCompany() {
         const id = this.route.snapshot.paramMap.get('id');
-        this.companyService.getCompany(id).subscribe(x => this.company = x);
+        this.companyService.getCompany(id).subscribe(x => {
+            this.company = x
+        }, error => {
+            if (error === this.configuration.ERROR_NO_OBJECT_IN_DATABASE) {
+                this.translate.get('no.object.in.database.error').subscribe(x => {
+                    this.messageService.error(x);
+                })
+            } else {
+                this.translate.get('unknown.error').subscribe(x => {
+                    this.messageService.error(x);
+                })
+            }
+        });
     }
 
     getDepartmentsForCompany() {
@@ -90,7 +109,7 @@ export class CompanyViewComponent implements OnInit {
         }
     }
 
-    getAddressStructure(structure:StructureListElement): string {
+    getAddressStructure(structure: StructureListElement): string {
         if (structure.flatNumber == null || structure.flatNumber === "0") {
             return (structure.street + ' ' + structure.buildingNumber);
         } else {
@@ -98,8 +117,8 @@ export class CompanyViewComponent implements OnInit {
         }
     }
 
-    getPersonResponsibleFor(data:WarehouseListElement){
-        return data.userName+' '+data.userSurname;
+    getPersonResponsibleFor(data: WarehouseListElement) {
+        return data.userName + ' ' + data.userSurname;
     }
 
 }

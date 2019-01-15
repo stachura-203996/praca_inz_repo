@@ -27,6 +27,7 @@ import {HttpErrorInterceptor} from "./shared/interceptor/http-error.interceptor"
 import {FullRouteGuard} from "./shared/guard/full-route-guard.service";
 import {GeneralRouteGuard} from "./shared/guard/general-route-guard.service";
 import {ToastrModule} from "ng6-toastr-notifications";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 
 
@@ -41,6 +42,7 @@ export const createTranslateLoader = (http: HttpClient) => {
         HttpClientModule,
         MatSelectModule,
         ReactiveFormsModule,
+        BrowserAnimationsModule,
         HttpClientModule,
         TranslateModule.forRoot({
             loader: {

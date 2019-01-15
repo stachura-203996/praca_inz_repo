@@ -20,7 +20,7 @@ import java.util.Collection;
 public class Request {
 
     @Id
-    @SequenceGenerator(name = "RequestGen", sequenceName = "request_id_seq",initialValue = 5,allocationSize = 1)
+    @SequenceGenerator(name = "RequestGen", sequenceName = "request_id_seq",initialValue = 6,allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "RequestGen")
     @Column(name = "ID", updatable = false, nullable = false)
     private Long id = null;

@@ -5,12 +5,6 @@
         <input class="form-control" #searchBox id="search-box" (keyup)="filterWarehouses(searchBox.value)"
                placeholder="{{'Search...'|translate}}"/>
     </div>
-    <div class="col-lg-2">
-        <button class="btn btn-primary float-right jh-create-entity" [routerLink]="['./add']">
-            <i class="fa fa-plus"></i>&nbsp;
-            <span>{{ 'CreateWarehouse' | translate }}</span>
-        </button>
-    </div>
 </div>
 <br>
 <table class="table table-striped" align="center">
@@ -18,10 +12,8 @@
     <tr>
         <th>{{ 'ElementName' | translate }}</th>
         <th>{{ 'OfficeName' | translate }}</th>
-        <th>{{'Location'| translate}}</th>
         <th>{{ 'PersonResponsibleFor' | translate }}</th>
         <th>{{'DevicesNumber'|translate}}</th>
-        <th></th>
     </tr>
     </thead>
     <tbody>
@@ -30,23 +22,6 @@
         <td>{{warehouse.officeName}}</td>
         <td>{{getUserInfo(warehouse)}}</td>
         <td>{{warehouse.devicesNumber}}</td>
-        <td class="text-right">
-            <div class="btn-group flex-btn-group-container">
-                <button type="submit"
-                        [routerLink]="['/warehouses/view/'+warehouse.id]"
-                        class="btn btn-info btn-sm">
-                    <i class="fa fa-eye"></i>&nbsp;
-                    <span class="d-none d-md-inline">{{'View'|translate}}</span>
-                </button>
-                <button type="submit"
-                        [routerLink]="['./edit/'+warehouse.id]"
-                        queryParamsHandling="merge"
-                        class="btn btn-primary btn-sm">
-                    <i class="fa fa-pencil"></i>&nbsp;
-                    <span class="d-none d-md-inline">{{'Edit'|translate}}</span>
-                </button>
-            </div>
-        </td>
     </tr>
     </tbody>
 </table>
