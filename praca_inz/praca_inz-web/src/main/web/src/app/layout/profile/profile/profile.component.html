@@ -97,9 +97,9 @@
                     <div class="bot-border"></div>
                     <div class="row">
                         <div class="col-sm-5 col-xs-6 tital ">{{'Roles'| translate}}</div>
-                        <div class="col-sm-7">
+                        <div class="col-sm-7" *ngIf="user">
                             <br>
-                            <div class="row" *ngFor="let authority of user.roles"><span class="badge badge-info">{{ getAuthorityTranslation(authority) }}</span></div>
+                            <div class="row"  *ngFor="let authority of user.roles"><span class="badge badge-info">{{ getAuthorityTranslation(authority)}}</span></div>
                             <br>
                         </div>
                     </div>

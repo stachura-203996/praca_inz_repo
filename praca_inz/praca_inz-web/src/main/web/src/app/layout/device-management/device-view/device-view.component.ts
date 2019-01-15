@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {DeviceViewElement, ParameterListElement} from "../../../models/device-elements";
 import {ActivatedRoute} from "@angular/router";
-import {SessionContextService} from "../../../shared/services/session-context.service";
 import {DeviceService} from "../device.service";
 import {UserRoles} from "../../../models/user-roles";
 import {UserService} from "../../admin/components/administration/user-management/user.service";
@@ -19,7 +18,6 @@ export class DeviceViewComponent implements OnInit {
 
     constructor(
         private route: ActivatedRoute,
-        private sessionContextService: SessionContextService,
         private deviceService: DeviceService,
         private userService:UserService
     ) {}

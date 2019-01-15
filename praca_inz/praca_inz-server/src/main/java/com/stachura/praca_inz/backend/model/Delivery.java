@@ -38,8 +38,6 @@ public class Delivery implements Serializable {
     @Column(name = "TITLE", nullable = false)
     private String title;
 
-    @Column(name = "CONFIRMED", nullable = false)
-    private boolean confirmed;
 
     @Column(name = "SERIAL_NUMBER", nullable = false)
     private String serialNumber;
@@ -62,7 +60,10 @@ public class Delivery implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private java.util.Calendar createDate;
 
+    @Column(name = "CONFIRMED", nullable = false)
+    private boolean confirmed;
 
     @Column(name = "DELETED", nullable = false)
     private boolean deleted;
+
 }

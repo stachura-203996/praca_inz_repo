@@ -2,7 +2,6 @@ import {CommonModule} from '@angular/common';
 import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from '@angular/common/http';
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {AppRoutingModule} from './app-routing.module';
@@ -15,8 +14,6 @@ import {HttpService} from "./shared/services/http.service";
 import {Configuration} from "./app.constants";
 import {ProfileService} from "./layout/profile/profile.service";
 import {MessageService} from "./shared/services/message.service";
-
-import {SessionContextService} from "./shared/services/session-context.service";
 import {UserService} from "./layout/admin/components/administration/user-management/user.service";
 import {DeviceService} from "./layout/device-management/device.service";
 import {NotificationService} from "./layout/notification/notification.service";
@@ -44,7 +41,6 @@ export const createTranslateLoader = (http: HttpClient) => {
         HttpClientModule,
         MatSelectModule,
         ReactiveFormsModule,
-        BrowserAnimationsModule,
         HttpClientModule,
         TranslateModule.forRoot({
             loader: {
@@ -77,7 +73,6 @@ export const createTranslateLoader = (http: HttpClient) => {
         DeviceService,
         BsModalService,
         ReportService,
-        SessionContextService,
         NotificationService,
         WarehouseService,
         {

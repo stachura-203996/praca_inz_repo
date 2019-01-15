@@ -4,7 +4,6 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {LoggedUser} from "../models/logged-user";
 import {UserService} from "../layout/admin/components/administration/user-management/user.service";
-import {Observable} from "rxjs";
 import {HttpService} from "../shared/services/http.service";
 import {Configuration} from "../app.constants";
 import {MessageService} from "../shared/services/message.service";
@@ -26,7 +25,8 @@ export class LoginService {
         private cookieService: CookieService,
         private messageService: MessageService,
         private translate: TranslateService,
-        private httpService: HttpService) {
+        private httpService: HttpService,
+        private userService: UserService) {
     }
 
     obtainAccessToken(loginData) {
@@ -58,7 +58,7 @@ export class LoginService {
         expire.setTime(time);
         this.cookieService.set('access_token', token.access_token, expire);
         console.log('Obtained Access token');
-        // this.saveLoggedUser();
+        this.saveLoggedUser(token);
         window.location.href = 'http://localhost:8081/ui/';
     }
 
@@ -66,9 +66,7 @@ export class LoginService {
         return this.cookieService.check('access_token');
     }
 
-    revokeToken() {
 
-    }
 
     resetPassword(username: string) {
         this.http.get<any>('http://localhost:8081/reset/' + username).subscribe(rep => {
@@ -82,12 +80,27 @@ export class LoginService {
         });
     }
 
-    saveLoggedUser(): Observable<LoggedUser> {
-        return this.httpService.get<LoggedUser>(this.userPath + '/logged');
+    saveLoggedUser(token){
+       let headers = new HttpHeaders({'authorization': 'Bearer '+token.access_token});
+       this.http.get<LoggedUser>('http://localhost:8081/secured/users/logged',{headers:headers}).subscribe(user=>{
+          localStorage.setItem('loggedUser', JSON.stringify(user));
+        });
+    }
+
+    getUser(): LoggedUser {
+        const user: LoggedUser = JSON.parse(localStorage.getItem('loggedUser'));
+        if (user == null) {
+            this.logout();
+        }
+        return user;
+    }
+
+    revokeToken() {
+
     }
 
     logout() {
-        this.user = null;
+        localStorage.removeItem('loggedUser');
         localStorage.clear();
         this.cookieService.deleteAll('/ui')
         this.cookieService.delete('JSESSIONID');

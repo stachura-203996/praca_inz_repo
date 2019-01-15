@@ -29,7 +29,7 @@ public class Office implements Serializable {
     @Column(name = "VERSION")
     private long version;
 
-    @Column(name = "NAME", nullable = false)
+    @Column(name = "NAME", nullable = false,unique = true)
     private String name;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)

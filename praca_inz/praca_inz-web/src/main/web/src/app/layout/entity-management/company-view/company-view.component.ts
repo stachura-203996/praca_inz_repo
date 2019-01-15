@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {SessionContextService} from "../../../shared/services/session-context.service";
 import {DeviceService} from "../../device-management/device.service";
 import {CompanyService} from "../../admin/components/administration/company/company.service";
 import {ActivatedRoute} from "@angular/router";
@@ -34,7 +33,6 @@ export class CompanyViewComponent implements OnInit {
         private departmentService: DepartmentService,
         private officeService: OfficeService,
         private userService:UserService,
-        private sessionContextService: SessionContextService,
         private deviceService: DeviceService
     ) {}
 

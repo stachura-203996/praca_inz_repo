@@ -1,28 +1,27 @@
 import {Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from '@angular/router';
 import {UrlAvailabilityForUserRoles} from './url-availability-for-user-roles';
-import {MessageService} from '../services/message.service';
-import {UserService} from "../../layout/admin/components/administration/user-management/user.service";
+import {MessageService} from "../services/message.service";
 import {LoginService} from "../../login/login.service";
-import {LoggedUser} from "../../models/logged-user";
+import {TranslateService} from "@ngx-translate/core";
+
 
 @Injectable()
 export class GeneralRouteGuard implements CanActivate {
 
-    user:LoggedUser;
-
     constructor(
-                private loginService:LoginService,
                 private messageService: MessageService,
+                private loginService:LoginService,
+                private translateService:TranslateService,
                 private router: Router) {
     }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
         let available = false;
-       this.user=this.loginService.user;
+        const user = this.loginService.getUser();
 
-        if (this.user) {
-            for (const role of this.user.roles) {
+        if (user) {
+            for (const role of user.roles) {
                 if (UrlAvailabilityForUserRoles[role].includes(
                     state.url.substring(0, state.url.indexOf('/', 1) > 1 ? state.url.indexOf('/', 1) : state.url.length))) {
                     available = true;
@@ -36,10 +35,11 @@ export class GeneralRouteGuard implements CanActivate {
 
             return available;
         } else {
-            this.router.navigateByUrl('/');
+            this.translateService.get('session.expired.error').subscribe(x=>{
+                this.messageService.error(x);
+            })
+            this.loginService.logout();
             return false;
         }
     }
-
-
 }

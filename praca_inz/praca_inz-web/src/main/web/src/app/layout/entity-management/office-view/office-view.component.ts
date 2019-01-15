@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {DepartmentService} from "../../admin/components/structure-management/department/department.service";
 import {OfficeService} from "../../admin/components/structure-management/office/office.service";
-import {SessionContextService} from "../../../shared/services/session-context.service";
 import {DeviceService} from "../../device-management/device.service";
 import {StructureListElement, StructureViewElement} from "../../../models/structure-elements";
 import {DeviceListElement} from "../../../models/device-elements";
@@ -30,7 +29,6 @@ export class OfficeViewComponent implements OnInit {
         private departmentService: DepartmentService,
         private officeService: OfficeService,
         private userService:UserService,
-        private sessionContextService: SessionContextService,
         private deviceService: DeviceService
     ) {}
 

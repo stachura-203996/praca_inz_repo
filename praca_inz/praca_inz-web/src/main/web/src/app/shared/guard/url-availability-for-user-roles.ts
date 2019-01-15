@@ -1,8 +1,8 @@
 export const UrlAvailabilityForUserRoles = {
-  'ADMIN': ['/admin'],
-  'COMPANY_ADMIN': ['/admin'],
-  'MANAGER': ['/employees'],
+  'ADMIN': ['/page/admin','/page/admin/users,/page/admin/companies',],
+  'COMPANY_ADMIN': ['/page/admin'],
+  'MANAGER': ['/page/employees/subordinates'],
   'WAREHOUSEMAN': ['/warehouses'],
-  'USER':['/main-page','/profile','/devices','/employees','/notifications']
+  'USER':['/page','/main-page','/page/profile','/devices','/employees','/notifications','/structures']
 };
 

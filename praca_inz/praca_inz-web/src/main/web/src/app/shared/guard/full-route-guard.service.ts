@@ -4,7 +4,6 @@ import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from '
 import {UrlAvailabilityForUserRoles} from './url-availability-for-user-roles';
 import {MessageService} from "../services/message.service";
 import {LoginService} from "../../login/login.service";
-import {UserService} from "../../layout/admin/components/administration/user-management/user.service";
 import {TranslateService} from "@ngx-translate/core";
 
 @Injectable()
@@ -13,15 +12,14 @@ export class FullRouteGuard implements CanActivate {
 
 
     constructor(private loginService: LoginService,
-                private userService: UserService,
-                private translate:TranslateService,
                 private messageService: MessageService,
+                private translate:TranslateService,
                 private router: Router) {
     }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
         let available = false;
-        const user=this.loginService.user;
+        const user = this.loginService.getUser();
 
         if (user) {
             for (const role of user.roles) {
@@ -33,16 +31,15 @@ export class FullRouteGuard implements CanActivate {
             }
 
             if (!available) {
-                this.router.navigateByUrl('/ui/error/error404');
+                this.router.navigateByUrl('/error404');
             }
 
             return available;
         } else {
-
             this.translate.get('session.expired.error').subscribe(x=>{
                 this.messageService.error(x);
-            });
-            this.loginService.logout();
+            })
+            this.loginService.logout()
             return false;
         }
     }

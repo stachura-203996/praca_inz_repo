@@ -40,7 +40,7 @@ INSERT INTO DEPARTMENT(ID, VERSION, DELETED,NAME, COMPANY_ID,DESCRIPTION) VALUES
 INSERT INTO DEPARTMENT(ID, VERSION,DELETED ,NAME, COMPANY_ID) VALUES (2,0,FALSE, 'Research & Development', 1);
 INSERT INTO DEPARTMENT(ID, VERSION,DELETED, NAME, COMPANY_ID) VALUES (3,0,FALSE, 'Administration', 1);
 INSERT INTO DEPARTMENT(ID, VERSION, DELETED,NAME, COMPANY_ID) VALUES (4,0,FALSE ,'Human Resources', 1);
-INSERT INTO DEPARTMENT(ID, VERSION, DELETED,NAME, COMPANY_ID) VALUES (5,0,FALSE ,'Sales & Marketing', 1);
+INSERT INTO DEPARTMENT(ID, VERSION, DELETED,NAME, COMPANY_ID) VALUES (5,0,FALSE ,'Client service', 1);
 
 
  INSERT INTO OFFICE(ID, VERSION, DELETED,NAME, ADDRESS_ID, DEPARTMENT_ID,DESCRIPTION) VALUES (1,0,FALSE , 'Office of S&M Boston', 4, 1,'Main office in Boston');
@@ -292,10 +292,11 @@ INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (3, 7);
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (4, 9);
 
 INSERT INTO public.warehouse (id, deleted, name, version, warehouse_type, office_id, user_id) VALUES (1, false, 'Tomasz|Stachura|admin|WAREHOUSE', 0, 'USER', 1, 1);
-INSERT INTO public.warehouse (id, deleted, name, version, warehouse_type, office_id, user_id) VALUES (2, false, 'OFFICE_WAREHOUSE', 0, 'OFFICE', 1, 1);
 INSERT INTO public.warehouse (id, deleted, name, version, warehouse_type, office_id, user_id) VALUES (3, false, 'John|William|reader2|WAREHOUSE', 1, 'USER', 3, 4);
 INSERT INTO public.warehouse (id, deleted, name, version, warehouse_type, office_id, user_id) VALUES (4, false, 'David|William|modifier|WAREHOUSE', 1, 'USER', 3, 3);
 INSERT INTO public.warehouse (id, deleted, name, version, warehouse_type, office_id, user_id) VALUES (5, false, 'Robert|William|reader|WAREHOUSE', 1, 'USER', 3, 2);
+INSERT INTO public.warehouse (id, deleted, name, version, warehouse_type, office_id, user_id) VALUES (2, false, 'Boston|OFFICE_WAREHOUSE', 0, 'OFFICE', 2, 1);
+INSERT INTO public.warehouse (id, deleted, name, version, warehouse_type, office_id, user_id) VALUES (6, false, 'NewYork|OFFICE_WAREHOUSE', 0, 'OFFICE', 3, 1);
 
 INSERT INTO public.device_type (id, name, version) VALUES (1, 'Komputer', 0);
 INSERT INTO public.device_type (id, name, version) VALUES (2, 'Myszka', 0);
@@ -326,7 +327,7 @@ INSERT INTO notification(ID,VERSION,DELETED,TITLE,DESCRIPTION,URL,READED,NOTIFIC
 
 INSERT INTO SYSTEM_MESSAGE(ID,VERSION,DELETED,TITLE,MESSAGE,MESSAGE_DATE) VALUES (1,0,FALSE,'Dzień wolny',' Jutro dzień wolny, ogałaszam święto państwowe','2011-03-12 13:00');
 
-
+INSERT INTO public.delivery (id, confirmed, delivery_date, deleted, delivery_number, serial_number, title, version, device_model_id, reciever_warehouse_id, sender_warehouse_id) VALUES (1, false, '2019-01-14 19:59:09.897000', false, '2527', 'sadfggrg', 'dostawa', 0, 1, 2, 3);
 
 INSERT INTO report(ID,VERSION,DELETED,TITLE,SENDER_ID,RECIEVER_ID,REPORT_DATE,DISABLE_SENDER,DISABLE_RECIEVER,DESCRIPTION) VALUES (1,0,FALSE ,'Dostawa nowych monitorów',1,1,'2011-03-12 13:00',FALSE,FALSE,'Dostawa nowych monitorów została odebrana');
 

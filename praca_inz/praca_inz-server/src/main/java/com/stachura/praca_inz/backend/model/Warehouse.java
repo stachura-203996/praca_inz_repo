@@ -23,7 +23,7 @@ import java.util.Set;
 public class Warehouse implements Serializable {
 
     @Id
-    @SequenceGenerator(name = "WarehouseGen", sequenceName = "warehouse_id_seq",initialValue = 6,allocationSize = 1)
+    @SequenceGenerator(name = "WarehouseGen", sequenceName = "warehouse_id_seq",initialValue = 7,allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "WarehouseGen")
     @Column(name = "ID", updatable = false, nullable = false)
     private Long id = null;
@@ -32,7 +32,7 @@ public class Warehouse implements Serializable {
     @Column(name = "VERSION")
     private long version;
 
-    @Column(name = "NAME", nullable = false)
+    @Column(name = "NAME", nullable = false,unique = true)
     private String name;
 
     @ManyToOne(fetch = FetchType.LAZY,optional = false)

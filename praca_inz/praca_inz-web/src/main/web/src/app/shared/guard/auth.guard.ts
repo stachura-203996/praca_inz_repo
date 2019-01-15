@@ -8,7 +8,6 @@ export class AuthGuard {
     constructor(private router: Router, private service:LoginService) {}
 
     canActivate() {
-        this.service.saveLoggedUser();
 
         if (this.service.checkCredentials()) {
             return true;

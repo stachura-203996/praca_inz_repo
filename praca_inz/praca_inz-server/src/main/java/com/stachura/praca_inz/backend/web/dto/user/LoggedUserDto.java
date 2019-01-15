@@ -14,4 +14,5 @@ public class LoggedUserDto {
     private String name;
     private String surname;
     private Long companyId;
+    private List<String> roles;
 }

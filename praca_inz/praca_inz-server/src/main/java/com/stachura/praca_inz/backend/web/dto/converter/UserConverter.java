@@ -53,6 +53,7 @@ public class UserConverter {
                 .name(user.getUserdata().getName())
                 .surname(user.getUserdata().getSurname())
                 .companyId(user.getOffice().getDepartment().getCompany().getId())
+                .roles(user.getUserRoles().stream().map(UserRole::getName).collect(Collectors.toList()))
                 .build();
     }
 
