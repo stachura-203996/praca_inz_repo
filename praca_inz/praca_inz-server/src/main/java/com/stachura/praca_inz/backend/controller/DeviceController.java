@@ -1,5 +1,6 @@
 package com.stachura.praca_inz.backend.controller;
 
+import com.stachura.praca_inz.backend.exception.DatabaseErrorException;
 import com.stachura.praca_inz.backend.exception.base.AppBaseException;
 import com.stachura.praca_inz.backend.service.DeviceService;
 import com.stachura.praca_inz.backend.web.dto.device.*;
@@ -13,11 +14,12 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.SQLException;
 import java.util.List;
 
 @RestController
 @RequestMapping("/secured/device")
-@Transactional(propagation = Propagation.REQUIRES_NEW,rollbackFor = AppBaseException.class)
+@Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = AppBaseException.class)
 public class DeviceController {
 
     @Autowired
@@ -31,28 +33,28 @@ public class DeviceController {
         return deviceService.getAllDevices(auth.getName());
     }
 
-    @RequestMapping(value = "/company/{id}",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/company/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
     List<DeviceListElementDto> getAllDevicesForCompany(@PathVariable Long id) {
         return deviceService.getAllDevicesForCompany(id);
     }
 
-    @RequestMapping(value = "/department/{id}",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/department/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
     List<DeviceListElementDto> getAllDevicesForDepartment(@PathVariable Long id) {
         return deviceService.getAllDevicesForDepartment(id);
     }
 
-    @RequestMapping(value = "/office/{id}",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/office/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
     List<DeviceListElementDto> getAllDevicesForOffice(@PathVariable Long id) {
         return deviceService.getAllDevicesForOffice(id);
     }
 
-    @RequestMapping(value = "/warehouse/{id}",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/warehouse/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
     List<DeviceListElementDto> getAllDevicesForWarehouse(@PathVariable Long id) {
@@ -108,20 +110,27 @@ public class DeviceController {
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
     List<ParameterListElementDto> getParameters(@PathVariable Long id) throws AppBaseException {
-           return deviceService.getDeviceParameters(id);
+        return deviceService.getDeviceParameters(id);
     }
 
     @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public ResponseEntity<?> create(@RequestBody DeviceAddDto deviceAddDto) throws AppBaseException {
-        deviceService.createNewDevice(deviceAddDto);
+        try {
+            deviceService.createNewDevice(deviceAddDto);
+        } catch (RuntimeException e) {
+            Throwable rootCause = com.google.common.base.Throwables.getRootCause(e);
+            if (rootCause instanceof SQLException) {
+                throw new DatabaseErrorException(DatabaseErrorException.SERIAL_NUMBER_NAME_TAKEN);
+            }
+        }
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @RequestMapping(method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public void update(@RequestBody DeviceEditDto deviceEditDto) throws AppBaseException {
-            deviceService.updateDevice(deviceEditDto);
+        deviceService.updateDevice(deviceEditDto);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)

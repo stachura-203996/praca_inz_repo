@@ -1,5 +1,6 @@
 package com.stachura.praca_inz.backend.controller;
 
+import com.stachura.praca_inz.backend.exception.DatabaseErrorException;
 import com.stachura.praca_inz.backend.exception.base.AppBaseException;
 import com.stachura.praca_inz.backend.service.DepartmentService;
 import com.stachura.praca_inz.backend.web.dto.company.CompanyStructureAddDto;
@@ -17,6 +18,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.SQLException;
 import java.util.List;
 
 
@@ -62,14 +64,22 @@ public class DepartmentController {
     @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public ResponseEntity<?> create(@RequestBody CompanyStructureAddDto companyStructureAddDto) throws AppBaseException {
-        departmentService.createNewDepartment(companyStructureAddDto);
+        try {
+            departmentService.createNewDepartment(companyStructureAddDto);
+        } catch (RuntimeException e) {
+            Throwable rootCause = com.google.common.base.Throwables.getRootCause(e);
+            if (rootCause instanceof SQLException) {
+                throw new DatabaseErrorException(DatabaseErrorException.DEPARTMENT_NAME_TAKEN);
+            }
+        }
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @RequestMapping(method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public void update(@RequestBody CompanyStructureEditDto companyStructureEditDto) throws AppBaseException {
-            departmentService.updateDepartment(companyStructureEditDto);
+        departmentService.updateDepartment(companyStructureEditDto);
+
 
     }
 

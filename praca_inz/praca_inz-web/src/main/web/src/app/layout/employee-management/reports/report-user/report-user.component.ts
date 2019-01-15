@@ -77,6 +77,14 @@ export class ReportUserComponent implements OnInit {
             });
     }
 
+    getSender(report:ReportListElement){
+        return report.senderName+" "+report.senderSurname+" | "+report.sender;
+    }
+
+    getReciever(report:ReportListElement){
+        return report.recieverName+" "+report.recieverSurname+" | "+report.receiver;
+    }
+
     disableByReciever(structure: ReportListElement) {
 
                     var entity: string;

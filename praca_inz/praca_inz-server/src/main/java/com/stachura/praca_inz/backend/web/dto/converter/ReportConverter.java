@@ -20,6 +20,10 @@ public class ReportConverter {
                 .sender(report.getSender().getUsername())
                 .receiver(report.getReciever().getUsername())
                 .reportDate(formatter.format(report.getCalendarTimestamp().getTime()))
+                .senderName(report.getSender().getUserdata().getName())
+                .senderSurname(report.getSender().getUserdata().getSurname())
+                .recieverName(report.getReciever().getUserdata().getName())
+                .recieverSurname(report.getReciever().getUserdata().getSurname())
                 .build();
     }
 
@@ -32,6 +36,10 @@ public class ReportConverter {
                 .receiver(report.getReciever().getUsername())
                 .description(report.getDescription())
                 .reportDate(formatter.format(report.getCalendarTimestamp().getTime()))
+                .senderName(report.getSender().getUserdata().getName())
+                .senderSurname(report.getSender().getUserdata().getSurname())
+                .recieverName(report.getReciever().getUserdata().getName())
+                .recieverSurname(report.getReciever().getUserdata().getSurname())
                 .build();
     }
 

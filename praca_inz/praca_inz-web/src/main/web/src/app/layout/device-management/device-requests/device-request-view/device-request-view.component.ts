@@ -42,6 +42,10 @@ export class DeviceRequestViewComponent implements OnInit {
 
     }
 
+    getUserInfo():string{
+        return this.request.name+" "+this.request.surname+" | "+this.request.username;
+    }
+
     getLoggeduserRoles(){
         this.userService.getLoggedUserRoles().subscribe(x=>{this.roles=x}, error => {
             if (error === this.configuration.ERROR_NO_OBJECT_IN_DATABASE) {

@@ -23,7 +23,7 @@ import java.util.Set;
 public class Delivery implements Serializable {
 
     @Id
-    @SequenceGenerator(name = "DeliveryGen", sequenceName = "delivery_id_seq",initialValue = 2,allocationSize = 1)
+    @SequenceGenerator(name = "DeliveryGen", sequenceName = "delivery_id_seq",initialValue = 3,allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "DeliveryGen")
     @Column(name = "ID", updatable = false, nullable = false)
     private Long id = null;

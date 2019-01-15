@@ -5,6 +5,7 @@ import com.stachura.praca_inz.backend.exception.base.AppBaseException;
 /**
  * Klasa wyjątku rzucanego przy naruszeniu blokady optymistycznej przy edycji obiektu
  */
+
 public class EntityOptimisticLockException extends AppBaseException {
 
     public static final String OPTIMISTIC_LOCK = "error_optimistic_lock";

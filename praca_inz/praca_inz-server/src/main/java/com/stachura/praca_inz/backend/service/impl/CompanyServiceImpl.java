@@ -1,5 +1,6 @@
 package com.stachura.praca_inz.backend.service.impl;
 
+import com.stachura.praca_inz.backend.exception.DatabaseErrorException;
 import com.stachura.praca_inz.backend.exception.EntityNotInDatabaseException;
 import com.stachura.praca_inz.backend.exception.EntityOptimisticLockException;
 import com.stachura.praca_inz.backend.exception.base.AppBaseException;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.OptimisticLockException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,7 +63,7 @@ public class CompanyServiceImpl implements CompanyService {
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('COMPANY_CREATE')")
-    public Long createNewCompany(CompanyStructureAddDto companyStructureAddDto) {
+    public Long createNewCompany(CompanyStructureAddDto companyStructureAddDto) throws AppBaseException {
 
         Address address = new Address();
         address.setCity(companyStructureAddDto.getCity());
@@ -78,7 +80,12 @@ public class CompanyServiceImpl implements CompanyService {
             company.setAddress(address);
             companyRepository.save(company);
 
-        } catch (Exception e){
+        } catch (RuntimeException e) {
+            Throwable rootCause = com.google.common.base.Throwables.getRootCause(e);
+            if (rootCause instanceof SQLException) {
+                throw new DatabaseErrorException(DatabaseErrorException.COMPANY_NAME_TAKEN);
+            }
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return company.getId();
@@ -92,9 +99,9 @@ public class CompanyServiceImpl implements CompanyService {
         Company beforeCompany = companyRepository.findById(companyStructureEditDto.getId()).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
         try {
             companyRepository.save(CompanyStructureConverter.toCompany(companyStructureEditDto, beforeCompany));
-        }catch (OptimisticLockException e){
+        } catch (OptimisticLockException e) {
             throw new EntityOptimisticLockException(EntityOptimisticLockException.OPTIMISTIC_LOCK);
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

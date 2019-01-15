@@ -68,7 +68,7 @@ public class DeliveryServiceImpl implements DeliveryService {
     @PreAuthorize("hasAuthority('DELIVERY_LIST_READ')")
     public List<DeliveryListElementDto> getAllDeliveriesForWarehouseman(String username) throws AppBaseException {
         Long id = userRepository.findByUsername(username).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT)).getId();
-        List<Delivery> deliveries = Lists.newArrayList(deliveryRepository.findAll()).stream().filter(x -> x.getSenderWarehouse().getUser().getId().equals(id)).collect(Collectors.toList());
+        List<Delivery> deliveries = Lists.newArrayList(deliveryRepository.findAll()).stream().filter(x -> x.getRecieverWarehouse().getUser().getId().equals(id)).collect(Collectors.toList());
         List<DeliveryListElementDto> companiesDto = new ArrayList<>();
         for (Delivery a : deliveries) {
             if (!a.isDeleted()) {

@@ -17,7 +17,7 @@
                     <tbody>
                     <tr *ngFor="let report of reports">
                         <td>{{report.title}}</td>
-                        <td>{{report.receiver}}</td>
+                        <td>{{getReciever(report)}}</td>
                         <td>{{report.reportDate}}</td>
                         <td class="text-right">
                             <div class="btn-group flex-btn-group-container">
@@ -54,7 +54,7 @@
                     <tbody>
                     <tr *ngFor="let report of otherReports">
                         <td>{{report.title}}</td>
-                        <td>{{report.sender}}</td>
+                        <td>{{getSender(report)}}</td>
                         <td>{{report.reportDate}}</td>
                         <td class="text-right">
                             <div class="btn-group flex-btn-group-container">

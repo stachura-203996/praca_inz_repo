@@ -75,7 +75,7 @@ export class WarehouseService {
     }
 
     getAllDeliveriesForWarehouse(): Observable<DeliveryListElement[]> {
-        return this.httpService.get<DeliveryListElement[]>(this.deliveryPath+'/warehousemen');
+        return this.httpService.get<DeliveryListElement[]>(this.deliveryPath+'/warehouseman');
     }
 
 }

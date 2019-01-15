@@ -1,5 +1,6 @@
 package com.stachura.praca_inz.backend.controller;
 
+import com.stachura.praca_inz.backend.exception.EntityOptimisticLockException;
 import com.stachura.praca_inz.backend.exception.base.AppBaseException;
 import com.stachura.praca_inz.backend.model.Notification;
 import com.stachura.praca_inz.backend.service.EmailService;
@@ -16,11 +17,12 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.OptimisticLockException;
 import java.util.List;
 
 @RestController
 @RequestMapping("/secured/notification")
-@Transactional(propagation = Propagation.REQUIRES_NEW,rollbackFor = AppBaseException.class)
+@Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = AppBaseException.class)
 public class NotificationController {
 
     @Autowired
@@ -47,12 +49,12 @@ public class NotificationController {
 
     @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public ResponseEntity<?> create(@RequestBody NotificationListElementDto notificationListElementDto) {
+    public ResponseEntity<?> create(@RequestBody NotificationListElementDto notificationListElementDto) throws AppBaseException {
         try {
-            Notification notification=notificationService.getNotificationById(notificationListElementDto.getId());
-            notificationService.createNewNotification(NotificationConverter.toNotification(notificationListElementDto,notification));
-        } catch (AppBaseException e) {
-            e.printStackTrace();
+            Notification notification = notificationService.getNotificationById(notificationListElementDto.getId());
+            notificationService.createNewNotification(NotificationConverter.toNotification(notificationListElementDto, notification));
+        } catch (OptimisticLockException e) {
+            throw new EntityOptimisticLockException(EntityOptimisticLockException.OPTIMISTIC_LOCK);
         }
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
@@ -61,11 +63,11 @@ public class NotificationController {
     @RequestMapping(method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public void update(@RequestBody NotificationListElementDto notificationListElementDto) throws AppBaseException {
-        Notification notification= notificationService.getNotificationById(notificationListElementDto.getId());
+        Notification notification = notificationService.getNotificationById(notificationListElementDto.getId());
         try {
-            notificationService.updateNotification(NotificationConverter.toNotification(notificationListElementDto,notification));
-        } catch (AppBaseException e) {
-            e.printStackTrace();
+            notificationService.updateNotification(NotificationConverter.toNotification(notificationListElementDto, notification));
+        } catch (OptimisticLockException e) {
+            throw new EntityOptimisticLockException(EntityOptimisticLockException.OPTIMISTIC_LOCK);
         }
     }
 

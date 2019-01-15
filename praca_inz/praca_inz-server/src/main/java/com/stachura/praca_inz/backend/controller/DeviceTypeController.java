@@ -1,5 +1,6 @@
 package com.stachura.praca_inz.backend.controller;
 
+import com.stachura.praca_inz.backend.exception.EntityOptimisticLockException;
 import com.stachura.praca_inz.backend.exception.base.AppBaseException;
 import com.stachura.praca_inz.backend.service.DeviceTypeService;
 import com.stachura.praca_inz.backend.web.dto.DeviceTypeListElementDto;
@@ -11,11 +12,12 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.OptimisticLockException;
 import java.util.List;
 
 @RestController
 @RequestMapping("/secured/device/type")
-@Transactional(propagation = Propagation.REQUIRES_NEW,rollbackFor = AppBaseException.class)
+@Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = AppBaseException.class)
 public class DeviceTypeController {
 
     @Autowired
@@ -35,8 +37,8 @@ public class DeviceTypeController {
     public ResponseEntity<?> create(@RequestBody String type) throws AppBaseException {
         try {
             deviceTypeService.createNewDeviceType(type);
-        } catch (AppBaseException e) {
-            e.printStackTrace();
+        } catch (OptimisticLockException e) {
+            throw new EntityOptimisticLockException(EntityOptimisticLockException.OPTIMISTIC_LOCK);
         }
         return new ResponseEntity<>(HttpStatus.CREATED);
     }

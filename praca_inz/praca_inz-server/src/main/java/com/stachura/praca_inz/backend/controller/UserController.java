@@ -1,6 +1,7 @@
 package com.stachura.praca_inz.backend.controller;
 
 
+import com.stachura.praca_inz.backend.exception.EntityOptimisticLockException;
 import com.stachura.praca_inz.backend.exception.base.AppBaseException;
 import com.stachura.praca_inz.backend.service.UserService;
 import com.stachura.praca_inz.backend.web.dto.user.*;
@@ -13,11 +14,12 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.OptimisticLockException;
 import java.util.List;
 
 @RestController
 @RequestMapping("/secured/users")
-@Transactional(propagation = Propagation.REQUIRES_NEW,rollbackFor = AppBaseException.class)
+@Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = AppBaseException.class)
 public class UserController {
 
 
@@ -47,17 +49,25 @@ public class UserController {
         return userService.getPasswordForAdmin(id);
     }
 
-    @RequestMapping(value = "/password",method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/password", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public void updatePassword(@RequestBody PasswordInfoDto passwordInfoDto) throws AppBaseException {
+        try {
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-            userService.updatePassword(passwordInfoDto,auth.getName());
+            userService.updatePassword(passwordInfoDto, auth.getName());
+        } catch (OptimisticLockException e) {
+            throw new EntityOptimisticLockException(EntityOptimisticLockException.OPTIMISTIC_LOCK);
+        }
     }
 
-    @RequestMapping(value = "/password/admin",method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/password/admin", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public void updatePasswordAdmin(@RequestBody PasswordInfoForAdmin passwordInfoForAdmin) throws AppBaseException {
+        try {
             userService.updatePasswordForAdmin(passwordInfoForAdmin);
+        } catch (OptimisticLockException e) {
+            throw new EntityOptimisticLockException(EntityOptimisticLockException.OPTIMISTIC_LOCK);
+        }
     }
 
     @RequestMapping(value = "/profile/edit", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)

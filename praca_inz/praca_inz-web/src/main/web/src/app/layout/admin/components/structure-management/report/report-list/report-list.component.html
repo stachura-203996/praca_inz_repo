@@ -21,8 +21,8 @@
         <tbody>
         <tr *ngFor="let report of reports">
             <td>{{report.title}}</td>
-            <td>{{report.sender}}</td>
-            <td>{{report.receiver}}</td>
+            <td>{{getSender(report)}}</td>
+            <td>{{getReciever(report)}}</td>
             <td>{{report.reportDate}}</td>
             <td class="text-right">
                 <div class="btn-group flex-btn-group-container">

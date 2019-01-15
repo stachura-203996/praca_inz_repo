@@ -1,5 +1,6 @@
 package com.stachura.praca_inz.backend.controller;
 
+import com.stachura.praca_inz.backend.exception.EntityOptimisticLockException;
 import com.stachura.praca_inz.backend.exception.base.AppBaseException;
 import com.stachura.praca_inz.backend.model.Office;
 import com.stachura.praca_inz.backend.repository.DepartmentRepository;
@@ -19,11 +20,12 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.OptimisticLockException;
 import java.util.List;
 
 @RestController
 @RequestMapping("/secured/structure/office")
-@Transactional(propagation = Propagation.REQUIRES_NEW,rollbackFor = AppBaseException.class)
+@Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = AppBaseException.class)
 public class OfficeController {
 
     @Autowired
@@ -55,14 +57,14 @@ public class OfficeController {
     }
 
 
-    @RequestMapping(value = "/company/{id}",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/company/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
     List<CompanyStructuresListElementDto> getAllOfficesForCompany(@PathVariable Long id) {
         return officeService.getAllOfficesForCompany(id);
     }
 
-    @RequestMapping(value = "/department/{id}",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/department/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
     List<CompanyStructuresListElementDto> getAllOfficesForDepartment(@PathVariable Long id) {
@@ -71,11 +73,11 @@ public class OfficeController {
 
     @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public ResponseEntity<?> create(@RequestBody CompanyStructureAddDto companyStructureAddDto) {
+    public ResponseEntity<?> create(@RequestBody CompanyStructureAddDto companyStructureAddDto) throws AppBaseException {
         try {
             officeService.create(companyStructureAddDto);
-        } catch (AppBaseException e) {
-            e.printStackTrace();
+        } catch (OptimisticLockException e) {
+            throw new EntityOptimisticLockException(EntityOptimisticLockException.OPTIMISTIC_LOCK);
         }
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
@@ -83,11 +85,11 @@ public class OfficeController {
     @RequestMapping(method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public void update(@RequestBody CompanyStructureEditDto companyStructureEditDto) throws AppBaseException {
-        Office beforeOffice=officeService.getOfficeById(companyStructureEditDto.getId());
+        Office beforeOffice = officeService.getOfficeById(companyStructureEditDto.getId());
         try {
             officeService.update(companyStructureEditDto);
-        } catch (AppBaseException e) {
-            e.printStackTrace();
+        } catch (OptimisticLockException e) {
+            throw new EntityOptimisticLockException(EntityOptimisticLockException.OPTIMISTIC_LOCK);
         }
     }
 

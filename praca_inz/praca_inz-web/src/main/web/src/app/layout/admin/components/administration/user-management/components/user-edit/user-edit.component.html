@@ -11,9 +11,9 @@
                                maxlength="16" #username="ngModel">
                         <div *ngIf="username.invalid && (username.touched || username.dirty)"
                              class="alert alert-danger col-sm-12">
-                            <div *ngIf="username.hasError('required')" i18n="@@usernameReq">{{'Username is required'|translate}}</div>
-                            <div *ngIf="username.hasError('minlength')" i18n="@@usernameMin">{{'Username must be at least 3 characters long'|translate}}</div>
-                            <div *ngIf="username.hasError('maxlength')" i18n="@@usernameMax">{{'Username cannot be longer than 16 characters'|translate}}</div>
+                            <div *ngIf="username.hasError('required')">{{'Username is required'|translate}}</div>
+                            <div *ngIf="username.hasError('minlength')" >{{'Username must be at least 3 characters long'|translate}}</div>
+                            <div *ngIf="username.hasError('maxlength')" >{{'Username cannot be longer than 16 characters'|translate}}</div>
                         </div>
                     </div>
                 </div>
@@ -29,8 +29,8 @@
                             </div>
                             <div *ngIf="name.invalid && (name.touched || name.dirty)"
                                  class="alert alert-danger col-sm-12">
-                                <div *ngIf="name.hasError('required')" i18n="@@nameReq">{{'Name is required'|translate}}</div>
-                                <div *ngIf="name.hasError('maxLength')" i18n="@@nameMax">{{'Name cannot be longer than 20 characters.'|translate}}</div>
+                                <div *ngIf="name.hasError('required')">{{'Name is required'|translate}}</div>
+                                <div *ngIf="name.hasError('maxLength')">{{'Name cannot be longer than 20 characters.'|translate}}</div>
                             </div>
                         </div>
                     </div>
@@ -45,8 +45,8 @@
                             </div>
                             <div *ngIf="surname.invalid && (surname.touched || surname.dirty)"
                                  class="alert alert-danger col-sm-12 ">
-                                <div *ngIf="surname.hasError('required')" i18n="@@surnameReq">{{'Surname is required'|translate}}</div>
-                                <div *ngIf="surname.hasError('maxLength')" i18n="@@surnameMax">{{'Surname cannot be longer than 20 characters.'|translate}}</div>
+                                <div *ngIf="surname.hasError('required')">{{'Surname is required'|translate}}</div>
+                                <div *ngIf="surname.hasError('maxLength')">{{'Surname cannot be longer than 20 characters.'|translate}}</div>
                             </div>
                         </div>
                     </div>

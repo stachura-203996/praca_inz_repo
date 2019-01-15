@@ -224,7 +224,11 @@ public class UserServiceImpl implements UserService {
                 .useUpper(true)
                 .build();
         String password = passwordGenerator.generate(8);
-        emailService.sendSimpleMessage(user.getUserdata().getEmail(),"Password reset",password);
+        if(user.getUserdata().getLanguage().equals("ENG")) {
+            emailService.sendSimpleMessage(user.getUserdata().getEmail(), "Password reset","Password: " +password);
+        }else{
+            emailService.sendSimpleMessage(user.getUserdata().getEmail(), "Reset hasła","Hasło: "+ password);
+        }
         user.setPassword(passwordEncoder.encode(password));
         userRepository.save(user);
     }

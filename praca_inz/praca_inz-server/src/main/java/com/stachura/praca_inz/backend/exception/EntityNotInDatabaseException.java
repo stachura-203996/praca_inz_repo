@@ -1,10 +1,13 @@
 package com.stachura.praca_inz.backend.exception;
 
 import com.stachura.praca_inz.backend.exception.base.AppBaseException;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
  * Klasa wyjątku rzucanego przy wyszukiwaniu obiektu, który nie istnieje w bazie danych, o podanym parametrze
  */
+@ResponseStatus(HttpStatus.BAD_REQUEST)
 public class EntityNotInDatabaseException extends AppBaseException {
 
     public static final String NO_OBJECT = "error_no_object_in_database";

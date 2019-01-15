@@ -1,5 +1,6 @@
 package com.stachura.praca_inz.backend.controller;
 
+import com.stachura.praca_inz.backend.exception.EntityOptimisticLockException;
 import com.stachura.praca_inz.backend.exception.base.AppBaseException;
 import com.stachura.praca_inz.backend.service.WarehouseService;
 import com.stachura.praca_inz.backend.web.dto.warehouse.WarehouseAddDto;
@@ -16,11 +17,12 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.OptimisticLockException;
 import java.util.List;
 
 @RestController
 @RequestMapping("/secured/warehouse")
-@Transactional(propagation = Propagation.REQUIRES_NEW,rollbackFor = AppBaseException.class)
+@Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = AppBaseException.class)
 public class WarehouseController {
 
     @Autowired
@@ -50,7 +52,7 @@ public class WarehouseController {
         return warehouseService.getWarehouseToEdit(id);
     }
 
-    @RequestMapping(value = "/warehouseman",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/warehouseman", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
     List<WarehouseListElementDto> getAllWarehousesForUser() {
@@ -58,29 +60,29 @@ public class WarehouseController {
         return warehouseService.getAllWarehousesForLoggedUser(auth.getName());
     }
 
-    @RequestMapping(value = "/transfer-request/{id}",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/transfer-request/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
     List<WarehouseListElementDto> getAllWarehousesForTransferRequest(@PathVariable Long id) throws AppBaseException {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        return warehouseService.getAllForTransferRequest(auth.getName(),id);
+        return warehouseService.getAllForTransferRequest(auth.getName(), id);
     }
 
-    @RequestMapping(value = "/company/{id}",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/company/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
     List<WarehouseListElementDto> getAllWarehousesForCompany(@PathVariable Long id) {
         return warehouseService.getAllWarehousesForCompany(id);
     }
 
-    @RequestMapping(value = "/department/{id}",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/department/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
     List<WarehouseListElementDto> getAllWarehousesForDepartment(@PathVariable Long id) {
         return warehouseService.getAllwarehousesForDepartment(id);
     }
 
-    @RequestMapping(value = "/office/{id}",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/office/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
     List<WarehouseListElementDto> getAllWarehousesForOffice(@PathVariable Long id) {
@@ -90,22 +92,22 @@ public class WarehouseController {
 
     @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public ResponseEntity<?> create(@RequestBody WarehouseAddDto warehouseAddDto) {
+    public ResponseEntity<?> create(@RequestBody WarehouseAddDto warehouseAddDto) throws AppBaseException {
         try {
             warehouseService.createWarehouse(warehouseAddDto);
-        } catch (AppBaseException e) {
-            e.printStackTrace();
+        } catch (OptimisticLockException e) {
+            throw new EntityOptimisticLockException(EntityOptimisticLockException.OPTIMISTIC_LOCK);
         }
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @RequestMapping(method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public void update(@RequestBody WarehouseEditDto warehouseEditDto) {
+    public void update(@RequestBody WarehouseEditDto warehouseEditDto) throws AppBaseException {
         try {
             warehouseService.updateWarehouse(warehouseEditDto);
-        } catch (AppBaseException e) {
-            e.printStackTrace();
+        } catch (OptimisticLockException e) {
+            throw new EntityOptimisticLockException(EntityOptimisticLockException.OPTIMISTIC_LOCK);
         }
     }
 

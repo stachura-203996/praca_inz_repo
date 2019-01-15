@@ -72,7 +72,7 @@ public class NotificationMessages {
         notification.setReaded(false);
         notification.setCalendarTimestamp(Calendar.getInstance());
         notification.setDeleted(false);
-        notification.setUrl("/ui/page/employees/reports/view/" + report.getId());
+        notification.setUrl("/employees/reports/view/" + report.getId());
         if(report.getSender().getUserdata().getLanguage()=="ENG") {
             notification.setTitle("Report sended");
             notification.setDescription("Your report was sent to: " + report.getReciever().getUsername() + " Report title: " + report.getTitle()
@@ -91,7 +91,7 @@ public class NotificationMessages {
         notification.setReaded(false);
         notification.setCalendarTimestamp(Calendar.getInstance());
         notification.setDeleted(false);
-        notification.setUrl("/ui/page/employees/reports/view/" + report.getId());
+        notification.setUrl("/employees/reports/view/" + report.getId());
         if(report.getReciever().getUserdata().getLanguage()=="ENG") {
             notification.setTitle("Report recieved");
             notification.setDescription("You get report from: " + report.getSender().getUsername() + "Report title: " + report.getTitle()

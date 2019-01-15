@@ -48,6 +48,10 @@ export class DeviceRequestViewWarehouseComponent implements OnInit {
         this.getDevices();
     }
 
+    getUserInfo():string{
+        return this.request.name+" "+this.request.surname+" | "+this.request.username;
+    }
+
     add() {
         if (!this.selectedOptions.some(x => x.option == this.selectedOption)) {
             if (this.selectedOptions.length != this.request.amount) {

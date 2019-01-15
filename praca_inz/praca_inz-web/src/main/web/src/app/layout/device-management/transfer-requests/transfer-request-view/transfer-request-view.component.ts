@@ -42,6 +42,10 @@ export class TransferRequestViewComponent implements OnInit {
         this.getDevices()
     }
 
+    getUserInfo():string{
+        return this.request.name+" "+this.request.surname+" | "+this.request.username;
+    }
+
     getLoggeduserRoles(){
         this.userService.getLoggedUserRoles().subscribe(x=>this.roles=x);
     }

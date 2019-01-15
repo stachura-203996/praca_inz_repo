@@ -11,13 +11,13 @@ import {GeneralRouteGuard} from "../../shared/guard/general-route-guard.service"
 import {FullRouteGuard} from "../../shared/guard/full-route-guard.service";
 
 const routes: Routes = [
-    {path: 'subordinates', component: EmployeesListComponent,canActivate: [FullRouteGuard] },
-    {path: 'reports', component: ReportUserComponent,canActivate: [GeneralRouteGuard]},
-    {path: 'reports/view/:id', component: ReportViewComponent,canActivate: [GeneralRouteGuard]},
-    {path: 'reports/add', component: ReportAddComponent,canActivate: [GeneralRouteGuard]},
-    {path: 'reports/request/add/:id', component: ReportRequestAddComponent,canActivate: [GeneralRouteGuard]},
-    {path: 'requests', component: RequestUserComponent,canActivate: [GeneralRouteGuard]},
-    {path: 'user/view/:username', component: UserViewComponent,canActivate: [GeneralRouteGuard]},
+    {path: 'subordinates', component: EmployeesListComponent/*,canActivate: [FullRouteGuard] */},
+    {path: 'reports', component: ReportUserComponent/*,canActivate: [GeneralRouteGuard]*/},
+    {path: 'reports/view/:id', component: ReportViewComponent/*,canActivate: [GeneralRouteGuard]*/},
+    {path: 'reports/add', component: ReportAddComponent/*,canActivate: [GeneralRouteGuard]*/},
+    {path: 'reports/request/add/:id', component: ReportRequestAddComponent/*,canActivate: [GeneralRouteGuard]*/},
+    {path: 'requests', component: RequestUserComponent/*,canActivate: [GeneralRouteGuard]*/},
+    {path: 'user/view/:username', component: UserViewComponent/*,canActivate: [GeneralRouteGuard]*/},
 
 ];
 

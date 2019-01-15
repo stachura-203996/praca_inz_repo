@@ -1,10 +1,13 @@
 package com.stachura.praca_inz.backend.exception;
 
 import com.stachura.praca_inz.backend.exception.base.AppBaseException;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
  * Klasa wyjątku rzucanego przy naruszeniu ograniczeń nałożonych przez tabele w bazie danych
  */
+@ResponseStatus(HttpStatus.BAD_REQUEST)
 public class DatabaseErrorException extends AppBaseException {
 
     public static final String DATABASE_ERROR = "error_database";

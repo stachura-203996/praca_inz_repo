@@ -96,12 +96,17 @@ export class LoginService {
     }
 
     revokeToken() {
-
+        let headers = new HttpHeaders({'authorization': 'Bearer '+this.cookieService.get('access_token')});
+        this.http.get<LoggedUser>('http://localhost:8081/secured/revoke/token',{headers:headers}).subscribe(user=>{
+            localStorage.setItem('loggedUser', JSON.stringify(user));
+        })
     }
 
     logout() {
+
         localStorage.removeItem('loggedUser');
         localStorage.clear();
+        this.revokeToken();
         this.cookieService.deleteAll('/ui')
         this.cookieService.delete('JSESSIONID');
         this.cookieService.delete('access_token');

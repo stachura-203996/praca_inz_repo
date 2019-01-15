@@ -1,4 +1,4 @@
-<!--<div class="col-sm-12 col-md-8 offset-md-2">-->
+
 <div class="col-md-12">
     <h1>{{ 'WarehouseDeliveries' | translate }}</h1>
 
@@ -19,7 +19,7 @@
             <th>{{'Sender'| translate}}</th>
             <th>{{'Reciever' | translate}}</th>
             <th>{{'CreateDate'| translate}}</th>
-            <th></th>
+            <!--<th></th>-->
         </tr>
         </thead>
         <tbody>
@@ -31,16 +31,16 @@
             <td>{{delivery.sender}}</td>
             <td>{{delivery.receiver}}</td>
             <td>{{delivery.createDate}}</td>
-            <td class="text-right">
-                <div *ngIf="!delivery.confirmed" class="btn-group flex-btn-group-container">
-                    <button type="submit"
-                            (click)="confirm(delivery)"
-                            class="btn btn-info btn-sm">
-                        <i class="fa fa-eye"></i>&nbsp;
-                        <span class="d-none d-md-inline">{{'ConfirmReceipt'|translate}}</span>
-                    </button>
-                </div>
-            </td>
+            <!--<td class="text-right">-->
+                <!--<div *ngIf="!delivery.confirmed" class="btn-group flex-btn-group-container">-->
+                    <!--<button type="submit"-->
+                            <!--(click)="confirm(delivery)"-->
+                            <!--class="btn btn-info btn-sm">-->
+                        <!--<i class="fa fa-eye"></i>&nbsp;-->
+                        <!--<span class="d-none d-md-inline">{{'ConfirmReceipt'|translate}}</span>-->
+                    <!--</button>-->
+                <!--</div>-->
+            <!--</td>-->
         </tr>
         </tbody>
     </table>

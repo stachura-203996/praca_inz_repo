@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {ReportService} from "../../report.service";
-import {ReportViewElement} from "../../../../models/report-elements";
+import {ReportListElement, ReportViewElement} from "../../../../models/report-elements";
 
 @Component({
   selector: 'app-report-view',
@@ -27,5 +27,11 @@ export class ReportViewComponent implements OnInit {
         this.reportService.getReportView(id).subscribe(x => this.report = x);
     }
 
+    getSender(){
+        return this.report.senderName+" "+this.report.senderSurname+" | "+this.report.sender;
+    }
 
+    getReciever(){
+        return this.report.recieverName+" "+this.report.recieverSurname+" | "+this.report.receiver;
+    }
 }
