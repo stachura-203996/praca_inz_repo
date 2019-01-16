@@ -58,5 +58,11 @@ public class Userdata implements Serializable {
     @JoinColumn(name = "ADDRESS_ID")
     private Address address;
 
+    public Userdata() {
+    }
 
+    public Userdata(Long id, long version) {
+        this.id=id;
+        this.version = version;
+    }
 }

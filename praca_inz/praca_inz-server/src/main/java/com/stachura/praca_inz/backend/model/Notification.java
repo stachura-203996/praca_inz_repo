@@ -57,6 +57,13 @@ public class Notification implements Serializable, Comparator<Notification>,Clon
     @Temporal(TemporalType.TIMESTAMP)
     private java.util.Calendar calendarTimestamp;
 
+    public Notification() {
+    }
+
+    public Notification(Long id, long version) {
+        this.id=id;
+        this.version = version;
+    }
 
     @Override
     public int compare(Notification o1, Notification o2) {

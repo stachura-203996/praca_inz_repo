@@ -66,4 +66,11 @@ public class Delivery implements Serializable {
     @Column(name = "DELETED", nullable = false)
     private boolean deleted;
 
+    public Delivery() {
+    }
+
+    public Delivery(Long id, long version) {
+        this.id=id;
+        this.version = version;
+    }
 }

@@ -57,6 +57,13 @@ public class Report implements Serializable, Comparator<Report> {
     @Temporal(TemporalType.TIMESTAMP)
     private java.util.Calendar calendarTimestamp;
 
+    public Report() {
+    }
+
+    public Report(Long id, long version) {
+        this.id=id;
+        this.version = version;
+    }
 
     @Override
     public int compare(Report o1, Report o2) {

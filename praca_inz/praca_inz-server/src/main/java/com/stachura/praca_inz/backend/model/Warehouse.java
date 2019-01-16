@@ -88,5 +88,13 @@ public class Warehouse implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "recieverWarehouse", fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonManagedReference
     private Set<Transfer> receiverTransfers = new HashSet<>();
+
+    public Warehouse() {
+    }
+
+    public Warehouse(Long id, long version) {
+        this.id=id;
+        this.version = version;
+    }
 }
 

@@ -43,4 +43,12 @@ public class Parameter implements Serializable {
     @JsonBackReference
     private DeviceModel deviceModel;
 
+    public Parameter() {
+    }
+
+    public Parameter(Long id, long version) {
+        this.id=id;
+        this.version = version;
+    }
+
 }

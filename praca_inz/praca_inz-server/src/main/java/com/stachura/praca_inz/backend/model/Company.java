@@ -54,4 +54,11 @@ public class Company implements Serializable {
     @JsonManagedReference
     private Set<DeviceModel> deviceModels = new HashSet<>();
 
+    public Company() {
+    }
+
+    public Company(Long id, long version) {
+        this.id=id;
+        this.version = version;
+    }
 }

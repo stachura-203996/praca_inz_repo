@@ -102,4 +102,12 @@ public class User implements UserDetails, Serializable {
     public boolean isCredentialsNonExpired() {
         return !isCredentialsExpired();
     }
+
+    public User() {
+    }
+
+    public User(Long id, long version) {
+        this.id=id;
+        this.version = version;
+    }
 }

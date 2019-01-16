@@ -73,4 +73,12 @@ public class Device implements Serializable {
     @JsonBackReference
     private Warehouse warehouse;
 
+    public Device() {
+    }
+
+    public Device(Long id, long version) {
+        this.id=id;
+        this.version = version;
+    }
+
 }

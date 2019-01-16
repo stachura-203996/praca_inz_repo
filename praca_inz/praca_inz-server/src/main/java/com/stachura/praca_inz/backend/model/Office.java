@@ -61,4 +61,12 @@ public class Office implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "office", fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonManagedReference
     private Set<Warehouse> warehouses = new HashSet<>();
+
+    public Office() {
+    }
+
+    public Office(Long id, long version) {
+        this.id=id;
+        this.version = version;
+    }
 }

@@ -32,4 +32,12 @@ public class DeviceType {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "deviceType", fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonManagedReference
     private Set<DeviceModel> deviceModels = new HashSet<>();
+
+    public DeviceType() {
+    }
+
+    public DeviceType(Long id, long version) {
+        this.id=id;
+        this.version = version;
+    }
 }

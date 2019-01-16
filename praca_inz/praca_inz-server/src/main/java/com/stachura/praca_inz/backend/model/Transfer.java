@@ -61,4 +61,12 @@ public class Transfer implements Serializable {
 
     @Column(name = "DELETED", nullable = false)
     private boolean deleted;
+
+    public Transfer() {
+    }
+
+    public Transfer(Long id, long version) {
+        this.id=id;
+        this.version = version;
+    }
 }

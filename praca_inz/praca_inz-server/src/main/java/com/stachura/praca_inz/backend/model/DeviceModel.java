@@ -65,4 +65,11 @@ public class DeviceModel implements Serializable {
     @JsonManagedReference
     private Set<Device> deliveries = new HashSet<>();
 
+    public DeviceModel() {
+    }
+
+    public DeviceModel(Long id, long version) {
+        this.id=id;
+        this.version = version;
+    }
 }

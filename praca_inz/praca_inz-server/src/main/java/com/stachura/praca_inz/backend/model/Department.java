@@ -46,12 +46,12 @@ public class Department implements Serializable {
     @JsonBackReference
     private Company company;
 
-
-
-    public void setOffices(Set<Office> offices) {
-        this.offices.clear();
-        if (offices != null) {
-            this.offices.addAll(offices);
-        }
+    public Department() {
     }
+
+    public Department(Long id, long version) {
+        this.id=id;
+        this.version = version;
+    }
+    
 }
