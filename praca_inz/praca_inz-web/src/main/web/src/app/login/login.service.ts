@@ -56,16 +56,15 @@ export class LoginService {
         var expire = new Date();
         var time = Date.now() + (1000 * token.expires_in);
         expire.setTime(time);
-        this.cookieService.set('access_token', token.access_token, expire);
+        this.cookieService.set('access_token', token.access_token, expire,'/ui/page');
         console.log('Obtained Access token');
         this.saveLoggedUser(token);
-        window.location.href = 'http://localhost:8081/ui/';
+        window.location.href = 'http://localhost:8081/ui/page/main-page';
     }
 
     checkCredentials(): boolean {
         return this.cookieService.check('access_token');
     }
-
 
 
     resetPassword(username: string) {
@@ -80,10 +79,10 @@ export class LoginService {
         });
     }
 
-    saveLoggedUser(token){
-       let headers = new HttpHeaders({'authorization': 'Bearer '+token.access_token});
-       this.http.get<LoggedUser>('http://localhost:8081/secured/users/logged',{headers:headers}).subscribe(user=>{
-          localStorage.setItem('loggedUser', JSON.stringify(user));
+    saveLoggedUser(token) {
+        let headers = new HttpHeaders({'authorization': 'Bearer ' + token.access_token});
+        this.http.get<LoggedUser>('http://localhost:8081/secured/users/logged', {headers: headers}).subscribe(user => {
+            localStorage.setItem('loggedUser', JSON.stringify(user));
         });
     }
 
@@ -96,10 +95,12 @@ export class LoginService {
     }
 
     revokeToken() {
-        let headers = new HttpHeaders({'authorization': 'Bearer '+this.cookieService.get('access_token')});
-        this.http.get<LoggedUser>('http://localhost:8081/secured/revoke/token',{headers:headers}).subscribe(user=>{
-            localStorage.setItem('loggedUser', JSON.stringify(user));
-        })
+        if (this.checkCredentials()) {
+            let headers = new HttpHeaders({'authorization': 'Bearer ' + this.cookieService.get('access_token')});
+            this.http.get<LoggedUser>('http://localhost:8081/secured/revoke/token', {headers: headers}).subscribe(user => {
+                localStorage.setItem('loggedUser', JSON.stringify(user));
+            })
+        }
     }
 
     logout() {
@@ -107,7 +108,7 @@ export class LoginService {
         localStorage.removeItem('loggedUser');
         localStorage.clear();
         this.revokeToken();
-        this.cookieService.deleteAll('/ui')
+        this.cookieService.deleteAll('/ui/page')
         this.cookieService.delete('JSESSIONID');
         this.cookieService.delete('access_token');
         this.router.navigate(['/login']);
