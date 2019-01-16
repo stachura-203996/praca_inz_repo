@@ -9,15 +9,16 @@ import com.stachura.praca_inz.backend.web.dto.TransferListElementDto;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
 public class TransferConverter {
+
+    //LIST
     public static TransferListElementDto toTransferListElementDto(Transfer transfer) {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         return TransferListElementDto.builder()
                 .id(transfer.getId())
                 .title(transfer.getTitle())
-                .date(formatter.format(transfer.getTransferDate().getTime()))
+                .date(formatter.format(transfer.getCreateDate().getTime()))
                 .senderWarehouseName(transfer.getSenderWarehouse().getName())
                 .recieverWarehouseName(transfer.getRecieverWarehouse().getName())
                 .deviceModelName(transfer.getDevice().getDeviceModel().getName())
@@ -26,10 +27,11 @@ public class TransferConverter {
 
     }
 
+    //ADD
     public static Transfer toTransfer(TransferAddDto transferAddDto, String username, Warehouse sender, Warehouse reciever, Device device) {
         Transfer transfer = new Transfer();
         transfer.setUsername(username);
-        transfer.setTransferDate(Calendar.getInstance());
+        transfer.setCreateDate(Calendar.getInstance());
         transfer.setTitle(transferAddDto.getTitle());
         transfer.setStatus(Status.TRANSFERED);
         transfer.setSenderWarehouse(sender);

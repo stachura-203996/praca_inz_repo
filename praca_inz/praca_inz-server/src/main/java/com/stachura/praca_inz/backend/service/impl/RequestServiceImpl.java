@@ -20,6 +20,7 @@ import com.stachura.praca_inz.backend.web.dto.request.DeviceRequestAddDto;
 import com.stachura.praca_inz.backend.web.dto.request.RequestListElementDto;
 import com.stachura.praca_inz.backend.web.dto.request.TransferRequestAddDto;
 import com.stachura.praca_inz.backend.web.utils.NotificationMessages;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
@@ -62,6 +63,7 @@ public class RequestServiceImpl implements RequestService {
         if (request.isDeleted()) {
             return null;
         }
+        Hibernate.initialize(request.getDeviceModel());
         return request;
     }
 
@@ -251,7 +253,7 @@ public class RequestServiceImpl implements RequestService {
                     transfer.setSenderWarehouse(request.getSenderWarehouse());
                     transfer.setStatus(Status.TRANSFERED);
                     transfer.setTitle(request.getTitle());
-                    transfer.setTransferDate(Calendar.getInstance());
+                    transfer.setCreateDate(Calendar.getInstance());
                     transfer.setDeleted(false);
                     transfer.setDescription(request.getDescription());
                     transfer.setUsername(request.getUser().getUsername());
@@ -277,7 +279,7 @@ public class RequestServiceImpl implements RequestService {
                     transfer.setSenderWarehouse(request.getSenderWarehouse());
                     transfer.setStatus(Status.TRANSFERED);
                     transfer.setTitle(request.getTitle());
-                    transfer.setTransferDate(Calendar.getInstance());
+                    transfer.setCreateDate(Calendar.getInstance());
                     transfer.setDeleted(false);
                     transfer.setDescription(request.getDescription());
                     transfer.setUsername(request.getUser().getUsername());

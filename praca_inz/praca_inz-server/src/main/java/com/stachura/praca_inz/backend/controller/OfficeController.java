@@ -31,9 +31,6 @@ public class OfficeController {
     @Autowired
     private OfficeService officeService;
 
-    @Autowired
-    private DepartmentRepository departmentRepository;
-
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
@@ -46,14 +43,14 @@ public class OfficeController {
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
     CompanyStructureViewDto getToView(@PathVariable Long id) throws AppBaseException {
-        return CompanyStructureConverter.toCompanyStructureViewDto(officeService.getOfficeById(id));
+        return officeService.getOfficeToView(id);
     }
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
     CompanyStructureEditDto get(@PathVariable Long id) throws AppBaseException {
-        return CompanyStructureConverter.toCompanyStructureEdit(officeService.getOfficeById(id));
+        return officeService.getOfficeToEdit(id);
     }
 
 
@@ -85,7 +82,6 @@ public class OfficeController {
     @RequestMapping(method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public void update(@RequestBody CompanyStructureEditDto companyStructureEditDto) throws AppBaseException {
-        Office beforeOffice = officeService.getOfficeById(companyStructureEditDto.getId());
         try {
             officeService.update(companyStructureEditDto);
         } catch (OptimisticLockException e) {

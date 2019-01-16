@@ -22,18 +22,18 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let delivery of deliveries">
-            <td>{{delivery.title}}</td>
-            <td>{{delivery.deliveryNumber}}</td>
-            <td>{{delivery.serialNumber}}</td>
-            <td>{{delivery.deviceModelName}}</td>
-            <td>{{delivery.sender}}</td>
-            <td>{{delivery.receiver}}</td>
-            <td>{{delivery.createDate}}</td>
+        <tr *ngFor="let externalTransfer of deliveries">
+            <td>{{externalTransfer.title}}</td>
+            <td>{{externalTransfer.deliveryNumber}}</td>
+            <td>{{externalTransfer.serialNumber}}</td>
+            <td>{{externalTransfer.deviceModelName}}</td>
+            <td>{{externalTransfer.sender}}</td>
+            <td>{{externalTransfer.receiver}}</td>
+            <td>{{externalTransfer.createDate}}</td>
             <td class="text-right">
-                <div *ngIf="!delivery.confirmed" class="btn-group flex-btn-group-container">
+                <div *ngIf="!externalTransfer.confirmed" class="btn-group flex-btn-group-container">
                     <button type="submit"
-                            (click)="confirm(delivery)"
+                            (click)="confirm(externalTransfer)"
                             class="btn btn-info btn-sm">
                         <i class="fa fa-eye"></i>&nbsp;
                         <span class="d-none d-md-inline">{{'ConfirmReceipt'|translate}}</span>

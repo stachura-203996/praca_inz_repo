@@ -4,21 +4,27 @@ import com.stachura.praca_inz.backend.exception.DatabaseErrorException;
 import com.stachura.praca_inz.backend.exception.EntityNotInDatabaseException;
 import com.stachura.praca_inz.backend.exception.EntityOptimisticLockException;
 import com.stachura.praca_inz.backend.exception.base.AppBaseException;
-import com.stachura.praca_inz.backend.model.Address;
 import com.stachura.praca_inz.backend.model.Company;
 import com.stachura.praca_inz.backend.repository.AddressRepository;
 import com.stachura.praca_inz.backend.repository.CompanyRepository;
 import com.stachura.praca_inz.backend.service.CompanyService;
 import com.stachura.praca_inz.backend.web.dto.company.CompanyStructureAddDto;
 import com.stachura.praca_inz.backend.web.dto.company.CompanyStructureEditDto;
+import com.stachura.praca_inz.backend.web.dto.company.CompanyStructureViewDto;
 import com.stachura.praca_inz.backend.web.dto.company.CompanyStructuresListElementDto;
 import com.stachura.praca_inz.backend.web.dto.converter.CompanyStructureConverter;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.UnexpectedRollbackException;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
 import javax.persistence.OptimisticLockException;
+import javax.persistence.PersistenceException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,20 +39,35 @@ public class CompanyServiceImpl implements CompanyService {
     @Autowired
     AddressRepository addressRepository;
 
+    @Autowired
+    EntityManager em;
+
+    final static Logger logger = Logger.getLogger(CompanyService.class);
+
     @Override
-    @Transactional(readOnly = true)
-    @PreAuthorize("hasAuthority('COMPANY_READ')")
-    public Company getCompanyById(Long id) throws AppBaseException {
+    @Transactional(readOnly = true,propagation = Propagation.MANDATORY)
+    @PreAuthorize("hasAuthority('COMPANY_VIEW_READ')")
+    public CompanyStructureViewDto getCompanyToView(Long id) throws EntityNotInDatabaseException {
         Company company = companyRepository.findById(id).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
         if (company.isDeleted()) {
             return null;
         }
-        return company;
+        return CompanyStructureConverter.toCompanyStructureViewDto(company);
     }
 
+    @Override
+    @Transactional(readOnly = true,propagation = Propagation.MANDATORY)
+    @PreAuthorize("hasAuthority('COMPANY_EDIT_READ')")
+    public CompanyStructureEditDto getCompanyToEdit(Long id) throws EntityNotInDatabaseException {
+        Company company = companyRepository.findById(id).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
+        if (company.isDeleted()) {
+            return null;
+        }
+        return CompanyStructureConverter.toCompanyStructureEdit(company);
+    }
 
     @Override
-    @Transactional(readOnly = true)
+    @Transactional(readOnly = true,propagation = Propagation.MANDATORY)
     @PreAuthorize("hasAuthority('COMPANY_LIST_READ')")
     public List<CompanyStructuresListElementDto> getAllCompanies() {
         List<Company> companies = (List<Company>) companyRepository.findAll();
@@ -61,55 +82,37 @@ public class CompanyServiceImpl implements CompanyService {
 
 
     @Override
-    @Transactional
+    @Transactional(propagation = Propagation.MANDATORY)
     @PreAuthorize("hasAuthority('COMPANY_CREATE')")
-    public Long createNewCompany(CompanyStructureAddDto companyStructureAddDto) throws AppBaseException {
-
-        Address address = new Address();
-        address.setCity(companyStructureAddDto.getCity());
-        address.setStreet(companyStructureAddDto.getStreet());
-        address.setBuildingNumber(companyStructureAddDto.getBuildingNumber());
-        address.setFlatNumber(companyStructureAddDto.getFlatNumber());
-        address.setDeleted(false);
-        Company company = new Company();
-        company.setDeleted(false);
-        company.setName(companyStructureAddDto.getName());
-        company.setDescription(companyStructureAddDto.getDescription());
+    public void createNewCompany(CompanyStructureAddDto companyStructureAddDto) throws DatabaseErrorException {
         try {
-            addressRepository.save(address);
-            company.setAddress(address);
-            companyRepository.save(company);
-
-        } catch (RuntimeException e) {
-            Throwable rootCause = com.google.common.base.Throwables.getRootCause(e);
-            if (rootCause instanceof SQLException) {
-                throw new DatabaseErrorException(DatabaseErrorException.COMPANY_NAME_TAKEN);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+            companyRepository.save(CompanyStructureConverter.toCompany(companyStructureAddDto));
+            em.flush();
+        }catch (PersistenceException e){
+            throw new DatabaseErrorException(DatabaseErrorException.COMPANY_NAME_TAKEN);
         }
-        return company.getId();
     }
 
 
     @Override
-    @Transactional
+    @Transactional(propagation = Propagation.MANDATORY)
     @PreAuthorize("hasAuthority('COMPANY_UPDATE')")
-    public void updateCompany(CompanyStructureEditDto companyStructureEditDto) throws AppBaseException {
+    public void updateCompany(CompanyStructureEditDto companyStructureEditDto) throws EntityOptimisticLockException, EntityNotInDatabaseException, DatabaseErrorException {
         Company beforeCompany = companyRepository.findById(companyStructureEditDto.getId()).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
         try {
             companyRepository.save(CompanyStructureConverter.toCompany(companyStructureEditDto, beforeCompany));
+            em.flush();
         } catch (OptimisticLockException e) {
             throw new EntityOptimisticLockException(EntityOptimisticLockException.OPTIMISTIC_LOCK);
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (PersistenceException e) {
+            throw new DatabaseErrorException(DatabaseErrorException.DEPARTMENT_NAME_TAKEN);
         }
     }
 
     @Override
-    @Transactional
+    @Transactional(propagation = Propagation.MANDATORY)
     @PreAuthorize("hasAuthority('COMPANY_DELETE')")
-    public void deleteCompanyById(Long id) throws AppBaseException {
+    public void deleteCompanyById(Long id) throws EntityNotInDatabaseException {
         companyRepository.findById(id).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT)).setDeleted(true);
     }
 

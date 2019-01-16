@@ -116,14 +116,7 @@ public class DeviceController {
     @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public ResponseEntity<?> create(@RequestBody DeviceAddDto deviceAddDto) throws AppBaseException {
-        try {
-            deviceService.createNewDevice(deviceAddDto);
-        } catch (RuntimeException e) {
-            Throwable rootCause = com.google.common.base.Throwables.getRootCause(e);
-            if (rootCause instanceof SQLException) {
-                throw new DatabaseErrorException(DatabaseErrorException.SERIAL_NUMBER_NAME_TAKEN);
-            }
-        }
+        deviceService.createNewDevice(deviceAddDto);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 

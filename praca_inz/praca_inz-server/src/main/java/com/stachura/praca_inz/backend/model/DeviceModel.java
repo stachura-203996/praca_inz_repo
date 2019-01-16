@@ -41,17 +41,16 @@ public class DeviceModel implements Serializable {
     @Column(name = "COST", nullable = false)
     private long cost;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY,optional = false)
     @JsonBackReference
     private DeviceType deviceType;
 
-    @Column(name = "DELETED", nullable = false)
-    private boolean deleted;
-
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY,optional = false)
     @JsonBackReference
     private Company company;
 
+    @Column(name = "DELETED", nullable = false)
+    private boolean deleted;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "deviceModel", fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonManagedReference

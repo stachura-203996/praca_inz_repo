@@ -20,7 +20,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/secured/structure/company")
-@Transactional(propagation = Propagation.REQUIRES_NEW,rollbackFor = AppBaseException.class)
+@Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = AppBaseException.class)
 public class CompanyController {
 
 
@@ -40,35 +40,27 @@ public class CompanyController {
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
     CompanyStructureEditDto getToEdit(@PathVariable Long id) throws AppBaseException {
-        return CompanyStructureConverter.toCompanyStructureEdit(companyService.getCompanyById(id));
+        return companyService.getCompanyToEdit(id);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
     CompanyStructureViewDto getToView(@PathVariable Long id) throws AppBaseException {
-        return CompanyStructureConverter.toCompanyStructureViewDto(companyService.getCompanyById(id));
+        return companyService.getCompanyToView(id);
     }
 
     @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public ResponseEntity<?> create(@RequestBody CompanyStructureAddDto company) {
-        try {
-            companyService.createNewCompany(company);
-        } catch (AppBaseException e) {
-            e.printStackTrace();
-        }
+    public ResponseEntity<?> create(@RequestBody CompanyStructureAddDto company) throws AppBaseException {
+        companyService.createNewCompany(company);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @RequestMapping(method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public void update(@RequestBody CompanyStructureEditDto companyStructureEditDto) {
-        try {
-            companyService.updateCompany(companyStructureEditDto);
-        } catch (AppBaseException e) {
-            e.printStackTrace();
-        }
+    public void update(@RequestBody CompanyStructureEditDto companyStructureEditDto) throws AppBaseException {
+        companyService.updateCompany(companyStructureEditDto);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)

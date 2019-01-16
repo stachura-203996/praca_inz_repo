@@ -49,7 +49,7 @@ private WarehouseRepository warehouseRepository;
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('ACCOUNT_UPDATE_ADMIN')")
-    public void updateAccountbyAdmin(UserEditDto userEditDto) throws AppBaseException {
+    public void updateAccountbyAdmin(UserEditDto userEditDto) throws EntityNotInDatabaseException {
         User user = userRepository.findById(userEditDto.getId()).orElseThrow((()->new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT)));
         user.setUsername(userEditDto.getUsername());
         user.setOffice(officeRepository.findById(userEditDto.getOfficeId()).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT)));
@@ -94,7 +94,7 @@ private WarehouseRepository warehouseRepository;
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('ACCOUNT_UPDATE_USER')")
-    public void updateProfileByUser(ProfileEditDto profileEditDto) throws AppBaseException {
+    public void updateProfileByUser(ProfileEditDto profileEditDto) throws EntityNotInDatabaseException {
         User user = userRepository.findById(profileEditDto.getId()).orElseThrow((()->new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT)));
         user.setUsername(profileEditDto.getUsername());
         user.setOffice(officeRepository.findById(profileEditDto.getOfficeId()).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT)));

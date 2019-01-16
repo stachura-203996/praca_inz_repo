@@ -104,7 +104,6 @@ export class LoginService {
     }
 
     logout() {
-
         localStorage.removeItem('loggedUser');
         localStorage.clear();
         this.revokeToken();

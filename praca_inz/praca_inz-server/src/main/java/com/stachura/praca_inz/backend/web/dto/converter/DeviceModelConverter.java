@@ -10,7 +10,20 @@ import com.stachura.praca_inz.backend.web.dto.device.DeviceModelViewDto;
 
 public class DeviceModelConverter {
 
+    //VIEW
+    public static DeviceModelViewDto toDeviceModelViewDto(DeviceModel deviceModel) {
+        return DeviceModelViewDto.builder()
+                .id(deviceModel.getId())
+                .manufacture(deviceModel.getManufacture())
+                .name(deviceModel.getName())
+                .type(deviceModel.getDeviceType().getName())
+                .cost(deviceModel.getCost())
+                .numberOfDevices(String.valueOf(deviceModel.getDevices().size()))
+                .companyName(deviceModel.getCompany().getName())
+                .build();
+    }
 
+    //LIST
     public static DeviceModelListElementDto toDeviceModelListElement(DeviceModel deviceModel) {
         return DeviceModelListElementDto.builder()
                 .id(deviceModel.getId())
@@ -24,19 +37,19 @@ public class DeviceModelConverter {
 
     }
 
-    public static DeviceModelViewDto toDeviceModelViewDto(DeviceModel deviceModel) {
-        return DeviceModelViewDto.builder()
-                .id(deviceModel.getId())
-                .manufacture(deviceModel.getManufacture())
-                .name(deviceModel.getName())
-                .type(deviceModel.getDeviceType().getName())
-                .cost(deviceModel.getCost())
-                .numberOfDevices(String.valueOf(deviceModel.getDevices().size()))
-                .companyName(deviceModel.getCompany().getName())
-                .build();
+    //ADD
+    public static DeviceModel toDeviceModel(DeviceModelAddDto deviceModelAddDto, Company company, DeviceType deviceType) {
+        DeviceModel deviceModel = new DeviceModel();
+        deviceModel.setCompany(company);
+        deviceModel.setCost(deviceModelAddDto.getCost());
+        deviceModel.setDeleted(false);
+        deviceModel.setDeviceType(deviceType);
+        deviceModel.setManufacture(deviceModelAddDto.getManufacture());
+        deviceModel.setName(deviceModelAddDto.getName());
+        return deviceModel;
     }
 
-
+    //TO EDIT DTO
     public static DeviceModelEditDto toDeviceModelEditDto(DeviceModel deviceModel) {
         return DeviceModelEditDto.builder()
                 .id(deviceModel.getId())
@@ -51,25 +64,17 @@ public class DeviceModelConverter {
                 .build();
     }
 
+    //SAVE AFTER EDIT
     public static DeviceModel toDeviceModel(DeviceModelEditDto deviceModelEditDto, DeviceModel beforeDeviceModel, Company company, DeviceType deviceType) {
-        beforeDeviceModel.setCompany(company);
-        beforeDeviceModel.setCost(deviceModelEditDto.getCost());
-        beforeDeviceModel.setDeleted(false);
-        beforeDeviceModel.setDeviceType(deviceType);
-        beforeDeviceModel.setManufacture(deviceModelEditDto.getManufacture());
-        beforeDeviceModel.setName(deviceModelEditDto.getName());
-        beforeDeviceModel.setVersion(deviceModelEditDto.getVersion());
-        return beforeDeviceModel;
-    }
-
-    public static DeviceModel toDeviceModel(DeviceModelAddDto deviceModelAddDto, Company company, DeviceType deviceType) {
-        DeviceModel deviceModel = new DeviceModel();
+        DeviceModel deviceModel=new DeviceModel(beforeDeviceModel.getId(),beforeDeviceModel.getVersion());
         deviceModel.setCompany(company);
-        deviceModel.setCost(deviceModelAddDto.getCost());
+        deviceModel.setCost(deviceModelEditDto.getCost());
         deviceModel.setDeleted(false);
         deviceModel.setDeviceType(deviceType);
-        deviceModel.setManufacture(deviceModelAddDto.getManufacture());
-        deviceModel.setName(deviceModelAddDto.getName());
+        deviceModel.setManufacture(deviceModelEditDto.getManufacture());
+        deviceModel.setName(deviceModelEditDto.getName());
+        deviceModel.setVersion(deviceModelEditDto.getVersion());
         return deviceModel;
     }
+
 }

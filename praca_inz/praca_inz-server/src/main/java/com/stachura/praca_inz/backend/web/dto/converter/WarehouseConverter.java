@@ -11,30 +11,8 @@ import com.stachura.praca_inz.backend.web.dto.warehouse.WarehouseViewDto;
 
 public class WarehouseConverter {
 
-    public static WarehouseListElementDto toWarehouseUserListElementDto(Warehouse warehouse){
-        return WarehouseListElementDto.builder()
-                .id(warehouse.getId())
-                .name(warehouse.getName())
-                .username(warehouse.getUser().getUsername())
-                .devicesNumber(String.valueOf(warehouse.getDevices().size()))
-                .build();
-    }
-
-    public static WarehouseListElementDto toWarehouseOfficeListElementDto(Warehouse warehouse){
-        return WarehouseListElementDto.builder()
-                .id(warehouse.getId())
-                .name(warehouse.getName())
-                .username(warehouse.getUser().getUsername())
-                .companyName(warehouse.getOffice().getDepartment().getCompany().getName())
-                .departmentName(warehouse.getOffice().getDepartment().getName())
-                .userName(warehouse.getUser().getUserdata().getName())
-                .userSurname(warehouse.getUser().getUserdata().getSurname())
-                .officeName(warehouse.getOffice().getName())
-                .devicesNumber(String.valueOf(warehouse.getDevices().size()))
-                .build();
-    }
-
-    public static WarehouseViewDto toWarehouseViewDto(Warehouse warehouse){
+    //VIEW
+    public static WarehouseViewDto toWarehouseViewDto(Warehouse warehouse) {
         return WarehouseViewDto.builder()
                 .name(warehouse.getName())
                 .name(warehouse.getName())
@@ -47,20 +25,35 @@ public class WarehouseConverter {
                 .devicesNumber(String.valueOf(warehouse.getDevices().size()))
                 .build();
     }
-    public static WarehouseEditDto toWarehouseEditDto(Warehouse warehouse){
-        return WarehouseEditDto.builder()
-                .name(warehouse.getName())
+
+    //LIST
+    public static WarehouseListElementDto toWarehouseUserListElementDto(Warehouse warehouse) {
+        return WarehouseListElementDto.builder()
                 .id(warehouse.getId())
-                .officeId(warehouse.getOffice().getId())
-                .userId(warehouse.getUser().getId())
-                .version(warehouse.getVersion())
-                .officeName(warehouse.getOffice().getName())
-                .selectedUser(warehouse.getUser().getUserdata().getName()+" "+warehouse.getUser().getUserdata().getName()+" | "+warehouse.getUser().getUsername())
+                .name(warehouse.getName())
+                .username(warehouse.getUser().getUsername())
+                .devicesNumber(String.valueOf(warehouse.getDevices().size()))
                 .build();
     }
 
-    public static Warehouse toWarehouse(WarehouseAddDto warehouseAddDto, User user, Office office){
-        Warehouse warehouse=new Warehouse();
+    public static WarehouseListElementDto toWarehouseOfficeListElementDto(Warehouse warehouse) {
+        return WarehouseListElementDto.builder()
+                .id(warehouse.getId())
+                .name(warehouse.getName())
+                .username(warehouse.getUser().getUsername())
+                .companyName(warehouse.getOffice().getDepartment().getCompany().getName())
+                .departmentName(warehouse.getOffice().getDepartment().getName())
+                .userName(warehouse.getUser().getUserdata().getName())
+                .userSurname(warehouse.getUser().getUserdata().getSurname())
+                .officeName(warehouse.getOffice().getName())
+                .devicesNumber(String.valueOf(warehouse.getDevices().size()))
+                .build();
+    }
+
+
+    //ADD
+    public static Warehouse toWarehouse(WarehouseAddDto warehouseAddDto, User user, Office office) {
+        Warehouse warehouse = new Warehouse();
         warehouse.setDeleted(false);
         warehouse.setUser(user);
         warehouse.setWarehouseType(WarehouseType.OFFICE);
@@ -69,12 +62,27 @@ public class WarehouseConverter {
         return warehouse;
     }
 
-    public static Warehouse toWarehouse(WarehouseEditDto warehouseEditDto,Warehouse beforeWarehouse, User user, Office office){
-        beforeWarehouse.setUser(user);
-        beforeWarehouse.setWarehouseType(WarehouseType.OFFICE);
-        beforeWarehouse.setOffice(office);
-        beforeWarehouse.setName(warehouseEditDto.getName());
-        beforeWarehouse.setVersion(warehouseEditDto.getVersion());
-        return beforeWarehouse;
+    //TO EDIT DTO
+    public static WarehouseEditDto toWarehouseEditDto(Warehouse warehouse) {
+        return WarehouseEditDto.builder()
+                .name(warehouse.getName())
+                .id(warehouse.getId())
+                .officeId(warehouse.getOffice().getId())
+                .userId(warehouse.getUser().getId())
+                .version(warehouse.getVersion())
+                .officeName(warehouse.getOffice().getName())
+                .selectedUser(warehouse.getUser().getUserdata().getName() + " " + warehouse.getUser().getUserdata().getName() + " | " + warehouse.getUser().getUsername())
+                .build();
+    }
+    
+    //SAVE AFTER EDIT
+    public static Warehouse toWarehouse(WarehouseEditDto warehouseEditDto, Warehouse beforeWarehouse, User user, Office office) {
+        Warehouse warehouse=new Warehouse(beforeWarehouse.getId(),beforeWarehouse.getVersion());
+        warehouse.setUser(user);
+        warehouse.setWarehouseType(WarehouseType.OFFICE);
+        warehouse.setOffice(office);
+        warehouse.setName(warehouseEditDto.getName());
+        warehouse.setVersion(warehouseEditDto.getVersion());
+        return warehouse;
     }
 }

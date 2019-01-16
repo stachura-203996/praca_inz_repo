@@ -42,7 +42,7 @@ public class DeviceModelServiceImpl implements DeviceModelService {
     @Override
     @Transactional(readOnly = true)
     @PreAuthorize("hasAuthority('DEVICE_MODEL_READ')")
-    public DeviceModelViewDto getDeviceModelViewById(Long id) throws AppBaseException {
+    public DeviceModelViewDto getDeviceModelViewById(Long id) throws EntityNotInDatabaseException {
         DeviceModel deviceModel = deviceModelRepository.findById(id).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
         if (deviceModel.isDeleted()) {
             return null;

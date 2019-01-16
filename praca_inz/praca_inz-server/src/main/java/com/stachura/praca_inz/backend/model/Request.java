@@ -32,11 +32,11 @@ public class Request {
     @Column(name = "TITLE", nullable = false)
     private String title;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY,optional = false)
     @JsonBackReference
     private User user;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY,optional = false)
     @JsonBackReference
     private DeviceModel deviceModel;
 
@@ -51,10 +51,10 @@ public class Request {
     @Enumerated(EnumType.STRING)
     private RequestType requestType;
 
-    @Column(name = "DESCRIPTION" , columnDefinition ="TEXT")
+    @Column(name = "DESCRIPTION" , columnDefinition ="TEXT",nullable = false)
     private String description;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY,optional = false)
     @JsonBackReference
     private Warehouse recieverWarehouse;
 
@@ -68,6 +68,8 @@ public class Request {
     @Temporal(TemporalType.TIMESTAMP)
     private java.util.Calendar createDate;
 
+    @Column(name = "DELETED", nullable = false)
+    private boolean deleted;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "REQUESTS_DEVICES", joinColumns = @JoinColumn(name = "REQUEST_ID", referencedColumnName = "ID"), inverseJoinColumns = @JoinColumn(name = "DEVICE_ID", referencedColumnName = "ID"))
@@ -82,7 +84,4 @@ public class Request {
         this.id=id;
         this.version = version;
     }
-
-    @Column(name = "DELETED", nullable = false)
-    private boolean deleted;
 }

@@ -31,7 +31,6 @@ public class AccountEditController {
     @RequestMapping(value = "/self", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public ResponseEntity<?> safeProfileAfterEdit(@RequestBody ProfileEditDto data)throws AppBaseException {
-
         accountEditService.updateProfileByUser(data);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }

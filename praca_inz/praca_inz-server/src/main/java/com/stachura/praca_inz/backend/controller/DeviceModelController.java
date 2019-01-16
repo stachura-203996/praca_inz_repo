@@ -57,32 +57,13 @@ public class DeviceModelController {
     @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public Long create(@RequestBody DeviceModelAddDto deviceModelAddDto) throws AppBaseException {
-
-        Long deviceModelId = null;
-        try {
-           deviceModelId= deviceModelService.createNewDeviceModel(deviceModelAddDto);
-        } catch (RuntimeException e) {
-            Throwable rootCause = com.google.common.base.Throwables.getRootCause(e);
-            if (rootCause instanceof SQLException) {
-                throw new DatabaseErrorException(DatabaseErrorException.DEVICE_MODEL_NAME_NAME_TAKEN);
-            }
-        }
-        return  deviceModelId;
+        return  deviceModelService.createNewDeviceModel(deviceModelAddDto);
     }
 
     @RequestMapping(value = "/parameters/{id}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public Long createParameter(@RequestBody ParameterListElementDto parameterListElementDto, @PathVariable Long id) throws AppBaseException {
-        Long parameter = null;
-        try {
-            parameter = deviceModelService.createNewParameter(parameterListElementDto, id);
-        } catch (RuntimeException e) {
-            Throwable rootCause = com.google.common.base.Throwables.getRootCause(e);
-            if (rootCause instanceof SQLException) {
-                throw new DatabaseErrorException(DatabaseErrorException.COMPANY_NAME_TAKEN);
-            }
-        }
-        return parameter;
+        return  deviceModelService.createNewParameter(parameterListElementDto, id);
     }
 
     @RequestMapping(method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)

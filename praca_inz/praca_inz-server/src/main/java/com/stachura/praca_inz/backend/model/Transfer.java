@@ -45,7 +45,7 @@ public class Transfer implements Serializable {
     @NotNull
     @Column(name = "TRANSFER_DATE", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
-    private java.util.Calendar transferDate;
+    private java.util.Calendar createDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference

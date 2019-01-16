@@ -11,7 +11,7 @@ public enum Status {
     //WAREHOUSE
     IN_WAREHOUSE,
 
-    //Delivery
+    //ExternalTransfer
     WAITNING_FOR_DELIVERY,
 
 

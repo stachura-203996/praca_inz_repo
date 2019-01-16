@@ -32,12 +32,11 @@ public class Office implements Serializable {
     @Column(name = "NAME", nullable = false,unique = true)
     private String name;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY,optional = false)
     @JoinColumn(name = "ADDRESS_ID")
     private Address address;
 
-
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY,optional = false)
     @JsonBackReference
     private Department department;
 
@@ -50,13 +49,6 @@ public class Office implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "office", fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonManagedReference
     private Set<User> users = new HashSet<>();
-
-    public void setUsers(Set<User> users) {
-        this.users.clear();
-        if (users != null) {
-            this.users.addAll(users);
-        }
-    }
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "office", fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonManagedReference

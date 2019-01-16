@@ -1,9 +1,11 @@
 package com.stachura.praca_inz.backend.service;
 
+import com.stachura.praca_inz.backend.exception.EntityNotInDatabaseException;
 import com.stachura.praca_inz.backend.exception.base.AppBaseException;
 import com.stachura.praca_inz.backend.model.Department;
 import com.stachura.praca_inz.backend.web.dto.company.CompanyStructureAddDto;
 import com.stachura.praca_inz.backend.web.dto.company.CompanyStructureEditDto;
+import com.stachura.praca_inz.backend.web.dto.company.CompanyStructureViewDto;
 import com.stachura.praca_inz.backend.web.dto.company.CompanyStructuresListElementDto;
 
 import java.util.List;
@@ -21,4 +23,7 @@ public interface DepartmentService {
 
     void deleteDepartmentById(Long id) throws AppBaseException;
 
+    CompanyStructureViewDto getDepartmentView(Long id) throws EntityNotInDatabaseException;
+
+    CompanyStructureEditDto getDepartmentEdit(Long id) throws EntityNotInDatabaseException;
 }

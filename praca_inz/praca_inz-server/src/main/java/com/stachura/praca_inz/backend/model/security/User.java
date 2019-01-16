@@ -26,8 +26,8 @@ import java.util.stream.Collectors;
 public class User implements UserDetails, Serializable {
 
     @Id
-    @SequenceGenerator(name = "UserGen", sequenceName = "user_id_seq",initialValue = 5,allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "UserGen")
+    @SequenceGenerator(name = "UserGen", sequenceName = "user_id_seq", initialValue = 5, allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "UserGen")
     @Column(name = "ID", updatable = false, nullable = false)
     private Long id;
 
@@ -35,29 +35,29 @@ public class User implements UserDetails, Serializable {
     @Column(name = "VERSION")
     private long version;
 
-    @Column(name = "USER_NAME")
+    @Column(name = "USER_NAME",nullable = false,unique = true)
     private String username;
 
-    @Column(name = "PASSWORD")
+    @Column(name = "PASSWORD",nullable = false)
     private String password;
 
-    @Column(name = "ACCOUNT_EXPIRED")
+    @Column(name = "ACCOUNT_EXPIRED",nullable = false)
     private boolean accountExpired;
 
-    @Column(name = "ACCOUNT_LOCKED")
+    @Column(name = "ACCOUNT_LOCKED",nullable = false)
     private boolean accountLocked;
 
-    @Column(name = "CREDENTIALS_EXPIRED")
+    @Column(name = "CREDENTIALS_EXPIRED",nullable = false)
     private boolean credentialsExpired;
 
-    @Column(name = "ENABLED")
+    @Column(name = "ENABLED",nullable = false)
     private boolean enabled;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JsonBackReference
     private Office office;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER,optional = false)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "USERDATA_ID")
     private Userdata userdata;
 
@@ -85,7 +85,7 @@ public class User implements UserDetails, Serializable {
 
     @Override
     public Collection<Authority> getAuthorities() {
-        return this.getUserRoles().stream().flatMap(x->x.getAuthorities().stream()).collect(Collectors.toList());
+        return this.getUserRoles().stream().flatMap(x -> x.getAuthorities().stream()).collect(Collectors.toList());
     }
 
     @Override
@@ -107,7 +107,7 @@ public class User implements UserDetails, Serializable {
     }
 
     public User(Long id, long version) {
-        this.id=id;
+        this.id = id;
         this.version = version;
     }
 }

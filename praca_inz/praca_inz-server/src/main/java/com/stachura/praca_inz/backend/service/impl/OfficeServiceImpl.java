@@ -13,6 +13,7 @@ import com.stachura.praca_inz.backend.repository.UserRepository;
 import com.stachura.praca_inz.backend.service.OfficeService;
 import com.stachura.praca_inz.backend.web.dto.company.CompanyStructureAddDto;
 import com.stachura.praca_inz.backend.web.dto.company.CompanyStructureEditDto;
+import com.stachura.praca_inz.backend.web.dto.company.CompanyStructureViewDto;
 import com.stachura.praca_inz.backend.web.dto.company.CompanyStructuresListElementDto;
 import com.stachura.praca_inz.backend.web.dto.converter.CompanyStructureConverter;
 import org.hibernate.Hibernate;
@@ -39,16 +40,29 @@ public class OfficeServiceImpl implements OfficeService {
 
     @Override
     @Transactional(readOnly = true)
-    @PreAuthorize("hasAuthority('OFFICE_READ')")
-    public Office getOfficeById(Long id) throws AppBaseException {
+    @PreAuthorize("hasAuthority('OFFICE_VIEW_READ')")
+    public CompanyStructureViewDto getOfficeToView(Long id) throws AppBaseException {
         Office office = officeRepository.findById(id).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
         if (office.isDeleted()) {
             return null;
         }
-        return office;
+        return CompanyStructureConverter.toCompanyStructureViewDto(office);
     }
 
     @Override
+    @Transactional(readOnly = true)
+    @PreAuthorize("hasAuthority('OFFICE_EDIT_READ')")
+    public CompanyStructureEditDto getOfficeToEdit(Long id) throws EntityNotInDatabaseException {
+        Office office = officeRepository.findById(id).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
+        if (office.isDeleted()) {
+            return null;
+        }
+        return CompanyStructureConverter.toCompanyStructureEdit(office);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    @PreAuthorize("hasAuthority('OFFICE_LIST_READ')")
     public List<CompanyStructuresListElementDto> getAllOfficesForCompany(Long id) {
         List<Office> offices = Lists.newArrayList(officeRepository.findAll()).stream().filter(x -> x.getDepartment().getCompany().getId().equals(id)).collect(Collectors.toList());
         List<CompanyStructuresListElementDto> officesDto = new ArrayList<>();
@@ -63,6 +77,8 @@ public class OfficeServiceImpl implements OfficeService {
     }
 
     @Override
+    @Transactional(readOnly = true)
+    @PreAuthorize("hasAuthority('OFFICE_LIST_READ')")
     public List<CompanyStructuresListElementDto> getAllOfficesForDepartment(Long id) {
         List<Office> offices = Lists.newArrayList(officeRepository.findAll()).stream().filter(x -> x.getDepartment().getId().equals(id)).collect(Collectors.toList());
         List<CompanyStructuresListElementDto> officesDto = new ArrayList<>();
@@ -110,7 +126,7 @@ public class OfficeServiceImpl implements OfficeService {
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('OFFICE_UPDATE')")
-    public void update(CompanyStructureEditDto companyStructureEditDto) throws AppBaseException {
+    public void update(CompanyStructureEditDto companyStructureEditDto) throws EntityNotInDatabaseException {
         Office beforeOffice=officeRepository.findById(companyStructureEditDto.getId()).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
         Department department=departmentRepository.findById(companyStructureEditDto.getParentId()).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
         officeRepository.save(CompanyStructureConverter.toOffice(companyStructureEditDto,beforeOffice,department));
@@ -122,4 +138,6 @@ public class OfficeServiceImpl implements OfficeService {
     public void delete(Long id) throws AppBaseException {
         officeRepository.findById(id).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT)).setDeleted(true);
     }
+
+
 }

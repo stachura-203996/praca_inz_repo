@@ -12,6 +12,28 @@ import java.util.Calendar;
 
 public class DeviceConverter {
 
+    //VIEW
+    public static DeviceViewDto toDeviceViewDto(Device device) {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        return DeviceViewDto.builder()
+                .id(device.getId())
+                .username(device.getWarehouse().getUser().getUsername())
+                .serialNumber(device.getSerialNumber())
+                .deviceModel(device.getDeviceModel().getName())
+                .deviceModelId(device.getDeviceModel().getId())
+                .deviceTypeName(device.getDeviceModel().getDeviceType().getName())
+                .manufacture(device.getDeviceModel().getManufacture())
+                .lastUpdate(formatter.format(device.getLastUpdate().getTime()))
+                .status(device.getStatus().name())
+                .location(device.getCompany().getName()+
+                        " > " + device.getWarehouse().getOffice().getDepartment().getName()+
+                        " > " + device.getWarehouse().getOffice().getName()+
+                        " > " + device.getWarehouse().getName())
+                .userName(device.getWarehouse().getUser().getUserdata().getName())
+                .userSurname(device.getWarehouse().getUser().getUserdata().getSurname())
+                .build();
+    }
+
     //LIST
     public static DeviceListElementDto toDeviceListElementDto(Device device){
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
@@ -34,7 +56,6 @@ public class DeviceConverter {
     }
     
     //ADD
-    
     public static Device toDevice(DeviceAddDto deviceAddDto, Warehouse warehouse, Company company, DeviceModel deviceModel){
         Device device=new Device();
         device.setStatus(DeviceStatus.REPOSE);
@@ -47,20 +68,8 @@ public class DeviceConverter {
         device.setDeviceModel(deviceModel);
         return device;
     }
-    
-    //EDIT
-    
-    public static Device toDevice(DeviceEditDto deviceEditDto, Device beforeDevice,Warehouse warehouse, Company company, DeviceModel deviceModel){
-        beforeDevice.setStatus(DeviceStatus.REPOSE);
-        beforeDevice.setDeleted(false);
-        beforeDevice.setCompany(company);
-        beforeDevice.setSerialNumber(deviceEditDto.getSerialNumber());
-        beforeDevice.setLastUpdate(Calendar.getInstance());
-        beforeDevice.setDeviceModel(deviceModel);
-        beforeDevice.setVersion(deviceEditDto.getVersion());
-        return beforeDevice;
-    }
 
+    //TO EDIT DTO
     public static DeviceEditDto toDeviceEditDto(Device device){
         return DeviceEditDto.builder()
                 .id(device.getId())
@@ -74,26 +83,16 @@ public class DeviceConverter {
                 .build();
     }
 
-    //VIEW
-
-    public static DeviceViewDto toDeviceViewDto(Device device) {
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-        return DeviceViewDto.builder()
-                .id(device.getId())
-                .username(device.getWarehouse().getUser().getUsername())
-                .serialNumber(device.getSerialNumber())
-                .deviceModel(device.getDeviceModel().getName())
-                .deviceModelId(device.getDeviceModel().getId())
-                .deviceTypeName(device.getDeviceModel().getDeviceType().getName())
-                .manufacture(device.getDeviceModel().getManufacture())
-                .lastUpdate(formatter.format(device.getLastUpdate().getTime()))
-                .status(device.getStatus().name())
-                .location(device.getCompany().getName()+
-                        " > " + device.getWarehouse().getOffice().getDepartment().getName()+
-                        " > " + device.getWarehouse().getOffice().getName()+
-                        " > " + device.getWarehouse().getName())
-                .userName(device.getWarehouse().getUser().getUserdata().getName())
-                .userSurname(device.getWarehouse().getUser().getUserdata().getSurname())
-                .build();
+    //SAVE AFTER EDIT
+    public static Device toDevice(DeviceEditDto deviceEditDto, Device beforeDevice,Warehouse warehouse, Company company, DeviceModel deviceModel){
+        Device device=new Device(beforeDevice.getId(),beforeDevice.getVersion());
+        device.setStatus(DeviceStatus.REPOSE);
+        device.setDeleted(false);
+        device.setCompany(company);
+        device.setSerialNumber(deviceEditDto.getSerialNumber());
+        device.setLastUpdate(Calendar.getInstance());
+        device.setDeviceModel(deviceModel);
+        device.setVersion(deviceEditDto.getVersion());
+        return device;
     }
 }

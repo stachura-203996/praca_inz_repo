@@ -1,27 +1,28 @@
 package com.stachura.praca_inz.backend.web.dto.converter;
 
-import com.stachura.praca_inz.backend.model.Delivery;
+import com.stachura.praca_inz.backend.model.ExternalTransfer;
 import com.stachura.praca_inz.backend.web.dto.DeliveryListElementDto;
 
 import java.text.SimpleDateFormat;
 
 public class DeliveryConverter {
 
-    public static DeliveryListElementDto toDeliveryListElement(Delivery delivery){
+    //LIST
+    public static DeliveryListElementDto toDeliveryListElement(ExternalTransfer externalTransfer){
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         return DeliveryListElementDto.builder()
-                    .id(delivery.getId())
-                    .deliveryNumber(delivery.getDeliveryNumber())
-                    .createDate(formatter.format(delivery.getCreateDate().getTime()))
-                    .receiver(delivery.getRecieverWarehouse().getName())
-                    .sender(delivery.getSenderWarehouse().getName())
-                    .confirmed(delivery.isConfirmed())
-                    .companyId(delivery.getDeviceModel().getCompany().getId())
-                    .serialNumber(delivery.getSerialNumber())
-                    .deviceModelId(delivery.getDeviceModel().getId())
-                    .warehouseId(delivery.getSenderWarehouse().getId())
-                    .deviceModelName(delivery.getDeviceModel().getName())
-                    .title(delivery.getTitle())
+                    .id(externalTransfer.getId())
+                    .deliveryNumber(externalTransfer.getExternalTransferNumber())
+                    .createDate(formatter.format(externalTransfer.getCreateDate().getTime()))
+                    .receiver(externalTransfer.getRecieverWarehouse().getName())
+                    .sender(externalTransfer.getSenderWarehouse().getName())
+                    .confirmed(externalTransfer.isConfirmed())
+                    .companyId(externalTransfer.getDeviceModel().getCompany().getId())
+                    .serialNumber(externalTransfer.getSerialNumber())
+                    .deviceModelId(externalTransfer.getDeviceModel().getId())
+                    .warehouseId(externalTransfer.getSenderWarehouse().getId())
+                    .deviceModelName(externalTransfer.getDeviceModel().getName())
+                    .title(externalTransfer.getTitle())
                     .build();
     }
 }

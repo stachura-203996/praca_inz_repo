@@ -28,36 +28,18 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/secured/request")
-@Transactional(propagation = Propagation.REQUIRES_NEW,rollbackFor = AppBaseException.class)
+@Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = AppBaseException.class)
 public class RequestController {
 
     @Autowired
     private RequestService requestService;
-
-    @Autowired
-    private NotificationService notificationService;
-
-    @Autowired
-    private EmailService emailService;
-
-    @Autowired
-    private DeviceRepository deviceRepository;
-
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private WarehouseRepository warehouseRepository;
-
-    @Autowired
-    private DeviceModelRepository deviceModelRepository;
 
     @RequestMapping(value = "/type/{type}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
     List<RequestListElementDto> getAllRequests(@PathVariable String type) throws AppBaseException {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        return requestService.getAllRequests(type,auth.getName());
+        return requestService.getAllRequests(type, auth.getName());
     }
 
     @RequestMapping(value = "/user", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -118,67 +100,42 @@ public class RequestController {
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
     RequestViewDto getRequestById(@PathVariable Long id) throws AppBaseException {
-        Request request=requestService.getRequestById(id);
-        Hibernate.initialize(request.getDeviceModel());
+        Request request = requestService.getRequestById(id);
         return RequestConverter.toRequestView(request);
     }
 
     @RequestMapping(value = "/transfer", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public ResponseEntity<?> createTransferRequest(@RequestBody TransferRequestAddDto transferRequestAddDto) {
-        try {
-            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-            requestService.createNewTransferRequest(transferRequestAddDto,auth.getName());
-
-        } catch (AppBaseException e) {
-            e.printStackTrace();
-        }
-        HttpHeaders headers = new HttpHeaders();
-        return new ResponseEntity<>(headers, HttpStatus.CREATED);
+    public ResponseEntity<?> createTransferRequest(@RequestBody TransferRequestAddDto transferRequestAddDto) throws AppBaseException {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        requestService.createNewTransferRequest(transferRequestAddDto, auth.getName());
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "/device", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public ResponseEntity<?> createDeviceRequest(@RequestBody DeviceRequestAddDto deviceRequestAddDto) {
-        try {
-            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-            requestService.createNewDeviceRequest(deviceRequestAddDto,auth.getName());
-        } catch (AppBaseException e) {
-            e.printStackTrace();
-        }
-        HttpHeaders headers = new HttpHeaders();
-        return new ResponseEntity<>(headers, HttpStatus.CREATED);
+    public ResponseEntity<?> createDeviceRequest(@RequestBody DeviceRequestAddDto deviceRequestAddDto) throws AppBaseException {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        requestService.createNewDeviceRequest(deviceRequestAddDto, auth.getName());
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
-
 
     @RequestMapping(value = "/status", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public void changeStatus(@RequestBody ChangeStatusDto changeStatusDto) {
-        try {
-            requestService.realizeRequest(changeStatusDto);
-        } catch (AppBaseException e) {
-            e.printStackTrace();
-        }
+    public void changeStatus(@RequestBody ChangeStatusDto changeStatusDto) throws AppBaseException {
+        requestService.realizeRequest(changeStatusDto);
     }
 
     @RequestMapping(value = "/devices/{id}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public void addDevicesToRequest(@RequestBody List<Long> devices,@PathVariable Long id) {
-        try {
-            requestService.addDevicesToRequest(devices,id);
-        } catch (AppBaseException e) {
-            e.printStackTrace();
-        }
+    public void addDevicesToRequest(@RequestBody List<Long> devices, @PathVariable Long id) throws AppBaseException {
+        requestService.addDevicesToRequest(devices, id);
     }
 
     @RequestMapping(method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public void update(@RequestBody Request request) {
-        try {
-            requestService.updateRequest(request);
-        } catch (AppBaseException e) {
-            e.printStackTrace();
-        }
+    public void update(@RequestBody Request request) throws AppBaseException {
+        requestService.updateRequest(request);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)

@@ -26,10 +26,10 @@ public class UserRole implements Serializable {
     @Column(name = "VERSION")
     private long version;
 
-    @Column(name = "NAME")
+    @Column(name = "NAME",nullable = false,unique = true)
     private String name;
 
-    @Column(name= "ACTIVE")
+    @Column(name= "ACTIVE",nullable = false)
     private Boolean active;
 
     @ManyToMany(fetch = FetchType.EAGER)

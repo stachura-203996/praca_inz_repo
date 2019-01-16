@@ -40,7 +40,7 @@ public class SystemMessageServiceImpl implements SystemMessageService {
     @Transactional(readOnly = true)
     @PreAuthorize("hasAuthority('SYSTEM_MESSAGE_LIST_READ')")
     public List<SystemMessageListElementDto> getAllSystemMessages() {
-        List<SystemMessage> systemMessages = Lists.newArrayList(systemMessageRepository.findAll()).stream().sorted(Comparator.comparing(SystemMessage::getCalendarTimestamp).reversed()).collect(Collectors.toList());
+        List<SystemMessage> systemMessages = Lists.newArrayList(systemMessageRepository.findAll()).stream().sorted(Comparator.comparing(SystemMessage::getCreateDate).reversed()).collect(Collectors.toList());
         List<SystemMessageListElementDto> systemMessageListElementDtos = new ArrayList<>();
         for (SystemMessage a : systemMessages) {
             if (!a.isDeleted()) {

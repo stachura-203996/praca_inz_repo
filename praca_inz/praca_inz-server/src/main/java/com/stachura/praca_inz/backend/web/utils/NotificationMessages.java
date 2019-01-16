@@ -29,7 +29,7 @@ public class NotificationMessages {
         notification.setUrl(getRequestUrl(request));
         notification.setUser(request.getUser());
         notification.setReaded(false);
-        notification.setCalendarTimestamp(Calendar.getInstance());
+        notification.setCreateDate(Calendar.getInstance());
         notification.setDeleted(false);
         if(reciever.getUserdata().getLanguage()=="ENG") {
             notification.setTitle("Request sent");
@@ -48,7 +48,7 @@ public class NotificationMessages {
         notification.setUrl(getRequestUrl(request));
         notification.setUser(user);
         notification.setReaded(false);
-        notification.setCalendarTimestamp(Calendar.getInstance());
+        notification.setCreateDate(Calendar.getInstance());
         notification.setDeleted(false);
         if(user.getUserdata().getLanguage()=="ENG") {
             notification.setTitle("Request received");
@@ -70,7 +70,7 @@ public class NotificationMessages {
         Notification notification = new Notification();
         notification.setUser(report.getSender());
         notification.setReaded(false);
-        notification.setCalendarTimestamp(Calendar.getInstance());
+        notification.setCreateDate(Calendar.getInstance());
         notification.setDeleted(false);
         notification.setUrl("/employees/reports/view/" + report.getId());
         if(report.getSender().getUserdata().getLanguage()=="ENG") {
@@ -89,7 +89,7 @@ public class NotificationMessages {
         Notification notification = new Notification();
         notification.setUser(report.getReciever());
         notification.setReaded(false);
-        notification.setCalendarTimestamp(Calendar.getInstance());
+        notification.setCreateDate(Calendar.getInstance());
         notification.setDeleted(false);
         notification.setUrl("/employees/reports/view/" + report.getId());
         if(report.getReciever().getUserdata().getLanguage()=="ENG") {

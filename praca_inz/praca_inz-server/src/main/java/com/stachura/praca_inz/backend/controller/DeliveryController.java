@@ -1,9 +1,9 @@
 package com.stachura.praca_inz.backend.controller;
 
 import com.stachura.praca_inz.backend.exception.base.AppBaseException;
-import com.stachura.praca_inz.backend.model.Delivery;
+import com.stachura.praca_inz.backend.model.ExternalTransfer;
 import com.stachura.praca_inz.backend.repository.UserRepository;
-import com.stachura.praca_inz.backend.service.DeliveryService;
+import com.stachura.praca_inz.backend.service.ExternalTransferService;
 import com.stachura.praca_inz.backend.web.dto.DeliveryListElementDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,10 +22,7 @@ import java.util.List;
 public class DeliveryController {
 
     @Autowired
-    private DeliveryService deliveryService;
-    @Autowired
-    private UserRepository userRepository;
-
+    private ExternalTransferService externalTransferService;
 
 
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -33,7 +30,7 @@ public class DeliveryController {
     public @ResponseBody
     List<DeliveryListElementDto> getAll() throws AppBaseException {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        return deliveryService.getAllDeliveries(auth.getName());
+        return externalTransferService.getAllDeliveries(auth.getName());
     }
 
     @RequestMapping(value = "/warehouseman",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -41,30 +38,26 @@ public class DeliveryController {
     public @ResponseBody
     List<DeliveryListElementDto> getAllForWarehouse() throws AppBaseException {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        return deliveryService.getAllDeliveriesForWarehouseman(auth.getName());
+        return externalTransferService.getAllDeliveriesForWarehouseman(auth.getName());
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
-    Delivery get(@PathVariable Long id) throws AppBaseException {
-        return deliveryService.getDeliveryById(id);
+    ExternalTransfer get(@PathVariable Long id) throws AppBaseException {
+        return externalTransferService.getDeliveryById(id);
     }
 
 
     @RequestMapping(method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public void update(@RequestBody Delivery delivery) {
-        try {
-            deliveryService.updateDelivery(delivery);
-        } catch (AppBaseException e) {
-            e.printStackTrace();
-        }
+    public void update(@RequestBody ExternalTransfer externalTransfer) throws AppBaseException {
+            externalTransferService.updateDelivery(externalTransfer);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public void delete(@PathVariable Long id) throws AppBaseException {
-        deliveryService.deleteDeliveryById(id);
+        externalTransferService.deleteDeliveryById(id);
     }
 }

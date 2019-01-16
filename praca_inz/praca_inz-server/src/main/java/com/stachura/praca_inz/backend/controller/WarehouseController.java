@@ -28,15 +28,6 @@ public class WarehouseController {
     @Autowired
     private WarehouseService warehouseService;
 
-
-    @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(value = HttpStatus.OK)
-    public @ResponseBody
-    List<WarehouseListElementDto> getAll() throws AppBaseException {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        return warehouseService.getAllOfficeWarehouses(auth.getName());
-    }
-
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
@@ -44,12 +35,19 @@ public class WarehouseController {
         return warehouseService.getWarehouseToView(id);
     }
 
-
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
     WarehouseEditDto getWarehouseToEdit(@PathVariable Long id) throws AppBaseException {
         return warehouseService.getWarehouseToEdit(id);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(value = HttpStatus.OK)
+    public @ResponseBody
+    List<WarehouseListElementDto> getAll() throws AppBaseException {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        return warehouseService.getAllOfficeWarehouses(auth.getName());
     }
 
     @RequestMapping(value = "/warehouseman", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -89,26 +87,17 @@ public class WarehouseController {
         return warehouseService.getAllWarehousesForOffice(id);
     }
 
-
     @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public ResponseEntity<?> create(@RequestBody WarehouseAddDto warehouseAddDto) throws AppBaseException {
-        try {
-            warehouseService.createWarehouse(warehouseAddDto);
-        } catch (OptimisticLockException e) {
-            throw new EntityOptimisticLockException(EntityOptimisticLockException.OPTIMISTIC_LOCK);
-        }
+        warehouseService.createWarehouse(warehouseAddDto);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @RequestMapping(method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public void update(@RequestBody WarehouseEditDto warehouseEditDto) throws AppBaseException {
-        try {
-            warehouseService.updateWarehouse(warehouseEditDto);
-        } catch (OptimisticLockException e) {
-            throw new EntityOptimisticLockException(EntityOptimisticLockException.OPTIMISTIC_LOCK);
-        }
+        warehouseService.updateWarehouse(warehouseEditDto);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)

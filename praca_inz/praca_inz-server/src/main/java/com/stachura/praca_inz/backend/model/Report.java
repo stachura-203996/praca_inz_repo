@@ -55,7 +55,7 @@ public class Report implements Serializable, Comparator<Report> {
     @NotNull
     @Column(name = "REPORT_DATE", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
-    private java.util.Calendar calendarTimestamp;
+    private java.util.Calendar createDate;
 
     public Report() {
     }
@@ -67,6 +67,6 @@ public class Report implements Serializable, Comparator<Report> {
 
     @Override
     public int compare(Report o1, Report o2) {
-        return o1.getCalendarTimestamp().compareTo(o2.getCalendarTimestamp());
+        return o1.getCreateDate().compareTo(o2.getCreateDate());
     }
 }

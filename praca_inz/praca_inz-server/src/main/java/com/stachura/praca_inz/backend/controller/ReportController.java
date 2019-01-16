@@ -34,10 +34,6 @@ public class ReportController {
     @Autowired
     private NotificationService notificationService;
 
-    @Autowired
-    private UserRepository userRepository;
-
-
 
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
@@ -72,26 +68,18 @@ public class ReportController {
 
     @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public ResponseEntity<?> create(@RequestBody ReportAddDto reportAddDto) {
+    public ResponseEntity<?> create(@RequestBody ReportAddDto reportAddDto) throws AppBaseException {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        try {
             Report report = reportService.createNewReport(reportAddDto,auth.getName());
             notificationService.createNewNotification(NotificationMessages.getReportSentNotifiaction(report));
             notificationService.createNewNotification(NotificationMessages.getReportReceivedNotifiaction(report));
-        } catch (AppBaseException e) {
-            e.printStackTrace();
-        }
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @RequestMapping(method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public void update(@RequestBody Report report) {
-        try {
+    public void update(@RequestBody Report report) throws AppBaseException {
             reportService.updateReport(report);
-        } catch (AppBaseException e) {
-            e.printStackTrace();
-        }
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)

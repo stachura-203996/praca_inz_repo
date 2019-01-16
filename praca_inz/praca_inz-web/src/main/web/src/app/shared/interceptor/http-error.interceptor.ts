@@ -11,6 +11,7 @@ import {Router} from "@angular/router";
 import {LoginService} from "../../login/login.service";
 import {TranslateService} from "@ngx-translate/core";
 import {MessageService} from "../services/message.service";
+import {Configuration} from "../../app.constants";
 
 export class HttpErrorInterceptor implements HttpInterceptor {
 
@@ -19,11 +20,11 @@ export class HttpErrorInterceptor implements HttpInterceptor {
     private notAuthorizedUserErrorCode = 401;
     private forbiddenErrorCode = 403;
     private internalErrorCode = 500;
-    private okCode=200;
     //
     constructor(private router: Router,
                private  loginService:LoginService,
                 private translate: TranslateService,
+                private configuration:Configuration,
                 private messageService: MessageService) {
     }
 
@@ -49,11 +50,10 @@ export class HttpErrorInterceptor implements HttpInterceptor {
                                 this.messageService.error(x);
                             });
                         } else if (error.status === this.badRequest) {
+
                             this.translate.get("bad.request.error").subscribe( x => {
                                 this.messageService.error(x);
                             });
-                        // } else if(error.status!=this.okCode){
-
                         } else {
                             console.error(
                                 `Backend returned code ${error.status}, ` +
@@ -65,5 +65,13 @@ export class HttpErrorInterceptor implements HttpInterceptor {
                     return throwError(errorMessage);
                 })
             )
+    }
+
+    handle(message:string){
+        if(message=='cn_taken'){
+            this.translate.get('comapny.name.taken.error').subscribe(translated=>{
+                this.messageService.error(translated)
+            })
+        }
     }
 }

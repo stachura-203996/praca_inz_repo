@@ -24,13 +24,13 @@ public class Address implements Serializable {
     @Column(name = "VERSION")
     private long version;
 
-    @Column(name = "CITY")
+    @Column(name = "CITY", nullable = false)
     private String city;
 
-    @Column(name = "STREET")
+    @Column(name = "STREET",nullable = false)
     private String street;
 
-    @Column(name = "BUILDING_NUMBER")
+    @Column(name = "BUILDING_NUMBER",nullable = false)
     private String buildingNumber;
 
     @Column(name = "FLAT_NUMBER")

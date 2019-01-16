@@ -52,22 +52,14 @@ public class UserController {
     @RequestMapping(value = "/password", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public void updatePassword(@RequestBody PasswordInfoDto passwordInfoDto) throws AppBaseException {
-        try {
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
             userService.updatePassword(passwordInfoDto, auth.getName());
-        } catch (OptimisticLockException e) {
-            throw new EntityOptimisticLockException(EntityOptimisticLockException.OPTIMISTIC_LOCK);
-        }
     }
 
     @RequestMapping(value = "/password/admin", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public void updatePasswordAdmin(@RequestBody PasswordInfoForAdmin passwordInfoForAdmin) throws AppBaseException {
-        try {
             userService.updatePasswordForAdmin(passwordInfoForAdmin);
-        } catch (OptimisticLockException e) {
-            throw new EntityOptimisticLockException(EntityOptimisticLockException.OPTIMISTIC_LOCK);
-        }
     }
 
     @RequestMapping(value = "/profile/edit", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -145,7 +137,6 @@ public class UserController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         return userService.getAllWarehousemen(id);
     }
-
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)

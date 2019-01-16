@@ -14,12 +14,44 @@ import com.stachura.praca_inz.backend.web.dto.company.CompanyStructuresListEleme
  */
 public class CompanyStructureConverter {
 
-    /**
-     * Metoda konwertująca encję {@link Company} na obiekt {@link CompanyStructuresListElementDto} przesyłany do widoku
-     *
-     * @param company encja firmy
-     * @return obiekt z informacjami o firmie
-     */
+
+    //VIEW
+    public static CompanyStructureViewDto toCompanyStructureViewDto(Company company) {
+        return CompanyStructureViewDto.builder()
+                .id(company.getId())
+                .name(company.getName())
+                .description(company.getDescription())
+                .city(company.getAddress().getCity())
+                .street(company.getAddress().getStreet())
+                .buildingNumber(company.getAddress().getBuildingNumber())
+                .flatNumber(company.getAddress().getFlatNumber())
+                .build();
+    }
+
+    public static CompanyStructureViewDto toCompanyStructureViewDto(Department department) {
+        return CompanyStructureViewDto.builder()
+                .id(department.getId())
+                .name(department.getName())
+                .description(department.getDescription())
+                .companyName(department.getCompany().getName())
+                .build();
+    }
+
+    public static CompanyStructureViewDto toCompanyStructureViewDto(Office office) {
+        return CompanyStructureViewDto.builder()
+                .id(office.getId())
+                .name(office.getName())
+                .description(office.getDescription())
+                .city(office.getAddress().getCity())
+                .street(office.getAddress().getStreet())
+                .buildingNumber(office.getAddress().getBuildingNumber())
+                .flatNumber(office.getAddress().getFlatNumber())
+                .companyName(office.getDepartment().getCompany().getName())
+                .departmentName(office.getDepartment().getName())
+                .build();
+    }
+
+    //LIST
     public static CompanyStructuresListElementDto toCompanyStructureListElement(Company company) {
         return CompanyStructuresListElementDto.builder()
                 .id(company.getId())
@@ -32,12 +64,6 @@ public class CompanyStructureConverter {
                 .build();
     }
 
-    /**
-     * Metoda konwertująca encję {@link Department} na obiekt {@link CompanyStructuresListElementDto} przesyłany do widoku
-     *
-     * @param department encja departamentu
-     * @return obiekt z informacjami o firmie
-     */
     public static CompanyStructuresListElementDto toCompanyStructureListElement(Department department) {
 
         return CompanyStructuresListElementDto.builder()
@@ -48,12 +74,6 @@ public class CompanyStructureConverter {
                 .build();
     }
 
-    /**
-     * Metoda konwertująca encję {@link Office} na obiekt {@link CompanyStructuresListElementDto} przesyłany do widoku
-     *
-     * @param office encja biura
-     * @return obiekt z informacjami o biurze
-     */
     public static CompanyStructuresListElementDto toCompanyStructureListElement(Office office) {
         return CompanyStructuresListElementDto.builder()
                 .id(office.getId())
@@ -68,12 +88,7 @@ public class CompanyStructureConverter {
                 .build();
     }
 
-    /**
-     * Metoda konwertująca encję {@link Company} na obiekt {@link CompanyStructuresListElementDto} przesyłany do widoku
-     *
-     * @param company encja firmy
-     * @return obiekt z informacjami o firmie
-     */
+    //TO EDIT DTO
     public static CompanyStructureEditDto toCompanyStructureEdit(Company company) {
         return CompanyStructureEditDto.builder()
                 .id(company.getId())
@@ -98,47 +113,6 @@ public class CompanyStructureConverter {
                 .build();
     }
 
-    public static CompanyStructureViewDto toCompanyStructureViewDto(Company company){
-        return CompanyStructureViewDto.builder()
-                .id(company.getId())
-                .name(company.getName())
-                .description(company.getDescription())
-                .city(company.getAddress().getCity())
-                .street(company.getAddress().getStreet())
-                .buildingNumber(company.getAddress().getBuildingNumber())
-                .flatNumber(company.getAddress().getFlatNumber())
-                .build();
-    }
-
-    public static CompanyStructureViewDto toCompanyStructureViewDto(Department department){
-        return CompanyStructureViewDto.builder()
-                .id(department.getId())
-                .name(department.getName())
-                .description(department.getDescription())
-                .companyName(department.getCompany().getName())
-                .build();
-    }
-
-    public static CompanyStructureViewDto toCompanyStructureViewDto(Office office){
-        return CompanyStructureViewDto.builder()
-                .id(office.getId())
-                .name(office.getName())
-                .description(office.getDescription())
-                .city(office.getAddress().getCity())
-                .street(office.getAddress().getStreet())
-                .buildingNumber(office.getAddress().getBuildingNumber())
-                .flatNumber(office.getAddress().getFlatNumber())
-                .companyName(office.getDepartment().getCompany().getName())
-                .departmentName(office.getDepartment().getName())
-                .build();
-    }
-
-    /**
-     * Metoda konwertująca encję {@link Office} na obiekt {@link CompanyStructuresListElementDto} przesyłany do widoku
-     *
-     * @param office encja biura
-     * @return obiekt z informacjami o firmie
-     */
     public static CompanyStructureEditDto toCompanyStructureEdit(Office office) {
         return CompanyStructureEditDto.builder()
                 .id(office.getId())
@@ -149,43 +123,49 @@ public class CompanyStructureConverter {
                 .buildingNumber(office.getAddress().getBuildingNumber())
                 .flatNumber(office.getAddress().getFlatNumber())
                 .parentId(office.getDepartment().getId())
-                .parentName(office.getDepartment().getName()+" | "+office.getDepartment().getCompany().getName())
+                .parentName(office.getDepartment().getName() + " | " + office.getDepartment().getCompany().getName())
                 .verison(office.getVersion())
                 .build();
     }
 
+
+    //SAVE AFTER EDIT
     public static Department toDepartment(CompanyStructureEditDto companyStructureEditDto, Department beforeDepartment, Company company) {
-        beforeDepartment.setName(companyStructureEditDto.getName());
-        beforeDepartment.setDescription(companyStructureEditDto.getDescription());
-        beforeDepartment.setCompany(company);
-        beforeDepartment.setVersion(companyStructureEditDto.getVerison());
-        return beforeDepartment;
+        Department department =new Department(beforeDepartment.getId(),beforeDepartment.getVersion());
+        department.setName(companyStructureEditDto.getName());
+        department.setDescription(companyStructureEditDto.getDescription());
+        department.setCompany(company);
+        department.setVersion(companyStructureEditDto.getVerison());
+        return department;
     }
 
     public static Company toCompany(CompanyStructureEditDto companyStructureEditDto, Company beforeCompany) {
-        beforeCompany.setName(companyStructureEditDto.getName());
-        beforeCompany.setDescription(companyStructureEditDto.getDescription());
-        beforeCompany.getAddress().setCity(companyStructureEditDto.getCity());
-        beforeCompany.getAddress().setStreet(companyStructureEditDto.getStreet());
-        beforeCompany.getAddress().setBuildingNumber(companyStructureEditDto.getBuildingNumber());
-        beforeCompany.getAddress().setFlatNumber(companyStructureEditDto.getFlatNumber());
-        beforeCompany.setVersion(companyStructureEditDto.getVerison());
-        return beforeCompany;
+        Company company=new Company(beforeCompany.getId(),beforeCompany.getVersion());
+        company.setName(companyStructureEditDto.getName());
+        company.setDescription(companyStructureEditDto.getDescription());
+        company.getAddress().setCity(companyStructureEditDto.getCity());
+        company.getAddress().setStreet(companyStructureEditDto.getStreet());
+        company.getAddress().setBuildingNumber(companyStructureEditDto.getBuildingNumber());
+        company.getAddress().setFlatNumber(companyStructureEditDto.getFlatNumber());
+        company.setVersion(companyStructureEditDto.getVerison());
+        return company;
     }
 
-    public static Office toOffice(CompanyStructureEditDto companyStructureEditDto, Office beforeOffice,Department department) {
-
-        beforeOffice.setName(companyStructureEditDto.getName());
-        beforeOffice.setDescription(companyStructureEditDto.getDescription());
-        beforeOffice.getAddress().setCity(companyStructureEditDto.getCity());
-        beforeOffice.getAddress().setStreet(companyStructureEditDto.getStreet());
-        beforeOffice.getAddress().setBuildingNumber(companyStructureEditDto.getBuildingNumber());
-        beforeOffice.getAddress().setFlatNumber(companyStructureEditDto.getFlatNumber());
-        beforeOffice.setVersion(companyStructureEditDto.getVerison());
-        beforeOffice.setDepartment(department);
-        return beforeOffice;
+    public static Office toOffice(CompanyStructureEditDto companyStructureEditDto, Office beforeOffice, Department department) {
+        Office office=new Office(beforeOffice.getId(),beforeOffice.getVersion());
+        office.setName(companyStructureEditDto.getName());
+        office.setDescription(companyStructureEditDto.getDescription());
+        office.getAddress().setCity(companyStructureEditDto.getCity());
+        office.getAddress().setStreet(companyStructureEditDto.getStreet());
+        office.getAddress().setBuildingNumber(companyStructureEditDto.getBuildingNumber());
+        office.getAddress().setFlatNumber(companyStructureEditDto.getFlatNumber());
+        office.setVersion(companyStructureEditDto.getVerison());
+        office.setDepartment(department);
+        return office;
     }
 
+
+    //ADD
     public static Company toCompany(CompanyStructureAddDto companyStructureAddDto) {
         Company company = new Company();
         company.setName(companyStructureAddDto.getName());
@@ -207,7 +187,7 @@ public class CompanyStructureConverter {
         return department;
     }
 
-    public static Office toOffice(CompanyStructureAddDto companyStructureAddDto,Department department) {
+    public static Office toOffice(CompanyStructureAddDto companyStructureAddDto, Department department) {
         Office office = new Office();
         office.setDepartment(department);
         office.setName(companyStructureAddDto.getName());
@@ -217,7 +197,7 @@ public class CompanyStructureConverter {
         adress.setStreet(companyStructureAddDto.getStreet());
         adress.setBuildingNumber(companyStructureAddDto.getBuildingNumber());
         adress.setFlatNumber(companyStructureAddDto.getFlatNumber());
-         office.setAddress(adress);
+        office.setAddress(adress);
         return office;
     }
 }

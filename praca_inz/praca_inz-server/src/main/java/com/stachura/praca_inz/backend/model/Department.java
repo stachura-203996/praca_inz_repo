@@ -34,17 +34,16 @@ public class Department implements Serializable {
     @Column(name = "DESCRIPTION" , columnDefinition ="TEXT")
     private String description;
 
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JsonBackReference
+    private Company company;
+
     @Column(name = "DELETED", nullable = false)
     private boolean deleted;
-
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "department", fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonManagedReference
     private Set<Office> offices = new HashSet<>();
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JsonBackReference
-    private Company company;
 
     public Department() {
     }

@@ -38,7 +38,7 @@ public class Company implements Serializable {
     @Column(name = "DELETED", nullable = false)
     private boolean deleted;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "MAIN_OFFICE_ADRESS_ID")
     private Address address;
 

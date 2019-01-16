@@ -5,15 +5,12 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.stachura.praca_inz.backend.model.security.User;
 import lombok.Getter;
 import lombok.Setter;
-import org.aspectj.weaver.ast.Not;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.util.Calendar;
 import java.util.Comparator;
-import java.util.Date;
 
 @Entity
 @EnableAutoConfiguration
@@ -35,7 +32,7 @@ public class Notification implements Serializable, Comparator<Notification>,Clon
     @Column(name = "TITLE", nullable = false)
     private String title;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY,optional = false)
     @JsonBackReference
     private User user;
 
@@ -45,7 +42,7 @@ public class Notification implements Serializable, Comparator<Notification>,Clon
     @Column(name = "URL", nullable = false)
     private String url;
 
-    @Column(name = "READED")
+    @Column(name = "READED",nullable = false)
     private boolean readed;
 
     @Column(name = "DELETED", nullable = false)
@@ -55,7 +52,8 @@ public class Notification implements Serializable, Comparator<Notification>,Clon
     @NotNull
     @Column(name = "NOTIFICATION_DATE")
     @Temporal(TemporalType.TIMESTAMP)
-    private java.util.Calendar calendarTimestamp;
+    private java.util.Calendar createDate;
+
 
     public Notification() {
     }
@@ -67,7 +65,7 @@ public class Notification implements Serializable, Comparator<Notification>,Clon
 
     @Override
     public int compare(Notification o1, Notification o2) {
-        return o1.getCalendarTimestamp().compareTo(o2.getCalendarTimestamp());
+        return o1.getCreateDate().compareTo(o2.getCreateDate());
     }
 
 

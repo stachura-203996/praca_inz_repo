@@ -49,7 +49,7 @@ public class NotificationServiceImpl implements NotificationService {
     @Transactional(readOnly = true)
     @PreAuthorize("hasAuthority('NOTIFICATION_READ')")
     public List<NotificationListElementDto> getUnreadedAllNotificationsForLoggedUser(String username) {
-        List<Notification> notifications = Lists.newArrayList(notificationRepository.findAll()).stream().filter(x -> x.getUser().getUsername().equals(username) && !x.isReaded()).sorted(Comparator.comparing(Notification::getCalendarTimestamp).reversed()).collect(Collectors.toList());
+        List<Notification> notifications = Lists.newArrayList(notificationRepository.findAll()).stream().filter(x -> x.getUser().getUsername().equals(username) && !x.isReaded()).sorted(Comparator.comparing(Notification::getCreateDate).reversed()).collect(Collectors.toList());
         List<NotificationListElementDto> notificationListElementDtos = new ArrayList<>();
         for (Notification a : notifications) {
             if (!a.isDeleted()) {
@@ -65,7 +65,7 @@ public class NotificationServiceImpl implements NotificationService {
     @Transactional(readOnly = true)
     @PreAuthorize("hasAuthority('NOTIFICATION_READ')")
     public List<NotificationListElementDto> getReadedAllNotificationsForLoggedUser(String username) {
-        List<Notification> notifications = Lists.newArrayList(notificationRepository.findAll()).stream().filter(x -> x.getUser().getUsername().equals(username)&&x.isReaded()).sorted(Comparator.comparing(Notification::getCalendarTimestamp).reversed()).collect(Collectors.toList());
+        List<Notification> notifications = Lists.newArrayList(notificationRepository.findAll()).stream().filter(x -> x.getUser().getUsername().equals(username)&&x.isReaded()).sorted(Comparator.comparing(Notification::getCreateDate).reversed()).collect(Collectors.toList());
         List<NotificationListElementDto> notificationListElementDtos = new ArrayList<>();
         for (Notification a : notifications) {
             if (!a.isDeleted()) {
@@ -79,7 +79,7 @@ public class NotificationServiceImpl implements NotificationService {
     @Transactional(readOnly = true)
     @PreAuthorize("hasAuthority('NOTIFICATION_USER_LIST_READ')")
     public List<NotificationListElementDto> getAllNotifications() {
-        List<Notification> notifications =Lists.newArrayList(notificationRepository.findAll()).stream().sorted(Comparator.comparing(Notification::getCalendarTimestamp).reversed()).collect(Collectors.toList());
+        List<Notification> notifications =Lists.newArrayList(notificationRepository.findAll()).stream().sorted(Comparator.comparing(Notification::getCreateDate).reversed()).collect(Collectors.toList());
         List<NotificationListElementDto> notificationListElementDtos = new ArrayList<>();
         for (Notification a : notifications) {
             if (!a.isDeleted()) {

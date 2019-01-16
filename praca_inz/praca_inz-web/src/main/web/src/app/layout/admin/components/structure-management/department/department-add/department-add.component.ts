@@ -11,6 +11,7 @@ import {LoggedUser} from "../../../../../../models/logged-user";
 import {UserService} from "../../../administration/user-management/user.service";
 import {MessageService} from "../../../../../../shared/services/message.service";
 import {Configuration} from "../../../../../../app.constants";
+import {Subject} from "rxjs";
 
 @Component({
     selector: 'app-department-add',
@@ -26,6 +27,7 @@ export class DepartmentAddComponent implements OnInit {
     selectedOption: string;
     roles: UserRoles;
     currentUser: LoggedUser;
+    private ngUnsubscribe = new Subject();
 
     constructor(
         private companyService: CompanyService,
@@ -37,13 +39,13 @@ export class DepartmentAddComponent implements OnInit {
         private router: Router
 
     ) {
-
-    }
-
-    ngOnInit() {
         this.getLoggedUser();
         this.getLoggedUserRoles();
         this.getCompanies();
+    }
+
+    ngOnInit() {
+
 
     }
 
@@ -130,6 +132,12 @@ export class DepartmentAddComponent implements OnInit {
                     });
                 }
             });
+    }
+
+    ngOnDestroy()
+    {
+        this.ngUnsubscribe.next();
+        this.ngUnsubscribe.complete();
     }
 
     clear() {

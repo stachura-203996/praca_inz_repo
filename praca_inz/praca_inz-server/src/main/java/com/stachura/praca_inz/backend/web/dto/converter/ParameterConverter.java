@@ -6,6 +6,7 @@ import com.stachura.praca_inz.backend.web.dto.device.ParameterListElementDto;
 
 public class ParameterConverter {
 
+    //LIST
     public static ParameterListElementDto toParameterListElementDto(Parameter parameter){
         return ParameterListElementDto.builder()
                 .id(parameter.getId())
@@ -14,7 +15,7 @@ public class ParameterConverter {
                 .build();
     }
 
-
+    //ADD
     public static Parameter toParameter(ParameterListElementDto parameterListElementDto, DeviceModel deviceModel){
         Parameter parameter=new Parameter();
         parameter.setName(parameterListElementDto.getName());

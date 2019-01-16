@@ -50,7 +50,8 @@ export class CompanyAddComponent implements OnInit {
                             this.messageService.success(x)
                         })
                     }, error => {
-                        if (error === this.configuration.ERROR_COMPANY_NAME_TAKEN) {
+                        console.log(error.message);
+                        if (error.message === this.configuration.ERROR_COMPANY_NAME_TAKEN) {
                             this.translate.get('comapny.name.taken.error').subscribe(x => {
                                 this.messageService.error(x);
                             })

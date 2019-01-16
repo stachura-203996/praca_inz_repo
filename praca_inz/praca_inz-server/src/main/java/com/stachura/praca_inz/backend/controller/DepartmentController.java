@@ -30,6 +30,20 @@ public class DepartmentController {
     @Autowired
     private DepartmentService departmentService;
 
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(value = HttpStatus.OK)
+    public @ResponseBody
+    CompanyStructureViewDto getToView(@PathVariable Long id) throws AppBaseException {
+        return departmentService.getDepartmentView(id);
+    }
+
+    @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(value = HttpStatus.OK)
+    public @ResponseBody
+    CompanyStructureEditDto get(@PathVariable Long id) throws AppBaseException {
+        return departmentService.getDepartmentEdit(id);
+    }
+
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
@@ -46,32 +60,11 @@ public class DepartmentController {
         return departmentService.getAllDepartmentsForCompany(id);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(value = HttpStatus.OK)
-    public @ResponseBody
-    CompanyStructureViewDto getToView(@PathVariable Long id) throws AppBaseException {
-        return CompanyStructureConverter.toCompanyStructureViewDto(departmentService.getDepartmentById(id));
-    }
-
-    @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(value = HttpStatus.OK)
-    public @ResponseBody
-    CompanyStructureEditDto get(@PathVariable Long id) throws AppBaseException {
-        return CompanyStructureConverter.toCompanyStructureEdit(departmentService.getDepartmentById(id));
-    }
-
 
     @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public ResponseEntity<?> create(@RequestBody CompanyStructureAddDto companyStructureAddDto) throws AppBaseException {
-        try {
-            departmentService.createNewDepartment(companyStructureAddDto);
-        } catch (RuntimeException e) {
-            Throwable rootCause = com.google.common.base.Throwables.getRootCause(e);
-            if (rootCause instanceof SQLException) {
-                throw new DatabaseErrorException(DatabaseErrorException.DEPARTMENT_NAME_TAKEN);
-            }
-        }
+        departmentService.createNewDepartment(companyStructureAddDto);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
@@ -79,8 +72,6 @@ public class DepartmentController {
     @ResponseStatus(value = HttpStatus.OK)
     public void update(@RequestBody CompanyStructureEditDto companyStructureEditDto) throws AppBaseException {
         departmentService.updateDepartment(companyStructureEditDto);
-
-
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)

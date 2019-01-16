@@ -17,14 +17,14 @@ import java.util.Set;
 
 @Entity
 @EnableAutoConfiguration
-@Table(name = "DELIVERY")
+@Table(name = "EXTERNAL_TRANSFER")
 @Getter
 @Setter
-public class Delivery implements Serializable {
+public class ExternalTransfer implements Serializable {
 
     @Id
-    @SequenceGenerator(name = "DeliveryGen", sequenceName = "delivery_id_seq",initialValue = 3,allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "DeliveryGen")
+    @SequenceGenerator(name = "DeliveryGen", sequenceName = "delivery_id_seq", initialValue = 3, allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "DeliveryGen")
     @Column(name = "ID", updatable = false, nullable = false)
     private Long id = null;
 
@@ -32,33 +32,38 @@ public class Delivery implements Serializable {
     @Column(name = "VERSION")
     private long version;
 
-    @Column(name = "DELIVERY_NUMBER", nullable = false)
-    private String deliveryNumber;
+    @Column(name = "EXTERNAL_TRANSFER_NUMBER", nullable = false)
+    private String externalTransferNumber;
 
     @Column(name = "TITLE", nullable = false)
     private String title;
 
-
     @Column(name = "SERIAL_NUMBER", nullable = false)
     private String serialNumber;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JsonBackReference
     private DeviceModel deviceModel;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JsonBackReference
     private Warehouse recieverWarehouse;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY,optional = false)
     @JsonBackReference
     private Warehouse senderWarehouse;
 
     @Basic
     @NotNull
-    @Column(name = "DELIVERY_DATE")
+    @Column(name = "EXTERNAL_TRANSFER_DATE")
     @Temporal(TemporalType.TIMESTAMP)
     private java.util.Calendar createDate;
+
+    @Basic
+    @NotNull
+    @Column(name = "CONFIRM_DATE")
+    @Temporal(TemporalType.TIMESTAMP)
+    private java.util.Calendar confirmDate;
 
     @Column(name = "CONFIRMED", nullable = false)
     private boolean confirmed;
@@ -66,11 +71,11 @@ public class Delivery implements Serializable {
     @Column(name = "DELETED", nullable = false)
     private boolean deleted;
 
-    public Delivery() {
+    public ExternalTransfer() {
     }
 
-    public Delivery(Long id, long version) {
-        this.id=id;
+    public ExternalTransfer(Long id, long version) {
+        this.id = id;
         this.version = version;
     }
 }

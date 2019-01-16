@@ -14,6 +14,7 @@ import java.util.*;
 
 public class RequestConverter {
 
+    //LIST
     public static RequestListElementDto toRequestListElement(Request request) {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         return RequestListElementDto.builder()
@@ -30,6 +31,7 @@ public class RequestConverter {
                 .build();
     }
 
+    //VIEW
     public static RequestViewDto toRequestView(Request request) {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         return RequestViewDto.builder()
@@ -49,6 +51,7 @@ public class RequestConverter {
                 .build();
     }
 
+    //ADD TRANSFER REQUEST
     public static Request toRequest(TransferRequestAddDto transferRequestAddDto, Device device, Warehouse recieverWarehouse, User user) {
         Request request = new Request();
         request.setDeleted(false);
@@ -67,6 +70,7 @@ public class RequestConverter {
         return request;
     }
 
+    //ADD DEVICE REQUEST
     public static Request toRequest(DeviceRequestAddDto deviceRequestAddDto, DeviceModel deviceModel, Warehouse recieverWarehouse, User user) {
         Request request = new Request();
         request.setDeleted(false);

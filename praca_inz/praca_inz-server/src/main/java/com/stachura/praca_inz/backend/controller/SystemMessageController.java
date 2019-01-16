@@ -17,7 +17,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/secured/message/system")
-@Transactional(propagation = Propagation.REQUIRES_NEW,rollbackFor = AppBaseException.class)
+@Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = AppBaseException.class)
 public class SystemMessageController {
 
     @Autowired
@@ -39,15 +39,10 @@ public class SystemMessageController {
 
     @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public ResponseEntity<?> create(@RequestBody SystemMessageAddDto systemMessageAddDto) {
-        try {
-            systemMessageService.createNewSystemMessage(systemMessageAddDto);
-        } catch (AppBaseException e) {
-            e.printStackTrace();
-        }
+    public ResponseEntity<?> create(@RequestBody SystemMessageAddDto systemMessageAddDto) throws AppBaseException {
+        systemMessageService.createNewSystemMessage(systemMessageAddDto);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
-
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)

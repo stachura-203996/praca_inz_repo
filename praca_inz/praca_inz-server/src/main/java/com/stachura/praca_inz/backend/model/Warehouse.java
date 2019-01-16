@@ -3,7 +3,6 @@ package com.stachura.praca_inz.backend.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.stachura.praca_inz.backend.model.enums.RequestType;
 import com.stachura.praca_inz.backend.model.enums.WarehouseType;
 import com.stachura.praca_inz.backend.model.security.User;
 import lombok.Getter;
@@ -54,7 +53,6 @@ public class Warehouse implements Serializable {
     @JsonManagedReference
     private Set<Device> devices = new HashSet<>();
 
-
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "senderWarehouse", fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonManagedReference
     private Set<Request> senderRequests = new HashSet<>();
@@ -67,19 +65,19 @@ public class Warehouse implements Serializable {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "recieverWarehouse", fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonManagedReference
-    private Set<Delivery> receiverDeliveries = new HashSet<>();
+    private Set<ExternalTransfer> receiverDeliveries = new HashSet<>();
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "senderWarehouse", fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonManagedReference
-    private Set<Delivery> senderDeliveries = new HashSet<>();
+    private Set<ExternalTransfer> senderDeliveries = new HashSet<>();
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "recieverWarehouse", fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonManagedReference
-    private Set<Delivery> receiverShipments = new HashSet<>();
+    private Set<ExternalTransfer> receiverShipments = new HashSet<>();
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "senderWarehouse", fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonManagedReference
-    private Set<Delivery> senderShipments = new HashSet<>();
+    private Set<ExternalTransfer> senderShipments = new HashSet<>();
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "senderWarehouse", fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonManagedReference

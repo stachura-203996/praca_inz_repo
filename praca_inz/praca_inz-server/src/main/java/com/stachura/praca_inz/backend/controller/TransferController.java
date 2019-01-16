@@ -25,6 +25,14 @@ public class TransferController {
     @Autowired
     private TransferService transferService;
 
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(value = HttpStatus.OK)
+    public @ResponseBody
+    Transfer get(@PathVariable Long id) throws AppBaseException {
+        return transferService.getTransferById(id);
+    }
+
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
@@ -32,7 +40,6 @@ public class TransferController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         return transferService.getAllTransfers(auth.getName());
     }
-
 
     @RequestMapping(value = "/user", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
@@ -49,15 +56,6 @@ public class TransferController {
         return transferService.getAllTransfersForLoggedUser(username);
     }
 
-
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(value = HttpStatus.OK)
-    public @ResponseBody
-    Transfer get(@PathVariable Long id) throws AppBaseException {
-        return transferService.getTransferById(id);
-    }
-
-
     @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public ResponseEntity<?> create(@RequestBody TransferAddDto transferAddDto) throws AppBaseException {
@@ -68,12 +66,8 @@ public class TransferController {
 
     @RequestMapping(method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public void update(@RequestBody Transfer transfer) {
-        try {
+    public void update(@RequestBody Transfer transfer) throws AppBaseException {
             transferService.updateTransfer(transfer);
-        } catch (AppBaseException e) {
-            e.printStackTrace();
-        }
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
