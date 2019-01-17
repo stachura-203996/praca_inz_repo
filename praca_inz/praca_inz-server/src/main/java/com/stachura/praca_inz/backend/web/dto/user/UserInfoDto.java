@@ -31,4 +31,5 @@ public class UserInfoDto {
     private List<String> roles;
     private String dateOfJoining;
     private String workplace;
+    private String language;
 }

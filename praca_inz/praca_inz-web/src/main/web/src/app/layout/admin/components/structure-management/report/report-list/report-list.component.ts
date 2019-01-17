@@ -7,6 +7,8 @@ import {ReportService} from "../../../../../employee-management/report.service";
 import {UserRoles} from "../../../../../../models/user-roles";
 import {LoggedUser} from "../../../../../../models/logged-user";
 import {UserService} from "../../../administration/user-management/user.service";
+import {Configuration} from "../../../../../../app.constants";
+import {MessageService} from "../../../../../../shared/services/message.service";
 
 
 @Component({
@@ -22,7 +24,10 @@ export class ReportListComponent implements OnInit {
     constructor(
         private reportService: ReportService,
         private userService: UserService,
-        private translate: TranslateService
+        private translate: TranslateService,
+        private configuration: Configuration,
+        private messageService: MessageService
+
     ) {
     }
 
@@ -55,9 +60,37 @@ export class ReportListComponent implements OnInit {
             });
     }
 
+    getSender(report:ReportListElement){
+        return report.senderName+" "+report.senderSurname+" | "+report.sender;
+    }
+
+    getReciever(report:ReportListElement){
+        return report.recieverName+" "+report.recieverSurname+" | "+report.receiver;
+    }
+
     delete(structure: ReportListElement) {
-        this.reportService.deleteReport(String(structure.id)).subscribe(resp => {
-            this.getReports()
-        });
+        var entity: string;
+        var message: string;
+        var yes: string;
+        var no: string;
+
+        this.translate.get('report.delete').subscribe(x => entity = x);
+        this.translate.get('confirm.delete').subscribe(x => message = x);
+        this.translate.get('yes').subscribe(x => yes = x);
+        this.translate.get('no').subscribe(x => no = x);
+
+
+        this.messageService
+            .confirm(entity, message, yes, no)
+            .subscribe(confirmed => {
+                if (confirmed) {
+                    this.reportService.deleteReport(String(structure.id)).subscribe(resp => {
+                        this.getReports()
+                        this.translate.get('success.report.delete').subscribe(x=>{
+                            this.messageService.success(x)
+                        })
+                    });
+                }
+            });
     }
 }

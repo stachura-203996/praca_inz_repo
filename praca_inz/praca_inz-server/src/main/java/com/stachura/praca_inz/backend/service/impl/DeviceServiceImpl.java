@@ -2,18 +2,17 @@ package com.stachura.praca_inz.backend.service.impl;
 
 import com.google.common.collect.Lists;
 import com.stachura.praca_inz.backend.Constants;
-import com.stachura.praca_inz.backend.exception.repository.DatabaseErrorException;
-import com.stachura.praca_inz.backend.exception.repository.EntityException;
-import com.stachura.praca_inz.backend.exception.service.ServiceException;
-import com.stachura.praca_inz.backend.model.Device;
-import com.stachura.praca_inz.backend.model.Office;
+
+import com.stachura.praca_inz.backend.exception.EntityNotInDatabaseException;
+import com.stachura.praca_inz.backend.exception.base.AppBaseException;
+import com.stachura.praca_inz.backend.model.*;
 import com.stachura.praca_inz.backend.model.enums.DeviceStatus;
 import com.stachura.praca_inz.backend.model.enums.WarehouseType;
 import com.stachura.praca_inz.backend.model.security.User;
-import com.stachura.praca_inz.backend.repository.DeviceRepository;
-import com.stachura.praca_inz.backend.repository.UserRepository;
+import com.stachura.praca_inz.backend.repository.*;
 import com.stachura.praca_inz.backend.service.DeviceService;
-import com.stachura.praca_inz.backend.web.dto.device.DeviceListElementDto;
+import com.stachura.praca_inz.backend.web.dto.converter.ParameterConverter;
+import com.stachura.praca_inz.backend.web.dto.device.*;
 import com.stachura.praca_inz.backend.web.dto.converter.DeviceConverter;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -35,23 +35,57 @@ public class DeviceServiceImpl implements DeviceService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private WarehouseRepository warehouseRepository;
+
+    @Autowired
+    private CompanyRepository companyRepository;
+
+    @Autowired
+    private DeviceModelRepository deviceModelRepository;
+
+
+
     @Override
     @Transactional(readOnly = true)
-    @PreAuthorize("hasAuthority('DEVICE_READ')")
-    public Device getDeviceById(Long id) throws ServiceException {
-        Device device = deviceRepository.findById(id).orElseThrow(() -> new ServiceException());
-        if (device.isDeleted()) {
-            return null;
+    @PreAuthorize("hasAuthority('DEVICE_LIST_READ')")
+    public List<DeviceListElementDto> getAllDevicesForLoggedWarehouseman(String username) {
+        List<Device> devices = Lists.newArrayList(deviceRepository.findAll()).stream().filter(x -> x.getWarehouse().getUser().getUsername().equals(username) &&
+                x.getWarehouse().getWarehouseType().name().equals(WarehouseType.OFFICE.name())).collect(Collectors.toList());
+        List<DeviceListElementDto> devicesDto = new ArrayList<>();
+        for (Device a : devices) {
+            if (!a.isDeleted()) {
+                Hibernate.initialize(a.getDeviceModel());
+                Hibernate.initialize(a.getDeviceModel().getName());
+                devicesDto.add(DeviceConverter.toDeviceListElementDto(a));
+            }
         }
-        return device;
+        return devicesDto;
     }
 
     @Override
     @Transactional(readOnly = true)
     @PreAuthorize("hasAuthority('DEVICE_LIST_READ')")
-    public List<DeviceListElementDto> getAllDevices(String username) throws ServiceException {
+    public List<DeviceListElementDto> getAllDevicesForShipmentRequest(String name) {
+        List<Device> devices = Lists.newArrayList(deviceRepository.findAll()).stream().filter(x -> x.getWarehouse().getUser().getUsername().equals(name) &&
+                x.getWarehouse().getWarehouseType().name().equals(WarehouseType.OFFICE.name()) && x.getStatus().name().equals(DeviceStatus.REPOSE.name())).collect(Collectors.toList());
+        List<DeviceListElementDto> devicesDto = new ArrayList<>();
+        for (Device a : devices) {
+            if (!a.isDeleted()) {
+                Hibernate.initialize(a.getDeviceModel());
+                Hibernate.initialize(a.getDeviceModel().getName());
+                devicesDto.add(DeviceConverter.toDeviceListElementDto(a));
+            }
+        }
+        return devicesDto;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    @PreAuthorize("hasAuthority('DEVICE_LIST_READ')")
+    public List<DeviceListElementDto> getAllDevices(String username) throws AppBaseException {
         List<Device> devices;
-        User user=userRepository.findByUsername(username).orElseThrow(()->new ServiceException());
+        User user=userRepository.findByUsername(username).orElseThrow(()->new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
         if(user.getUserRoles().stream().anyMatch(x->x.getName().equals(Constants.ADMIN_ROLE))) {
             devices = Lists.newArrayList(deviceRepository.findAll());
         } else{
@@ -159,57 +193,69 @@ public class DeviceServiceImpl implements DeviceService {
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('DEVICE_CREATE')")
-    public void createNewDevice(Device device) throws ServiceException {
-            deviceRepository.save(device);
+    public void createNewDevice(DeviceAddDto deviceAddDto) throws AppBaseException {
+        Warehouse warehouse=warehouseRepository.findById(deviceAddDto.getWarehouseId()).orElseThrow(()->new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
+        Company company=companyRepository.findById(deviceAddDto.getCompanyId()).orElseThrow(()->new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
+        DeviceModel deviceModel=deviceModelRepository.findById(deviceAddDto.getDeviceModelId()).orElseThrow(()->new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
+            deviceRepository.saveAndFlush(DeviceConverter.toDevice(deviceAddDto,warehouse,company,deviceModel));
     }
 
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('DEVICE_UPDATE')")
-    public void updateDevice(Device device) throws ServiceException {
-        deviceRepository.save(device);
+    public void updateDevice(DeviceEditDto deviceEditDto) throws AppBaseException {
+        Warehouse warehouse=warehouseRepository.findById(deviceEditDto.getWarehouseId()).orElseThrow(()->new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
+        Company company=companyRepository.findById(deviceEditDto.getCompanyId()).orElseThrow(()->new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
+        DeviceModel deviceModel=deviceModelRepository.findById(deviceEditDto.getDeviceModelId()).orElseThrow(()->new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
+        Device device=deviceRepository.findById(deviceEditDto.getId()).orElseThrow(()->new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
+        deviceRepository.saveAndFlush(DeviceConverter.toDevice(deviceEditDto,device,warehouse,company,deviceModel));
     }
 
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('DEVICE_DELETE')")
-    public void deleteDeviceById(Long id) throws ServiceException {
-        deviceRepository.findById(id).orElseThrow(() -> new ServiceException()).setDeleted(true);
+    public void deleteDeviceById(Long id) throws AppBaseException {
+        deviceRepository.findById(id).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT)).setDeleted(true);
     }
+
+
 
 
     @Override
     @Transactional(readOnly = true)
-    @PreAuthorize("hasAuthority('DEVICE_LIST_READ')")
-    public List<DeviceListElementDto> getAllDevicesForLoggedWarehouseman(String username) {
-        List<Device> devices = Lists.newArrayList(deviceRepository.findAll()).stream().filter(x -> x.getWarehouse().getUser().getUsername().equals(username) &&
-                x.getWarehouse().getWarehouseType().name().equals(WarehouseType.OFFICE.name())).collect(Collectors.toList());
-        List<DeviceListElementDto> devicesDto = new ArrayList<>();
-        for (Device a : devices) {
-            if (!a.isDeleted()) {
-                Hibernate.initialize(a.getDeviceModel());
-                Hibernate.initialize(a.getDeviceModel().getName());
-                devicesDto.add(DeviceConverter.toDeviceListElementDto(a));
-            }
+    @PreAuthorize("hasAuthority('DEVICE_READ')")
+    public DeviceViewDto getDeviceToView(Long id) throws AppBaseException {
+        Device device = deviceRepository.findById(id).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
+        if (device.isDeleted()) {
+            return null;
         }
-        return devicesDto;
+        return DeviceConverter.toDeviceViewDto(device);
     }
 
     @Override
     @Transactional(readOnly = true)
-    @PreAuthorize("hasAuthority('DEVICE_LIST_READ')")
-    public List<DeviceListElementDto> getAllDevicesForShipmentRequest(String name) {
-        List<Device> devices = Lists.newArrayList(deviceRepository.findAll()).stream().filter(x -> x.getWarehouse().getUser().getUsername().equals(name) &&
-                x.getWarehouse().getWarehouseType().name().equals(WarehouseType.OFFICE.name()) && x.getStatus().name().equals(DeviceStatus.REPOSE.name())).collect(Collectors.toList());
-        List<DeviceListElementDto> devicesDto = new ArrayList<>();
-        for (Device a : devices) {
-            if (!a.isDeleted()) {
-                Hibernate.initialize(a.getDeviceModel());
-                Hibernate.initialize(a.getDeviceModel().getName());
-                devicesDto.add(DeviceConverter.toDeviceListElementDto(a));
-            }
+    @PreAuthorize("hasAuthority('DEVICE_READ')")
+    public DeviceEditDto getDeviceToEdit(Long id) throws AppBaseException {
+        Device device = deviceRepository.findById(id).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
+        if (device.isDeleted()) {
+            return null;
         }
-        return devicesDto;
+        return DeviceConverter.toDeviceEditDto(device);
+    }
+
+    @Override
+    public List<ParameterListElementDto> getDeviceParameters(Long id) throws AppBaseException {
+        Device device = deviceRepository.findById(id).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
+        Set<Parameter> parameters = device.getDeviceModel().getParameters();
+        if (device.isDeleted()) {
+            return null;
+        }
+        List<ParameterListElementDto> parameterListElementDtos = new ArrayList<>();
+        for (Parameter a : parameters) {
+            parameterListElementDtos.add(ParameterConverter.toParameterListElementDto(a));
+        }
+
+        return parameterListElementDtos;
     }
 
 }

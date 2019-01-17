@@ -9,19 +9,21 @@ import java.util.Calendar;
 
 public class SystemMessageConverter {
 
+    //LIST
     public static SystemMessageListElementDto toSystemMessageListElement(SystemMessage systemMessage){
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         return SystemMessageListElementDto.builder()
                 .id(systemMessage.getId())
                 .message(systemMessage.getMessage())
                 .title(systemMessage.getTitle())
-                .messageDate(formatter.format(systemMessage.getCalendarTimestamp().getTime()))
+                .messageDate(formatter.format(systemMessage.getCreateDate().getTime()))
                 .build();
     }
 
+    //ADD
     public static SystemMessage toSystemMessage(SystemMessageAddDto systemMessageAddDto){
         SystemMessage systemMessage=new SystemMessage();
-        systemMessage.setCalendarTimestamp(Calendar.getInstance());
+        systemMessage.setCreateDate(Calendar.getInstance());
         systemMessage.setDeleted(false);
         systemMessage.setMessage(systemMessageAddDto.getMessage());
         systemMessage.setTitle(systemMessageAddDto.getTitle());

@@ -4,6 +4,8 @@ import {CompanyService} from "../../company/company.service";
 import {TranslateService} from "@ngx-translate/core";
 import {SystemMessageService} from "../../../../../main-page/system-message.service";
 import {SystemMessageListElement} from "../../../../../../models/system-message-list-element";
+import {MessageService} from "../../../../../../shared/services/message.service";
+import {Configuration} from "../../../../../../app.constants";
 
 @Component({
   selector: 'app-system-message-list',
@@ -16,7 +18,9 @@ export class SystemMessageListComponent implements OnInit {
 
     constructor(
         private systemMessageService: SystemMessageService,
+        private messageService:MessageService,
         private translate: TranslateService,
+        private configuration:Configuration
     ) {}
 
     ngOnInit() {
@@ -44,8 +48,28 @@ export class SystemMessageListComponent implements OnInit {
     }
 
     delete(structure: SystemMessageListElement) {
-        this.systemMessageService.deleteSystemMessage(String(structure.id)).subscribe(resp => {
-            this.filterMessages(null);
-        });
+        var entity: string;
+        var message: string;
+        var yes: string;
+        var no: string;
+
+        this.translate.get('system.message.delete').subscribe(x => entity = x);
+        this.translate.get('confirm.delete').subscribe(x => message = x);
+        this.translate.get('yes').subscribe(x => yes = x);
+        this.translate.get('no').subscribe(x => no = x);
+
+
+        this.messageService
+            .confirm(entity, message, yes, no)
+            .subscribe(confirmed => {
+                if (confirmed) {
+                    this.systemMessageService.deleteSystemMessage(String(structure.id)).subscribe(resp => {
+                        this.filterMessages(null);
+                        this.translate.get('success.system.message.delete').subscribe(x=>{
+                            this.messageService.success(x)
+                        })
+                    });
+                }
+            });
     }
 }

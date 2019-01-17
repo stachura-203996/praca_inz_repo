@@ -19,6 +19,8 @@ public class RequestViewDto {
     private String createDate;
     private String deviceModelName;
     private String description;
+    private String surname;
+    private String name;
     private long version;
     private long amount;
 }

@@ -2,10 +2,8 @@ package com.stachura.praca_inz.backend.service.impl;
 
 import com.google.common.collect.Lists;
 import com.stachura.praca_inz.backend.Constants;
-import com.stachura.praca_inz.backend.exception.repository.DatabaseErrorException;
-import com.stachura.praca_inz.backend.exception.repository.EntityException;
-import com.stachura.praca_inz.backend.exception.service.ServiceException;
-import com.stachura.praca_inz.backend.model.Office;
+import com.stachura.praca_inz.backend.exception.EntityNotInDatabaseException;
+import com.stachura.praca_inz.backend.exception.base.AppBaseException;
 import com.stachura.praca_inz.backend.model.Report;
 import com.stachura.praca_inz.backend.model.security.User;
 import com.stachura.praca_inz.backend.repository.ReportRepository;
@@ -34,13 +32,9 @@ public class ReportServiceImpl implements ReportService {
     @Override
     @Transactional(readOnly = true)
     @PreAuthorize("hasAuthority('REPORT_READ')")
-    public Report getReportById(Long id) {
+    public Report getReportById(Long id) throws EntityNotInDatabaseException {
         Report report = null;
-        try {
-            report = reportRepository.findById(id).orElseThrow(() -> new ServiceException());
-        } catch (ServiceException e) {
-            e.printStackTrace();
-        }
+            report = reportRepository.findById(id).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
         if (report.isDeleted()) {
             return null;
         }
@@ -50,9 +44,9 @@ public class ReportServiceImpl implements ReportService {
     @Override
     @Transactional(readOnly = true)
     @PreAuthorize("hasAuthority('REPORT_LIST_READ')")
-    public List<ReportListElementDto> getAllReports(String username) throws ServiceException {
+    public List<ReportListElementDto> getAllReports(String username) throws AppBaseException {
         List<Report> reports;
-        User user=userRepository.findByUsername(username).orElseThrow(()->new ServiceException());
+        User user=userRepository.findByUsername(username).orElseThrow(()->new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
         if(user.getUserRoles().stream().anyMatch(x->x.getName().equals(Constants.ADMIN_ROLE))) {
             reports = Lists.newArrayList(reportRepository.findAll());
         } else{
@@ -98,11 +92,11 @@ public class ReportServiceImpl implements ReportService {
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('REPORT_CREATE')")
-    public Report createNewReport(ReportAddDto reportAddDto, String username) throws ServiceException {
-            User reciever=userRepository.findById(reportAddDto.getReciever()).orElseThrow(()->new ServiceException());
-            User sender=userRepository.findByUsername(username).orElseThrow(() -> new ServiceException());
+    public Report createNewReport(ReportAddDto reportAddDto, String username) throws AppBaseException {
+            User reciever=userRepository.findById(reportAddDto.getReciever()).orElseThrow(()->new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
+            User sender=userRepository.findByUsername(username).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
             Report report=ReportConverter.toReport(reportAddDto,reciever,sender);
-            reportRepository.save(report);
+            reportRepository.saveAndFlush(report);
             return report;
     }
 
@@ -110,28 +104,28 @@ public class ReportServiceImpl implements ReportService {
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('REPORT_UPDATE')")
-    public void updateReport(Report report) throws ServiceException {
-        reportRepository.save(report);
+    public void updateReport(Report report) throws AppBaseException {
+        reportRepository.saveAndFlush(report);
     }
 
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('REPORT_DELETE')")
-    public void deleteReportById(Long id) throws ServiceException {
-        reportRepository.findById(id).orElseThrow(() -> new ServiceException()).setDeleted(true);
+    public void deleteReportById(Long id) throws AppBaseException {
+        reportRepository.findById(id).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT)).setDeleted(true);
     }
 
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('REPORT_DELETE')")
-    public void disableBySender(Long id) throws ServiceException {
-        reportRepository.findById(id).orElseThrow(() -> new ServiceException()).setDisableSender(true);
+    public void disableBySender(Long id) throws AppBaseException {
+        reportRepository.findById(id).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT)).setDisableSender(true);
     }
 
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('REPORT_DELETE')")
-    public void disableByReciever(Long id) throws ServiceException {
-        reportRepository.findById(id).orElseThrow(() -> new ServiceException()).setDisableReciever(true);
+    public void disableByReciever(Long id) throws AppBaseException {
+        reportRepository.findById(id).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT)).setDisableReciever(true);
     }
 }

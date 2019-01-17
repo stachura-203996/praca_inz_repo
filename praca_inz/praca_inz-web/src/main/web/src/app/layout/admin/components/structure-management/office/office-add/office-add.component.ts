@@ -7,6 +7,8 @@ import {TranslateService} from "@ngx-translate/core";
 import {UserRoles} from "../../../../../../models/user-roles";
 import {LoggedUser} from "../../../../../../models/logged-user";
 import {UserService} from "../../../administration/user-management/user.service";
+import {Configuration} from "../../../../../../app.constants";
+import {MessageService} from "../../../../../../shared/services/message.service";
 
 @Component({
     selector: 'app-office-add',
@@ -27,6 +29,8 @@ export class OfficeAddComponent implements OnInit {
         private userService: UserService,
         private departmentService: DepartmentService,
         private translate: TranslateService,
+        private configuration:Configuration,
+        private messageService:MessageService,
         private router: Router) {
     }
 
@@ -52,10 +56,30 @@ export class OfficeAddComponent implements OnInit {
     }
 
     officeAdd() {
-        this.structureAddElement.departmentId = this.departments.get(this.selectedOption);
-        this.officeService.createOffice(this.structureAddElement).subscribe(resp => {
-            this.router.navigateByUrl('/admin/offices');
-        });
+        var entity:string;
+        var message:string;
+        var yes:string;
+        var no:string;
+
+        this.translate.get('office.add').subscribe(x=>entity=x);
+        this.translate.get('confirm.add').subscribe(x=>message=x);
+        this.translate.get('yes').subscribe(x=>yes=x);
+        this.translate.get('no').subscribe(x=>no=x);
+
+
+        this.messageService
+            .confirm(entity,message,yes,no)
+            .subscribe(confirmed => {
+                if (confirmed) {
+                    this.structureAddElement.departmentId = this.departments.get(this.selectedOption);
+                    this.officeService.createOffice(this.structureAddElement).subscribe(resp => {
+                        this.router.navigateByUrl('/admin/offices');
+                        this.translate.get('success.office.add').subscribe(x=>{
+                            this.messageService.success(x)
+                        })
+                    });
+                }
+            });
     }
 
     clear() {

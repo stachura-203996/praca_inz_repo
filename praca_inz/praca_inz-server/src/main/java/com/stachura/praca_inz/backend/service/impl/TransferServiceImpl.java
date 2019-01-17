@@ -2,14 +2,19 @@ package com.stachura.praca_inz.backend.service.impl;
 
 import com.google.common.collect.Lists;
 import com.stachura.praca_inz.backend.Constants;
-import com.stachura.praca_inz.backend.exception.repository.DatabaseErrorException;
-import com.stachura.praca_inz.backend.exception.repository.EntityException;
-import com.stachura.praca_inz.backend.exception.service.ServiceException;
+import com.stachura.praca_inz.backend.exception.EntityNotInDatabaseException;
+import com.stachura.praca_inz.backend.exception.base.AppBaseException;
+import com.stachura.praca_inz.backend.model.Device;
 import com.stachura.praca_inz.backend.model.Transfer;
+import com.stachura.praca_inz.backend.model.Warehouse;
+import com.stachura.praca_inz.backend.model.enums.WarehouseType;
 import com.stachura.praca_inz.backend.model.security.User;
+import com.stachura.praca_inz.backend.repository.DeviceRepository;
 import com.stachura.praca_inz.backend.repository.TransferRepository;
 import com.stachura.praca_inz.backend.repository.UserRepository;
+import com.stachura.praca_inz.backend.repository.WarehouseRepository;
 import com.stachura.praca_inz.backend.service.TransferService;
+import com.stachura.praca_inz.backend.web.dto.TransferAddDto;
 import com.stachura.praca_inz.backend.web.dto.TransferListElementDto;
 import com.stachura.praca_inz.backend.web.dto.converter.TransferConverter;
 import org.hibernate.Hibernate;
@@ -32,11 +37,17 @@ public class TransferServiceImpl implements TransferService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private WarehouseRepository warehouseRepository;
+
+    @Autowired
+    private DeviceRepository deviceRepository;
+
     @Override
     @Transactional(readOnly = true)
     @PreAuthorize("hasAuthority('TRANSFER_READ')")
-    public Transfer getTransferById(Long id) throws ServiceException {
-        Transfer transfer = transferRepository.findById(id).orElseThrow(() -> new ServiceException());
+    public Transfer getTransferById(Long id) throws AppBaseException {
+        Transfer transfer = transferRepository.findById(id).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
         if (transfer.isDeleted()) {
             return null;
         }
@@ -63,13 +74,13 @@ public class TransferServiceImpl implements TransferService {
     @Override
     @Transactional(readOnly = true)
     @PreAuthorize("hasAuthority('TRANSFER_READ')")
-    public List<TransferListElementDto> getAllTransfers(String username) throws ServiceException {
+    public List<TransferListElementDto> getAllTransfers(String username) throws AppBaseException {
         List<Transfer> transfers;
-        User user=userRepository.findByUsername(username).orElseThrow(()->new ServiceException());
-        if(user.getUserRoles().stream().anyMatch(x->x.getName().equals(Constants.ADMIN_ROLE))) {
+        User user = userRepository.findByUsername(username).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
+        if (user.getUserRoles().stream().anyMatch(x -> x.getName().equals(Constants.ADMIN_ROLE))) {
             transfers = Lists.newArrayList(transferRepository.findAll());
-        } else{
-            transfers = Lists.newArrayList(transferRepository.findAll()).stream().filter(x->x.getRecieverWarehouse().getOffice().getDepartment().getCompany().getId().equals(user.getOffice().getDepartment().getCompany().getId())).collect(Collectors.toList());
+        } else {
+            transfers = Lists.newArrayList(transferRepository.findAll()).stream().filter(x -> x.getRecieverWarehouse().getOffice().getDepartment().getCompany().getId().equals(user.getOffice().getDepartment().getCompany().getId())).collect(Collectors.toList());
         }
         List<TransferListElementDto> transferListElementDtos = new ArrayList<>();
         for (Transfer a : transfers) {
@@ -85,28 +96,33 @@ public class TransferServiceImpl implements TransferService {
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('TRANSFER_CREATE')")
-    public void createNewTransfer(Transfer transfer)throws ServiceException {
-            transferRepository.save(transfer);
+    public void createNewTransfer(TransferAddDto transferAddDto, String username) throws AppBaseException {
+        Warehouse sender = Lists.newArrayList(warehouseRepository.findAll()).stream().filter(x -> x.getUser().getUsername().equals(username) && x.getWarehouseType().equals(WarehouseType.USER)).findFirst().orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
+        Warehouse reciever = warehouseRepository.findById(transferAddDto.getRecieverWarehouseId()).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
+        Device device= deviceRepository.findById(transferAddDto.getDeviceId()).orElseThrow(()->new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
+        device.setWarehouse(reciever);
+        deviceRepository.saveAndFlush(device);
+        transferRepository.saveAndFlush(TransferConverter.toTransfer(transferAddDto, username, sender, reciever, device));
     }
 
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('TRANSFER_UPDATE')")
-    public void updateTransfer(Transfer transfer) throws ServiceException {
-        transferRepository.save(transfer);
+    public void updateTransfer(Transfer transfer) throws AppBaseException {
+        transferRepository.saveAndFlush(transfer);
     }
 
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('TRANSFER_DELETE')")
-    public void deleteTransferById(Long id) throws ServiceException {
-        transferRepository.findById(id).orElseThrow(() -> new ServiceException()).setDeleted(true);
+    public void deleteTransferById(Long id) throws AppBaseException {
+        transferRepository.findById(id).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT)).setDeleted(true);
     }
 
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('TRANSFER_DELETE')")
-    public void deleteTransfer(Transfer transfer) throws ServiceException {
-        transferRepository.findById(transfer.getId()).orElseThrow(() -> new ServiceException()).setDeleted(true);
+    public void deleteTransfer(Transfer transfer) throws AppBaseException {
+        transferRepository.findById(transfer.getId()).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT)).setDeleted(true);
     }
 }

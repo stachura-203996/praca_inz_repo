@@ -19,55 +19,6 @@ public class EmailServiceImpl implements EmailService {
     @Autowired
     public JavaMailSender emailSender;
 
-    @Override
-    public void sendRequestSentMessage() {
-
-    }
-
-    @Override
-    public void sendRequestRecievedMessage() {
-
-    }
-
-    @Override
-    public void sendRequestAcceptedMessage() {
-
-    }
-
-    @Override
-    public void sendRequestRejectedMessage() {
-
-    }
-
-    @Override
-    public void sendTransfeExecutedMessage() {
-
-    }
-
-    @Override
-    public void sendDeliveryExecutedMessage() {
-
-    }
-
-    @Override
-    public void sendShipmentExecutedMessage() {
-
-    }
-
-    @Override
-    public void sendDeviceRequestExecuted() {
-
-    }
-
-    @Override
-    public void sendReportSentMessage() {
-
-    }
-
-    @Override
-    public void sendReportRecievedMessage() {
-
-    }
 
     public void sendSimpleMessage(String to, String subject, String text) {
         try {
@@ -75,14 +26,13 @@ public class EmailServiceImpl implements EmailService {
             message.setTo(to);
             message.setSubject(subject);
             message.setText(text);
+            message.setFrom("Inventory system");
 
             emailSender.send(message);
         } catch (MailException exception) {
             exception.printStackTrace();
         }
     }
-
-
 
 
     @Override

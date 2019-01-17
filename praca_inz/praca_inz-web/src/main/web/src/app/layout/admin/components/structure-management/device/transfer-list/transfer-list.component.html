@@ -1,6 +1,5 @@
 <div class="col-md-12" *ngIf="transfers">
     <h1>{{ 'Transfers' | translate }}</h1>
-
     <div class="row">
         <div class="col-lg-10">
             <input class="form-control" #searchBox id="search-box" (keyup)="filterTransfers(searchBox.value)"
@@ -17,7 +16,6 @@
             <th>{{ 'Date' | translate }}</th>
             <th>{{'Sender'| translate}}</th>
             <th>{{'Reciever' | translate}}</th>
-            <th></th>
         </tr>
         </thead>
         <tbody>
@@ -28,16 +26,6 @@
             <td>{{transfer.date}}</td>
             <td>{{transfer.senderWarehouseName}}</td>
             <td>{{transfer.recieverWarehouseName}}</td>
-            <td class="text-right">
-                <div class="btn-group flex-btn-group-container">
-                    <button type="submit"
-                            [routerLink]="['/devices/transfer/view/'+transfer.id]"
-                            class="btn btn-info btn-sm">
-                        <i class="fa fa-eye"></i>&nbsp;
-                        <span class="d-none d-md-inline">View</span>
-                    </button>
-                </div>
-            </td>
         </tr>
         </tbody>
     </table>

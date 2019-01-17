@@ -2,7 +2,6 @@ import {CommonModule} from '@angular/common';
 import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from '@angular/common/http';
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {AppRoutingModule} from './app-routing.module';
@@ -15,19 +14,21 @@ import {HttpService} from "./shared/services/http.service";
 import {Configuration} from "./app.constants";
 import {ProfileService} from "./layout/profile/profile.service";
 import {MessageService} from "./shared/services/message.service";
-import {I18nService} from "./shared/services/i18n/i18n.service";
-import {ToastContainerModule, ToastrModule} from "ngx-toastr";
-import {SessionContextService} from "./shared/services/session-context.service";
 import {UserService} from "./layout/admin/components/administration/user-management/user.service";
 import {DeviceService} from "./layout/device-management/device.service";
 import {NotificationService} from "./layout/notification/notification.service";
 import {WarehouseService} from "./layout/warehouse-management/warehouse.service";
 import {SystemMessageService} from "./layout/main-page/system-message.service";
 import {ReportService} from "./layout/employee-management/report.service";
-import {BsDropdownModule, BsModalService} from "ngx-bootstrap";
+import {BsDropdownModule, BsModalService, ModalModule} from "ngx-bootstrap";
 import {MatSelectModule} from "@angular/material";
 import {ReactiveFormsModule} from "@angular/forms";
 import {HttpErrorInterceptor} from "./shared/interceptor/http-error.interceptor";
+import {FullRouteGuard} from "./shared/guard/full-route-guard.service";
+import {GeneralRouteGuard} from "./shared/guard/general-route-guard.service";
+import {ToastrModule} from "ng6-toastr-notifications";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+
 
 
 export const createTranslateLoader = (http: HttpClient) => {
@@ -50,13 +51,9 @@ export const createTranslateLoader = (http: HttpClient) => {
                 deps: [HttpClient]
             }
         }),
+        ModalModule.forRoot(),
         AppRoutingModule,
-        ToastrModule.forRoot({
-            positionClass: 'toast-top-center',
-            maxOpened: 2,
-            autoDismiss: true
-        }),
-        ToastContainerModule,
+        ToastrModule.forRoot(),
         BsDropdownModule.forRoot(),
     ],
     declarations: [
@@ -65,6 +62,8 @@ export const createTranslateLoader = (http: HttpClient) => {
     ],
     providers: [
         AuthGuard,
+        FullRouteGuard,
+        GeneralRouteGuard,
         LoginService,
         CookieService,
         UserService,
@@ -74,10 +73,8 @@ export const createTranslateLoader = (http: HttpClient) => {
         MessageService,
         SystemMessageService,
         DeviceService,
-        I18nService,
         BsModalService,
         ReportService,
-        SessionContextService,
         NotificationService,
         WarehouseService,
         {
@@ -86,7 +83,8 @@ export const createTranslateLoader = (http: HttpClient) => {
             multi: true
         }
     ],
-    bootstrap: [AppComponent]
+    bootstrap: [AppComponent],
+    entryComponents: [ConfirmDialogComponent]
 })
 export class AppModule {
 }

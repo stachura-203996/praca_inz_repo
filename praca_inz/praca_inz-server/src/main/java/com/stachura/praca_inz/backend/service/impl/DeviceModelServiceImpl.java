@@ -2,19 +2,13 @@ package com.stachura.praca_inz.backend.service.impl;
 
 import com.google.common.collect.Lists;
 import com.stachura.praca_inz.backend.Constants;
-import com.stachura.praca_inz.backend.exception.repository.DatabaseErrorException;
-import com.stachura.praca_inz.backend.exception.repository.EntityException;
-import com.stachura.praca_inz.backend.exception.service.ServiceException;
-import com.stachura.praca_inz.backend.model.Device;
-import com.stachura.praca_inz.backend.model.DeviceModel;
-import com.stachura.praca_inz.backend.model.Parameter;
+import com.stachura.praca_inz.backend.exception.EntityNotInDatabaseException;
+import com.stachura.praca_inz.backend.exception.base.AppBaseException;
+import com.stachura.praca_inz.backend.model.*;
 import com.stachura.praca_inz.backend.model.security.User;
-import com.stachura.praca_inz.backend.repository.DeviceModelRepository;
-import com.stachura.praca_inz.backend.repository.UserRepository;
+import com.stachura.praca_inz.backend.repository.*;
 import com.stachura.praca_inz.backend.service.DeviceModelService;
-import com.stachura.praca_inz.backend.web.dto.device.DeviceModelListElementDto;
-import com.stachura.praca_inz.backend.web.dto.device.DeviceModelViewDto;
-import com.stachura.praca_inz.backend.web.dto.device.ParameterListElementDto;
+import com.stachura.praca_inz.backend.web.dto.device.*;
 import com.stachura.praca_inz.backend.web.dto.converter.DeviceModelConverter;
 import com.stachura.praca_inz.backend.web.dto.converter.ParameterConverter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,11 +30,20 @@ public class DeviceModelServiceImpl implements DeviceModelService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private CompanyRepository companyRepository;
+
+    @Autowired
+    private DeviceTypeRepository deviceTypeRepository;
+
+    @Autowired
+    private ParameterRepository parameterRepository;
+
     @Override
     @Transactional(readOnly = true)
     @PreAuthorize("hasAuthority('DEVICE_MODEL_READ')")
-    public DeviceModelViewDto getDeviceModelViewById(Long id) throws ServiceException {
-        DeviceModel deviceModel = deviceModelRepository.findById(id).orElseThrow(() -> new ServiceException());
+    public DeviceModelViewDto getDeviceModelViewById(Long id) throws EntityNotInDatabaseException {
+        DeviceModel deviceModel = deviceModelRepository.findById(id).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
         if (deviceModel.isDeleted()) {
             return null;
         }
@@ -48,8 +51,28 @@ public class DeviceModelServiceImpl implements DeviceModelService {
     }
 
     @Override
-    public List<ParameterListElementDto> getDeviceParameters(Long id) throws ServiceException {
-        DeviceModel deviceModel = deviceModelRepository.findById(id).orElseThrow(() -> new ServiceException());
+    @Transactional(readOnly = true)
+    @PreAuthorize("hasAuthority('DEVICE_MODEL_READ')")
+    public DeviceModelEditDto getDeviceModelEdit(Long id) throws AppBaseException {
+        DeviceModel deviceModel = deviceModelRepository.findById(id).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
+        if (deviceModel.isDeleted()) {
+            return null;
+        }
+        return DeviceModelConverter.toDeviceModelEditDto(deviceModel);
+    }
+
+    @Override
+    public Long createNewParameter(ParameterListElementDto parameterListElementDto,Long id) throws AppBaseException {
+        DeviceModel deviceModel=deviceModelRepository.findById(id).orElseThrow(()->new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
+        parameterRepository.saveAndFlush(ParameterConverter.toParameter(parameterListElementDto,deviceModel));
+        return null;
+    }
+
+
+
+    @Override
+    public List<ParameterListElementDto> getDeviceModelParameters(Long id) throws AppBaseException {
+        DeviceModel deviceModel = deviceModelRepository.findById(id).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
         Set<Parameter> parameters = deviceModel.getParameters();
         if (deviceModel.isDeleted()) {
             return null;
@@ -65,9 +88,9 @@ public class DeviceModelServiceImpl implements DeviceModelService {
     @Override
     @Transactional(readOnly = true)
     @PreAuthorize("hasAuthority('DEVICE_MODEL_READ')")
-    public List<DeviceModelListElementDto> getAllDeviceModels(String username) throws ServiceException {
+    public List<DeviceModelListElementDto> getAllDeviceModels(String username) throws AppBaseException {
         List<DeviceModel> deviceModels;
-        User user=userRepository.findByUsername(username).orElseThrow(()->new ServiceException());
+        User user=userRepository.findByUsername(username).orElseThrow(()->new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
         if(user.getUserRoles().stream().anyMatch(x->x.getName().equals(Constants.ADMIN_ROLE))) {
             deviceModels = Lists.newArrayList(deviceModelRepository.findAll());
         } else{
@@ -85,23 +108,41 @@ public class DeviceModelServiceImpl implements DeviceModelService {
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('DEVICE_MODEL_CREATE')")
-    public void createNewDeviceModel(DeviceModel deviceModel) throws ServiceException {
-            deviceModelRepository.save(deviceModel);
+    public Long createNewDeviceModel(DeviceModelAddDto deviceModelAddDto) throws AppBaseException {
+        DeviceType deviceType=deviceTypeRepository.findById(deviceModelAddDto.getTypeId()).orElseThrow(()->new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
+        Company company=companyRepository.findById(deviceModelAddDto.getCompanyId()).orElseThrow(()->new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
+         DeviceModel deviceModel=DeviceModelConverter.toDeviceModel(deviceModelAddDto,company,deviceType);
+        try {
+            deviceModelRepository.saveAndFlush(deviceModel);
+        }catch (Exception e){
+           e.printStackTrace();
+        }
+        return  deviceModel.getId();
     }
 
 
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('DEVICE_MODEL_UPDATE')")
-    public void updateDeviceModel(DeviceModel deviceModel) throws ServiceException {
-        deviceModelRepository.save(deviceModel);
+    public void updateDeviceModel(DeviceModelEditDto deviceModelEditDto) throws AppBaseException {
+        DeviceType deviceType=deviceTypeRepository.findById(deviceModelEditDto.getTypeId()).orElseThrow(()->new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
+        Company company=companyRepository.findById(deviceModelEditDto.getCompanyId()).orElseThrow(()->new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
+        DeviceModel deviceModel=deviceModelRepository.findById(deviceModelEditDto.getId()).orElseThrow(()->new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
+        deviceModelRepository.saveAndFlush(DeviceModelConverter.toDeviceModel(deviceModelEditDto,deviceModel,company,deviceType));
     }
 
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('DEVICE_MODEL_DELETE')")
-    public void deleteDeviceModelById(Long id) throws ServiceException {
-        deviceModelRepository.findById(id).orElseThrow(() -> new ServiceException()).setDeleted(true);
+    public void deleteDeviceModelById(Long id) throws AppBaseException {
+        deviceModelRepository.findById(id).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT)).setDeleted(true);
     }
+
+
+    @Override
+    public void deleteParameterById(Long id) {
+        parameterRepository.deleteById(id);
+    }
+
 
 }

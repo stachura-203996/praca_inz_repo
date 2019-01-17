@@ -50,13 +50,19 @@ public class Userdata implements Serializable {
 
     @Basic
     @NotNull
-    @Column(name = "JOIN_DATE")
+    @Column(name = "JOIN_DATE",nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private java.util.Calendar dateOfJoin;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY,optional = false)
     @JoinColumn(name = "ADDRESS_ID")
     private Address address;
 
+    public Userdata() {
+    }
 
+    public Userdata(Long id, long version) {
+        this.id=id;
+        this.version = version;
+    }
 }

@@ -1,296 +1,285 @@
 <div class="row">
     <div class="col-lg-12 ">
         <h1>{{'RegisterUser'|translate}}</h1>
-        <form class="form-horizontal" #editForm="ngForm">
+        <form class="form-horizontal" #RegisterForm="ngForm" (ngSubmit)="userAdd()">
             <fieldset>
-                <label class="col-xl-5 control-label" for="Username">{{'Username' | translate}}</label>
+                <label class="col-xl-5 control-label" for="Username">{{'Username' | translate}}<span style="color:red">*</span></label>
                 <div class="col-xl-5">
                     <div class="input-group">
                         <input id="Username" [(ngModel)]="registerUserData.username" name="Username" type="text"
-                               placeholder="Username" class="form-control input-xl" required minlength="3"
+                               placeholder="{{'Username'|translate}}" class="form-control input-xl" required minlength="3"
                                maxlength="16" #username="ngModel">
                         <div *ngIf="username.invalid && (username.touched || username.dirty)"
                              class="alert alert-danger col-sm-12">
-                            <div *ngIf="username.hasError('required')" i18n="@@usernameReq">Username is required
-                            </div>
-                            <div *ngIf="username.hasError('minlength')" i18n="@@usernameMin">Username must be at
-                                least 3 characters long
-                            </div>
-                            <div *ngIf="username.hasError('maxlength')" i18n="@@usernameMax">Username cannot be
-                                longer than 16 characters
-                            </div>
+                            <div *ngIf="username.hasError('required')" i18n="@@usernameReq">{{'Username is required'|translate}}</div>
+                            <div *ngIf="username.hasError('minlength')" i18n="@@usernameMin">{{'Username must be at least 3 characters long'|translate}}</div>
+                            <div *ngIf="username.hasError('maxlength')" i18n="@@usernameMax">{{'Username cannot be longer than 16 characters'|translate}}</div>
                         </div>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-xl-5 control-label" for="Password">{{'Password' | translate}}</label>
+                    <label class="col-xl-5 control-label" for="Password">{{'Password' | translate}}<span style="color:red">*</span></label>
                     <div class="col-xl-5">
                         <div class="input-group">
                             <input id="Password" [(ngModel)]="registerUserData.password" name="Password"
                                    type="password"
-                                   placeholder="Password" class="form-control input-xl" minlength="8"
+                                   placeholder="{{'Password'|translate}}" class="form-control input-xl" minlength="8"
                                    required #password="ngModel">
                             <div *ngIf="password.invalid && (password.touched || password.dirty)"
                                  class="alert alert-danger col-sm-12">
-                                <div *ngIf="password.hasError('required')" i18n="@@passwordReq">Password is
-                                    required
-                                </div>
-                                <div *ngIf="password.hasError('minlength')" i18n="@@passwordMin">Password must be at
-                                    least 8 characters long
-                                </div>
+                                <div *ngIf="password.hasError('required')">{{'Password is required'|translate}}</div>
+                                <div *ngIf="password.hasError('minlength')">{{'Password must be at least 8 characters long'|translate}}</div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-xl-5 control-label" for="RepeatPassword">{{'RepeatPassword' | translate}}</label>
-                    <div class="col-xl-5">
-                        <div class="input-group">
-                            <input id="RepeatPassword" [(ngModel)]="registerUserData.passwordRepeated"
-                                   name="RepeatPassword" type="password"
-                                   placeholder="RepeatPassword" class="form-control input-xl" minlength="8"
-                                   #passwordRepeated="ngModel" required appPasswordMatch="{{registerUserData.password}}"/>
-                            <div
-                                *ngIf="passwordRepeated.invalid && (passwordRepeated.touched || passwordRepeated.dirty)"
-                                class="alert alert-danger col-sm-12">
-                                <div *ngIf="passwordRepeated.hasError('required')">{{'Password is required'|translate}}</div>
-                                <div *ngIf="passwordRepeated.hasError('minlength')" i18n="@@passwordMin">{{'Password must be at least 8 characters long'|translate}}                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-xl-5 control-label" for="Name">{{'Name' | translate}}</label>
-                    <div class="col-xl-5">
-                        <div class="input-group">
-                            <input id="Name" [(ngModel)]="registerUserData.name" name="Name" type="text"
-                                   placeholder="Name" class="form-control input-xl"
-                                   required maxlength="20"
-                                   #name="ngModel">
-                        </div>
-                        <div *ngIf="name.invalid && (name.touched || name.dirty)"
-                             class="alert alert-danger col-sm-12">
-                            <div *ngIf="name.hasError('required')" i18n="@@nameReq">Name is required</div>
-                            <div *ngIf="name.hasError('maxLength')" i18n="@@nameMax">Name cannot be longer than 20
-                                characters.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-xl-5 control-label" for="Surname">{{'Surname' | translate}}</label>
-                    <div class="col-xl-5">
-                        <div class="input-group">
-                            <input id="Surname" [(ngModel)]="registerUserData.surname" name="Surname" type="text"
-                                   placeholder="Surname" class="form-control input-xl"
-                                   required maxlength="20"
-                                   #surname="ngModel">
-                        </div>
-                        <div *ngIf="surname.invalid && (surname.touched || surname.dirty)"
-                             class="alert alert-danger col-sm-12 ">
-                            <div *ngIf="surname.hasError('required')" i18n="@@surnameReq">Surname is required</div>
-                            <div *ngIf="surname.hasError('maxLength')" i18n="@@surnameMax">Surname cannot be longer
-                                than 20 characters.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-xl-9 control-label" for="Address">{{'Address' | translate}}</label>
-                    <div class="col-xl-9 ">
-                        <div id="Address" class="row">
-                            <div class="col-xl-4">
-                                <div class="input-group">
-                                    <input id="City" [(ngModel)]="registerUserData.city" name="City" type="text"
-                                           placeholder="City" class="form-control input-xl"
-                                           required maxlength="20"
-                                           #city="ngModel">
-                                </div>
-                                <div *ngIf="city.invalid && (city.touched || city.dirty)"
-                                     class="alert alert-danger col-sm-12">
-                                    <div *ngIf="city.hasError('required')" i18n="@@cityReq">City is required</div>
-                                    <div *ngIf="city.hasError('maxLength')" i18n="@@nameMax">City cannot be longer
-                                        than 20 characters.
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-4">
-                                <div class="input-group">
-                                    <input id="Street" [(ngModel)]="registerUserData.street" name="Street"
-                                           type="text"
-                                           placeholder="Street" class="form-control input-xl"
-                                           required maxlength="20"
-                                           #street="ngModel">
-                                </div>
-                                <div *ngIf="street.invalid && (street.touched || street.dirty)"
-                                     class="alert alert-danger col-sm-12">
-                                    <div *ngIf="street.hasError('required')" i18n="@@streetReq">Street is required
-                                    </div>
-                                    <div *ngIf="street.hasError('maxLength')" i18n="@@nameMax">Street cannot be
-                                        longer than 20 characters.
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <br>
-                        <div class="row">
-                            <div class="col-xl-2">
-                                <div class="input-group">
-                                    <input id="houseNumber" [(ngModel)]="registerUserData.houseNumber"
-                                           name="houseNumber" type="number" placeholder="houseNumber"
-                                           class="form-control input-xl"
-                                           min="1"
-                                           required
-                                           appNotNegative
-                                           appNotNaught
-                                           appNotRealNumber
-                                           #house="ngModel">
-                                </div>
-                                <div *ngIf="house.invalid && (house.touched || house.dirty)"
-                                     class="alert alert-danger col-sm-12">
-                                    <div *ngIf="house.hasError('required')" i18n="@@houseNoReq">House number is
-                                        required
-                                    </div>
-                                    <div *ngIf="house.hasError('naught')" i18n="@@houseNotZero">House number cannot
-                                        be zero!
-                                    </div>
-                                    <div *ngIf="house.hasError('realNumber')" i18n="@@houseNotRealNumber">House
-                                        number must be positive integer!
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-2">
-                                <div class="input-group">
-                                    <input id="flatNumber" [(ngModel)]="registerUserData.flatNumber"
-                                           name="flatNumber" type="number" placeholder="flatNumber"
-                                           class="form-control input-xl"
-                                           min="1"
-                                           appNotNegative
-                                           appNotNaught
-                                           #flat="ngModel">
-                                </div>
-                                <div *ngIf="flat.invalid && (flat.touched || flat.dirty)"
-                                     class="alert alert-danger col-sm-12">
-                                    <div *ngIf="flat.hasError('negative')" i18n="@@flatNotNegative">Flat number
-                                        cannot be negative!
-                                    </div>
-                                    <div *ngIf="flat.hasError('naught')" i18n="@@houseNotZero">Flat number cannot be
-                                        zero!
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-xl-5 control-label" for="Email">Email</label>
-                    <div class="col-xl-5">
-                        <div class="input-group">
-                            <input id="Email" [(ngModel)]="registerUserData.email"
-                                   name="Email"
-                                   type="email"
-                                   placeholder="Email Address"
-                                   class="form-control input-xl"
-                                   required appEmailMatch maxlength="50"
-                                   #email="ngModel">
-                        </div>
-                        <div *ngIf="email.invalid && (email.touched || email.dirty)"
-                             class="alert alert-danger col-sm-12">
-                            <div *ngIf="email.hasError('invalidEmail')" i18n="@@emailRegex">Incorrect e-mail</div>
-                            <div *ngIf="email.hasError('required')" i18n="@@emailReq">E-mail is required</div>
-                            <div *ngIf="email.hasError('maxLength')" i18n="@@emailMax">Email cannot be longer than
-                                50 characters.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group col-xl-5">
-                    <label for="companySelect">{{'Office'|translate}}</label>
-                    <select class="form-control" id="companySelect" [(ngModel)]="selectedOption" name="first"
-                            required #office="ngModel">
-                        <option *ngFor="let office of offices|keyvalue" [value]="office.key">{{office.key}}</option>
-                    </select>
-                    <div *ngIf="office.invalid && (office.touched || office.dirty)"
-                         class="alert alert-danger col-sm-12">
-                        <div *ngIf="office.hasError('required')" i18n="@@emailReq">Office is required</div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-xl-5 control-label" for="Position">{{'Position' | translate}}</label>
-                    <div class="col-xl-5">
-                        <div class="input-group">
-                            <input id="Position" [(ngModel)]="registerUserData.position" name="Position" type="text"
-                                   placeholder="Position" class="form-control input-xl"
-                                   maxlength="30"
-                                   #position="ngModel"/>
-                        </div>
-                        <div *ngIf="position.invalid && (position.touched || position.dirty)"
-                             class="alert alert-danger col-sm-12">
-                            <div *ngIf="name.hasError('maxLength')" i18n="@@nameMax">Position cannot be longer than
-                                30 characters.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-xl-5 control-label" for="Workplace">{{'Workplace' | translate}}</label>
-                    <div class="col-xl-5">
-                        <div class="input-group">
-                            <input id="Workplace" [(ngModel)]="registerUserData.workplace" name="Workplace"
-                                   type="text"
-                                   placeholder="Workplace" class="form-control input-xl"
-                                   maxlength="30"
-                                   #workplace="ngModel"/>
-                        </div>
-                        <div *ngIf="workplace.invalid && (workplace.touched || workplace.dirty)"
-                             class="alert alert-danger col-sm-12">
-                            <div *ngIf="name.hasError('maxLength')" i18n="@@nameMax">workplace cannot be longer than
-                                30 characters.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <br>
-                <div class="col-xl-5">
                     <div class="form-group">
-                        <label>{{'UserRoles'|translate}}</label>
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" value="">{{'Admin'|translate}}
-                            </label>
-                        </div>
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" value="">{{'Company Admin'|translate}}
-                            </label>
-                        </div>
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" value="">{{'Manager'|translate}}
-                            </label>
-                        </div>
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" value="">{{'Warehouseman'|translate}}
-                            </label>
+                        <label class="col-xl-5 control-label" for="RepeatPassword">{{'RepeatPassword' |translate}}<span style="color:red">*</span></label>
+                        <div class="col-xl-5">
+                            <div class="input-group">
+                                <input id="RepeatPassword" [(ngModel)]="registerUserData.passwordRepeated"
+                                       name="RepeatPassword" type="password"
+                                       placeholder="{{'RepeatPassword'|translate}}" class="form-control input-xl"
+                                       minlength="8"
+                                       #passwordRepeated="ngModel" required
+                                       appPasswordMatch="{{registerUserData.password}}"/>
+                                <div
+                                    *ngIf="passwordRepeated.invalid && (passwordRepeated.touched || passwordRepeated.dirty)"
+                                    class="alert alert-danger col-sm-12">
+                                    <div *ngIf="passwordRepeated.hasError('noMatch')">{{'Passwords do not match.'|translate}}
+                                    </div>
+                                    <div *ngIf="passwordRepeated.hasError('required')">{{'Password is required'|translate}}
+                                    </div>
+                                    <div *ngIf="passwordRepeated.hasError('minlength')">{{'Password must be at least 8 characters long'|translate}}
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <br>
-                <div class="form-group">
-                    <div class="col-sm-6">
-                        <div class="row">
-                            <div class="col-xl-4" align="center">
-                                <a class="btn btn-success" (click)="userAdd()"><span
-                                    class="glyphicon glyphicon-thumbs-up"></span>{{'Submit'|translate}}</a>
+                    <div class="form-group">
+                        <label class="col-xl-5 control-label" for="Name">{{'Name' | translate}}<span style="color:red">*</span></label>
+                        <div class="col-xl-5">
+                            <div class="input-group">
+                                <input id="Name" [(ngModel)]="registerUserData.name" name="Name" type="text"
+                                       placeholder="Name" class="form-control input-xl"
+                                       required maxlength="20"
+                                       #name="ngModel">
                             </div>
-                            <div class="col-xl-4" align="center">
-                                <a class="btn btn-danger" (click)="clear()"><span
-                                    class="glyphicon glyphicon-remove-sign"></span>{{'Clear'|translate}}</a>
+                            <div *ngIf="name.invalid && (name.touched || name.dirty)"
+                                 class="alert alert-danger col-sm-12">
+                                <div *ngIf="name.hasError('required')" i18n="@@nameReq">{{'Name is required'|translate}}</div>
+                                <div *ngIf="name.hasError('maxLength')" i18n="@@nameMax">{{'Name cannot be longer than 20 characters.'|translate}}</div>
                             </div>
-                            <div class="col-xl-4" align="center" [routerLink]="['/admin/users']">
-                                <a class="btn btn-danger"><span
-                                    class="glyphicon glyphicon-remove-sign"></span>Cancel</a>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xl-5 control-label" for="Surname">{{'Surname' | translate}}<span style="color:red">*</span></label>
+                        <div class="col-xl-5">
+                            <div class="input-group">
+                                <input id="Surname" [(ngModel)]="registerUserData.surname" name="Surname" type="text"
+                                       placeholder="{{'Surname'|translate}}" class="form-control input-xl"
+                                       required maxlength="20"
+                                       #surname="ngModel">
+                            </div>
+                            <div *ngIf="surname.invalid && (surname.touched || surname.dirty)"
+                                 class="alert alert-danger col-sm-12 ">
+                                <div *ngIf="surname.hasError('required')" i18n="@@surnameReq">{{'Surname is required'|translate}}</div>
+                                <div *ngIf="surname.hasError('maxLength')" i18n="@@surnameMax">{{'Surname cannot be longer than 20 characters.'|translate}}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xl-9 control-label" for="Address">{{'Address' | translate}}<span style="color:red">*</span></label>
+                        <div class="col-xl-9 ">
+                            <div id="Address" class="row">
+                                <div class="col-xl-4">
+                                    <div class="input-group">
+                                        <input id="City" [(ngModel)]="registerUserData.city" name="City" type="text"
+                                               placeholder="{{'City'|translate}}" class="form-control input-xl"
+                                               required maxlength="20"
+                                               #city="ngModel">
+                                    </div>
+                                    <div *ngIf="city.invalid && (city.touched || city.dirty)"
+                                         class="alert alert-danger col-sm-12">
+                                        <div *ngIf="city.hasError('required')">{{'City is required'|translate}}</div>
+                                        <div *ngIf="city.hasError('maxLength')">{{'City cannot be longer than 20 characters.'|translate}}</div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4">
+                                    <div class="input-group">
+                                        <input id="Street" [(ngModel)]="registerUserData.street" name="Street"
+                                               type="text"
+                                               placeholder="{{'Street'|translate}}" class="form-control input-xl"
+                                               required maxlength="20"
+                                               #street="ngModel">
+                                    </div>
+                                    <div *ngIf="street.invalid && (street.touched || street.dirty)"
+                                         class="alert alert-danger col-sm-12">
+                                        <div *ngIf="street.hasError('required')">{{'Street is required'|translate}}</div>
+                                        <div *ngIf="street.hasError('maxLength')">{{'Street cannot be longer than 20 characters.'|translate}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-xl-2">
+                                    <div class="input-group">
+                                        <input id="houseNumber" [(ngModel)]="registerUserData.houseNumber"
+                                               name="houseNumber" type="number"
+                                               placeholder="{{'houseNumber'|translate}}"
+                                               class="form-control input-xl"
+                                               min="1"
+                                               required
+                                               appNotNegative
+                                               appNotNaught
+                                               appNotRealNumber
+                                               #house="ngModel">
+                                    </div>
+                                    <div *ngIf="house.invalid && (house.touched || house.dirty)"
+                                         class="alert alert-danger col-sm-12">
+                                        <div *ngIf="house.hasError('required')">{{'House number is required'|translate}}
+                                        </div>
+                                        <div *ngIf="house.hasError('naught')">{{'House number cannot be zero!'|translate}}</div>
+                                        <div *ngIf="house.hasError('realNumber')">{{'House number must be positive integer!'|translate}}</div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-2">
+                                    <div class="input-group">
+                                        <input id="flatNumber" [(ngModel)]="registerUserData.flatNumber"
+                                               name="flatNumber" type="number" placeholder="{{'flatNumber'|translate}}"
+                                               class="form-control input-xl"
+                                               min="1"
+                                               appNotNegative
+                                               appNotNaught
+                                               #flat="ngModel">
+                                    </div>
+                                    <div *ngIf="flat.invalid && (flat.touched || flat.dirty)"
+                                         class="alert alert-danger col-sm-12">
+                                        <div *ngIf="flat.hasError('negative')">{{'Flat number cannot be negative!'|translate}}</div>
+                                        <div *ngIf="flat.hasError('naught')">{{'Flat number cannot be zero!'|translate}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xl-5 control-label" for="Email">{{'Email'|translate}}<span style="color:red">*</span></label>
+                        <div class="col-xl-5">
+                            <div class="input-group">
+                                <input id="Email" [(ngModel)]="registerUserData.email"
+                                       name="Email"
+                                       type="email"
+                                       placeholder="{{'Email Address'|translate}}"
+                                       class="form-control input-xl"
+                                       required appEmailMatch maxlength="50"
+                                       #email="ngModel">
+                            </div>
+                            <div *ngIf="email.invalid && (email.touched || email.dirty)"
+                                 class="alert alert-danger col-sm-12">
+                                <div *ngIf="email.hasError('invalidEmail')">{{'Incorrect e-mail'|translate}}</div>
+                                <div *ngIf="email.hasError('required')">{{'E-mail is required'|translate}}</div>
+                                <div *ngIf="email.hasError('maxLength')">{{'Email cannot be longer than 50 characters.'|translate}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-xl-5">
+                        <label for="companySelect">{{'Office'|translate}}<span style="color:red">*</span></label>
+                        <select class="form-control" id="companySelect" [(ngModel)]="selectedOption" name="first"
+                                required #office="ngModel">
+                            <option *ngFor="let office of offices|keyvalue" [value]="office.key">{{office.key}}</option>
+                        </select>
+                        <div *ngIf="office.invalid && (office.touched || office.dirty)"
+                             class="alert alert-danger col-sm-12">
+                            <div *ngIf="office.hasError('required')">{{'Office is required'|translate}}</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xl-5 control-label" for="Position">{{'Position' | translate}}</label>
+                        <div class="col-xl-5">
+                            <div class="input-group">
+                                <input id="Position" [(ngModel)]="registerUserData.position" name="Position" type="text"
+                                       placeholder="{{'Position'|translate}}" class="form-control input-xl"
+                                       maxlength="30"
+                                       #position="ngModel"/>
+                            </div>
+                            <div *ngIf="position.invalid && (position.touched || position.dirty)"
+                                 class="alert alert-danger col-sm-12">
+                                <div *ngIf="name.hasError('maxLength')">{{'Position cannot be longer than 30 characters.'|translate}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xl-5 control-label" for="Workplace">{{'Workplace' | translate}}</label>
+                        <div class="col-xl-5">
+                            <div class="input-group">
+                                <input id="Workplace" [(ngModel)]="registerUserData.workplace" name="Workplace"
+                                       type="text"
+                                       placeholder="{{'Workplace'|translate}}" class="form-control input-xl"
+                                       maxlength="30"
+                                       #workplace="ngModel"/>
+                            </div>
+                            <div *ngIf="workplace.invalid && (workplace.touched || workplace.dirty)"
+                                 class="alert alert-danger col-sm-12">
+                                <div *ngIf="name.hasError('maxLength')">{{'Workplace cannot be longer than 30 characters.'|translate}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-xl-5">
+                        <label for="Language">{{'Language'|translate}}<span style="color:red">*</span></label>
+                        <select class="form-control" id="Language" [(ngModel)]="registerUserData.language" name="first"
+                                required #language="ngModel">
+                            <option *ngFor="let language of languages" [value]="language">{{language}}</option>
+                        </select>
+                        <div *ngIf="language.invalid && (language.touched || language.dirty)"
+                             class="alert alert-danger col-sm-12">
+                            <div *ngIf="language.hasError('required')">{{'Language is required'|translate}}</div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="col-xl-5">
+                        <div class="form-group">
+                            <label>{{'UserRoles'|translate}}</label>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" [(ngModel)]="admin" name="admin">{{'Admin'|translate}}
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" [(ngModel)]="company_admin" name="cadmin">{{'Company Admin'|translate}}
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" [(ngModel)]="manager" name="manager">{{'Manager'|translate}}
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" [(ngModel)]="warehouseman" name="warehouseman">{{'Warehouseman'|translate}}
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <div class="col-sm-6">
+                            <div class="row">
+                                <div class="col-xl-4" align="center">
+                                    <button type="submit" class="btn btn-success" [disabled]="!RegisterForm.form.valid">
+                                        <span class="glyphicon glyphicon-thumbs-up"></span>{{'Submit'|translate}}
+                                    </button>
+                                </div>
+                                <div class="col-xl-4" align="center">
+                                    <a class="btn btn-danger" (click)="clear()"><span
+                                        class="glyphicon glyphicon-remove-sign"></span>{{'Clear'|translate}}</a>
+                                </div>
+                                <div class="col-xl-4" align="center" [routerLink]="['/admin/users']">
+                                    <a class="btn btn-danger"><span
+                                        class="glyphicon glyphicon-remove-sign"></span>{{'Cancel'|translate}}</a>
+                                </div>
                             </div>
                         </div>
                     </div>

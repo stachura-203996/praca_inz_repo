@@ -5,7 +5,6 @@ import {DeviceManagementRoutingModule} from "./device-management-routing.module"
 import {TransferUserComponent} from './transfer-user/transfer-user.component';
 import {MatSelectModule} from '@angular/material/select';
 import {DeviceViewComponent} from './device-view/device-view.component';
-import {TransferViewComponent} from './transfer-view/transfer-view.component';
 import {TranslateModule} from "@ngx-translate/core";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
@@ -35,7 +34,6 @@ import { DeviceRequestViewWarehouseComponent } from './device-requests/device-re
         DeviceRequestAddComponent,
         DeviceViewComponent,
         DeviceRequestViewComponent,
-        TransferViewComponent,
         DeviceModelViewComponent,
         TransferRequestAddComponent,
         TransferRequestViewComponent,

@@ -9,15 +9,12 @@ import {LoginService} from "./login.service";
     styleUrls: ['./login.component.scss'],
     animations: [routerTransition()]
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
 
     constructor(public router: Router, private   loginService : LoginService) {
     }
 
     public loginData = {username: "", password: ""};
-
-    ngOnInit() {
-    }
 
     onLoggedin() {
         this.loginService.obtainAccessToken(this.loginData);

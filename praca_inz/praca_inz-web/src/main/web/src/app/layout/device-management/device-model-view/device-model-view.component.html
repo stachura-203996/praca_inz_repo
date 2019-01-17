@@ -14,40 +14,53 @@
                     <hr style="margin:5px 0 5px 0;">
 
                     <div class="row">
-                        <div class="col-sm-5 col-xs-6 tital ">{{'Manufacture'|translate}}</div>
-                        <div class="col-sm-7 col-xs-6 ">{{deviceModel.manufacture}}</div>
-                    </div>
-
-                    <div class="clearfix"></div>
-                    <div class="bot-border"></div>
-                    <div class="row">
-                        <div class="col-sm-5 col-xs-6 tital ">{{'Type'| translate}}</div>
-                        <div class="col-sm-7 col-xs-6 ">
-                            <div class="box" id="type">{{deviceModel.type}}</div>
-                        </div>
+                        <div class="col-sm-5 col-xs-6 tital ">{{'ElementName'|translate}}</div>
+                        <div class="col-sm-7 col-xs-6 ">{{deviceModel.name}}</div>
                     </div>
                     <div class="clearfix"></div>
                     <div class="bot-border"></div>
                     <div class="row">
                         <div class="col-sm-5 col-xs-6 tital ">{{'Company'| translate}}</div>
                         <div class="col-sm-7 col-xs-6 ">
-                            <div class="box" id="company">{{deviceModel.owner}}</div>
+                            <div class="box" id="city">{{deviceModel.companyName}}</div>
                         </div>
                     </div>
                     <div class="clearfix"></div>
                     <div class="bot-border"></div>
                     <div class="row">
-                        <div class="col-sm-5 col-xs-6 tital ">{{'Number of Devices'| translate}}</div>
+                        <div class="col-sm-5 col-xs-6 tital ">{{'DeviceType'| translate}}</div>
+                        <div class="col-sm-7">{{deviceModel.type}}</div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="bot-border"></div>
+                    <div class="row">
+                        <div class="col-sm-5 col-xs-6 tital ">{{'Manufacture'| translate}}</div>
+                        <div class="col-sm-7 col-xs-6 ">{{deviceModel.manufacture}}</div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="bot-border"></div>
+                    <div class="row">
+                        <div class="col-sm-5 col-xs-6 tital ">{{'Cost'| translate}}</div>
                         <div class="col-sm-7 col-xs-6 ">
-                            <div class="box" id="numberOfDevices">{{deviceModel.numberOfDevices}}</div>
+                            <div class="box">{{deviceModel.cost}}</div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="bot-border"></div>
+                    <div class="row">
+                        <div class="col-sm-5 col-xs-6 tital ">{{'NumberOfDevices'| translate}}</div>
+                        <div class="col-sm-7 col-xs-6 ">
+                            <div class="box">{{deviceModel.numberOfDevices}}</div>
                         </div>
                     </div>
                     <div class="clearfix"></div>
                     <div class="bot-border"></div>
                     <br>
-                    <div class="row">
+                    <div class="row" *ngIf="roles.admin||roles.company_admin">
                         <div class="col-sm-6" align="center">
-                            <button [routerLink]="['/admin/devices/model/edit/'+deviceModel.id]" class="btn btn-primary">{{'Edit'|translate}}</button>
+                            <button [routerLink]="['/admin/devices/model/edit/'+deviceModel.id]" class="btn btn-primary">
+                                {{'Edit'|translate}}
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -65,17 +78,17 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <table class="table table-striped" align="center">
+                    <table class="table table-striped" align="center" *ngIf="parameters">
                         <thead class="thead-inverse">
                         <tr>
-                            <th>{{ 'Name' | translate }}</th>
+                            <th>{{ 'ElementName' | translate }}</th>
                             <th>{{ 'Value' | translate }}</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr *ngFor="let parameter of parameters">
-                            <td>{{parameter.name}}</td>
-                            <td>{{parameter.value}}</td>
+                        <tr *ngFor="let property of parameters">
+                            <td>{{property.name}}</td>
+                            <td>{{property.value}}</td>
                         </tr>
                         </tbody>
                     </table>
@@ -83,7 +96,7 @@
             </div>
         </div>
     </div>
-
+</div>
 
 
 

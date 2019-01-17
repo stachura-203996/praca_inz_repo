@@ -1,25 +1,27 @@
 package com.stachura.praca_inz.backend.service;
 
-import com.stachura.praca_inz.backend.exception.service.ServiceException;
-import com.stachura.praca_inz.backend.model.DeviceModel;
-import com.stachura.praca_inz.backend.web.dto.device.DeviceModelListElementDto;
-import com.stachura.praca_inz.backend.web.dto.device.DeviceModelViewDto;
-import com.stachura.praca_inz.backend.web.dto.device.ParameterListElementDto;
+import com.stachura.praca_inz.backend.exception.base.AppBaseException;
+import com.stachura.praca_inz.backend.web.dto.device.*;
 
 import java.util.List;
 
 public interface DeviceModelService {
 
-    DeviceModelViewDto getDeviceModelViewById(Long id) throws ServiceException;
+    DeviceModelViewDto getDeviceModelViewById(Long id) throws AppBaseException;
 
-    List<ParameterListElementDto> getDeviceParameters(Long id) throws ServiceException;
+    List<ParameterListElementDto> getDeviceModelParameters(Long id) throws AppBaseException;
 
-    List<DeviceModelListElementDto> getAllDeviceModels(String username) throws ServiceException;
+    List<DeviceModelListElementDto> getAllDeviceModels(String username) throws AppBaseException;
 
-    void createNewDeviceModel(DeviceModel deviceModel) throws ServiceException;
+    Long createNewDeviceModel(DeviceModelAddDto deviceModelAddDto) throws AppBaseException;
 
-    void updateDeviceModel(DeviceModel deviceModel)throws SecurityException, ServiceException;
+    void updateDeviceModel(DeviceModelEditDto deviceModelEditDto)throws SecurityException, AppBaseException;
 
-    void deleteDeviceModelById(Long id) throws ServiceException;
+    void deleteDeviceModelById(Long id) throws AppBaseException;
 
+    DeviceModelEditDto getDeviceModelEdit(Long id) throws AppBaseException;
+
+    Long createNewParameter(ParameterListElementDto parameterListElementDto,Long id) throws AppBaseException;
+
+    void deleteParameterById(Long id);
 }

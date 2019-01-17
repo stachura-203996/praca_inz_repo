@@ -12,7 +12,6 @@ import {DepartmentEditComponent} from "./components/structure-management/departm
 import {OfficeListComponent} from "./components/structure-management/office/office-list/office-list.component";
 import {OfficeAddComponent} from "./components/structure-management/office/office-add/office-add.component";
 import {OfficeEditComponent} from "./components/structure-management/office/office-edit/office-edit.component";
-import {UserViewComponent} from "./components/administration/user-management/components/user-view/user-view.component";
 import {UserEditComponent} from "./components/administration/user-management/components/user-edit/user-edit.component";
 import {UserAddComponent} from "./components/administration/user-management/components/user-add/user-add.component";
 import {UserListComponent} from "./components/administration/user-management/components/user-list/user-list.component";
@@ -37,7 +36,6 @@ import { DeviceTransferComponent } from './components/structure-management/devic
 import {SystemMessageAddComponent} from "./components/administration/system_messages/system-message-add/system-message-add.component";
 import {SystemMessageListComponent} from "./components/administration/system_messages/system-message-list/system-message-list.component";
 import {ShareModule} from "../../shared/modules/share/share.module";
-import { DeviceModelParametersChangeComponent } from './components/structure-management/device/device-model-parameters-change/device-model-parameters-change.component';
 
 @NgModule({
     imports: [
@@ -58,7 +56,6 @@ import { DeviceModelParametersChangeComponent } from './components/structure-man
         OfficeListComponent,
         OfficeAddComponent,
         OfficeEditComponent,
-        UserViewComponent,
         UserEditComponent,
         UserAddComponent,
         UserListComponent,
@@ -80,8 +77,7 @@ import { DeviceModelParametersChangeComponent } from './components/structure-man
         DeliveryListComponent,
         SummaryComponent,
         UserPasswordEditComponent,
-        DeviceTransferComponent,
-        DeviceModelParametersChangeComponent,
+        DeviceTransferComponent
     ]
 })
 export class AdminModule {

@@ -28,30 +28,29 @@ public class Department implements Serializable {
     @Column(name = "VERSION")
     private long version;
 
-    @Column(name = "NAME", nullable = false)
+    @Column(name = "NAME", nullable = false,unique = true)
     private String name;
 
     @Column(name = "DESCRIPTION" , columnDefinition ="TEXT")
     private String description;
 
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JsonBackReference
+    private Company company;
+
     @Column(name = "DELETED", nullable = false)
     private boolean deleted;
-
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "department", fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonManagedReference
     private Set<Office> offices = new HashSet<>();
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JsonBackReference
-    private Company company;
-
-
-
-    public void setOffices(Set<Office> offices) {
-        this.offices.clear();
-        if (offices != null) {
-            this.offices.addAll(offices);
-        }
+    public Department() {
     }
+
+    public Department(Long id, long version) {
+        this.id=id;
+        this.version = version;
+    }
+    
 }

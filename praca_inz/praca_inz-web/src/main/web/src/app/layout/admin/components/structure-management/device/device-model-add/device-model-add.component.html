@@ -1,3 +1,157 @@
-<p>
-  device-type-add works!
-</p>
+<div class="row">
+    <div class="col-lg-12 ">
+        <form class="form-horizontal" #DepartmentForm="ngForm" (ngSubmit)="deviceAdd()">
+            <fieldset>
+                <h1>{{'CreateDeviceModel'|translate}}</h1>
+                <div class="form-group">
+                    <div class="form-group">
+                        <label class="col-xl-5 control-label" for="ElementName">{{'ElementName' | translate}}<span style="color:red">*</span></label>
+                        <div class="col-xl-5">
+                            <div class="input-group">
+                                <input id="ElementName" [(ngModel)]="deviceModelAddElement.name" name="ElementName" type="text"
+                                       placeholder="{{'ElementName'|translate}}" class="form-control input-xl"
+                                       #serialNumber="ngModel" required>
+                            </div>
+                            <div *ngIf="serialNumber.invalid && (serialNumber.touched || serialNumber.dirty)"
+                                 class="alert alert-danger col-sm-12">
+                                <div *ngIf="serialNumber.hasError('required')">{{'Name is required!'|translate}}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xl-5 control-label" for="manufacture">{{'Manufacture' | translate}}<span style="color:red">*</span></label>
+                        <div class="col-xl-5">
+                            <div class="input-group">
+                                <input id="manufacture" [(ngModel)]="deviceModelAddElement.manufacture" name="manufacture" type="text"
+                                       placeholder="{{'Manufacture'|translate}}" class="form-control input-xl"
+                                       #manufacture="ngModel" required>
+                            </div>
+                            <div *ngIf="manufacture.invalid && (manufacture.touched || manufacture.dirty)"
+                                 class="alert alert-danger col-sm-12">
+                                <div *ngIf="manufacture.hasError('required')">{{'Manufacture is required!'|translate}}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                    <label class="col-xl-5 control-label" for="cost">{{'Cost' | translate}}<span style="color:red">*</span></label>
+                    <div class="col-xl-3">
+                        <div class="input-group">
+                            <input id="cost" [(ngModel)]="deviceModelAddElement.cost"
+                                   name="cost" type="number" placeholder="{{'Cost'|translate}}"
+                                   class="form-control input-xl"
+                                   min="1"
+                                   appNotNegative
+                                   appNotNaught
+                                   #cost="ngModel">
+                        </div>
+                        <div *ngIf="cost.invalid && (cost.touched || cost.dirty)"
+                             class="alert alert-danger col-sm-12">
+                            <div *ngIf="cost.hasError('negative')">{{'Cost number cannot be negative!'|translate}}
+                            </div>
+                            <div *ngIf="cost.hasError('naught')">{{'Cost number can not be zero!'|translate}}
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="form-group col-xl-5" *ngIf="roles.admin">
+                        <label for="companySelect">{{'Company'|translate}}<span style="color:red">*</span></label>
+                        <select class="form-control" id="companySelect" [(ngModel)]="selectedCompany" name="companySelect" required #company>
+                            <option *ngFor="let company of companies|keyvalue" [value]="company.key">{{company.key}}</option>
+                        </select>
+                        <div *ngIf="company.invalid && (company.touched || company.dirty)"
+                             class="alert alert-danger col-sm-12">
+                            <div *ngIf="company.hasError('required')">{{'Comapny is required!'|translate}}</div>
+                        </div>
+                    </div>
+                    <div class="form-group col-xl-5" *ngIf="roles.admin">
+                        <label for="deviceTypeSelect">{{'DeviceType'|translate}}<span style="color:red">*</span></label>
+                        <select class="form-control" id="deviceTypeSelect" [(ngModel)]="selectedType" name="deviceTypeSelect" required #deviceType>
+                            <option *ngFor="let deviceType of deviceTypes|keyvalue" [value]="deviceType.key">{{deviceType.key}}</option>
+                        </select>
+                        <div *ngIf="deviceType.invalid && (deviceType.touched || deviceType.dirty)"
+                             class="alert alert-danger col-sm-12">
+                            <div *ngIf="deviceType.hasError('required')">{{'Device type is required!'|translate}}</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                    <div class="col-lg-8">
+                        <div class="box">
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="row">
+                                        <div class="col-lg-4">
+                                            <h4>{{'Parameters'|translate}}</h4>
+                                        </div>
+                                        <div class="col-xl-8">
+                                            <form #ParameterForm="ngForm" (ngSubmit)="addParameter()">
+                                                <div class="row">
+                                                    <div class="col-xl-4">
+                                                    <input id="Name" [(ngModel)]="parameterName" name="Name" type="text"
+                                                           placeholder="{{'ElementName'|translate}}" class="form-control input-xl"
+                                                           #name="ngModel" required>
+                                                    </div>
+                                                    <div class="col-xl-4">
+                                                    <input id="Value" [(ngModel)]="parameterValue" name="Value" type="text"
+                                                           placeholder="{{'Value'|translate}}" class="form-control input-xl"
+                                                           #name="ngModel" required>
+                                                    </div>
+                                                    <div class="col-xl-4">
+                                                    <button class="btn btn-primary float-right jh-create-entity" type="submit"
+                                                            [disabled]="!ParameterForm.form.valid">
+                                                        <i class="fa fa-plus"></i>&nbsp;
+                                                        <span>{{ 'CreateParameter' | translate }}</span>
+                                                    </button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <table class="table table-striped" align="center" *ngIf="parameters">
+                                        <thead class="thead-inverse">
+                                        <tr>
+                                            <th>{{ 'ElementName' | translate }}</th>
+                                            <th>{{ 'Value' | translate }}</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr *ngFor="let parameter of parameters">
+                                            <td>{{parameter.name}}</td>
+                                            <td>{{parameter.value}}</td>
+                                            <td class="text-right">
+                                                <div class="btn-group flex-btn-group-container">
+                                                    <button type="button" (click)="deleteParameter(parameter.name)"
+                                                            class="btn btn-danger btn-sm">
+                                                        <i class="fa fa-times"></i>&nbsp;
+                                                        <span class="d-none d-md-inline">{{'Delete'|translate}}</span>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-4">
+                            <div class="row">
+                                <div class="col-xl-6" align="center">
+                                    <button type="submit" class="btn btn-success" [disabled]="!DepartmentForm.form.valid"><span class="glyphicon glyphicon-thumbs-up" ></span>{{'Submit'|translate}}</button>
+                                </div>
+                                <div class="col-xl-6" align="center">
+                                    <a class="btn btn-danger" (click)="clear()"><span
+                                        class="glyphicon glyphicon-remove-sign"></span>{{'Clear'|translate}}</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>
+

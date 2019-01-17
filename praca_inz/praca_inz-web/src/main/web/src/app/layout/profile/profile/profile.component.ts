@@ -3,8 +3,8 @@ import {ProfileInfo} from "../../../models/profile-info";
 import {DeviceListElement} from "../../../models/device-elements";
 import {TransferListElement} from "../../../models/transfer-list-element";
 import {ProfileService} from "../profile.service";
-import {SessionContextService} from "../../../shared/services/session-context.service";
 import {DeviceService} from "../../device-management/device.service";
+import {TranslateService} from "@ngx-translate/core";
 
 
 @Component({
@@ -17,10 +17,9 @@ export class ProfileComponent implements OnInit {
     user: ProfileInfo;
     devices: DeviceListElement[];
     transfers: TransferListElement[];
-    isUserLoggedIn = this.sessionContextService.getUser() !== null;
 
 
-  constructor(private profileService:ProfileService, private sessionContextService:SessionContextService,private deviceService : DeviceService ) { }
+  constructor(private profileService:ProfileService,private deviceService : DeviceService,private translate:TranslateService ) { }
 
     ngOnInit() {
         this.getProfile();
@@ -50,16 +49,11 @@ export class ProfileComponent implements OnInit {
         }
     }
 
-    transfer(device: DeviceListElement) {
-        // const modalRef = this.modalService.open(UserMgmtDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
-        // modalRef.componentInstance.user = user;
-        // modalRef.result.then(
-        //     result => {
-        //         // Left blank intentionally, nothing to do here
-        //     },
-        //     reason => {
-        //         // Left blank intentionally, nothing to do here
-        //     }
-        // );
+    getAuthorityTranslation(authority:string):string{
+        var tmp:string;
+        this.translate.get(authority).subscribe(x=>tmp=x);
+        console.log(tmp);
+        return tmp;
     }
+
 }

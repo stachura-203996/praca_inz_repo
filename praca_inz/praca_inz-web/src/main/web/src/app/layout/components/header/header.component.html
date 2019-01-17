@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg fixed-top">
-    <a class="navbar-brand" href="/page">Inventory system </a>
+    <a class="navbar-brand" href="/ui/page">Inventory system </a>
     <button class="navbar-toggler" type="button" (click)="toggleSidebar()">
         <i class="fa fa-bars text-muted" aria-hidden="true"></i>
     </button>
@@ -11,14 +11,16 @@
                     <i class="fa fa-bell"></i> <b class="caret"></b><span class="sr-only">(current)</span>
                 </a>
                 <ul id="notification" class="dropdown-menu-right messages" ngbDropdownMenu>
+                    <div class="wrapper">
                     <div *ngFor="let notification of notifications">
                         <li class="dropdown-item" (click)="viewNotification(notification)">
                             <div class="media-body">
                                 <h5 class="mt-0 mb-1">{{' '+notification.title}}</h5>
                                 <p class="small text-muted"><i class="fa fa-clock-o"></i>{{' '+notification.calendarTimestamp}}</p>
-                                <div class="last">{{notification.description}}</div>
+                                <p class="last">{{notification.description}}</p>
                             </div>
                         <li class="dropdown-divider"></li>
+                    </div>
                     </div>
                     <a [routerLink]="['/notifications']" class="dropdown-item">
                         {{ 'View All' | translate }}
@@ -59,9 +61,6 @@
                     <a class="dropdown-item" [routerLink]="['/profile']" href="javascript:void(0)">
                         <i class="fa fa-fw fa-user"></i> {{ 'Profile' | translate }}
                     </a>
-                    <!--<a class="dropdown-item" [routerLink]="['/settings']" href="javascript:void(0)">-->
-                        <!--<i class="fa fa-fw fa-gear"></i> {{ 'Settings' | translate }}-->
-                    <!--</a>-->
                     <a class="dropdown-item" [routerLink]="['/login']" (click)="onLoggedout()">
                         <i class="fa fa-fw fa-power-off"></i> {{ 'Log Out' | translate }}
                     </a>

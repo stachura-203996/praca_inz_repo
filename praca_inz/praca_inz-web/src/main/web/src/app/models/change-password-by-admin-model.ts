@@ -1,5 +1,5 @@
 export class PasswordDataForAdmin {
-  id: number;
+  id: string;
   newPassword: string;
   repeatNewPassword: string;
   version: string;

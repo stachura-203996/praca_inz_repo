@@ -1,9 +1,8 @@
 package com.stachura.praca_inz.backend.service.impl;
 
 import com.google.common.collect.Lists;
-import com.stachura.praca_inz.backend.exception.repository.DatabaseErrorException;
-import com.stachura.praca_inz.backend.exception.repository.EntityException;
-import com.stachura.praca_inz.backend.exception.service.ServiceException;
+import com.stachura.praca_inz.backend.exception.EntityNotInDatabaseException;
+import com.stachura.praca_inz.backend.exception.base.AppBaseException;
 import com.stachura.praca_inz.backend.model.SystemMessage;
 import com.stachura.praca_inz.backend.repository.SystemMessageRepository;
 import com.stachura.praca_inz.backend.service.SystemMessageService;
@@ -29,8 +28,8 @@ public class SystemMessageServiceImpl implements SystemMessageService {
     @Override
     @Transactional(readOnly = true)
     @PreAuthorize("hasAuthority('SYSTEM_MESSAGE_READ')")
-    public SystemMessage getSystemMessageById(Long id) throws ServiceException {
-        SystemMessage systemMessage = systemMessageRepository.findById(id).orElseThrow(() -> new ServiceException());
+    public SystemMessage getSystemMessageById(Long id) throws AppBaseException {
+        SystemMessage systemMessage = systemMessageRepository.findById(id).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
         if (systemMessage.isDeleted()) {
             return null;
         }
@@ -41,7 +40,7 @@ public class SystemMessageServiceImpl implements SystemMessageService {
     @Transactional(readOnly = true)
     @PreAuthorize("hasAuthority('SYSTEM_MESSAGE_LIST_READ')")
     public List<SystemMessageListElementDto> getAllSystemMessages() {
-        List<SystemMessage> systemMessages = Lists.newArrayList(systemMessageRepository.findAll()).stream().sorted(Comparator.comparing(SystemMessage::getCalendarTimestamp).reversed()).collect(Collectors.toList());
+        List<SystemMessage> systemMessages = Lists.newArrayList(systemMessageRepository.findAll()).stream().sorted(Comparator.comparing(SystemMessage::getCreateDate).reversed()).collect(Collectors.toList());
         List<SystemMessageListElementDto> systemMessageListElementDtos = new ArrayList<>();
         for (SystemMessage a : systemMessages) {
             if (!a.isDeleted()) {
@@ -54,15 +53,15 @@ public class SystemMessageServiceImpl implements SystemMessageService {
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('SYSTEM_MESSAGE_CREATE')")
-    public void createNewSystemMessage(SystemMessageAddDto systemMessageAddDto) throws ServiceException {
+    public void createNewSystemMessage(SystemMessageAddDto systemMessageAddDto) throws AppBaseException {
 
-        systemMessageRepository.save(SystemMessageConverter.toSystemMessage(systemMessageAddDto));
+        systemMessageRepository.saveAndFlush(SystemMessageConverter.toSystemMessage(systemMessageAddDto));
     }
 
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('SYSTEM_MESSAGE_DELETE')")
-    public void deleteSystemMessageById(Long id) throws ServiceException {
-        systemMessageRepository.findById(id).orElseThrow(() -> new ServiceException()).setDeleted(true);
+    public void deleteSystemMessageById(Long id) throws AppBaseException {
+        systemMessageRepository.findById(id).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT)).setDeleted(true);
     }
 }

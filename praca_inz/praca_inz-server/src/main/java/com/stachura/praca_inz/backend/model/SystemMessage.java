@@ -39,10 +39,18 @@ public class SystemMessage implements Serializable, Comparator<SystemMessage> {
     @NotNull
     @Column(name = "MESSAGE_DATE")
     @Temporal(TemporalType.TIMESTAMP)
-    private java.util.Calendar calendarTimestamp;
+    private java.util.Calendar createDate;
+
+    public SystemMessage() {
+    }
+
+    public SystemMessage(Long id, long version) {
+        this.id=id;
+        this.version = version;
+    }
 
     @Override
     public int compare(SystemMessage o1, SystemMessage o2) {
-        return o1.getCalendarTimestamp().compareTo(o2.getCalendarTimestamp());
+        return o1.getCreateDate().compareTo(o2.getCreateDate());
     }
 }

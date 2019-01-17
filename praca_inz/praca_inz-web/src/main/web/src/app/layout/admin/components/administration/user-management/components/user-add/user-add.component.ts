@@ -2,12 +2,11 @@ import {Component, Input, OnInit} from '@angular/core';
 import {RegisterUser} from "../../../../../../../models/register-user";
 import {Router} from "@angular/router";
 import {UserService} from "../../user.service";
-import {I18nService} from "../../../../../../../shared/services/i18n/i18n.service";
 import {MessageService} from "../../../../../../../shared/services/message.service";
 import {OfficeService} from "../../../../structure-management/office/office.service";
 import {StructureListElement} from "../../../../../../../models/structure-elements";
-import {UserRoles} from "../../../../../../../models/user-roles";
 import {TranslateService} from "@ngx-translate/core";
+import {Configuration} from "../../../../../../../app.constants";
 
 @Component({
     selector: 'app-user-add',
@@ -18,37 +17,50 @@ export class UserAddComponent implements OnInit {
 
     @Input() registerUserData: RegisterUser = new RegisterUser;
 
+    languages: string[] = ['PL', 'ENG'];
     offices = new Map<string, number>();
-    roles: UserRoles;
+    admin = false;
+    company_admin = false;
+    warehouseman = false;
+    manager = false;
+    selectedRoles: string[] = [];
     selectedOption: string;
+    selectedlanguage: string;
 
     constructor(
         private userService: UserService,
         private officeService: OfficeService,
         private translate: TranslateService,
-        private messageService:MessageService,
-        private i18nService:I18nService,
-        private router: Router) {}
+        private messageService: MessageService,
+        private configuration: Configuration,
+        private router: Router) {
+    }
 
     ngOnInit() {
         this.getOffices();
     }
 
 
-    setRoles(){
-        if(this.roles.admin){
-            this.registerUserData.roles.push("ADMIN")
+    setRoles() {
+        console.log("admin: " + this.admin);
+        console.log("company_admin: " + this.company_admin);
+        console.log("manager: " + this.manager);
+        console.log("warehouseman: " + this.warehouseman);
+
+        if (this.admin) {
+            this.selectedRoles.push("ADMIN");
         }
-        if(this.roles.company_admin){
-            this.registerUserData.roles.push("COMPANY_MANAGER")
+        if (this.company_admin) {
+            this.selectedRoles.push("COMPANY_ADMIN");
         }
-        if(this.roles.warehouseman){
-            this.registerUserData.roles.push("WAREHOUSEMAN")
+        if (this.warehouseman) {
+            this.selectedRoles.push("WAREHOUSEMAN");
         }
-        if(this.roles.manager){
-            this.registerUserData.roles.push("MANAGER")
+        if (this.manager) {
+            this.selectedRoles.push("MANAGER");
         }
-        this.registerUserData.roles.push("USER")
+        this.selectedRoles.push("USER");
+        this.registerUserData.roles = this.selectedRoles;
     }
 
     getOffices() {
@@ -64,19 +76,33 @@ export class UserAddComponent implements OnInit {
     }
 
     userAdd() {
-        this.setRoles();
-        // this.messageService
-        // .confirm(this.i18nService.getMessage('change.password'), this.i18nService.getMessage('changePassword.confirm.msg'),
-        // this.i18nService.getMessage('yes'), this.i18nService.getMessage('no'))
-        // .subscribe(confirmed => {
-        this.registerUserData.officeId = this.offices.get(this.selectedOption);
-        this.userService.createUser(this.registerUserData)
-            .subscribe(resp => {
-                this.router.navigateByUrl('/admin/users');
-            });
+        var entity: string;
+        var message: string;
+        var yes: string;
+        var no: string;
 
-        // });
+        this.translate.get('user.add').subscribe(x => entity = x);
+        this.translate.get('register.confirm.msg').subscribe(x => message = x);
+        this.translate.get('yes').subscribe(x => yes = x);
+        this.translate.get('no').subscribe(x => no = x);
+
+        this.messageService
+            .confirm(entity, message, yes, no)
+            .subscribe(confirmed => {
+                if (confirmed) {
+                    this.setRoles();
+                    this.registerUserData.officeId = this.offices.get(this.selectedOption);
+                    this.userService.createUser(this.registerUserData)
+                        .subscribe(resp => {
+                            this.router.navigateByUrl('/admin/users');
+                            this.translate.get('success.user.add').subscribe(x=>{
+                                this.messageService.success(x)
+                            })
+                        });
+                }
+            });
     }
+
 
     clear() {
         this.registerUserData = new RegisterUser();

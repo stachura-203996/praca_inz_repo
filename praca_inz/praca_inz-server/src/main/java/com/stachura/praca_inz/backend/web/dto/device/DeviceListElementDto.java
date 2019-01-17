@@ -10,7 +10,6 @@ import lombok.*;
 public class DeviceListElementDto {
 
     Long id;
-    String name;
     String serialNumber;
     String deviceModel;
     String deviceTypeName;
@@ -19,5 +18,6 @@ public class DeviceListElementDto {
     String lastUpdate;
     String location;
     String status;
-
+    String name;
+    String userSurname;
 }

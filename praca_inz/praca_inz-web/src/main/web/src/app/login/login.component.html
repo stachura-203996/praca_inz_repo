@@ -6,16 +6,16 @@
             <form role="form">
                 <div class="form-content">
                     <div class="form-group">
-                        <input name="login" type="text" [(ngModel)]="loginData.username" class="form-control input-underline input-lg" id="LoginId" placeholder="Login">
+                        <input name="login" type="text" [(ngModel)]="loginData.username" class="form-control input-underline input-lg" id="LoginId" placeholder="{{'Username'|translate}}">
                     </div>
 
                     <div class="form-group">
-                        <input name="password" type="password" [(ngModel)]="loginData.password" class="form-control input-underline input-lg" id="PasswordId" placeholder="Password">
+                        <input name="password" type="password" [(ngModel)]="loginData.password" class="form-control input-underline input-lg" id="PasswordId" placeholder="{{'Password'|translate}}">
                     </div>
                 </div>
-                <a class="btn rounded-btn" (click)="onLoggedin()"> Log in </a>
-                <!--&nbsp;-->
-                <!--<a class="btn rounded-btn" [routerLink]="['/signup']">Register</a>-->
+                <a class="btn rounded-btn" (click)="onLoggedin()"> {{'Log in'|translate}} </a>
+                &nbsp;
+                <a class="btn rounded-btn" [routerLink]="['/login/reset']">{{'ForgetPassword'|translate}}</a>
             </form>
         </div>
     </div>

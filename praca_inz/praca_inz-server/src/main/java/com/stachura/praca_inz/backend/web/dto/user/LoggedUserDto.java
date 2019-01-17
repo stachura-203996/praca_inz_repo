@@ -4,9 +4,6 @@ import lombok.*;
 
 import java.util.List;
 
-/**
- * Obiekt przesyłany do widoku z informacjami o zalogowanym użytkowniku
- */
 @Data
 @Builder
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
@@ -17,4 +14,5 @@ public class LoggedUserDto {
     private String name;
     private String surname;
     private Long companyId;
+    private List<String> roles;
 }

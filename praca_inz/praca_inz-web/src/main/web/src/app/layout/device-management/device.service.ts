@@ -5,12 +5,14 @@ import {Observable} from "rxjs";
 import {TransferListElement} from "../../models/transfer-list-element";
 import {StructureAddElement, StructureEditElement, StructureViewElement} from "../../models/structure-elements";
 import {
+    DeviceAddElement,
     DeviceEditElement,
-    DeviceListElement,
+    DeviceListElement, DeviceModelAddElement, DeviceModelEditElement,
     DeviceModelListElement, DeviceModelViewElement,
-    DeviceTypeListElement,
+    DeviceTypeListElement, DeviceViewElement,
     ParameterListElement
 } from "../../models/device-elements";
+import {TransferAddElement} from "../../models/transfer-add-element";
 
 
 @Injectable({
@@ -27,7 +29,11 @@ export class DeviceService {
     //Devices
 
     getDevice(id: string) {
-        return this.httpService.get<StructureViewElement>(this.devicePath + '/' + id);
+        return this.httpService.get<DeviceViewElement>(this.devicePath + '/' + id);
+    }
+
+    getDeviceEdit(id: string) {
+        return this.httpService.get<DeviceEditElement>(this.devicePath + '/edit/' + id);
     }
 
     getAllDevices(): Observable<DeviceListElement[]> {
@@ -43,7 +49,7 @@ export class DeviceService {
     }
 
     getAllDevicesForWarehouseman(): Observable<DeviceListElement[]> {
-        return this.httpService.get<DeviceListElement[]>(this.devicePath + "/warehousemen");
+        return this.httpService.get<DeviceListElement[]>(this.devicePath + "/warehouseman");
     }
 
     getAllDevicesForUser(username: String): Observable<DeviceListElement[]> {
@@ -70,11 +76,18 @@ export class DeviceService {
         return this.httpService.delete<any>(this.devicePath+'/'+id);
     }
 
+    createDevice(data:DeviceAddElement): Observable<any>{
+        return this.httpService.post<DeviceAddElement>(this.devicePath,data);
+    }
 
     //Device Models
 
     getDeviceModelView(id: string) {
         return this.httpService.get<DeviceModelViewElement>(this.devicePath + '/model/' + id);
+    }
+
+    getDeviceModelEdit(id: string) {
+        return this.httpService.get<DeviceModelEditElement>(this.devicePath + '/model/edit/' + id);
     }
 
     getAllDevicesModels(): Observable<DeviceModelListElement[]> {
@@ -89,12 +102,31 @@ export class DeviceService {
         return this.httpService.delete<any>(this.devicePath+'/model/'+id);
     }
 
+    updateDeviceModel(data:DeviceModelEditElement){
+        return this.httpService.put<DeviceModelEditElement>(this.devicePath+"/model/", data);
+    }
+
+    createDeviceModel(data:DeviceModelAddElement): Observable<any>{
+        return this.httpService.post<DeviceModelAddElement>(this.devicePath+"/model/",data);
+    }
+
     //Parameters
 
-    getAllParametersForDeviceModel(id: string): Observable<ParameterListElement[]> {
+    getAllParametersForDeviceModel(id: number): Observable<ParameterListElement[]> {
         return this.httpService.get<ParameterListElement[]>(this.devicePath + "/model/parameters/"+id);
     }
 
+    getAllParametersForDevice(id: string):Observable<ParameterListElement[]>  {
+        return this.httpService.get<ParameterListElement[]>(this.devicePath + "/parameters/"+id);
+    }
+
+    createParameter(data:ParameterListElement,id:number): Observable<any>{
+        return this.httpService.post<DeviceModelAddElement>(this.devicePath+"/model/parameters/"+id,data);
+    }
+
+    deleteParameter(id :number): Observable<any>{
+        return this.httpService.delete<any>(this.devicePath+'/model/parameter/'+id);
+    }
 
     //Device Types
 
@@ -126,6 +158,9 @@ export class DeviceService {
     }
 
 
+    createTransfer(data: TransferAddElement) {
+        return this.httpService.post<TransferAddElement>(this.transferPath,data);
+    }
 }
 
 

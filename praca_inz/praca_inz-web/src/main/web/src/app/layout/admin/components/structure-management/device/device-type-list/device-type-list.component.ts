@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {DeviceTypeListElement} from "../../../../../../models/device-elements";
 import {DeviceService} from "../../../../../device-management/device.service";
 import {TranslateService} from "@ngx-translate/core";
+import {Configuration} from "../../../../../../app.constants";
+import {MessageService} from "../../../../../../shared/services/message.service";
 
 
 @Component({
@@ -13,28 +15,32 @@ export class DeviceTypeListComponent implements OnInit {
 
     deviceTypes: DeviceTypeListElement[];
 
-    deviceType:string;
+    deviceType: string;
 
-    constructor(private deviceService: DeviceService, private translate: TranslateService) {
+    constructor(
+        private deviceService: DeviceService,
+        private translate: TranslateService,
+        private configuration: Configuration,
+        private messageService: MessageService
+    ) {
     }
 
     ngOnInit() {
         this.getDevicesTypes()
     }
 
-
     getDevicesTypes() {
-        if(!this.deviceTypes.some(x=>x.name==this.deviceType)) {
-            this.deviceService.getAllDevicesTypes().subscribe(deviceListElement => {
-                this.deviceTypes = deviceListElement
-            });
-        }
+        this.deviceService.getAllDevicesTypes().subscribe(deviceListElement => {
+            this.deviceTypes = deviceListElement
+        });
     }
 
-    addDeviceType(){
-        this.deviceService.createDeviceType(this.deviceType).subscribe(x=>{
-            this.getDevicesTypes();
-        });
+    addDeviceType() {
+        if (!this.deviceTypes.some(x => x.name == this.deviceType)) {
+            this.deviceService.createDeviceType(this.deviceType).subscribe(x => {
+                this.getDevicesTypes();
+            });
+        }
     }
 
     filterDeviceTypes(searchText: string) {
@@ -57,9 +63,29 @@ export class DeviceTypeListComponent implements OnInit {
     }
 
     delete(deviceType: DeviceTypeListElement) {
-        this.deviceService.deleteDeviceTypes(deviceType.id).subscribe(resp => {
-            this.getDevicesTypes()
-        });
+        var entity: string;
+        var message: string;
+        var yes: string;
+        var no: string;
+
+        this.translate.get('device.type.delete').subscribe(x => entity = x);
+        this.translate.get('confirm.delete').subscribe(x => message = x);
+        this.translate.get('yes').subscribe(x => yes = x);
+        this.translate.get('no').subscribe(x => no = x);
+
+
+        this.messageService
+            .confirm(entity, message, yes, no)
+            .subscribe(confirmed => {
+                if (confirmed) {
+                        this.deviceService.deleteDeviceTypes(deviceType.id).subscribe(resp => {
+                            this.getDevicesTypes()
+                            this.translate.get('success.device.type.delete').subscribe(x=>{
+                                this.messageService.success(x)
+                            })
+                        });
+                }
+            });
     }
 
 }

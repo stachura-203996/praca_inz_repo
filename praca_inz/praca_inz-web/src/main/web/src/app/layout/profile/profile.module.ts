@@ -7,6 +7,7 @@ import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import {ProfileEditComponent} from "./profile-edit/profile-edit.component";
 import {ProfileComponent} from "./profile/profile.component";
 import { PasswordEditComponent } from './password-edit/password-edit.component';
+import {ShareModule} from "../../shared/modules/share/share.module";
 
 @NgModule({
     imports: [
@@ -14,6 +15,7 @@ import { PasswordEditComponent } from './password-edit/password-edit.component';
         ProfileRoutingModule,
         TranslateModule,
         FormsModule,
+        ShareModule,
         NgbModule.forRoot()
     ],
     declarations: [ProfileEditComponent, ProfileComponent, PasswordEditComponent],

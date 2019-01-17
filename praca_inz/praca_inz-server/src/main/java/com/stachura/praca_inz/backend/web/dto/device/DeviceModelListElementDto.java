@@ -10,4 +10,8 @@ public class DeviceModelListElementDto {
     Long id;
     String name;
     String deviceTypeName;
+    String manufacture;
+    long cost;
+    String companyName;
+    String numberOfDevices;
 }

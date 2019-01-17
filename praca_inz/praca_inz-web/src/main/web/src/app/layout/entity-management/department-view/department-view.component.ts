@@ -3,7 +3,6 @@ import {ActivatedRoute} from "@angular/router";
 import {CompanyService} from "../../admin/components/administration/company/company.service";
 import {DepartmentService} from "../../admin/components/structure-management/department/department.service";
 import {OfficeService} from "../../admin/components/structure-management/office/office.service";
-import {SessionContextService} from "../../../shared/services/session-context.service";
 import {DeviceService} from "../../device-management/device.service";
 import {StructureListElement, StructureViewElement} from "../../../models/structure-elements";
 import {DeviceListElement} from "../../../models/device-elements";
@@ -11,6 +10,9 @@ import {WarehouseListElement} from "../../../models/warehouse-elements";
 import {WarehouseService} from "../../warehouse-management/warehouse.service";
 import {UserRoles} from "../../../models/user-roles";
 import {UserService} from "../../admin/components/administration/user-management/user.service";
+import {TranslateService} from "@ngx-translate/core";
+import {MessageService} from "../../../shared/services/message.service";
+import {Configuration} from "../../../app.constants";
 
 @Component({
   selector: 'app-department-view',
@@ -32,8 +34,10 @@ export class DepartmentViewComponent implements OnInit {
         private departmentService: DepartmentService,
         private userService:UserService,
         private officeService: OfficeService,
-        private sessionContextService: SessionContextService,
-        private deviceService: DeviceService
+        private deviceService: DeviceService,
+        private translate: TranslateService,
+        private messageService: MessageService,
+        private configuration: Configuration,
     ) {}
 
     ngOnInit() {
@@ -46,9 +50,8 @@ export class DepartmentViewComponent implements OnInit {
 
     getDepartment() {
         const id = this.route.snapshot.paramMap.get('id');
-        this.departmentService.getDepartmentView(id).subscribe(x => this.department = x);
+        this.departmentService.getDepartmentView(id).subscribe(x => {this.department = x});
     }
-
 
     getOfficesForDepartment() {
         const id = this.route.snapshot.paramMap.get('id');
@@ -75,7 +78,6 @@ export class DepartmentViewComponent implements OnInit {
         });
     }
 
-
     getAddressStructure(structure:StructureListElement): string {
         if (structure.flatNumber == null || structure.flatNumber === "0") {
             return (structure.street + ' ' + structure.buildingNumber);
@@ -84,4 +86,7 @@ export class DepartmentViewComponent implements OnInit {
         }
     }
 
+    getPersonResponsibleFor(data:WarehouseListElement){
+        return data.userName+' '+data.userSurname;
+    }
 }

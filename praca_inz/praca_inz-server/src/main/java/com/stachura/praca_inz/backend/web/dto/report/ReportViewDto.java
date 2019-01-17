@@ -14,4 +14,8 @@ public class ReportViewDto {
     private String receiver;
     private String reportDate;
     private String description;
+    private String senderName;
+    private String senderSurname;
+    private String recieverName;
+    private String recieverSurname;
 }

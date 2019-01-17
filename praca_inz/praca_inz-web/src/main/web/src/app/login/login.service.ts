@@ -2,7 +2,15 @@ import {Injectable} from '@angular/core';
 import {CookieService} from "ngx-cookie-service";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Router} from "@angular/router";
-import {SessionContextService} from "../shared/services/session-context.service";
+import {LoggedUser} from "../models/logged-user";
+import {UserService} from "../layout/admin/components/administration/user-management/user.service";
+import {HttpService} from "../shared/services/http.service";
+import {Configuration} from "../app.constants";
+import {MessageService} from "../shared/services/message.service";
+import {TranslateService} from "@ngx-translate/core";
+import {PasswordData} from "../models/change-password";
+import {Observable} from "rxjs";
+import {PasswordReset} from "../models/password-reset";
 
 @Injectable({
     providedIn: 'root'
@@ -10,9 +18,18 @@ import {SessionContextService} from "../shared/services/session-context.service"
 export class LoginService {
 
     isActive: boolean;
+    user: LoggedUser;
+    private userPath = this.configuration.ServerWithApiUrl + '/users';
 
     constructor(
-        private router: Router, private http: HttpClient, private cookieService: CookieService, private sessionContextService: SessionContextService) {
+        private router: Router,
+        private configuration: Configuration,
+        private http: HttpClient,
+        private cookieService: CookieService,
+        private messageService: MessageService,
+        private translate: TranslateService,
+        private httpService: HttpService,
+        private userService: UserService) {
     }
 
     obtainAccessToken(loginData) {
@@ -30,57 +47,71 @@ export class LoginService {
         this.http.post('http://localhost:8081/oauth/token', params.toString(), {headers: headers})
             .subscribe(
                 data => this.saveToken(data),
-                err => alert('Invalid Credentials')
+                err => this.translate.get('BadLogin').subscribe(x => {
+                    this.messageService.error(x);
+                    console.log(x);
+                })
             );
 
     }
 
-    checkToken() {
-        if(this.cookieService.check('access_token')) {
-            var cookie = this.cookieService.get('access_token');
-            let params = new URLSearchParams();
-            params.append('token', cookie);
-            let headers = new HttpHeaders({
-                'Content-type': 'application/x-www-form-urlencoded; charset=utf-8',
-                'Authorization': 'Basic c3ByaW5nLXNlY3VyaXR5LW9hdXRoMi1yZWFkLXdyaXRlLWNsaWVudDpzcHJpbmctc2VjdXJpdHktb2F1dGgyLXJlYWQtd3JpdGUtY2xpZW50LXBhc3N3b3JkMTIzNA=='
-            });
-            console.log(params.toString());
-            this.http.post('http://localhost:8081/oauth/check_token', params.toString(), {headers: headers})
-                .subscribe(
-                    data => this.checkIsActive(data),
-                    err => localStorage.setItem('isLoggedin', 'false')
-                );
-        }
-    }
-
-    checkIsActive(data) {
-        if (data.active) {
-            localStorage.setItem('isLoggedin', 'true');
-        } else {
-            this.cookieService.delete('access_token');
-            localStorage.setItem('isLoggedin', 'false');
-        }
-    }
-
     saveToken(token) {
-
-        var expireDate = new Date().getTime() / 1000 + token.expires_in;
-        this.cookieService.set('access_token', token.access_token, expireDate);
-        localStorage.setItem('isLoggedin', 'true');
+        var expire = new Date();
+        var time = Date.now() + (1000 * token.expires_in);
+        expire.setTime(time);
+        this.cookieService.set('access_token', token.access_token, expire,'/ui/page');
         console.log('Obtained Access token');
-        window.location.href = 'http://localhost:8081/';
+        this.saveLoggedUser(token);
+        window.location.href = 'http://localhost:8081/ui/page/main-page';
     }
 
     checkCredentials(): boolean {
         return this.cookieService.check('access_token');
     }
 
-    revokeToken() {
 
+    resetPassword(data:PasswordReset) {
+        return this.httpService.passwordReset<any>('http://localhost:8081/reset/', data).subscribe(rep => {
+            this.translate.get('PssswordResetSuccess').subscribe(x => {
+                this.messageService.success(x);
+            }), error => {
+                this.translate.get('PssswordResetError').subscribe(x => {
+                    this.messageService.error(x);
+                })
+            }
+        });
+    }
+
+    saveLoggedUser(token) {
+        let headers = new HttpHeaders({'authorization': 'Bearer ' + token.access_token});
+        this.http.get<LoggedUser>('http://localhost:8081/secured/users/logged', {headers: headers}).subscribe(user => {
+            localStorage.setItem('loggedUser', JSON.stringify(user));
+        });
+    }
+
+    getUser(): LoggedUser {
+        const user: LoggedUser = JSON.parse(localStorage.getItem('loggedUser'));
+        if (user == null) {
+            this.logout();
+        }
+        return user;
+    }
+
+    revokeToken() {
+        if (this.checkCredentials()) {
+            let headers = new HttpHeaders({'authorization': 'Bearer ' + this.cookieService.get('access_token')});
+            this.http.get<LoggedUser>('http://localhost:8081/secured/revoke/token', {headers: headers}).subscribe(user => {
+                localStorage.setItem('loggedUser', JSON.stringify(user));
+            })
+        }
     }
 
     logout() {
+        localStorage.removeItem('loggedUser');
         localStorage.clear();
+        this.revokeToken();
+        this.cookieService.deleteAll('/ui/page')
+        this.cookieService.delete('JSESSIONID');
         this.cookieService.delete('access_token');
         this.router.navigate(['/login']);
     }

@@ -29,7 +29,7 @@ public class Company implements Serializable {
     @Column(name = "VERSION")
     private long version;
 
-    @Column(name = "NAME", nullable = false)
+    @Column(name = "NAME", nullable = false,unique = true)
     private String name;
 
     @Column(name = "DESCRIPTION",columnDefinition ="TEXT")
@@ -38,7 +38,7 @@ public class Company implements Serializable {
     @Column(name = "DELETED", nullable = false)
     private boolean deleted;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "MAIN_OFFICE_ADRESS_ID")
     private Address address;
 
@@ -54,4 +54,11 @@ public class Company implements Serializable {
     @JsonManagedReference
     private Set<DeviceModel> deviceModels = new HashSet<>();
 
+    public Company() {
+    }
+
+    public Company(Long id, long version) {
+        this.id=id;
+        this.version = version;
+    }
 }

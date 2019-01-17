@@ -1,7 +1,6 @@
 package com.stachura.praca_inz.backend.service.impl;
 
 import com.google.common.collect.Lists;
-import com.stachura.praca_inz.backend.exception.service.ServiceException;
 import com.stachura.praca_inz.backend.model.DeviceType;
 import com.stachura.praca_inz.backend.repository.DeviceTypeRepository;
 import com.stachura.praca_inz.backend.service.DeviceTypeService;
@@ -12,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class DeviceTypeServiceImpl implements DeviceTypeService {
@@ -28,14 +26,14 @@ public class DeviceTypeServiceImpl implements DeviceTypeService {
     }
 
     @Override
-    public void createNewDeviceType(String type) throws ServiceException {
+    public void createNewDeviceType(String type) {
         DeviceType deviceType=new DeviceType();
         deviceType.setName(type);
-        deviceTypeRepository.save(deviceType);
+        deviceTypeRepository.saveAndFlush(deviceType);
     }
 
     @Override
-    public void deleteDeviceTypeById(Long id) throws ServiceException {
+    public void deleteDeviceTypeById(Long id) {
         deviceTypeRepository.deleteById(id);
     }
 }

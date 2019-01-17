@@ -1,9 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {AccountLevel} from "../../../../../../../models/account-level";
 import {UserListElement} from "../../../../../../../models/user-list-element";
 import {UserService} from "../../user.service";
 import {TranslateService} from "@ngx-translate/core";
 import {routerTransition} from "../../../../../../../router.animations";
+import {MessageService} from "../../../../../../../shared/services/message.service";
+import {Configuration} from "../../../../../../../app.constants";
 
 
 @Component({
@@ -18,25 +19,15 @@ export class UserListComponent implements OnInit {
     users: UserListElement[];
 
 
-    constructor(private userService : UserService,
-                private translate:TranslateService,
-
-    ) {
-
-        this.translate.addLangs(['en','pl']);
-        this.translate.setDefaultLang('en');
-        const browserLang = this.translate.getBrowserLang();// private messageService: MessageService,
-        // private i18nService: I18nServiceerLang();
-        this.translate.use(browserLang.match(/en|pl/) ? browserLang : 'pl');
-    }
+    constructor(private userService: UserService,
+                private translate: TranslateService,
+                private messageService:MessageService,
+                private configuration:Configuration
+    ) {}
 
     ngOnInit() {
-        // this.filterUsers(null);
-        this.getUsers();
-    }
+        this.filterUsers(null);
 
-    getUsers(){
-        this.userService.getAll().subscribe(userListElements=> {this.users=userListElements});
     }
 
 
@@ -59,7 +50,7 @@ export class UserListComponent implements OnInit {
 
             searchText = searchText.toLowerCase();
             this.users = users.filter(it => {
-                const fullname = it.name + ' ' + it.surname;
+                const fullname = it.name + ' ' + it.surname+' '+it.email+' '+it.username;
                 const ok = fullname.toLowerCase().includes(searchText);
                 if (!this.notVerifiedFilter) {
                     return ok;
@@ -70,69 +61,32 @@ export class UserListComponent implements OnInit {
         });
     }
 
-    // getRoles(userId: number): void {
-    //     this.userService.getAccessLevels(userId)
-    //         .subscribe(levels => this.selectedUserAccessLevels = levels);
-    // }
-
-    activateAccount(id: number) {
-        // this.userService.activateAccount(id).subscribe(() => this.messageService
-        //     .success(this.i18nService.getMessage('user.account.activate.success')));
+    getAuthorityTranslation(authority:string):string{
+        var tmp:string;
+        this.translate.get(authority).subscribe(x=>tmp=x);
+        return tmp;
     }
 
-    deactivateAccount(id: number) {
-        // this.userService.deactivateAccount(id).subscribe(() => this.messageService
-        //     .success(this.i18nService.getMessage('user.account.deactivate.success')));
-    }
 
-    activateAccessLevel(userId: number, accessLevelId: number) {
-        // this.userService.activateAccessLevel(userId, accessLevelId).subscribe(() => this.messageService
-        //     .success(this.i18nService.getMessage('user.access_level.activate.success')));
-    }
+    delete(user: UserListElement) {
+        var entity: string;
+        var message: string;
+        var yes: string;
+        var no: string;
 
-    deactivateAccessLevel(userId: number, accessLevelId: number) {
-        // this.userService.deactivateAccessLevel(userId, accessLevelId).subscribe(() => this.messageService
-        //     .success(this.i18nService.getMessage('user.access_level.deactivate.success')));
-    }
+        this.translate.get('user.delete').subscribe(x => entity = x);
+        this.translate.get('confirm.user.delete').subscribe(x => message = x);
+        this.translate.get('yes').subscribe(x => yes = x);
+        this.translate.get('no').subscribe(x => no = x);
 
-    changeAccessLevelState(event, userId: number, accessLevelId: number) {
-        // if (event.target.checked) {
-        //     this.activateAccessLevel(userId, accessLevelId);
-        // } else {
-        //     this.deactivateAccessLevel(userId, accessLevelId);
-        // }
-    }
 
-    verifyUser(userId: number) {
-        // this.messageService
-        //     .confirm(this.i18nService.getMessage('user.verify'), this.i18nService.getMessage('user.verify.confirm.msg'),
-        //         this.i18nService.getMessage('yes'), this.i18nService.getMessage('no'))
-        //     .subscribe(confirmed => {
-        //         if (confirmed) {
-        //             this.userService.verifyUser(userId).subscribe(() => {
-        //                 this.users.find(user => user.id === userId).verified = true;
-        //
-        //                 if (this.notVerifiedFilter) {
-        //                     this.filterUsers(null);
-        //                 }
-        //
-        //                 this.messageService
-        //                     .success(this.i18nService.getMessage('user.verify.success.msg'));
-        //             });
-        //         }
-        //     });
-    }
-
-    delete(user: UserListComponent) {
-        // const modalRef = this.modalService.open(UserMgmtDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
-        // modalRef.componentInstance.user = user;
-        // modalRef.result.then(
-        //     result => {
-        //         // Left blank intentionally, nothing to do here
-        //     },
-        //     reason => {
-        //         // Left blank intentionally, nothing to do here
-        //     }
-        // );
+        this.messageService.confirm(entity, message, yes, no)
+            .subscribe(confirmed => {
+                if (confirmed) {
+                    this.userService.deleteUser(String(user.id)).subscribe(resp => {
+                        this.filterUsers(null)
+                    });
+                }
+            });
     }
 }

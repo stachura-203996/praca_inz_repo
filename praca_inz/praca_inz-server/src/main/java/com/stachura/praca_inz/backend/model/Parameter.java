@@ -39,8 +39,16 @@ public class Parameter implements Serializable {
     @Column(name = "DELETED", nullable = false)
     private boolean deleted;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY,optional = false)
     @JsonBackReference
     private DeviceModel deviceModel;
+
+    public Parameter() {
+    }
+
+    public Parameter(Long id, long version) {
+        this.id=id;
+        this.version = version;
+    }
 
 }

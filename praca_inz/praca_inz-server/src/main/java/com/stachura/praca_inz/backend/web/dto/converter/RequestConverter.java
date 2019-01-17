@@ -9,39 +9,49 @@ import com.stachura.praca_inz.backend.repository.DeviceRepository;
 import com.stachura.praca_inz.backend.repository.WarehouseRepository;
 import com.stachura.praca_inz.backend.web.dto.request.*;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class RequestConverter {
 
+    //LIST
     public static RequestListElementDto toRequestListElement(Request request) {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         return RequestListElementDto.builder()
                 .id(request.getId())
                 .title(request.getTitle())
                 .username(request.getUser().getUsername())
+                .name(request.getUser().getUserdata().getName())
+                .surname(request.getUser().getUserdata().getSurname())
                 .status(request.getStatus().name())
                 .type(request.getRequestType().name())
                 .recieverWarehouseName(request.getRecieverWarehouse().getName())
                 .senderWarehouseName(request.getSenderWarehouse() == null ? " " : request.getSenderWarehouse().getName())
-                .createDate(request.getCreateDate().getTime().toString())
+                .createDate(formatter.format(request.getCreateDate().getTime()))
                 .build();
     }
 
+    //VIEW
     public static RequestViewDto toRequestView(Request request) {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         return RequestViewDto.builder()
                 .id(request.getId())
                 .title(request.getTitle())
                 .deviceModelName(request.getDeviceModel().getName())
                 .description(request.getDescription())
                 .username(request.getUser().getUsername())
+                .name(request.getUser().getUserdata().getName())
+                .surname(request.getUser().getUserdata().getSurname())
                 .status(request.getStatus().name())
                 .type(request.getRequestType().name())
                 .recieverWarehouseName(request.getRecieverWarehouse().getName())
                 .senderWarehouseName(request.getSenderWarehouse() == null ? " " : request.getSenderWarehouse().getName())
-                .createDate(request.getCreateDate().getTime().toString())
+                .createDate(formatter.format(request.getCreateDate().getTime()))
                 .amount(request.getAmount())
                 .build();
     }
 
+    //ADD TRANSFER REQUEST
     public static Request toRequest(TransferRequestAddDto transferRequestAddDto, Device device, Warehouse recieverWarehouse, User user) {
         Request request = new Request();
         request.setDeleted(false);
@@ -60,6 +70,7 @@ public class RequestConverter {
         return request;
     }
 
+    //ADD DEVICE REQUEST
     public static Request toRequest(DeviceRequestAddDto deviceRequestAddDto, DeviceModel deviceModel, Warehouse recieverWarehouse, User user) {
         Request request = new Request();
         request.setDeleted(false);

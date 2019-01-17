@@ -19,7 +19,14 @@
                     </div>
                     <div class="clearfix"></div>
                     <div class="bot-border"></div>
-
+                    <div class="row">
+                        <div class="col-sm-5 col-xs-6 tital ">{{'City'| translate}}</div>
+                        <div class="col-sm-7 col-xs-6 ">
+                            <div class="box" id="city">{{company.city}}</div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="bot-border"></div>
                     <div class="row">
                         <div class="col-sm-5 col-xs-6 tital ">{{'Address'| translate}}</div>
                         <div class="col-sm-7">{{getAddress()}}</div>
@@ -66,18 +73,16 @@
                     <table class="table table-striped" align="center" *ngIf="devices">
                         <thead class="thead-inverse">
                         <tr>
-                            <th>{{ 'Name' | translate }}</th>
-                            <th>{{ 'SerialNumber' | translate }}</th>
                             <th>{{ 'DeviceModel' | translate }}</th>
+                            <th>{{ 'SerialNumber' | translate }}</th>
                             <th>{{ 'DeviceType' | translate }}</th>
 
                         </tr>
                         </thead>
                         <tbody>
                         <tr *ngFor="let device of devices">
-                            <td>{{device.name}}</td>
-                            <td>{{device.serialNumber}}</td>
                             <td>{{device.deviceModel}}</td>
+                            <td>{{device.serialNumber}}</td>
                             <td>{{device.deviceTypeName}}</td>
                         </tr>
                         </tbody>
@@ -133,7 +138,7 @@
                     <table class="table table-striped" align="center" *ngIf="offices">
                         <thead class="thead-inverse">
                         <tr>
-                            <th>{{ 'Name' | translate }}</th>
+                            <th>{{ 'ElementName' | translate }}</th>
                             <th>{{ 'City' | translate }}</th>
                             <th>{{ 'Address' | translate }}</th>
                             <th>{{'Department'|translate}}</th>
@@ -169,9 +174,9 @@
                     <table class="table table-striped" align="center" *ngIf="warehouses">
                         <thead class="thead-inverse">
                         <tr>
-                            <th>{{ 'Name' | translate }}</th>
+                            <th>{{ 'ElementName' | translate }}</th>
                             <th>{{ 'OfficeName' | translate }}</th>
-                            <th>{{ 'Username' | translate }}</th>
+                            <th>{{ 'PersonResponsibleFor' | translate }}</th>
                             <th>{{'DevicesNumber'|translate}}</th>
                         </tr>
                         </thead>
@@ -179,7 +184,7 @@
                         <tr *ngFor="let warehouse of warehouses">
                             <td>{{warehouse.name}}</td>
                             <td>{{warehouse.officeName}}</td>
-                            <td>{{warehouse.username}}</td>
+                            <td>{{getPersonResponsibleFor(warehouse)}}</td>
                             <td>{{warehouse.devicesNumber}}</td>
                         </tr>
                         </tbody>

@@ -4,9 +4,6 @@ import lombok.*;
 
 import java.io.Serializable;
 
-/**
- * Obiekt przesyłany z/do widoku z informacjami potrzebnymi do zmiany hasła użytkownika
- */
 @Data
 @Builder
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
@@ -15,5 +12,5 @@ public class PasswordInfoDto implements Serializable {
 
     private String newPassword;
     private String oldPassword;
-    private long userdataVersion;
+    private long userVersion;
 }

@@ -12,6 +12,8 @@ public class RequestListElementDto {
     private String username;
     private String status;
     private String type;
+    private String surname;
+    private String name;
     private boolean acceptedToSend;
     private boolean acceptedToRecive;
     private String recieverWarehouseName;

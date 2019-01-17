@@ -22,12 +22,12 @@ export class WarehouseService {
         return this.httpService.get<WarehouseListElement[]>(this.warehousePath);
     }
 
-    getAllForTransferRequest(){
-        return this.httpService.get<WarehouseListElement[]>(this.warehousePath+'/transfer-request');
+    getAllForTransferRequest(id:number){
+        return this.httpService.get<WarehouseListElement[]>(this.warehousePath+'/transfer-request/'+id);
     }
 
     getAllForWarehouseman(): Observable<WarehouseListElement[]> {
-        return this.httpService.get<WarehouseListElement[]>(this.warehousePath+'/warehousemen');
+        return this.httpService.get<WarehouseListElement[]>(this.warehousePath+'/warehouseman');
     }
 
     getAllForCompany(id:number): Observable<WarehouseListElement[]> {
@@ -75,7 +75,7 @@ export class WarehouseService {
     }
 
     getAllDeliveriesForWarehouse(): Observable<DeliveryListElement[]> {
-        return this.httpService.get<DeliveryListElement[]>(this.deliveryPath+'/warehousemen');
+        return this.httpService.get<DeliveryListElement[]>(this.deliveryPath+'/warehouseman');
     }
 
 }

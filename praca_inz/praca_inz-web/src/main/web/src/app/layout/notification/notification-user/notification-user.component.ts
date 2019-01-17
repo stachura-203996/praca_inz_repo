@@ -2,6 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {NotificationListElement} from "../../../models/notification-list-element";
 import {NotificationService} from "../notification.service";
 import {Router} from "@angular/router";
+import {TranslateService} from "@ngx-translate/core";
+import {MessageService} from "../../../shared/services/message.service";
+import {Configuration} from "../../../app.constants";
 
 @Component({
     selector: 'app-notification-user',
@@ -14,7 +17,13 @@ export class NotificationUserComponent implements OnInit {
 
     readedNotifications: NotificationListElement[];
 
-    constructor(private notificationService:NotificationService, private router:Router) {
+    constructor(
+        private notificationService:NotificationService,
+        private translate: TranslateService,
+        private messageService: MessageService,
+        private configuration: Configuration,
+        private router:Router
+    ) {
     }
 
     ngOnInit() {
@@ -56,12 +65,31 @@ export class NotificationUserComponent implements OnInit {
         });
     }
 
-
     delete(notification: NotificationListElement) {
-        this.notificationService.deleteNotification(String(notification.id)).subscribe(resp => {
-            this.getReadedNotificationsForUser()
-            this.getUnreadedNotificationsForUser()
-        });
+        var entity: string;
+        var message: string;
+        var yes: string;
+        var no: string;
+
+        this.translate.get('notification.delete').subscribe(x => entity = x);
+        this.translate.get('confirm.delete').subscribe(x => message = x);
+        this.translate.get('yes').subscribe(x => yes = x);
+        this.translate.get('no').subscribe(x => no = x);
+
+
+        this.messageService
+            .confirm(entity, message, yes, no)
+            .subscribe(confirmed => {
+                if (confirmed) {
+                    this.notificationService.deleteNotification(String(notification.id)).subscribe(resp => {
+                        this.getReadedNotificationsForUser()
+                        this.getUnreadedNotificationsForUser()
+                        this.translate.get('success.notification.delete').subscribe(x => {
+                            this.messageService.success(x)
+                        })
+                    });
+                }
+            });
     }
 
 }

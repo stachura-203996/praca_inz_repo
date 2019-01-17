@@ -38,4 +38,10 @@ export class HttpService {
       ...httpOptions
     })
   }
+
+  passwordReset<T>(endpoint: string, body, httpOptions = {}): Observable<T> {
+        return this.http.put<T>(endpoint, body, {
+            ...httpOptions
+        })
+    }
 }

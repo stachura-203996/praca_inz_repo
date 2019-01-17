@@ -4,7 +4,11 @@ export class ReportListElement {
     reportDate: string;
     description: string;
     sender:string;
+    senderName:string;
+    senderSurname:string;
     receiver:string;
+    recieverName:string;
+    recieverSurname:string
 }
 export class ReportAddElement {
     title: string;
@@ -19,4 +23,8 @@ export class ReportViewElement {
     description: string;
     sender:string;
     receiver:string;
+    senderName:string;
+    senderSurname:string;
+    recieverName:string;
+    recieverSurname:string
 }

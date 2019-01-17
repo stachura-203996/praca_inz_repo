@@ -1,6 +1,6 @@
 package com.stachura.praca_inz.backend.service;
 
-import com.stachura.praca_inz.backend.exception.service.ServiceException;
+import com.stachura.praca_inz.backend.exception.base.AppBaseException;
 import com.stachura.praca_inz.backend.model.Request;
 import com.stachura.praca_inz.backend.web.dto.device.DeviceListElementDto;
 import com.stachura.praca_inz.backend.web.dto.request.ChangeStatusDto;
@@ -12,33 +12,33 @@ import java.util.List;
 
 public interface RequestService {
 
-    Request getRequestById(Long id) throws ServiceException;
+    Request getRequestById(Long id) throws AppBaseException;
 
-    List<RequestListElementDto> getAllRequests(String type,String username) throws ServiceException;
+    List<RequestListElementDto> getAllRequests(String type,String username) throws AppBaseException;
 
     List<RequestListElementDto> getAllRequestsForUser(String username);
 
-    List<RequestListElementDto> getAllRequestForManager(String username) throws ServiceException;
+    List<RequestListElementDto> getAllRequestForManager(String username) throws AppBaseException;
 
-    List<RequestListElementDto> getAllRequestFromeOtherUsers(String username) throws ServiceException;
+    List<RequestListElementDto> getAllRequestFromeOtherUsers(String username) throws AppBaseException;
 
-    List<RequestListElementDto> getAllRequestForWarehouseman(String username) throws ServiceException;
+    List<RequestListElementDto> getAllRequestForWarehouseman(String username) throws AppBaseException;
 
-    List<RequestListElementDto> getAllRequestFromOtherWarehouses(String username) throws ServiceException;
+    List<RequestListElementDto> getAllRequestFromOtherWarehouses(String username) throws AppBaseException;
 
     List<RequestListElementDto> getAllRequestsForOffice(String type,Long id);
 
-    void createNewTransferRequest(TransferRequestAddDto transferRequestAddDto,String username) throws ServiceException;
+    void createNewTransferRequest(TransferRequestAddDto transferRequestAddDto,String username) throws AppBaseException;
 
-    void createNewDeviceRequest(DeviceRequestAddDto deviceRequestAddDto, String username) throws ServiceException;
+    void createNewDeviceRequest(DeviceRequestAddDto deviceRequestAddDto, String username) throws AppBaseException;
 
-    void updateRequest(Request report) throws ServiceException;
+    void updateRequest(Request report) throws AppBaseException;
 
-    void deleteRequestById(Long id) throws ServiceException;
+    void deleteRequestById(Long id) throws AppBaseException;
 
-    void realizeRequest(ChangeStatusDto changeStatusDto) throws ServiceException;
+    void realizeRequest(ChangeStatusDto changeStatusDto) throws AppBaseException;
 
-    List<DeviceListElementDto> getAllRequestDevices(Long id) throws ServiceException;
+    List<DeviceListElementDto> getAllRequestDevices(Long id) throws AppBaseException;
 
-    void addDevicesToRequest(List<Long> devices,Long requestId)throws ServiceException;
+    void addDevicesToRequest(List<Long> devices,Long requestId)throws AppBaseException;
 }

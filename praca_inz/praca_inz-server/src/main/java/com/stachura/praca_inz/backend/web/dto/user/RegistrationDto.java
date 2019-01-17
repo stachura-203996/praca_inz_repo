@@ -32,4 +32,5 @@ public class RegistrationDto {
     private String workplace;
     private Long officeId;
     private List<String> roles;
+    private String language;
 }

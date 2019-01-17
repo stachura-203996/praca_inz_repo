@@ -4,6 +4,8 @@ export class RequestListElement {
     id: number;
     title: string;
     username: string;
+    name:string;
+    surname:string
     status: string;
     type:string
     recieverWarehouseName:string;
@@ -50,6 +52,8 @@ export class RequestViewElement {
     id: number;
     title: string;
     username: string;
+    name:string;
+    surname:string
     status: string;
     type:string;
     deviceModelName:string;
@@ -58,7 +62,7 @@ export class RequestViewElement {
     createDate:string;
     description:string;
     version:string;
-    amount:string;
+    amount:number;
 }
 
 

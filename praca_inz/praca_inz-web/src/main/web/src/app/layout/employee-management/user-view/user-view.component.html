@@ -1,0 +1,196 @@
+<div class="row">
+    <div class="col-lg-4 ">
+        <div class="card">
+            <div class="card-header"><h4>{{'UserInfo'| translate}}</h4></div>
+            <div class="card-body">
+
+                <div class="box box-info">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div align="center"><img alt="User Pic"
+                                                     src="https://x1.xingassets.com/assets/frontend_minified/img/users/nobody_m.original.jpg"
+                                                     id="profile-image1" class="rounded-circle">
+
+                                <input id="profile-image-upload" class="hidden" type="file">
+                            </div>
+                            <br>
+                        </div>
+                        <div class="col-sm-6">
+                            <span><h4 style="color:#00b1b1;">{{user.name+' '+user.surname}}</h4></span>
+                            <span><p>{{user.position}}</p></span>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <hr style="margin:5px 0 5px 0;">
+
+                    <div class="row">
+                        <div class="col-sm-5 col-xs-6 tital ">{{'Username'|translate}}</div>
+                        <div class="col-sm-7 col-xs-6 ">{{user.username}}</div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="bot-border"></div>
+
+                    <div class="row">
+                        <div class="col-sm-5 col-xs-6 tital ">{{'FirstName'| translate}}</div>
+                        <div class="col-sm-7 col-xs-6 ">{{user.name}}</div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="bot-border"></div>
+                    <div class="row">
+                        <div class="col-sm-5 col-xs-6 tital ">{{'LastName'| translate}}</div>
+                        <div class="col-sm-7">{{user.surname}}</div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="bot-border"></div>
+                    <div class="row">
+                        <div class="col-sm-5 col-xs-6 tital ">{{'Company'| translate}}</div>
+                        <div class="col-sm-7"><a>{{user.company}}</a></div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="bot-border"></div>
+                    <div class="row">
+                        <div class="col-sm-5 col-xs-6 tital ">{{'Department'| translate}}</div>
+                        <div class="col-sm-7"><a>{{user.department}}</a>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="bot-border"></div>
+                    <div class="row">
+                        <div class="col-sm-5 col-xs-6 tital ">{{'Office'| translate}}</div>
+                        <div class="col-sm-7"><a>{{user.office}}</a>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="bot-border"></div>
+                    <div class="row">
+                        <div class="col-sm-5 col-xs-6 tital ">{{'Workplace'| translate}}</div>
+                        <div class="col-sm-7">{{user.workplace}}</div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="bot-border"></div>
+                    <div class="row">
+                        <div class="col-sm-5 col-xs-6 tital ">{{'Email'| translate}}</div>
+                        <div class="col-sm-7">{{user.email}}</div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="bot-border"></div>
+                    <div class="row">
+                        <div class="col-sm-5 col-xs-6 tital ">{{'Adress'| translate}}</div>
+                        <div class="col-sm-7">{{getAddress()}}</div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="bot-border"></div>
+                    <div class="row">
+                        <div class="col-sm-5 col-xs-6 tital ">{{'DateOfJoining'| translate}}</div>
+                        <div class="col-sm-7">{{user.dateOfJoining}}</div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="bot-border"></div>
+                    <div class="row">
+                        <div class="col-sm-5 col-xs-6 tital ">{{'Roles'| translate}}</div>
+                        <div class="col-sm-7">
+                            <br>
+                            <div class="row" *ngFor="let authority of user.roles"><span class="badge badge-info">{{ getAuthorityTranslation(authority) }}</span>
+                            </div>
+                            <br>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="bot-border"></div>
+                    <br>
+                    <div class="row">
+                        <div class="col-sm-6" align="center" *ngIf="roles.admin">
+                            <button [routerLink]="['/admin/users/edit/'+user.id]" class="btn btn-primary" i18n="@@editButton">{{'Edit'|translate}}
+                            </button>
+                        </div>
+                        <div class="col-sm-6" align="center" *ngIf="roles.admin">
+                            <button [routerLink]="['/admin/users/edit/password/'+user.id]" class="btn btn-primary"
+                                    i18n="@@changePasswordButton">{{'ChangePassword'|translate}}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-8">
+        <div class="box">
+            <div class="card">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-lg-10">
+                            <h4>{{'Devices list'|translate}}</h4>
+                        </div>
+                        <div class="col-lg-2">
+                            <button class="btn btn-primary float-right jh-create-entity" [routerLink]="['/devices']">
+                                <span>{{ 'UserDeviceManager' | translate }}</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped" align="center">
+                        <thead class="thead-inverse">
+                        <tr>
+                            <th>{{ 'DeviceModel' | translate }}</th>
+                            <th>{{ 'SerialNumber' | translate }}</th>
+                            <th>{{ 'DeviceType' | translate }}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let device of devices">
+                            <td>{{device.deviceModel}}</td>
+                            <td>{{device.serialNumber}}</td>
+                            <td>{{device.deviceTypeName}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <br>
+            <div class="card">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-lg-10">
+                            <h4>{{'Transfers list'|translate}}</h4>
+                        </div>
+                        <div class="col-lg-2">
+                            <button class="btn btn-primary float-right jh-create-entity"
+                                    [routerLink]="['/devices/transfer']">
+                                <span>{{ 'UserTransferManager' | translate }}</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped" align="center">
+                        <thead class="thead-inverse">
+                        <tr>
+                            <th>{{ 'Title' | translate }}</th>
+                            <th>{{ 'DeviceModel' | translate }}</th>
+                            <th>{{'SerialNumber'| translate}}</th>
+                            <th>{{ 'Date' | translate }}</th>
+                            <th>{{'Sender'| translate}}</th>
+                            <th>{{'Reciever' | translate}}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let transfer of transfers">
+                            <td>{{transfer.title}}</td>
+                            <td>{{transfer.deviceModelName}}</td>
+                            <td>{{transfer.deviceSerialNumber}}</td>
+                            <td>{{transfer.date}}</td>
+                            <td>{{transfer.senderWarehouseName}}</td>
+                            <td>{{transfer.recieverWarehouseName}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+

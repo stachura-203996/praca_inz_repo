@@ -22,8 +22,8 @@
                 <tr *ngFor="let request of yourRequest">
                     <td>{{request.title}}</td>
                     <td>{{request.username}}</td>
-                    <td>{{request.status}}</td>
-                    <td>{{request.type}}</td>
+                    <td>{{getStatus(request.status)}}</td>
+                    <td>{{getType(request.type)}}</td>
                     <td>{{request.senderWarehouseName}}</td>
                     <td>{{request.recieverWarehouseName}}</td>
                     <td>{{request.createDate}}</td>
@@ -67,8 +67,8 @@
                 <tr *ngFor="let request of employeesRequest">
                     <td>{{request.title}}</td>
                     <td>{{request.username}}</td>
-                    <td>{{request.status}}</td>
-                    <td>{{request.type}}</td>
+                    <td>{{getStatus(request.status)}}</td>
+                    <td>{{getType(request.type)}}</td>
                     <td>{{request.senderWarehouseName}}</td>
                     <td>{{request.recieverWarehouseName}}</td>
                     <td>{{request.createDate}}</td>

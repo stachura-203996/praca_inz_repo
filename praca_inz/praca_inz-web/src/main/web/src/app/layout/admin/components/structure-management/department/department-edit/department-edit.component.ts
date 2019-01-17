@@ -8,6 +8,8 @@ import {TranslateService} from "@ngx-translate/core";
 import {UserRoles} from "../../../../../../models/user-roles";
 import {UserService} from "../../../administration/user-management/user.service";
 import {LoggedUser} from "../../../../../../models/logged-user";
+import {MessageService} from "../../../../../../shared/services/message.service";
+import {Configuration} from "../../../../../../app.constants";
 
 
 @Component({
@@ -21,11 +23,21 @@ export class DepartmentEditComponent implements OnInit {
 
     companies = new Map<string, number>();
 
+    revertCompanies=new Map<number,string>();
+
     selectedOption: string;
     roles: UserRoles;
     currentUser: LoggedUser;
 
-    constructor(private route: ActivatedRoute,private userService:UserService,private companyService: CompanyService,private translate:TranslateService, private departmentService: DepartmentService, private router: Router) {
+    constructor(
+        private route: ActivatedRoute,
+        private userService:UserService,
+        private companyService: CompanyService,
+        private translate:TranslateService,
+        private departmentService: DepartmentService,
+        private messageService:MessageService,
+        private configuration:Configuration,
+        private router: Router) {
     }
 
     ngOnInit() {
@@ -33,12 +45,11 @@ export class DepartmentEditComponent implements OnInit {
         this.getDepartment();
         this.getCompanies();
         this.getLoggedUser();
-
-    }
+      }
 
     getDepartment() {
         const id = this.route.snapshot.paramMap.get('id');
-        this.departmentService.getDepartmentEdit(id).subscribe(x=>this.structureEditElement=x);
+        this.departmentService.getDepartmentEdit(id).subscribe(x=>{this.structureEditElement=x});
     }
 
     getCompanies() {
@@ -52,23 +63,44 @@ export class DepartmentEditComponent implements OnInit {
         });
     }
 
+
     getLoggedUser() {
-        this.userService.getLoggedUser().subscribe(x => this.currentUser = x);
+        this.userService.getLoggedUser().subscribe(x => {this.currentUser = x});
     }
 
     getLoggedUserRoles() {
-        this.userService.getLoggedUserRoles().subscribe(x => this.roles = x);
+        this.userService.getLoggedUserRoles().subscribe(x => {this.roles = x});
     }
 
     departmentUpdate() {
-        if(this.roles.admin) {
-            this.structureEditElement.parentId = this.companies.get(this.selectedOption);
-        } else {
-            this.structureEditElement.parentId=this.currentUser.companyId;
-        }
-        this.departmentService.updateDepartment(this.structureEditElement).subscribe(resp => {
-            this.router.navigateByUrl('/admin/departments');
-        });
+        var entity:string;
+        var message:string;
+        var yes:string;
+        var no:string;
+
+        this.translate.get('department.edit').subscribe(x=>entity=x);
+        this.translate.get('confirm.edit').subscribe(x=>message=x);
+        this.translate.get('yes').subscribe(x=>yes=x);
+        this.translate.get('no').subscribe(x=>no=x);
+
+
+        this.messageService
+            .confirm(entity,message,yes,no)
+            .subscribe(confirmed => {
+                if (confirmed) {
+                    if(this.roles.admin) {
+                        this.structureEditElement.parentId = this.companies.get(this.structureEditElement.parentName);
+                    } else {
+                        this.structureEditElement.parentId=this.currentUser.companyId;
+                    }
+                    this.departmentService.updateDepartment(this.structureEditElement).subscribe(resp => {
+                        this.router.navigateByUrl('/admin/departments');
+                        this.translate.get('success.department.edit').subscribe(x => {
+                            this.messageService.success(x)
+                        })
+                    });
+                }
+            });
     }
 
     clear() {

@@ -1,66 +1,66 @@
 export class DeviceListElement {
     id: number;
-    name: string;
     serialNumber: string;
     deviceModel:string;
     deviceTypeName:string;
     manufacture:string;
     lastUpdate:string
     location:string;
+    name:string;
+    userSurname:string
     username:string;
     status:string;
 }
 
-
 export class DeviceAddElement {
-    name: string;
     serialNumber: string;
-    deviceModel:string;
-    deviceTypeName:string;
-    manufacture:string;
-    lastUpdate:string
-    location:string;
-    username:string;
+    companyId:number;
+    warehouseId:number;
+    deviceModelId:number;
 }
 
 export class DeviceEditElement {
-    id: number;
-    name: string;
+    id:number
     serialNumber: string;
-    deviceModel:string;
-    deviceTypeName:string;
-    manufacture:string;
-    lastUpdate:string
-    location:string;
-    username:string;
+    companyId:number;
+    warehouseId:number;
+    deviceModelId:number;
+    companyName:string;
+    deviceModelName:string;
+
+    version:string;
 }
 
 export class DeviceViewElement {
     id: number;
-    name: string;
     serialNumber: string;
     deviceModel:string;
+    deviceModelId:number;
     deviceTypeName:string;
     manufacture:string;
     lastUpdate:string
     location:string;
+    userName:string;
+    userSurname:string
     username:string;
+    status:string;
 }
 
 export class DeviceModelViewElement {
     id: number;
     name: string;
     manufacture:string;
-    owner:string;
-    numberOfDevices;
+    numberOfDevices:number;
     type:string;
-
+    cost:string;
+    companyName:string;
 }
 export class DeviceModelAddElement {
     name: string;
     manufacture:string;
-    type:string;
-
+    typeId:number;
+    cost:string
+    companyId:number
 }
 
 export class DeviceModelEditElement {
@@ -68,6 +68,11 @@ export class DeviceModelEditElement {
     name: string;
     manufacture:string;
     type:string;
+    typeId:number;
+    cost:string
+    companyId:number
+    companyname:string;
+    version:string;
 
 }
 
@@ -75,8 +80,10 @@ export class DeviceModelListElement {
     id: number;
     name: string;
     manufacture:string;
-    type:string;
-
+    numberOfDevices:number;
+    cost:string
+    deviceTypeName:string;
+    companyName:string;
 }
 
 export class DeviceTypeListElement {

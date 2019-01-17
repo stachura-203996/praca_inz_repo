@@ -18,4 +18,5 @@ export class UserInfo {
     dateOfJoining: string;
     roles: string[];
     workplace:string;
+    language:string;
 }

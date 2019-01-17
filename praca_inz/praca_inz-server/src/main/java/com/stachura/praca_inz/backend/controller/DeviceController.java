@@ -1,26 +1,25 @@
 package com.stachura.praca_inz.backend.controller;
 
-import com.stachura.praca_inz.backend.exception.service.ServiceException;
-import com.stachura.praca_inz.backend.model.Device;
+import com.stachura.praca_inz.backend.exception.DatabaseErrorException;
+import com.stachura.praca_inz.backend.exception.base.AppBaseException;
 import com.stachura.praca_inz.backend.service.DeviceService;
-import com.stachura.praca_inz.backend.web.dto.device.DeviceListElementDto;
+import com.stachura.praca_inz.backend.web.dto.device.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.mvc.ControllerLinkBuilder;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.SQLException;
 import java.util.List;
-
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 @RestController
 @RequestMapping("/secured/device")
+@Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = AppBaseException.class)
 public class DeviceController {
 
     @Autowired
@@ -29,33 +28,33 @@ public class DeviceController {
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
-    List<DeviceListElementDto> getAll() throws ServiceException {
+    List<DeviceListElementDto> getAll() throws AppBaseException {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         return deviceService.getAllDevices(auth.getName());
     }
 
-    @RequestMapping(value = "/company/{id}",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/company/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
     List<DeviceListElementDto> getAllDevicesForCompany(@PathVariable Long id) {
         return deviceService.getAllDevicesForCompany(id);
     }
 
-    @RequestMapping(value = "/department/{id}",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/department/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
     List<DeviceListElementDto> getAllDevicesForDepartment(@PathVariable Long id) {
         return deviceService.getAllDevicesForDepartment(id);
     }
 
-    @RequestMapping(value = "/office/{id}",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/office/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
     List<DeviceListElementDto> getAllDevicesForOffice(@PathVariable Long id) {
         return deviceService.getAllDevicesForOffice(id);
     }
 
-    @RequestMapping(value = "/warehouse/{id}",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/warehouse/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
     List<DeviceListElementDto> getAllDevicesForWarehouse(@PathVariable Long id) {
@@ -96,41 +95,40 @@ public class DeviceController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
-    Device get(@PathVariable Long id) throws ServiceException {
-        return deviceService.getDeviceById(id);
+    DeviceViewDto getDeviceToView(@PathVariable Long id) throws AppBaseException {
+        return deviceService.getDeviceToView(id);
+    }
+
+    @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(value = HttpStatus.OK)
+    public @ResponseBody
+    DeviceEditDto getDeviceToEdit(@PathVariable Long id) throws AppBaseException {
+        return deviceService.getDeviceToEdit(id);
     }
 
     @RequestMapping(value = "/parameters/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
-    Device getParameters(@PathVariable Long id) throws ServiceException {
-        return deviceService.getDeviceById(id);
+    List<ParameterListElementDto> getParameters(@PathVariable Long id) throws AppBaseException {
+        return deviceService.getDeviceParameters(id);
     }
 
     @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public ResponseEntity<?> create(@RequestBody Device device) throws ServiceException {
-        try {
-            deviceService.createNewDevice(device);
-        } catch (ServiceException e) {
-            e.printStackTrace();
-        }
+    public ResponseEntity<?> create(@RequestBody DeviceAddDto deviceAddDto) throws AppBaseException {
+        deviceService.createNewDevice(deviceAddDto);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @RequestMapping(method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public void update(@RequestBody Device device) {
-        try {
-            deviceService.updateDevice(device);
-        } catch (ServiceException e) {
-            e.printStackTrace();
-        }
+    public void update(@RequestBody DeviceEditDto deviceEditDto) throws AppBaseException {
+        deviceService.updateDevice(deviceEditDto);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public void delete(@PathVariable Long id) throws ServiceException {
+    public void delete(@PathVariable Long id) throws AppBaseException {
         deviceService.deleteDeviceById(id);
     }
 }
