@@ -16,6 +16,7 @@ import com.stachura.praca_inz.backend.service.RegistrationService;
 import com.stachura.praca_inz.backend.web.dto.user.RegistrationDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -48,8 +49,10 @@ RegistrationServiceImpl implements RegistrationService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+
     @Override
     @Transactional
+    @PreAuthorize("hasAuthority('USER_CREATE')")
     public void registerNewUserAccount(final RegistrationDto data, boolean verified) throws AppBaseException {
 
         if (userdataRepository.findByEmail(data.getEmail()).isPresent()) {

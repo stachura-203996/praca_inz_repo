@@ -2,19 +2,11 @@ package com.stachura.praca_inz.backend.controller;
 
 import com.stachura.praca_inz.backend.exception.base.AppBaseException;
 import com.stachura.praca_inz.backend.model.Request;
-import com.stachura.praca_inz.backend.repository.DeviceModelRepository;
-import com.stachura.praca_inz.backend.repository.DeviceRepository;
-import com.stachura.praca_inz.backend.repository.UserRepository;
-import com.stachura.praca_inz.backend.repository.WarehouseRepository;
-import com.stachura.praca_inz.backend.service.EmailService;
-import com.stachura.praca_inz.backend.service.NotificationService;
 import com.stachura.praca_inz.backend.service.RequestService;
 import com.stachura.praca_inz.backend.web.dto.converter.RequestConverter;
 import com.stachura.praca_inz.backend.web.dto.device.DeviceListElementDto;
 import com.stachura.praca_inz.backend.web.dto.request.*;
-import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -72,14 +64,6 @@ public class RequestController {
     List<RequestListElementDto> getAllForWarehouseman() throws AppBaseException {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         return requestService.getAllRequestForWarehouseman(auth.getName());
-    }
-
-    @RequestMapping(value = "/other", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(value = HttpStatus.OK)
-    public @ResponseBody
-    List<RequestListElementDto> getAllFromOtherWarehouses() throws AppBaseException {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        return requestService.getAllRequestFromOtherWarehouses(auth.getName());
     }
 
     @RequestMapping(value = "/office/{type}/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)

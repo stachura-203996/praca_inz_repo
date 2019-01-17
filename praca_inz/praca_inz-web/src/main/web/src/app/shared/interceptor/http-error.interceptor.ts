@@ -21,7 +21,6 @@ export class HttpErrorInterceptor implements HttpInterceptor {
     private forbiddenErrorCode = 403;
     private internalErrorCode = 500;
 
-    //
     constructor(private router: Router,
                 private  loginService: LoginService,
                 private translate: TranslateService,
@@ -62,7 +61,6 @@ export class HttpErrorInterceptor implements HttpInterceptor {
                                 `Backend returned code ${error.status}, ` +
                                 `body was: ${error.error}`);
                         }
-
                     }
                     // window.alert(errorMessage);
                     return throwError(errorMessage);
@@ -75,7 +73,6 @@ export class HttpErrorInterceptor implements HttpInterceptor {
             this.translate.get('comapny.name.taken.error').subscribe(translated => {
                 this.messageService.error(translated)
             })
-
         } else if (message === this.configuration.OPTIMISTIC_LOCK) {
             this.translate.get('optimistic.lock').subscribe(x => {
                 this.messageService.error(x);
@@ -121,11 +118,11 @@ export class HttpErrorInterceptor implements HttpInterceptor {
             this.translate.get('no.username.in.database.error').subscribe(x => {
                 this.messageService.error(x);
             })
-        }else if (message === this.configuration.ERROR_INCORRECT_PASSWORD_RESET_DATA) {
+        } else if (message === this.configuration.ERROR_INCORRECT_PASSWORD_RESET_DATA) {
             this.translate.get('incorrect.password.reset.data').subscribe(x => {
                 this.messageService.error(x);
             })
-        }else{
+        } else {
             this.translate.get('unknown.error').subscribe(x => {
                 this.messageService.error(x);
             })

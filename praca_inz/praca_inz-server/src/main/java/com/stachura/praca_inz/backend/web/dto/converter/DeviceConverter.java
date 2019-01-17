@@ -85,14 +85,13 @@ public class DeviceConverter {
 
     //SAVE AFTER EDIT
     public static Device toDevice(DeviceEditDto deviceEditDto, Device beforeDevice,Warehouse warehouse, Company company, DeviceModel deviceModel){
-        Device device=new Device(beforeDevice.getId(),beforeDevice.getVersion());
-        device.setStatus(DeviceStatus.REPOSE);
-        device.setDeleted(false);
-        device.setCompany(company);
-        device.setSerialNumber(deviceEditDto.getSerialNumber());
-        device.setLastUpdate(Calendar.getInstance());
-        device.setDeviceModel(deviceModel);
-        device.setVersion(deviceEditDto.getVersion());
-        return device;
+        beforeDevice.setStatus(DeviceStatus.REPOSE);
+        beforeDevice.setDeleted(false);
+        beforeDevice.setCompany(company);
+        beforeDevice.setSerialNumber(deviceEditDto.getSerialNumber());
+        beforeDevice.setLastUpdate(Calendar.getInstance());
+        beforeDevice.setDeviceModel(deviceModel);
+        beforeDevice.setVersion(deviceEditDto.getVersion());
+        return beforeDevice;
     }
 }

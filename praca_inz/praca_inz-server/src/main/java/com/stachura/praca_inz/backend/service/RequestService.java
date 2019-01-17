@@ -24,8 +24,6 @@ public interface RequestService {
 
     List<RequestListElementDto> getAllRequestForWarehouseman(String username) throws AppBaseException;
 
-    List<RequestListElementDto> getAllRequestFromOtherWarehouses(String username) throws AppBaseException;
-
     List<RequestListElementDto> getAllRequestsForOffice(String type,Long id);
 
     void createNewTransferRequest(TransferRequestAddDto transferRequestAddDto,String username) throws AppBaseException;

@@ -77,12 +77,11 @@ public class WarehouseConverter {
     
     //SAVE AFTER EDIT
     public static Warehouse toWarehouse(WarehouseEditDto warehouseEditDto, Warehouse beforeWarehouse, User user, Office office) {
-        Warehouse warehouse=new Warehouse(beforeWarehouse.getId(),beforeWarehouse.getVersion());
-        warehouse.setUser(user);
-        warehouse.setWarehouseType(WarehouseType.OFFICE);
-        warehouse.setOffice(office);
-        warehouse.setName(warehouseEditDto.getName());
-        warehouse.setVersion(warehouseEditDto.getVersion());
-        return warehouse;
+        beforeWarehouse.setUser(user);
+        beforeWarehouse.setWarehouseType(WarehouseType.OFFICE);
+        beforeWarehouse.setOffice(office);
+        beforeWarehouse.setName(warehouseEditDto.getName());
+        beforeWarehouse.setVersion(warehouseEditDto.getVersion());
+        return beforeWarehouse;
     }
 }
