@@ -8,6 +8,9 @@ import {HttpService} from "../shared/services/http.service";
 import {Configuration} from "../app.constants";
 import {MessageService} from "../shared/services/message.service";
 import {TranslateService} from "@ngx-translate/core";
+import {PasswordData} from "../models/change-password";
+import {Observable} from "rxjs";
+import {PasswordReset} from "../models/password-reset";
 
 @Injectable({
     providedIn: 'root'
@@ -67,8 +70,8 @@ export class LoginService {
     }
 
 
-    resetPassword(username: string) {
-        this.http.get<any>('http://localhost:8081/reset/' + username).subscribe(rep => {
+    resetPassword(data:PasswordReset) {
+        return this.httpService.passwordReset<any>('http://localhost:8081/reset/', data).subscribe(rep => {
             this.translate.get('PssswordResetSuccess').subscribe(x => {
                 this.messageService.success(x);
             }), error => {

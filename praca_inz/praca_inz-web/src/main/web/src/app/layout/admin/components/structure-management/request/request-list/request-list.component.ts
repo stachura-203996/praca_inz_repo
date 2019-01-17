@@ -36,7 +36,6 @@ export class RequestListComponent implements OnInit {
     }
 
     getRequests() {
-
         this.requestService.getAllRequests(this.DEVICE_REQUEST).subscribe(requests => {
             this.deviceRequests = requests
         });
@@ -101,17 +100,6 @@ export class RequestListComponent implements OnInit {
                         this.translate.get('success.request.cancel').subscribe(x=>{
                             this.messageService.success(x)
                         })
-                    }, error => {
-                        if (error === this.configuration.ERROR_NO_OBJECT_IN_DATABASE) {
-                            this.translate.get('no.object.in.database.error').subscribe(x => {
-                                this.messageService.error(x);
-                            })
-                        } else {
-                            this.translate.get('unknown.error').subscribe(x => {
-                                this.messageService.error(x);
-                            })
-                        }
-
                     });
                 }
             });
@@ -138,17 +126,6 @@ export class RequestListComponent implements OnInit {
                         this.translate.get('success.request.delete').subscribe(x=>{
                             this.messageService.success(x)
                         })
-                    }, error => {
-                        if (error === this.configuration.ERROR_NO_OBJECT_IN_DATABASE) {
-                            this.translate.get('no.object.in.database.error').subscribe(x => {
-                                this.messageService.error(x);
-                            })
-                        } else {
-                            this.translate.get('unknown.error').subscribe(x => {
-                                this.messageService.error(x);
-                            })
-                        }
-
                     });
                 }
             });
@@ -159,6 +136,5 @@ export class RequestListComponent implements OnInit {
         this.translate.get(status).subscribe(x=>tmp=x);
         return tmp;
     }
-
 
 }

@@ -29,7 +29,7 @@ public class DeviceTypeServiceImpl implements DeviceTypeService {
     public void createNewDeviceType(String type) {
         DeviceType deviceType=new DeviceType();
         deviceType.setName(type);
-        deviceTypeRepository.save(deviceType);
+        deviceTypeRepository.saveAndFlush(deviceType);
     }
 
     @Override

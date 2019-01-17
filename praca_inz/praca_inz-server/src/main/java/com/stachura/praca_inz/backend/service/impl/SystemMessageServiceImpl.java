@@ -55,7 +55,7 @@ public class SystemMessageServiceImpl implements SystemMessageService {
     @PreAuthorize("hasAuthority('SYSTEM_MESSAGE_CREATE')")
     public void createNewSystemMessage(SystemMessageAddDto systemMessageAddDto) throws AppBaseException {
 
-        systemMessageRepository.save(SystemMessageConverter.toSystemMessage(systemMessageAddDto));
+        systemMessageRepository.saveAndFlush(SystemMessageConverter.toSystemMessage(systemMessageAddDto));
     }
 
     @Override

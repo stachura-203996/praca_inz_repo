@@ -49,17 +49,7 @@ export class DepartmentEditComponent implements OnInit {
 
     getDepartment() {
         const id = this.route.snapshot.paramMap.get('id');
-        this.departmentService.getDepartmentEdit(id).subscribe(x=>{this.structureEditElement=x}, error => {
-            if (error === this.configuration.ERROR_NO_OBJECT_IN_DATABASE) {
-                this.translate.get('no.object.in.database.error').subscribe(x => {
-                    this.messageService.error(x);
-                })
-            } else {
-                this.translate.get('unknown.error').subscribe(x => {
-                    this.messageService.error(x);
-                })
-            }
-        });
+        this.departmentService.getDepartmentEdit(id).subscribe(x=>{this.structureEditElement=x});
     }
 
     getCompanies() {
@@ -75,31 +65,11 @@ export class DepartmentEditComponent implements OnInit {
 
 
     getLoggedUser() {
-        this.userService.getLoggedUser().subscribe(x => {this.currentUser = x}, error => {
-            if (error === this.configuration.ERROR_NO_OBJECT_IN_DATABASE) {
-                this.translate.get('no.object.in.database.error').subscribe(x => {
-                    this.messageService.error(x);
-                })
-            } else {
-                this.translate.get('unknown.error').subscribe(x => {
-                    this.messageService.error(x);
-                })
-            }
-        });
+        this.userService.getLoggedUser().subscribe(x => {this.currentUser = x});
     }
 
     getLoggedUserRoles() {
-        this.userService.getLoggedUserRoles().subscribe(x => {this.roles = x}, error => {
-            if (error === this.configuration.ERROR_NO_OBJECT_IN_DATABASE) {
-                this.translate.get('no.object.in.database.error').subscribe(x => {
-                    this.messageService.error(x);
-                })
-            } else {
-                this.translate.get('unknown.error').subscribe(x => {
-                    this.messageService.error(x);
-                })
-            }
-        });
+        this.userService.getLoggedUserRoles().subscribe(x => {this.roles = x});
     }
 
     departmentUpdate() {
@@ -128,26 +98,6 @@ export class DepartmentEditComponent implements OnInit {
                         this.translate.get('success.department.edit').subscribe(x => {
                             this.messageService.success(x)
                         })
-                    }, error => {
-                        if (error === this.configuration.OPTIMISTIC_LOCK) {
-                            this.translate.get('optimistic.lock').subscribe(x => {
-                                this.messageService.error(x);
-                            })
-
-                        } else  if (error === this.configuration.ERROR_DEPARTMENT_NAME_TAKEN) {
-                            this.translate.get('department.name.taken.error').subscribe(x => {
-                                this.messageService.error(x);
-                            })
-                        } else if (error === this.configuration.ERROR_NO_OBJECT_IN_DATABASE) {
-                            this.translate.get('no.object.in.database.error').subscribe(x => {
-                                this.messageService.error(x);
-                            })
-                        } else {
-                            this.translate.get('unknown.error').subscribe(x => {
-                                this.messageService.error(x);
-                            })
-                        }
-
                     });
                 }
             });

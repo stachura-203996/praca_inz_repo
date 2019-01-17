@@ -96,7 +96,7 @@ public class ReportServiceImpl implements ReportService {
             User reciever=userRepository.findById(reportAddDto.getReciever()).orElseThrow(()->new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
             User sender=userRepository.findByUsername(username).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
             Report report=ReportConverter.toReport(reportAddDto,reciever,sender);
-            reportRepository.save(report);
+            reportRepository.saveAndFlush(report);
             return report;
     }
 
@@ -105,7 +105,7 @@ public class ReportServiceImpl implements ReportService {
     @Transactional
     @PreAuthorize("hasAuthority('REPORT_UPDATE')")
     public void updateReport(Report report) throws AppBaseException {
-        reportRepository.save(report);
+        reportRepository.saveAndFlush(report);
     }
 
     @Override

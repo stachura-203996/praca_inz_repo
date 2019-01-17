@@ -197,7 +197,7 @@ public class DeviceServiceImpl implements DeviceService {
         Warehouse warehouse=warehouseRepository.findById(deviceAddDto.getWarehouseId()).orElseThrow(()->new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
         Company company=companyRepository.findById(deviceAddDto.getCompanyId()).orElseThrow(()->new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
         DeviceModel deviceModel=deviceModelRepository.findById(deviceAddDto.getDeviceModelId()).orElseThrow(()->new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
-            deviceRepository.save(DeviceConverter.toDevice(deviceAddDto,warehouse,company,deviceModel));
+            deviceRepository.saveAndFlush(DeviceConverter.toDevice(deviceAddDto,warehouse,company,deviceModel));
     }
 
     @Override
@@ -208,7 +208,7 @@ public class DeviceServiceImpl implements DeviceService {
         Company company=companyRepository.findById(deviceEditDto.getCompanyId()).orElseThrow(()->new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
         DeviceModel deviceModel=deviceModelRepository.findById(deviceEditDto.getDeviceModelId()).orElseThrow(()->new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
         Device device=deviceRepository.findById(deviceEditDto.getId()).orElseThrow(()->new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
-        deviceRepository.save(DeviceConverter.toDevice(deviceEditDto,device,warehouse,company,deviceModel));
+        deviceRepository.saveAndFlush(DeviceConverter.toDevice(deviceEditDto,device,warehouse,company,deviceModel));
     }
 
     @Override

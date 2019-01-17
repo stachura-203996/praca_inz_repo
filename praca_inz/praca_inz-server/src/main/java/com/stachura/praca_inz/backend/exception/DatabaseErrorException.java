@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 /**
  * Klasa wyjątku rzucanego przy naruszeniu ograniczeń nałożonych przez tabele w bazie danych
  */
-@ResponseStatus(HttpStatus.BAD_REQUEST)
+@ResponseStatus(HttpStatus.FORBIDDEN)
 public class DatabaseErrorException extends AppBaseException {
 
     public static final String DATABASE_ERROR = "error_database";

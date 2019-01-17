@@ -43,19 +43,8 @@ export class WarehouseEditComponent implements OnInit {
 
     getWarehouse() {
         const id = this.route.snapshot.paramMap.get('id');
-        this.warehouseService.getWarehouseEdit(id).subscribe(x => {this.warehouseEditElement = x}, error => {
-            if (error === this.configuration.ERROR_NO_OBJECT_IN_DATABASE) {
-                this.translate.get('no.object.in.database.error').subscribe(x => {
-                    this.messageService.error(x);
-                })
-            } else {
-                this.translate.get('unknown.error').subscribe(x => {
-                    this.messageService.error(x);
-                })
-            }
-        });
+        this.warehouseService.getWarehouseEdit(id).subscribe(x => {this.warehouseEditElement = x});
     }
-
 
     getOffices() {
         this.officeService.getAll().subscribe((response: StructureListElement[]) => {
@@ -67,7 +56,6 @@ export class WarehouseEditComponent implements OnInit {
             }, this.offices);
         });
     }
-
 
     getWarehousesmen() {
         this.userService.getAllWarehousemen(this.offices.get(this.warehouseEditElement.officeName)).subscribe((response: UserListElement[]) => {
@@ -104,26 +92,6 @@ export class WarehouseEditComponent implements OnInit {
                         this.translate.get('success.warehouse.edit').subscribe(x => {
                             this.messageService.success(x)
                         })
-                    }, error => {
-                        if (error === this.configuration.OPTIMISTIC_LOCK) {
-                            this.translate.get('optimistic.lock').subscribe(x => {
-                                this.messageService.error(x);
-                            })
-
-                        } else  if (error === this.configuration.ERROR_WAREHOUSE_NAME_TAKEN) {
-                            this.translate.get('warehouse.name.taken.error').subscribe(x => {
-                                this.messageService.error(x);
-                            })
-                        } else if (error === this.configuration.ERROR_NO_OBJECT_IN_DATABASE) {
-                            this.translate.get('no.object.in.database.error').subscribe(x => {
-                                this.messageService.error(x);
-                            })
-                        } else {
-                            this.translate.get('unknown.error').subscribe(x => {
-                                this.messageService.error(x);
-                            })
-                        }
-
                     });
                 }
             });

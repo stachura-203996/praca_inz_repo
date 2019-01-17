@@ -22,6 +22,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
+import javax.persistence.LockModeType;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -37,6 +39,9 @@ public class OfficeServiceImpl implements OfficeService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private EntityManager em;
 
     @Override
     @Transactional(readOnly = true)
@@ -127,7 +132,7 @@ public class OfficeServiceImpl implements OfficeService {
     @Transactional
     @PreAuthorize("hasAuthority('OFFICE_UPDATE')")
     public void update(CompanyStructureEditDto companyStructureEditDto) throws EntityNotInDatabaseException {
-        Office beforeOffice=officeRepository.findById(companyStructureEditDto.getId()).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
+        Office beforeOffice=em.find(Office.class, companyStructureEditDto.getId(), LockModeType.OPTIMISTIC);
         Department department=departmentRepository.findById(companyStructureEditDto.getParentId()).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
         officeRepository.save(CompanyStructureConverter.toOffice(companyStructureEditDto,beforeOffice,department));
     }

@@ -21,7 +21,6 @@ export class DeviceUserComponent implements OnInit {
         this.getDevicesForLoggedUser()
     }
 
-
     getDevicesForLoggedUser(){
         this.deviceService.getAllDevicesForLoggedUser().subscribe(deviceListElement=> {this.devices=deviceListElement});
     }

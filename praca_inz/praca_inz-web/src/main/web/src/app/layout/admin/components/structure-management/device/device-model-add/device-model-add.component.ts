@@ -92,7 +92,6 @@ export class DeviceModelAddComponent implements OnInit {
         });
     }
 
-
     addParameter() {
             this.parameters.push(
                 {
@@ -103,7 +102,6 @@ export class DeviceModelAddComponent implements OnInit {
     }
 
     deleteParameter(name){
-
         for(var i=0; i< this.parameters.length; i++){
             if(this.parameters[i]["name"]==name){
                 this.parameters.splice(i,1);
@@ -147,20 +145,6 @@ export class DeviceModelAddComponent implements OnInit {
                                   this.messageService.success(x)
                               })
                           }
-                        }
-                    }, error => {
-                        if (error === this.configuration.ERROR_DEVICE_MODEL_NAME_NAME_TAKEN) {
-                            this.translate.get('device.model.name.taken.error').subscribe(x => {
-                                this.messageService.error(x);
-                            })
-                        } else if (error === this.configuration.ERROR_NO_OBJECT_IN_DATABASE) {
-                            this.translate.get('no.object.in.database.error').subscribe(x => {
-                                this.messageService.error(x);
-                            })
-                        } else {
-                            this.translate.get('unknown.error').subscribe(x => {
-                                this.messageService.error(x);
-                            })
                         }
                     });
                 }

@@ -10,6 +10,7 @@ import com.stachura.praca_inz.backend.model.security.UserRole;
 import com.stachura.praca_inz.backend.repository.UserRepository;
 import com.stachura.praca_inz.backend.service.EmailService;
 import com.stachura.praca_inz.backend.service.UserService;
+import com.stachura.praca_inz.backend.web.dto.PasswordResetDto;
 import com.stachura.praca_inz.backend.web.dto.user.*;
 import com.stachura.praca_inz.backend.web.dto.converter.UserConverter;
 import com.stachura.praca_inz.backend.web.utils.PasswordGenerator;
@@ -183,7 +184,7 @@ public class UserServiceImpl implements UserService {
         User user = userRepository.findById(passwordInfoForAdmin.getId()).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
         user.setPassword(passwordEncoder.encode(passwordInfoForAdmin.getNewPassword()));
         user.setVersion(passwordInfoForAdmin.getUserVersion());
-        userRepository.save(user);
+        userRepository.saveAndFlush(user);
 
     }
 
@@ -207,7 +208,7 @@ public class UserServiceImpl implements UserService {
         if (!passwordEncoder.matches(passwordInfoDto.getNewPassword(), user.getPassword())) {
             user.setPassword(passwordEncoder.encode(passwordInfoDto.getNewPassword()));
             user.setVersion(passwordInfoDto.getUserVersion());
-            userRepository.save(user);
+            userRepository.saveAndFlush(user);
 
         } else {
             throw new ServiceException(ServiceException.SAME_PASSWORD);
@@ -216,21 +217,26 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void resetPassword(String username) throws AppBaseException {
-        User user=userRepository.findByUsername(username).orElseThrow(()->new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
-        PasswordGenerator passwordGenerator = new PasswordGenerator.PasswordGeneratorBuilder()
-                .useDigits(true)
-                .useLower(true)
-                .useUpper(true)
-                .build();
-        String password = passwordGenerator.generate(8);
-        if(user.getUserdata().getLanguage().equals("ENG")) {
-            emailService.sendSimpleMessage(user.getUserdata().getEmail(), "Password reset","Password: " +password);
-        }else{
-            emailService.sendSimpleMessage(user.getUserdata().getEmail(), "Reset hasła","Hasło: "+ password);
+    public void resetPassword(PasswordResetDto passwordResetDto) throws EntityNotInDatabaseException, ServiceException {
+        User user = userRepository.findByUsername(passwordResetDto.getUsername()).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_USERNAME));
+        if (user.getUserdata().getEmail().equals(passwordResetDto.getEmail())) {
+            PasswordGenerator passwordGenerator = new PasswordGenerator.PasswordGeneratorBuilder()
+                    .useDigits(true)
+                    .useLower(true)
+                    .useUpper(true)
+                    .build();
+            String password = passwordGenerator.generate(8);
+            if (user.getUserdata().getLanguage().equals("ENG")) {
+                emailService.sendSimpleMessage(user.getUserdata().getEmail(), "Password reset", "Password: " + password);
+            } else {
+                emailService.sendSimpleMessage(user.getUserdata().getEmail(), "Reset hasła", "Hasło: " + password);
+            }
+            user.setPassword(passwordEncoder.encode(password));
+            userRepository.saveAndFlush(user);
+        } else{
+            throw  new ServiceException(ServiceException.INCORRECT_PASSWORD_RESET_DATA);
         }
-        user.setPassword(passwordEncoder.encode(password));
-        userRepository.save(user);
+
     }
 
 

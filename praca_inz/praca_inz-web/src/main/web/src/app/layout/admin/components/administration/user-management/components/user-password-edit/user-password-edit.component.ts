@@ -53,22 +53,6 @@ export class UserPasswordEditComponent implements OnInit {
                         this.translate.get('success.change.password.msg').subscribe(x=>{
                             this.messageService.success(x)
                         })
-                    }, error => {
-                        if (error === this.configuration.OPTIMISTIC_LOCK) {
-                            this.translate.get('optimistic.lock').subscribe(x => {
-                                this.messageService.error(x);
-                            })
-
-                        } else  if (error === this.configuration.ERROR_SAME_PASSWORD) {
-                            this.translate.get('same.password.error').subscribe(x => {
-                                this.messageService.error(x);
-                            })
-                        } else {
-                            this.translate.get('unknown.error').subscribe(x => {
-                                this.messageService.error(x);
-                            })
-                        }
-
                     });
                 }
             });

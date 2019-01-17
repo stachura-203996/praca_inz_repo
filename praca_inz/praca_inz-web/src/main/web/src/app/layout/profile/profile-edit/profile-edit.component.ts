@@ -37,7 +37,6 @@ export class ProfileEditComponent implements OnInit {
         this.getProfileEdit();
     }
 
-
     getProfileEdit(){
         const id = this.route.snapshot.paramMap.get('id');
         this.profileService.getUserProfileEdit().subscribe(x=>this.userEditElement=x);
@@ -54,7 +53,6 @@ export class ProfileEditComponent implements OnInit {
         });
 
     }
-
 
     profileUpdate() {
         var entity: string;
@@ -78,25 +76,6 @@ export class ProfileEditComponent implements OnInit {
                             this.translate.get('success.profile.edit').subscribe(x=>{
                                 this.messageService.success(x)
                             })
-                        }, error => {
-                            if (error === this.configuration.OPTIMISTIC_LOCK) {
-                                this.translate.get('optimistic.lock').subscribe(x => {
-                                    this.messageService.error(x);
-                                })
-                            } else  if (error === this.configuration.ERROR_USERNAME_TAKEN) {
-                                this.translate.get('username.taken.error').subscribe(x => {
-                                    this.messageService.error(x);
-                                })
-                            } else if (error === this.configuration.ERROR_EMAIL_TAKEN) {
-                                this.translate.get('email.taken.error').subscribe(x => {
-                                    this.messageService.error(x);
-                                })
-                            } else {
-                                this.translate.get('unknown.error').subscribe(x => {
-                                    this.messageService.error(x);
-                                })
-                            }
-
                         });
                 }
             });

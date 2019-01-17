@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class EntityNotInDatabaseException extends AppBaseException {
 
     public static final String NO_OBJECT = "error_no_object_in_database";
+    public static final String NO_USERNAME="error_no_username_in_database";
 
     public EntityNotInDatabaseException() {
     }

@@ -85,17 +85,6 @@ export class UserListComponent implements OnInit {
                 if (confirmed) {
                     this.userService.deleteUser(String(user.id)).subscribe(resp => {
                         this.filterUsers(null)
-                    }, error => {
-                        if (error === this.configuration.ERROR_NO_OBJECT_IN_DATABASE) {
-                            this.translate.get('no.object.in.database.error').subscribe(x => {
-                                this.messageService.error(x);
-                            })
-                        } else {
-                            this.translate.get('unknown.error').subscribe(x => {
-                                this.messageService.error(x);
-                            })
-                        }
-
                     });
                 }
             });

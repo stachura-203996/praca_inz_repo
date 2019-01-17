@@ -60,16 +60,6 @@ export class CompanyViewComponent implements OnInit {
         const id = this.route.snapshot.paramMap.get('id');
         this.companyService.getCompany(id).subscribe(x => {
             this.company = x
-        }, error => {
-            if (error === this.configuration.ERROR_NO_OBJECT_IN_DATABASE) {
-                this.translate.get('no.object.in.database.error').subscribe(x => {
-                    this.messageService.error(x);
-                })
-            } else {
-                this.translate.get('unknown.error').subscribe(x => {
-                    this.messageService.error(x);
-                })
-            }
         });
     }
 

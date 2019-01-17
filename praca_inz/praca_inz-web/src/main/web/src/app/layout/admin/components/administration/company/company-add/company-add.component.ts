@@ -49,17 +49,6 @@ export class CompanyAddComponent implements OnInit {
                         this.translate.get('success.company.add').subscribe(x=>{
                             this.messageService.success(x)
                         })
-                    }, error => {
-                        console.log(error.message);
-                        if (error.message === this.configuration.ERROR_COMPANY_NAME_TAKEN) {
-                            this.translate.get('comapny.name.taken.error').subscribe(x => {
-                                this.messageService.error(x);
-                            })
-                        } else {
-                            this.translate.get('unknown.error').subscribe(x => {
-                                this.messageService.error(x);
-                            })
-                        }
                     });
                 }
             });

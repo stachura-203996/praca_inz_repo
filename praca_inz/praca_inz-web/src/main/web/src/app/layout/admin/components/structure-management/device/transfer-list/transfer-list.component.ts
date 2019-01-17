@@ -29,11 +29,9 @@ export class TransferListComponent implements OnInit {
             this.deviceService.getAllTransfers().subscribe(transferListElement => {
                 this.transfers = transferListElement
             });
-
     }
 
     filterTransfers(searchText: string) {
-
         this.deviceService.getAllTransfers().subscribe(transfers => {
             if (!transfers) {
                 this.transfers = [];

@@ -276,6 +276,8 @@
     "success.company.edit":"Successful edit of company ",
     "success.company.delete":"Company deleted",
     "no.object.in.database.error": "Element don't exists",
+    "no.username.in.database.error":"Username don't exists",
+    "incorrect.password.reset.data":"Incorrect data",
     "system.message.delete":"Delete system message",
     "success.system.message.delete":"System message deleted",
     "success.user.add":"Successful addition of user",

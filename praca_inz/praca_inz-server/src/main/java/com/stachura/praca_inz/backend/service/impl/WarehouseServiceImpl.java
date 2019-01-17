@@ -171,7 +171,7 @@ public class WarehouseServiceImpl implements WarehouseService {
     public void createWarehouse(WarehouseAddDto warehouseAddDto) throws AppBaseException {
         User user = userRepository.findById(warehouseAddDto.getUserId()).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
         Office office = officeRepository.findById(warehouseAddDto.getOfficeId()).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
-        warehouseRepository.save(WarehouseConverter.toWarehouse(warehouseAddDto, user, office));
+        warehouseRepository.saveAndFlush(WarehouseConverter.toWarehouse(warehouseAddDto, user, office));
 
 
     }
@@ -183,7 +183,7 @@ public class WarehouseServiceImpl implements WarehouseService {
         Warehouse beforeWarehouse = warehouseRepository.findById(warehouseEditDto.getId()).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
         User user = userRepository.findById(warehouseEditDto.getUserId()).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
         Office office = officeRepository.findById(warehouseEditDto.getOfficeId()).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
-        warehouseRepository.save(WarehouseConverter.toWarehouse(warehouseEditDto, beforeWarehouse, user, office));
+        warehouseRepository.saveAndFlush(WarehouseConverter.toWarehouse(warehouseEditDto, beforeWarehouse, user, office));
     }
 
     @Override

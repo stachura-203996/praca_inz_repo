@@ -50,19 +50,8 @@ export class DepartmentViewComponent implements OnInit {
 
     getDepartment() {
         const id = this.route.snapshot.paramMap.get('id');
-        this.departmentService.getDepartmentView(id).subscribe(x => {this.department = x}, error => {
-            if (error === this.configuration.ERROR_NO_OBJECT_IN_DATABASE) {
-                this.translate.get('no.object.in.database.error').subscribe(x => {
-                    this.messageService.error(x);
-                })
-            } else {
-                this.translate.get('unknown.error').subscribe(x => {
-                    this.messageService.error(x);
-                })
-            }
-        });
+        this.departmentService.getDepartmentView(id).subscribe(x => {this.department = x});
     }
-
 
     getOfficesForDepartment() {
         const id = this.route.snapshot.paramMap.get('id');
@@ -88,7 +77,6 @@ export class DepartmentViewComponent implements OnInit {
             this.devices = deviceListElement
         });
     }
-
 
     getAddressStructure(structure:StructureListElement): string {
         if (structure.flatNumber == null || structure.flatNumber === "0") {

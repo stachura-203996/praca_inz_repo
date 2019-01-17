@@ -19,8 +19,6 @@ export class ProfileComponent implements OnInit {
     transfers: TransferListElement[];
 
 
-
-
   constructor(private profileService:ProfileService,private deviceService : DeviceService,private translate:TranslateService ) { }
 
     ngOnInit() {

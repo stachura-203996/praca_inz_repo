@@ -93,7 +93,7 @@ public class NotificationServiceImpl implements NotificationService {
     @Transactional
     @PreAuthorize("hasAuthority('NOTIFICATION_CREATE')")
     public void createNewNotification(Notification notification)throws AppBaseException {
-            notificationRepository.save(notification);
+            notificationRepository.saveAndFlush(notification);
             String link = "<a href=\"http://localhost:"+ port+"/ui/page/" +notification.getUrl()+"\">Click</a>";
             String description=notification.getDescription()+"<br>"+link;
             emailService.sendMessageWithLink(notification.getUser().getUserdata().getEmail(),notification.getTitle(),description);
@@ -103,7 +103,7 @@ public class NotificationServiceImpl implements NotificationService {
     @Transactional
     @PreAuthorize("hasAuthority('NOTIFICATION_UPDATE')")
     public void updateNotification(Notification notification) throws AppBaseException {
-        notificationRepository.save(notification);
+        notificationRepository.saveAndFlush(notification);
     }
 
     @Override

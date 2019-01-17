@@ -48,31 +48,11 @@ export class OfficeViewComponent implements OnInit {
 
     getOffice() {
         const id = this.route.snapshot.paramMap.get('id');
-        this.officeService.getOfficeView(id).subscribe(x =>{ this.office = x}, error => {
-            if (error === this.configuration.ERROR_NO_OBJECT_IN_DATABASE) {
-                this.translate.get('no.object.in.database.error').subscribe(x => {
-                    this.messageService.error(x);
-                })
-            } else {
-                this.translate.get('unknown.error').subscribe(x => {
-                    this.messageService.error(x);
-                })
-            }
-        });
+        this.officeService.getOfficeView(id).subscribe(x =>{ this.office = x});
     }
 
     getLoggedUserRoles() {
-        this.userService.getLoggedUserRoles().subscribe(x => {this.roles = x}, error => {
-            if (error === this.configuration.ERROR_NO_OBJECT_IN_DATABASE) {
-                this.translate.get('no.object.in.database.error').subscribe(x => {
-                    this.messageService.error(x);
-                })
-            } else {
-                this.translate.get('unknown.error').subscribe(x => {
-                    this.messageService.error(x);
-                })
-            }
-        });
+        this.userService.getLoggedUserRoles().subscribe(x => {this.roles = x});
     }
 
     getDevicesForOffice() {

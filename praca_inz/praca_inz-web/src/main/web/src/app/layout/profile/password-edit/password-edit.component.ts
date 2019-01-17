@@ -13,7 +13,6 @@ import {Configuration} from "../../../app.constants";
 })
 export class PasswordEditComponent implements OnInit {
     passwordData: PasswordData = new PasswordData();
-    // recaptcha = false;
 
     constructor(private profileService: ProfileService,
                 private translate: TranslateService,
@@ -46,34 +45,14 @@ export class PasswordEditComponent implements OnInit {
             .confirm(entity, message, yes, no)
             .subscribe(confirmed => {
                 if (confirmed) {
-                        this.profileService.changePassword(this.passwordData).subscribe(response => {
-                            this.router.navigateByUrl('/profile')
-                            this.translate.get('success.change.password.msg').subscribe(x=>{
-                                this.messageService.success(x)
-                            })
-                            }, error => {
-                                if (error === this.configuration.OPTIMISTIC_LOCK) {
-                                    this.translate.get('optimistic.lock').subscribe(x => {
-                                        this.messageService.error(x);
-                                    })
-
-                                } else  if (error === this.configuration.ERROR_SAME_PASSWORD) {
-                                    this.translate.get('same.password.error').subscribe(x => {
-                                        this.messageService.error(x);
-                                    })
-                                } else if (error === 'incorrect_password') {
-                                    this.translate.get('not.exists.password').subscribe(x => {
-                                        this.messageService.error(x);
-                                    })
-                                } else{
-                                    this.translate.get('unknown.error').subscribe(x => {
-                                        this.messageService.error(x);
-                                    })
-                                }
-
-                            });
+                    this.profileService.changePassword(this.passwordData).subscribe(response => {
+                        this.router.navigateByUrl('/profile')
+                        this.translate.get('success.change.password.msg').subscribe(x => {
+                            this.messageService.success(x)
+                        })
+                    });
                 }
             });
-}
+    }
 
 }

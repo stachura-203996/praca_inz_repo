@@ -190,11 +190,11 @@ public class RequestServiceImpl implements RequestService {
             notificationService.createNewNotification(NotificationMessages.getRequestReceivedManagerNotifiaction(request,m));
         }
        notificationService.createNewNotification(NotificationMessages.getRequestSentNotifiaction(request,user));
-        requestRepository.save(request);
+        requestRepository.saveAndFlush(request);
 
         for (Device d : request.getDevices()) {
             d.setStatus(DeviceStatus.RESERVED);
-            deviceRepository.save(d);
+            deviceRepository.saveAndFlush(d);
         }
     }
 
@@ -206,11 +206,11 @@ public class RequestServiceImpl implements RequestService {
         DeviceModel device = deviceModelRepository.findById(deviceRequestAddDto.getDeviceModelId()).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
         Warehouse warehouse=Lists.newArrayList(warehouseRepository.findAll()).stream().filter(x->x.getWarehouseType().equals(WarehouseType.USER)&&x.getUser().getUsername().equals(username)).findFirst().orElseThrow(()->new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
         Request request=RequestConverter.toRequest(deviceRequestAddDto, device,warehouse, user);
-        requestRepository.save(request);
+        requestRepository.saveAndFlush(request);
 
         for (Device d : request.getDevices()) {
             d.setStatus(DeviceStatus.RESERVED);
-            deviceRepository.save(d);
+            deviceRepository.saveAndFlush(d);
         }
     }
 
@@ -218,7 +218,7 @@ public class RequestServiceImpl implements RequestService {
     @Transactional
     @PreAuthorize("hasAuthority('REQUEST_UPDATE')")
     public void updateRequest(Request request) throws AppBaseException {
-        requestRepository.save(request);
+        requestRepository.saveAndFlush(request);
     }
 
     @Override
@@ -235,7 +235,7 @@ public class RequestServiceImpl implements RequestService {
         Request request = requestRepository.findById(changeStatusDto.getId()).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
         request.setVersion(changeStatusDto.getVersion());
         request.setStatus(Status.valueOf(changeStatusDto.getStatus()));
-        requestRepository.save(request);
+        requestRepository.saveAndFlush(request);
 
         switch (request.getRequestType()) {
 
@@ -247,7 +247,7 @@ public class RequestServiceImpl implements RequestService {
                         d.setStatus(DeviceStatus.REPOSE);
                         d.setWarehouse(request.getRecieverWarehouse());
                         transfer.setDevice(d);
-                        deviceRepository.save(d);
+                        deviceRepository.saveAndFlush(d);
                     }
                     transfer.setRecieverWarehouse(request.getRecieverWarehouse());
                     transfer.setSenderWarehouse(request.getSenderWarehouse());
@@ -257,21 +257,21 @@ public class RequestServiceImpl implements RequestService {
                     transfer.setDeleted(false);
                     transfer.setDescription(request.getDescription());
                     transfer.setUsername(request.getUser().getUsername());
-                    transferRepository.save(transfer);
+                    transferRepository.saveAndFlush(transfer);
                     request.setStatus(Status.REALIZED);
-                    requestRepository.save(request);
+                    requestRepository.saveAndFlush(request);
                 }
 
                 break;
             case DEVICE_REQUEST:
                 if (Status.ACCEPTED.name().equals(changeStatusDto.getStatus())) {
                     request.setStatus(Status.IN_WAREHOUSE);
-                    requestRepository.save(request);
+                    requestRepository.saveAndFlush(request);
 
                 } else if (Status.IN_WAREHOUSE.name().equals(changeStatusDto.getStatus())) {
                     for (Device d : request.getDevices()) {
                         d.setStatus(DeviceStatus.RESERVED);
-                        deviceRepository.save(d);
+                        deviceRepository.saveAndFlush(d);
                     }
                 } else if (Status.TO_TAKE_AWAY.name().equals(changeStatusDto.getStatus())) {
                     Transfer transfer = new Transfer();
@@ -288,11 +288,11 @@ public class RequestServiceImpl implements RequestService {
                         d.setStatus(DeviceStatus.REPOSE);
                         d.setWarehouse(request.getRecieverWarehouse());
                         transfer.setDevice(d);
-                        transferRepository.save(transfer);
-                        deviceRepository.save(d);
+                        transferRepository.saveAndFlush(transfer);
+                        deviceRepository.saveAndFlush(d);
                     }
                     request.setStatus(Status.REALIZED);
-                    requestRepository.save(request);
+                    requestRepository.saveAndFlush(request);
                 }
 
         }
@@ -317,7 +317,7 @@ public class RequestServiceImpl implements RequestService {
             deviceList.add(deviceRepository.findById(d).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT)));
         }
         request.setDevices(deviceList);
-        requestRepository.save(request);
+        requestRepository.saveAndFlush(request);
     }
 
 

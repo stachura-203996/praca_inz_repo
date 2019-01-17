@@ -31,7 +31,6 @@ export class WarehouseListComponent implements OnInit {
     }
 
     getWarehouses() {
-
         this.warehouseService.getAll().subscribe(warehouseListElement => {
             this.warehouses = warehouseListElement
         });
@@ -90,17 +89,6 @@ export class WarehouseListComponent implements OnInit {
                             this.translate.get('success.warehouse.delete').subscribe(x => {
                                 this.messageService.success(x)
                             })
-                        }, error => {
-                            if (error === this.configuration.ERROR_NO_OBJECT_IN_DATABASE) {
-                                this.translate.get('no.object.in.database.error').subscribe(x => {
-                                    this.messageService.error(x);
-                                })
-                            } else {
-                                this.translate.get('unknown.error').subscribe(x => {
-                                    this.messageService.error(x);
-                                })
-                            }
-
                         });
                     }
                 });

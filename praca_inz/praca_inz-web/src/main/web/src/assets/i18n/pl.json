@@ -271,6 +271,8 @@
     "success.company.edit":"Pomyślna edycja firmy",
     "success.company.delete":"Firma została usunięta",
     "no.object.in.database.error": "Element nie istnieje",
+    "no.username.in.database.error":"Nazwa użytkownika nie istnieje",
+    "incorrect.password.reset.data":"Wprowadzone dane są niepoprawne!",
     "system.message.delete":"Usuń wiadomość systemową",
     "success.system.message.delete":"Wiadomość systemowa została usunięta",
     "success.user.add":"Pomyślne dodanie użytkownika",

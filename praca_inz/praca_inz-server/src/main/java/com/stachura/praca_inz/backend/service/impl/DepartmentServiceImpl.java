@@ -25,6 +25,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import javax.persistence.LockModeType;
 import javax.persistence.OptimisticLockException;
 import javax.persistence.PersistenceException;
 import java.util.ArrayList;
@@ -135,7 +136,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     @PreAuthorize("hasAuthority('DEPARTMENT_UPDATE')")
     public void updateDepartment(CompanyStructureEditDto companyStructureEditDto) throws EntityOptimisticLockException, EntityNotInDatabaseException, DatabaseErrorException {
         try {
-            Department beforeDepartment = departmentRepository.findById(companyStructureEditDto.getId()).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
+            Department beforeDepartment = em.find(Department.class, companyStructureEditDto.getId(), LockModeType.OPTIMISTIC);
             Company company = companyRepository.findById(companyStructureEditDto.getParentId()).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
             departmentRepository.save(CompanyStructureConverter.toDepartment(companyStructureEditDto, beforeDepartment, company));
             em.flush();

@@ -3,7 +3,6 @@ package com.stachura.praca_inz.backend.service.impl;
 import com.google.common.collect.Lists;
 import com.stachura.praca_inz.backend.exception.EntityNotInDatabaseException;
 import com.stachura.praca_inz.backend.exception.EntityOptimisticLockException;
-import com.stachura.praca_inz.backend.exception.base.AppBaseException;
 import com.stachura.praca_inz.backend.model.Address;
 import com.stachura.praca_inz.backend.model.Userdata;
 import com.stachura.praca_inz.backend.model.Warehouse;
@@ -123,12 +122,12 @@ private WarehouseRepository warehouseRepository;
         warehouse.setWarehouseType(WarehouseType.USER);
         warehouse.setVersion(profileEditDto.getVersionWarehouse());
         try{
-        userdataRepository.save(userdata);
+        userdataRepository.saveAndFlush(userdata);
         user.setUserdata(userdata);
-        userRepository.save(user);
+        userRepository.saveAndFlush(user);
         warehouse.setUser(user);
         warehouse.setName(user.getUserdata().getName() + "|" + user.getUserdata().getSurname() + "|" + user.getUsername() + "|WAREHOUSE");
-        warehouseRepository.save(warehouse);
+        warehouseRepository.saveAndFlush(warehouse);
         }catch (OptimisticLockException e){
             new EntityOptimisticLockException(EntityOptimisticLockException.OPTIMISTIC_LOCK);
         }

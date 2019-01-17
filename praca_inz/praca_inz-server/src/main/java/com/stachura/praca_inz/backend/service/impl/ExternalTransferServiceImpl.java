@@ -83,7 +83,7 @@ public class ExternalTransferServiceImpl implements ExternalTransferService {
     @PreAuthorize("hasAuthority('DELIVERY_CREATE')")
     public void createNewDelivery(ExternalTransfer externalTransfer) throws AppBaseException {
         try {
-            externalTransferRepository.save(externalTransfer);
+            externalTransferRepository.saveAndFlush(externalTransfer);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -94,7 +94,7 @@ public class ExternalTransferServiceImpl implements ExternalTransferService {
     @PreAuthorize("hasAuthority('DELIVERY_UPDATE')")
     public void updateDelivery(ExternalTransfer externalTransfer) throws AppBaseException {
         try {
-            externalTransferRepository.save(externalTransfer);
+            externalTransferRepository.saveAndFlush(externalTransfer);
         } catch (OptimisticLockException e) {
             new EntityOptimisticLockException(EntityOptimisticLockException.OPTIMISTIC_LOCK);
         }

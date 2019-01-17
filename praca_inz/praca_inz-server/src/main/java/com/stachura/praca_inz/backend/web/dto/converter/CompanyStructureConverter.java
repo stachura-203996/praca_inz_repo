@@ -131,37 +131,34 @@ public class CompanyStructureConverter {
 
     //SAVE AFTER EDIT
     public static Department toDepartment(CompanyStructureEditDto companyStructureEditDto, Department beforeDepartment, Company company) {
-        Department department =new Department(beforeDepartment.getId(),beforeDepartment.getVersion());
-        department.setName(companyStructureEditDto.getName());
-        department.setDescription(companyStructureEditDto.getDescription());
-        department.setCompany(company);
-        department.setVersion(companyStructureEditDto.getVerison());
-        return department;
+        beforeDepartment.setName(companyStructureEditDto.getName());
+        beforeDepartment.setDescription(companyStructureEditDto.getDescription());
+        beforeDepartment.setCompany(company);
+        beforeDepartment.setVersion(companyStructureEditDto.getVerison());
+        return beforeDepartment;
     }
 
     public static Company toCompany(CompanyStructureEditDto companyStructureEditDto, Company beforeCompany) {
-        Company company=new Company(beforeCompany.getId(),beforeCompany.getVersion());
-        company.setName(companyStructureEditDto.getName());
-        company.setDescription(companyStructureEditDto.getDescription());
-        company.getAddress().setCity(companyStructureEditDto.getCity());
-        company.getAddress().setStreet(companyStructureEditDto.getStreet());
-        company.getAddress().setBuildingNumber(companyStructureEditDto.getBuildingNumber());
-        company.getAddress().setFlatNumber(companyStructureEditDto.getFlatNumber());
-        company.setVersion(companyStructureEditDto.getVerison());
-        return company;
+        beforeCompany.setName(companyStructureEditDto.getName());
+        beforeCompany.setDescription(companyStructureEditDto.getDescription());
+        beforeCompany.getAddress().setCity(companyStructureEditDto.getCity());
+        beforeCompany.getAddress().setStreet(companyStructureEditDto.getStreet());
+        beforeCompany.getAddress().setBuildingNumber(companyStructureEditDto.getBuildingNumber());
+        beforeCompany.getAddress().setFlatNumber(companyStructureEditDto.getFlatNumber());
+        beforeCompany.setVersion(companyStructureEditDto.getVerison());
+        return beforeCompany;
     }
 
     public static Office toOffice(CompanyStructureEditDto companyStructureEditDto, Office beforeOffice, Department department) {
-        Office office=new Office(beforeOffice.getId(),beforeOffice.getVersion());
-        office.setName(companyStructureEditDto.getName());
-        office.setDescription(companyStructureEditDto.getDescription());
-        office.getAddress().setCity(companyStructureEditDto.getCity());
-        office.getAddress().setStreet(companyStructureEditDto.getStreet());
-        office.getAddress().setBuildingNumber(companyStructureEditDto.getBuildingNumber());
-        office.getAddress().setFlatNumber(companyStructureEditDto.getFlatNumber());
-        office.setVersion(companyStructureEditDto.getVerison());
-        office.setDepartment(department);
-        return office;
+        beforeOffice.setName(companyStructureEditDto.getName());
+        beforeOffice.setDescription(companyStructureEditDto.getDescription());
+        beforeOffice.getAddress().setCity(companyStructureEditDto.getCity());
+        beforeOffice.getAddress().setStreet(companyStructureEditDto.getStreet());
+        beforeOffice.getAddress().setBuildingNumber(companyStructureEditDto.getBuildingNumber());
+        beforeOffice.getAddress().setFlatNumber(companyStructureEditDto.getFlatNumber());
+        beforeOffice.setVersion(companyStructureEditDto.getVerison());
+        beforeOffice.setDepartment(department);
+        return beforeOffice;
     }
 
 

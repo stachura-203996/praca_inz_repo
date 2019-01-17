@@ -35,7 +35,6 @@ export class ReportAddComponent implements OnInit {
         this.getRecievers();
     }
 
-
     getRecievers() {
         this.userService.getAll().subscribe((response: UserListElement[]) => {
             this.recivers = response.reduce(function(userMap, user){
@@ -47,7 +46,6 @@ export class ReportAddComponent implements OnInit {
         });
 
     }
-
 
     reportAdd(){
         var entity: string;
@@ -71,16 +69,6 @@ export class ReportAddComponent implements OnInit {
                             this.translate.get('success.report.add').subscribe(x => {
                                 this.messageService.success(x)
                             })
-                        }, error => {
-                            if (error === this.configuration.ERROR_NO_OBJECT_IN_DATABASE) {
-                                this.translate.get('no.object.in.database.error').subscribe(x => {
-                                    this.messageService.error(x);
-                                })
-                            } else {
-                                this.translate.get('unknown.error').subscribe(x => {
-                                    this.messageService.error(x);
-                                })
-                            }
                         });
                 }
             });

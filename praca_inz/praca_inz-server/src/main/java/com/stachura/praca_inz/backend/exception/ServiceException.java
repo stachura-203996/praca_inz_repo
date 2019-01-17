@@ -9,6 +9,7 @@ public class ServiceException extends AppBaseException {
     public static final String INCORRECT_USERNAME = "incorrect_username";
     public static final String INCORRECT_HASH_ALGORITHM = "incorrect_hash_algorithm";
     public static final String SAME_PASSWORD = "same_password";
+    public static final String INCORRECT_PASSWORD_RESET_DATA="incorect_password_reset_data";
     public static final String INCORRECT_PASSWORD = "incorrect_password";
     public static final String INCORRECT_LENGTH_PASSWORD = "incorrect_length_password";
     public static final String JSON_PARSE_ERROR = "json_parse_error";

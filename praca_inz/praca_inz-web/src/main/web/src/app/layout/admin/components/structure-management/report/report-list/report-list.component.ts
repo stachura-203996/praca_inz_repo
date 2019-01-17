@@ -68,7 +68,6 @@ export class ReportListComponent implements OnInit {
         return report.recieverName+" "+report.recieverSurname+" | "+report.receiver;
     }
 
-
     delete(structure: ReportListElement) {
         var entity: string;
         var message: string;
@@ -90,17 +89,6 @@ export class ReportListComponent implements OnInit {
                         this.translate.get('success.report.delete').subscribe(x=>{
                             this.messageService.success(x)
                         })
-                    }, error => {
-                        if (error === this.configuration.ERROR_NO_OBJECT_IN_DATABASE) {
-                            this.translate.get('no.object.in.database.error').subscribe(x => {
-                                this.messageService.error(x);
-                            })
-                        } else {
-                            this.translate.get('unknown.error').subscribe(x => {
-                                this.messageService.error(x);
-                            })
-                        }
-
                     });
                 }
             });

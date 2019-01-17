@@ -1,6 +1,7 @@
 package com.stachura.praca_inz.backend.service;
 
 import com.stachura.praca_inz.backend.exception.base.AppBaseException;
+import com.stachura.praca_inz.backend.web.dto.PasswordResetDto;
 import com.stachura.praca_inz.backend.web.dto.user.*;
 
 import java.util.List;
@@ -39,5 +40,5 @@ public interface UserService {
 
     void updatePassword(PasswordInfoDto passwordInfoDto, String username) throws AppBaseException;
 
-    void resetPassword(String email) throws AppBaseException;
+    void resetPassword(PasswordResetDto email) throws AppBaseException;
 }

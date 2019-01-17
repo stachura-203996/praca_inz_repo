@@ -60,7 +60,6 @@ export class UserViewComponent implements OnInit {
         }
     }
 
-
     getTransfersForUser() {
         const username = this.route.snapshot.paramMap.get('username');
         this.deviceService.getAllTransfersForUser(username).subscribe(transferListElement => {

@@ -98,20 +98,6 @@ export class UserAddComponent implements OnInit {
                             this.translate.get('success.user.add').subscribe(x=>{
                                 this.messageService.success(x)
                             })
-                        }, error => {
-                            if (error === this.configuration.ERROR_USERNAME_TAKEN) {
-                                this.translate.get('username.taken.error').subscribe(x => {
-                                    this.messageService.error(x);
-                                })
-                            } else if (error === this.configuration.ERROR_EMAIL_TAKEN) {
-                                this.translate.get('email.taken.error').subscribe(x => {
-                                    this.messageService.error(x);
-                                })
-                            } else {
-                                this.translate.get('unknown.error').subscribe(x => {
-                                    this.messageService.error(x);
-                                })
-                            }
                         });
                 }
             });

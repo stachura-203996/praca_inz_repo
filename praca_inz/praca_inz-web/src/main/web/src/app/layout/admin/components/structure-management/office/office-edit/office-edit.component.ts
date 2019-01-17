@@ -89,27 +89,6 @@ export class OfficeEditComponent implements OnInit {
                         this.structureEditElement.parentId = this.departments.get(this.structureEditElement.parentName);
                         this.officeService.updateOffice(this.structureEditElement).subscribe(resp => {
                             this.router.navigateByUrl('/admin/offices');
-                        }, error => {
-                            console.log(error.message)
-                            if (error.message === this.configuration.OPTIMISTIC_LOCK) {
-                                this.translate.get('optimistic.lock').subscribe(x => {
-                                    this.messageService.error(x);
-                                })
-
-                            } else  if (error.message === this.configuration.ERROR_OFFICE_NAME_TAKEN) {
-                                this.translate.get('office.name.taken.error').subscribe(x => {
-                                    this.messageService.error(x);
-                                })
-                            } else if (error.message === this.configuration.ERROR_NO_OBJECT_IN_DATABASE) {
-                                this.translate.get('no.object.in.database.error').subscribe(x => {
-                                    this.messageService.error(x);
-                                })
-                            } else {
-                                this.translate.get('unknown.error').subscribe(x => {
-                                    this.messageService.error(x);
-                                })
-                            }
-
                         });
                 }
             });

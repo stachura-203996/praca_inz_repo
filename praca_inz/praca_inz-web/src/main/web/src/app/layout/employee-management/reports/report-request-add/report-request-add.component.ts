@@ -41,17 +41,7 @@ export class ReportRequestAddComponent implements OnInit {
 
     getRequest(){
         const id = this.route.snapshot.paramMap.get('id');
-        this.requestService.getRequestView(id).subscribe(x=>{this.request=x}, error => {
-            if (error === this.configuration.ERROR_NO_OBJECT_IN_DATABASE) {
-                this.translate.get('no.object.in.database.error').subscribe(x => {
-                    this.messageService.error(x);
-                })
-            } else {
-                this.translate.get('unknown.error').subscribe(x => {
-                    this.messageService.error(x);
-                })
-            }
-        });
+        this.requestService.getRequestView(id).subscribe(x=>{this.request=x});
     }
 
     getRecievers() {
@@ -65,7 +55,6 @@ export class ReportRequestAddComponent implements OnInit {
         });
 
     }
-
 
     reportAdd(){
         var entity: string;
@@ -94,16 +83,6 @@ export class ReportRequestAddComponent implements OnInit {
                         this.translate.get('success.report.add').subscribe(x => {
                             this.messageService.success(x)
                         })
-                    }, error => {
-                         if (error === this.configuration.ERROR_NO_OBJECT_IN_DATABASE) {
-                            this.translate.get('no.object.in.database.error').subscribe(x => {
-                                this.messageService.error(x);
-                            })
-                        } else {
-                            this.translate.get('unknown.error').subscribe(x => {
-                                this.messageService.error(x);
-                            })
-                        }
                     });
                 }
             });

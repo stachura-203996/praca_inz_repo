@@ -56,46 +56,16 @@ export class DeviceModelEditComponent implements OnInit {
 
 
     getLoggedUser() {
-        this.userService.getLoggedUser().subscribe(x => {this.currentUser = x}, error => {
-            if (error === this.configuration.ERROR_NO_OBJECT_IN_DATABASE) {
-                this.translate.get('no.object.in.database.error').subscribe(x => {
-                    this.messageService.error(x);
-                })
-            } else {
-                this.translate.get('unknown.error').subscribe(x => {
-                    this.messageService.error(x);
-                })
-            }
-        });
+        this.userService.getLoggedUser().subscribe(x => {this.currentUser = x});
     }
 
     getLoggedUserRoles() {
-        this.userService.getLoggedUserRoles().subscribe(x => {this.roles = x}, error => {
-            if (error === this.configuration.ERROR_NO_OBJECT_IN_DATABASE) {
-                this.translate.get('no.object.in.database.error').subscribe(x => {
-                    this.messageService.error(x);
-                })
-            } else {
-                this.translate.get('unknown.error').subscribe(x => {
-                    this.messageService.error(x);
-                })
-            }
-        });
+        this.userService.getLoggedUserRoles().subscribe(x => {this.roles = x});
     }
 
     getDeviceModel() {
         const id = this.route.snapshot.paramMap.get('id');
-        this.deviceService.getDeviceModelEdit(id).subscribe(x=>{this.deviceModelEditElement=x}, error => {
-            if (error === this.configuration.ERROR_NO_OBJECT_IN_DATABASE) {
-                this.translate.get('no.object.in.database.error').subscribe(x => {
-                    this.messageService.error(x);
-                })
-            } else {
-                this.translate.get('unknown.error').subscribe(x => {
-                    this.messageService.error(x);
-                })
-            }
-        });
+        this.deviceService.getDeviceModelEdit(id).subscribe(x=>{this.deviceModelEditElement=x});
     }
 
     getParameters() {
@@ -134,31 +104,14 @@ export class DeviceModelEditComponent implements OnInit {
         parameter.value=this.parameterValue;
         this.deviceService.createParameter(parameter,Number(id)).subscribe(rep=>{
             this.getParameters();
-        }, error => {
-                this.translate.get('unknown.error').subscribe(x => {
-                    this.messageService.error(x);
-                })
         });
-
     }
 
     deleteParameter(id:number){
 
        this.deviceService.deleteParameter(id).subscribe(rep=>{
            this.getParameters();
-       }, error => {
-           if (error === this.configuration.ERROR_NO_OBJECT_IN_DATABASE) {
-               this.translate.get('no.object.in.database.error').subscribe(x => {
-                   this.messageService.error(x);
-               })
-           } else {
-               this.translate.get('unknown.error').subscribe(x => {
-                   this.messageService.error(x);
-               })
-           }
-
        });
-
     }
 
     deviceUpdate() {
@@ -190,26 +143,6 @@ export class DeviceModelEditComponent implements OnInit {
                         this.translate.get('success.device.model.edit').subscribe(x => {
                             this.messageService.success(x)
                         })
-                    }, error => {
-                        if (error === this.configuration.OPTIMISTIC_LOCK) {
-                            this.translate.get('optimistic.lock').subscribe(x => {
-                                this.messageService.error(x);
-                            })
-
-                        } else  if (error === this.configuration.ERROR_DEVICE_MODEL_NAME_NAME_TAKEN) {
-                            this.translate.get('device.model.name.taken.error').subscribe(x => {
-                                this.messageService.error(x);
-                            })
-                        } else if (error === this.configuration.ERROR_NO_OBJECT_IN_DATABASE) {
-                            this.translate.get('no.object.in.database.error').subscribe(x => {
-                                this.messageService.error(x);
-                            })
-                        } else {
-                            this.translate.get('unknown.error').subscribe(x => {
-                                this.messageService.error(x);
-                            })
-                        }
-
                     });
                 }
             });

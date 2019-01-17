@@ -54,46 +54,16 @@ export class DeviceEditComponent implements OnInit {
 
 
     getLoggedUser() {
-        this.userService.getLoggedUser().subscribe(x =>{ this.currentUser = x}, error => {
-            if (error === this.configuration.ERROR_NO_OBJECT_IN_DATABASE) {
-                this.translate.get('no.object.in.database.error').subscribe(x => {
-                    this.messageService.error(x);
-                })
-            } else {
-                this.translate.get('unknown.error').subscribe(x => {
-                    this.messageService.error(x);
-                })
-            }
-        });
+        this.userService.getLoggedUser().subscribe(x =>{ this.currentUser = x});
     }
 
     getLoggedUserRoles() {
-        this.userService.getLoggedUserRoles().subscribe(x => {this.roles = x}, error => {
-            if (error === this.configuration.ERROR_NO_OBJECT_IN_DATABASE) {
-                this.translate.get('no.object.in.database.error').subscribe(x => {
-                    this.messageService.error(x);
-                })
-            } else {
-                this.translate.get('unknown.error').subscribe(x => {
-                    this.messageService.error(x);
-                })
-            }
-        });
+        this.userService.getLoggedUserRoles().subscribe(x => {this.roles = x});
     }
 
     getDevice() {
         const id = this.route.snapshot.paramMap.get('id');
-        this.deviceService.getDeviceEdit(id).subscribe(x=>{this.deviceEditElement=x}, error => {
-            if (error === this.configuration.ERROR_NO_OBJECT_IN_DATABASE) {
-                this.translate.get('no.object.in.database.error').subscribe(x => {
-                    this.messageService.error(x);
-                })
-            } else {
-                this.translate.get('unknown.error').subscribe(x => {
-                    this.messageService.error(x);
-                })
-            }
-        });
+        this.deviceService.getDeviceEdit(id).subscribe(x=>{this.deviceEditElement=x});
     }
 
     getDevicesModels() {
@@ -156,26 +126,6 @@ export class DeviceEditComponent implements OnInit {
                         this.translate.get('success.device.edit').subscribe(x => {
                             this.messageService.success(x)
                         })
-                    }, error => {
-                        if (error === this.configuration.OPTIMISTIC_LOCK) {
-                            this.translate.get('optimistic.lock').subscribe(x => {
-                                this.messageService.error(x);
-                            })
-
-                        } else  if (error === this.configuration.ERROR_SERIAL_NUMBER_NAME_TAKEN) {
-                            this.translate.get('device.serial.number.taken.error').subscribe(x => {
-                                this.messageService.error(x);
-                            })
-                        } else if (error === this.configuration.ERROR_NO_OBJECT_IN_DATABASE) {
-                            this.translate.get('no.object.in.database.error').subscribe(x => {
-                                this.messageService.error(x);
-                            })
-                        } else {
-                            this.translate.get('unknown.error').subscribe(x => {
-                                this.messageService.error(x);
-                            })
-                        }
-
                     });
                 }
             });

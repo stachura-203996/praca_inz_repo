@@ -26,14 +26,13 @@ public class EmailServiceImpl implements EmailService {
             message.setTo(to);
             message.setSubject(subject);
             message.setText(text);
+            message.setFrom("Inventory system");
 
             emailSender.send(message);
         } catch (MailException exception) {
             exception.printStackTrace();
         }
     }
-
-
 
 
     @Override

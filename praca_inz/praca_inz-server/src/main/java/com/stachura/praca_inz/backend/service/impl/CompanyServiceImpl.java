@@ -3,7 +3,6 @@ package com.stachura.praca_inz.backend.service.impl;
 import com.stachura.praca_inz.backend.exception.DatabaseErrorException;
 import com.stachura.praca_inz.backend.exception.EntityNotInDatabaseException;
 import com.stachura.praca_inz.backend.exception.EntityOptimisticLockException;
-import com.stachura.praca_inz.backend.exception.base.AppBaseException;
 import com.stachura.praca_inz.backend.model.Company;
 import com.stachura.praca_inz.backend.repository.AddressRepository;
 import com.stachura.praca_inz.backend.repository.CompanyRepository;
@@ -14,18 +13,17 @@ import com.stachura.praca_inz.backend.web.dto.company.CompanyStructureViewDto;
 import com.stachura.praca_inz.backend.web.dto.company.CompanyStructuresListElementDto;
 import com.stachura.praca_inz.backend.web.dto.converter.CompanyStructureConverter;
 import org.apache.log4j.Logger;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.orm.ObjectOptimisticLockingFailureException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.UnexpectedRollbackException;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
-import javax.persistence.OptimisticLockException;
+import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,10 +37,25 @@ public class CompanyServiceImpl implements CompanyService {
     @Autowired
     AddressRepository addressRepository;
 
-    @Autowired
+    @PersistenceContext
     EntityManager em;
 
     final static Logger logger = Logger.getLogger(CompanyService.class);
+
+
+
+    @Override
+    @Transactional(propagation = Propagation.MANDATORY)
+    @PreAuthorize("hasAuthority('COMPANY_CREATE')")
+    public void createNewCompany(CompanyStructureAddDto companyStructureAddDto) throws DatabaseErrorException {
+        try {
+            companyRepository.saveAndFlush(CompanyStructureConverter.toCompany(companyStructureAddDto));
+            em.flush();
+        }catch (PersistenceException e){
+            throw new DatabaseErrorException(DatabaseErrorException.COMPANY_NAME_TAKEN);
+        }
+    }
+
 
     @Override
     @Transactional(readOnly = true,propagation = Propagation.MANDATORY)
@@ -81,31 +94,20 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
 
-    @Override
-    @Transactional(propagation = Propagation.MANDATORY)
-    @PreAuthorize("hasAuthority('COMPANY_CREATE')")
-    public void createNewCompany(CompanyStructureAddDto companyStructureAddDto) throws DatabaseErrorException {
-        try {
-            companyRepository.save(CompanyStructureConverter.toCompany(companyStructureAddDto));
-            em.flush();
-        }catch (PersistenceException e){
-            throw new DatabaseErrorException(DatabaseErrorException.COMPANY_NAME_TAKEN);
-        }
-    }
-
 
     @Override
     @Transactional(propagation = Propagation.MANDATORY)
     @PreAuthorize("hasAuthority('COMPANY_UPDATE')")
     public void updateCompany(CompanyStructureEditDto companyStructureEditDto) throws EntityOptimisticLockException, EntityNotInDatabaseException, DatabaseErrorException {
         Company beforeCompany = companyRepository.findById(companyStructureEditDto.getId()).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
+        Hibernate.initialize(beforeCompany.getAddress());
         try {
+            companyRepository.detachCompany(beforeCompany);
             companyRepository.save(CompanyStructureConverter.toCompany(companyStructureEditDto, beforeCompany));
-            em.flush();
-        } catch (OptimisticLockException e) {
+        } catch (ObjectOptimisticLockingFailureException e) {
             throw new EntityOptimisticLockException(EntityOptimisticLockException.OPTIMISTIC_LOCK);
         } catch (PersistenceException e) {
-            throw new DatabaseErrorException(DatabaseErrorException.DEPARTMENT_NAME_TAKEN);
+            throw new DatabaseErrorException(DatabaseErrorException.COMPANY_NAME_TAKEN);
         }
     }
 

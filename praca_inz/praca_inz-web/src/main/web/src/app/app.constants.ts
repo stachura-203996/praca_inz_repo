@@ -28,23 +28,25 @@ export class Configuration {
     public ERROR_EMAIL_TAKEN = 'email_taken';
     public ERROR_USERNAME_TAKEN = 'un_taken';
     public SUCCESS = 'success'
-    public ERROR_SAME_PASSWORD='same_password';
+    public ERROR_SAME_PASSWORD = 'same_password';
+    public ERROR_NO_USERNAME_IN_DATABASE = 'error_no_username_in_database';
+    public ERROR_INCORRECT_PASSWORD_RESET_DATA = 'incorect_password_reset_data';
 
     //Company response codes
-    public ERROR_COMPANY_NAME_TAKEN= "cn_taken";
+    public ERROR_COMPANY_NAME_TAKEN = "cn_taken";
 
     //Department response codes
-    public ERROR_DEPARTMENT_NAME_TAKEN= "dn_taken";
+    public ERROR_DEPARTMENT_NAME_TAKEN = "dn_taken";
 
     //Office response codes
-    public ERROR_OFFICE_NAME_TAKEN= "on_taken";
+    public ERROR_OFFICE_NAME_TAKEN = "on_taken";
 
     //Warehouse response codes
-    public ERROR_WAREHOUSE_NAME_TAKEN= "wn_taken";
+    public ERROR_WAREHOUSE_NAME_TAKEN = "wn_taken";
 
     //Device response codes
-    public ERROR_SERIAL_NUMBER_NAME_TAKEN= "sn_taken";
+    public ERROR_SERIAL_NUMBER_NAME_TAKEN = "sn_taken";
 
     //Device mode response codes
-    public ERROR_DEVICE_MODEL_NAME_NAME_TAKEN= "dmn_taken";
+    public ERROR_DEVICE_MODEL_NAME_NAME_TAKEN = "dmn_taken";
 }

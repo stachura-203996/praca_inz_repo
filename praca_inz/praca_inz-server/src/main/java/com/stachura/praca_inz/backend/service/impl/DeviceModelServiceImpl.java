@@ -64,7 +64,7 @@ public class DeviceModelServiceImpl implements DeviceModelService {
     @Override
     public Long createNewParameter(ParameterListElementDto parameterListElementDto,Long id) throws AppBaseException {
         DeviceModel deviceModel=deviceModelRepository.findById(id).orElseThrow(()->new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
-        parameterRepository.save(ParameterConverter.toParameter(parameterListElementDto,deviceModel));
+        parameterRepository.saveAndFlush(ParameterConverter.toParameter(parameterListElementDto,deviceModel));
         return null;
     }
 
@@ -113,7 +113,7 @@ public class DeviceModelServiceImpl implements DeviceModelService {
         Company company=companyRepository.findById(deviceModelAddDto.getCompanyId()).orElseThrow(()->new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
          DeviceModel deviceModel=DeviceModelConverter.toDeviceModel(deviceModelAddDto,company,deviceType);
         try {
-            deviceModelRepository.save(deviceModel);
+            deviceModelRepository.saveAndFlush(deviceModel);
         }catch (Exception e){
            e.printStackTrace();
         }
@@ -128,7 +128,7 @@ public class DeviceModelServiceImpl implements DeviceModelService {
         DeviceType deviceType=deviceTypeRepository.findById(deviceModelEditDto.getTypeId()).orElseThrow(()->new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
         Company company=companyRepository.findById(deviceModelEditDto.getCompanyId()).orElseThrow(()->new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
         DeviceModel deviceModel=deviceModelRepository.findById(deviceModelEditDto.getId()).orElseThrow(()->new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
-        deviceModelRepository.save(DeviceModelConverter.toDeviceModel(deviceModelEditDto,deviceModel,company,deviceType));
+        deviceModelRepository.saveAndFlush(DeviceModelConverter.toDeviceModel(deviceModelEditDto,deviceModel,company,deviceType));
     }
 
     @Override

@@ -96,12 +96,12 @@ RegistrationServiceImpl implements RegistrationService {
         warehouse.setDeleted(false);
 
         try {
-            userdataRepository.save(userdata);
+            userdataRepository.saveAndFlush(userdata);
             user.setUserdata(userdata);
-            userRepository.save(user);
+            userRepository.saveAndFlush(user);
             warehouse.setUser(user);
             warehouse.setName(user.getUserdata().getName() + "|" + user.getUserdata().getSurname() + "|" + user.getUsername() + "|WAREHOUSE");
-            warehouseRepository.save(warehouse);
+            warehouseRepository.saveAndFlush(warehouse);
         }catch(Exception e){
             e.printStackTrace();
         }
