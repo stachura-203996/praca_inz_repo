@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -95,6 +96,16 @@ public class ExternalTransferServiceImpl implements ExternalTransferService {
     @PreAuthorize("hasAuthority('EXTERNAL_TRANSFER_DELETE')")
     public void deleteDeliveryById(Long id) throws EntityNotInDatabaseException {
         externalTransferRepository.findById(id).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT)).setDeleted(true);
+    }
+
+    @Override
+    @Transactional
+    @PreAuthorize("hasAuthority('EXTERNAL_TRANSFER_CONFIRM')")
+    public void confirmExternalTransfer(Long id) throws EntityNotInDatabaseException {
+        ExternalTransfer externalTransfer= externalTransferRepository.findById(id).orElseThrow(()->new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
+        externalTransfer.setConfirmed(true);
+        externalTransfer.setConfirmDate(Calendar.getInstance());
+        externalTransferRepository.saveAndFlush(externalTransfer);
     }
 
 

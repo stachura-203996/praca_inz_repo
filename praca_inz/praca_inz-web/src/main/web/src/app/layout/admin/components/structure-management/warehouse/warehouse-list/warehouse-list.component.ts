@@ -55,7 +55,7 @@ export class WarehouseListComponent implements OnInit {
 
             searchText = searchText.toLowerCase();
             this.warehouses = warehouses.filter(it => {
-                const range = it.name + ' ' + it.devicesNumber + ' ' + it.username + ' ' + it.officeName;
+                const range = it.name + ' ' + it.devicesNumber + ' ' + it.login + ' ' + it.officeName+' '+it.userName + ' ' + it.userSurname ;
                 const ok = range.toLowerCase().includes(searchText);
                 if (!this.deletedFilter) {
                     return ok;
@@ -100,7 +100,7 @@ export class WarehouseListComponent implements OnInit {
     }
 
     getUserInfo(warehouse: WarehouseListElement) {
-        return warehouse.userName + " " + warehouse.userSurname + " | " + warehouse.username;
+        return warehouse.userName + " " + warehouse.userSurname + " | " + warehouse.login;
     }
 
 }

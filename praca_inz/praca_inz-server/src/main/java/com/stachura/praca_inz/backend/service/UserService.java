@@ -41,4 +41,6 @@ public interface UserService {
     void updatePassword(PasswordInfoDto passwordInfoDto, String username) throws AppBaseException;
 
     void resetPassword(PasswordResetDto email) throws AppBaseException;
+
+    List<UserListElementDto> getAllUsersForReport(String name);
 }

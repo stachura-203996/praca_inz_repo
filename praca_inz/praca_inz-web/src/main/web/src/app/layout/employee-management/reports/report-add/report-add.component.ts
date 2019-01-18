@@ -36,7 +36,7 @@ export class ReportAddComponent implements OnInit {
     }
 
     getRecievers() {
-        this.userService.getAll().subscribe((response: UserListElement[]) => {
+        this.userService.getAllForReport().subscribe((response: UserListElement[]) => {
             this.recivers = response.reduce(function(userMap, user){
                 if(user.id){
                     userMap.set(user.name+" "+user.surname+" | "+user.username,user.id)

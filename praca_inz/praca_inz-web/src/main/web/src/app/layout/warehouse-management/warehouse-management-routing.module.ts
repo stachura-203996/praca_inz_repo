@@ -9,7 +9,7 @@ const routes: Routes = [
     {path: '', component: WarehouseUserComponent },
     {path: 'requests', component: WarehouseRequestListComponent },
     {path:'devices', component: WarehouseDevicesComponent},
-    {path:'delivery', component: DeliveryListComponent},
+    {path:'transfer/external', component: DeliveryListComponent},
 ];
 
 @NgModule({

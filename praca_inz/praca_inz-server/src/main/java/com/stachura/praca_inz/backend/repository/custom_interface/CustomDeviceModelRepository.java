@@ -4,5 +4,5 @@ import com.stachura.praca_inz.backend.model.DeviceModel;
 
 public interface CustomDeviceModelRepository {
 
-    void detachDeviceModel(DeviceModel entity);
+    void detach(DeviceModel entity);
 }

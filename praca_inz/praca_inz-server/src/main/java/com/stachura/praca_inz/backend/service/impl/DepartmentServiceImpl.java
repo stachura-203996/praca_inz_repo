@@ -137,7 +137,7 @@ public class DepartmentServiceImpl implements DepartmentService {
         try {
             Department beforeDepartment = departmentRepository.findById(companyStructureEditDto.getId()).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
             Company company = companyRepository.findById(companyStructureEditDto.getParentId()).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
-            departmentRepository.detachDepartment(beforeDepartment);
+            departmentRepository.detach(beforeDepartment);
             departmentRepository.saveAndFlush(CompanyStructureConverter.toDepartment(companyStructureEditDto, beforeDepartment, company));
         } catch (ObjectOptimisticLockingFailureException e) {
             throw new EntityOptimisticLockException(EntityOptimisticLockException.OPTIMISTIC_LOCK);

@@ -115,7 +115,7 @@ export class DeviceRequestViewComponent implements OnInit {
         var no: string;
 
         this.translate.get('device.request.reject').subscribe(x => entity = x);
-        this.translate.get('confirm.cancel').subscribe(x => message = x);
+        this.translate.get('confirm.reject').subscribe(x => message = x);
         this.translate.get('yes').subscribe(x => yes = x);
         this.translate.get('no').subscribe(x => no = x);
 
@@ -145,7 +145,7 @@ export class DeviceRequestViewComponent implements OnInit {
         var no: string;
 
         this.translate.get('device.request.accept').subscribe(x => entity = x);
-        this.translate.get('confirm.cancel').subscribe(x => message = x);
+        this.translate.get('confirm.accept').subscribe(x => message = x);
         this.translate.get('yes').subscribe(x => yes = x);
         this.translate.get('no').subscribe(x => no = x);
 

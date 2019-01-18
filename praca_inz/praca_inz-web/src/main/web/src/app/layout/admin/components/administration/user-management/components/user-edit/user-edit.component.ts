@@ -39,7 +39,6 @@ export class UserEditComponent implements OnInit {
         this.getUserRoles();
     }
 
-
     setRoles() {
         console.log("admin: " + this.roles.admin);
         console.log("company_admin: " + this.roles.company_admin);

@@ -78,4 +78,7 @@ export class WarehouseService {
         return this.httpService.get<DeliveryListElement[]>(this.deliveryPath+'/warehouseman');
     }
 
+    confirmDelivery(id: number) {
+        return this.httpService.put<any>(this.deliveryPath+'/confirm'+id,{})
+    }
 }

@@ -2,7 +2,6 @@ package com.stachura.praca_inz.backend.controller;
 
 import com.stachura.praca_inz.backend.exception.base.AppBaseException;
 import com.stachura.praca_inz.backend.model.ExternalTransfer;
-import com.stachura.praca_inz.backend.repository.UserRepository;
 import com.stachura.praca_inz.backend.service.ExternalTransferService;
 import com.stachura.praca_inz.backend.web.dto.DeliveryListElementDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +47,12 @@ public class DeliveryController {
         return externalTransferService.getDeliveryById(id);
     }
 
+    @RequestMapping(value = "/confirm/{id}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(value = HttpStatus.OK)
+    public @ResponseBody
+    void confirm(@PathVariable Long id) throws AppBaseException {
+       externalTransferService.confirmExternalTransfer(id);
+    }
 
     @RequestMapping(method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)

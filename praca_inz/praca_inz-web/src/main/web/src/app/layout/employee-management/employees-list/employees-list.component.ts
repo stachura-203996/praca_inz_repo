@@ -16,15 +16,11 @@ export class EmployeesListComponent implements OnInit {
   constructor(private translate:TranslateService,private userService:UserService) { }
 
   ngOnInit() {
-      this.getSubordinates();
+      this.filterSubordinates(null);
   }
 
-    getSubordinates(){
-        this.userService.getAllSubordinates().subscribe(userListElements=> {this.subordinates=userListElements});
-    }
-
     filterSubordinates(searchText: string) {
-        this.userService.getAll().subscribe(subordinates => {
+        this.userService.getAllSubordinates().subscribe(subordinates => {
             if (!subordinates) {
                 this.subordinates = [];
                 return;

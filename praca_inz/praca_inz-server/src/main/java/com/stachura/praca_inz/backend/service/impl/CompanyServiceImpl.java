@@ -42,8 +42,6 @@ public class CompanyServiceImpl implements CompanyService {
 
     final static Logger logger = Logger.getLogger(CompanyService.class);
 
-
-
     @Override
     @Transactional(propagation = Propagation.MANDATORY)
     @PreAuthorize("hasAuthority('COMPANY_CREATE')")
@@ -83,7 +81,7 @@ public class CompanyServiceImpl implements CompanyService {
     @Transactional(readOnly = true,propagation = Propagation.MANDATORY)
     @PreAuthorize("hasAuthority('COMPANY_LIST_READ')")
     public List<CompanyStructuresListElementDto> getAllCompanies() {
-        List<Company> companies = (List<Company>) companyRepository.findAll();
+        List<Company> companies = companyRepository.findAll();
         List<CompanyStructuresListElementDto> companiesDto = new ArrayList<>();
         for (Company a : companies) {
             if (!a.isDeleted()) {
@@ -93,8 +91,6 @@ public class CompanyServiceImpl implements CompanyService {
         return companiesDto;
     }
 
-
-
     @Override
     @Transactional(propagation = Propagation.MANDATORY)
     @PreAuthorize("hasAuthority('COMPANY_UPDATE')")
@@ -102,7 +98,7 @@ public class CompanyServiceImpl implements CompanyService {
         Company beforeCompany = companyRepository.findById(companyStructureEditDto.getId()).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
         Hibernate.initialize(beforeCompany.getAddress());
         try {
-            companyRepository.detachCompany(beforeCompany);
+            companyRepository.detach(beforeCompany);
             companyRepository.save(CompanyStructureConverter.toCompany(companyStructureEditDto, beforeCompany));
         } catch (ObjectOptimisticLockingFailureException e) {
             throw new EntityOptimisticLockException(EntityOptimisticLockException.OPTIMISTIC_LOCK);

@@ -1,6 +1,7 @@
 package com.stachura.praca_inz.backend.service;
 
 
+import com.stachura.praca_inz.backend.exception.EntityNotInDatabaseException;
 import com.stachura.praca_inz.backend.exception.base.AppBaseException;
 import com.stachura.praca_inz.backend.model.ExternalTransfer;
 import com.stachura.praca_inz.backend.web.dto.DeliveryListElementDto;
@@ -21,4 +22,5 @@ public interface ExternalTransferService {
 
     void deleteDeliveryById(Long id) throws AppBaseException, AppBaseException;
 
+    void confirmExternalTransfer(Long id) throws EntityNotInDatabaseException;
 }

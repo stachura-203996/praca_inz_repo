@@ -26,7 +26,6 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
-import javax.persistence.LockModeType;
 import javax.persistence.PersistenceException;
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +47,7 @@ public class OfficeServiceImpl implements OfficeService {
     private EntityManager em;
 
     @Override
-    @Transactional(readOnly = true,propagation = Propagation.MANDATORY)
+    @Transactional(readOnly = true, propagation = Propagation.MANDATORY)
     @PreAuthorize("hasAuthority('OFFICE_VIEW_READ')")
     public CompanyStructureViewDto getOfficeToView(Long id) throws EntityNotInDatabaseException {
         Office office = officeRepository.findById(id).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
@@ -59,7 +58,7 @@ public class OfficeServiceImpl implements OfficeService {
     }
 
     @Override
-    @Transactional(readOnly = true,propagation = Propagation.MANDATORY)
+    @Transactional(readOnly = true, propagation = Propagation.MANDATORY)
     @PreAuthorize("hasAuthority('OFFICE_EDIT_READ')")
     public CompanyStructureEditDto getOfficeToEdit(Long id) throws EntityNotInDatabaseException {
         Office office = officeRepository.findById(id).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
@@ -70,7 +69,7 @@ public class OfficeServiceImpl implements OfficeService {
     }
 
     @Override
-    @Transactional(readOnly = true,propagation = Propagation.MANDATORY)
+    @Transactional(readOnly = true, propagation = Propagation.MANDATORY)
     @PreAuthorize("hasAuthority('OFFICE_LIST_FOR_COMPANY_READ')")
     public List<CompanyStructuresListElementDto> getAllOfficesForCompany(Long id) {
         List<Office> offices = Lists.newArrayList(officeRepository.findAll()).stream().filter(x -> x.getDepartment().getCompany().getId().equals(id)).collect(Collectors.toList());
@@ -86,7 +85,7 @@ public class OfficeServiceImpl implements OfficeService {
     }
 
     @Override
-    @Transactional(readOnly = true,propagation = Propagation.MANDATORY)
+    @Transactional(readOnly = true, propagation = Propagation.MANDATORY)
     @PreAuthorize("hasAuthority('OFFICE_LIST_FOR_DEPARTMENT_READ')")
     public List<CompanyStructuresListElementDto> getAllOfficesForDepartment(Long id) {
         List<Office> offices = Lists.newArrayList(officeRepository.findAll()).stream().filter(x -> x.getDepartment().getId().equals(id)).collect(Collectors.toList());
@@ -102,7 +101,7 @@ public class OfficeServiceImpl implements OfficeService {
     }
 
     @Override
-    @Transactional(readOnly = true,propagation = Propagation.MANDATORY)
+    @Transactional(readOnly = true, propagation = Propagation.MANDATORY)
     @PreAuthorize("hasAuthority('OFFICE_LIST_READ')")
     public List<CompanyStructuresListElementDto> getAll(String username) throws EntityNotInDatabaseException {
         List<Office> offices;
@@ -126,10 +125,13 @@ public class OfficeServiceImpl implements OfficeService {
     @Override
     @Transactional(propagation = Propagation.MANDATORY)
     @PreAuthorize("hasAuthority('OFFICE_CREATE')")
-    public void create(CompanyStructureAddDto companyStructureAddDto) throws EntityNotInDatabaseException {
-        Department department = departmentRepository.findById(companyStructureAddDto.getDepartmentId()).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
-        officeRepository.save(CompanyStructureConverter.toOffice(companyStructureAddDto, department));
-
+    public void create(CompanyStructureAddDto companyStructureAddDto) throws EntityNotInDatabaseException, DatabaseErrorException {
+        try {
+            Department department = departmentRepository.findById(companyStructureAddDto.getDepartmentId()).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
+            officeRepository.save(CompanyStructureConverter.toOffice(companyStructureAddDto, department));
+        } catch (PersistenceException e) {
+            throw new DatabaseErrorException(DatabaseErrorException.DEPARTMENT_NAME_TAKEN);
+        }
     }
 
     @Override
@@ -137,9 +139,10 @@ public class OfficeServiceImpl implements OfficeService {
     @PreAuthorize("hasAuthority('OFFICE_UPDATE')")
     public void update(CompanyStructureEditDto companyStructureEditDto) throws EntityNotInDatabaseException, EntityOptimisticLockException, DatabaseErrorException {
         try {
-            Office beforeOffice = em.find(Office.class, companyStructureEditDto.getId(), LockModeType.OPTIMISTIC);
+            Office beforeOffice = officeRepository.findById(companyStructureEditDto.getId()).orElseThrow(()->new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
             Department department = departmentRepository.findById(companyStructureEditDto.getParentId()).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
-            officeRepository.detachOffice(beforeOffice);
+            Hibernate.initialize(beforeOffice.getAddress());
+            officeRepository.detach(beforeOffice);
             officeRepository.save(CompanyStructureConverter.toOffice(companyStructureEditDto, beforeOffice, department));
         } catch (ObjectOptimisticLockingFailureException e) {
             throw new EntityOptimisticLockException(EntityOptimisticLockException.OPTIMISTIC_LOCK);
@@ -154,5 +157,5 @@ public class OfficeServiceImpl implements OfficeService {
     public void delete(Long id) throws EntityNotInDatabaseException {
         officeRepository.findById(id).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT)).setDeleted(true);
     }
-    
+
 }

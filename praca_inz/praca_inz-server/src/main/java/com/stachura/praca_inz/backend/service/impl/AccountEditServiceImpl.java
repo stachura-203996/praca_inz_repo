@@ -14,6 +14,7 @@ import com.stachura.praca_inz.backend.repository.*;
 import com.stachura.praca_inz.backend.service.AccountEditService;
 import com.stachura.praca_inz.backend.web.dto.user.ProfileEditDto;
 import com.stachura.praca_inz.backend.web.dto.user.UserEditDto;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.ObjectOptimisticLockingFailureException;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -48,10 +49,12 @@ public class AccountEditServiceImpl implements AccountEditService {
     @PreAuthorize("hasAuthority('ACCOUNT_UPDATE_ADMIN')")
     public void updateAccountbyAdmin(UserEditDto userEditDto) throws EntityNotInDatabaseException, EntityOptimisticLockException, DatabaseErrorException {
         User user = userRepository.findById(userEditDto.getId()).orElseThrow((() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT)));
-        if (userRepository.findByUsername(userEditDto.getUsername()).isPresent()&& !user.getUsername().equals(userEditDto.getUsername())) {
+        if (userRepository.findByUsername(userEditDto.getUsername()).isPresent() && !user.getUsername().equals(userEditDto.getUsername())) {
             throw new DatabaseErrorException(DatabaseErrorException.USERNAME_TAKEN);
         }
-//        userRepository.detachUser(user);
+        Hibernate.initialize(user.getWarehouses());
+        Warehouse warehouse = user.getWarehouses().stream().filter(x -> x.getWarehouseType().equals(WarehouseType.USER)).findFirst().orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
+        userRepository.detach(user);
         user.setUsername(userEditDto.getUsername());
         user.setOffice(officeRepository.findById(userEditDto.getOfficeId()).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT)));
         user.setAccountLocked(false);
@@ -65,8 +68,8 @@ public class AccountEditServiceImpl implements AccountEditService {
             user.setUserRoles(userRoles);
         }
         Userdata userdata = userdataRepository.findById(user.getUserdata().getId()).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
-        userdataRepository.detachUserdata(userdata);
-        if (userdataRepository.findByEmail(userEditDto.getEmail()).isPresent()&&!userdata.getEmail().equals(userEditDto.getEmail())) {
+        userdataRepository.detach(userdata);
+        if (userdataRepository.findByEmail(userEditDto.getEmail()).isPresent() && !userdata.getEmail().equals(userEditDto.getEmail())) {
             throw new DatabaseErrorException(DatabaseErrorException.EMAIL_TAKEN);
         }
         userdata.setEmail(userEditDto.getEmail());
@@ -84,8 +87,7 @@ public class AccountEditServiceImpl implements AccountEditService {
         userdata.setLanguage(userEditDto.getLanguage());
         userdata.setVersion(userEditDto.getVersionUserdata());
 
-        Warehouse warehouse = user.getWarehouses().stream().filter(x -> x.getWarehouseType().equals(WarehouseType.USER)).findFirst().orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
-        warehouseRepository.detachWarehouse(warehouse);
+        warehouseRepository.detach(warehouse);
         warehouse.setOffice(officeRepository.findById(userEditDto.getOfficeId()).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT)));
         warehouse.setWarehouseType(WarehouseType.USER);
         warehouse.setVersion(userEditDto.getVersionWarehouse());
@@ -97,7 +99,7 @@ public class AccountEditServiceImpl implements AccountEditService {
             warehouse.setName(user.getUserdata().getName() + "|" + user.getUserdata().getSurname() + "|" + user.getUsername() + "|WAREHOUSE");
             warehouseRepository.save(warehouse);
         } catch (ObjectOptimisticLockingFailureException e) {
-                throw new EntityOptimisticLockException(EntityOptimisticLockException.OPTIMISTIC_LOCK);
+            throw new EntityOptimisticLockException(EntityOptimisticLockException.OPTIMISTIC_LOCK);
         }
     }
 
@@ -106,8 +108,10 @@ public class AccountEditServiceImpl implements AccountEditService {
     @PreAuthorize("hasAuthority('ACCOUNT_UPDATE_USER')")
     public void updateProfileByUser(ProfileEditDto profileEditDto) throws EntityNotInDatabaseException, EntityOptimisticLockException, DatabaseErrorException {
         User user = userRepository.findById(profileEditDto.getId()).orElseThrow((() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT)));
-//        userRepository.detachUser(user);
-        if (userRepository.findByUsername(profileEditDto.getUsername()).isPresent()&& !user.getUsername().equals(profileEditDto.getUsername())) {
+        Hibernate.initialize(user.getWarehouses());
+        Warehouse warehouse = user.getWarehouses().stream().filter(x -> x.getWarehouseType().equals(WarehouseType.USER)).findFirst().orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
+        userRepository.detach(user);
+        if (userRepository.findByUsername(profileEditDto.getUsername()).isPresent() && !user.getUsername().equals(profileEditDto.getUsername())) {
             throw new DatabaseErrorException(DatabaseErrorException.USERNAME_TAKEN);
         }
 
@@ -118,8 +122,8 @@ public class AccountEditServiceImpl implements AccountEditService {
         user.setVersion(profileEditDto.getVersionUser());
 
         Userdata userdata = userdataRepository.findById(user.getUserdata().getId()).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
-        userdataRepository.detachUserdata(userdata);
-        if (userdataRepository.findByEmail(profileEditDto.getEmail()).isPresent()&&!userdata.getEmail().equals(profileEditDto.getEmail())) {
+        userdataRepository.detach(userdata);
+        if (userdataRepository.findByEmail(profileEditDto.getEmail()).isPresent() && !userdata.getEmail().equals(profileEditDto.getEmail())) {
             throw new DatabaseErrorException(DatabaseErrorException.EMAIL_TAKEN);
         }
         userdata.setEmail(profileEditDto.getEmail());
@@ -137,8 +141,7 @@ public class AccountEditServiceImpl implements AccountEditService {
         userdata.setLanguage(profileEditDto.getLanguage());
         userdata.setVersion(profileEditDto.getVersionUserdata());
 
-        Warehouse warehouse = user.getWarehouses().stream().filter(x -> x.getWarehouseType().equals(WarehouseType.USER)).findFirst().orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
-        warehouseRepository.detachWarehouse(warehouse);
+        warehouseRepository.detach(warehouse);
         warehouse.setOffice(officeRepository.findById(profileEditDto.getOfficeId()).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT)));
         warehouse.setWarehouseType(WarehouseType.USER);
         warehouse.setVersion(profileEditDto.getVersionWarehouse());

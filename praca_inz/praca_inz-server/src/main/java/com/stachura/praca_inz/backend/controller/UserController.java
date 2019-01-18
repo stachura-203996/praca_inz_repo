@@ -1,7 +1,6 @@
 package com.stachura.praca_inz.backend.controller;
 
 
-import com.stachura.praca_inz.backend.exception.EntityOptimisticLockException;
 import com.stachura.praca_inz.backend.exception.base.AppBaseException;
 import com.stachura.praca_inz.backend.service.UserService;
 import com.stachura.praca_inz.backend.web.dto.user.*;
@@ -14,7 +13,6 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.OptimisticLockException;
 import java.util.List;
 
 @RestController
@@ -128,6 +126,14 @@ public class UserController {
     List<UserListElementDto> getAllForManager() throws AppBaseException {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         return userService.getAllUsersForManager(auth.getName());
+    }
+
+    @RequestMapping(value = "/report", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(value = HttpStatus.OK)
+    public @ResponseBody
+    List<UserListElementDto> getAllUsersForReport() throws AppBaseException {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        return userService.getAllUsersForReport(auth.getName());
     }
 
     @RequestMapping(value = "/warehousemen/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)

@@ -53,7 +53,7 @@ export class WarehouseUserComponent implements OnInit {
     }
 
     getUserInfo(warehouse:WarehouseListElement){
-        return warehouse.userName+" "+warehouse.userSurname+" | "+warehouse.username;
+        return warehouse.userName+" "+warehouse.userSurname+" | "+warehouse.login;
     }
    
 }

@@ -1,10 +1,8 @@
 package com.stachura.praca_inz.backend.service.impl;
 
 import com.google.common.collect.Lists;
-import com.stachura.praca_inz.backend.exception.EntityNotInDatabaseException;
-import com.stachura.praca_inz.backend.exception.base.AppBaseException;
 import com.stachura.praca_inz.backend.exception.DatabaseErrorException;
-
+import com.stachura.praca_inz.backend.exception.EntityNotInDatabaseException;
 import com.stachura.praca_inz.backend.model.Address;
 import com.stachura.praca_inz.backend.model.Userdata;
 import com.stachura.praca_inz.backend.model.Warehouse;
@@ -21,6 +19,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.PersistenceException;
 import java.util.Calendar;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -53,7 +52,7 @@ RegistrationServiceImpl implements RegistrationService {
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('USER_CREATE')")
-    public void registerNewUserAccount(final RegistrationDto data, boolean verified) throws AppBaseException {
+    public void registerNewUserAccount(final RegistrationDto data, boolean verified) throws EntityNotInDatabaseException, DatabaseErrorException {
 
         if (userdataRepository.findByEmail(data.getEmail()).isPresent()) {
             throw new DatabaseErrorException(DatabaseErrorException.EMAIL_TAKEN);
@@ -105,10 +104,10 @@ RegistrationServiceImpl implements RegistrationService {
             warehouse.setUser(user);
             warehouse.setName(user.getUserdata().getName() + "|" + user.getUserdata().getSurname() + "|" + user.getUsername() + "|WAREHOUSE");
             warehouseRepository.saveAndFlush(warehouse);
-        }catch(Exception e){
+        }catch (Exception e){
             e.printStackTrace();
         }
-
+//TODO
     }
 
 }

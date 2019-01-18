@@ -22,6 +22,7 @@ public class DeliveryConverter {
                     .deviceModelId(externalTransfer.getDeviceModel().getId())
                     .warehouseId(externalTransfer.getSenderWarehouse().getId())
                     .deviceModelName(externalTransfer.getDeviceModel().getName())
+                    .lastUpdate(formatter.format(externalTransfer.getConfirmDate().getTime()))
                     .title(externalTransfer.getTitle())
                     .build();
     }

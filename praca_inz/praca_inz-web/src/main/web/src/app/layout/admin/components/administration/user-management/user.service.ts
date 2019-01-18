@@ -44,6 +44,10 @@ export class UserService {
         return this.httpService.get<UserListElement[]>(this.userPath + '/subordinates');
     }
 
+    getAllForReport(): Observable<UserListElement[]> {
+        return this.httpService.get<UserListElement[]>(this.userPath + '/report');
+    }
+
     getAll(): Observable<UserListElement[]> {
         return this.httpService.get<UserListElement[]>(this.userPath);
     }

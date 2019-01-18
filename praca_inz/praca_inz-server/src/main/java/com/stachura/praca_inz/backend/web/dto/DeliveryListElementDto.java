@@ -19,4 +19,5 @@ public class DeliveryListElementDto {
     private Long warehouseId;
     private Long deviceModelId;
     private String deviceModelName;
+    String lastUpdate;
 }

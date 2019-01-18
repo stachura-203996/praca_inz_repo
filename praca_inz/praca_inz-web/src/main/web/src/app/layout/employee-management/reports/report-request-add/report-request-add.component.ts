@@ -73,7 +73,7 @@ export class ReportRequestAddComponent implements OnInit {
             .subscribe(confirmed => {
                 if (confirmed) {
                     this.reportAddElement.reciever = this.recivers.get(this.request.username);
-                    if(this.request.status=="IN_WAREHOUSE"){
+                    if(this.request.status=="WAITING"){
                         this.reportAddElement.title=this.request.title+" - Manager report"
                     } else{
                         this.reportAddElement.title=this.request.title+" - Warehouseman report"

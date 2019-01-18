@@ -20,7 +20,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-group col-xl-5" *ngIf="roles.admin">
+                    <div class="form-group col-xl-5">
                         <label  for="departmentSelect">{{'Department'|translate}}<span style="color:red">*</span></label>
                         <select class="form-control" id="departmentSelect" [(ngModel)]="selectedOption" name="departmentSelect" required #department>
                             <option *ngFor="let department of departments|keyvalue" [value]="department.key">{{department.key}}</option>
@@ -31,10 +31,10 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="row"><label class="col-xl-9 control-label" for="Address">{{'Address' | translate}}<span style="color:red">*</span></label></div>
                         <div class="col-xl-9 ">
                             <div id="Address" class="row">
                                 <div class="col-xl-4">
+                                    <div class="row"><label class="col-xl-9 control-label" for="City">{{'City' | translate}}<span style="color:red">*</span></label></div>
                                     <div class="input-group">
                                         <input id="City" [(ngModel)]="structureAddElement.city" name="City" type="text"
                                                placeholder="{{'City'|translate}}" class="form-control input-xl"
@@ -48,6 +48,7 @@
                                     </div>
                                 </div>
                                 <div class="col-xl-4">
+                                    <div class="row"><label class="col-xl-9 control-label" for="Street">{{'Street' | translate}}<span style="color:red">*</span></label></div>
                                     <div class="input-group">
                                         <input id="Street" [(ngModel)]="structureAddElement.street" name="Street"
                                                type="text"
@@ -67,6 +68,7 @@
                             <br>
                             <div class="row">
                                 <div class="col-xl-3">
+                                    <div class="row"><label class="col-xl-9 control-label" for="buildingNumber">{{'BuildingNumber' | translate}}<span style="color:red">*</span></label></div>
                                     <div class="input-group">
                                         <input id="buildingNumber" [(ngModel)]="structureAddElement.buildingNumber"
                                                name="buildingNumber" type="number" placeholder="{{'BuildingNumber'|translate}}"
@@ -90,6 +92,7 @@
                                     </div>
                                 </div>
                                 <div class="col-xl-3">
+                                    <div class="row"><label class="col-xl-9 control-label" for="flatNumber">{{'placeNumber' | translate}}</label></div>
                                     <div class="input-group">
                                         <input id="flatNumber" [(ngModel)]="structureAddElement.flatNumber"
                                                name="flatNumber" type="number" placeholder="{{'placeNumber'|translate}}"

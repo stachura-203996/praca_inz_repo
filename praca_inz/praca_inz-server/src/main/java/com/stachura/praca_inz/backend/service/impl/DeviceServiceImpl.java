@@ -215,6 +215,7 @@ public class DeviceServiceImpl implements DeviceService {
             Company company = companyRepository.findById(deviceEditDto.getCompanyId()).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
             DeviceModel deviceModel = deviceModelRepository.findById(deviceEditDto.getDeviceModelId()).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
             Device device = deviceRepository.findById(deviceEditDto.getId()).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
+           deviceRepository.detach(device);
             deviceRepository.saveAndFlush(DeviceConverter.toDevice(deviceEditDto, device, warehouse, company, deviceModel));
         } catch (ObjectOptimisticLockingFailureException e) {
             throw new EntityOptimisticLockException(EntityOptimisticLockException.OPTIMISTIC_LOCK);

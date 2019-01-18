@@ -4,5 +4,5 @@ import com.stachura.praca_inz.backend.model.Department;
 
 public interface CustomDepartmentRepository {
 
-    void detachDepartment(Department entity);
+    void detach(Department department);
 }

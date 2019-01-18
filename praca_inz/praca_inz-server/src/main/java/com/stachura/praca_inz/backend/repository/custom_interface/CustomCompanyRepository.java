@@ -4,6 +4,5 @@ import com.stachura.praca_inz.backend.model.Company;
 
 public interface CustomCompanyRepository {
 
-    void detachCompany(Company entity);
-
+    void detach(Company company);
 }

@@ -58,7 +58,7 @@ export class DeliveryListComponent implements OnInit {
             });
     }
 
-    confirm(deliver:DeliveryListElement){
+    confirm(deliver: DeliveryListElement) {
         var entity: string;
         var message: string;
         var yes: string;
@@ -74,16 +74,18 @@ export class DeliveryListComponent implements OnInit {
             .confirm(entity, message, yes, no)
             .subscribe(confirmed => {
                 if (confirmed) {
-                    var device:DeviceAddElement=new DeviceAddElement();
-                    device.warehouseId=deliver.warehouseId;
-                    device.serialNumber=deliver.serialNumber;
-                    device.deviceModelId=deliver.deviceModelId;
-                    device.companyId=deliver.companyId;
-                    this.deviceService.createDevice(device).subscribe(rep=>{
-                        this.getDeliveries();
-                        this.translate.get('success.delivery.confirm').subscribe(x=>{
-                            this.messageService.success(x)
-                        })
+                    var device: DeviceAddElement = new DeviceAddElement();
+                    device.warehouseId = deliver.warehouseId;
+                    device.serialNumber = deliver.serialNumber;
+                    device.deviceModelId = deliver.deviceModelId;
+                    device.companyId = deliver.companyId;
+                    this.warehouseService.confirmDelivery(deliver.id).subscribe(rep => {
+                        this.deviceService.createDevice(device).subscribe(rep => {
+                            this.filterDeliveries(null);
+                            this.translate.get('success.delivery.confirm').subscribe(x => {
+                                this.messageService.success(x)
+                            })
+                        });
                     });
                 }
             });

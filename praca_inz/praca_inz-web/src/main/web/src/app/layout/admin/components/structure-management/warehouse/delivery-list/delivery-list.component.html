@@ -18,6 +18,7 @@
             <th>{{'Sender'| translate}}</th>
             <th>{{'Reciever' | translate}}</th>
             <th>{{'CreateDate'| translate}}</th>
+            <th>{{'ConfirmationDate'| translate}}</th>
             <th></th>
         </tr>
         </thead>
@@ -30,6 +31,7 @@
             <td>{{externalTransfer.sender}}</td>
             <td>{{externalTransfer.receiver}}</td>
             <td>{{externalTransfer.createDate}}</td>
+            <td>{{externalTransfer.lastUpdate}}</td>
             <td class="text-right">
                 <div *ngIf="!externalTransfer.confirmed" class="btn-group flex-btn-group-container">
                     <button type="submit"

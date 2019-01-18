@@ -47,7 +47,7 @@ public class DeviceModelServiceImpl implements DeviceModelService {
     private ParameterRepository parameterRepository;
 
     @Override
-    @Transactional(readOnly = true,propagation = Propagation.MANDATORY)
+    @Transactional(readOnly = true, propagation = Propagation.MANDATORY)
     @PreAuthorize("hasAuthority('DEVICE_MODEL_VIEW_READ')")
     public DeviceModelViewDto getDeviceModelViewById(Long id) throws EntityNotInDatabaseException {
         DeviceModel deviceModel = deviceModelRepository.findById(id).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
@@ -58,7 +58,7 @@ public class DeviceModelServiceImpl implements DeviceModelService {
     }
 
     @Override
-    @Transactional(readOnly = true,propagation = Propagation.MANDATORY)
+    @Transactional(readOnly = true, propagation = Propagation.MANDATORY)
     @PreAuthorize("hasAuthority('DEVICE_MODEL_EDIT_READ')")
     public DeviceModelEditDto getDeviceModelEdit(Long id) throws EntityNotInDatabaseException {
         DeviceModel deviceModel = deviceModelRepository.findById(id).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
@@ -94,7 +94,7 @@ public class DeviceModelServiceImpl implements DeviceModelService {
     }
 
     @Override
-    @Transactional(readOnly = true,propagation = Propagation.MANDATORY)
+    @Transactional(readOnly = true, propagation = Propagation.MANDATORY)
     @PreAuthorize("hasAuthority('DEVICE_MODEL_LIST_READ')")
     public List<DeviceModelListElementDto> getAllDeviceModels(String username) throws EntityNotInDatabaseException {
         List<DeviceModel> deviceModels;
@@ -136,7 +136,7 @@ public class DeviceModelServiceImpl implements DeviceModelService {
             DeviceType deviceType = deviceTypeRepository.findById(deviceModelEditDto.getTypeId()).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
             Company company = companyRepository.findById(deviceModelEditDto.getCompanyId()).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
             DeviceModel deviceModel = deviceModelRepository.findById(deviceModelEditDto.getId()).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
-            deviceModelRepository.detachDeviceModel(deviceModel);
+            deviceModelRepository.detach(deviceModel);
             deviceModelRepository.saveAndFlush(DeviceModelConverter.toDeviceModel(deviceModelEditDto, deviceModel, company, deviceType));
         } catch (ObjectOptimisticLockingFailureException e) {
             throw new EntityOptimisticLockException(EntityOptimisticLockException.OPTIMISTIC_LOCK);

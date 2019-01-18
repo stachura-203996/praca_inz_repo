@@ -15,8 +15,7 @@ public class WarehouseConverter {
     public static WarehouseViewDto toWarehouseViewDto(Warehouse warehouse) {
         return WarehouseViewDto.builder()
                 .name(warehouse.getName())
-                .name(warehouse.getName())
-                .username(warehouse.getUser().getUsername())
+                .login(warehouse.getUser().getUsername())
                 .companyName(warehouse.getOffice().getDepartment().getCompany().getName())
                 .departmentName(warehouse.getOffice().getDepartment().getName())
                 .userName(warehouse.getUser().getUserdata().getName())

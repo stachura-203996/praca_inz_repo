@@ -34,7 +34,7 @@ public class Warehouse implements Serializable {
     @Column(name = "NAME", nullable = false,unique = true)
     private String name;
 
-    @ManyToOne(fetch = FetchType.LAZY,optional = false)
+    @ManyToOne(fetch = FetchType.EAGER,optional = false)
     @JsonBackReference
     private User user;
 

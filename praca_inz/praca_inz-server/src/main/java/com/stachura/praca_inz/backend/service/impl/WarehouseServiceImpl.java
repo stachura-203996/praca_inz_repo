@@ -148,7 +148,7 @@ public class WarehouseServiceImpl implements WarehouseService {
 
     @Override
     @Transactional(readOnly = true,propagation = Propagation.MANDATORY)
-    @PreAuthorize("hasAuthority('WAREHOUSE_LIST_READ')")
+    @PreAuthorize("hasAuthority('WAREHOUSE_LIST_FOR_TRANSFER_READ')")
     public List<WarehouseListElementDto> getAllForTransferRequest(String username, Long deviceId) throws EntityNotInDatabaseException {
         Long id = userRepository.findByUsername(username).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT)).getOffice().getId();
         Device device = deviceRepository.findById(deviceId).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
@@ -182,6 +182,7 @@ public class WarehouseServiceImpl implements WarehouseService {
         Warehouse beforeWarehouse = warehouseRepository.findById(warehouseEditDto.getId()).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
         User user = userRepository.findById(warehouseEditDto.getUserId()).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
         Office office = officeRepository.findById(warehouseEditDto.getOfficeId()).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
+        warehouseRepository.detach(beforeWarehouse);
         warehouseRepository.saveAndFlush(WarehouseConverter.toWarehouse(warehouseEditDto, beforeWarehouse, user, office));
     }
 

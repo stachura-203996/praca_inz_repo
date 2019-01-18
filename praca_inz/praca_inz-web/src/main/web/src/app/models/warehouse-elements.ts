@@ -3,7 +3,7 @@ export class WarehouseListElement {
     name: string;
     userName: string;
     userSurname: string;
-    username: string;
+    login: string;
     officeName: string;
     companyName: string;
     departmentName: string;
