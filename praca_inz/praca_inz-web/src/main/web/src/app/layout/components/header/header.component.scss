@@ -13,17 +13,7 @@ $topnav-background-color: #222;
             }
             margin-right: 20px;
                 .dropdown-item {
-                    max-width: 100px;
-                    white-space: normal;
                    padding-right : 100px;
-                   .media-body {
-                       max-width: 100px;
-                       white-space: normal;
-                       .last{
-                           max-width: 100px;
-                           white-space: normal;
-                       }
-                   }
                 }
 
         }
@@ -31,6 +21,9 @@ $topnav-background-color: #222;
     }
     .messages {
         width: 300px;
+        max-width: 300px;
+        white-space: normal;
+        word-wrap: break-word;
         .media {
             border-bottom: 1px solid #ddd;
             padding: 5px 10px;
@@ -39,6 +32,9 @@ $topnav-background-color: #222;
             }
         }
         .media-body {
+            max-width: 300px;
+            word-wrap: break-word;
+            white-space: normal;
             h5 {
                 font-size: 13px;
                 font-weight: 600;
@@ -47,6 +43,8 @@ $topnav-background-color: #222;
                 margin: 0;
             }
             .last {
+                word-wrap: break-word;
+                white-space: normal;
                 font-size: 12px;
                 max-width:300px ;
                 margin: 0;

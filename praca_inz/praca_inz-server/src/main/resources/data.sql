@@ -32,6 +32,7 @@ INSERT INTO public.address (id, building_number, city, deleted, flat_number, str
 INSERT INTO public.address (id, building_number, city, deleted, flat_number, street, version) VALUES (9, '1', 'Zakopane', false, null, 'Krupówki', 0);
 INSERT INTO public.address (id, building_number, city, deleted, flat_number, street, version) VALUES (10, '1', 'Zakopane', false, null, 'Krupówki', 0);
 INSERT INTO public.address (id, building_number, city, deleted, flat_number, street, version) VALUES (11, '1', 'Zakopane', false, null, 'Krupówki', 0);
+INSERT INTO public.address (id, building_number, city, deleted, flat_number, street, version) VALUES (12, '5', 'Kraków', false, '3', 'Dworcowa', 0);
 
 INSERT INTO COMPANY(ID, VERSION, DELETED,NAME, MAIN_OFFICE_ADRESS_ID,DESCRIPTION) VALUES (1,0,FALSE, 'Transition Technologies',1, 'Transition Technologies PSC specjalizuje się w tworzeniu rozwiązań IT dla przemysłu. Szczególnie Connected Product Lifecycle Management i zastosowaniu w przemyśle najnowszych technologii Internetu Przedmiotów (IoT) i Rozszerzonej Rzeczywistości (AR), dzięki którym nasi Klienci mogą realizować koncepcję Przemysłu 4.0. Nasza firma to ponad 400 entuzjastów programowania, innowacji technologicznych oraz metodyk programowania, którzy w swojej pracy zawsze kierują się wzajemną pomocą, dobrą atmosferą oraz kreatywnym podejściem. W procesie wytwarzania oprogramowania zawsze korzystamy z najnowszych narzędzi, dlatego od wielu lat jesteśmy partnerem Atlassian. W oparciu o produkty tej firmy wdrażamy rozwiązania oraz rozwijamy produkty dla naszych Partnerów.');
 
@@ -45,14 +46,14 @@ INSERT INTO DEPARTMENT(ID, VERSION, DELETED,NAME, COMPANY_ID) VALUES (5,0,FALSE 
 
  INSERT INTO OFFICE(ID, VERSION, DELETED,NAME, ADDRESS_ID, DEPARTMENT_ID,DESCRIPTION) VALUES (1,0,FALSE , 'Office of S&M Boston', 4, 1,'Main office in Boston');
  INSERT INTO OFFICE(ID, VERSION,DELETED, NAME, ADDRESS_ID, DEPARTMENT_ID) VALUES (2,0,FALSE , 'Office of S&M New York', 5, 1);
- INSERT INTO OFFICE(ID, VERSION,DELETED, NAME, ADDRESS_ID, DEPARTMENT_ID) VALUES (3,0, FALSE ,'Office of R&D Boston', 6, 2);
+ INSERT INTO OFFICE(ID, VERSION,DELETED, NAME, ADDRESS_ID, DEPARTMENT_ID) VALUES (3,0, FALSE ,'Office of R&D Łódź', 6, 2);
  INSERT INTO OFFICE(ID, VERSION,DELETED, NAME, ADDRESS_ID, DEPARTMENT_ID) VALUES (4,0, FALSE ,'Office of A Los Angeles', 7, 3);
 
-INSERT INTO public.userdata (id, join_date, email, language, name, position, surname, version, workplace, address_id) VALUES (4, '2019-01-13 02:28:56.848000', 'email4@email.com', 'ENG', 'John', null, 'William', 2, null, 8);
+INSERT INTO public.userdata (id, join_date, email, language, name, position, surname, version, workplace, address_id) VALUES (4, '2019-01-13 02:28:56.848000', 'email4@email.com', 'ENG', 'John', null, 'William', 0, null, 8);
 INSERT INTO public.userdata (id, join_date, email, language, name, position, surname, version, workplace, address_id) VALUES (1, '2011-03-12 12:00:00.000000', 'email1@email.com', 'PL', 'Tomasz', null, 'Stachura', 0, null, 1);
-INSERT INTO public.userdata (id, join_date, email, language, name, position, surname, version, workplace, address_id) VALUES (3, '2019-01-13 02:30:51.643000', 'email3@email.com', 'ENG', 'David', null, 'William', 1, null, 10);
-INSERT INTO public.userdata (id, join_date, email, language, name, position, surname, version, workplace, address_id) VALUES (2, '2019-01-13 02:30:31.659000', 'email2@email.com', 'PL', 'Robert', null, 'William', 1, null, 9);
-INSERT INTO public.userdata (id, join_date, email, language, name, position, surname, version, workplace, address_id) VALUES (5, '2019-01-19 01:35:49.793000', 'email@email.com', 'PL', 'Kamil', 'Programista', 'Nowak', 0, null, 11);
+INSERT INTO public.userdata (id, join_date, email, language, name, position, surname, version, workplace, address_id) VALUES (3, '2019-01-13 02:30:51.643000', 'email3@email.com', 'ENG', 'David', null, 'William', 0, null, 10);
+INSERT INTO public.userdata (id, join_date, email, language, name, position, surname, version, workplace, address_id) VALUES (2, '2019-01-13 02:30:31.659000', 'email2@email.com', 'PL', 'Robert', null, 'William', 0, null, 9);
+INSERT INTO public.userdata (id, join_date, email, language, name, position, surname, version, workplace, address_id) VALUES (5, '2019-01-19 12:45:25.764000', 'email5@email.com', 'PL', 'Kamil', 'Programista', 'Nowak', 0, null, 12);
 
 INSERT INTO OAUTH_CLIENT_DETAILS(CLIENT_ID, RESOURCE_IDS, CLIENT_SECRET, SCOPE, AUTHORIZED_GRANT_TYPES, AUTHORITIES, ACCESS_TOKEN_VALIDITY, REFRESH_TOKEN_VALIDITY)
 	VALUES ('spring-security-oauth2-read-client', 'resource-server-rest-api',
@@ -186,14 +187,13 @@ INSERT INTO AUTHORITY(ID, VERSION,ACTIVE, NAME) VALUES (102,0,TRUE, 'USER_FOR_RE
 INSERT INTO AUTHORITY(ID, VERSION,ACTIVE, NAME) VALUES (103,0,TRUE, 'ACCOUNT_UPDATE_USER');
 INSERT INTO AUTHORITY(ID, VERSION,ACTIVE, NAME) VALUES (104,0,TRUE, 'EXTERNAL_TRANSFER_CONFIRM');
 INSERT INTO AUTHORITY(ID, VERSION,ACTIVE, NAME) VALUES (105,0,TRUE, 'REQUEST_DEVICE_LIST_CREATE');
-
+INSERT INTO AUTHORITY(ID, VERSION,ACTIVE, NAME) VALUES (106,0,TRUE, 'REQUEST_DEVICE_LIST_READ');
 -- USER
 INSERT INTO public.user_ (id, account_expired, account_locked, credentials_expired, enabled, password, user_name, version, office_id, userdata_id) VALUES (1, false, false, false, true, '$2a$08$qvrzQZ7jJ7oy2p/msL4M0.l83Cd0jNsX6AJUitbgRXGzge4j035ha', 'admin', 0, 1, 1);
-INSERT INTO public.user_ (id, account_expired, account_locked, credentials_expired, enabled, password, user_name, version, office_id, userdata_id) VALUES (2, false, false, false, true, '$2a$08$ayuzBZPVZvcJ9aGUxg3aPO4AskC831pGP8fdMugVHKBzO9JujKglG', 'company_admin', 7, 2, 2);
-INSERT INTO public.user_ (id, account_expired, account_locked, credentials_expired, enabled, password, user_name, version, office_id, userdata_id) VALUES (3, false, false, false, true, '$2a$08$9Y35fB6V32ZjeSss4yphou1hhyiRDSKUlzjTqw8BqjwK65wsw3ufu', 'manager', 4, 3, 3);
-INSERT INTO public.user_ (id, account_expired, account_locked, credentials_expired, enabled, password, user_name, version, office_id, userdata_id) VALUES (4, false, false, false, true, '$2a$08$uSVsWY3W1VPF/fKGHlwYN.ntllnUW6eYOTsRrPeO4VZ5d8dYJymFC', 'warehouseman', 3, 4, 4);
-INSERT INTO public.user_ (id, account_expired, account_locked, credentials_expired, enabled, password, user_name, version, office_id, userdata_id) VALUES (5, false, false, false, true, '$2a$08$64JpOWYSd517.GIpOk1E6ut1FS270EdmA.QIgEesXL2u4QyRaFK2i', 'user', 0, 3, 5);
-
+INSERT INTO public.user_ (id, account_expired, account_locked, credentials_expired, enabled, password, user_name, version, office_id, userdata_id) VALUES (2, false, false, false, true, '$2a$08$ayuzBZPVZvcJ9aGUxg3aPO4AskC831pGP8fdMugVHKBzO9JujKglG', 'company_admin', 0, 2, 2);
+INSERT INTO public.user_ (id, account_expired, account_locked, credentials_expired, enabled, password, user_name, version, office_id, userdata_id) VALUES (3, false, false, false, true, '$2a$08$9Y35fB6V32ZjeSss4yphou1hhyiRDSKUlzjTqw8BqjwK65wsw3ufu', 'manager', 0, 3, 3);
+INSERT INTO public.user_ (id, account_expired, account_locked, credentials_expired, enabled, password, user_name, version, office_id, userdata_id) VALUES (4, false, false, false, true, '$2a$08$uSVsWY3W1VPF/fKGHlwYN.ntllnUW6eYOTsRrPeO4VZ5d8dYJymFC', 'warehouseman', 0, 4, 4);
+INSERT INTO public.user_ (id, account_expired, account_locked, credentials_expired, enabled, password, user_name, version, office_id, userdata_id) VALUES (5, false, false, false, true, '$2a$08$KjqKtpwHqXLJWo2XEP5u6uYJ3gtkKPNMgKxAnlG9pJnbzl4QQWIQ6', 'user', 0, 3, 5);
 -- USER ROLE
 INSERT INTO USER_ROLE(ID,VERSION,NAME,ACTIVE) VALUES (1,0,'ADMIN',TRUE );
 INSERT INTO USER_ROLE(ID,VERSION,NAME,ACTIVE) VALUES (2,0,'USER',TRUE );
@@ -213,6 +213,7 @@ INSERT INTO public.users_roles (user_id, user_role_id) VALUES (2, 2);
 INSERT INTO public.users_roles (user_id, user_role_id) VALUES (2, 5);
 INSERT INTO public.users_roles (user_id, user_role_id) VALUES (3, 2);
 INSERT INTO public.users_roles (user_id, user_role_id) VALUES (3, 3);
+INSERT INTO public.users_roles (user_id, user_role_id) VALUES (5, 2);
 
 -- USER ROLES AUTHORITIES
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (1, 1);
@@ -319,7 +320,7 @@ INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (1, 102);
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (1, 103);
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (1, 104);
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (1, 105);
-
+INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (1, 106);
 -- //COMPANY ADMIN
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (5, 2);
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (5, 6);
@@ -414,6 +415,7 @@ INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (5, 102);
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (5, 103);
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (5, 104);
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (5, 105);
+INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (5, 106);
 
 -- //USER
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (2, 2);
@@ -435,6 +437,7 @@ INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (2, 53);
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (2, 60);
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (2, 65);
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (2, 67);
+INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (2, 68);
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (2, 70);
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (2, 71);
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (2, 72);
@@ -454,6 +457,7 @@ INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (2, 99);
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (2, 101);
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (2, 102);
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (2, 103);
+INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (2, 106);
 -- //MANGER
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (3, 2);
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (3, 8);
@@ -487,6 +491,7 @@ INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (3, 75);
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (3, 83);
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (3, 84);
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (3, 85);
+INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (3, 86);
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (3, 88);
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (3, 89);
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (3, 90);
@@ -495,6 +500,7 @@ INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (3, 97);
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (3, 101);
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (3, 102);
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (3, 103);
+INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (3, 106);
 
 -- //WAREHOUSEMAN
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (4, 2);
@@ -503,9 +509,11 @@ INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (4, 13);
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (4, 14);
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (4, 15);
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (4, 16);
+INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (4, 18);
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (4, 17);
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (4, 19);
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (4, 21);
+INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (4, 23);
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (4, 24);
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (4, 25);
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (4, 26);
@@ -544,16 +552,18 @@ INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (4, 102);
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (4, 103);
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (4, 104);
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (4, 105);
+INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (4, 106);
 
 
-INSERT INTO public.warehouse (id, deleted, name, version, warehouse_type, office_id, user_id) VALUES (1, false, 'Tomasz Stachura| admin | WAREHOUSE', 0, 'USER', 1, 1);
-INSERT INTO public.warehouse (id, deleted, name, version, warehouse_type, office_id, user_id) VALUES (3, false, 'John William | reader2 | WAREHOUSE', 1, 'USER', 3, 4);
-INSERT INTO public.warehouse (id, deleted, name, version, warehouse_type, office_id, user_id) VALUES (4, false, 'David William | modifier | WAREHOUSE', 1, 'USER', 3, 3);
-INSERT INTO public.warehouse (id, deleted, name, version, warehouse_type, office_id, user_id) VALUES (5, false, 'Robert William | reader | WAREHOUSE', 1, 'USER', 3, 2);
-INSERT INTO public.warehouse (id, deleted, name, version, warehouse_type, office_id, user_id) VALUES (2, false, 'Boston | OFFICE_WAREHOUSE', 0, 'OFFICE', 2, 1);
-INSERT INTO public.warehouse (id, deleted, name, version, warehouse_type, office_id, user_id) VALUES (6, false, 'NewYork | OFFICE_WAREHOUSE', 0, 'OFFICE', 3, 1);
-INSERT INTO public.warehouse (id, deleted, name, version, warehouse_type, office_id, user_id) VALUES (7, false, 'boston2 | OFFICE_WAREHOUSE', 0, 'OFFICE', 1, 1);
-INSERT INTO public.warehouse (id, deleted, name, version, warehouse_type, office_id, user_id) VALUES (8, false, 'Los Angeles | OFFICE_WAREHOUSE', 0, 'OFFICE', 4, 1);
+INSERT INTO public.warehouse (id, deleted, name, version, warehouse_type, office_id, user_id) VALUES (1, false, 'Tomasz Stachura | admin | Warehouse', 0, 'USER', 1, 1);
+INSERT INTO public.warehouse (id, deleted, name, version, warehouse_type, office_id, user_id) VALUES (3, false, 'John William | reader2 | Warehouse', 0, 'USER', 3, 4);
+INSERT INTO public.warehouse (id, deleted, name, version, warehouse_type, office_id, user_id) VALUES (4, false, 'David William | modifier | Warehouse', 0, 'USER', 3, 3);
+INSERT INTO public.warehouse (id, deleted, name, version, warehouse_type, office_id, user_id) VALUES (5, false, 'Robert William | reader | Warehouse', 0, 'USER', 3, 2);
+INSERT INTO public.warehouse (id, deleted, name, version, warehouse_type, office_id, user_id) VALUES (2, false, 'New York | Office warehouse', 0, 'OFFICE', 2, 1);
+INSERT INTO public.warehouse (id, deleted, name, version, warehouse_type, office_id, user_id) VALUES (6, false, 'Łódź | Office warehouse', 0, 'OFFICE', 3, 1);
+INSERT INTO public.warehouse (id, deleted, name, version, warehouse_type, office_id, user_id) VALUES (7, false, 'Boston | Office warehouse', 0, 'OFFICE', 1, 1);
+INSERT INTO public.warehouse (id, deleted, name, version, warehouse_type, office_id, user_id) VALUES (8, false, 'Los Angeles | Office warehouse', 0, 'OFFICE', 4, 1);
+INSERT INTO public.warehouse (id, deleted, name, version, warehouse_type, office_id, user_id) VALUES (9, false, 'Kamil Nowak|user| Warehouse', 0, 'USER', 3, 5);
 
 INSERT INTO public.device_type (id, name, version) VALUES (1, 'Komputer', 0);
 INSERT INTO public.device_type (id, name, version) VALUES (2, 'Myszka', 0);
@@ -566,13 +576,15 @@ INSERT INTO public.device_model (id, cost, deleted, manufacture, name, version, 
 INSERT INTO public.device_model (id, cost, deleted, manufacture, name, version, company_id, device_type_id) VALUES (1, 2099, false, 'Lenovo', 'Laptop Lenovo V110-15IKB (80TH003CPB)', 0, 1, 1);
 
 
-INSERT INTO public.device (id, deleted, last_update,  serial_number, status, version, company_id, device_model_id, warehouse_id,CREATE_DATE) VALUES (2, false, '2011-03-12 12:00:00.000000', 'XYZ123LPZ', 'REPOSE', 0, 1, 1, 1, '2011-03-12 12:00:00.000000');
-INSERT INTO public.device (id, deleted, last_update,  serial_number, status, version, company_id, device_model_id, warehouse_id,CREATE_DATE) VALUES (1, false, '2018-03-12 12:00:00.000000', 'XYZ153LPZ', 'REPOSE', 0, 1, 1, 1, '2011-03-12 12:00:00.000000');
-INSERT INTO public.device (id, deleted, last_update, serial_number, status, version, company_id, device_model_id, warehouse_id,CREATE_DATE) VALUES (3, false, '2011-03-12 12:30:00.000000', 'XYZ123JPZ', 'REPOSE', 0, 1, 1, 1, '2011-03-12 12:00:00.000000');
-INSERT INTO public.device (id, deleted, last_update,  serial_number, status, version, company_id, device_model_id, warehouse_id,CREATE_DATE) VALUES (4, false, '2011-03-12 12:00:00.000000', 'XYZ1H3LPZ', 'REPOSE', 0, 1, 1, 1, '2011-03-12 12:00:00.000000');
-INSERT INTO public.device (id, deleted, last_update,  serial_number, status, version, company_id, device_model_id, warehouse_id,CREATE_DATE) VALUES (5, false, '2011-03-12 12:00:00.000000', 'XY345GLPZ', 'REPOSE', 0, 1, 1, 2, '2011-03-12 12:00:00.000000');
-INSERT INTO public.device (id, deleted, last_update,  serial_number, status, version, company_id, device_model_id, warehouse_id,CREATE_DATE) VALUES (6, false, '2011-03-12 12:30:00.000000', 'XYZ12DDPZ', 'REPOSE', 0, 1, 1, 2, '2011-03-12 12:00:00.000000');
-INSERT INTO public.device (id, deleted, last_update,  serial_number, status, version, company_id, device_model_id, warehouse_id,CREATE_DATE) VALUES (7, false, '2018-03-12 12:00:00.000000', 'XYZ189LPZ', 'REPOSE', 0, 1, 1, 2, '2011-03-12 12:00:00.000000');
+INSERT INTO public.device (id, create_date, deleted, last_update, serial_number, status, version, company_id, device_model_id, warehouse_id) VALUES (2, '2011-03-12 12:00:00.000000', false, '2011-03-12 12:00:00.000000', 'XYZ123LPZ', 'REPOSE', 0, 1, 1, 1);
+INSERT INTO public.device (id, create_date, deleted, last_update, serial_number, status, version, company_id, device_model_id, warehouse_id) VALUES (1, '2011-03-12 12:00:00.000000', false, '2018-03-12 12:00:00.000000', 'XYZ153LPZ', 'REPOSE', 0, 1, 1, 1);
+INSERT INTO public.device (id, create_date, deleted, last_update, serial_number, status, version, company_id, device_model_id, warehouse_id) VALUES (3, '2011-03-12 12:00:00.000000', false, '2011-03-12 12:30:00.000000', 'XYZ123JPZ', 'REPOSE', 0, 1, 1, 1);
+INSERT INTO public.device (id, create_date, deleted, last_update, serial_number, status, version, company_id, device_model_id, warehouse_id) VALUES (4, '2011-03-12 12:00:00.000000', false, '2011-03-12 12:00:00.000000', 'XYZ1H3LPZ', 'REPOSE', 0, 1, 1, 1);
+INSERT INTO public.device (id, create_date, deleted, last_update, serial_number, status, version, company_id, device_model_id, warehouse_id) VALUES (5, '2011-03-12 12:00:00.000000', false, '2011-03-12 12:00:00.000000', 'XY345GLPZ', 'REPOSE', 0, 1, 1, 2);
+INSERT INTO public.device (id, create_date, deleted, last_update, serial_number, status, version, company_id, device_model_id, warehouse_id) VALUES (6, '2011-03-12 12:00:00.000000', false, '2011-03-12 12:30:00.000000', 'XYZ12DDPZ', 'REPOSE', 0, 1, 1, 2);
+INSERT INTO public.device (id, create_date, deleted, last_update, serial_number, status, version, company_id, device_model_id, warehouse_id) VALUES (7, '2011-03-12 12:00:00.000000', false, '2018-03-12 12:00:00.000000', 'XYZ189LPZ', 'REPOSE', 0, 1, 1, 2);
+INSERT INTO public.device (id, create_date, deleted, last_update, serial_number, status, version, company_id, device_model_id, warehouse_id) VALUES (8, '2011-03-12 12:00:00.000000', false, '2018-03-12 12:00:00.000000', 'XYZ349LPZ', 'REPOSE', 0, 1, 1, 9);
+INSERT INTO public.device (id, create_date, deleted, last_update, serial_number, status, version, company_id, device_model_id, warehouse_id) VALUES (9, '2011-03-12 12:00:00.000000', false, '2018-03-12 12:00:00.000000', 'XYZ189LRT', 'REPOSE', 0, 1, 1, 9);
 
 INSERT INTO TRANSFER (ID,VERSION,DELETED,USERNAME,TITLE,TRANSFER_DATE,SENDER_WAREHOUSE_ID,RECIEVER_WAREHOUSE_ID,DEVICE_ID,STATUS) VALUES (1,0,FALSE,'admin' ,'TITLE','2011-03-12 12:00',1,2,1,'TRANSFERED');
 
@@ -584,8 +596,8 @@ INSERT INTO notification(ID,VERSION,DELETED,TITLE,DESCRIPTION,URL,READED,NOTIFIC
 
 INSERT INTO SYSTEM_MESSAGE(ID,VERSION,DELETED,TITLE,MESSAGE,MESSAGE_DATE) VALUES (1,0,FALSE,'Dzień wolny',' Jutro dzień wolny, ogałaszam święto państwowe','2011-03-12 13:00');
 
-INSERT INTO public.external_transfer (id, confirmed, external_transfer_date, deleted, external_transfer_number, serial_number, title, version, device_model_id, reciever_warehouse_id, sender_warehouse_id,confirm_date) VALUES (1, false, '2019-01-14 19:59:09.897000', false, '2527', 'sadfggrg', 'dostawa', 0, 1, 1, 2, '2019-01-14 19:59:09.897000');
-INSERT INTO public.external_transfer (id, confirmed, external_transfer_date, deleted, external_transfer_number, serial_number, title, version, device_model_id, reciever_warehouse_id, sender_warehouse_id,confirm_date) VALUES (2, false, '2019-01-14 19:59:09.897000', false, '2527', 'sadfggrg', 'dostawa', 0, 1, 1, 2, '2019-01-14 19:59:09.897000');
+INSERT INTO public.external_transfer (id, confirmed, external_transfer_date, deleted, external_transfer_number, serial_number, title, version, device_model_id, reciever_warehouse_id, sender_warehouse_id,confirm_date) VALUES (1, false, '2019-01-14 19:59:09.897000', false, '2527', 'XYZ123AAS', 'dostawa', 0, 1, 1, 2, '2019-01-14 19:59:09.897000');
+INSERT INTO public.external_transfer (id, confirmed, external_transfer_date, deleted, external_transfer_number, serial_number, title, version, device_model_id, reciever_warehouse_id, sender_warehouse_id,confirm_date) VALUES (2, false, '2019-01-14 19:59:09.897000', false, '2567', 'XYZ123JKL', 'dostawa', 0, 1, 1, 2, '2019-01-14 19:59:09.897000');
 
 INSERT INTO report(ID,VERSION,DELETED,TITLE,SENDER_ID,RECIEVER_ID,REPORT_DATE,DISABLE_SENDER,DISABLE_RECIEVER,DESCRIPTION) VALUES (1,0,FALSE ,'Dostawa nowych monitorów',1,1,'2011-03-12 13:00',FALSE,FALSE,'Dostawa nowych monitorów została odebrana');
 
@@ -593,6 +605,6 @@ INSERT INTO public.request (id, amount, request_date, deleted, description, requ
 INSERT INTO public.request (id, amount, request_date, deleted, description, request_type, status, title, version, device_model_id, reciever_warehouse_id, sender_warehouse_id, user_id) VALUES (1, 2, '2011-03-12 13:00:00.000000', false, 'Stara myszka została uszkodzona, potrzebuje nowej', 'DEVICE_REQUEST', 'WAITING', 'Uszkodzona myszka', 0, 1, 1, 2, 1);
 INSERT INTO public.request (id, amount, request_date, deleted, description, request_type, status, title, version, device_model_id, reciever_warehouse_id, sender_warehouse_id, user_id) VALUES (2, 1, '2011-03-12 13:00:00.000000', false, 'Przeniesieni urzadzenia do magazynu', 'TRANSFER_REQUEST', 'WAITING', 'Zdanie sprzętu', 0, 1, 1, 2, 1);
 INSERT INTO public.request (id, amount, request_date, deleted, description, request_type, status, title, version, device_model_id, reciever_warehouse_id, sender_warehouse_id, user_id) VALUES (3, 4, '2011-03-12 13:00:00.000000', false, 'Potrzebuję dodatkowy monitor, który znacznie ułatwi pracę nad oprogramowaniem', 'DEVICE_REQUEST', 'WAITING', 'Zapotrzebowanie na monitor', 0, 1, 1, 2, 1);
-INSERT INTO public.request (id, amount, request_date, deleted, description, request_type, status, title, version, device_model_id, reciever_warehouse_id, sender_warehouse_id, user_id) VALUES (8, 3, '2019-01-15 01:49:58.091000', false, 'Potrzeba urządzeń', 'DEVICE_REQUEST', 'IN_WAREHOUSE', 'Zapotrzebowanie', 1, 2, 1, 1, 1);
+INSERT INTO public.request (id, amount, request_date, deleted, description, request_type, status, title, version, device_model_id, reciever_warehouse_id, sender_warehouse_id, user_id) VALUES (8, 3, '2019-01-15 01:49:58.091000', false, 'Potrzeba urządzeń', 'DEVICE_REQUEST', 'IN_WAREHOUSE', 'Zapotrzebowanie', 0, 2, 1, 1, 1);
 
 

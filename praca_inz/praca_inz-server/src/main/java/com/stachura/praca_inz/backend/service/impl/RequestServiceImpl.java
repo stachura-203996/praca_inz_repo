@@ -206,12 +206,12 @@ public class RequestServiceImpl implements RequestService {
         Request request = RequestConverter.toRequest(transferRequestAddDto, device, reciever, user);
         List<User> managers = Lists.newArrayList(userRepository.findAll()).stream().filter(x -> x.getUserRoles().stream().filter(z -> z.getName().equals("MANAGER")).findFirst().isPresent()
                 && x.getOffice().getId().equals(user.getOffice().getId())).collect(Collectors.toList());
+
+        requestRepository.saveAndFlush(request);
         for (User m : managers) {
             notificationService.createNewNotification(NotificationMessages.getRequestReceivedManagerNotifiaction(request, m));
         }
         notificationService.createNewNotification(NotificationMessages.getRequestSentNotifiaction(request, user));
-        requestRepository.saveAndFlush(request);
-
         for (Device d : request.getDevices()) {
             d.setStatus(DeviceStatus.RESERVED);
             deviceRepository.saveAndFlush(d);

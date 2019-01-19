@@ -19,7 +19,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.PersistenceException;
 import java.util.Calendar;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -102,7 +101,7 @@ RegistrationServiceImpl implements RegistrationService {
             user.setUserdata(userdata);
             userRepository.saveAndFlush(user);
             warehouse.setUser(user);
-            warehouse.setName(user.getUserdata().getName() + "|" + user.getUserdata().getSurname() + "|" + user.getUsername() + "|WAREHOUSE");
+            warehouse.setName(user.getUserdata().getName() + "|" + user.getUserdata().getSurname() + " " + user.getUsername() + "| Warehouse");
             warehouseRepository.saveAndFlush(warehouse);
         }catch (Exception e){
             e.printStackTrace();

@@ -55,28 +55,16 @@ export class RequestListComponent implements OnInit {
     viewPage(request: RequestListElement) {
         switch (request.type) {
             case this.DEVICE_REQUEST: {
-                this.router.navigateByUrl('/ui/page/devices/request/view/' + request.id);
+                this.router.navigateByUrl('/page/devices/request/view/' + request.id);
                 break;
             }
             case this.TRANSFER_REQUEST: {
-                this.router.navigateByUrl('/ui/page/devices/request/transfer/view/' + request.id);
+                this.router.navigateByUrl('/page/devices/request/transfer/view/' + request.id);
                 break;
             }
         }
     }
-
-    editPage(request: RequestListElement) {
-        switch (request.type) {
-            case this.DEVICE_REQUEST: {
-                this.router.navigateByUrl('/ui/page/devices/request/edit/' + request.id);
-                break;
-            }
-            case this.TRANSFER_REQUEST: {
-                this.router.navigateByUrl('/ui/page/devices/transfer/request/edit/' + request.id);
-                break;
-            }
-        }
-    }
+    
 
     cancel(request: RequestListElement) {
         var entity: string;

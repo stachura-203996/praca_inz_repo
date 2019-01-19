@@ -5,7 +5,7 @@
                 <h1>{{'CreateTransferRequest'|translate}}</h1>
                 <div class="form-group">
                     <div class="form-group">
-                        <label class="col-xl-5 control-label" for="Title">{{'Title' | translate}}</label>
+                        <label class="col-xl-5 control-label" for="Title">{{'Title' | translate}}<span style="color:red">*</span></label>
                         <div class="col-xl-5">
                             <div class="input-group">
                                 <input id="Title" [(ngModel)]="transferRequestAddElement.title" name="Title" type="text"
@@ -21,7 +21,7 @@
                         </div>
                     </div>
                     <div class="form-group col-xl-5">
-                        <label for="recieverSelect">{{'Receiver'|translate}}</label>
+                        <label for="recieverSelect">{{'Receiver'|translate}}<span style="color:red">*</span></label>
                         <select class="form-control" id="recieverSelect" [(ngModel)]="selectedOption" name="first">
                             <option *ngFor="let warehouse of warehouses|keyvalue" [value]="warehouse.key">{{warehouse.key}}</option>
                         </select>

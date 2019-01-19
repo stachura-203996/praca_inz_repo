@@ -3,10 +3,10 @@ import {TranslateService} from "@ngx-translate/core";
 import {ActivatedRoute, Router} from "@angular/router";
 import {DeviceRequestAddElement} from "../../../../models/request-elements";
 import {RequestService} from "../../../employee-management/request.service";
-import {DeviceListElement, DeviceModelListElement} from "../../../../models/device-elements";
 import {DeviceService} from "../../device.service";
 import {MessageService} from "../../../../shared/services/message.service";
 import {Configuration} from "../../../../app.constants";
+import {DeviceModelListElement} from "../../../../models/device-elements";
 
 @Component({
   selector: 'app-device-request-add',

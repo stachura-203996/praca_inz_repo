@@ -87,7 +87,7 @@ export class RequestUserComponent implements OnInit {
         var yes: string;
         var no: string;
 
-        this.translate.get('request.add').subscribe(x => entity = x);
+        this.translate.get('request.reject').subscribe(x => entity = x);
         this.translate.get('confirm.reject').subscribe(x => message = x);
         this.translate.get('yes').subscribe(x => yes = x);
         this.translate.get('no').subscribe(x => no = x);

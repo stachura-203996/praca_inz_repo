@@ -22,7 +22,7 @@ import java.util.Set;
 public class Device implements Serializable {
 
     @Id
-    @SequenceGenerator(name = "DeviceGen", sequenceName = "device_id_seq",initialValue = 9,allocationSize = 1)
+    @SequenceGenerator(name = "DeviceGen", sequenceName = "device_id_seq",initialValue = 10,allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "DeviceGen")
     @Column(name = "ID", updatable = false, nullable = false)
     private Long id = null;

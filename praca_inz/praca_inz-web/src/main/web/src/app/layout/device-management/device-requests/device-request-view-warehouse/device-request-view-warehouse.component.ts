@@ -45,7 +45,7 @@ export class DeviceRequestViewWarehouseComponent implements OnInit {
         this.getRequest();
         this.getLoggedUser();
         this.getLoggeduserRoles();
-        this.getDevices();
+        this.getDevices(this.request.deviceModelName);
     }
 
     getUserInfo():string{
@@ -77,15 +77,16 @@ export class DeviceRequestViewWarehouseComponent implements OnInit {
         return this.selectedOptions.some(x => x.option == value);
     }
 
-    getDevices() {
+    getDevices(deviceModel:string) {
         this.deviceService.getAllDevicesForWarehouseman().subscribe((response: DeviceListElement[]) => {
             this.devices = response.reduce(function (deviceMap, device) {
-                if (device.id) {
+                if (device.id && device.deviceModel==deviceModel) {
                     deviceMap.set(device.deviceModel + " |   " + device.serialNumber, device.id)
                 }
                 return deviceMap;
             }, this.devices);
         });
+
     }
 
     getLoggeduserRoles() {

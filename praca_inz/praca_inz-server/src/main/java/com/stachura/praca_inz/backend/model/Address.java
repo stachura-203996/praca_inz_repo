@@ -15,7 +15,7 @@ import java.io.Serializable;
 public class Address implements Serializable {
 
     @Id
-    @SequenceGenerator(name = "AddressGen", sequenceName = "address_id_seq",initialValue = 12,allocationSize = 1)
+    @SequenceGenerator(name = "AddressGen", sequenceName = "address_id_seq",initialValue = 13,allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "AddressGen")
     @Column(name = "ID", updatable = false, nullable = false)
     private Long id;

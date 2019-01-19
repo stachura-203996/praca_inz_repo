@@ -31,23 +31,8 @@
                                     <i class="fa fa-eye"></i>&nbsp;
                                     <span class="d-none d-md-inline">{{'View'|translate}}</span>
                                 </button>
-                                <button type="button" (click)="cancel(request)"
-                                        class="btn btn-warning btn-sm">
-                                    <i class="fa fa-times"></i>&nbsp;
-                                    <span class="d-none d-md-inline">{{'Cancel'|translate}}</span>
-                                </button>
-                                <button *ngIf="request.status=='WAITING'" type="button" (click)="reject(request)"
-                                        class="btn btn-danger btn-sm">
-                                    <i class="fa fa-times"></i>&nbsp;
-                                    <span class="d-none d-md-inline">{{'Reject'|translate}}</span>
-                                </button>
-                                <button *ngIf="request.status=='WAITING'" type="button" (click)="accept(request)"
-                                        class="btn btn-success btn-sm">
-                                    <i class="fa fa-times"></i>&nbsp;
-                                    <span class="d-none d-md-inline">{{'Accept'|translate}}</span>
-                                </button>
                                 <button type="button" (click)="delete(request)"
-                                        *ngIf="request.status=='CLOSED'"
+                                        *ngIf="request.status=='REALIZED'"
                                         class="btn btn-danger btn-sm">
                                     <i class="fa fa-times"></i>&nbsp;
                                     <span class="d-none d-md-inline">{{'Delete'|translate}}</span>
@@ -88,23 +73,8 @@
                                     <i class="fa fa-eye"></i>&nbsp;
                                     <span class="d-none d-md-inline">{{'View'|translate}}</span>
                                 </button>
-                                <button type="button" (click)="cancel(request)"
-                                        class="btn btn-warning btn-sm">
-                                    <i class="fa fa-times"></i>&nbsp;
-                                    <span class="d-none d-md-inline">{{'Cancel'|translate}}</span>
-                                </button>
-                                <button *ngIf="request.status=='WAITING'" type="button" (click)="reject(request)"
-                                        class="btn btn-danger btn-sm">
-                                    <i class="fa fa-times"></i>&nbsp;
-                                    <span class="d-none d-md-inline">{{'Reject'|translate}}</span>
-                                </button>
-                                <button *ngIf="request.status=='WAITING'" type="button" (click)="accept(request)"
-                                        class="btn btn-success btn-sm">
-                                    <i class="fa fa-times"></i>&nbsp;
-                                    <span class="d-none d-md-inline">{{'Accept'|translate}}</span>
-                                </button>
                                 <button type="button" (click)="delete(request)"
-                                        *ngIf="request.status=='CLOSED'"
+                                        *ngIf="request.status=='REALIZED'"
                                         class="btn btn-danger btn-sm">
                                     <i class="fa fa-times"></i>&nbsp;
                                     <span class="d-none d-md-inline">{{'Delete'|translate}}</span>
