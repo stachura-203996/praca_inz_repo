@@ -35,12 +35,11 @@ export class DeviceRequestAddComponent implements OnInit {
         this.getDevicesModels();
     }
 
-
     getDevicesModels() {
         this.deviceService.getAllDevicesModels().subscribe((response: DeviceModelListElement[]) => {
             this.deviceModels = response.reduce(function (deviceMap, device) {
                 if (device.id) {
-                    deviceMap.set(device.name+" "+device.manufacture, device.id)
+                    deviceMap.set(device.name+" "+device.deviceTypeName+" "+device.manufacture+" "+device.cost+" "+device.manufacture, device.id)
                 }
                 return deviceMap;
             }, this.deviceModels);

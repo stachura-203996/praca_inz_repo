@@ -1,11 +1,8 @@
 package com.stachura.praca_inz.backend.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.stachura.praca_inz.backend.model.enums.DeviceStatus;
-import com.stachura.praca_inz.backend.model.enums.Status;
-import com.stachura.praca_inz.backend.model.security.UserRole;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -14,7 +11,6 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Calendar;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -26,7 +22,7 @@ import java.util.Set;
 public class Device implements Serializable {
 
     @Id
-    @SequenceGenerator(name = "DeviceGen", sequenceName = "device_id_seq",initialValue = 8,allocationSize = 1)
+    @SequenceGenerator(name = "DeviceGen", sequenceName = "device_id_seq",initialValue = 9,allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "DeviceGen")
     @Column(name = "ID", updatable = false, nullable = false)
     private Long id = null;

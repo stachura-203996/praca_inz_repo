@@ -304,7 +304,7 @@
     "WAITING":"WAITING",
     "TRANSFER_REQUEST":"TRANSFER_REQUEST",
     "DEVICE_REQUEST":"DEVICE_REQUEST",
-    "IN_WAREHOUSE":"IN_WAREHOUSE",
+    "IN_WAREHOUSE":"IN WAREHOUSE",
     "warehouse.add":"Add warehouse",
     "warehouse.name.taken.error":"Warehouse name already taken",
     "device.serial.number.taken.error":"Device serial number already taken",
@@ -364,7 +364,7 @@
     "report.add":"Send report",
     "request.accept":"Accept request",
     "confirm.accept":"Are you sure you want accept this element",
-    "success.request.reject":"success.request.reject",
+    "success.request.reject":"Sucessfull request reject",
     "confirm.reject":"Are you sure you want reject this  element",
     "success.request.accept":"Successfull request acceptance",
     "success.notification.delete":"Successfull delete of notification",
@@ -374,5 +374,7 @@
     "houseNumber":"House number",
     "Language is required":"Language is required",
     "CreateTransfer":"Create transfer",
-    "ConfirmationDate":"Confirmation date"
+    "ConfirmationDate":"Confirmation date",
+    "success.office.edit":"Sucessfull edit of office",
+    "confirm.recieve":"Are you sure you want confirm receipt"
 }

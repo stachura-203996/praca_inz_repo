@@ -75,11 +75,11 @@ public class NotificationMessages {
         notification.setUrl("/employees/reports/view/" + report.getId());
         if(report.getSender().getUserdata().getLanguage()=="ENG") {
             notification.setTitle("Report sended");
-            notification.setDescription("Your report was sent to: " + report.getReciever().getUsername() + " Report title: " + report.getTitle()
+            notification.setDescription("Your report was sent to: " + report.getReciever().getUserdata().getName() + " " + report.getReciever().getUserdata().getSurname() + " | " + report.getReciever().getUsername() + " Report title: " + report.getTitle()
                     + "Report description: " + report.getDescription());
         } else {
             notification.setTitle("Raport wysłany");
-            notification.setDescription("Twój raport został wysłany do: " + report.getReciever().getUsername() + " Tytuł raportu: " + report.getTitle()
+            notification.setDescription("Twój raport został wysłany do: " + report.getReciever().getUserdata().getName() + " " + report.getReciever().getUserdata().getSurname() + " | " + report.getReciever().getUsername() + " Tytuł raportu: " + report.getTitle()
                     + " Opis raportu: " + report.getDescription());
         }
         return notification;
@@ -94,11 +94,11 @@ public class NotificationMessages {
         notification.setUrl("/employees/reports/view/" + report.getId());
         if(report.getReciever().getUserdata().getLanguage()=="ENG") {
             notification.setTitle("Report recieved");
-            notification.setDescription("You get report from: " + report.getSender().getUsername() + "Report title: " + report.getTitle()
+            notification.setDescription("You get report from: " + report.getSender().getUserdata().getName() + " " + report.getSender().getUserdata().getSurname() + " | " + report.getSender().getUsername()  + "Report title: " + report.getTitle()
                     + "Report description: " + report.getDescription());
         } else {
             notification.setTitle("Nowy raport");
-            notification.setDescription("Otrzymałeś raport od: " + report.getSender().getUsername() + "Tytuł raportu: " + report.getTitle()
+            notification.setDescription("Otrzymałeś raport od: " + report.getSender().getUserdata().getName() + " " + report.getSender().getUserdata().getSurname() + " | " + report.getSender().getUsername()  + "Tytuł raportu: " + report.getTitle()
                     + " Opis raportu: " + report.getDescription());
         }
         return notification;

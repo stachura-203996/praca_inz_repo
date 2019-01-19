@@ -20,7 +20,7 @@ import java.util.Comparator;
 public class Notification implements Serializable, Comparator<Notification>,Cloneable  {
 
     @Id
-    @SequenceGenerator(name = "NotificationGen", sequenceName = "notification_id_seq",initialValue = 5,allocationSize = 1)
+    @SequenceGenerator(name = "NotificationGen", sequenceName = "notification_id_seq",initialValue = 7,allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "NotificationGen")
     @Column(name = "ID", updatable = false, nullable = false)
     private Long id = null;

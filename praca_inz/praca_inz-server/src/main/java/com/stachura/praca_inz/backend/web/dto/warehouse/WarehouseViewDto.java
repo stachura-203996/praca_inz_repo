@@ -10,7 +10,7 @@ public class WarehouseViewDto {
     private String name;
     private String userName;
     private String  userSurname;
-    private String login;
+    private String username;
     private String officeName;
     private String companyName;
     private String departmentName;

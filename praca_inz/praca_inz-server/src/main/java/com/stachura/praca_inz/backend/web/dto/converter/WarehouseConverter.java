@@ -15,7 +15,7 @@ public class WarehouseConverter {
     public static WarehouseViewDto toWarehouseViewDto(Warehouse warehouse) {
         return WarehouseViewDto.builder()
                 .name(warehouse.getName())
-                .login(warehouse.getUser().getUsername())
+                .username(warehouse.getUser().getUsername())
                 .companyName(warehouse.getOffice().getDepartment().getCompany().getName())
                 .departmentName(warehouse.getOffice().getDepartment().getName())
                 .userName(warehouse.getUser().getUserdata().getName())
@@ -26,20 +26,12 @@ public class WarehouseConverter {
     }
 
     //LIST
-    public static WarehouseListElementDto toWarehouseUserListElementDto(Warehouse warehouse) {
-        return WarehouseListElementDto.builder()
-                .id(warehouse.getId())
-                .name(warehouse.getName())
-                .username(warehouse.getUser().getUsername())
-                .devicesNumber(String.valueOf(warehouse.getDevices().size()))
-                .build();
-    }
 
     public static WarehouseListElementDto toWarehouseOfficeListElementDto(Warehouse warehouse) {
         return WarehouseListElementDto.builder()
                 .id(warehouse.getId())
                 .name(warehouse.getName())
-                .username(warehouse.getUser().getUsername())
+                .login(warehouse.getUser().getUsername())
                 .companyName(warehouse.getOffice().getDepartment().getCompany().getName())
                 .departmentName(warehouse.getOffice().getDepartment().getName())
                 .userName(warehouse.getUser().getUserdata().getName())

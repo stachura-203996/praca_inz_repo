@@ -6,8 +6,8 @@ import {DeliveryListComponent} from "./delivery-list/delivery-list.component";
 import {WarehouseDevicesComponent} from "./warehouse-devices/warehouse-devices.component";
 
 const routes: Routes = [
-    {path: '', component: WarehouseUserComponent },
-    {path: 'requests', component: WarehouseRequestListComponent },
+    {path: '', component: WarehouseUserComponent},
+    {path: 'requests', component: WarehouseRequestListComponent},
     {path:'devices', component: WarehouseDevicesComponent},
     {path:'transfer/external', component: DeliveryListComponent},
 ];

@@ -253,7 +253,7 @@ public class RequestServiceImpl implements RequestService {
     @PreAuthorize("hasAuthority('REQUEST_UPDATE')")
     public void realizeRequest(ChangeStatusDto changeStatusDto) throws EntityNotInDatabaseException, EntityOptimisticLockException {
         Request request = requestRepository.findById(changeStatusDto.getId()).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
-        requestRepository.detach(request);
+//        requestRepository.detach(request);
         request.setVersion(changeStatusDto.getVersion());
         request.setStatus(Status.valueOf(changeStatusDto.getStatus()));
         try {

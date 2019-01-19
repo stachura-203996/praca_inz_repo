@@ -1,8 +1,5 @@
 package com.stachura.praca_inz.backend.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.stachura.praca_inz.backend.model.security.User;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -10,8 +7,6 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @EnableAutoConfiguration
@@ -21,7 +16,7 @@ import java.util.Set;
 public class Userdata implements Serializable {
 
     @Id
-    @SequenceGenerator(name = "UserdataGen", sequenceName = "userdata_id_seq",initialValue = 4,allocationSize = 1)
+    @SequenceGenerator(name = "UserdataGen", sequenceName = "userdata_id_seq",initialValue = 6,allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "UserdataGen")
     @Column(name = "ID", updatable = false, nullable = false)
     private Long id = null;

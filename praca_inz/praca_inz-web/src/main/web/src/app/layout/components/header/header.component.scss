@@ -13,8 +13,17 @@ $topnav-background-color: #222;
             }
             margin-right: 20px;
                 .dropdown-item {
-
+                    max-width: 100px;
+                    white-space: normal;
                    padding-right : 100px;
+                   .media-body {
+                       max-width: 100px;
+                       white-space: normal;
+                       .last{
+                           max-width: 100px;
+                           white-space: normal;
+                       }
+                   }
                 }
 
         }
@@ -46,13 +55,3 @@ $topnav-background-color: #222;
         }
     }
 }
-
-.wrapper{
-    max-width: 300px;
-}
-
-.p{
-    max-width: 150px;
-    word-wrap: break-word;
-}
-

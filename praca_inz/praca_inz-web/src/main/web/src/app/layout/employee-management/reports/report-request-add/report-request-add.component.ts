@@ -11,52 +11,55 @@ import {MessageService} from "../../../../shared/services/message.service";
 import {Configuration} from "../../../../app.constants";
 
 @Component({
-  selector: 'app-report-request-add',
-  templateUrl: './report-request-add.component.html',
-  styleUrls: ['./report-request-add.component.scss']
+    selector: 'app-report-request-add',
+    templateUrl: './report-request-add.component.html',
+    styleUrls: ['./report-request-add.component.scss']
 })
 export class ReportRequestAddComponent implements OnInit {
 
-    @Input() reportAddElement: ReportAddElement= new ReportAddElement();
+    @Input() reportAddElement: ReportAddElement = new ReportAddElement();
 
-    request:RequestViewElement;
-    recivers=new Map<string, number>();
+    request: RequestViewElement;
+    recivers = new Map<string, number>();
     selectedOption: string;
 
     constructor(
         private route: ActivatedRoute,
-        private userService:UserService,
-        private reportService:ReportService,
-        private requestService:RequestService,
-        private translate:TranslateService,
+        private userService: UserService,
+        private reportService: ReportService,
+        private requestService: RequestService,
+        private translate: TranslateService,
         private messageService: MessageService,
         private configuration: Configuration,
-        private router:Router
-    ) {}
+        private router: Router
+    ) {
+    }
 
     ngOnInit() {
         this.getRecievers();
         this.getRequest();
     }
 
-    getRequest(){
+    getRequest() {
         const id = this.route.snapshot.paramMap.get('id');
-        this.requestService.getRequestView(id).subscribe(x=>{this.request=x});
+        this.requestService.getRequestView(id).subscribe(x => {
+            this.request = x
+        });
     }
 
     getRecievers() {
         this.userService.getAll().subscribe((response: UserListElement[]) => {
-            this.recivers = response.reduce(function(companyMap, company){
-                if(company.id){
-                    companyMap.set(company.username,company.id)
+            this.recivers = response.reduce(function (companyMap, company) {
+                if (company.id) {
+                    companyMap.set(company.username, company.id)
                 }
                 return companyMap;
-            },this.recivers);
+            }, this.recivers);
         });
 
     }
 
-    reportAdd(){
+    reportAdd() {
         var entity: string;
         var message: string;
         var yes: string;
@@ -73,11 +76,7 @@ export class ReportRequestAddComponent implements OnInit {
             .subscribe(confirmed => {
                 if (confirmed) {
                     this.reportAddElement.reciever = this.recivers.get(this.request.username);
-                    if(this.request.status=="WAITING"){
-                        this.reportAddElement.title=this.request.title+" - Manager report"
-                    } else{
-                        this.reportAddElement.title=this.request.title+" - Warehouseman report"
-                    }
+                    this.reportAddElement.title = this.request.title;
                     this.reportService.createReport(this.reportAddElement).subscribe(resp => {
                         this.router.navigateByUrl('/employees/reports');
                         this.translate.get('success.report.add').subscribe(x => {
@@ -89,6 +88,6 @@ export class ReportRequestAddComponent implements OnInit {
     }
 
     clear() {
-        this.reportAddElement=new ReportAddElement();
+        this.reportAddElement = new ReportAddElement();
     }
 }

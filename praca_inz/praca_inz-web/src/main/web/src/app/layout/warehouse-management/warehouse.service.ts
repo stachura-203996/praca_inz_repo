@@ -79,6 +79,6 @@ export class WarehouseService {
     }
 
     confirmDelivery(id: number) {
-        return this.httpService.put<any>(this.deliveryPath+'/confirm'+id,{})
+        return this.httpService.put<any>(this.deliveryPath+'/confirm/'+id,{})
     }
 }

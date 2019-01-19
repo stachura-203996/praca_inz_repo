@@ -53,7 +53,7 @@ export class DeliveryListComponent implements OnInit {
         var no: string;
 
         this.translate.get('delivery.confirm').subscribe(x => entity = x);
-        this.translate.get('confirm.delete').subscribe(x => message = x);
+        this.translate.get('confirm.recieve').subscribe(x => message = x);
         this.translate.get('yes').subscribe(x => yes = x);
         this.translate.get('no').subscribe(x => no = x);
 

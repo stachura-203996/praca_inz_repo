@@ -31,7 +31,7 @@ INSERT INTO public.address (id, building_number, city, deleted, flat_number, str
 INSERT INTO public.address (id, building_number, city, deleted, flat_number, street, version) VALUES (8, '1', 'Zakopane', false, null, 'Krupówki', 0);
 INSERT INTO public.address (id, building_number, city, deleted, flat_number, street, version) VALUES (9, '1', 'Zakopane', false, null, 'Krupówki', 0);
 INSERT INTO public.address (id, building_number, city, deleted, flat_number, street, version) VALUES (10, '1', 'Zakopane', false, null, 'Krupówki', 0);
-
+INSERT INTO public.address (id, building_number, city, deleted, flat_number, street, version) VALUES (11, '1', 'Zakopane', false, null, 'Krupówki', 0);
 
 INSERT INTO COMPANY(ID, VERSION, DELETED,NAME, MAIN_OFFICE_ADRESS_ID,DESCRIPTION) VALUES (1,0,FALSE, 'Transition Technologies',1, 'Transition Technologies PSC specjalizuje się w tworzeniu rozwiązań IT dla przemysłu. Szczególnie Connected Product Lifecycle Management i zastosowaniu w przemyśle najnowszych technologii Internetu Przedmiotów (IoT) i Rozszerzonej Rzeczywistości (AR), dzięki którym nasi Klienci mogą realizować koncepcję Przemysłu 4.0. Nasza firma to ponad 400 entuzjastów programowania, innowacji technologicznych oraz metodyk programowania, którzy w swojej pracy zawsze kierują się wzajemną pomocą, dobrą atmosferą oraz kreatywnym podejściem. W procesie wytwarzania oprogramowania zawsze korzystamy z najnowszych narzędzi, dlatego od wielu lat jesteśmy partnerem Atlassian. W oparciu o produkty tej firmy wdrażamy rozwiązania oraz rozwijamy produkty dla naszych Partnerów.');
 
@@ -52,6 +52,7 @@ INSERT INTO public.userdata (id, join_date, email, language, name, position, sur
 INSERT INTO public.userdata (id, join_date, email, language, name, position, surname, version, workplace, address_id) VALUES (1, '2011-03-12 12:00:00.000000', 'email1@email.com', 'PL', 'Tomasz', null, 'Stachura', 0, null, 1);
 INSERT INTO public.userdata (id, join_date, email, language, name, position, surname, version, workplace, address_id) VALUES (3, '2019-01-13 02:30:51.643000', 'email3@email.com', 'ENG', 'David', null, 'William', 1, null, 10);
 INSERT INTO public.userdata (id, join_date, email, language, name, position, surname, version, workplace, address_id) VALUES (2, '2019-01-13 02:30:31.659000', 'email2@email.com', 'PL', 'Robert', null, 'William', 1, null, 9);
+INSERT INTO public.userdata (id, join_date, email, language, name, position, surname, version, workplace, address_id) VALUES (5, '2019-01-19 01:35:49.793000', 'email@email.com', 'PL', 'Kamil', 'Programista', 'Nowak', 0, null, 11);
 
 INSERT INTO OAUTH_CLIENT_DETAILS(CLIENT_ID, RESOURCE_IDS, CLIENT_SECRET, SCOPE, AUTHORIZED_GRANT_TYPES, AUTHORITIES, ACCESS_TOKEN_VALIDITY, REFRESH_TOKEN_VALIDITY)
 	VALUES ('spring-security-oauth2-read-client', 'resource-server-rest-api',
@@ -185,11 +186,13 @@ INSERT INTO AUTHORITY(ID, VERSION,ACTIVE, NAME) VALUES (102,0,TRUE, 'USER_FOR_RE
 INSERT INTO AUTHORITY(ID, VERSION,ACTIVE, NAME) VALUES (103,0,TRUE, 'ACCOUNT_UPDATE_USER');
 INSERT INTO AUTHORITY(ID, VERSION,ACTIVE, NAME) VALUES (104,0,TRUE, 'EXTERNAL_TRANSFER_CONFIRM');
 INSERT INTO AUTHORITY(ID, VERSION,ACTIVE, NAME) VALUES (105,0,TRUE, 'REQUEST_DEVICE_LIST_CREATE');
+
 -- USER
 INSERT INTO public.user_ (id, account_expired, account_locked, credentials_expired, enabled, password, user_name, version, office_id, userdata_id) VALUES (1, false, false, false, true, '$2a$08$qvrzQZ7jJ7oy2p/msL4M0.l83Cd0jNsX6AJUitbgRXGzge4j035ha', 'admin', 0, 1, 1);
 INSERT INTO public.user_ (id, account_expired, account_locked, credentials_expired, enabled, password, user_name, version, office_id, userdata_id) VALUES (2, false, false, false, true, '$2a$08$ayuzBZPVZvcJ9aGUxg3aPO4AskC831pGP8fdMugVHKBzO9JujKglG', 'company_admin', 7, 2, 2);
 INSERT INTO public.user_ (id, account_expired, account_locked, credentials_expired, enabled, password, user_name, version, office_id, userdata_id) VALUES (3, false, false, false, true, '$2a$08$9Y35fB6V32ZjeSss4yphou1hhyiRDSKUlzjTqw8BqjwK65wsw3ufu', 'manager', 4, 3, 3);
 INSERT INTO public.user_ (id, account_expired, account_locked, credentials_expired, enabled, password, user_name, version, office_id, userdata_id) VALUES (4, false, false, false, true, '$2a$08$uSVsWY3W1VPF/fKGHlwYN.ntllnUW6eYOTsRrPeO4VZ5d8dYJymFC', 'warehouseman', 3, 4, 4);
+INSERT INTO public.user_ (id, account_expired, account_locked, credentials_expired, enabled, password, user_name, version, office_id, userdata_id) VALUES (5, false, false, false, true, '$2a$08$64JpOWYSd517.GIpOk1E6ut1FS270EdmA.QIgEesXL2u4QyRaFK2i', 'user', 0, 3, 5);
 
 -- USER ROLE
 INSERT INTO USER_ROLE(ID,VERSION,NAME,ACTIVE) VALUES (1,0,'ADMIN',TRUE );
@@ -415,6 +418,7 @@ INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (5, 105);
 -- //USER
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (2, 2);
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (2, 8);
+INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (2, 13);
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (2, 19);
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (2, 25);
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (2, 29);
@@ -427,8 +431,9 @@ INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (2, 44);
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (2, 45);
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (2, 46);
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (2, 47);
+INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (2, 53);
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (2, 60);
-INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (3, 65);
+INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (2, 65);
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (2, 67);
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (2, 70);
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (2, 71);
@@ -444,12 +449,16 @@ INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (2, 89);
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (2, 90);
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (2, 94);
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (2, 97);
+INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (2, 98);
+INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (2, 99);
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (2, 101);
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (2, 102);
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (2, 103);
 -- //MANGER
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (3, 2);
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (3, 8);
+INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (3, 13);
+INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (3, 17);
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (3, 19);
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (3, 25);
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (3, 26);
@@ -468,6 +477,7 @@ INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (3, 47);
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (3, 60);
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (3, 65);
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (3, 67);
+INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (3, 68);
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (3, 70);
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (3, 71);
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (3, 72);
@@ -511,13 +521,13 @@ INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (4, 45);
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (4, 46);
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (4, 47);
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (4, 60);
-INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (3, 65);
+INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (4, 65);
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (4, 67);
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (4, 70);
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (4, 71);
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (4, 72);
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (4, 73);
-INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (2, 74);
+INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (4, 74);
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (4, 75);
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (4, 77);
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (4, 80);

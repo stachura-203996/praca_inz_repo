@@ -300,7 +300,7 @@
     "WAITING":"OCZEKUJĄCY",
     "TRANSFER_REQUEST":"PRZENIESIENIE",
     "DEVICE_REQUEST":"ZAPOTRZEBOWANIE",
-    "IN_WAREHOUSE":"W_MAGAZYNIE",
+    "IN_WAREHOUSE":"W MAGAZYNIE",
     "warehouse.add":"Dodaj magazyn",
     "warehouse.name.taken.error":"Nazwa magazynu jest już zajęta",
     "device.serial.number.taken.error":"Numer seryjny urządzenia jest już zajęty",
@@ -357,7 +357,7 @@
     "transfer.request.reject":"Odrzuć przeniesienie",
     "success.transfer.request.reject":"Pomyślne odrzucenie przeniesienia",
     "transfer.request.accept":"Zaakceptuj przeniesienie",
-  "success.report.add":"Pomyślne dodanie raportu",
+    "success.report.add":"Pomyślne dodanie raportu",
     "report.add":"Dodaj raport",
     "request.accept":"Zgłoszenie zostało zaakceptowane",
     "confirm.accept":"Czy na pewno chcesz zaakceptować element",
@@ -370,6 +370,7 @@
     "profile.edit":"Edytuj profil ",
     "Language is required":"Język jest wymagany",
     "CreateTransfer":"Przenieś urządzenie",
-    "ConfirmationDate":"Data zatwierdzenia"
-
+    "ConfirmationDate":"Data zatwierdzenia",
+    "success.office.edit":"Pomyślna edycja biura",
+    "confirm.recieve":"Czy na pewno chcesz potwierdzić odbiór?"
 }

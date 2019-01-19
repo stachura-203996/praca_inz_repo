@@ -89,6 +89,9 @@ export class OfficeEditComponent implements OnInit {
                         this.structureEditElement.parentId = this.departments.get(this.structureEditElement.parentName);
                         this.officeService.updateOffice(this.structureEditElement).subscribe(resp => {
                             this.router.navigateByUrl('/admin/offices');
+                            this.translate.get('success.office.edit').subscribe(x=>{
+                                this.messageService.success(x)
+                            })
                         });
                 }
             });

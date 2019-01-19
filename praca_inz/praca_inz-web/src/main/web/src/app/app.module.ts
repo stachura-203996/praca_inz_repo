@@ -24,10 +24,9 @@ import {BsDropdownModule, BsModalService, ModalModule} from "ngx-bootstrap";
 import {MatSelectModule} from "@angular/material";
 import {ReactiveFormsModule} from "@angular/forms";
 import {HttpErrorInterceptor} from "./shared/interceptor/http-error.interceptor";
-import {FullRouteGuard} from "./shared/guard/full-route-guard.service";
-import {GeneralRouteGuard} from "./shared/guard/general-route-guard.service";
 import {ToastrModule} from "ng6-toastr-notifications";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {RoleGuardService} from "./shared/guard/role-guard.service";
 
 
 
@@ -62,8 +61,6 @@ export const createTranslateLoader = (http: HttpClient) => {
     ],
     providers: [
         AuthGuard,
-        FullRouteGuard,
-        GeneralRouteGuard,
         LoginService,
         CookieService,
         UserService,
@@ -77,6 +74,7 @@ export const createTranslateLoader = (http: HttpClient) => {
         ReportService,
         NotificationService,
         WarehouseService,
+        RoleGuardService,
         {
             provide: HTTP_INTERCEPTORS,
             useClass: HttpErrorInterceptor,

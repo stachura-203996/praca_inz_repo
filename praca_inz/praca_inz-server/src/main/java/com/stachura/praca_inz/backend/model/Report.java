@@ -19,7 +19,7 @@ import java.util.Comparator;
 public class Report implements Serializable, Comparator<Report> {
 
     @Id
-    @SequenceGenerator(name = "ReportGen", sequenceName = "report_id_seq",initialValue = 2,allocationSize = 1)
+    @SequenceGenerator(name = "ReportGen", sequenceName = "report_id_seq",initialValue = 3,allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "ReportGen")
     @Column(name = "ID", updatable = false, nullable = false)
     private Long id = null;
