@@ -2,6 +2,7 @@ package com.stachura.praca_inz.backend.service.impl;
 
 import com.google.common.collect.Lists;
 import com.stachura.praca_inz.backend.exception.EntityNotInDatabaseException;
+import com.stachura.praca_inz.backend.exception.EntityOptimisticLockException;
 import com.stachura.praca_inz.backend.exception.ServiceException;
 import com.stachura.praca_inz.backend.model.enums.WarehouseType;
 import com.stachura.praca_inz.backend.model.security.User;
@@ -14,6 +15,7 @@ import com.stachura.praca_inz.backend.web.dto.converter.UserConverter;
 import com.stachura.praca_inz.backend.web.dto.user.*;
 import com.stachura.praca_inz.backend.web.utils.PasswordGenerator;
 import org.hibernate.Hibernate;
+import org.hibernate.StaleObjectStateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -203,12 +205,16 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('PASSWORD_ADMIN_UPDATE')")
-    public void updatePasswordForAdmin(PasswordInfoForAdmin passwordInfoForAdmin) throws EntityNotInDatabaseException {
-        User user = userRepository.findById(passwordInfoForAdmin.getId()).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
-        user.setPassword(passwordEncoder.encode(passwordInfoForAdmin.getNewPassword()));
-        user.setVersion(passwordInfoForAdmin.getUserVersion());
-        userRepository.saveAndFlush(user);
-
+    public void updatePasswordForAdmin(PasswordInfoForAdmin passwordInfoForAdmin) throws EntityNotInDatabaseException, EntityOptimisticLockException {
+       try {
+           User user = userRepository.findById(passwordInfoForAdmin.getId()).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
+           userRepository.detach(user);
+           user.setPassword(passwordEncoder.encode(passwordInfoForAdmin.getNewPassword()));
+           user.setVersion(passwordInfoForAdmin.getUserVersion());
+           userRepository.saveAndFlush(user);
+       }catch (StaleObjectStateException e){
+           throw new EntityOptimisticLockException(EntityOptimisticLockException.OPTIMISTIC_LOCK);
+       }
     }
 
 

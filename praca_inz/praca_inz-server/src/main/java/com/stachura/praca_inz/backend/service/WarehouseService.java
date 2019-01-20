@@ -1,5 +1,6 @@
 package com.stachura.praca_inz.backend.service;
 
+import com.stachura.praca_inz.backend.exception.EntityNotInDatabaseException;
 import com.stachura.praca_inz.backend.exception.base.AppBaseException;
 import com.stachura.praca_inz.backend.web.dto.warehouse.WarehouseAddDto;
 import com.stachura.praca_inz.backend.web.dto.warehouse.WarehouseEditDto;
@@ -36,4 +37,6 @@ public interface WarehouseService {
     WarehouseViewDto getWarehouseToView(Long id) throws AppBaseException;
 
     WarehouseEditDto getWarehouseToEdit(Long id) throws AppBaseException;
+
+    List<WarehouseListElementDto> getAllForTransfer(String name) throws EntityNotInDatabaseException;
 }

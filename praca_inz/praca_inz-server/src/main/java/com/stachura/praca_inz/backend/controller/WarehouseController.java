@@ -1,6 +1,5 @@
 package com.stachura.praca_inz.backend.controller;
 
-import com.stachura.praca_inz.backend.exception.EntityOptimisticLockException;
 import com.stachura.praca_inz.backend.exception.base.AppBaseException;
 import com.stachura.praca_inz.backend.service.WarehouseService;
 import com.stachura.praca_inz.backend.web.dto.warehouse.WarehouseAddDto;
@@ -17,7 +16,6 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.OptimisticLockException;
 import java.util.List;
 
 @RestController
@@ -56,6 +54,14 @@ public class WarehouseController {
     List<WarehouseListElementDto> getAllWarehousesForUser() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         return warehouseService.getAllWarehousesForLoggedUser(auth.getName());
+    }
+
+    @RequestMapping(value = "/transfer", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(value = HttpStatus.OK)
+    public @ResponseBody
+    List<WarehouseListElementDto> getAllWarehousesForTransfer() throws AppBaseException {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        return warehouseService.getAllForTransfer(auth.getName());
     }
 
     @RequestMapping(value = "/transfer-request/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)

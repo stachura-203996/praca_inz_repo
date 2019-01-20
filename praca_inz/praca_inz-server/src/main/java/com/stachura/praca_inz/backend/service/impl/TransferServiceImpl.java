@@ -101,6 +101,7 @@ public class TransferServiceImpl implements TransferService {
         Warehouse reciever = warehouseRepository.findById(transferAddDto.getRecieverWarehouseId()).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
         Device device= deviceRepository.findById(transferAddDto.getDeviceId()).orElseThrow(()->new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
         device.setWarehouse(reciever);
+        device.setCompany(reciever.getOffice().getDepartment().getCompany());
         deviceRepository.saveAndFlush(device);
         transferRepository.saveAndFlush(TransferConverter.toTransfer(transferAddDto, username, sender, reciever, device));
     }

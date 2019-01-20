@@ -22,6 +22,10 @@ export class WarehouseService {
         return this.httpService.get<WarehouseListElement[]>(this.warehousePath);
     }
 
+    getAllForTransfer(){
+        return this.httpService.get<WarehouseListElement[]>(this.warehousePath+'/transfer');
+    }
+
     getAllForTransferRequest(id:number){
         return this.httpService.get<WarehouseListElement[]>(this.warehousePath+'/transfer-request/'+id);
     }

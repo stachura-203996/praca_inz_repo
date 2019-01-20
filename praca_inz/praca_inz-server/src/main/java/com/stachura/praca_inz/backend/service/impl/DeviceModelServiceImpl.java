@@ -133,12 +133,13 @@ public class DeviceModelServiceImpl implements DeviceModelService {
     @PreAuthorize("hasAuthority('DEVICE_MODEL_UPDATE')")
     public void updateDeviceModel(DeviceModelEditDto deviceModelEditDto) throws EntityNotInDatabaseException, EntityOptimisticLockException, DatabaseErrorException {
         try {
-            DeviceType deviceType = deviceTypeRepository.findById(deviceModelEditDto.getTypeId()).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
-            Company company = companyRepository.findById(deviceModelEditDto.getCompanyId()).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
             DeviceModel deviceModel = deviceModelRepository.findById(deviceModelEditDto.getId()).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
             deviceModelRepository.detach(deviceModel);
+            DeviceType deviceType = deviceTypeRepository.findById(deviceModelEditDto.getTypeId()).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
+            Company company = companyRepository.findById(deviceModelEditDto.getCompanyId()).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
             deviceModelRepository.saveAndFlush(DeviceModelConverter.toDeviceModel(deviceModelEditDto, deviceModel, company, deviceType));
         } catch (ObjectOptimisticLockingFailureException e) {
+            e.printStackTrace();
             throw new EntityOptimisticLockException(EntityOptimisticLockException.OPTIMISTIC_LOCK);
         } catch (PersistenceException e) {
             throw new DatabaseErrorException(DatabaseErrorException.DEVICE_MODEL_NAME_NAME_TAKEN);

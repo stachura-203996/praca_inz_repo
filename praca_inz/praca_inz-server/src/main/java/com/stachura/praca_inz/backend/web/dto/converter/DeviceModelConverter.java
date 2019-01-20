@@ -61,6 +61,7 @@ public class DeviceModelConverter {
                 .type(deviceModel.getDeviceType().getName())
                 .typeId(deviceModel.getDeviceType().getId())
                 .companyname(deviceModel.getCompany().getName())
+                .version(deviceModel.getVersion())
                 .build();
     }
 
@@ -68,7 +69,6 @@ public class DeviceModelConverter {
     public static DeviceModel toDeviceModel(DeviceModelEditDto deviceModelEditDto, DeviceModel beforeDeviceModel, Company company, DeviceType deviceType) {
         beforeDeviceModel.setCompany(company);
         beforeDeviceModel.setCost(deviceModelEditDto.getCost());
-        beforeDeviceModel.setDeleted(false);
         beforeDeviceModel.setDeviceType(deviceType);
         beforeDeviceModel.setManufacture(deviceModelEditDto.getManufacture());
         beforeDeviceModel.setName(deviceModelEditDto.getName());

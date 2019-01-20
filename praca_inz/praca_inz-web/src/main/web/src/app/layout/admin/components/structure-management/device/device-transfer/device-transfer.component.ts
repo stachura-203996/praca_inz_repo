@@ -34,7 +34,7 @@ export class DeviceTransferComponent implements OnInit {
     }
 
     getWarehouses(){
-        this.warehouseService.getAll().subscribe((response: WarehouseListElement[]) => {
+        this.warehouseService.getAllForTransfer().subscribe((response: WarehouseListElement[]) => {
             this.warehouses = response.reduce(function (companyMap, company) {
                 if (company.id) {
                     companyMap.set(company.name, company.id)

@@ -69,6 +69,26 @@ public class WarehouseServiceImpl implements WarehouseService {
     @Override
     @Transactional(readOnly = true,propagation = Propagation.MANDATORY)
     @PreAuthorize("hasAuthority('WAREHOUSE_LIST_READ')")
+    public List<WarehouseListElementDto> getAllForTransfer(String username) throws EntityNotInDatabaseException {
+        List<Warehouse> warehouses;
+        User user = userRepository.findByUsername(username).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
+        if (user.getUserRoles().stream().anyMatch(x -> x.getName().equals(Constants.ADMIN_ROLE))) {
+            warehouses = Lists.newArrayList(warehouseRepository.findAll());
+        } else {
+            warehouses = Lists.newArrayList(warehouseRepository.findAll()).stream().filter(x ->x.getOffice().getDepartment().getCompany().getId().equals(user.getOffice().getDepartment().getCompany().getId())).collect(Collectors.toList());
+        }
+        List<WarehouseListElementDto> warehouseListElementDtos = new ArrayList<>();
+        for (Warehouse a : warehouses) {
+            if (!a.isDeleted()) {
+                warehouseListElementDtos.add(WarehouseConverter.toWarehouseOfficeListElementDto(a));
+            }
+        }
+        return warehouseListElementDtos;
+    }
+
+    @Override
+    @Transactional(readOnly = true,propagation = Propagation.MANDATORY)
+    @PreAuthorize("hasAuthority('WAREHOUSE_LIST_READ')")
     public List<WarehouseListElementDto> getAllOfficeWarehouses(String username) throws EntityNotInDatabaseException {
         List<Warehouse> warehouses;
         User user = userRepository.findByUsername(username).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
