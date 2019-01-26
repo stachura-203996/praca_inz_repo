@@ -77,11 +77,4 @@ public class Request {
     @JsonIgnore
     private Collection<Device> devices;
 
-    public Request() {
-    }
-
-    public Request(Long id, long version) {
-        this.id=id;
-        this.version = version;
-    }
 }

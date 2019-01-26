@@ -44,13 +44,4 @@ public class Department implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "department", fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonManagedReference
     private Set<Office> offices = new HashSet<>();
-
-    public Department() {
-    }
-
-    public Department(Long id, long version) {
-        this.id=id;
-        this.version = version;
-    }
-    
 }

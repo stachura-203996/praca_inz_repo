@@ -65,13 +65,21 @@ public class User implements UserDetails, Serializable {
     @JsonManagedReference
     private Set<Warehouse> warehouses = new HashSet<>();
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY, orphanRemoval = true)
+    @JsonManagedReference
+    private Set<Request> requests = new HashSet<>();
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY, orphanRemoval = true)
+    @JsonManagedReference
+    private Set<Transfer> transfers = new HashSet<>();
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "sender", fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonManagedReference
-    private Set<Report> reportsSender = new HashSet<>();
+    private Set<Confirmation> reportsSender = new HashSet<>();
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "reciever", fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonManagedReference
-    private Set<Report> reportsReciever = new HashSet<>();
+    private Set<Confirmation> reportsReciever = new HashSet<>();
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonManagedReference
@@ -101,13 +109,5 @@ public class User implements UserDetails, Serializable {
     @Override
     public boolean isCredentialsNonExpired() {
         return !isCredentialsExpired();
-    }
-
-    public User() {
-    }
-
-    public User(Long id, long version) {
-        this.id = id;
-        this.version = version;
     }
 }

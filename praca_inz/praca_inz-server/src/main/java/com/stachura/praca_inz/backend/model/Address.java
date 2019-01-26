@@ -40,11 +40,4 @@ public class Address implements Serializable {
     @Column(name = "DELETED", nullable = false)
     private boolean deleted;
 
-    public Address() {
-    }
-
-    public Address(Long id, long version) {
-        this.id=id;
-        this.version = version;
-    }
 }

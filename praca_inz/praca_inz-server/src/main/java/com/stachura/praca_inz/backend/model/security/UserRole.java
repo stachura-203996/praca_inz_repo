@@ -22,10 +22,6 @@ public class UserRole implements Serializable {
     @Column(name = "ID", updatable = false, nullable = false)
     private Long id = null;
 
-    @Version
-    @Column(name = "VERSION")
-    private long version;
-
     @Column(name = "NAME",nullable = false,unique = true)
     private String name;
 

@@ -22,10 +22,6 @@ public class ExternalTransfer implements Serializable {
     @Column(name = "ID", updatable = false, nullable = false)
     private Long id = null;
 
-    @Version
-    @Column(name = "VERSION")
-    private long version;
-
     @Column(name = "EXTERNAL_TRANSFER_NUMBER", nullable = false,unique = true)
     private String externalTransferNumber;
 
@@ -64,12 +60,4 @@ public class ExternalTransfer implements Serializable {
 
     @Column(name = "DELETED", nullable = false)
     private boolean deleted;
-
-    public ExternalTransfer() {
-    }
-
-    public ExternalTransfer(Long id, long version) {
-        this.id = id;
-        this.version = version;
-    }
 }

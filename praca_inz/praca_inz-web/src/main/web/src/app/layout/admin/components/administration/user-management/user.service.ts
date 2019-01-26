@@ -45,7 +45,7 @@ export class UserService {
     }
 
     getAllForReport(): Observable<UserListElement[]> {
-        return this.httpService.get<UserListElement[]>(this.userPath + '/report');
+        return this.httpService.get<UserListElement[]>(this.userPath + '/confirmation');
     }
 
     getAll(): Observable<UserListElement[]> {

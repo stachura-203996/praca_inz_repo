@@ -276,7 +276,7 @@ public class RequestServiceImpl implements RequestService {
                         transfer.setCreateDate(Calendar.getInstance());
                         transfer.setDeleted(false);
                         transfer.setDescription(request.getDescription());
-                        transfer.setUsername(request.getUser().getUsername());
+                        transfer.setUser(request.getUser());
                         transferRepository.saveAndFlush(transfer);
                         request.setStatus(Status.REALIZED);
                         requestRepository.saveAndFlush(request);
@@ -302,7 +302,7 @@ public class RequestServiceImpl implements RequestService {
                         transfer.setCreateDate(Calendar.getInstance());
                         transfer.setDeleted(false);
                         transfer.setDescription(request.getDescription());
-                        transfer.setUsername(request.getUser().getUsername());
+                        transfer.setUser(request.getUser());
 
                         for (Device d : request.getDevices()) {
                             d.setStatus(DeviceStatus.REPOSE);

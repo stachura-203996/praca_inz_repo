@@ -2,16 +2,13 @@ package com.stachura.praca_inz.backend.model;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.stachura.praca_inz.backend.model.security.Authority;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -63,12 +60,4 @@ public class DeviceModel implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "deviceModel", fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonManagedReference
     private Set<Device> deliveries = new HashSet<>();
-
-    public DeviceModel() {
-    }
-
-    public DeviceModel(Long id, long version) {
-        this.id=id;
-        this.version = version;
-    }
 }

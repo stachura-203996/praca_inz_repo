@@ -22,22 +22,10 @@ public class DeviceType {
     @Column(name = "ID", updatable = false, nullable = false)
     private Long id = null;
 
-    @Version
-    @Column(name = "VERSION")
-    private long version;
-
     @Column(name = "NAME", nullable = false,unique = true)
     private String name;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "deviceType", fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonManagedReference
     private Set<DeviceModel> deviceModels = new HashSet<>();
-
-    public DeviceType() {
-    }
-
-    public DeviceType(Long id, long version) {
-        this.id=id;
-        this.version = version;
-    }
 }

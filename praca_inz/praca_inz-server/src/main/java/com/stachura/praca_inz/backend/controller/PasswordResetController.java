@@ -1,7 +1,6 @@
 package com.stachura.praca_inz.backend.controller;
 
 import com.stachura.praca_inz.backend.exception.base.AppBaseException;
-import com.stachura.praca_inz.backend.model.Report;
 import com.stachura.praca_inz.backend.service.UserService;
 import com.stachura.praca_inz.backend.web.dto.PasswordResetDto;
 import org.springframework.beans.factory.annotation.Autowired;

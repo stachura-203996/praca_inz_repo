@@ -6,11 +6,11 @@ import {FormsModule} from "@angular/forms";
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import {EmployeesListComponent} from "./employees-list/employees-list.component";
 import { RequestUserComponent } from './request-user/request-user.component';
-import {ReportUserComponent} from "./reports/report-user/report-user.component";
-import {ReportViewComponent} from "./reports/report-view/report-view.component";
-import {ReportAddComponent} from "./reports/report-add/report-add.component";
-import { ReportRequestAddComponent } from './reports/report-request-add/report-request-add.component';
 import {UserViewComponent} from "./user-view/user-view.component";
+import {ConfirmationViewComponent} from "./reports/confirmation-view/confirmation-view.component";
+import {ConfirmationUserComponent} from "./reports/confirmation-user/confirmation-user.component";
+import {ConfirmationAddComponent} from "./reports/confirmation-add/confirmation-add.component";
+import {ConfirmationRequestAddComponent} from "./reports/confirmation-request-add/confirmation-request-add.component";
 
 
 @NgModule({
@@ -21,7 +21,7 @@ import {UserViewComponent} from "./user-view/user-view.component";
         FormsModule,
         NgbModule.forRoot()
     ],
-    declarations: [EmployeesListComponent,UserViewComponent, ReportUserComponent, ReportViewComponent, ReportAddComponent, RequestUserComponent, ReportRequestAddComponent]
+    declarations: [EmployeesListComponent,UserViewComponent, ConfirmationUserComponent, ConfirmationViewComponent, ConfirmationAddComponent, RequestUserComponent, ConfirmationRequestAddComponent]
 })
 export class EmployeeManagementModule {
 }

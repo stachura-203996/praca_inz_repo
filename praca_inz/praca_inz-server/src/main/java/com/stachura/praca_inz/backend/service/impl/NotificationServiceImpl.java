@@ -94,8 +94,13 @@ public class NotificationServiceImpl implements NotificationService {
     @PreAuthorize("hasAuthority('NOTIFICATION_CREATE')")
     public void createNewNotification(Notification notification)throws AppBaseException {
             notificationRepository.saveAndFlush(notification);
-            String link = "<a href=\"http://localhost:"+ port+"/ui/page/" +notification.getUrl()+"\">Click</a>";
-            String description=notification.getDescription()+"<br>"+link;
+            String link = "<a href=\"http://localhost:"+ port+"/ui/page" +notification.getUrl()+"\">Click</a>";
+            String description="<p>"+notification.getDescription()
+                    .replace("Opis","<br> Opis")
+                    .replace("Description","<br> Description")
+                    .replace("Title","<br> Title")
+                    .replace("Tytuł","<br> Tytuł")
+                    +"<p><br>"+link;
             emailService.sendMessageWithLink(notification.getUser().getUserdata().getEmail(),notification.getTitle(),description);
     }
 

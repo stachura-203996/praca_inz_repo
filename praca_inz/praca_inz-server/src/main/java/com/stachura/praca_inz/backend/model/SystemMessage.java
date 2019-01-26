@@ -41,14 +41,6 @@ public class SystemMessage implements Serializable, Comparator<SystemMessage> {
     @Temporal(TemporalType.TIMESTAMP)
     private java.util.Calendar createDate;
 
-    public SystemMessage() {
-    }
-
-    public SystemMessage(Long id, long version) {
-        this.id=id;
-        this.version = version;
-    }
-
     @Override
     public int compare(SystemMessage o1, SystemMessage o2) {
         return o1.getCreateDate().compareTo(o2.getCreateDate());

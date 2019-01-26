@@ -1,0 +1,38 @@
+<div class="col-xl-10">
+    <h2>{{'ReportView'|translate}}</h2>
+    <hr/>
+    <div class="col-xl-6">
+        <div class="row">
+            <div class="col-sm-5 col-xs-6 tital ">{{'Title'|translate}}</div>
+            <div class="col-sm-7 col-xs-6 ">{{confirmation.title}}</div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="bot-border"></div>
+        <div class="row">
+            <div class="col-sm-5 col-xs-6 tital ">{{'Sender'|translate}}</div>
+            <div class="col-sm-7 col-xs-6 ">{{getSender()}}</div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="bot-border"></div>
+        <div class="row">
+            <div class="col-sm-5 col-xs-6 tital ">{{'Reciever'| translate}}</div>
+            <div class="col-sm-7 col-xs-6 ">{{getReciever()}}</div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="bot-border"></div>
+
+        <div class="row">
+            <div class="col-sm-5 col-xs-6 tital ">{{'Date'| translate}}</div>
+            <div class="col-sm-7 col-xs-6 ">{{confirmation.confirmationDate}}</div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="bot-border"></div>
+
+        <div class="row">
+            <div class="col-sm-5 col-xs-6 tital ">{{'Description'| translate}}</div>
+            <div id="description" class="col-sm-7 col-xs-6 ">{{confirmation.description}}</div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="bot-border"></div>
+    </div>
+</div>

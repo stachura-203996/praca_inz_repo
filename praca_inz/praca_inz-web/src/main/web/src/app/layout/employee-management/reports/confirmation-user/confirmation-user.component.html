@@ -1,0 +1,81 @@
+<div class="col-md-12">
+    <h1>{{ 'Reports' | translate }}</h1>
+    <br>
+    <ngb-tabset>
+        <ngb-tab>
+            <ng-template ngbTabTitle>{{'YourReports'|translate}}</ng-template>
+            <ng-template ngbTabContent>
+                <table class="table table-striped" align="center">
+                    <thead class="thead-inverse">
+                    <tr>
+                        <th>{{ 'Title' | translate }}</th>
+                        <th>{{ 'Reciever' | translate }}</th>
+                        <th>{{ 'Date' | translate }}</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let confirmation of confirmations">
+                        <td>{{confirmation.title}}</td>
+                        <td>{{getReciever(confirmation)}}</td>
+                        <td>{{confirmation.confirmationDate}}</td>
+                        <td class="text-right">
+                            <div class="btn-group flex-btn-group-container">
+                                <button type="submit"
+                                        [routerLink]="['./view/'+confirmation.id]"
+                                        class="btn btn-info btn-sm">
+                                    <i class="fa fa-eye"></i>&nbsp;
+                                    <span class="d-none d-md-inline">{{'View'|translate}}</span>
+                                </button>
+                                <button type="button" (click)="disableBySender(confirmation)"
+                                        class="btn btn-danger btn-sm">
+                                    <i class="fa fa-times"></i>&nbsp;
+                                    <span class="d-none d-md-inline">{{'Delete'|translate}}</span>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </ng-template>
+        </ngb-tab>
+        <ngb-tab>
+            <ng-template ngbTabTitle>{{'IncomingReports'|translate}}</ng-template>
+            <ng-template ngbTabContent>
+                <table class="table table-striped" align="center">
+                    <thead class="thead-inverse">
+                    <tr>
+                        <th>{{ 'Title' | translate }}</th>
+                        <th>{{ 'Sender' | translate }}</th>
+                        <th>{{ 'Date' | translate }}</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let confirmation of otherConfirmations">
+                        <td>{{confirmation.title}}</td>
+                        <td>{{getSender(confirmation)}}</td>
+                        <td>{{confirmation.confirmationDate}}</td>
+                        <td class="text-right">
+                            <div class="btn-group flex-btn-group-container">
+                                <button type="submit"
+                                        [routerLink]="['./view/'+confirmation.id]"
+                                        class="btn btn-info btn-sm">
+                                    <i class="fa fa-eye"></i>&nbsp;
+                                    <span class="d-none d-md-inline">{{'View'|translate}}</span>
+                                </button>
+                                <button type="button" (click)="disableByReciever(confirmation)"
+                                        class="btn btn-danger btn-sm">
+                                    <i class="fa fa-times"></i>&nbsp;
+                                    <span class="d-none d-md-inline">{{'Delete'|translate}}</span>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </ng-template>
+        </ngb-tab>
+    </ngb-tabset>
+</div>
+

@@ -52,12 +52,4 @@ public class Userdata implements Serializable {
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY,optional = false)
     @JoinColumn(name = "ADDRESS_ID")
     private Address address;
-
-    public Userdata() {
-    }
-
-    public Userdata(Long id, long version) {
-        this.id=id;
-        this.version = version;
-    }
 }

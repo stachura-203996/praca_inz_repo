@@ -24,7 +24,6 @@ import { WarehouseListComponent } from './components/structure-management/wareho
 import {WarehouseAddComponent} from "./components/structure-management/warehouse/warehouse-add/warehouse-add.component";
 import {WarehouseEditComponent} from "./components/structure-management/warehouse/warehouse-edit/warehouse-edit.component";
 import { RequestListComponent } from './components/structure-management/request/request-list/request-list.component';
-import { ReportListComponent } from './components/structure-management/report/report-list/report-list.component';
 import {DeviceModelListComponent} from "./components/structure-management/device/device-model-list/device-model-list.component";
 import {DeviceModelAddComponent} from "./components/structure-management/device/device-model-add/device-model-add.component";
 import {DeviceModelEditComponent} from "./components/structure-management/device/device-model-edit/device-model-edit.component";
@@ -36,6 +35,7 @@ import { DeviceTransferComponent } from './components/structure-management/devic
 import {SystemMessageAddComponent} from "./components/administration/system_messages/system-message-add/system-message-add.component";
 import {SystemMessageListComponent} from "./components/administration/system_messages/system-message-list/system-message-list.component";
 import {ShareModule} from "../../shared/modules/share/share.module";
+import {ConfirmationListComponent} from "./components/structure-management/report/confirmation-list/confirmation-list.component";
 
 @NgModule({
     imports: [
@@ -70,7 +70,7 @@ import {ShareModule} from "../../shared/modules/share/share.module";
         WarehouseAddComponent,
         WarehouseEditComponent,
         RequestListComponent,
-        ReportListComponent,
+        ConfirmationListComponent,
         SystemMessageAddComponent,
         SystemMessageListComponent,
         DeviceTypeListComponent,
