@@ -1,13 +1,13 @@
 package com.stachura.praca_inz.backend.service;
 
-import com.stachura.praca_inz.backend.exception.base.AppBaseException;
+import com.stachura.praca_inz.backend.exception.base.SystemBaseException;
 import com.stachura.praca_inz.backend.web.dto.device.*;
 
 import java.util.List;
 
 public interface DeviceService {
 
-    List<DeviceListElementDto> getAllDevices(String username) throws AppBaseException;
+    List<DeviceListElementDto> getAllDevices(String username) throws SystemBaseException;
 
     List<DeviceListElementDto> getAllDevicesForCompany(Long id);
 
@@ -19,19 +19,19 @@ public interface DeviceService {
 
     List<DeviceListElementDto> getAllDevicesForLoggedUser(String username);
 
-    void createNewDevice(DeviceAddDto deviceAddDto) throws AppBaseException;
+    void createNewDevice(DeviceAddDto deviceAddDto) throws SystemBaseException;
 
-    void updateDevice(DeviceEditDto deviceEditDto) throws  AppBaseException;
+    void updateDevice(DeviceEditDto deviceEditDto) throws SystemBaseException;
 
-    void deleteDeviceById(Long id) throws AppBaseException;
+    void deleteDeviceById(Long id) throws SystemBaseException;
 
     List<DeviceListElementDto> getAllDevicesForLoggedWarehouseman(String username);
 
     List<DeviceListElementDto> getAllDevicesForShipmentRequest(String name);
 
-    DeviceViewDto getDeviceToView(Long id)throws AppBaseException;
+    DeviceViewDto getDeviceToView(Long id)throws SystemBaseException;
 
-    DeviceEditDto getDeviceToEdit(Long id)throws AppBaseException;
+    DeviceEditDto getDeviceToEdit(Long id)throws SystemBaseException;
 
-    List<ParameterListElementDto> getDeviceParameters(Long id) throws AppBaseException;
+    List<ParameterListElementDto> getDeviceParameters(Long id) throws SystemBaseException;
 }

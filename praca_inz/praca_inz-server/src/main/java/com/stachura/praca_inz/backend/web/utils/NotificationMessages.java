@@ -78,7 +78,7 @@ public class NotificationMessages {
             notification.setDescription("Your confirmation was sent to: " + confirmation.getReciever().getUserdata().getName() + " " + confirmation.getReciever().getUserdata().getSurname() + " | " + confirmation.getReciever().getUsername() + " Confirmation title: " + confirmation.getTitle()
                     + "Confirmation description: " + confirmation.getDescription());
         } else {
-            notification.setTitle("Raport wysłany");
+            notification.setTitle("Potwierdzenie wysłane");
             notification.setDescription("Twóje potwierdzenie zostało wysłane do: " + confirmation.getReciever().getUserdata().getName() + " " + confirmation.getReciever().getUserdata().getSurname() + " | " + confirmation.getReciever().getUsername() + " Tytuł potwierdzenia: " + confirmation.getTitle()
                     + " Opis potwierdzenia: " + confirmation.getDescription());
         }
@@ -97,7 +97,7 @@ public class NotificationMessages {
             notification.setDescription("You get confirmation from: " + confirmation.getSender().getUserdata().getName() + " " + confirmation.getSender().getUserdata().getSurname() + " | " + confirmation.getSender().getUsername()  + " Confirmation title: " + confirmation.getTitle()
                     + "Confirmation description: " + confirmation.getDescription());
         } else {
-            notification.setTitle("Nowy raport");
+            notification.setTitle("Nowe potwierdzenie");
             notification.setDescription("Otrzymałeś potwierdzenie od: " + confirmation.getSender().getUserdata().getName() + " " + confirmation.getSender().getUserdata().getSurname() + " | " + confirmation.getSender().getUsername()  + " Tytuł potwierdzenia: " + confirmation.getTitle()
                     + " Opis potwierdzenia: " + confirmation.getDescription());
         }

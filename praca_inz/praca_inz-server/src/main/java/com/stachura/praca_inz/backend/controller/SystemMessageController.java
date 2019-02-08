@@ -1,6 +1,6 @@
 package com.stachura.praca_inz.backend.controller;
 
-import com.stachura.praca_inz.backend.exception.base.AppBaseException;
+import com.stachura.praca_inz.backend.exception.base.SystemBaseException;
 import com.stachura.praca_inz.backend.model.SystemMessage;
 import com.stachura.praca_inz.backend.service.SystemMessageService;
 import com.stachura.praca_inz.backend.web.dto.system_message.SystemMessageAddDto;
@@ -17,7 +17,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/secured/message/system")
-@Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = AppBaseException.class)
+@Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = SystemBaseException.class)
 public class SystemMessageController {
 
     @Autowired
@@ -33,20 +33,20 @@ public class SystemMessageController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
-    SystemMessage get(@PathVariable Long id) throws AppBaseException {
+    SystemMessage get(@PathVariable Long id) throws SystemBaseException {
         return systemMessageService.getSystemMessageById(id);
     }
 
     @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public ResponseEntity<?> create(@RequestBody SystemMessageAddDto systemMessageAddDto) throws AppBaseException {
+    public ResponseEntity<?> create(@RequestBody SystemMessageAddDto systemMessageAddDto) throws SystemBaseException {
         systemMessageService.createNewSystemMessage(systemMessageAddDto);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public void delete(@PathVariable Long id) throws AppBaseException {
+    public void delete(@PathVariable Long id) throws SystemBaseException {
         systemMessageService.deleteSystemMessageById(id);
     }
 }

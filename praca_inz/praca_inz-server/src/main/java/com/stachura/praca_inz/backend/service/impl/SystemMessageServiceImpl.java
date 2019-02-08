@@ -2,7 +2,7 @@ package com.stachura.praca_inz.backend.service.impl;
 
 import com.google.common.collect.Lists;
 import com.stachura.praca_inz.backend.exception.EntityNotInDatabaseException;
-import com.stachura.praca_inz.backend.exception.base.AppBaseException;
+import com.stachura.praca_inz.backend.exception.base.SystemBaseException;
 import com.stachura.praca_inz.backend.model.SystemMessage;
 import com.stachura.praca_inz.backend.repository.SystemMessageRepository;
 import com.stachura.praca_inz.backend.service.SystemMessageService;
@@ -29,7 +29,7 @@ public class SystemMessageServiceImpl implements SystemMessageService {
     @Override
     @Transactional(readOnly = true,propagation = Propagation.MANDATORY)
     @PreAuthorize("hasAuthority('SYSTEM_MESSAGE_READ')")
-    public SystemMessage getSystemMessageById(Long id) throws AppBaseException {
+    public SystemMessage getSystemMessageById(Long id) throws SystemBaseException {
         SystemMessage systemMessage = systemMessageRepository.findById(id).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
         if (systemMessage.isDeleted()) {
             return null;
@@ -54,7 +54,7 @@ public class SystemMessageServiceImpl implements SystemMessageService {
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('SYSTEM_MESSAGE_CREATE')")
-    public void createNewSystemMessage(SystemMessageAddDto systemMessageAddDto) throws AppBaseException {
+    public void createNewSystemMessage(SystemMessageAddDto systemMessageAddDto) throws SystemBaseException {
 
         systemMessageRepository.saveAndFlush(SystemMessageConverter.toSystemMessage(systemMessageAddDto));
     }
@@ -62,7 +62,7 @@ public class SystemMessageServiceImpl implements SystemMessageService {
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('SYSTEM_MESSAGE_DELETE')")
-    public void deleteSystemMessageById(Long id) throws AppBaseException {
+    public void deleteSystemMessageById(Long id) throws SystemBaseException {
         systemMessageRepository.findById(id).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT)).setDeleted(true);
     }
 }

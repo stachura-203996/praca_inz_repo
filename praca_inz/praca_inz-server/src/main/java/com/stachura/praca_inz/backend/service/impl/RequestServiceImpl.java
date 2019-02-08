@@ -4,7 +4,7 @@ import com.google.common.collect.Lists;
 import com.stachura.praca_inz.backend.Constants;
 import com.stachura.praca_inz.backend.exception.EntityNotInDatabaseException;
 import com.stachura.praca_inz.backend.exception.EntityOptimisticLockException;
-import com.stachura.praca_inz.backend.exception.base.AppBaseException;
+import com.stachura.praca_inz.backend.exception.base.SystemBaseException;
 import com.stachura.praca_inz.backend.model.*;
 import com.stachura.praca_inz.backend.model.enums.DeviceStatus;
 import com.stachura.praca_inz.backend.model.enums.Status;
@@ -108,7 +108,7 @@ public class RequestServiceImpl implements RequestService {
     @Override
     @Transactional(readOnly = true, propagation = Propagation.MANDATORY)
     @PreAuthorize("hasAuthority('REQUEST_LIST_READ')")
-    public List<RequestListElementDto> getAllRequestForManager(String username) throws AppBaseException {
+    public List<RequestListElementDto> getAllRequestForManager(String username) throws SystemBaseException {
         User user = userRepository.findByUsername(username).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
         List<Request> requests = Lists.newArrayList(requestRepository.findAll()).stream().filter(x -> x.getUser().getOffice().getId().equals(user.getOffice().getId()) && x.getStatus().name().equals(Status.WAITING.name()))
                 .collect(Collectors.toList());
@@ -125,7 +125,7 @@ public class RequestServiceImpl implements RequestService {
     @Override
     @Transactional(readOnly = true, propagation = Propagation.MANDATORY)
     @PreAuthorize("hasAuthority('REQUEST_LIST_READ')")
-    public List<RequestListElementDto> getAllRequestFromeOtherUsers(String username) throws AppBaseException {
+    public List<RequestListElementDto> getAllRequestFromeOtherUsers(String username) throws SystemBaseException {
         User user = userRepository.findByUsername(username).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
         List<Request> requests = Lists.newArrayList(requestRepository.findAll()).stream().filter(x -> x.getStatus().equals(Status.IN_WAREHOUSE)
                 && x.getUser().getOffice().getId().equals(user.getOffice().getId())).collect(Collectors.toList());
@@ -141,7 +141,7 @@ public class RequestServiceImpl implements RequestService {
     @Override
     @Transactional(readOnly = true, propagation = Propagation.MANDATORY)
     @PreAuthorize("hasAuthority('REQUEST_LIST_WAREHOUSEMAN_READ')")
-    public List<RequestListElementDto> getAllRequestForWarehouseman(String username) throws AppBaseException {
+    public List<RequestListElementDto> getAllRequestForWarehouseman(String username) throws SystemBaseException {
         User user = userRepository.findByUsername(username).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
         List<Request> requests = Lists.newArrayList(requestRepository.findAll()).stream().filter(x -> x.getUser().getUsername().equals(username)
                 && (x.getRecieverWarehouse().getWarehouseType().name().equals(WarehouseType.OFFICE.name()) || x.getSenderWarehouse().getWarehouseType().name().equals(WarehouseType.OFFICE.name())))
@@ -199,7 +199,7 @@ public class RequestServiceImpl implements RequestService {
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('REQUEST_TRANSFER_CREATE')")
-    public void createNewTransferRequest(TransferRequestAddDto transferRequestAddDto, String username) throws AppBaseException {
+    public void createNewTransferRequest(TransferRequestAddDto transferRequestAddDto, String username) throws SystemBaseException {
         User user = userRepository.findByUsername(username).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
         Warehouse reciever = warehouseRepository.findById(transferRequestAddDto.getRecieverWarehouseId()).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
         Device device = deviceRepository.findById(transferRequestAddDto.getDeviceId()).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
@@ -221,7 +221,7 @@ public class RequestServiceImpl implements RequestService {
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('REQUEST_DEVICE_CREATE')")
-    public void createNewDeviceRequest(DeviceRequestAddDto deviceRequestAddDto, String username) throws AppBaseException {
+    public void createNewDeviceRequest(DeviceRequestAddDto deviceRequestAddDto, String username) throws SystemBaseException {
         User user = userRepository.findByUsername(username).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
         DeviceModel device = deviceModelRepository.findById(deviceRequestAddDto.getDeviceModelId()).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
         Warehouse warehouse = Lists.newArrayList(warehouseRepository.findAll()).stream().filter(x -> x.getWarehouseType().equals(WarehouseType.USER) && x.getUser().getUsername().equals(username)).findFirst().orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
@@ -237,14 +237,14 @@ public class RequestServiceImpl implements RequestService {
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('REQUEST_UPDATE')")
-    public void updateRequest(Request request) throws AppBaseException {
+    public void updateRequest(Request request) throws SystemBaseException {
         requestRepository.saveAndFlush(request);
     }
 
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('REQUEST_DELETE')")
-    public void deleteRequestById(Long id) throws AppBaseException {
+    public void deleteRequestById(Long id) throws SystemBaseException {
         requestRepository.findById(id).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT)).setDeleted(true);
     }
 

@@ -15,10 +15,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@EnableAutoConfiguration
-@Table(name = "DEVICE")
 @Getter
 @Setter
+@EnableAutoConfiguration
+@Table(name = "DEVICE")
 public class Device implements Serializable {
 
     @Id

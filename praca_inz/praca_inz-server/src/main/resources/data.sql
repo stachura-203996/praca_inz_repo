@@ -588,18 +588,16 @@ INSERT INTO public.device (id, create_date, deleted, last_update, serial_number,
 
 INSERT INTO TRANSFER (ID,VERSION,DELETED,USER_ID,TITLE,TRANSFER_DATE,SENDER_WAREHOUSE_ID,RECIEVER_WAREHOUSE_ID,DEVICE_ID,STATUS) VALUES (1,0,FALSE,1,'TITLE','2011-03-12 12:00',1,2,1,'TRANSFERED');
 
-INSERT INTO notification(ID,VERSION,DELETED,TITLE,DESCRIPTION,URL,READED,NOTIFICATION_DATE,USER_ID) VALUES (1,0,FALSE ,'Title','Description','/devices/transfer/view/1',FALSE ,'2011-03-12 12:30',1);
-INSERT INTO notification(ID,VERSION,DELETED,TITLE,DESCRIPTION,URL,READED,NOTIFICATION_DATE,USER_ID) VALUES (2,0,FALSE ,'Title','Description','/devices/transfer/view/2',FALSE ,'2011-03-12 12:32',1);
-INSERT INTO notification(ID,VERSION,DELETED,TITLE,DESCRIPTION,URL,READED,NOTIFICATION_DATE,USER_ID) VALUES (3,0,FALSE ,'Title','Description','/devices/transfer/view/1',FALSE ,'2011-03-12 12:35',1);
-INSERT INTO notification(ID,VERSION,DELETED,TITLE,DESCRIPTION,URL,READED,NOTIFICATION_DATE,USER_ID) VALUES (4,0,FALSE ,'Title','Description','/devices/transfer/view/2',FALSE ,'2011-03-12 12:40',1);
-
+INSERT INTO public.notification (id, notification_date, deleted, description, readed, title, url, version, user_id) VALUES (20, '2019-01-28 16:59:59.157000', false, 'Otrzymałeś potwierdzenie od: Tomasz Stachura | admin Tytuł potwierdzenia: Potwierdzenie odbioru transferu zewnętrznego Opis potwierdzenia: Potwierdzenie odbioru transferu zewnętrznego', false, 'Nowe potwierdzenie', '/employees/confirmations/view/9', 0, 4);
+INSERT INTO public.notification (id, notification_date, deleted, description, readed, title, url, version, user_id) VALUES (19, '2019-01-28 16:59:57.452000', false, 'Twóje potwierdzenie zostało wysłane do: John William | warehouseman Tytuł potwierdzenia: Potwierdzenie odbioru transferu zewnętrznego Opis potwierdzenia: Potwierdzenie odbioru transferu zewnętrznego', true, 'Potwierdzenie wysłane', '/employees/confirmations/view/9', 1, 1);
 
 INSERT INTO SYSTEM_MESSAGE(ID,VERSION,DELETED,TITLE,MESSAGE,MESSAGE_DATE) VALUES (1,0,FALSE,'Dzień wolny',' Jutro dzień wolny, ogałaszam święto państwowe','2011-03-12 13:00');
 
 INSERT INTO public.external_transfer (id, confirmed, external_transfer_date, deleted, external_transfer_number, serial_number, title,  device_model_id, reciever_warehouse_id, sender_warehouse_id,confirm_date) VALUES (1, false, '2019-01-14 19:59:09.897000', false, '2527', 'XYZ123AAS', 'dostawa',1, 1, 2, '2019-01-14 19:59:09.897000');
 INSERT INTO public.external_transfer (id, confirmed, external_transfer_date, deleted, external_transfer_number, serial_number, title,  device_model_id, reciever_warehouse_id, sender_warehouse_id,confirm_date) VALUES (2, false, '2019-01-14 19:59:09.897000', false, '2567', 'XYZ123JKL', 'dostawa',1, 1, 2, '2019-01-14 19:59:09.897000');
 
-INSERT INTO confirmation(ID,DELETED,TITLE,SENDER_ID,RECIEVER_ID,CONFIRMATION_DATE,DISABLE_SENDER,DISABLE_RECIEVER,DESCRIPTION) VALUES (1,FALSE ,'Dostawa nowych monitorów',1,1,'2011-03-12 13:00',FALSE,FALSE,'Dostawa nowych monitorów została odebrana');
+INSERT INTO public.confirmation (id, confirmation_date, deleted, description, disable_reciever, disable_sender, title, reciever_id, sender_id) VALUES (1, '2011-03-12 13:00:00.000000', false, 'Dostawa nowych monitorów została odebrana', false, false, 'Dostawa nowych monitorów', 1, 1);
+INSERT INTO public.confirmation (id, confirmation_date, deleted, description, disable_reciever, disable_sender, title, reciever_id, sender_id) VALUES (9, '2019-01-28 16:59:57.445000', false, 'Potwierdzenie odbioru transferu zewnętrznego', false, false, 'Potwierdzenie odbioru transferu zewnętrznego', 4, 1);
 
 INSERT INTO public.request (id, amount, request_date, deleted, description, request_type, status, title, version, device_model_id, reciever_warehouse_id, sender_warehouse_id, user_id) VALUES (4, 2, '2011-03-12 13:00:00.000000', false, 'Potrzebne jest przeniesienie sprzętu na nowego użytkownika', 'TRANSFER_REQUEST', 'WAITING', 'Przeniesienie sprzętu', 0, 1, 1, 2, 1);
 INSERT INTO public.request (id, amount, request_date, deleted, description, request_type, status, title, version, device_model_id, reciever_warehouse_id, sender_warehouse_id, user_id) VALUES (1, 2, '2011-03-12 13:00:00.000000', false, 'Stara myszka została uszkodzona, potrzebuje nowej', 'DEVICE_REQUEST', 'WAITING', 'Uszkodzona myszka', 0, 1, 1, 2, 1);

@@ -1,6 +1,6 @@
 package com.stachura.praca_inz.backend.controller;
 
-import com.stachura.praca_inz.backend.exception.base.AppBaseException;
+import com.stachura.praca_inz.backend.exception.base.SystemBaseException;
 import com.stachura.praca_inz.backend.model.Transfer;
 import com.stachura.praca_inz.backend.service.TransferService;
 import com.stachura.praca_inz.backend.web.dto.TransferAddDto;
@@ -19,7 +19,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/secured/transfer")
-@Transactional(propagation = Propagation.REQUIRES_NEW,rollbackFor = AppBaseException.class)
+@Transactional(propagation = Propagation.REQUIRES_NEW,rollbackFor = SystemBaseException.class)
 public class TransferController {
 
     @Autowired
@@ -29,14 +29,14 @@ public class TransferController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
-    Transfer get(@PathVariable Long id) throws AppBaseException {
+    Transfer get(@PathVariable Long id) throws SystemBaseException {
         return transferService.getTransferById(id);
     }
 
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
-    List<TransferListElementDto> getAll() throws AppBaseException {
+    List<TransferListElementDto> getAll() throws SystemBaseException {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         return transferService.getAllTransfers(auth.getName());
     }
@@ -58,7 +58,7 @@ public class TransferController {
 
     @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public ResponseEntity<?> create(@RequestBody TransferAddDto transferAddDto) throws AppBaseException {
+    public ResponseEntity<?> create(@RequestBody TransferAddDto transferAddDto) throws SystemBaseException {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         transferService.createNewTransfer(transferAddDto,auth.getName());
         return new ResponseEntity<>(HttpStatus.CREATED);
@@ -66,13 +66,13 @@ public class TransferController {
 
     @RequestMapping(method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public void update(@RequestBody Transfer transfer) throws AppBaseException {
+    public void update(@RequestBody Transfer transfer) throws SystemBaseException {
             transferService.updateTransfer(transfer);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public void delete(@PathVariable Long id) throws AppBaseException {
+    public void delete(@PathVariable Long id) throws SystemBaseException {
         transferService.deleteTransferById(id);
     }
 }

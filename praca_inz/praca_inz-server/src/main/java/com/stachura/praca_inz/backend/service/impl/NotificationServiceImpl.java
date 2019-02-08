@@ -2,7 +2,7 @@ package com.stachura.praca_inz.backend.service.impl;
 
 import com.google.common.collect.Lists;
 import com.stachura.praca_inz.backend.exception.EntityNotInDatabaseException;
-import com.stachura.praca_inz.backend.exception.base.AppBaseException;
+import com.stachura.praca_inz.backend.exception.base.SystemBaseException;
 import com.stachura.praca_inz.backend.model.Notification;
 import com.stachura.praca_inz.backend.repository.NotificationRepository;
 import com.stachura.praca_inz.backend.service.EmailService;
@@ -38,7 +38,7 @@ public class NotificationServiceImpl implements NotificationService {
     @Override
     @Transactional(readOnly = true,propagation = Propagation.MANDATORY)
     @PreAuthorize("hasAuthority('NOTIFICATION_READ')")
-    public Notification getNotificationById(Long id) throws AppBaseException {
+    public Notification getNotificationById(Long id) throws SystemBaseException {
         Notification notification = notificationRepository.findById(id).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
         if (notification.isDeleted()) {
             return null;
@@ -92,7 +92,7 @@ public class NotificationServiceImpl implements NotificationService {
     @Override
     @Transactional(propagation = Propagation.MANDATORY)
     @PreAuthorize("hasAuthority('NOTIFICATION_CREATE')")
-    public void createNewNotification(Notification notification)throws AppBaseException {
+    public void createNewNotification(Notification notification)throws SystemBaseException {
             notificationRepository.saveAndFlush(notification);
             String link = "<a href=\"http://localhost:"+ port+"/ui/page" +notification.getUrl()+"\">Click</a>";
             String description="<p>"+notification.getDescription()
@@ -107,14 +107,14 @@ public class NotificationServiceImpl implements NotificationService {
     @Override
     @Transactional(propagation = Propagation.MANDATORY)
     @PreAuthorize("hasAuthority('NOTIFICATION_UPDATE')")
-    public void updateNotification(Notification notification) throws AppBaseException {
+    public void updateNotification(Notification notification) throws SystemBaseException {
         notificationRepository.saveAndFlush(notification);
     }
 
     @Override
     @Transactional(propagation = Propagation.MANDATORY)
     @PreAuthorize("hasAuthority('NOTIFICATION_DELETE')")
-    public void deleteNotificationById(Long id) throws AppBaseException {
+    public void deleteNotificationById(Long id) throws SystemBaseException {
         notificationRepository.findById(id).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT)).setDeleted(true);
     }
 

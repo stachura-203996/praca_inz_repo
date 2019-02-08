@@ -130,7 +130,7 @@ public class OfficeServiceImpl implements OfficeService {
             Department department = departmentRepository.findById(companyStructureAddDto.getDepartmentId()).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
             officeRepository.save(CompanyStructureConverter.toOffice(companyStructureAddDto, department));
         } catch (PersistenceException e) {
-            throw new DatabaseErrorException(DatabaseErrorException.DEPARTMENT_NAME_TAKEN);
+            throw new DatabaseErrorException(DatabaseErrorException.OFFICE_NAME_TAKEN);
         }
     }
 
@@ -147,7 +147,7 @@ public class OfficeServiceImpl implements OfficeService {
         } catch (ObjectOptimisticLockingFailureException e) {
             throw new EntityOptimisticLockException(EntityOptimisticLockException.OPTIMISTIC_LOCK);
         } catch (PersistenceException e) {
-            throw new DatabaseErrorException(DatabaseErrorException.DEPARTMENT_NAME_TAKEN);
+            throw new DatabaseErrorException(DatabaseErrorException.OFFICE_NAME_TAKEN);
         }
     }
 

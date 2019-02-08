@@ -1,7 +1,7 @@
 package com.stachura.praca_inz.backend.controller;
 
 import com.stachura.praca_inz.backend.exception.EntityOptimisticLockException;
-import com.stachura.praca_inz.backend.exception.base.AppBaseException;
+import com.stachura.praca_inz.backend.exception.base.SystemBaseException;
 import com.stachura.praca_inz.backend.service.DeviceTypeService;
 import com.stachura.praca_inz.backend.web.dto.DeviceTypeListElementDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/secured/device/type")
-@Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = AppBaseException.class)
+@Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = SystemBaseException.class)
 public class DeviceTypeController {
 
     @Autowired
@@ -34,7 +34,7 @@ public class DeviceTypeController {
 
     @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public ResponseEntity<?> create(@RequestBody String type) throws AppBaseException {
+    public ResponseEntity<?> create(@RequestBody String type) throws SystemBaseException {
         try {
             deviceTypeService.createNewDeviceType(type);
         } catch (OptimisticLockException e) {
@@ -45,7 +45,7 @@ public class DeviceTypeController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public void delete(@PathVariable Long id) throws AppBaseException {
+    public void delete(@PathVariable Long id) throws SystemBaseException {
         deviceTypeService.deleteDeviceTypeById(id);
     }
 }

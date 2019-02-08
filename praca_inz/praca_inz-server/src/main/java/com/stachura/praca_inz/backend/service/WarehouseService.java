@@ -1,7 +1,7 @@
 package com.stachura.praca_inz.backend.service;
 
 import com.stachura.praca_inz.backend.exception.EntityNotInDatabaseException;
-import com.stachura.praca_inz.backend.exception.base.AppBaseException;
+import com.stachura.praca_inz.backend.exception.base.SystemBaseException;
 import com.stachura.praca_inz.backend.web.dto.warehouse.WarehouseAddDto;
 import com.stachura.praca_inz.backend.web.dto.warehouse.WarehouseEditDto;
 import com.stachura.praca_inz.backend.web.dto.warehouse.WarehouseListElementDto;
@@ -13,13 +13,13 @@ import java.util.List;
 public interface WarehouseService {
 
 
-    List<WarehouseListElementDto> getAllOfficeWarehouses(String username) throws AppBaseException;
+    List<WarehouseListElementDto> getAllOfficeWarehouses(String username) throws SystemBaseException;
 
-    void createWarehouse(WarehouseAddDto warehouseAddDto)throws AppBaseException;
+    void createWarehouse(WarehouseAddDto warehouseAddDto)throws SystemBaseException;
 
-    void updateWarehouse(WarehouseEditDto warehouseEditDto) throws AppBaseException;
+    void updateWarehouse(WarehouseEditDto warehouseEditDto) throws SystemBaseException;
 
-    void deleteWarehouseById(Long id) throws AppBaseException;
+    void deleteWarehouseById(Long id) throws SystemBaseException;
 
 
 
@@ -31,12 +31,12 @@ public interface WarehouseService {
 
     List<WarehouseListElementDto> getAllWarehousesForLoggedUser(String username);
 
-    List<WarehouseListElementDto> getAllForTransferRequest(String username,Long id) throws AppBaseException;
+    List<WarehouseListElementDto> getAllForTransferRequest(String username,Long id) throws SystemBaseException;
 
 
-    WarehouseViewDto getWarehouseToView(Long id) throws AppBaseException;
+    WarehouseViewDto getWarehouseToView(Long id) throws SystemBaseException;
 
-    WarehouseEditDto getWarehouseToEdit(Long id) throws AppBaseException;
+    WarehouseEditDto getWarehouseToEdit(Long id) throws SystemBaseException;
 
     List<WarehouseListElementDto> getAllForTransfer(String name) throws EntityNotInDatabaseException;
 }

@@ -1,6 +1,6 @@
 package com.stachura.praca_inz.backend.controller;
 
-import com.stachura.praca_inz.backend.exception.base.AppBaseException;
+import com.stachura.praca_inz.backend.exception.base.SystemBaseException;
 import com.stachura.praca_inz.backend.model.Confirmation;
 import com.stachura.praca_inz.backend.service.NotificationService;
 import com.stachura.praca_inz.backend.service.ConfirmationService;
@@ -23,7 +23,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/secured/confirmation")
-@Transactional(propagation = Propagation.REQUIRES_NEW,rollbackFor = AppBaseException.class)
+@Transactional(propagation = Propagation.REQUIRES_NEW,rollbackFor = SystemBaseException.class)
 public class ConfirmationController {
 
     @Autowired
@@ -36,7 +36,7 @@ public class ConfirmationController {
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
-    List<ConfirmationListElementDto> getAllReports() throws AppBaseException {
+    List<ConfirmationListElementDto> getAllReports() throws SystemBaseException {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         return confirmationService.getAllReports(auth.getName());
     }
@@ -60,13 +60,13 @@ public class ConfirmationController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
-    ConfirmationViewDto getReportsById(@PathVariable Long id) throws AppBaseException {
+    ConfirmationViewDto getReportsById(@PathVariable Long id) throws SystemBaseException {
         return ConfirmationConverter.toReportViewElement(confirmationService.getReportById(id));
     }
 
     @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public ResponseEntity<?> create(@RequestBody ConfirmationAddDto confirmationAddDto) throws AppBaseException {
+    public ResponseEntity<?> create(@RequestBody ConfirmationAddDto confirmationAddDto) throws SystemBaseException {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
             Confirmation confirmation = confirmationService.createNewReport(confirmationAddDto,auth.getName());
             notificationService.createNewNotification(NotificationMessages.getReportSentNotifiaction(confirmation));
@@ -76,25 +76,25 @@ public class ConfirmationController {
 
     @RequestMapping(method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public void update(@RequestBody Confirmation confirmation) throws AppBaseException {
+    public void update(@RequestBody Confirmation confirmation) throws SystemBaseException {
             confirmationService.updateReport(confirmation);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public void delete(@PathVariable Long id) throws AppBaseException {
+    public void delete(@PathVariable Long id) throws SystemBaseException {
         confirmationService.deleteReportById(id);
     }
 
     @RequestMapping(value = "/sender/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public void diabledBySender(@PathVariable Long id) throws AppBaseException {
+    public void diabledBySender(@PathVariable Long id) throws SystemBaseException {
         confirmationService.disableBySender(id);
     }
 
     @RequestMapping(value = "/reciever/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public void disableByReciever(@PathVariable Long id) throws AppBaseException {
+    public void disableByReciever(@PathVariable Long id) throws SystemBaseException {
         confirmationService.disableByReciever(id);
     }
 

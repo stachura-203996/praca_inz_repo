@@ -1,9 +1,8 @@
 package com.stachura.praca_inz.backend.controller;
 
 import com.stachura.praca_inz.backend.exception.EntityOptimisticLockException;
-import com.stachura.praca_inz.backend.exception.base.AppBaseException;
+import com.stachura.praca_inz.backend.exception.base.SystemBaseException;
 import com.stachura.praca_inz.backend.model.Notification;
-import com.stachura.praca_inz.backend.service.EmailService;
 import com.stachura.praca_inz.backend.service.NotificationService;
 import com.stachura.praca_inz.backend.web.dto.NotificationListElementDto;
 import com.stachura.praca_inz.backend.web.dto.converter.NotificationConverter;
@@ -22,7 +21,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/secured/notification")
-@Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = AppBaseException.class)
+@Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = SystemBaseException.class)
 public class NotificationController {
 
     @Autowired
@@ -46,7 +45,7 @@ public class NotificationController {
 
     @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public ResponseEntity<?> create(@RequestBody NotificationListElementDto notificationListElementDto) throws AppBaseException {
+    public ResponseEntity<?> create(@RequestBody NotificationListElementDto notificationListElementDto) throws SystemBaseException {
         try {
             Notification notification = notificationService.getNotificationById(notificationListElementDto.getId());
             notificationService.createNewNotification(NotificationConverter.toNotification(notificationListElementDto, notification));
@@ -59,7 +58,7 @@ public class NotificationController {
 
     @RequestMapping(method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public void update(@RequestBody NotificationListElementDto notificationListElementDto) throws AppBaseException {
+    public void update(@RequestBody NotificationListElementDto notificationListElementDto) throws SystemBaseException {
         Notification notification = notificationService.getNotificationById(notificationListElementDto.getId());
         try {
             notificationService.updateNotification(NotificationConverter.toNotification(notificationListElementDto, notification));
@@ -70,7 +69,7 @@ public class NotificationController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public void delete(@PathVariable Long id) throws AppBaseException {
+    public void delete(@PathVariable Long id) throws SystemBaseException {
         notificationService.deleteNotificationById(id);
     }
 }

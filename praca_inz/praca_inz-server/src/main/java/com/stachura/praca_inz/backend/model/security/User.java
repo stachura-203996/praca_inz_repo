@@ -19,9 +19,8 @@ import java.util.stream.Collectors;
 
 @Entity
 @EnableAutoConfiguration
-@Table(name = "USER_", uniqueConstraints = {@UniqueConstraint(columnNames = {"USER_NAME"})})
-@Getter
-@Setter
+@Table(name = "USER_")
+@Getter @Setter
 @EqualsAndHashCode(of = "id")
 public class User implements UserDetails, Serializable {
 
