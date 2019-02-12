@@ -113,7 +113,7 @@ export class TransferRequestViewComponent implements OnInit {
                     this.changeRequestStatusElement.version=this.request.version;
                     this.changeRequestStatusElement.status=this.configuration.REQUEST_STATUS_REJECTED;
                     this.requestService.changeRequestStatus(this.changeRequestStatusElement).subscribe(rep=>{
-                        this.router.navigateByUrl('/employees/reports/request/add/'+this.request.id)
+                        this.router.navigateByUrl('/employees/confirmations/request/add/'+this.request.id)
                         this.translate.get('success.transfer.request.reject').subscribe(x => {
                             this.messageService.success(x)
                         })
@@ -143,7 +143,7 @@ export class TransferRequestViewComponent implements OnInit {
                     this.changeRequestStatusElement.version=this.request.version;
                     this.changeRequestStatusElement.status=this.configuration.REQUEST_STATUS_ACCEPTED;
                     this.requestService.changeRequestStatus(this.changeRequestStatusElement).subscribe(rep=>{
-                        this.router.navigateByUrl('/employees/reports/request/add/'+this.request.id)
+                        this.router.navigateByUrl('/employees/confirmations/request/add/'+this.request.id)
                         this.translate.get('success.transfer.request.accept').subscribe(x => {
                             this.messageService.success(x)
                         })
@@ -153,6 +153,10 @@ export class TransferRequestViewComponent implements OnInit {
 
     }
 
-
+    translateAll(word: string): string {
+        var tmp: string;
+        this.translate.get(word).subscribe(x => tmp = x);
+        return tmp;
+    }
 
 }

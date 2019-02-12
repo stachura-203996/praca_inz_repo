@@ -28,11 +28,18 @@
                     </div>
                     <!-- Textarea -->
                     <div class="form-group">
-                        <label class="col-xl-5 control-label" for="Overview">{{'Overview'|translate}}</label>
+                        <label class="col-xl-5 control-label" for="Overview">{{'Overview'|translate}}<span style="color:red">*</span></label>
                         <div class="col-xl-5">
                     <textarea class="form-control" [(ngModel)]="transferRequestAddElement.description" rows="10"
                               id="Overview"
+                              #overview="ngModel" required
                               name="{{'Overview (max 200 words)'|translate}}">{{'Overview'|translate}}</textarea>
+                        </div>
+                    </div>
+                    <div *ngIf="overview.invalid && (overview.touched || overview.dirty)"
+                         class="alert alert-danger col-sm-5">
+                        <div *ngIf="overview.hasError('required')">
+                            {{'Overview is required!'|translate}}
                         </div>
                     </div>
 
@@ -40,12 +47,10 @@
                         <div class="col-sm-4">
                             <div class="row">
                                 <div class="col-xl-6" align="center">
-                                    <a class="btn btn-success" (click)="transferRequestAdd()"><span
-                                        class="glyphicon glyphicon-thumbs-up"></span>{{'Submit'|translate}}</a>
+                                    <button class="btn btn-success" (click)="transferRequestAdd()">{{'Submit'|translate}}</button>
                                 </div>
                                 <div class="col-xl-6" align="center">
-                                    <a class="btn btn-danger" (click)="clear()"><span
-                                        class="glyphicon glyphicon-remove-sign"></span>{{'Clear'|translate}}</a>
+                                    <button class="btn btn-danger" (click)="clear()">{{'Clear'|translate}}</button>
                                 </div>
                             </div>
                         </div>

@@ -12,7 +12,6 @@ import com.stachura.praca_inz.backend.web.dto.company.CompanyStructureEditDto;
 import com.stachura.praca_inz.backend.web.dto.company.CompanyStructureViewDto;
 import com.stachura.praca_inz.backend.web.dto.company.CompanyStructuresListElementDto;
 import com.stachura.praca_inz.backend.web.dto.converter.CompanyStructureConverter;
-import org.apache.log4j.Logger;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.ObjectOptimisticLockingFailureException;
@@ -21,8 +20,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,23 +34,16 @@ public class CompanyServiceImpl implements CompanyService {
     @Autowired
     AddressRepository addressRepository;
 
-    @PersistenceContext
-    EntityManager em;
-
-    final static Logger logger = Logger.getLogger(CompanyService.class);
-
     @Override
     @Transactional(propagation = Propagation.MANDATORY)
     @PreAuthorize("hasAuthority('COMPANY_CREATE')")
     public void createNewCompany(CompanyStructureAddDto companyStructureAddDto) throws DatabaseErrorException {
         try {
             companyRepository.saveAndFlush(CompanyStructureConverter.toCompany(companyStructureAddDto));
-            em.flush();
         }catch (PersistenceException e){
             throw new DatabaseErrorException(DatabaseErrorException.COMPANY_NAME_TAKEN);
         }
     }
-
 
     @Override
     @Transactional(readOnly = true,propagation = Propagation.MANDATORY)

@@ -385,5 +385,7 @@
     "Internal Server Error occurred":"Internal Server Error occurred",
     "request.reject":"Reject request",
     "CANCELED":"CANCELED",
-    "DeviceSerialNumber":"Serial number"
+    "DeviceSerialNumber":"Serial number",
+    "Overview is required!":"Overview is required!",
+    "Reciever is required!":"Reciever is required!"
 }

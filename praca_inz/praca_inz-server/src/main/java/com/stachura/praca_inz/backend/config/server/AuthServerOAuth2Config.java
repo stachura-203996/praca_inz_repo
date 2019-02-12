@@ -71,6 +71,7 @@ public class AuthServerOAuth2Config extends AuthorizationServerConfigurerAdapter
 
     private DatabasePopulator databasePopulator() {
         final ResourceDatabasePopulator populator = new ResourceDatabasePopulator();
+        populator.setSqlScriptEncoding("UTF8");
         populator.addScript(schemaScript);
         populator.addScript(dataScript);
         return populator;

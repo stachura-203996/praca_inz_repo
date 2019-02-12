@@ -381,5 +381,8 @@
     "Internal Server Error occurred":"Wystąpił wewnętrzny błąd serwera",
     "request.reject":"Odrzuć zgłoszenie",
     "CANCELED":"ANULOWANE",
-    "DeviceSerialNumber":"Numer seryjny"
+    "DeviceSerialNumber":"Numer seryjny",
+    "Overview is required!":"Opis jest wymagany!",
+    "Reciever is required!":"Odbiorca jest wymagany!"
 }
+

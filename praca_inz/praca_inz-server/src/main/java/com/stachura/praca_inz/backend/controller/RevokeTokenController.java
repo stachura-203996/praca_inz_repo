@@ -21,15 +21,15 @@ import javax.servlet.http.HttpServletRequest;
 public class RevokeTokenController {
 
     @Autowired
-    private ConsumerTokenServices tokenServices;
+    private ConsumerTokenServices customerTokenService;
 
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public HttpStatus revokeToken(HttpServletRequest request) {
-        String authorization = request.getHeader("Authorization");
-        if (authorization != null && authorization.contains("Bearer")){
-            String tokenId = authorization.substring("Bearer".length()+1);
-            tokenServices.revokeToken(tokenId);
+        String token = request.getHeader("Authorization");
+        if (token != null && token.contains("Bearer")){
+            String tokenId = token.substring("Bearer".length()+1);
+            customerTokenService.revokeToken(tokenId);
             return HttpStatus.ACCEPTED;
         }
         return HttpStatus.BAD_REQUEST;

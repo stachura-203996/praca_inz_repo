@@ -8,8 +8,6 @@ import {HttpService} from "../shared/services/http.service";
 import {Configuration} from "../app.constants";
 import {MessageService} from "../shared/services/message.service";
 import {TranslateService} from "@ngx-translate/core";
-import {PasswordData} from "../models/change-password";
-import {Observable} from "rxjs";
 import {PasswordReset} from "../models/password-reset";
 
 @Injectable({
@@ -44,7 +42,7 @@ export class LoginService {
             'Authorization': 'Basic c3ByaW5nLXNlY3VyaXR5LW9hdXRoMi1yZWFkLXdyaXRlLWNsaWVudDpzcHJpbmctc2VjdXJpdHktb2F1dGgyLXJlYWQtd3JpdGUtY2xpZW50LXBhc3N3b3JkMTIzNA=='
         });
         console.log(params.toString());
-        this.http.post('http://localhost:8081/oauth/token', params.toString(), {headers: headers})
+        this.http.post('https://localhost:8081/oauth/token', params.toString(), {headers: headers})
             .subscribe(
                 data => this.saveToken(data),
                 err => this.translate.get('BadLogin').subscribe(x => {
@@ -62,7 +60,7 @@ export class LoginService {
         this.cookieService.set('access_token', token.access_token, expire,'/ui/page');
         console.log('Obtained Access token');
         this.saveLoggedUser(token);
-        window.location.href = 'http://localhost:8081/ui/page/main-page';
+        window.location.href = 'https://localhost:8081/ui/page/main-page';
     }
 
     checkCredentials(): boolean {
@@ -84,7 +82,7 @@ export class LoginService {
 
     saveLoggedUser(token) {
         let headers = new HttpHeaders({'authorization': 'Bearer ' + token.access_token});
-        this.http.get<LoggedUser>('http://localhost:8081/secured/users/logged', {headers: headers}).subscribe(user => {
+        this.http.get<LoggedUser>('https://localhost:8081/secured/users/logged', {headers: headers}).subscribe(user => {
             localStorage.setItem('loggedUser', JSON.stringify(user));
         });
     }
@@ -100,7 +98,7 @@ export class LoginService {
     revokeToken() {
         if (this.checkCredentials()) {
             let headers = new HttpHeaders({'authorization': 'Bearer ' + this.cookieService.get('access_token')});
-            this.http.get<LoggedUser>('http://localhost:8081/secured/revoke/token', {headers: headers}).subscribe(user => {
+            this.http.get<LoggedUser>('https://localhost:8081/secured/revoke/token', {headers: headers}).subscribe(user => {
                 localStorage.setItem('loggedUser', JSON.stringify(user));
             })
         }

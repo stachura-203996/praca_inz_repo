@@ -23,15 +23,15 @@
 
                     <!--Option-->
                     <div class="form-group col-xl-5">
-                        <label for="userSelect">{{'User'|translate}}<span style="color:red">*</span></label>
+                        <label for="userSelect">{{'Reciever'|translate}}<span style="color:red">*</span></label>
                         <select class="form-control" id="userSelect" [(ngModel)]="selectedOption" name="userSelect" #user="ngModel" required>
                             <option *ngFor="let receiver of recivers|keyvalue" [value]="receiver.key">{{receiver.key}}</option>
                         </select>
                     </div>
                     <div *ngIf="user.invalid && (user.touched || user.dirty)"
-                         class="alert alert-danger col-sm-12">
+                         class="alert alert-danger col-sm-5">
                         <div *ngIf="user.hasError('required')">
-                            {{'User is required!'|translate}}
+                            {{'Reciever is required!'|translate}}
                         </div>
                     </div>
 
@@ -46,7 +46,7 @@
                         </div>
                     </div>
                     <div *ngIf="overview.invalid && (overview.touched || overview.dirty)"
-                         class="alert alert-danger col-sm-12">
+                         class="alert alert-danger col-sm-5">
                         <div *ngIf="overview.hasError('required')">
                             {{'Overview is required!'|translate}}
                         </div>

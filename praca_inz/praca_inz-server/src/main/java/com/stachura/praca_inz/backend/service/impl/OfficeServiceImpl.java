@@ -43,9 +43,6 @@ public class OfficeServiceImpl implements OfficeService {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private EntityManager em;
-
     @Override
     @Transactional(readOnly = true, propagation = Propagation.MANDATORY)
     @PreAuthorize("hasAuthority('OFFICE_VIEW_READ')")

@@ -6,7 +6,6 @@ import com.stachura.praca_inz.backend.web.dto.company.CompanyStructureAddDto;
 import com.stachura.praca_inz.backend.web.dto.company.CompanyStructureEditDto;
 import com.stachura.praca_inz.backend.web.dto.company.CompanyStructureViewDto;
 import com.stachura.praca_inz.backend.web.dto.company.CompanyStructuresListElementDto;
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -25,8 +24,6 @@ public class CompanyController {
 
     @Autowired
     private CompanyService companyService;
-
-    static Logger logger = Logger.getLogger(CompanyController.class.getName());
 
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)

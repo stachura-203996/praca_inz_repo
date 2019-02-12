@@ -128,7 +128,7 @@ export class DeviceRequestViewComponent implements OnInit {
                     this.changeRequestStatusElement.version=this.request.version;
                     this.changeRequestStatusElement.status=this.configuration.REQUEST_STATUS_REJECTED;
                     this.requestService.changeRequestStatus(this.changeRequestStatusElement).subscribe(rep=>{
-                        this.router.navigateByUrl('/employees/reports/request/add/'+this.request.id)
+                        this.router.navigateByUrl('/employees/confirmations/request/add/'+this.request.id)
                         this.translate.get('success.device.request.rejected').subscribe(x => {
                             this.messageService.success(x)
                         })
@@ -158,7 +158,7 @@ export class DeviceRequestViewComponent implements OnInit {
                     this.changeRequestStatusElement.version=this.request.version;
                     this.changeRequestStatusElement.status=this.configuration.REQUEST_STATUS_ACCEPTED;
                     this.requestService.changeRequestStatus(this.changeRequestStatusElement).subscribe(rep=>{
-                        this.router.navigateByUrl('/employees/reports/request/add/'+this.request.id)
+                        this.router.navigateByUrl('/employees/confirmations/request/add/'+this.request.id)
                         this.translate.get('success.device.request.accept').subscribe(x => {
                             this.messageService.success(x)
                         })
@@ -166,5 +166,11 @@ export class DeviceRequestViewComponent implements OnInit {
                 }
             });
 
+    }
+
+    translateAll(word: string): string {
+        var tmp: string;
+        this.translate.get(word).subscribe(x => tmp = x);
+        return tmp;
     }
 }

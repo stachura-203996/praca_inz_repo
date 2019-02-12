@@ -16,6 +16,4 @@ public interface UserRepository extends JpaRepository<User,Long>, CustomUserRepo
             "INNER JOIN FETCH user.userRoles AS roles " +
             "WHERE user.username = :username")
     Optional<User> findByUsername(@Param("username") String username);
-
-
 }
