@@ -29,7 +29,7 @@
                 </ul>
             </li>
         </div>
-        <div class="nested-menu" *ngIf="(roles.admin || roles.company_admin)">
+        <div class="nested-menu" *ngIf="(roles.company_admin)">
             <a class="list-group-item" (click)="addExpandClass('companyManagementPanel')">
                 <i class="fa fa-sitemap"></i>&nbsp;
                 <span>{{ 'Structures' | translate }}</span>

@@ -8,7 +8,7 @@ import com.stachura.praca_inz.backend.model.security.User;
 import com.stachura.praca_inz.backend.repository.ExternalTransferRepository;
 import com.stachura.praca_inz.backend.repository.UserRepository;
 import com.stachura.praca_inz.backend.service.ExternalTransferService;
-import com.stachura.praca_inz.backend.web.dto.DeliveryListElementDto;
+import com.stachura.praca_inz.backend.web.dto.ExternalTransferListElementDto;
 import com.stachura.praca_inz.backend.web.dto.converter.DeliveryConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -44,7 +44,7 @@ public class ExternalTransferServiceImpl implements ExternalTransferService {
     @Override
     @Transactional(readOnly = true,propagation = Propagation.MANDATORY)
     @PreAuthorize("hasAuthority('EXTERNAL_TRANSFER_LIST_READ')")
-    public List<DeliveryListElementDto> getAllDeliveries(String username) throws EntityNotInDatabaseException {
+    public List<ExternalTransferListElementDto> getAllDeliveries(String username) throws EntityNotInDatabaseException {
         List<ExternalTransfer> deliveries;
         User user = userRepository.findByUsername(username).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
         if (user.getUserRoles().stream().anyMatch(x -> x.getName().equals(Constants.ADMIN_ROLE))) {
@@ -53,7 +53,7 @@ public class ExternalTransferServiceImpl implements ExternalTransferService {
             deliveries = Lists.newArrayList(externalTransferRepository.findAll()).stream().filter(x -> x.getSenderWarehouse().getOffice().getDepartment().getCompany()
                     .getId().equals(user.getOffice().getDepartment().getCompany().getId())).collect(Collectors.toList());
         }
-        List<DeliveryListElementDto> companiesDto = new ArrayList<>();
+        List<ExternalTransferListElementDto> companiesDto = new ArrayList<>();
         for (ExternalTransfer a : deliveries) {
             if (!a.isDeleted()) {
                 companiesDto.add(DeliveryConverter.toDeliveryListElement(a));
@@ -65,10 +65,10 @@ public class ExternalTransferServiceImpl implements ExternalTransferService {
     @Override
     @Transactional(readOnly = true,propagation = Propagation.MANDATORY)
     @PreAuthorize("hasAuthority('EXTERNAL_TRANSFER_LIST_READ')")
-    public List<DeliveryListElementDto> getAllDeliveriesForWarehouseman(String username) throws EntityNotInDatabaseException {
+    public List<ExternalTransferListElementDto> getAllDeliveriesForWarehouseman(String username) throws EntityNotInDatabaseException {
         Long id = userRepository.findByUsername(username).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT)).getId();
         List<ExternalTransfer> deliveries = Lists.newArrayList(externalTransferRepository.findAll()).stream().filter(x -> x.getRecieverWarehouse().getUser().getId().equals(id)).collect(Collectors.toList());
-        List<DeliveryListElementDto> companiesDto = new ArrayList<>();
+        List<ExternalTransferListElementDto> companiesDto = new ArrayList<>();
         for (ExternalTransfer a : deliveries) {
             if (!a.isDeleted()) {
                 companiesDto.add(DeliveryConverter.toDeliveryListElement(a));

@@ -1,20 +1,19 @@
 import {Component, OnInit} from '@angular/core';
-import {TransferListElement} from "../../../models/transfer-list-element";
 import {DeviceService} from "../../device-management/device.service";
 import {TranslateService} from "@ngx-translate/core";
-import {DeliveryListElement} from "../../../models/warehouse-elements";
+import {ExternalTransferListElement} from "../../../models/warehouse-elements";
 import {WarehouseService} from "../warehouse.service";
 import {DeviceAddElement} from "../../../models/device-elements";
 import {MessageService} from "../../../shared/services/message.service";
 
 @Component({
     selector: 'app-delivery-list',
-    templateUrl: './delivery-list.component.html',
-    styleUrls: ['./delivery-list.component.scss']
+    templateUrl: './external-transfer-list.component.html',
+    styleUrls: ['./external-transfer-list.component.scss']
 })
-export class DeliveryListComponent implements OnInit {
+export class ExternalTransferListComponent implements OnInit {
 
-    deliveries: DeliveryListElement[];
+    externalTransfers: ExternalTransferListElement[];
 
     constructor(
         private warehouseService: WarehouseService,
@@ -30,15 +29,15 @@ export class DeliveryListComponent implements OnInit {
     filterDeliveries(searchText: string) {
         this.warehouseService.getAllDeliveriesForWarehouse().subscribe(transfers => {
             if (!transfers) {
-                this.deliveries = [];
+                this.externalTransfers = [];
                 return;
             }
             if (!searchText || searchText.length < 2) {
-                this.deliveries = transfers;
+                this.externalTransfers = transfers;
             }
 
             searchText = searchText.toLowerCase();
-            this.deliveries = transfers.filter(it => {
+            this.externalTransfers = transfers.filter(it => {
                 const range = it.serialNumber + ' ' + it.receiver + ' ' + it.sender + ' ' + it.deliveryNumber + ' ' + it.deviceModelName + ' ' + it.lastUpdate + ' ' + it.createDate + ' ' + it.title + ' ' + it.username;
                 const ok = range.toLowerCase().includes(searchText);
                 return ok;
@@ -46,7 +45,7 @@ export class DeliveryListComponent implements OnInit {
         });
     }
 
-    confirm(deliver: DeliveryListElement) {
+    confirm(deliver: ExternalTransferListElement) {
         var entity: string;
         var message: string;
         var yes: string;

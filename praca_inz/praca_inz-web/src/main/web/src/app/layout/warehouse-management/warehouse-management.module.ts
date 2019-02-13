@@ -5,9 +5,9 @@ import {WarehouseManagementRoutingModule} from "./warehouse-management-routing.m
 import {TranslateModule} from "@ngx-translate/core";
 import {FormsModule} from "@angular/forms";
 import { WarehouseRequestListComponent } from './warehouse-request-list/warehouse-request-list.component';
-import { DeliveryListComponent } from './delivery-list/delivery-list.component';
 import { WarehouseDevicesComponent } from './warehouse-devices/warehouse-devices.component';
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
+import {ExternalTransferListComponent} from "./external-transfer-list/external-transfer-list.component";
 
 
 @NgModule({
@@ -21,7 +21,7 @@ import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
     declarations: [
         WarehouseUserComponent,
         WarehouseRequestListComponent,
-        DeliveryListComponent,
+        ExternalTransferListComponent,
         WarehouseDevicesComponent,
     ]
 })

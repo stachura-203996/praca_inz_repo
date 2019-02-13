@@ -3,7 +3,7 @@ package com.stachura.praca_inz.backend.controller;
 import com.stachura.praca_inz.backend.exception.base.SystemBaseException;
 import com.stachura.praca_inz.backend.model.ExternalTransfer;
 import com.stachura.praca_inz.backend.service.ExternalTransferService;
-import com.stachura.praca_inz.backend.web.dto.DeliveryListElementDto;
+import com.stachura.praca_inz.backend.web.dto.ExternalTransferListElementDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/secured/delivery")
+@RequestMapping("/secured/external/transfer")
 @Transactional(propagation = Propagation.REQUIRES_NEW,rollbackFor = SystemBaseException.class)
-public class DeliveryController {
+public class ExternalTransferController {
 
     @Autowired
     private ExternalTransferService externalTransferService;
@@ -27,7 +27,7 @@ public class DeliveryController {
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
-    List<DeliveryListElementDto> getAll() throws SystemBaseException {
+    List<ExternalTransferListElementDto> getAll() throws SystemBaseException {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         return externalTransferService.getAllDeliveries(auth.getName());
     }
@@ -35,7 +35,7 @@ public class DeliveryController {
     @RequestMapping(value = "/warehouseman",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
-    List<DeliveryListElementDto> getAllForWarehouse() throws SystemBaseException {
+    List<ExternalTransferListElementDto> getAllForWarehouse() throws SystemBaseException {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         return externalTransferService.getAllDeliveriesForWarehouseman(auth.getName());
     }

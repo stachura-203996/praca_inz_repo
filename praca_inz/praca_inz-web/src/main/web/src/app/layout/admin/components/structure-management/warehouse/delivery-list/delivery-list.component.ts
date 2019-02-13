@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {DeliveryListElement} from "../../../../../../models/warehouse-elements";
+import {ExternalTransferListElement} from "../../../../../../models/warehouse-elements";
 import {WarehouseService} from "../../../../../warehouse-management/warehouse.service";
 import {TranslateService} from "@ngx-translate/core";
 import {UserRoles} from "../../../../../../models/user-roles";
@@ -17,7 +17,7 @@ import {MessageService} from "../../../../../../shared/services/message.service"
 })
 export class DeliveryListComponent implements OnInit {
 
-    deliveries: DeliveryListElement[];
+    deliveries: ExternalTransferListElement[];
 
 
     constructor(
@@ -34,8 +34,8 @@ export class DeliveryListComponent implements OnInit {
     }
 
     getDeliveries() {
-            this.warehouseService.getAllDeliveries().subscribe(deliveryListElement => {
-                this.deliveries = deliveryListElement
+            this.warehouseService.getAllDeliveries().subscribe(externalTransferListElement => {
+                this.deliveries = externalTransferListElement
             });
     }
 
@@ -58,7 +58,7 @@ export class DeliveryListComponent implements OnInit {
             });
     }
 
-    confirm(deliver: DeliveryListElement) {
+    confirm(deliver: ExternalTransferListElement) {
         var entity: string;
         var message: string;
         var yes: string;

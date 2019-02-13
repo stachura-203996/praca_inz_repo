@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DeliveryListComponent } from './delivery-list.component';
+import { ExternalTransferListComponent } from './external-transfer-list.component';
 
 describe('ExternalTransferListComponent', () => {
-  let component: DeliveryListComponent;
-  let fixture: ComponentFixture<DeliveryListComponent>;
+  let component: ExternalTransferListComponent;
+  let fixture: ComponentFixture<ExternalTransferListComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DeliveryListComponent ]
+      declarations: [ ExternalTransferListComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DeliveryListComponent);
+    fixture = TestBed.createComponent(ExternalTransferListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

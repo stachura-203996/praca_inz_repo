@@ -1,16 +1,16 @@
 package com.stachura.praca_inz.backend.web.dto.converter;
 
 import com.stachura.praca_inz.backend.model.ExternalTransfer;
-import com.stachura.praca_inz.backend.web.dto.DeliveryListElementDto;
+import com.stachura.praca_inz.backend.web.dto.ExternalTransferListElementDto;
 
 import java.text.SimpleDateFormat;
 
 public class DeliveryConverter {
 
     //LIST
-    public static DeliveryListElementDto toDeliveryListElement(ExternalTransfer externalTransfer){
+    public static ExternalTransferListElementDto toDeliveryListElement(ExternalTransfer externalTransfer){
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-        return DeliveryListElementDto.builder()
+        return ExternalTransferListElementDto.builder()
                     .id(externalTransfer.getId())
                     .deliveryNumber(externalTransfer.getExternalTransferNumber())
                     .createDate(formatter.format(externalTransfer.getCreateDate().getTime()))

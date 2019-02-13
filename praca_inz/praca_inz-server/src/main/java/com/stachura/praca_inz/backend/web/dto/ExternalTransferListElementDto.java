@@ -6,7 +6,7 @@ import lombok.*;
 @Builder
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
-public class DeliveryListElementDto {
+public class ExternalTransferListElementDto {
     Long id;
     String title;
     String deliveryNumber;

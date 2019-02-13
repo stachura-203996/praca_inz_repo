@@ -40,7 +40,7 @@ export class WarehouseAddElement {
     officeId: number;
 }
 
-export class DeliveryListElement {
+export class ExternalTransferListElement {
     id: number;
     deliveryNumber: string;
     title: string;
