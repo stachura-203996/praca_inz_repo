@@ -8,11 +8,9 @@ import lombok.*;
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 public class WarehouseViewDto {
     private String name;
-    private String userName;
-    private String  userSurname;
-    private String username;
     private String officeName;
     private String companyName;
     private String departmentName;
     private String devicesNumber;
+    private String responsibleFor;
 }

@@ -4,6 +4,7 @@ import {Configuration} from "../../app.constants";
 import {Observable} from "rxjs";
 import {ExternalTransferListElement, WarehouseAddElement, WarehouseEditElement, WarehouseListElement, WarehouseViewElement} from "../../models/warehouse-elements";
 import {StructureEditElement} from "../../models/structure-elements";
+import {UserListElement} from "../../models/user-list-element";
 
 @Injectable({
   providedIn: 'root'
@@ -11,8 +12,8 @@ import {StructureEditElement} from "../../models/structure-elements";
 export class WarehouseService {
 
     private warehousePath = this.configuration.ServerWithApiUrl + '/warehouse';
-    private deliveryPath = this.configuration.ServerWithApiUrl + '/delivery';
-    private shipmentPath = this.configuration.ServerWithApiUrl + '/shipment';
+    private deliveryPath = this.configuration.ServerWithApiUrl + '/external/transfer';
+
 
     constructor(private httpService: HttpService, private configuration: Configuration) { }
 
@@ -84,5 +85,20 @@ export class WarehouseService {
 
     confirmDelivery(id: number) {
         return this.httpService.put<any>(this.deliveryPath+'/confirm/'+id,{})
+    }
+
+
+    //Warehouseman
+
+    getAllWarehouseUsers(id: string): Observable<UserListElement[]> {
+        return this.httpService.get<UserListElement[]>(this.warehousePath + '/users/' + id);
+    }
+
+    attachWarehouseUser(userId:number,warehouseId:number){
+        return this.httpService.post<any>(this.warehousePath+'/user/'+warehouseId+'/'+userId,{});
+    }
+
+    detachWarehouseUser(userId:number,warehouseId:number): Observable<any>{
+        return this.httpService.delete<any>(this.warehousePath+'/user/'+warehouseId+'/'+userId);
     }
 }

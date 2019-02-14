@@ -11,13 +11,13 @@ import {Configuration} from "../../../../../../app.constants";
 import {MessageService} from "../../../../../../shared/services/message.service";
 
 @Component({
-    selector: 'app-delivery-list',
-    templateUrl: './delivery-list.component.html',
-    styleUrls: ['./delivery-list.component.scss']
+    selector: 'app-externalTransfery-list',
+    templateUrl: './external-transfer-list.component.html',
+    styleUrls: ['./external-transfer-list.component.scss']
 })
-export class DeliveryListComponent implements OnInit {
+export class ExternalTransferListComponent implements OnInit {
 
-    deliveries: ExternalTransferListElement[];
+    externalTransfers: ExternalTransferListElement[];
 
 
     constructor(
@@ -30,27 +30,27 @@ export class DeliveryListComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.getDeliveries()
+        this.getExternalTransfers()
     }
 
-    getDeliveries() {
+    getExternalTransfers() {
             this.warehouseService.getAllDeliveries().subscribe(externalTransferListElement => {
-                this.deliveries = externalTransferListElement
+                this.externalTransfers = externalTransferListElement
             });
     }
 
     filterDeliveries(searchText: string) {
             this.warehouseService.getAllDeliveriesForWarehouse().subscribe(transfers => {
                 if (!transfers) {
-                    this.deliveries = [];
+                    this.externalTransfers = [];
                     return;
                 }
                 if (!searchText || searchText.length < 2) {
-                    this.deliveries = transfers;
+                    this.externalTransfers = transfers;
                 }
 
                 searchText = searchText.toLowerCase();
-                this.deliveries = transfers.filter(it => {
+                this.externalTransfers = transfers.filter(it => {
                     const range = it.toString();
                     const ok = range.toLowerCase().includes(searchText);
                     return ok;
@@ -58,13 +58,13 @@ export class DeliveryListComponent implements OnInit {
             });
     }
 
-    confirm(deliver: ExternalTransferListElement) {
+    confirm(externalTransfer: ExternalTransferListElement) {
         var entity: string;
         var message: string;
         var yes: string;
         var no: string;
 
-        this.translate.get('delivery.confirm').subscribe(x => entity = x);
+        this.translate.get('externalTransfery.confirm').subscribe(x => entity = x);
         this.translate.get('confirm.delete').subscribe(x => message = x);
         this.translate.get('yes').subscribe(x => yes = x);
         this.translate.get('no').subscribe(x => no = x);
@@ -75,14 +75,14 @@ export class DeliveryListComponent implements OnInit {
             .subscribe(confirmed => {
                 if (confirmed) {
                     var device: DeviceAddElement = new DeviceAddElement();
-                    device.warehouseId = deliver.warehouseId;
-                    device.serialNumber = deliver.serialNumber;
-                    device.deviceModelId = deliver.deviceModelId;
-                    device.companyId = deliver.companyId;
-                    this.warehouseService.confirmDelivery(deliver.id).subscribe(rep => {
+                    device.warehouseId = externalTransfer.warehouseId;
+                    device.serialNumber = externalTransfer.serialNumber;
+                    device.deviceModelId = externalTransfer.deviceModelId;
+                    device.companyId = externalTransfer.companyId;
+                    this.warehouseService.confirmDelivery(externalTransfer.id).subscribe(rep => {
                         this.deviceService.createDevice(device).subscribe(rep => {
                             this.filterDeliveries(null);
-                            this.translate.get('success.delivery.confirm').subscribe(x => {
+                            this.translate.get('success.externalTransfery.confirm').subscribe(x => {
                                 this.messageService.success(x)
                             })
                         });

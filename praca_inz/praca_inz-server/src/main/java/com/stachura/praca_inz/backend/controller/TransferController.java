@@ -1,5 +1,6 @@
 package com.stachura.praca_inz.backend.controller;
 
+import com.stachura.praca_inz.backend.exception.EntityNotInDatabaseException;
 import com.stachura.praca_inz.backend.exception.base.SystemBaseException;
 import com.stachura.praca_inz.backend.model.Transfer;
 import com.stachura.praca_inz.backend.service.TransferService;
@@ -44,7 +45,7 @@ public class TransferController {
     @RequestMapping(value = "/user", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
-    List<TransferListElementDto> getAllTransfersForLoggedUser() {
+    List<TransferListElementDto> getAllTransfersForLoggedUser() throws EntityNotInDatabaseException {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         return transferService.getAllTransfersForLoggedUser(auth.getName());
     }
@@ -52,7 +53,7 @@ public class TransferController {
     @RequestMapping(value = "/user/{username}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
-    List<TransferListElementDto> getAllTransfersForLoggedUser(@PathVariable String username) {
+    List<TransferListElementDto> getAllTransfersForLoggedUser(@PathVariable String username) throws EntityNotInDatabaseException {
         return transferService.getAllTransfersForLoggedUser(username);
     }
 

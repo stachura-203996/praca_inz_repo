@@ -1,9 +1,7 @@
 export class WarehouseListElement {
     id: number;
     name: string;
-    userName: string;
-    userSurname: string;
-    login: string;
+    responsibleFor: string;
     officeName: string;
     companyName: string;
     departmentName: string;
@@ -13,9 +11,7 @@ export class WarehouseListElement {
 
 export class WarehouseViewElement {
     name: string;
-    userName: string;
-    userSurname: string;
-    username: string;
+    responsibleFor:string;
     officeName: string;
     companyName: string;
     departmentName: string;
@@ -42,7 +38,7 @@ export class WarehouseAddElement {
 
 export class ExternalTransferListElement {
     id: number;
-    deliveryNumber: string;
+    externalTransferNumber: string;
     title: string;
     username: string;
     status: string;

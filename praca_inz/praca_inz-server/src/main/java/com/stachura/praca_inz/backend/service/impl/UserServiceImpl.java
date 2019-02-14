@@ -4,10 +4,12 @@ import com.google.common.collect.Lists;
 import com.stachura.praca_inz.backend.exception.EntityNotInDatabaseException;
 import com.stachura.praca_inz.backend.exception.EntityOptimisticLockException;
 import com.stachura.praca_inz.backend.exception.ServiceException;
+import com.stachura.praca_inz.backend.model.Warehouse;
 import com.stachura.praca_inz.backend.model.enums.WarehouseType;
 import com.stachura.praca_inz.backend.model.security.User;
 import com.stachura.praca_inz.backend.model.security.UserRole;
 import com.stachura.praca_inz.backend.repository.UserRepository;
+import com.stachura.praca_inz.backend.repository.WarehouseRepository;
 import com.stachura.praca_inz.backend.service.EmailService;
 import com.stachura.praca_inz.backend.service.UserService;
 import com.stachura.praca_inz.backend.web.dto.PasswordResetDto;
@@ -32,6 +34,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    WarehouseRepository warehouseRepository;
 
     @Qualifier("userPasswordEncoder")
     @Autowired
@@ -78,7 +83,7 @@ public class UserServiceImpl implements UserService {
         Hibernate.initialize(user.getNotifications());
 
         if (user.isEnabled()) {
-            return UserConverter.toProfileEditDto(user, user.getWarehouses().stream().filter(x -> x.getWarehouseType().equals(WarehouseType.USER)).findFirst().orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT)));
+            return UserConverter.toProfileEditDto(user, warehouseRepository.findAll().stream().filter(x -> x.getWarehouseType().equals(WarehouseType.USER)&&x.getUsers().contains(user)).findFirst().orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT)));
         }
         return null;
     }
@@ -121,7 +126,7 @@ public class UserServiceImpl implements UserService {
         Hibernate.initialize(user.getAuthorities());
         Hibernate.initialize(user.getNotifications());
         if (user.isEnabled()) {
-            return UserConverter.toUserEditDto(user, user.getWarehouses().stream().filter(x -> x.getWarehouseType().equals(WarehouseType.USER)).findFirst().orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT)));
+            return UserConverter.toUserEditDto(user, warehouseRepository.findAll().stream().filter(x -> x.getWarehouseType().equals(WarehouseType.USER)).findFirst().orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT)));
         }
         return null;
     }
@@ -277,6 +282,19 @@ public class UserServiceImpl implements UserService {
     @PreAuthorize("hasAuthority('USER_FOR_REPORT_READ')")
     public List<UserListElementDto> getAllUsersForReport(String name) {
         List<User> users = Lists.newArrayList(userRepository.findAll()).stream().filter(x->!x.getUsername().equals(name)).collect(Collectors.toList());
+        List<UserListElementDto> usersDto = new ArrayList<>();
+        for (User a : users) {
+            if (a.isEnabled()) {
+                usersDto.add(UserConverter.toUserListElement(a));
+            }
+        }
+        return usersDto;
+    }
+
+    @Override
+    public List<UserListElementDto> getAllUsersForWarehouseEdit(Long id) throws EntityNotInDatabaseException {
+        Warehouse warehouse=warehouseRepository.findById(id).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
+        List<User> users = Lists.newArrayList(userRepository.findAll().stream().filter(x->x.getOffice().getId().equals(warehouse.getOffice().getId())).collect(Collectors.toList()));
         List<UserListElementDto> usersDto = new ArrayList<>();
         for (User a : users) {
             if (a.isEnabled()) {

@@ -46,10 +46,6 @@ export class WarehouseDevicesComponent implements OnInit {
     }
 
 
-    getUserInfo(device:DeviceListElement){
-        return device.name+' '+device.userSurname+' | '+device.username
-    }
-
     delete(device: DeviceListElement) {
         this.deviceService.deleteDevice(String(device.id)).subscribe(resp => {
             this.getDevices()

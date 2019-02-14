@@ -1,5 +1,6 @@
 package com.stachura.praca_inz.backend.controller;
 
+import com.stachura.praca_inz.backend.exception.EntityNotInDatabaseException;
 import com.stachura.praca_inz.backend.exception.base.SystemBaseException;
 import com.stachura.praca_inz.backend.service.DeviceService;
 import com.stachura.praca_inz.backend.web.dto.device.*;
@@ -62,7 +63,7 @@ public class DeviceController {
     @RequestMapping(value = "/user", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
-    List<DeviceListElementDto> getAllDevicesForLoggedUser() {
+    List<DeviceListElementDto> getAllDevicesForLoggedUser() throws EntityNotInDatabaseException {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         return deviceService.getAllDevicesForLoggedUser(auth.getName());
     }
@@ -70,23 +71,15 @@ public class DeviceController {
     @RequestMapping(value = "/warehouseman", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
-    List<DeviceListElementDto> getAllDevicesForLoggedWarehouseman() {
+    List<DeviceListElementDto> getAllDevicesForLoggedWarehouseman() throws EntityNotInDatabaseException {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         return deviceService.getAllDevicesForLoggedWarehouseman(auth.getName());
-    }
-
-    @RequestMapping(value = "/request", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(value = HttpStatus.OK)
-    public @ResponseBody
-    List<DeviceListElementDto> getAllDevicesForShipmentRequest() {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        return deviceService.getAllDevicesForShipmentRequest(auth.getName());
     }
 
     @RequestMapping(value = "/user/{username}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
-    List<DeviceListElementDto> getAllDevicesForLoggedUser(@PathVariable String username) {
+    List<DeviceListElementDto> getAllDevicesForLoggedUser(@PathVariable String username) throws EntityNotInDatabaseException {
         return deviceService.getAllDevicesForLoggedUser(username);
     }
 

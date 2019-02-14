@@ -38,7 +38,7 @@ export class ExternalTransferListComponent implements OnInit {
 
             searchText = searchText.toLowerCase();
             this.externalTransfers = transfers.filter(it => {
-                const range = it.serialNumber + ' ' + it.receiver + ' ' + it.sender + ' ' + it.deliveryNumber + ' ' + it.deviceModelName + ' ' + it.lastUpdate + ' ' + it.createDate + ' ' + it.title + ' ' + it.username;
+                const range = it.serialNumber + ' ' + it.receiver + ' ' + it.sender + ' ' + it.externalTransferNumber + ' ' + it.deviceModelName + ' ' + it.lastUpdate + ' ' + it.createDate + ' ' + it.title + ' ' + it.username;
                 const ok = range.toLowerCase().includes(searchText);
                 return ok;
             });

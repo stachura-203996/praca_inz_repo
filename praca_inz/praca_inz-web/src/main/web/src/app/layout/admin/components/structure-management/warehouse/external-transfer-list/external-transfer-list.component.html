@@ -1,4 +1,4 @@
-<div class="col-md-12" *ngIf="deliveries">
+<div class="col-md-12" *ngIf="externalTransfers">
     <h1>{{ 'Deliveries' | translate }}</h1>
 
     <div class="row">
@@ -23,9 +23,9 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let externalTransfer of deliveries">
+        <tr *ngFor="let externalTransfer of externalTransfers">
             <td>{{externalTransfer.title}}</td>
-            <td>{{externalTransfer.deliveryNumber}}</td>
+            <td>{{externalTransfer.externalTransferNumber}}</td>
             <td>{{externalTransfer.serialNumber}}</td>
             <td>{{externalTransfer.deviceModelName}}</td>
             <td>{{externalTransfer.sender}}</td>

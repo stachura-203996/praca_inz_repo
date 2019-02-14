@@ -1,5 +1,6 @@
 package com.stachura.praca_inz.backend.service;
 
+import com.stachura.praca_inz.backend.exception.EntityNotInDatabaseException;
 import com.stachura.praca_inz.backend.exception.base.SystemBaseException;
 import com.stachura.praca_inz.backend.model.Transfer;
 import com.stachura.praca_inz.backend.web.dto.TransferAddDto;
@@ -11,7 +12,7 @@ public interface TransferService {
 
     Transfer getTransferById(Long id) throws SystemBaseException;
 
-    List<TransferListElementDto> getAllTransfersForLoggedUser(String username);
+    List<TransferListElementDto> getAllTransfersForLoggedUser(String username) throws EntityNotInDatabaseException;
 
     List<TransferListElementDto> getAllTransfers(String username) throws SystemBaseException;
 

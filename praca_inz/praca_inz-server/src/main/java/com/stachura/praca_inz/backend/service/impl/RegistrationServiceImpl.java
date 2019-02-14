@@ -106,7 +106,5 @@ RegistrationServiceImpl implements RegistrationService {
         }catch (Exception e){
             e.printStackTrace();
         }
-//TODO
     }
-
 }

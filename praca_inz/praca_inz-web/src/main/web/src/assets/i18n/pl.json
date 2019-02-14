@@ -215,7 +215,7 @@
     "This field is required.":"To pole jest wymagane!",
     "Repeat New Password":"Powtórz nowe hasło",
     "DeviceRequests":"Zapotrzebowania na urządzenia",
-    "DeliveryNumber":"Numer transferu zewnętrznego",
+    "ExternalTransferNumber":"Numer transferu zewnętrznego",
     "OrderedBy":"Zamówione przez",
     "CreateTransferRequest":"Wyślij zgłoszenie przeniesienia",
     "Receiver":"Odbiorca",
@@ -319,6 +319,7 @@
     "success.device.model.add":"Pomyślna dodanie modelu urządzenia",
     "success.device.add":"Pomyślna dodanie urządzenia",
     "success.device.delete":"Urządzenie zostało usunięte",
+    "device.delete":"Usuń urządzenie",
     "device.model.delete":"Usuń model urządzenia",
     "device.type.delete":"Usuń typ urządzenia",
     "success.device.type.delete":"Typ urzadzenia został usunięty",
@@ -383,6 +384,14 @@
     "CANCELED":"ANULOWANE",
     "DeviceSerialNumber":"Numer seryjny",
     "Overview is required!":"Opis jest wymagany!",
-    "Reciever is required!":"Odbiorca jest wymagany!"
+    "Reciever is required!":"Odbiorca jest wymagany!",
+    "Warehouse keepers":"Magazynierzy",
+    "List of warehouse keepers":"Lista magazynierów",
+    "Add warehouseman":"Dodaje magazyniera",
+    "user.warehouse.added":"Dodaj magazyniera",
+    "confirm.added":"Czy na pewno chcesz dodać magazyniera",
+    "success.user.warehouse.user.add":"Pomyślne dodanie magazyniera",
+    "user.warehouse.delete":"Usuń magazyniera z listy",
+    "success.user.warehouse.user.detach":"Pomyślne usuniecie magazyniera z listy"
 }
 

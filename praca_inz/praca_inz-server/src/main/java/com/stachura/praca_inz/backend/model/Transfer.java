@@ -1,7 +1,6 @@
 package com.stachura.praca_inz.backend.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.stachura.praca_inz.backend.model.enums.Status;
 import com.stachura.praca_inz.backend.model.security.User;
 import lombok.Getter;
 import lombok.Setter;
@@ -34,10 +33,6 @@ public class Transfer implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY,optional = false)
     @JsonBackReference
     private User user;
-
-    @Column(name = "STATUS", nullable = false)
-    @Enumerated(EnumType.STRING)
-    private Status status;
 
     @Column(name = "DESCRIPTION")
     private String description;

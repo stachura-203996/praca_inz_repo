@@ -1,7 +1,9 @@
 package com.stachura.praca_inz.backend.controller;
 
+import com.stachura.praca_inz.backend.exception.EntityNotInDatabaseException;
 import com.stachura.praca_inz.backend.exception.base.SystemBaseException;
 import com.stachura.praca_inz.backend.service.WarehouseService;
+import com.stachura.praca_inz.backend.web.dto.user.UserListElementDto;
 import com.stachura.praca_inz.backend.web.dto.warehouse.WarehouseAddDto;
 import com.stachura.praca_inz.backend.web.dto.warehouse.WarehouseEditDto;
 import com.stachura.praca_inz.backend.web.dto.warehouse.WarehouseListElementDto;
@@ -40,6 +42,25 @@ public class WarehouseController {
         return warehouseService.getWarehouseToEdit(id);
     }
 
+    @RequestMapping(value = "/users/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(value = HttpStatus.OK)
+    public @ResponseBody
+    List<UserListElementDto> getWarehouseUsersToEdit(@PathVariable Long id) throws SystemBaseException {
+        return warehouseService.getWarehouseUsersToEdit(id);
+    }
+
+    @RequestMapping(value = "/user/{warehouseId}/{userId}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(value = HttpStatus.OK)
+    public void createParameter(@PathVariable Long userId, @PathVariable Long warehouseId) throws SystemBaseException {
+        warehouseService.attachNewUserToWarehouse(userId,warehouseId);
+    }
+
+    @RequestMapping(value = "/user/{warehouseId}/{userId}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(value = HttpStatus.OK)
+    public void deleteParameter(@PathVariable Long userId, @PathVariable Long warehouseId) throws SystemBaseException {
+        warehouseService.detachUserFromWarehouse(userId,warehouseId);
+    }
+    
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
@@ -51,7 +72,7 @@ public class WarehouseController {
     @RequestMapping(value = "/warehouseman", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
-    List<WarehouseListElementDto> getAllWarehousesForUser() {
+    List<WarehouseListElementDto> getAllWarehousesForUser() throws EntityNotInDatabaseException {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         return warehouseService.getAllWarehousesForLoggedUser(auth.getName());
     }

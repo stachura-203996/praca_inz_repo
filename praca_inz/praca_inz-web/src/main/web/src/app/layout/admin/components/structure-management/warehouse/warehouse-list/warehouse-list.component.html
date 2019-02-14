@@ -28,15 +28,22 @@
     <tr *ngFor="let warehouse of warehouses">
         <td>{{warehouse.name}}</td>
         <td>{{warehouse.officeName}}</td>
-        <td>{{getUserInfo(warehouse)}}</td>
+        <td>{{warehouse.responsibleFor}}</td>
         <td align="center">{{warehouse.devicesNumber}}</td>
         <td class="text-right">
             <div class="btn-group flex-btn-group-container">
                 <button type="submit"
-                        [routerLink]="['/warehouses/view/'+warehouse.id]"
+                        [routerLink]="['./users/edit/'+warehouse.id]"
                         class="btn btn-info btn-sm">
                     <i class="fa fa-eye"></i>&nbsp;
-                    <span class="d-none d-md-inline">{{'View'|translate}}</span>
+                    <span class="d-none d-md-inline">{{'Warehouse keepers'|translate}}</span>
+                </button>
+                <button type="submit"
+                        [routerLink]="['./edit/'+warehouse.id]"
+                        queryParamsHandling="merge"
+                        class="btn btn-primary btn-sm">
+                    <i class="fa fa-pencil"></i>&nbsp;
+                    <span class="d-none d-md-inline">{{'Edit'|translate}}</span>
                 </button>
                 <button type="button" (click)="delete(warehouse)"
                         class="btn btn-danger btn-sm">

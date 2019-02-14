@@ -14,7 +14,9 @@ import com.stachura.praca_inz.backend.repository.OfficeRepository;
 import com.stachura.praca_inz.backend.repository.UserRepository;
 import com.stachura.praca_inz.backend.repository.WarehouseRepository;
 import com.stachura.praca_inz.backend.service.WarehouseService;
+import com.stachura.praca_inz.backend.web.dto.converter.UserConverter;
 import com.stachura.praca_inz.backend.web.dto.converter.WarehouseConverter;
+import com.stachura.praca_inz.backend.web.dto.user.UserListElementDto;
 import com.stachura.praca_inz.backend.web.dto.warehouse.WarehouseAddDto;
 import com.stachura.praca_inz.backend.web.dto.warehouse.WarehouseEditDto;
 import com.stachura.praca_inz.backend.web.dto.warehouse.WarehouseListElementDto;
@@ -90,6 +92,42 @@ public class WarehouseServiceImpl implements WarehouseService {
 
     @Override
     @Transactional(readOnly = true, propagation = Propagation.MANDATORY)
+    @PreAuthorize("hasAuthority('WAREHOUSE_USERS_LIST_READ')")
+    public List<UserListElementDto> getWarehouseUsersToEdit(Long id) throws EntityNotInDatabaseException {
+        Warehouse warehouse=warehouseRepository.findById(id).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
+        Hibernate.initialize(warehouse.getUsers());
+        List<UserListElementDto> userListElementDtos = new ArrayList<>();
+        for (User a : warehouse.getUsers()) {
+            if (a.isEnabled()) {
+                userListElementDtos.add(UserConverter.toUserListElement(a));
+            }
+        }
+        return userListElementDtos;
+    }
+
+
+
+    @Override
+    @Transactional(readOnly = true, propagation = Propagation.MANDATORY)
+    @PreAuthorize("hasAuthority('WAREHOUSE_USERS_ATTACH')")
+    public void attachNewUserToWarehouse(Long userId, Long warehouseId) throws EntityNotInDatabaseException {
+        User user=userRepository.findById(userId).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
+        Warehouse warehouse= warehouseRepository.findById(warehouseId).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
+        if(!warehouse.getUsers().contains(user)){
+            warehouse.getUsers().add(user);
+        }
+    }
+
+    @Override
+    @Transactional(readOnly = true, propagation = Propagation.MANDATORY)
+    @PreAuthorize("hasAuthority('WAREHOUSE_USERS_DETACH')")
+    public void detachUserFromWarehouse(Long userId,Long warehouseId) throws EntityNotInDatabaseException {
+        User user=userRepository.findById(userId).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
+        warehouseRepository.findById(warehouseId).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT)).getUsers().remove(user);
+    }
+
+    @Override
+    @Transactional(readOnly = true, propagation = Propagation.MANDATORY)
     @PreAuthorize("hasAuthority('WAREHOUSE_LIST_READ')")
     public List<WarehouseListElementDto> getAllOfficeWarehouses(String username) throws EntityNotInDatabaseException {
         List<Warehouse> warehouses;
@@ -154,8 +192,9 @@ public class WarehouseServiceImpl implements WarehouseService {
     @Override
     @Transactional(readOnly = true, propagation = Propagation.MANDATORY)
     @PreAuthorize("hasAuthority('WAREHOUSE_LIST_READ')")
-    public List<WarehouseListElementDto> getAllWarehousesForLoggedUser(String username) {
-        List<Warehouse> warehouses = Lists.newArrayList(warehouseRepository.findAll()).stream().filter(x -> x.getUser().getUsername().equals(username) &&
+    public List<WarehouseListElementDto> getAllWarehousesForLoggedUser(String username) throws EntityNotInDatabaseException {
+        User user = userRepository.findByUsername(username).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
+        List<Warehouse> warehouses = Lists.newArrayList(warehouseRepository.findAll()).stream().filter(x -> x.getUsers().contains(user) &&
                 x.getOffice() != null && x.getWarehouseType().name().equals(WarehouseType.OFFICE.name())).collect(Collectors.toList());
         List<WarehouseListElementDto> warehouseDto = new ArrayList<>();
         for (Warehouse a : warehouses) {

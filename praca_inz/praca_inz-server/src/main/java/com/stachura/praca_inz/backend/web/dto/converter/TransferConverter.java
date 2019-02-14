@@ -3,7 +3,6 @@ package com.stachura.praca_inz.backend.web.dto.converter;
 import com.stachura.praca_inz.backend.model.Device;
 import com.stachura.praca_inz.backend.model.Transfer;
 import com.stachura.praca_inz.backend.model.Warehouse;
-import com.stachura.praca_inz.backend.model.enums.Status;
 import com.stachura.praca_inz.backend.model.security.User;
 import com.stachura.praca_inz.backend.web.dto.TransferAddDto;
 import com.stachura.praca_inz.backend.web.dto.TransferListElementDto;
@@ -34,7 +33,6 @@ public class TransferConverter {
         transfer.setUser(user);
         transfer.setCreateDate(Calendar.getInstance());
         transfer.setTitle(transferAddDto.getTitle());
-        transfer.setStatus(Status.TRANSFERED);
         transfer.setSenderWarehouse(sender);
         transfer.setRecieverWarehouse(reciever);
         transfer.setDevice(device);

@@ -1,11 +1,16 @@
 package com.stachura.praca_inz.backend.web.dto.converter;
 
-import com.stachura.praca_inz.backend.model.*;
+import com.stachura.praca_inz.backend.model.Company;
+import com.stachura.praca_inz.backend.model.Device;
+import com.stachura.praca_inz.backend.model.DeviceModel;
+import com.stachura.praca_inz.backend.model.Warehouse;
 import com.stachura.praca_inz.backend.model.enums.DeviceStatus;
+import com.stachura.praca_inz.backend.model.security.User;
 import com.stachura.praca_inz.backend.web.dto.device.DeviceAddDto;
 import com.stachura.praca_inz.backend.web.dto.device.DeviceEditDto;
 import com.stachura.praca_inz.backend.web.dto.device.DeviceListElementDto;
 import com.stachura.praca_inz.backend.web.dto.device.DeviceViewDto;
+import org.apache.commons.lang3.StringUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -17,7 +22,6 @@ public class DeviceConverter {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         return DeviceViewDto.builder()
                 .id(device.getId())
-                .username(device.getWarehouse().getUser().getUsername())
                 .serialNumber(device.getSerialNumber())
                 .deviceModel(device.getDeviceModel().getName())
                 .deviceModelId(device.getDeviceModel().getId())
@@ -29,9 +33,19 @@ public class DeviceConverter {
                         " > " + device.getWarehouse().getOffice().getDepartment().getName()+
                         " > " + device.getWarehouse().getOffice().getName()+
                         " > " + device.getWarehouse().getName())
-                .userName(device.getWarehouse().getUser().getUserdata().getName())
-                .userSurname(device.getWarehouse().getUser().getUserdata().getSurname())
+                .responsibleFor(getResponsibleFor(device))
                 .build();
+    }
+
+    public static String getResponsibleFor(Device device){
+        String result=null;
+        for(User user:device.getWarehouse().getUsers()){
+            if(StringUtils.isNotBlank(result)){
+                result+=", ";
+            }
+            result+=user.getUserdata().getName()+" "+user.getUserdata().getSurname()+" | "+user.getUsername();
+        }
+        return result;
     }
 
     //LIST
@@ -39,7 +53,6 @@ public class DeviceConverter {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         return DeviceListElementDto.builder()
                 .id(device.getId())
-                .username(device.getWarehouse().getUser().getUsername())
                 .serialNumber(device.getSerialNumber())
                 .deviceModel(device.getDeviceModel().getName())
                 .deviceTypeName(device.getDeviceModel().getDeviceType().getName())
@@ -50,8 +63,7 @@ public class DeviceConverter {
                         " > " + device.getWarehouse().getOffice().getDepartment().getName()+
                         " > " + device.getWarehouse().getOffice().getName()+
                         " > " + device.getWarehouse().getName())
-                .name(device.getWarehouse().getUser().getUserdata().getName())
-                .userSurname(device.getWarehouse().getUser().getUserdata().getSurname())
+                .responsibleFor(getResponsibleFor(device))
                 .build();
     }
     

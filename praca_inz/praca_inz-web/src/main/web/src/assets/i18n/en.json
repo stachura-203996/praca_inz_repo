@@ -220,7 +220,7 @@
     "This field is required.":"This field is required.",
     "Repeat New Password":"Repeat New Password",
     "DeviceRequests":"Device requests",
-    "DeliveryNumber":"External transfer number",
+    "ExternalTransferNumber":"External transfer number",
     "OrderedBy":"Ordered by",
     "CreateTransferRequest":"Create transfer request",
     "Receiver":"Receiver",
@@ -323,6 +323,7 @@
     "success.device.model.add":"Sucessful addition of device model",
     "success.device.add":"Sucessful addition of device",
     "success.device.delete":"Device deleted",
+    "device.delete":"Delete device",
     "device.model.delete":"Delete device model",
     "device.type.delete":"Delete device type",
     "success.device.type.delete":"Device type deleted",
@@ -387,5 +388,13 @@
     "CANCELED":"CANCELED",
     "DeviceSerialNumber":"Serial number",
     "Overview is required!":"Overview is required!",
-    "Reciever is required!":"Reciever is required!"
+    "Reciever is required!":"Reciever is required!",
+    "Warehouse keepers":"Warehouse keepers",
+    "List of warehouse keepers":"List of warehouse keepers",
+    "Add warehouseman":"Add warehouseman",
+    "user.warehouse.added":"Add warehouse keeper",
+    "confirm.added":"Are you sure you want add this warehouseman",
+    "success.user.warehouse.user.add":"Sucessful addition of warehouseman",
+    "user.warehouse.delete":"Delete warehouseman from list",
+    "success.user.warehouse.user.detach":"Sucessful delete of warehouse from list"
 }

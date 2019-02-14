@@ -45,15 +45,10 @@ export class WarehouseUserComponent implements OnInit {
 
             searchText = searchText.toLowerCase();
             this.warehouses = warehouses.filter(it => {
-                const range = it.toString();
+                const range = it.responsibleFor+' '+it.devicesNumber+' '+it.officeName+' '+it.name+' '+it.companyName+' '+it.departmentName;
                 const ok = range.toLowerCase().includes(searchText);
                 return ok;
             });
         });
     }
-
-    getUserInfo(warehouse:WarehouseListElement){
-        return warehouse.userName+" "+warehouse.userSurname+" | "+warehouse.login;
-    }
-   
 }

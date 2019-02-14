@@ -1,5 +1,6 @@
 package com.stachura.praca_inz.backend.service;
 
+import com.stachura.praca_inz.backend.exception.EntityNotInDatabaseException;
 import com.stachura.praca_inz.backend.exception.base.SystemBaseException;
 import com.stachura.praca_inz.backend.web.dto.device.*;
 
@@ -17,7 +18,7 @@ public interface DeviceService {
 
     List<DeviceListElementDto> getAllDevicesForWarehouse(Long id);
 
-    List<DeviceListElementDto> getAllDevicesForLoggedUser(String username);
+    List<DeviceListElementDto> getAllDevicesForLoggedUser(String username) throws EntityNotInDatabaseException;
 
     void createNewDevice(DeviceAddDto deviceAddDto) throws SystemBaseException;
 
@@ -25,9 +26,7 @@ public interface DeviceService {
 
     void deleteDeviceById(Long id) throws SystemBaseException;
 
-    List<DeviceListElementDto> getAllDevicesForLoggedWarehouseman(String username);
-
-    List<DeviceListElementDto> getAllDevicesForShipmentRequest(String name);
+    List<DeviceListElementDto> getAllDevicesForLoggedWarehouseman(String username) throws EntityNotInDatabaseException;
 
     DeviceViewDto getDeviceToView(Long id)throws SystemBaseException;
 

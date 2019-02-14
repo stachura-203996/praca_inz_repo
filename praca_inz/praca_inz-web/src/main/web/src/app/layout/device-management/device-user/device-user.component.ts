@@ -37,7 +37,7 @@ export class DeviceUserComponent implements OnInit {
 
             searchText = searchText.toLowerCase();
             this.devices = devices.filter(it => {
-                const range = it.serialNumber+" "+ it.deviceModel+" "+it.lastUpdate+ " " +it.deviceTypeName+ " "+ it.location+ " "+it.manufacture+ " "+it.username+ " "+ it.status;
+                const range = it.serialNumber+" "+ it.deviceModel+" "+it.lastUpdate+ " " +it.deviceTypeName+ " "+ it.location+ " "+it.manufacture+ " "+ it.status;
                 const ok = range.toLowerCase().includes(searchText);
                 return ok;
             });

@@ -2,6 +2,7 @@ package com.stachura.praca_inz.backend.model;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.stachura.praca_inz.backend.model.enums.WarehouseType;
 import com.stachura.praca_inz.backend.model.security.User;
@@ -12,6 +13,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -48,6 +50,13 @@ public class Warehouse implements Serializable {
 
     @Column(name = "DELETED", nullable = false)
     private boolean deleted;
+
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "WAREHOUSE_USERS", joinColumns = @JoinColumn(name = "WAREHOUSE_ID", referencedColumnName = "ID"), inverseJoinColumns = @JoinColumn(name = "USER_ID", referencedColumnName = "ID"))
+    @OrderBy
+    @JsonIgnore
+    private List<User> users;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "warehouse", fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonManagedReference

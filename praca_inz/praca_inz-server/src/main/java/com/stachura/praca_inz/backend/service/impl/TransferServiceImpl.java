@@ -57,9 +57,10 @@ public class TransferServiceImpl implements TransferService {
     @Override
     @Transactional(readOnly = true,propagation = Propagation.MANDATORY)
     @PreAuthorize("hasAuthority('TRANSFER_LIST_READ')")
-    public List<TransferListElementDto> getAllTransfersForLoggedUser(String username) {
-        List<Transfer> transfers = Lists.newArrayList(transferRepository.findAll()).stream().filter(x -> x.getSenderWarehouse().getUser().getUsername().equals(username) &&
-                x.getRecieverWarehouse().getUser().getUsername().equals(username) || x.getUser().getUsername().equals(username)).collect(Collectors.toList());
+    public List<TransferListElementDto> getAllTransfersForLoggedUser(String username) throws EntityNotInDatabaseException {
+        User user = userRepository.findByUsername(username).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
+        List<Transfer> transfers = Lists.newArrayList(transferRepository.findAll()).stream().filter(x -> x.getSenderWarehouse().getUsers().contains(user) &&
+                x.getRecieverWarehouse().getUsers().contains(user) || x.getUser().getUsername().equals(username)).collect(Collectors.toList());
         List<TransferListElementDto> transferListElementDtos = new ArrayList<>();
         for (Transfer a : transfers) {
             if (!a.isDeleted()) {
@@ -97,9 +98,9 @@ public class TransferServiceImpl implements TransferService {
     @Transactional
     @PreAuthorize("hasAuthority('TRANSFER_CREATE')")
     public void createNewTransfer(TransferAddDto transferAddDto, String username) throws EntityNotInDatabaseException {
-        Warehouse sender = Lists.newArrayList(warehouseRepository.findAll()).stream().filter(x -> x.getUser().getUsername().equals(username) && x.getWarehouseType().equals(WarehouseType.USER)).findFirst().orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
+        User user = userRepository.findByUsername(username).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
+        Warehouse sender = Lists.newArrayList(warehouseRepository.findAll()).stream().filter(x -> x.getUsers().contains(user) && x.getWarehouseType().equals(WarehouseType.USER)).findFirst().orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
         Warehouse reciever = warehouseRepository.findById(transferAddDto.getRecieverWarehouseId()).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
-        User user = userRepository.findByUsername(username).orElseThrow(()-> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
         Device device= deviceRepository.findById(transferAddDto.getDeviceId()).orElseThrow(()->new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
         device.setWarehouse(reciever);
         device.setCompany(reciever.getOffice().getDepartment().getCompany());

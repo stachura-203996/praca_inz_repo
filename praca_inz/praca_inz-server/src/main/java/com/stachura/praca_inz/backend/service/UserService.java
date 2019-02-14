@@ -1,5 +1,6 @@
 package com.stachura.praca_inz.backend.service;
 
+import com.stachura.praca_inz.backend.exception.EntityNotInDatabaseException;
 import com.stachura.praca_inz.backend.exception.base.SystemBaseException;
 import com.stachura.praca_inz.backend.web.dto.PasswordResetDto;
 import com.stachura.praca_inz.backend.web.dto.user.*;
@@ -43,4 +44,6 @@ public interface UserService {
     void resetPassword(PasswordResetDto email) throws SystemBaseException;
 
     List<UserListElementDto> getAllUsersForReport(String name);
+
+    List<UserListElementDto> getAllUsersForWarehouseEdit(Long id) throws EntityNotInDatabaseException;
 }

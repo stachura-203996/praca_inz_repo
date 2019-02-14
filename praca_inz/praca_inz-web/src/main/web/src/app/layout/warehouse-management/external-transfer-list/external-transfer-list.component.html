@@ -13,7 +13,7 @@
         <thead class="thead-inverse">
         <tr>
             <th>{{ 'ElementName' | translate }}</th>
-            <th>{{ 'DeliveryNumber' | translate }}</th>
+            <th>{{ 'ExternalTransferNumber' | translate }}</th>
             <th>{{'SerialNumber'| translate}}</th>
             <th>{{'DeviceModel'|translate}}</th>
             <th>{{'Sender'| translate}}</th>
@@ -26,7 +26,7 @@
         <tbody>
         <tr *ngFor="let externalTransfer of externalTransfers">
             <td>{{externalTransfer.title}}</td>
-            <td>{{externalTransfer.deliveryNumber}}</td>
+            <td>{{externalTransfer.externalTransferNumber}}</td>
             <td>{{externalTransfer.serialNumber}}</td>
             <td>{{externalTransfer.deviceModelName}}</td>
             <td>{{externalTransfer.sender}}</td>

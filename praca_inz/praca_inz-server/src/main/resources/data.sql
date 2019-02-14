@@ -188,6 +188,9 @@ INSERT INTO AUTHORITY(ID,ACTIVE, NAME) VALUES (103,TRUE, 'ACCOUNT_UPDATE_USER');
 INSERT INTO AUTHORITY(ID,ACTIVE, NAME) VALUES (104,TRUE, 'EXTERNAL_TRANSFER_CONFIRM');
 INSERT INTO AUTHORITY(ID,ACTIVE, NAME) VALUES (105,TRUE, 'REQUEST_DEVICE_LIST_CREATE');
 INSERT INTO AUTHORITY(ID,ACTIVE, NAME) VALUES (106,TRUE, 'REQUEST_DEVICE_LIST_READ');
+INSERT INTO AUTHORITY(ID,ACTIVE, NAME) VALUES (107,TRUE,'WAREHOUSE_USERS_LIST_READ');
+INSERT INTO AUTHORITY(ID,ACTIVE, NAME) VALUES (108,TRUE,'WAREHOUSE_USERS_ATTACH');
+INSERT INTO AUTHORITY(ID,ACTIVE, NAME) VALUES (109,TRUE,'WAREHOUSE_USERS_DETACH');
 -- USER
 INSERT INTO public.user_ (id, account_expired, account_locked, credentials_expired, enabled, password, user_name, version, office_id, userdata_id) VALUES (1, false, false, false, true, '$2a$08$qvrzQZ7jJ7oy2p/msL4M0.l83Cd0jNsX6AJUitbgRXGzge4j035ha', 'admin', 0, 1, 1);
 INSERT INTO public.user_ (id, account_expired, account_locked, credentials_expired, enabled, password, user_name, version, office_id, userdata_id) VALUES (2, false, false, false, true, '$2a$08$ayuzBZPVZvcJ9aGUxg3aPO4AskC831pGP8fdMugVHKBzO9JujKglG', 'company_admin', 0, 2, 2);
@@ -343,7 +346,9 @@ INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (5, 103);
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (5, 104);
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (5, 105);
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (5, 106);
-
+INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (5, 107);
+INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (5, 108);
+INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (5, 109);
 -- //USER
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (2, 2);
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (2, 8);
@@ -464,15 +469,15 @@ INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (4, 105);
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (4, 106);
 
 
-INSERT INTO public.warehouse (id, deleted, name, version, warehouse_type, office_id, user_id) VALUES (1, false, 'Tomasz Stachura | admin | Warehouse', 0, 'USER', 1, 1);
-INSERT INTO public.warehouse (id, deleted, name, version, warehouse_type, office_id, user_id) VALUES (3, false, 'John William | reader2 | Warehouse', 0, 'USER', 3, 4);
-INSERT INTO public.warehouse (id, deleted, name, version, warehouse_type, office_id, user_id) VALUES (4, false, 'David William | modifier | Warehouse', 0, 'USER', 3, 3);
-INSERT INTO public.warehouse (id, deleted, name, version, warehouse_type, office_id, user_id) VALUES (5, false, 'Robert William | reader | Warehouse', 0, 'USER', 3, 2);
-INSERT INTO public.warehouse (id, deleted, name, version, warehouse_type, office_id, user_id) VALUES (2, false, 'New York | Office warehouse', 0, 'OFFICE', 2, 1);
-INSERT INTO public.warehouse (id, deleted, name, version, warehouse_type, office_id, user_id) VALUES (6, false, 'Łódź | Office warehouse', 0, 'OFFICE', 3, 1);
-INSERT INTO public.warehouse (id, deleted, name, version, warehouse_type, office_id, user_id) VALUES (7, false, 'Boston | Office warehouse', 0, 'OFFICE', 1, 1);
-INSERT INTO public.warehouse (id, deleted, name, version, warehouse_type, office_id, user_id) VALUES (8, false, 'Los Angeles | Office warehouse', 0, 'OFFICE', 4, 1);
-INSERT INTO public.warehouse (id, deleted, name, version, warehouse_type, office_id, user_id) VALUES (9, false, 'Kamil Nowak|user| Warehouse', 0, 'USER', 3, 5);
+INSERT INTO public.warehouse (id, deleted, name, version, warehouse_type, office_id,user_id) VALUES (1, false, 'Tomasz Stachura | admin | Warehouse', 0, 'USER', 1,1);
+INSERT INTO public.warehouse (id, deleted, name, version, warehouse_type, office_id,user_id) VALUES (3, false, 'John William | reader2 | Warehouse', 0, 'USER', 3,2);
+INSERT INTO public.warehouse (id, deleted, name, version, warehouse_type, office_id,user_id) VALUES (4, false, 'David William | modifier | Warehouse', 0, 'USER', 3,3);
+INSERT INTO public.warehouse (id, deleted, name, version, warehouse_type, office_id,user_id) VALUES (5, false, 'Robert William | reader | Warehouse', 0, 'USER', 3,1);
+INSERT INTO public.warehouse (id, deleted, name, version, warehouse_type, office_id,user_id) VALUES (2, false, 'New York | Office warehouse', 0, 'OFFICE', 2,3);
+INSERT INTO public.warehouse (id, deleted, name, version, warehouse_type, office_id,user_id) VALUES (6, false, 'Łódź | Office warehouse', 0, 'OFFICE', 3,2);
+INSERT INTO public.warehouse (id, deleted, name, version, warehouse_type, office_id,user_id) VALUES (7, false, 'Boston | Office warehouse', 0, 'OFFICE', 1,1);
+INSERT INTO public.warehouse (id, deleted, name, version, warehouse_type, office_id,user_id) VALUES (8, false, 'Los Angeles | Office warehouse', 0, 'OFFICE', 4,3);
+INSERT INTO public.warehouse (id, deleted, name, version, warehouse_type, office_id,user_id) VALUES (9, false, 'Kamil Nowak|user| Warehouse', 0, 'USER', 3,2);
 
 INSERT INTO public.device_type (id, name) VALUES (1, 'Komputer');
 INSERT INTO public.device_type (id, name) VALUES (2, 'Myszka');
@@ -495,15 +500,15 @@ INSERT INTO public.device (id, create_date, deleted, last_update, serial_number,
 INSERT INTO public.device (id, create_date, deleted, last_update, serial_number, status, version, company_id, device_model_id, warehouse_id) VALUES (8, '2011-03-12 12:00:00.000000', false, '2018-03-12 12:00:00.000000', 'XYZ349LPZ', 'REPOSE', 0, 1, 1, 9);
 INSERT INTO public.device (id, create_date, deleted, last_update, serial_number, status, version, company_id, device_model_id, warehouse_id) VALUES (9, '2011-03-12 12:00:00.000000', false, '2018-03-12 12:00:00.000000', 'XYZ189LRT', 'REPOSE', 0, 1, 1, 9);
 
-INSERT INTO TRANSFER (ID,VERSION,DELETED,USER_ID,TITLE,TRANSFER_DATE,SENDER_WAREHOUSE_ID,RECIEVER_WAREHOUSE_ID,DEVICE_ID,STATUS) VALUES (1,0,FALSE,1,'TITLE','2011-03-12 12:00',1,2,1,'TRANSFERED');
+INSERT INTO TRANSFER (ID,VERSION,DELETED,USER_ID,TITLE,TRANSFER_DATE,SENDER_WAREHOUSE_ID,RECIEVER_WAREHOUSE_ID,DEVICE_ID) VALUES (1,0,FALSE,1,'TITLE','2011-03-12 12:00',1,2,1);
 
 INSERT INTO public.notification (id, notification_date, deleted, description, readed, title, url, version, user_id) VALUES (20, '2019-01-28 16:59:59.157000', false, 'Otrzymałeś potwierdzenie od: Tomasz Stachura | admin Tytuł potwierdzenia: Potwierdzenie odbioru transferu zewnętrznego Opis potwierdzenia: Potwierdzenie odbioru transferu zewnętrznego', false, 'Nowe potwierdzenie', '/employees/confirmations/view/9', 0, 4);
 INSERT INTO public.notification (id, notification_date, deleted, description, readed, title, url, version, user_id) VALUES (19, '2019-01-28 16:59:57.452000', false, 'Twóje potwierdzenie zostało wysłane do: John William | warehouseman Tytuł potwierdzenia: Potwierdzenie odbioru transferu zewnętrznego Opis potwierdzenia: Potwierdzenie odbioru transferu zewnętrznego', true, 'Potwierdzenie wysłane', '/employees/confirmations/view/9', 1, 1);
 
 INSERT INTO SYSTEM_MESSAGE(ID,VERSION,DELETED,TITLE,MESSAGE,MESSAGE_DATE) VALUES (1,0,FALSE,'Wiadomość systemowa','Przykładowa wiadomość systemowa','2011-03-12 13:00');
 
-INSERT INTO public.external_transfer (id, confirmed, external_transfer_date, deleted, external_transfer_number, serial_number, title,  device_model_id, reciever_warehouse_id, sender_warehouse_id,confirm_date) VALUES (1, false, '2019-01-14 19:59:09.897000', false, '2527', 'XYZ123AAS', 'dostawa',1, 1, 2, '2019-01-14 19:59:09.897000');
-INSERT INTO public.external_transfer (id, confirmed, external_transfer_date, deleted, external_transfer_number, serial_number, title,  device_model_id, reciever_warehouse_id, sender_warehouse_id,confirm_date) VALUES (2, false, '2019-01-14 19:59:09.897000', false, '2567', 'XYZ123JKL', 'dostawa',1, 1, 2, '2019-01-14 19:59:09.897000');
+INSERT INTO public.external_transfer (id, confirmed, external_transfer_date, deleted, external_transfer_number, serial_number, title,  device_model_id, reciever_warehouse_id, sender_warehouse_id,confirm_date) VALUES (1, false, '2019-01-14 19:59:09.897000', false, '2527', 'XYZ123AAS', 'Transfer',1, 1, 2, '2019-01-14 19:59:09.897000');
+INSERT INTO public.external_transfer (id, confirmed, external_transfer_date, deleted, external_transfer_number, serial_number, title,  device_model_id, reciever_warehouse_id, sender_warehouse_id,confirm_date) VALUES (2, false, '2019-01-14 19:59:09.897000', false, '2567', 'XYZ123JKL', 'Transfer',1, 1, 2, '2019-01-14 19:59:09.897000');
 
 INSERT INTO public.confirmation (id, confirmation_date, deleted, description, disable_reciever, disable_sender, title, reciever_id, sender_id) VALUES (1, '2011-03-12 13:00:00.000000', false, 'Dostawa nowych monitorów została odebrana', false, false, 'Dostawa nowych monitorów', 1, 1);
 INSERT INTO public.confirmation (id, confirmation_date, deleted, description, disable_reciever, disable_sender, title, reciever_id, sender_id) VALUES (9, '2019-01-28 16:59:57.445000', false, 'Potwierdzenie odbioru transferu zewnętrznego', false, false, 'Potwierdzenie odbioru transferu zewnętrznego', 4, 1);

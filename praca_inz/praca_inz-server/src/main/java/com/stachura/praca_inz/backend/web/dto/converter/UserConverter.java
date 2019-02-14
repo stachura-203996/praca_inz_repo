@@ -144,5 +144,4 @@ public class UserConverter {
                 .language(user.getUserdata().getLanguage())
                 .build();
     }
-
 }

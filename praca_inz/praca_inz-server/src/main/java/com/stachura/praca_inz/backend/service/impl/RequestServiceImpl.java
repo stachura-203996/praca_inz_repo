@@ -224,7 +224,7 @@ public class RequestServiceImpl implements RequestService {
     public void createNewDeviceRequest(DeviceRequestAddDto deviceRequestAddDto, String username) throws SystemBaseException {
         User user = userRepository.findByUsername(username).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
         DeviceModel device = deviceModelRepository.findById(deviceRequestAddDto.getDeviceModelId()).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
-        Warehouse warehouse = Lists.newArrayList(warehouseRepository.findAll()).stream().filter(x -> x.getWarehouseType().equals(WarehouseType.USER) && x.getUser().getUsername().equals(username)).findFirst().orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
+        Warehouse warehouse = Lists.newArrayList(warehouseRepository.findAll()).stream().filter(x -> x.getWarehouseType().equals(WarehouseType.USER) && x.getUsers().contains(user)).findFirst().orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
         Request request = RequestConverter.toRequest(deviceRequestAddDto, device, warehouse, user);
         requestRepository.saveAndFlush(request);
 
@@ -271,7 +271,6 @@ public class RequestServiceImpl implements RequestService {
                         }
                         transfer.setRecieverWarehouse(request.getRecieverWarehouse());
                         transfer.setSenderWarehouse(request.getSenderWarehouse());
-                        transfer.setStatus(Status.TRANSFERED);
                         transfer.setTitle(request.getTitle());
                         transfer.setCreateDate(Calendar.getInstance());
                         transfer.setDeleted(false);
@@ -297,7 +296,6 @@ public class RequestServiceImpl implements RequestService {
                         Transfer transfer = new Transfer();
                         transfer.setRecieverWarehouse(request.getRecieverWarehouse());
                         transfer.setSenderWarehouse(request.getSenderWarehouse());
-                        transfer.setStatus(Status.TRANSFERED);
                         transfer.setTitle(request.getTitle());
                         transfer.setCreateDate(Calendar.getInstance());
                         transfer.setDeleted(false);

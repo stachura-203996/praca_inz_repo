@@ -23,14 +23,15 @@ import {RequestListComponent} from "./components/structure-management/request/re
 import {DeviceModelAddComponent} from "./components/structure-management/device/device-model-add/device-model-add.component";
 import {DeviceModelEditComponent} from "./components/structure-management/device/device-model-edit/device-model-edit.component";
 import {DeviceModelListComponent} from "./components/structure-management/device/device-model-list/device-model-list.component";
-import {DeliveryListComponent} from "./components/structure-management/warehouse/delivery-list/delivery-list.component";
 import {UserPasswordEditComponent} from "./components/administration/user-management/components/user-password-edit/user-password-edit.component";
 import {DeviceTransferComponent} from "./components/structure-management/device/device-transfer/device-transfer.component";
 import {DeviceTypeListComponent} from "./components/structure-management/device/device-type-list/device-type-list.component";
 import {SystemMessageListComponent} from "./components/administration/system_messages/system-message-list/system-message-list.component";
 import {SystemMessageAddComponent} from "./components/administration/system_messages/system-message-add/system-message-add.component";
 import {RoleGuardService} from "../../shared/guard/role-guard.service";
-import {ConfirmationListComponent} from "./components/structure-management/report/confirmation-list/confirmation-list.component";
+import {WarehouseUsersEditComponent} from "./components/structure-management/warehouse/warehouse-users-edit/warehouse-users-edit.component";
+import {ConfirmationListComponent} from "./components/structure-management/confirmation/confirmation-list/confirmation-list.component";
+import {ExternalTransferListComponent} from "./components/structure-management/warehouse/external-transfer-list/external-transfer-list.component";
 
 
 
@@ -59,7 +60,8 @@ const routes: Routes = [
     {path: 'warehouses', component: WarehouseListComponent},
     {path: 'warehouses/add', component: WarehouseAddComponent},
     {path: 'warehouses/edit/:id', component: WarehouseEditComponent},
-    {path: 'transfers/external', component: DeliveryListComponent},
+    {path: 'warehouses/users/edit/:id', component: WarehouseUsersEditComponent},
+    {path: 'transfers/external', component: ExternalTransferListComponent},
     {path: 'requests', component: RequestListComponent},
     {path: 'confirmations', component: ConfirmationListComponent},
     {path: 'transfers', component: TransferListComponent},

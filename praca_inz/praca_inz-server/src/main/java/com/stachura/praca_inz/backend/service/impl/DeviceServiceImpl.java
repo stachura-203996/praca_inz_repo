@@ -6,7 +6,6 @@ import com.stachura.praca_inz.backend.exception.DatabaseErrorException;
 import com.stachura.praca_inz.backend.exception.EntityNotInDatabaseException;
 import com.stachura.praca_inz.backend.exception.EntityOptimisticLockException;
 import com.stachura.praca_inz.backend.model.*;
-import com.stachura.praca_inz.backend.model.enums.DeviceStatus;
 import com.stachura.praca_inz.backend.model.enums.WarehouseType;
 import com.stachura.praca_inz.backend.model.security.User;
 import com.stachura.praca_inz.backend.repository.*;
@@ -51,8 +50,9 @@ public class DeviceServiceImpl implements DeviceService {
     @Override
     @Transactional(readOnly = true,propagation = Propagation.MANDATORY)
     @PreAuthorize("hasAuthority('DEVICE_LIST_READ')")
-    public List<DeviceListElementDto> getAllDevicesForLoggedWarehouseman(String username) {
-        List<Device> devices = Lists.newArrayList(deviceRepository.findAll()).stream().filter(x -> x.getWarehouse().getUser().getUsername().equals(username) &&
+    public List<DeviceListElementDto> getAllDevicesForLoggedWarehouseman(String username) throws EntityNotInDatabaseException {
+        User user = userRepository.findByUsername(username).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
+        List<Device> devices = Lists.newArrayList(deviceRepository.findAll()).stream().filter(x -> x.getWarehouse().getUsers().contains(user) &&
                 x.getWarehouse().getWarehouseType().name().equals(WarehouseType.OFFICE.name())).collect(Collectors.toList());
         List<DeviceListElementDto> devicesDto = new ArrayList<>();
         for (Device a : devices) {
@@ -65,22 +65,7 @@ public class DeviceServiceImpl implements DeviceService {
         return devicesDto;
     }
 
-    @Override
-    @Transactional(readOnly = true,propagation = Propagation.MANDATORY)
-    @PreAuthorize("hasAuthority('DEVICE_LIST_READ')")
-    public List<DeviceListElementDto> getAllDevicesForShipmentRequest(String name) {
-        List<Device> devices = Lists.newArrayList(deviceRepository.findAll()).stream().filter(x -> x.getWarehouse().getUser().getUsername().equals(name) &&
-                x.getWarehouse().getWarehouseType().name().equals(WarehouseType.OFFICE.name()) && x.getStatus().name().equals(DeviceStatus.REPOSE.name())).collect(Collectors.toList());
-        List<DeviceListElementDto> devicesDto = new ArrayList<>();
-        for (Device a : devices) {
-            if (!a.isDeleted()) {
-                Hibernate.initialize(a.getDeviceModel());
-                Hibernate.initialize(a.getDeviceModel().getName());
-                devicesDto.add(DeviceConverter.toDeviceListElementDto(a));
-            }
-        }
-        return devicesDto;
-    }
+
 
     @Override
     @Transactional(readOnly = true,propagation = Propagation.MANDATORY)
@@ -112,7 +97,7 @@ public class DeviceServiceImpl implements DeviceService {
     public List<DeviceListElementDto> getAllDevicesForCompany(Long id) {
         List<Device> devices = Lists.newArrayList(deviceRepository.findAll()).stream().filter(x -> {
             Office office = Optional.ofNullable(x.getWarehouse().getOffice())
-                    .orElseGet(() -> x.getWarehouse().getUser().getOffice());
+                    .orElseGet(() -> x.getWarehouse().getOffice());
             return office.getDepartment().getCompany().getId().equals(id);
         }).collect(Collectors.toList());
         List<DeviceListElementDto> devicesDto = new ArrayList<>();
@@ -132,7 +117,7 @@ public class DeviceServiceImpl implements DeviceService {
         List<Device> devices = Lists.newArrayList(deviceRepository.findAll()).stream().filter(x ->
         {
             Office office = Optional.ofNullable(x.getWarehouse().getOffice())
-                    .orElseGet(() -> x.getWarehouse().getUser().getOffice());
+                    .orElseGet(() -> x.getWarehouse().getOffice());
             return office.getDepartment().getId().equals(id);
         }).collect(Collectors.toList());
         List<DeviceListElementDto> devicesDto = new ArrayList<>();
@@ -178,8 +163,9 @@ public class DeviceServiceImpl implements DeviceService {
     @Override
     @Transactional(readOnly = true,propagation = Propagation.MANDATORY)
     @PreAuthorize("hasAuthority('DEVICE_LIST_FOR_USER_READ')")
-    public List<DeviceListElementDto> getAllDevicesForLoggedUser(String username) {
-        List<Device> devices = Lists.newArrayList(deviceRepository.findAll()).stream().filter(x -> x.getWarehouse().getUser().getUsername().equals(username) &&
+    public List<DeviceListElementDto> getAllDevicesForLoggedUser(String username) throws EntityNotInDatabaseException {
+        User user = userRepository.findByUsername(username).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
+        List<Device> devices = Lists.newArrayList(deviceRepository.findAll()).stream().filter(x -> x.getWarehouse().getUsers().contains(user) &&
                 x.getWarehouse().getWarehouseType().name().equals(WarehouseType.USER.name())).collect(Collectors.toList());
         List<DeviceListElementDto> devicesDto = new ArrayList<>();
         for (Device a : devices) {

@@ -136,6 +136,14 @@ public class UserController {
         return userService.getAllUsersForReport(auth.getName());
     }
 
+    @RequestMapping(value = "/warehouse/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(value = HttpStatus.OK)
+    public @ResponseBody
+    List<UserListElementDto> getAllUsersForWarehouseEdit(@PathVariable Long id) throws SystemBaseException {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        return userService.getAllUsersForWarehouseEdit(id);
+    }
+
     @RequestMapping(value = "/warehousemen/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
