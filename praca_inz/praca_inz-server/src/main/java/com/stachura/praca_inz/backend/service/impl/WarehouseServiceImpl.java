@@ -194,7 +194,7 @@ public class WarehouseServiceImpl implements WarehouseService {
     @PreAuthorize("hasAuthority('WAREHOUSE_LIST_READ')")
     public List<WarehouseListElementDto> getAllWarehousesForLoggedUser(String username) throws EntityNotInDatabaseException {
         User user = userRepository.findByUsername(username).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
-        List<Warehouse> warehouses = Lists.newArrayList(warehouseRepository.findAll()).stream().filter(x -> x.getUsers().contains(user) &&
+        List<Warehouse> warehouses = Lists.newArrayList(warehouseRepository.findAll()).stream().filter(x -> (x.getUsers().contains(user) ||x.getUser().equals(user)) &&
                 x.getOffice() != null && x.getWarehouseType().name().equals(WarehouseType.OFFICE.name())).collect(Collectors.toList());
         List<WarehouseListElementDto> warehouseDto = new ArrayList<>();
         for (Warehouse a : warehouses) {

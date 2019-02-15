@@ -101,7 +101,7 @@ export class RequestUserComponent implements OnInit {
                     this.changeRequestStatusElement.version = request.version;
                     this.changeRequestStatusElement.status = this.configuration.REQUEST_STATUS_REJECTED;
                     this.requestService.changeRequestStatus(this.changeRequestStatusElement).subscribe(rep => {
-                        this.router.navigateByUrl('/employees/reports/request/add/' + request.id)
+                        this.router.navigateByUrl('/employees/confirmations/request/add/' + request.id)
                         this.translate.get('success.request.reject').subscribe(x => {
                             this.messageService.success(x)
                         })
@@ -132,7 +132,7 @@ export class RequestUserComponent implements OnInit {
                     this.changeRequestStatusElement.version = request.version;
                     this.changeRequestStatusElement.status = this.configuration.REQUEST_STATUS_ACCEPTED;
                     this.requestService.changeRequestStatus(this.changeRequestStatusElement).subscribe(rep => {
-                        this.router.navigateByUrl('/employees/reports/request/add/' + request.id)
+                        this.router.navigateByUrl('/employees/confirmations/request/add/' + request.id)
                         this.translate.get('success.request.accept').subscribe(x => {
                             this.messageService.success(x)
                         })

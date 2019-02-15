@@ -67,7 +67,7 @@ public class ExternalTransferServiceImpl implements ExternalTransferService {
     @PreAuthorize("hasAuthority('EXTERNAL_TRANSFER_LIST_READ')")
     public List<ExternalTransferListElementDto> getAllDeliveriesForWarehouseman(String username) throws EntityNotInDatabaseException {
         User user =userRepository.findByUsername(username).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
-        List<ExternalTransfer> deliveries = Lists.newArrayList(externalTransferRepository.findAll()).stream().filter(x -> x.getRecieverWarehouse().getUsers().contains(user)).collect(Collectors.toList());
+        List<ExternalTransfer> deliveries = Lists.newArrayList(externalTransferRepository.findAll()).stream().filter(x -> x.getRecieverWarehouse().getUsers().contains(user)||x.getRecieverWarehouse().getUser().equals(user)).collect(Collectors.toList());
         List<ExternalTransferListElementDto> companiesDto = new ArrayList<>();
         for (ExternalTransfer a : deliveries) {
             if (!a.isDeleted()) {

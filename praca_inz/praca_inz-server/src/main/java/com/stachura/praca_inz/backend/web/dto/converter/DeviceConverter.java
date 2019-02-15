@@ -38,7 +38,8 @@ public class DeviceConverter {
     }
 
     public static String getResponsibleFor(Device device){
-        String result=null;
+        String result=device.getWarehouse().getUser().getUserdata().getName()+" "+device.getWarehouse().getUser().getUserdata().getSurname()+" | "+device.getWarehouse().getUser().getUsername();
+
         for(User user:device.getWarehouse().getUsers()){
             if(StringUtils.isNotBlank(result)){
                 result+=", ";

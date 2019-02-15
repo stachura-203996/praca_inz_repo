@@ -83,7 +83,7 @@ public class UserServiceImpl implements UserService {
         Hibernate.initialize(user.getNotifications());
 
         if (user.isEnabled()) {
-            return UserConverter.toProfileEditDto(user, warehouseRepository.findAll().stream().filter(x -> x.getWarehouseType().equals(WarehouseType.USER)&&x.getUsers().contains(user)).findFirst().orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT)));
+            return UserConverter.toProfileEditDto(user, warehouseRepository.findAll().stream().filter(x -> x.getWarehouseType().equals(WarehouseType.USER)&&(x.getUsers().contains(user)||x.getUser().equals(user))).findFirst().orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT)));
         }
         return null;
     }

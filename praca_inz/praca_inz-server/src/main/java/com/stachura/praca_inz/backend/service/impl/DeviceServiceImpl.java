@@ -52,7 +52,7 @@ public class DeviceServiceImpl implements DeviceService {
     @PreAuthorize("hasAuthority('DEVICE_LIST_READ')")
     public List<DeviceListElementDto> getAllDevicesForLoggedWarehouseman(String username) throws EntityNotInDatabaseException {
         User user = userRepository.findByUsername(username).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
-        List<Device> devices = Lists.newArrayList(deviceRepository.findAll()).stream().filter(x -> x.getWarehouse().getUsers().contains(user) &&
+        List<Device> devices = Lists.newArrayList(deviceRepository.findAll()).stream().filter(x -> (x.getWarehouse().getUsers().contains(user) ||x.getWarehouse().getUser().equals(user))&&
                 x.getWarehouse().getWarehouseType().name().equals(WarehouseType.OFFICE.name())).collect(Collectors.toList());
         List<DeviceListElementDto> devicesDto = new ArrayList<>();
         for (Device a : devices) {
@@ -165,7 +165,7 @@ public class DeviceServiceImpl implements DeviceService {
     @PreAuthorize("hasAuthority('DEVICE_LIST_FOR_USER_READ')")
     public List<DeviceListElementDto> getAllDevicesForLoggedUser(String username) throws EntityNotInDatabaseException {
         User user = userRepository.findByUsername(username).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
-        List<Device> devices = Lists.newArrayList(deviceRepository.findAll()).stream().filter(x -> x.getWarehouse().getUsers().contains(user) &&
+        List<Device> devices = Lists.newArrayList(deviceRepository.findAll()).stream().filter(x ->( (x.getWarehouse().getUsers().contains(user)||x.getWarehouse().getUser().equals(user))||x.getWarehouse().getUser().equals(user)) &&
                 x.getWarehouse().getWarehouseType().name().equals(WarehouseType.USER.name())).collect(Collectors.toList());
         List<DeviceListElementDto> devicesDto = new ArrayList<>();
         for (Device a : devices) {
