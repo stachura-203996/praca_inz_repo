@@ -7,9 +7,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.io.Resource;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.init.DataSourceInitializer;
 import org.springframework.jdbc.datasource.init.DatabasePopulator;
 import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
+import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -22,12 +24,16 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.provider.error.OAuth2AccessDeniedHandler;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
 @Configuration
 @EnableAuthorizationServer
 @EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableTransactionManagement
 @Import(ServerSecurityConfig.class)
 public class AuthServerOAuth2Config extends AuthorizationServerConfigurerAdapter {
 
@@ -62,6 +68,11 @@ public class AuthServerOAuth2Config extends AuthorizationServerConfigurerAdapter
     }
 
     @Bean
+    public PlatformTransactionManager transactionManager(EntityManagerFactory emf) {
+        return new JpaTransactionManager(emf);
+    }
+
+    @Bean
     public DataSourceInitializer dataSourceInitializer(final DataSource dataSource) {
         final DataSourceInitializer initializer = new DataSourceInitializer();
         initializer.setDataSource(dataSource);
@@ -69,8 +80,18 @@ public class AuthServerOAuth2Config extends AuthorizationServerConfigurerAdapter
         return initializer;
     }
 
+
+    @Bean
+    public DataSourceTransactionManager transactionManager() {
+        final DataSourceTransactionManager txManager = new DataSourceTransactionManager();
+        txManager.setDataSource(dataSource);
+        return txManager;
+    }
+
+
     private DatabasePopulator databasePopulator() {
         final ResourceDatabasePopulator populator = new ResourceDatabasePopulator();
+        populator.setSqlScriptEncoding("UTF8");
         populator.addScript(schemaScript);
         populator.addScript(dataScript);
         return populator;

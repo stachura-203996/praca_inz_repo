@@ -2,14 +2,14 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {WarehouseUserComponent} from "./warehouse-user/warehouse-user.component";
 import {WarehouseRequestListComponent} from "./warehouse-request-list/warehouse-request-list.component";
-import {DeliveryListComponent} from "./delivery-list/delivery-list.component";
 import {WarehouseDevicesComponent} from "./warehouse-devices/warehouse-devices.component";
+import {ExternalTransferListComponent} from "./external-transfer-list/external-transfer-list.component";
 
 const routes: Routes = [
-    {path: '', component: WarehouseUserComponent },
-    {path: 'requests', component: WarehouseRequestListComponent },
+    {path: '', component: WarehouseUserComponent},
+    {path: 'requests', component: WarehouseRequestListComponent},
     {path:'devices', component: WarehouseDevicesComponent},
-    {path:'delivery', component: DeliveryListComponent},
+    {path:'transfer/external', component: ExternalTransferListComponent},
 ];
 
 @NgModule({

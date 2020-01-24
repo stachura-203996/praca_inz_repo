@@ -31,13 +31,8 @@
                                     <i class="fa fa-eye"></i>&nbsp;
                                     <span class="d-none d-md-inline">{{'View'|translate}}</span>
                                 </button>
-                                <button type="button" (click)="cancel(request)"
-                                        class="btn btn-warning btn-sm">
-                                    <i class="fa fa-times"></i>&nbsp;
-                                    <span class="d-none d-md-inline">{{'Cancel'|translate}}</span>
-                                </button>
                                 <button type="button" (click)="delete(request)"
-                                        *ngIf="request.status=='CLOSED'"
+                                        *ngIf="request.status=='REALIZED'"
                                         class="btn btn-danger btn-sm">
                                     <i class="fa fa-times"></i>&nbsp;
                                     <span class="d-none d-md-inline">{{'Delete'|translate}}</span>
@@ -78,20 +73,8 @@
                                     <i class="fa fa-eye"></i>&nbsp;
                                     <span class="d-none d-md-inline">{{'View'|translate}}</span>
                                 </button>
-                                <button type="submit" *ngIf="request.status=='WAITING'"
-                                        (click)="editPage(request)"
-                                        queryParamsHandling="merge"
-                                        class="btn btn-primary btn-sm">
-                                    <i class="fa fa-pencil"></i>&nbsp;
-                                    <span class="d-none d-md-inline">{{'Edit'|translate}}</span>
-                                </button>
-                                <button type="button" (click)="cancel(request)"
-                                        class="btn btn-warning btn-sm">
-                                    <i class="fa fa-times"></i>&nbsp;
-                                    <span class="d-none d-md-inline">{{'Cancel'|translate}}</span>
-                                </button>
                                 <button type="button" (click)="delete(request)"
-                                        *ngIf="request.status=='CLOSED'"
+                                        *ngIf="request.status=='REALIZED'"
                                         class="btn btn-danger btn-sm">
                                     <i class="fa fa-times"></i>&nbsp;
                                     <span class="d-none d-md-inline">{{'Delete'|translate}}</span>

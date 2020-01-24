@@ -2,8 +2,8 @@ package com.stachura.praca_inz.backend.service.impl;
 
 import com.google.common.collect.Lists;
 import com.stachura.praca_inz.backend.Constants;
+import com.stachura.praca_inz.backend.exception.DatabaseErrorException;
 import com.stachura.praca_inz.backend.exception.EntityNotInDatabaseException;
-import com.stachura.praca_inz.backend.exception.base.AppBaseException;
 import com.stachura.praca_inz.backend.model.Device;
 import com.stachura.praca_inz.backend.model.Office;
 import com.stachura.praca_inz.backend.model.Warehouse;
@@ -14,7 +14,9 @@ import com.stachura.praca_inz.backend.repository.OfficeRepository;
 import com.stachura.praca_inz.backend.repository.UserRepository;
 import com.stachura.praca_inz.backend.repository.WarehouseRepository;
 import com.stachura.praca_inz.backend.service.WarehouseService;
+import com.stachura.praca_inz.backend.web.dto.converter.UserConverter;
 import com.stachura.praca_inz.backend.web.dto.converter.WarehouseConverter;
+import com.stachura.praca_inz.backend.web.dto.user.UserListElementDto;
 import com.stachura.praca_inz.backend.web.dto.warehouse.WarehouseAddDto;
 import com.stachura.praca_inz.backend.web.dto.warehouse.WarehouseEditDto;
 import com.stachura.praca_inz.backend.web.dto.warehouse.WarehouseListElementDto;
@@ -23,8 +25,10 @@ import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.PersistenceException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -45,9 +49,9 @@ public class WarehouseServiceImpl implements WarehouseService {
     private DeviceRepository deviceRepository;
 
     @Override
-    @Transactional(readOnly = true)
+    @Transactional(readOnly = true, propagation = Propagation.MANDATORY)
     @PreAuthorize("hasAuthority('WAREHOUSE_READ')")
-    public WarehouseViewDto getWarehouseToView(Long id) throws AppBaseException {
+    public WarehouseViewDto getWarehouseToView(Long id) throws EntityNotInDatabaseException {
         Warehouse warehouse = warehouseRepository.findById(id).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
         if (warehouse.isDeleted()) {
             return null;
@@ -56,9 +60,9 @@ public class WarehouseServiceImpl implements WarehouseService {
     }
 
     @Override
-    @Transactional(readOnly = true)
+    @Transactional(readOnly = true, propagation = Propagation.MANDATORY)
     @PreAuthorize("hasAuthority('WAREHOUSE_READ')")
-    public WarehouseEditDto getWarehouseToEdit(Long id) throws AppBaseException {
+    public WarehouseEditDto getWarehouseToEdit(Long id) throws EntityNotInDatabaseException {
         Warehouse warehouse = warehouseRepository.findById(id).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
         if (warehouse.isDeleted()) {
             return null;
@@ -67,9 +71,65 @@ public class WarehouseServiceImpl implements WarehouseService {
     }
 
     @Override
-    @Transactional(readOnly = true)
+    @Transactional(readOnly = true, propagation = Propagation.MANDATORY)
     @PreAuthorize("hasAuthority('WAREHOUSE_LIST_READ')")
-    public List<WarehouseListElementDto> getAllOfficeWarehouses(String username) throws AppBaseException {
+    public List<WarehouseListElementDto> getAllForTransfer(String username) throws EntityNotInDatabaseException {
+        List<Warehouse> warehouses;
+        User user = userRepository.findByUsername(username).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
+        if (user.getUserRoles().stream().anyMatch(x -> x.getName().equals(Constants.ADMIN_ROLE))) {
+            warehouses = Lists.newArrayList(warehouseRepository.findAll());
+        } else {
+            warehouses = Lists.newArrayList(warehouseRepository.findAll()).stream().filter(x -> x.getOffice().getDepartment().getCompany().getId().equals(user.getOffice().getDepartment().getCompany().getId())).collect(Collectors.toList());
+        }
+        List<WarehouseListElementDto> warehouseListElementDtos = new ArrayList<>();
+        for (Warehouse a : warehouses) {
+            if (!a.isDeleted()) {
+                warehouseListElementDtos.add(WarehouseConverter.toWarehouseOfficeListElementDto(a));
+            }
+        }
+        return warehouseListElementDtos;
+    }
+
+    @Override
+    @Transactional(readOnly = true, propagation = Propagation.MANDATORY)
+    @PreAuthorize("hasAuthority('WAREHOUSE_USERS_LIST_READ')")
+    public List<UserListElementDto> getWarehouseUsersToEdit(Long id) throws EntityNotInDatabaseException {
+        Warehouse warehouse=warehouseRepository.findById(id).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
+        Hibernate.initialize(warehouse.getUsers());
+        List<UserListElementDto> userListElementDtos = new ArrayList<>();
+        for (User a : warehouse.getUsers()) {
+            if (a.isEnabled()) {
+                userListElementDtos.add(UserConverter.toUserListElement(a));
+            }
+        }
+        return userListElementDtos;
+    }
+
+
+
+    @Override
+    @Transactional(readOnly = true, propagation = Propagation.MANDATORY)
+    @PreAuthorize("hasAuthority('WAREHOUSE_USERS_ATTACH')")
+    public void attachNewUserToWarehouse(Long userId, Long warehouseId) throws EntityNotInDatabaseException {
+        User user=userRepository.findById(userId).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
+        Warehouse warehouse= warehouseRepository.findById(warehouseId).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
+        if(!warehouse.getUsers().contains(user)){
+            warehouse.getUsers().add(user);
+        }
+    }
+
+    @Override
+    @Transactional(readOnly = true, propagation = Propagation.MANDATORY)
+    @PreAuthorize("hasAuthority('WAREHOUSE_USERS_DETACH')")
+    public void detachUserFromWarehouse(Long userId,Long warehouseId) throws EntityNotInDatabaseException {
+        User user=userRepository.findById(userId).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
+        warehouseRepository.findById(warehouseId).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT)).getUsers().remove(user);
+    }
+
+    @Override
+    @Transactional(readOnly = true, propagation = Propagation.MANDATORY)
+    @PreAuthorize("hasAuthority('WAREHOUSE_LIST_READ')")
+    public List<WarehouseListElementDto> getAllOfficeWarehouses(String username) throws EntityNotInDatabaseException {
         List<Warehouse> warehouses;
         User user = userRepository.findByUsername(username).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
         if (user.getUserRoles().stream().anyMatch(x -> x.getName().equals(Constants.ADMIN_ROLE))) {
@@ -88,7 +148,7 @@ public class WarehouseServiceImpl implements WarehouseService {
     }
 
     @Override
-    @Transactional(readOnly = true)
+    @Transactional(readOnly = true, propagation = Propagation.MANDATORY)
     @PreAuthorize("hasAuthority('WAREHOUSE_LIST_READ')")
     public List<WarehouseListElementDto> getAllWarehousesForCompany(Long id) {
         List<Warehouse> warehouses = Lists.newArrayList(warehouseRepository.findAll()).stream().filter(x -> x.getWarehouseType().equals(WarehouseType.OFFICE) && x.getOffice().getDepartment().getCompany().getId().equals(id)).collect(Collectors.toList());
@@ -102,7 +162,7 @@ public class WarehouseServiceImpl implements WarehouseService {
     }
 
     @Override
-    @Transactional(readOnly = true)
+    @Transactional(readOnly = true, propagation = Propagation.MANDATORY)
     @PreAuthorize("hasAuthority('WAREHOUSE_LIST_READ')")
     public List<WarehouseListElementDto> getAllwarehousesForDepartment(Long id) {
         List<Warehouse> warehouses = Lists.newArrayList(warehouseRepository.findAll()).stream().filter(x -> x.getWarehouseType().equals(WarehouseType.OFFICE) && x.getOffice().getDepartment().getId().equals(id)).collect(Collectors.toList());
@@ -116,7 +176,7 @@ public class WarehouseServiceImpl implements WarehouseService {
     }
 
     @Override
-    @Transactional(readOnly = true)
+    @Transactional(readOnly = true, propagation = Propagation.MANDATORY)
     @PreAuthorize("hasAuthority('WAREHOUSE_LIST_READ')")
     public List<WarehouseListElementDto> getAllWarehousesForOffice(Long id) {
         List<Warehouse> warehouses = Lists.newArrayList(warehouseRepository.findAll()).stream().filter(x -> x.getWarehouseType().equals(WarehouseType.OFFICE) && x.getOffice().getId().equals(id)).collect(Collectors.toList());
@@ -129,12 +189,12 @@ public class WarehouseServiceImpl implements WarehouseService {
         return warehouseListElementDtos;
     }
 
-
     @Override
-    @Transactional(readOnly = true)
+    @Transactional(readOnly = true, propagation = Propagation.MANDATORY)
     @PreAuthorize("hasAuthority('WAREHOUSE_LIST_READ')")
-    public List<WarehouseListElementDto> getAllWarehousesForLoggedUser(String username) {
-        List<Warehouse> warehouses = Lists.newArrayList(warehouseRepository.findAll()).stream().filter(x -> x.getUser().getUsername().equals(username) &&
+    public List<WarehouseListElementDto> getAllWarehousesForLoggedUser(String username) throws EntityNotInDatabaseException {
+        User user = userRepository.findByUsername(username).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
+        List<Warehouse> warehouses = Lists.newArrayList(warehouseRepository.findAll()).stream().filter(x -> (x.getUsers().contains(user) ||x.getUser().equals(user)) &&
                 x.getOffice() != null && x.getWarehouseType().name().equals(WarehouseType.OFFICE.name())).collect(Collectors.toList());
         List<WarehouseListElementDto> warehouseDto = new ArrayList<>();
         for (Warehouse a : warehouses) {
@@ -148,9 +208,9 @@ public class WarehouseServiceImpl implements WarehouseService {
     }
 
     @Override
-    @Transactional(readOnly = true)
-    @PreAuthorize("hasAuthority('WAREHOUSE_LIST_READ')")
-    public List<WarehouseListElementDto> getAllForTransferRequest(String username, Long deviceId) throws AppBaseException {
+    @Transactional(readOnly = true, propagation = Propagation.MANDATORY)
+    @PreAuthorize("hasAuthority('WAREHOUSE_LIST_FOR_TRANSFER_READ')")
+    public List<WarehouseListElementDto> getAllForTransferRequest(String username, Long deviceId) throws EntityNotInDatabaseException {
         Long id = userRepository.findByUsername(username).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT)).getOffice().getId();
         Device device = deviceRepository.findById(deviceId).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
         List<Warehouse> warehouses = Lists.newArrayList(warehouseRepository.findAll()).stream().filter(x -> x.getOffice().getId().equals(id) && !x.getId().equals(device.getWarehouse().getId())).collect(Collectors.toList());
@@ -168,28 +228,36 @@ public class WarehouseServiceImpl implements WarehouseService {
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('WAREHOUSE_CREATE')")
-    public void createWarehouse(WarehouseAddDto warehouseAddDto) throws AppBaseException {
-        User user = userRepository.findById(warehouseAddDto.getUserId()).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
-        Office office = officeRepository.findById(warehouseAddDto.getOfficeId()).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
-        warehouseRepository.saveAndFlush(WarehouseConverter.toWarehouse(warehouseAddDto, user, office));
-
+    public void createWarehouse(WarehouseAddDto warehouseAddDto) throws EntityNotInDatabaseException, DatabaseErrorException {
+        try {
+            User user = userRepository.findById(warehouseAddDto.getUserId()).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
+            Office office = officeRepository.findById(warehouseAddDto.getOfficeId()).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
+            warehouseRepository.saveAndFlush(WarehouseConverter.toWarehouse(warehouseAddDto, user, office));
+        } catch (PersistenceException e) {
+            throw new DatabaseErrorException(DatabaseErrorException.WAREHOUSE_NAME_TAKEN);
+        }
 
     }
 
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('WAREHOUSE_UPDATE')")
-    public void updateWarehouse(WarehouseEditDto warehouseEditDto) throws AppBaseException {
-        Warehouse beforeWarehouse = warehouseRepository.findById(warehouseEditDto.getId()).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
-        User user = userRepository.findById(warehouseEditDto.getUserId()).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
-        Office office = officeRepository.findById(warehouseEditDto.getOfficeId()).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
-        warehouseRepository.saveAndFlush(WarehouseConverter.toWarehouse(warehouseEditDto, beforeWarehouse, user, office));
+    public void updateWarehouse(WarehouseEditDto warehouseEditDto) throws EntityNotInDatabaseException, DatabaseErrorException {
+        try {
+            Warehouse beforeWarehouse = warehouseRepository.findById(warehouseEditDto.getId()).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
+            User user = userRepository.findById(warehouseEditDto.getUserId()).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
+            Office office = officeRepository.findById(warehouseEditDto.getOfficeId()).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
+            warehouseRepository.detach(beforeWarehouse);
+            warehouseRepository.saveAndFlush(WarehouseConverter.toWarehouse(warehouseEditDto, beforeWarehouse, user, office));
+        } catch (PersistenceException e) {
+            throw new DatabaseErrorException(DatabaseErrorException.WAREHOUSE_NAME_TAKEN);
+        }
     }
 
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('WAREHOUSE_DELETE')")
-    public void deleteWarehouseById(Long id) throws AppBaseException {
+    public void deleteWarehouseById(Long id) throws EntityNotInDatabaseException {
         warehouseRepository.findById(id).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT)).setDeleted(true);
     }
 

@@ -1,5 +1,6 @@
 package com.stachura.praca_inz.backend.model;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -9,11 +10,12 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Comparator;
 
+@Data
 @Entity
-@EnableAutoConfiguration
-@Table(name = "SYSTEM_MESSAGE")
 @Getter
 @Setter
+@EnableAutoConfiguration
+@Table(name = "SYSTEM_MESSAGE")
 public class SystemMessage implements Serializable, Comparator<SystemMessage> {
 
     @Id
@@ -40,14 +42,6 @@ public class SystemMessage implements Serializable, Comparator<SystemMessage> {
     @Column(name = "MESSAGE_DATE")
     @Temporal(TemporalType.TIMESTAMP)
     private java.util.Calendar createDate;
-
-    public SystemMessage() {
-    }
-
-    public SystemMessage(Long id, long version) {
-        this.id=id;
-        this.version = version;
-    }
 
     @Override
     public int compare(SystemMessage o1, SystemMessage o2) {

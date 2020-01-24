@@ -1,10 +1,8 @@
 package com.stachura.praca_inz.backend.service.impl;
 
 import com.google.common.collect.Lists;
-import com.stachura.praca_inz.backend.exception.EntityNotInDatabaseException;
-import com.stachura.praca_inz.backend.exception.base.AppBaseException;
 import com.stachura.praca_inz.backend.exception.DatabaseErrorException;
-
+import com.stachura.praca_inz.backend.exception.EntityNotInDatabaseException;
 import com.stachura.praca_inz.backend.model.Address;
 import com.stachura.praca_inz.backend.model.Userdata;
 import com.stachura.praca_inz.backend.model.Warehouse;
@@ -16,6 +14,7 @@ import com.stachura.praca_inz.backend.service.RegistrationService;
 import com.stachura.praca_inz.backend.web.dto.user.RegistrationDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -48,9 +47,11 @@ RegistrationServiceImpl implements RegistrationService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+
     @Override
     @Transactional
-    public void registerNewUserAccount(final RegistrationDto data, boolean verified) throws AppBaseException {
+    @PreAuthorize("hasAuthority('USER_CREATE')")
+    public void registerNewUserAccount(final RegistrationDto data, boolean verified) throws EntityNotInDatabaseException, DatabaseErrorException {
 
         if (userdataRepository.findByEmail(data.getEmail()).isPresent()) {
             throw new DatabaseErrorException(DatabaseErrorException.EMAIL_TAKEN);
@@ -100,12 +101,10 @@ RegistrationServiceImpl implements RegistrationService {
             user.setUserdata(userdata);
             userRepository.saveAndFlush(user);
             warehouse.setUser(user);
-            warehouse.setName(user.getUserdata().getName() + "|" + user.getUserdata().getSurname() + "|" + user.getUsername() + "|WAREHOUSE");
+            warehouse.setName(user.getUserdata().getName() + "|" + user.getUserdata().getSurname() + " " + user.getUsername() + "| Warehouse");
             warehouseRepository.saveAndFlush(warehouse);
-        }catch(Exception e){
+        }catch (Exception e){
             e.printStackTrace();
         }
-
     }
-
 }

@@ -85,8 +85,4 @@ export class DepartmentViewComponent implements OnInit {
             return (structure.street + ' ' + structure.buildingNumber + ' / ' + structure.flatNumber);
         }
     }
-
-    getPersonResponsibleFor(data:WarehouseListElement){
-        return data.userName+' '+data.userSurname;
-    }
 }

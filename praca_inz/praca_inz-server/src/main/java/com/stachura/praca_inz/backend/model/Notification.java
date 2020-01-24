@@ -3,6 +3,7 @@ package com.stachura.praca_inz.backend.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.stachura.praca_inz.backend.model.security.User;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -12,15 +13,16 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Comparator;
 
+@Data
 @Entity
-@EnableAutoConfiguration
-@Table(name = "NOTIFICATION")
 @Getter
 @Setter
+@EnableAutoConfiguration
+@Table(name = "NOTIFICATION")
 public class Notification implements Serializable, Comparator<Notification>,Cloneable  {
 
     @Id
-    @SequenceGenerator(name = "NotificationGen", sequenceName = "notification_id_seq",initialValue = 5,allocationSize = 1)
+    @SequenceGenerator(name = "NotificationGen", sequenceName = "notification_id_seq",initialValue = 7,allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "NotificationGen")
     @Column(name = "ID", updatable = false, nullable = false)
     private Long id = null;
@@ -54,21 +56,8 @@ public class Notification implements Serializable, Comparator<Notification>,Clon
     @Temporal(TemporalType.TIMESTAMP)
     private java.util.Calendar createDate;
 
-
-    public Notification() {
-    }
-
-    public Notification(Long id, long version) {
-        this.id=id;
-        this.version = version;
-    }
-
     @Override
     public int compare(Notification o1, Notification o2) {
         return o1.getCreateDate().compareTo(o2.getCreateDate());
     }
-
-
-
-
 }

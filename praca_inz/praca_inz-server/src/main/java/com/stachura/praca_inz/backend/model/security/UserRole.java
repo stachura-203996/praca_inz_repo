@@ -1,6 +1,7 @@
 package com.stachura.praca_inz.backend.model.security;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -9,6 +10,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Collection;
 
+@Data
 @Entity
 @EnableAutoConfiguration
 @Table(name = "USER_ROLE")
@@ -21,10 +23,6 @@ public class UserRole implements Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "UserRoleGen")
     @Column(name = "ID", updatable = false, nullable = false)
     private Long id = null;
-
-    @Version
-    @Column(name = "VERSION")
-    private long version;
 
     @Column(name = "NAME",nullable = false,unique = true)
     private String name;

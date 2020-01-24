@@ -2,7 +2,7 @@ package com.stachura.praca_inz.backend.service.impl;
 
 import com.google.common.collect.Lists;
 import com.stachura.praca_inz.backend.exception.EntityNotInDatabaseException;
-import com.stachura.praca_inz.backend.exception.base.AppBaseException;
+import com.stachura.praca_inz.backend.exception.base.SystemBaseException;
 import com.stachura.praca_inz.backend.model.Notification;
 import com.stachura.praca_inz.backend.repository.NotificationRepository;
 import com.stachura.praca_inz.backend.service.EmailService;
@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
@@ -35,9 +36,9 @@ public class NotificationServiceImpl implements NotificationService {
     private String port;
 
     @Override
-    @Transactional(readOnly = true)
+    @Transactional(readOnly = true,propagation = Propagation.MANDATORY)
     @PreAuthorize("hasAuthority('NOTIFICATION_READ')")
-    public Notification getNotificationById(Long id) throws AppBaseException {
+    public Notification getNotificationById(Long id) throws SystemBaseException {
         Notification notification = notificationRepository.findById(id).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
         if (notification.isDeleted()) {
             return null;
@@ -46,8 +47,8 @@ public class NotificationServiceImpl implements NotificationService {
     }
 
     @Override
-    @Transactional(readOnly = true)
-    @PreAuthorize("hasAuthority('NOTIFICATION_READ')")
+    @Transactional(readOnly = true,propagation = Propagation.MANDATORY)
+    @PreAuthorize("hasAuthority('NOTIFICATION_LIST_READ')")
     public List<NotificationListElementDto> getUnreadedAllNotificationsForLoggedUser(String username) {
         List<Notification> notifications = Lists.newArrayList(notificationRepository.findAll()).stream().filter(x -> x.getUser().getUsername().equals(username) && !x.isReaded()).sorted(Comparator.comparing(Notification::getCreateDate).reversed()).collect(Collectors.toList());
         List<NotificationListElementDto> notificationListElementDtos = new ArrayList<>();
@@ -60,10 +61,9 @@ public class NotificationServiceImpl implements NotificationService {
         return notificationListElementDtos;
     }
 
-
     @Override
-    @Transactional(readOnly = true)
-    @PreAuthorize("hasAuthority('NOTIFICATION_READ')")
+    @Transactional(readOnly = true,propagation = Propagation.MANDATORY)
+    @PreAuthorize("hasAuthority('NOTIFICATION_FOR_USER_READ')")
     public List<NotificationListElementDto> getReadedAllNotificationsForLoggedUser(String username) {
         List<Notification> notifications = Lists.newArrayList(notificationRepository.findAll()).stream().filter(x -> x.getUser().getUsername().equals(username)&&x.isReaded()).sorted(Comparator.comparing(Notification::getCreateDate).reversed()).collect(Collectors.toList());
         List<NotificationListElementDto> notificationListElementDtos = new ArrayList<>();
@@ -76,7 +76,7 @@ public class NotificationServiceImpl implements NotificationService {
         return notificationListElementDtos;
     }
 
-    @Transactional(readOnly = true)
+    @Transactional(readOnly = true,propagation = Propagation.MANDATORY)
     @PreAuthorize("hasAuthority('NOTIFICATION_USER_LIST_READ')")
     public List<NotificationListElementDto> getAllNotifications() {
         List<Notification> notifications =Lists.newArrayList(notificationRepository.findAll()).stream().sorted(Comparator.comparing(Notification::getCreateDate).reversed()).collect(Collectors.toList());
@@ -90,26 +90,31 @@ public class NotificationServiceImpl implements NotificationService {
     }
 
     @Override
-    @Transactional
+    @Transactional(propagation = Propagation.MANDATORY)
     @PreAuthorize("hasAuthority('NOTIFICATION_CREATE')")
-    public void createNewNotification(Notification notification)throws AppBaseException {
+    public void createNewNotification(Notification notification)throws SystemBaseException {
             notificationRepository.saveAndFlush(notification);
-            String link = "<a href=\"http://localhost:"+ port+"/ui/page/" +notification.getUrl()+"\">Click</a>";
-            String description=notification.getDescription()+"<br>"+link;
+            String link = "<a href=\"https://localhost:"+ port+"/ui/page" +notification.getUrl()+"\">Click</a>";
+            String description="<p>"+notification.getDescription()
+                    .replace("Opis","<br> Opis")
+                    .replace("Description","<br> Description")
+                    .replace("Title","<br> Title")
+                    .replace("Tytuł","<br> Tytuł")
+                    +"<p><br>"+link;
             emailService.sendMessageWithLink(notification.getUser().getUserdata().getEmail(),notification.getTitle(),description);
     }
 
     @Override
-    @Transactional
+    @Transactional(propagation = Propagation.MANDATORY)
     @PreAuthorize("hasAuthority('NOTIFICATION_UPDATE')")
-    public void updateNotification(Notification notification) throws AppBaseException {
+    public void updateNotification(Notification notification) throws SystemBaseException {
         notificationRepository.saveAndFlush(notification);
     }
 
     @Override
-    @Transactional
+    @Transactional(propagation = Propagation.MANDATORY)
     @PreAuthorize("hasAuthority('NOTIFICATION_DELETE')")
-    public void deleteNotificationById(Long id) throws AppBaseException {
+    public void deleteNotificationById(Long id) throws SystemBaseException {
         notificationRepository.findById(id).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT)).setDeleted(true);
     }
 

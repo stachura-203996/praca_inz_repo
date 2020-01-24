@@ -115,7 +115,7 @@ export class DeviceRequestViewComponent implements OnInit {
         var no: string;
 
         this.translate.get('device.request.reject').subscribe(x => entity = x);
-        this.translate.get('confirm.cancel').subscribe(x => message = x);
+        this.translate.get('confirm.reject').subscribe(x => message = x);
         this.translate.get('yes').subscribe(x => yes = x);
         this.translate.get('no').subscribe(x => no = x);
 
@@ -128,7 +128,7 @@ export class DeviceRequestViewComponent implements OnInit {
                     this.changeRequestStatusElement.version=this.request.version;
                     this.changeRequestStatusElement.status=this.configuration.REQUEST_STATUS_REJECTED;
                     this.requestService.changeRequestStatus(this.changeRequestStatusElement).subscribe(rep=>{
-                        this.router.navigateByUrl('/employees/reports/request/add/'+this.request.id)
+                        this.router.navigateByUrl('/employees/confirmations/request/add/'+this.request.id)
                         this.translate.get('success.device.request.rejected').subscribe(x => {
                             this.messageService.success(x)
                         })
@@ -145,7 +145,7 @@ export class DeviceRequestViewComponent implements OnInit {
         var no: string;
 
         this.translate.get('device.request.accept').subscribe(x => entity = x);
-        this.translate.get('confirm.cancel').subscribe(x => message = x);
+        this.translate.get('confirm.accept').subscribe(x => message = x);
         this.translate.get('yes').subscribe(x => yes = x);
         this.translate.get('no').subscribe(x => no = x);
 
@@ -158,7 +158,7 @@ export class DeviceRequestViewComponent implements OnInit {
                     this.changeRequestStatusElement.version=this.request.version;
                     this.changeRequestStatusElement.status=this.configuration.REQUEST_STATUS_ACCEPTED;
                     this.requestService.changeRequestStatus(this.changeRequestStatusElement).subscribe(rep=>{
-                        this.router.navigateByUrl('/employees/reports/request/add/'+this.request.id)
+                        this.router.navigateByUrl('/employees/confirmations/request/add/'+this.request.id)
                         this.translate.get('success.device.request.accept').subscribe(x => {
                             this.messageService.success(x)
                         })
@@ -166,5 +166,11 @@ export class DeviceRequestViewComponent implements OnInit {
                 }
             });
 
+    }
+
+    translateAll(word: string): string {
+        var tmp: string;
+        this.translate.get(word).subscribe(x => tmp = x);
+        return tmp;
     }
 }

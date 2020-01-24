@@ -1,7 +1,8 @@
 package com.stachura.praca_inz.backend.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.stachura.praca_inz.backend.model.enums.Status;
+import com.stachura.praca_inz.backend.model.security.User;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -9,13 +10,13 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.util.Date;
 
+@Data
 @Entity
-@EnableAutoConfiguration
-@Table(name = "TRANSFER")
 @Getter
 @Setter
+@EnableAutoConfiguration
+@Table(name = "TRANSFER")
 public class Transfer implements Serializable {
 
     @Id
@@ -31,12 +32,9 @@ public class Transfer implements Serializable {
     @Column(name = "TITLE", nullable = false)
     private String title;
 
-    @Column(name = "USERNAME", nullable = false)
-    private String username;
-
-    @Column(name = "STATUS", nullable = false)
-    @Enumerated(EnumType.STRING)
-    private Status status;
+    @ManyToOne(fetch = FetchType.LAZY,optional = false)
+    @JsonBackReference
+    private User user;
 
     @Column(name = "DESCRIPTION")
     private String description;
@@ -61,12 +59,4 @@ public class Transfer implements Serializable {
 
     @Column(name = "DELETED", nullable = false)
     private boolean deleted;
-
-    public Transfer() {
-    }
-
-    public Transfer(Long id, long version) {
-        this.id=id;
-        this.version = version;
-    }
 }

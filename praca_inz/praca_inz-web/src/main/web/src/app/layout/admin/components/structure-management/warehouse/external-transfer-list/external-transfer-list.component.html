@@ -1,0 +1,48 @@
+<div class="col-md-12" *ngIf="externalTransfers">
+    <h1>{{ 'Deliveries' | translate }}</h1>
+
+    <div class="row">
+        <div class="col-lg-10">
+            <input class="form-control" #searchBox id="search-box" (keyup)="filterDeliveries(searchBox.value)"
+                   placeholder="{{'Search...'|translate}}"/>
+        </div>
+    </div>
+    <br>
+    <table class="table table-striped" align="center">
+        <thead class="thead-inverse">
+        <tr>
+            <th>{{ 'ElementName' | translate }}</th>
+            <th>{{ 'DeliveryNumber' | translate }}</th>
+            <th>{{'SerialNumber'| translate}}</th>
+            <th>{{'DeviceModel'|translate}}</th>
+            <th>{{'Sender'| translate}}</th>
+            <th>{{'Reciever' | translate}}</th>
+            <th>{{'CreateDate'| translate}}</th>
+            <th>{{'ConfirmationDate'| translate}}</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let externalTransfer of externalTransfers">
+            <td>{{externalTransfer.title}}</td>
+            <td>{{externalTransfer.externalTransferNumber}}</td>
+            <td>{{externalTransfer.serialNumber}}</td>
+            <td>{{externalTransfer.deviceModelName}}</td>
+            <td>{{externalTransfer.sender}}</td>
+            <td>{{externalTransfer.receiver}}</td>
+            <td>{{externalTransfer.createDate}}</td>
+            <td>{{externalTransfer.lastUpdate}}</td>
+            <td class="text-right">
+                <div *ngIf="!externalTransfer.confirmed" class="btn-group flex-btn-group-container">
+                    <button type="submit"
+                            (click)="confirm(externalTransfer)"
+                            class="btn btn-info btn-sm">
+                        <i class="fa fa-eye"></i>&nbsp;
+                        <span class="d-none d-md-inline">{{'ConfirmReceipt'|translate}}</span>
+                    </button>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>

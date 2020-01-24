@@ -3,9 +3,8 @@ import {Injectable} from '@angular/core';
 @Injectable()
 export class Configuration {
 
-    // public Server = 'https://studapp.it.p.lodz.pl:8404/ssbd201804'; // prod
-    public Server = 'http://localhost:8081';
-    // public Server = ''; // npm start
+
+    public Server = 'https://localhost:8081';
 
     public SecuredUrl = '/secured';
     public ServerWithApiUrl = this.Server + this.SecuredUrl;

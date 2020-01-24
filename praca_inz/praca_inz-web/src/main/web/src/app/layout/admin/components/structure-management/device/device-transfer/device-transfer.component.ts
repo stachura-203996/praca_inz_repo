@@ -34,8 +34,7 @@ export class DeviceTransferComponent implements OnInit {
     }
 
     getWarehouses(){
-        var id = this.route.snapshot.paramMap.get('id');
-        this.warehouseService.getAllForTransferRequest(Number(id)).subscribe((response: WarehouseListElement[]) => {
+        this.warehouseService.getAllForTransfer().subscribe((response: WarehouseListElement[]) => {
             this.warehouses = response.reduce(function (companyMap, company) {
                 if (company.id) {
                     companyMap.set(company.name, company.id)

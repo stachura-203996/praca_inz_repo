@@ -1,8 +1,7 @@
 package com.stachura.praca_inz.backend.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.stachura.praca_inz.backend.model.security.User;
+import com.stachura.praca_inz.backend.validation.ValidEmail;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -10,18 +9,17 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 
+@Data
 @Entity
-@EnableAutoConfiguration
-@Table(name = "USERDATA")
 @Getter
 @Setter
+@EnableAutoConfiguration
+@Table(name = "USERDATA")
 public class Userdata implements Serializable {
 
     @Id
-    @SequenceGenerator(name = "UserdataGen", sequenceName = "userdata_id_seq",initialValue = 4,allocationSize = 1)
+    @SequenceGenerator(name = "UserdataGen", sequenceName = "userdata_id_seq",initialValue = 6,allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "UserdataGen")
     @Column(name = "ID", updatable = false, nullable = false)
     private Long id = null;
@@ -36,6 +34,7 @@ public class Userdata implements Serializable {
     @Column(name = "SURNAME", nullable = false)
     private String surname;
 
+    @ValidEmail
     @Column(name = "EMAIL", nullable = false,unique = true)
     private String email;
 
@@ -57,12 +56,4 @@ public class Userdata implements Serializable {
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY,optional = false)
     @JoinColumn(name = "ADDRESS_ID")
     private Address address;
-
-    public Userdata() {
-    }
-
-    public Userdata(Long id, long version) {
-        this.id=id;
-        this.version = version;
-    }
 }

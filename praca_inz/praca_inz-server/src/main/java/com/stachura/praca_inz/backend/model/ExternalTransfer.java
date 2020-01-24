@@ -1,9 +1,7 @@
 package com.stachura.praca_inz.backend.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.stachura.praca_inz.backend.model.enums.Status;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -11,15 +9,13 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
 
+@Data
 @Entity
-@EnableAutoConfiguration
-@Table(name = "EXTERNAL_TRANSFER")
 @Getter
 @Setter
+@EnableAutoConfiguration
+@Table(name = "EXTERNAL_TRANSFER")
 public class ExternalTransfer implements Serializable {
 
     @Id
@@ -28,17 +24,13 @@ public class ExternalTransfer implements Serializable {
     @Column(name = "ID", updatable = false, nullable = false)
     private Long id = null;
 
-    @Version
-    @Column(name = "VERSION")
-    private long version;
-
-    @Column(name = "EXTERNAL_TRANSFER_NUMBER", nullable = false)
+    @Column(name = "EXTERNAL_TRANSFER_NUMBER", nullable = false,unique = true)
     private String externalTransferNumber;
 
     @Column(name = "TITLE", nullable = false)
     private String title;
 
-    @Column(name = "SERIAL_NUMBER", nullable = false)
+    @Column(name = "SERIAL_NUMBER", nullable = false,unique = true)
     private String serialNumber;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -70,12 +62,4 @@ public class ExternalTransfer implements Serializable {
 
     @Column(name = "DELETED", nullable = false)
     private boolean deleted;
-
-    public ExternalTransfer() {
-    }
-
-    public ExternalTransfer(Long id, long version) {
-        this.id = id;
-        this.version = version;
-    }
 }

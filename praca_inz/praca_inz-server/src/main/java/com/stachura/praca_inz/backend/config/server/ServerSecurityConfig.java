@@ -46,13 +46,13 @@ public class ServerSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers(ERROR_PATTERN).permitAll()
-                .antMatchers("/").permitAll()
-                .antMatchers("/ui/**").permitAll()
-                .antMatchers("/index.html").permitAll()
-                .antMatchers("/login").permitAll()
-                .antMatchers("/oauth/token/revokeById/**").permitAll()
-                .anyRequest().authenticated();
+//                .antMatchers(ERROR_PATTERN).permitAll()
+//                .antMatchers("/").permitAll()
+//                .antMatchers("/ui/**").permitAll()
+//                .antMatchers("/index.html").permitAll()
+//                .antMatchers("/login").permitAll()
+//                .antMatchers("/oauth/token/revokeById/**").permitAll()
+                .anyRequest().permitAll();
                 http.httpBasic().disable();
     }
 }

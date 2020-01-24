@@ -19,4 +19,5 @@ public class DeviceViewDto {
     String status;
     String userName;
     String userSurname;
+    String responsibleFor;
 }

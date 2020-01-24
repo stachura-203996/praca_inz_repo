@@ -2,9 +2,11 @@ package com.stachura.praca_inz.backend.model;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.stachura.praca_inz.backend.model.enums.WarehouseType;
 import com.stachura.praca_inz.backend.model.security.User;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -12,17 +14,19 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
+@Data
 @Entity
-@EnableAutoConfiguration
-@Table(name = "WAREHOUSE")
 @Getter
 @Setter
+@EnableAutoConfiguration
+@Table(name = "WAREHOUSE")
 public class Warehouse implements Serializable {
 
     @Id
-    @SequenceGenerator(name = "WarehouseGen", sequenceName = "warehouse_id_seq",initialValue = 9,allocationSize = 1)
+    @SequenceGenerator(name = "WarehouseGen", sequenceName = "warehouse_id_seq",initialValue = 10,allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "WarehouseGen")
     @Column(name = "ID", updatable = false, nullable = false)
     private Long id = null;
@@ -34,7 +38,7 @@ public class Warehouse implements Serializable {
     @Column(name = "NAME", nullable = false,unique = true)
     private String name;
 
-    @ManyToOne(fetch = FetchType.LAZY,optional = false)
+    @ManyToOne(fetch = FetchType.EAGER,optional = false)
     @JsonBackReference
     private User user;
 
@@ -48,6 +52,13 @@ public class Warehouse implements Serializable {
 
     @Column(name = "DELETED", nullable = false)
     private boolean deleted;
+
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "WAREHOUSE_USERS", joinColumns = @JoinColumn(name = "WAREHOUSE_ID", referencedColumnName = "ID"), inverseJoinColumns = @JoinColumn(name = "USER_ID", referencedColumnName = "ID"))
+    @OrderBy
+    @JsonIgnore
+    private List<User> users;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "warehouse", fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonManagedReference
@@ -86,13 +97,5 @@ public class Warehouse implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "recieverWarehouse", fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonManagedReference
     private Set<Transfer> receiverTransfers = new HashSet<>();
-
-    public Warehouse() {
-    }
-
-    public Warehouse(Long id, long version) {
-        this.id=id;
-        this.version = version;
-    }
 }
 

@@ -1,6 +1,6 @@
 package com.stachura.praca_inz.backend.controller;
 
-import com.stachura.praca_inz.backend.exception.base.AppBaseException;
+import com.stachura.praca_inz.backend.exception.base.SystemBaseException;
 import com.stachura.praca_inz.backend.service.AccountEditService;
 import com.stachura.praca_inz.backend.web.dto.user.ProfileEditDto;
 import com.stachura.praca_inz.backend.web.dto.user.UserEditDto;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/secured/account/edit")
-@Transactional(propagation = Propagation.REQUIRES_NEW,rollbackFor = AppBaseException.class)
+@Transactional(propagation = Propagation.REQUIRES_NEW,rollbackFor = SystemBaseException.class)
 public class AccountEditController {
 
 
@@ -23,14 +23,14 @@ public class AccountEditController {
 
     @RequestMapping(value = "/admin", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public ResponseEntity<?> saveAccountAfterEdit(@RequestBody UserEditDto data) throws AppBaseException {
+    public ResponseEntity<?> saveAccountAfterEdit(@RequestBody UserEditDto data) throws SystemBaseException {
         accountEditService.updateAccountbyAdmin(data);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "/self", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public ResponseEntity<?> safeProfileAfterEdit(@RequestBody ProfileEditDto data)throws AppBaseException {
+    public ResponseEntity<?> safeProfileAfterEdit(@RequestBody ProfileEditDto data)throws SystemBaseException {
         accountEditService.updateProfileByUser(data);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }

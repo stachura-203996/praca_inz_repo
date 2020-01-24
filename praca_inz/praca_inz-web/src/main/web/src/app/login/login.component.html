@@ -1,7 +1,6 @@
 <div class="login-page" [@routerTransition]>
     <div class="row justify-content-md-center">
-        <div class="col-md-4">
-            <img src="assets/images/logo.png" width="150px" class="user-avatar" />
+        <div class="col-md-5">
             <h1>Inventory system</h1>
             <form role="form">
                 <div class="form-content">
@@ -13,9 +12,14 @@
                         <input name="password" type="password" [(ngModel)]="loginData.password" class="form-control input-underline input-lg" id="PasswordId" placeholder="{{'Password'|translate}}">
                     </div>
                 </div>
-                <a class="btn rounded-btn" (click)="onLoggedin()"> {{'Log in'|translate}} </a>
-                &nbsp;
-                <a class="btn rounded-btn" [routerLink]="['/login/reset']">{{'ForgetPassword'|translate}}</a>
+                <div class="row">
+                    <div class="col-md-6">
+                    <a class="btn btn-success" (click)="onLoggedin()"> {{'Log in'|translate}} </a>
+                    </div>
+                    <div class="col-md-6">
+                    <a class="btn btn-danger" [routerLink]="['/login/reset']">{{'ForgetPassword'|translate}}</a>
+                    </div>
+                </div>
             </form>
         </div>
     </div>

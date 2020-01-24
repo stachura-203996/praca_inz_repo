@@ -1,11 +1,16 @@
 package com.stachura.praca_inz.backend.web.dto.converter;
 
-import com.stachura.praca_inz.backend.model.*;
+import com.stachura.praca_inz.backend.model.Company;
+import com.stachura.praca_inz.backend.model.Device;
+import com.stachura.praca_inz.backend.model.DeviceModel;
+import com.stachura.praca_inz.backend.model.Warehouse;
 import com.stachura.praca_inz.backend.model.enums.DeviceStatus;
+import com.stachura.praca_inz.backend.model.security.User;
 import com.stachura.praca_inz.backend.web.dto.device.DeviceAddDto;
 import com.stachura.praca_inz.backend.web.dto.device.DeviceEditDto;
 import com.stachura.praca_inz.backend.web.dto.device.DeviceListElementDto;
 import com.stachura.praca_inz.backend.web.dto.device.DeviceViewDto;
+import org.apache.commons.lang3.StringUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -17,7 +22,6 @@ public class DeviceConverter {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         return DeviceViewDto.builder()
                 .id(device.getId())
-                .username(device.getWarehouse().getUser().getUsername())
                 .serialNumber(device.getSerialNumber())
                 .deviceModel(device.getDeviceModel().getName())
                 .deviceModelId(device.getDeviceModel().getId())
@@ -29,9 +33,20 @@ public class DeviceConverter {
                         " > " + device.getWarehouse().getOffice().getDepartment().getName()+
                         " > " + device.getWarehouse().getOffice().getName()+
                         " > " + device.getWarehouse().getName())
-                .userName(device.getWarehouse().getUser().getUserdata().getName())
-                .userSurname(device.getWarehouse().getUser().getUserdata().getSurname())
+                .responsibleFor(getResponsibleFor(device))
                 .build();
+    }
+
+    public static String getResponsibleFor(Device device){
+        String result=device.getWarehouse().getUser().getUserdata().getName()+" "+device.getWarehouse().getUser().getUserdata().getSurname()+" | "+device.getWarehouse().getUser().getUsername();
+
+        for(User user:device.getWarehouse().getUsers()){
+            if(StringUtils.isNotBlank(result)){
+                result+=", ";
+            }
+            result+=user.getUserdata().getName()+" "+user.getUserdata().getSurname()+" | "+user.getUsername();
+        }
+        return result;
     }
 
     //LIST
@@ -39,7 +54,6 @@ public class DeviceConverter {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         return DeviceListElementDto.builder()
                 .id(device.getId())
-                .username(device.getWarehouse().getUser().getUsername())
                 .serialNumber(device.getSerialNumber())
                 .deviceModel(device.getDeviceModel().getName())
                 .deviceTypeName(device.getDeviceModel().getDeviceType().getName())
@@ -50,8 +64,7 @@ public class DeviceConverter {
                         " > " + device.getWarehouse().getOffice().getDepartment().getName()+
                         " > " + device.getWarehouse().getOffice().getName()+
                         " > " + device.getWarehouse().getName())
-                .name(device.getWarehouse().getUser().getUserdata().getName())
-                .userSurname(device.getWarehouse().getUser().getUserdata().getSurname())
+                .responsibleFor(getResponsibleFor(device))
                 .build();
     }
     
@@ -85,14 +98,13 @@ public class DeviceConverter {
 
     //SAVE AFTER EDIT
     public static Device toDevice(DeviceEditDto deviceEditDto, Device beforeDevice,Warehouse warehouse, Company company, DeviceModel deviceModel){
-        Device device=new Device(beforeDevice.getId(),beforeDevice.getVersion());
-        device.setStatus(DeviceStatus.REPOSE);
-        device.setDeleted(false);
-        device.setCompany(company);
-        device.setSerialNumber(deviceEditDto.getSerialNumber());
-        device.setLastUpdate(Calendar.getInstance());
-        device.setDeviceModel(deviceModel);
-        device.setVersion(deviceEditDto.getVersion());
-        return device;
+        beforeDevice.setStatus(DeviceStatus.REPOSE);
+        beforeDevice.setDeleted(false);
+        beforeDevice.setCompany(company);
+        beforeDevice.setSerialNumber(deviceEditDto.getSerialNumber());
+        beforeDevice.setLastUpdate(Calendar.getInstance());
+        beforeDevice.setDeviceModel(deviceModel);
+        beforeDevice.setVersion(deviceEditDto.getVersion());
+        return beforeDevice;
     }
 }

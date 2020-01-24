@@ -1,5 +1,7 @@
 package com.stachura.praca_inz.backend.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -7,15 +9,17 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import javax.persistence.*;
 import java.io.Serializable;
 
+@Data
 @Entity
-@EnableAutoConfiguration
-@Table(name = "ADDRESS")
 @Getter
 @Setter
+@AllArgsConstructor
+@EnableAutoConfiguration
+@Table(name = "ADDRESS")
 public class Address implements Serializable {
 
     @Id
-    @SequenceGenerator(name = "AddressGen", sequenceName = "address_id_seq",initialValue = 11,allocationSize = 1)
+    @SequenceGenerator(name = "AddressGen", sequenceName = "address_id_seq",initialValue = 13,allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "AddressGen")
     @Column(name = "ID", updatable = false, nullable = false)
     private Long id;
@@ -40,11 +44,5 @@ public class Address implements Serializable {
     @Column(name = "DELETED", nullable = false)
     private boolean deleted;
 
-    public Address() {
-    }
-
-    public Address(Long id, long version) {
-        this.id=id;
-        this.version = version;
-    }
+    public Address(){}
 }

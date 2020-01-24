@@ -29,7 +29,7 @@
                 </ul>
             </li>
         </div>
-        <div class="nested-menu" *ngIf="(roles.admin || roles.company_admin)">
+        <div class="nested-menu" *ngIf="(roles.company_admin)">
             <a class="list-group-item" (click)="addExpandClass('companyManagementPanel')">
                 <i class="fa fa-sitemap"></i>&nbsp;
                 <span>{{ 'Structures' | translate }}</span>
@@ -67,7 +67,7 @@
                         </a>
                     </li>
                     <li>
-                        <a [routerLink]="['/admin/reports']">
+                        <a [routerLink]="['/admin/confirmations']">
                             <span>{{ 'Reports' | translate }}</span>
                         </a>
                     </li>
@@ -82,7 +82,7 @@
                         </a>
                     </li>
                     <li>
-                        <a [routerLink]="['/admin/deliveries']">
+                        <a [routerLink]="['/admin/transfers/external']">
                             <span>{{ 'Deliveries' | translate }}</span>
                         </a>
                     </li>
@@ -115,13 +115,13 @@
                         </a>
                     </li>
                     <li>
-                        <a [routerLink]="['/employees/reports']">
+                        <a [routerLink]="['/employees/confirmations']">
                             <i class="fa fa-monument"></i>&nbsp;
                             <span>{{ 'Reports' | translate }}</span>
                         </a>
                     </li>
                     <li>
-                        <a [routerLink]="['/employees/reports/add']">
+                        <a [routerLink]="['/employees/confirmations/add']">
                             <i class="fa fa-monument"></i>&nbsp;
                             <span>{{ 'CreateReport' | translate }}</span>
                         </a>
@@ -183,7 +183,7 @@
                         </a>
                     </li>
                     <li>
-                        <a [routerLink]="['/warehouses/externalTransfer']">
+                        <a [routerLink]="['/warehouses/transfer/external']">
                             <i  class="fa fa-monument"></i>&nbsp;
                             <span>{{ 'Deliveries' | translate }}</span>
                         </a>

@@ -1,23 +1,23 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {EmployeesListComponent} from "./employees-list/employees-list.component";
-import {ReportUserComponent} from "./reports/report-user/report-user.component";
-import {ReportViewComponent} from "./reports/report-view/report-view.component";
-import {ReportAddComponent} from "./reports/report-add/report-add.component";
 import {RequestUserComponent} from "./request-user/request-user.component";
-import {ReportRequestAddComponent} from "./reports/report-request-add/report-request-add.component";
 import {UserViewComponent} from "./user-view/user-view.component";
-import {GeneralRouteGuard} from "../../shared/guard/general-route-guard.service";
-import {FullRouteGuard} from "../../shared/guard/full-route-guard.service";
+import {RoleGuardService} from "../../shared/guard/role-guard.service";
+import {ConfirmationViewComponent} from "./reports/confirmation-view/confirmation-view.component";
+import {ConfirmationUserComponent} from "./reports/confirmation-user/confirmation-user.component";
+import {ConfirmationAddComponent} from "./reports/confirmation-add/confirmation-add.component";
+import {ConfirmationRequestAddComponent} from "./reports/confirmation-request-add/confirmation-request-add.component";
+
 
 const routes: Routes = [
-    {path: 'subordinates', component: EmployeesListComponent/*,canActivate: [FullRouteGuard] */},
-    {path: 'reports', component: ReportUserComponent/*,canActivate: [GeneralRouteGuard]*/},
-    {path: 'reports/view/:id', component: ReportViewComponent/*,canActivate: [GeneralRouteGuard]*/},
-    {path: 'reports/add', component: ReportAddComponent/*,canActivate: [GeneralRouteGuard]*/},
-    {path: 'reports/request/add/:id', component: ReportRequestAddComponent/*,canActivate: [GeneralRouteGuard]*/},
-    {path: 'requests', component: RequestUserComponent/*,canActivate: [GeneralRouteGuard]*/},
-    {path: 'user/view/:username', component: UserViewComponent/*,canActivate: [GeneralRouteGuard]*/},
+    {path: 'subordinates', component: EmployeesListComponent,canActivate: [RoleGuardService],data:{allowedRoles: ['MANAGER']}},
+    {path: 'confirmations', component: ConfirmationUserComponent},
+    {path: 'confirmations/view/:id', component: ConfirmationViewComponent},
+    {path: 'confirmations/add', component: ConfirmationAddComponent},
+    {path: 'confirmations/request/add/:id', component: ConfirmationRequestAddComponent},
+    {path: 'requests', component: RequestUserComponent},
+    {path: 'user/view/:username', component: UserViewComponent},
 
 ];
 

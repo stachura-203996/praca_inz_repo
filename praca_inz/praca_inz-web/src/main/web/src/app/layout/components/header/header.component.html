@@ -11,16 +11,14 @@
                     <i class="fa fa-bell"></i> <b class="caret"></b><span class="sr-only">(current)</span>
                 </a>
                 <ul id="notification" class="dropdown-menu-right messages" ngbDropdownMenu>
-                    <div class="wrapper">
                     <div *ngFor="let notification of notifications">
                         <li class="dropdown-item" (click)="viewNotification(notification)">
                             <div class="media-body">
                                 <h5 class="mt-0 mb-1">{{' '+notification.title}}</h5>
-                                <p class="small text-muted"><i class="fa fa-clock-o"></i>{{' '+notification.calendarTimestamp}}</p>
-                                <p class="last">{{notification.description}}</p>
+                                <div class="small text-muted"><i class="fa fa-clock-o"></i>{{' '+notification.calendarTimestamp}}</div>
+                                <div class="last" >{{notification.description}}</div>
                             </div>
                         <li class="dropdown-divider"></li>
-                    </div>
                     </div>
                     <a [routerLink]="['/notifications']" class="dropdown-item">
                         {{ 'View All' | translate }}
@@ -32,7 +30,7 @@
                     <i class="fa fa-tasks"></i> <b class="caret"></b><span class="sr-only">(current)</span>
                 </a>
                 <div class="dropdown-menu-right" ngbDropdownMenu>
-                    <a [routerLink]="['/employees/reports']" class="dropdown-item">
+                    <a [routerLink]="['/employees/confirmations']" class="dropdown-item">
                         {{ 'Reports' | translate }}
                     </a>
                     <a [routerLink]="['/employees/requests']" class="dropdown-item">

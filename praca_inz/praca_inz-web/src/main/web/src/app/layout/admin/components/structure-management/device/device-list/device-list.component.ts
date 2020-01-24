@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 import {TranslateService} from "@ngx-translate/core";
 import {DeviceService} from "../../../../../device-management/device.service";
@@ -10,9 +10,9 @@ import {MessageService} from "../../../../../../shared/services/message.service"
 
 
 @Component({
-  selector: 'app-device-list',
-  templateUrl: './device-list.component.html',
-  styleUrls: ['./device-list.component.scss']
+    selector: 'app-device-list',
+    templateUrl: './device-list.component.html',
+    styleUrls: ['./device-list.component.scss']
 })
 export class DeviceListComponent implements OnInit {
 
@@ -20,12 +20,12 @@ export class DeviceListComponent implements OnInit {
     devices: DeviceListElement[];
 
     constructor(
-        private deviceService : DeviceService,
-        private userService:UserService,
+        private deviceService: DeviceService,
+        private userService: UserService,
         private translate: TranslateService,
         private configuration: Configuration,
         private messageService: MessageService,
-        private router:Router
+        private router: Router
     ) {
     }
 
@@ -34,14 +34,14 @@ export class DeviceListComponent implements OnInit {
     }
 
 
-    getDevices(){
-            this.deviceService.getAllDevices().subscribe(deviceListElement => {
-                this.devices = deviceListElement
-            });
+    getDevices() {
+        this.deviceService.getAllDevices().subscribe(deviceListElement => {
+            this.devices = deviceListElement
+        });
     }
 
     filterDevices(searchText: string) {
-               this.deviceService.getAllDevices().subscribe(devices => {
+        this.deviceService.getAllDevices().subscribe(devices => {
             if (!devices) {
                 this.devices = [];
                 return;
@@ -52,7 +52,7 @@ export class DeviceListComponent implements OnInit {
 
             searchText = searchText.toLowerCase();
             this.devices = devices.filter(it => {
-                const range = it.deviceModel+ ' ' + it.manufacture+ ' ' + it.location+ ' ' + it.serialNumber+' '+ it.deviceTypeName+ ' '+it.lastUpdate;
+                const range = it.deviceModel + ' ' + it.manufacture + ' ' + it.location + ' ' + it.serialNumber + ' ' + it.deviceTypeName + ' ' + it.lastUpdate;
                 const ok = range.toLowerCase().includes(searchText);
                 return ok;
             });
@@ -60,31 +60,44 @@ export class DeviceListComponent implements OnInit {
     }
 
     transfer(device: DeviceListElement) {
-      this.router.navigateByUrl('/admin/devices/transfer/'+device.id)
+        this.router.navigateByUrl('/admin/devices/transfer/' + device.id)
     }
 
     delete(device: DeviceListElement) {
-        this.deviceService.deleteDevice(String(device.id)).subscribe(resp => {
-            this.getDevices();
-            this.translate.get('success.device.delete').subscribe(x=>{
-                this.messageService.success(x)
-            })
+        var entity: string;
+        var message: string;
+        var yes: string;
+        var no: string;
 
-        }, error => {
-            if (error === this.configuration.ERROR_NO_OBJECT_IN_DATABASE) {
-                this.translate.get('no.object.in.database.error').subscribe(x => {
-                    this.messageService.error(x);
-                })
-            } else {
-                this.translate.get('unknown.error').subscribe(x => {
-                    this.messageService.error(x);
-                })
-            }
+        this.translate.get('device.delete').subscribe(x => entity = x);
+        this.translate.get('confirm.delete').subscribe(x => message = x);
+        this.translate.get('yes').subscribe(x => yes = x);
+        this.translate.get('no').subscribe(x => no = x);
 
-        });
-    }
 
-    getUserInfo(device:DeviceListElement){
-        return device.name+' '+device.userSurname+' | '+device.username
+        this.messageService
+            .confirm(entity, message, yes, no)
+            .subscribe(confirmed => {
+                if (confirmed) {
+                    this.deviceService.deleteDevice(String(device.id)).subscribe(resp => {
+                        this.getDevices();
+                        this.translate.get('success.device.delete').subscribe(x => {
+                            this.messageService.success(x)
+                        })
+
+                    }, error => {
+                        if (error === this.configuration.ERROR_NO_OBJECT_IN_DATABASE) {
+                            this.translate.get('no.object.in.database.error').subscribe(x => {
+                                this.messageService.error(x);
+                            })
+                        } else {
+                            this.translate.get('unknown.error').subscribe(x => {
+                                this.messageService.error(x);
+                            })
+                        }
+
+                    });
+                }
+            });
     }
 }

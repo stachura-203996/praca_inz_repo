@@ -15,47 +15,32 @@ public class WarehouseConverter {
     public static WarehouseViewDto toWarehouseViewDto(Warehouse warehouse) {
         return WarehouseViewDto.builder()
                 .name(warehouse.getName())
-                .name(warehouse.getName())
-                .username(warehouse.getUser().getUsername())
                 .companyName(warehouse.getOffice().getDepartment().getCompany().getName())
                 .departmentName(warehouse.getOffice().getDepartment().getName())
-                .userName(warehouse.getUser().getUserdata().getName())
-                .userSurname(warehouse.getUser().getUserdata().getSurname())
+                .responsibleFor(getResponsibleFor(warehouse))
                 .officeName(warehouse.getOffice().getName())
                 .devicesNumber(String.valueOf(warehouse.getDevices().size()))
                 .build();
     }
 
     //LIST
-    public static WarehouseListElementDto toWarehouseUserListElementDto(Warehouse warehouse) {
-        return WarehouseListElementDto.builder()
-                .id(warehouse.getId())
-                .name(warehouse.getName())
-                .username(warehouse.getUser().getUsername())
-                .devicesNumber(String.valueOf(warehouse.getDevices().size()))
-                .build();
-    }
 
     public static WarehouseListElementDto toWarehouseOfficeListElementDto(Warehouse warehouse) {
         return WarehouseListElementDto.builder()
                 .id(warehouse.getId())
                 .name(warehouse.getName())
-                .username(warehouse.getUser().getUsername())
                 .companyName(warehouse.getOffice().getDepartment().getCompany().getName())
                 .departmentName(warehouse.getOffice().getDepartment().getName())
-                .userName(warehouse.getUser().getUserdata().getName())
-                .userSurname(warehouse.getUser().getUserdata().getSurname())
+                .responsibleFor(getResponsibleFor(warehouse))
                 .officeName(warehouse.getOffice().getName())
                 .devicesNumber(String.valueOf(warehouse.getDevices().size()))
                 .build();
     }
 
-
     //ADD
     public static Warehouse toWarehouse(WarehouseAddDto warehouseAddDto, User user, Office office) {
         Warehouse warehouse = new Warehouse();
         warehouse.setDeleted(false);
-        warehouse.setUser(user);
         warehouse.setWarehouseType(WarehouseType.OFFICE);
         warehouse.setOffice(office);
         warehouse.setName(warehouseAddDto.getName());
@@ -74,15 +59,18 @@ public class WarehouseConverter {
                 .selectedUser(warehouse.getUser().getUserdata().getName() + " " + warehouse.getUser().getUserdata().getName() + " | " + warehouse.getUser().getUsername())
                 .build();
     }
-    
+
     //SAVE AFTER EDIT
     public static Warehouse toWarehouse(WarehouseEditDto warehouseEditDto, Warehouse beforeWarehouse, User user, Office office) {
-        Warehouse warehouse=new Warehouse(beforeWarehouse.getId(),beforeWarehouse.getVersion());
-        warehouse.setUser(user);
-        warehouse.setWarehouseType(WarehouseType.OFFICE);
-        warehouse.setOffice(office);
-        warehouse.setName(warehouseEditDto.getName());
-        warehouse.setVersion(warehouseEditDto.getVersion());
-        return warehouse;
+        beforeWarehouse.setWarehouseType(WarehouseType.OFFICE);
+        beforeWarehouse.setOffice(office);
+        beforeWarehouse.setName(warehouseEditDto.getName());
+        beforeWarehouse.setVersion(warehouseEditDto.getVersion());
+        return beforeWarehouse;
+    }
+
+    public static String getResponsibleFor(Warehouse warehouse){
+        return warehouse.getUser().getUserdata().getName()+" "+warehouse.getUser().getUserdata().getSurname()+" | "+warehouse.getUser().getUsername();
     }
 }
+

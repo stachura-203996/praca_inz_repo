@@ -1,6 +1,7 @@
 package com.stachura.praca_inz.backend.service;
 
-import com.stachura.praca_inz.backend.exception.base.AppBaseException;
+import com.stachura.praca_inz.backend.exception.EntityNotInDatabaseException;
+import com.stachura.praca_inz.backend.exception.base.SystemBaseException;
 import com.stachura.praca_inz.backend.web.dto.PasswordResetDto;
 import com.stachura.praca_inz.backend.web.dto.user.*;
 
@@ -10,35 +11,39 @@ public interface UserService {
 
     List<UserListElementDto> getAllUsers();
 
-    ProfileInfoDto getProfile(String name) throws AppBaseException;
+    ProfileInfoDto getProfile(String name) throws SystemBaseException;
 
-    ProfileEditDto getProfileEdit(String id) throws AppBaseException;
+    ProfileEditDto getProfileEdit(String id) throws SystemBaseException;
 
-    LoggedUserDto getLoggedUser(String name) throws AppBaseException;
+    LoggedUserDto getLoggedUser(String name) throws SystemBaseException;
 
-    UserInfoDto getUserInfo(String name) throws AppBaseException;
+    UserInfoDto getUserInfo(String name) throws SystemBaseException;
 
-    UserEditDto getUserEdit(Long id) throws AppBaseException;
+    UserEditDto getUserEdit(Long id) throws SystemBaseException;
 
-    List<UserListElementDto> getAllUsersForManager(String username) throws AppBaseException;
+    List<UserListElementDto> getAllUsersForManager(String username) throws SystemBaseException;
 
-    List<UserListElementDto> getAllUsersForCompanyAdmin(String username) throws AppBaseException;
+    List<UserListElementDto> getAllUsersForCompanyAdmin(String username) throws SystemBaseException;
 
     List<UserListElementDto> getAllWarehousemen(Long id);
 
-    UserRolesDto getLoggedUserRoles(String name) throws AppBaseException;
+    UserRolesDto getLoggedUserRoles(String name) throws SystemBaseException;
 
-    UserRolesDto getUserRoles(Long id) throws AppBaseException;
+    UserRolesDto getUserRoles(Long id) throws SystemBaseException;
 
-    void deleteUser(Long id) throws AppBaseException;
+    void deleteUser(Long id) throws SystemBaseException;
 
-    PasswordInfoForAdmin getPasswordForAdmin(Long id) throws AppBaseException;
+    PasswordInfoForAdmin getPasswordForAdmin(Long id) throws SystemBaseException;
 
-    void updatePasswordForAdmin(PasswordInfoForAdmin passwordInfoForAdmin) throws AppBaseException;
+    void updatePasswordForAdmin(PasswordInfoForAdmin passwordInfoForAdmin) throws SystemBaseException;
 
-    PasswordInfoDto getPassword(String username) throws AppBaseException;
+    PasswordInfoDto getPassword(String username) throws SystemBaseException;
 
-    void updatePassword(PasswordInfoDto passwordInfoDto, String username) throws AppBaseException;
+    void updatePassword(PasswordInfoDto passwordInfoDto, String username) throws SystemBaseException;
 
-    void resetPassword(PasswordResetDto email) throws AppBaseException;
+    void resetPassword(PasswordResetDto email) throws SystemBaseException;
+
+    List<UserListElementDto> getAllUsersForReport(String name);
+
+    List<UserListElementDto> getAllUsersForWarehouseEdit(Long id) throws EntityNotInDatabaseException;
 }

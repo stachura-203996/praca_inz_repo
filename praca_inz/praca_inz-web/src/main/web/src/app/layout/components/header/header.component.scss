@@ -13,7 +13,6 @@ $topnav-background-color: #222;
             }
             margin-right: 20px;
                 .dropdown-item {
-
                    padding-right : 100px;
                 }
 
@@ -22,6 +21,9 @@ $topnav-background-color: #222;
     }
     .messages {
         width: 300px;
+        max-width: 300px;
+        white-space: normal;
+        word-wrap: break-word;
         .media {
             border-bottom: 1px solid #ddd;
             padding: 5px 10px;
@@ -30,6 +32,9 @@ $topnav-background-color: #222;
             }
         }
         .media-body {
+            max-width: 300px;
+            word-wrap: break-word;
+            white-space: normal;
             h5 {
                 font-size: 13px;
                 font-weight: 600;
@@ -38,6 +43,8 @@ $topnav-background-color: #222;
                 margin: 0;
             }
             .last {
+                word-wrap: break-word;
+                white-space: normal;
                 font-size: 12px;
                 max-width:300px ;
                 margin: 0;
@@ -46,13 +53,3 @@ $topnav-background-color: #222;
         }
     }
 }
-
-.wrapper{
-    max-width: 300px;
-}
-
-.p{
-    max-width: 150px;
-    word-wrap: break-word;
-}
-

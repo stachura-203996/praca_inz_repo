@@ -6,10 +6,8 @@ export class DeviceListElement {
     manufacture:string;
     lastUpdate:string
     location:string;
-    name:string;
-    userSurname:string
-    username:string;
     status:string;
+    responsibleFor:string;
 }
 
 export class DeviceAddElement {
@@ -40,9 +38,7 @@ export class DeviceViewElement {
     manufacture:string;
     lastUpdate:string
     location:string;
-    userName:string;
-    userSurname:string
-    username:string;
+    responsibleFor:string;
     status:string;
 }
 

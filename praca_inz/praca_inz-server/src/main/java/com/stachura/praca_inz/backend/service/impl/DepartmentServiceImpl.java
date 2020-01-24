@@ -19,14 +19,13 @@ import com.stachura.praca_inz.backend.web.dto.company.CompanyStructuresListEleme
 import com.stachura.praca_inz.backend.web.dto.converter.CompanyStructureConverter;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.ObjectOptimisticLockingFailureException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
-import javax.persistence.LockModeType;
-import javax.persistence.OptimisticLockException;
 import javax.persistence.PersistenceException;
 import java.util.ArrayList;
 import java.util.List;
@@ -136,11 +135,11 @@ public class DepartmentServiceImpl implements DepartmentService {
     @PreAuthorize("hasAuthority('DEPARTMENT_UPDATE')")
     public void updateDepartment(CompanyStructureEditDto companyStructureEditDto) throws EntityOptimisticLockException, EntityNotInDatabaseException, DatabaseErrorException {
         try {
-            Department beforeDepartment = em.find(Department.class, companyStructureEditDto.getId(), LockModeType.OPTIMISTIC);
+            Department beforeDepartment = departmentRepository.findById(companyStructureEditDto.getId()).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
             Company company = companyRepository.findById(companyStructureEditDto.getParentId()).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
-            departmentRepository.save(CompanyStructureConverter.toDepartment(companyStructureEditDto, beforeDepartment, company));
-            em.flush();
-        } catch (OptimisticLockException e) {
+            departmentRepository.detach(beforeDepartment);
+            departmentRepository.saveAndFlush(CompanyStructureConverter.toDepartment(companyStructureEditDto, beforeDepartment, company));
+        } catch (ObjectOptimisticLockingFailureException e) {
             throw new EntityOptimisticLockException(EntityOptimisticLockException.OPTIMISTIC_LOCK);
         } catch (PersistenceException e) {
             throw new DatabaseErrorException(DatabaseErrorException.DEPARTMENT_NAME_TAKEN);

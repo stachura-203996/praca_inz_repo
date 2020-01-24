@@ -2,16 +2,17 @@ package com.stachura.praca_inz.backend.service.impl;
 
 import com.google.common.collect.Lists;
 import com.stachura.praca_inz.backend.exception.EntityNotInDatabaseException;
-import com.stachura.praca_inz.backend.exception.base.AppBaseException;
+import com.stachura.praca_inz.backend.exception.base.SystemBaseException;
 import com.stachura.praca_inz.backend.model.SystemMessage;
 import com.stachura.praca_inz.backend.repository.SystemMessageRepository;
 import com.stachura.praca_inz.backend.service.SystemMessageService;
+import com.stachura.praca_inz.backend.web.dto.converter.SystemMessageConverter;
 import com.stachura.praca_inz.backend.web.dto.system_message.SystemMessageAddDto;
 import com.stachura.praca_inz.backend.web.dto.system_message.SystemMessageListElementDto;
-import com.stachura.praca_inz.backend.web.dto.converter.SystemMessageConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
@@ -26,9 +27,9 @@ public class SystemMessageServiceImpl implements SystemMessageService {
     private SystemMessageRepository systemMessageRepository;
 
     @Override
-    @Transactional(readOnly = true)
+    @Transactional(readOnly = true,propagation = Propagation.MANDATORY)
     @PreAuthorize("hasAuthority('SYSTEM_MESSAGE_READ')")
-    public SystemMessage getSystemMessageById(Long id) throws AppBaseException {
+    public SystemMessage getSystemMessageById(Long id) throws SystemBaseException {
         SystemMessage systemMessage = systemMessageRepository.findById(id).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
         if (systemMessage.isDeleted()) {
             return null;
@@ -37,7 +38,7 @@ public class SystemMessageServiceImpl implements SystemMessageService {
     }
 
     @Override
-    @Transactional(readOnly = true)
+    @Transactional(readOnly = true,propagation = Propagation.MANDATORY)
     @PreAuthorize("hasAuthority('SYSTEM_MESSAGE_LIST_READ')")
     public List<SystemMessageListElementDto> getAllSystemMessages() {
         List<SystemMessage> systemMessages = Lists.newArrayList(systemMessageRepository.findAll()).stream().sorted(Comparator.comparing(SystemMessage::getCreateDate).reversed()).collect(Collectors.toList());
@@ -53,7 +54,7 @@ public class SystemMessageServiceImpl implements SystemMessageService {
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('SYSTEM_MESSAGE_CREATE')")
-    public void createNewSystemMessage(SystemMessageAddDto systemMessageAddDto) throws AppBaseException {
+    public void createNewSystemMessage(SystemMessageAddDto systemMessageAddDto) throws SystemBaseException {
 
         systemMessageRepository.saveAndFlush(SystemMessageConverter.toSystemMessage(systemMessageAddDto));
     }
@@ -61,7 +62,7 @@ public class SystemMessageServiceImpl implements SystemMessageService {
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('SYSTEM_MESSAGE_DELETE')")
-    public void deleteSystemMessageById(Long id) throws AppBaseException {
+    public void deleteSystemMessageById(Long id) throws SystemBaseException {
         systemMessageRepository.findById(id).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT)).setDeleted(true);
     }
 }

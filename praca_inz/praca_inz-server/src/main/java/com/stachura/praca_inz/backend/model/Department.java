@@ -2,6 +2,7 @@ package com.stachura.praca_inz.backend.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -11,11 +12,12 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+@Data
 @Entity
-@EnableAutoConfiguration
-@Table(name = "DEPARTMENT")
 @Getter
 @Setter
+@EnableAutoConfiguration
+@Table(name = "DEPARTMENT")
 public class Department implements Serializable {
 
     @Id
@@ -44,13 +46,4 @@ public class Department implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "department", fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonManagedReference
     private Set<Office> offices = new HashSet<>();
-
-    public Department() {
-    }
-
-    public Department(Long id, long version) {
-        this.id=id;
-        this.version = version;
-    }
-    
 }

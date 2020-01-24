@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import {HttpService} from "../../shared/services/http.service";
 import {Configuration} from "../../app.constants";
 import {Observable} from "rxjs";
-import {DeliveryListElement, WarehouseAddElement, WarehouseEditElement, WarehouseListElement, WarehouseViewElement} from "../../models/warehouse-elements";
+import {ExternalTransferListElement, WarehouseAddElement, WarehouseEditElement, WarehouseListElement, WarehouseViewElement} from "../../models/warehouse-elements";
 import {StructureEditElement} from "../../models/structure-elements";
+import {UserListElement} from "../../models/user-list-element";
 
 @Injectable({
   providedIn: 'root'
@@ -11,8 +12,8 @@ import {StructureEditElement} from "../../models/structure-elements";
 export class WarehouseService {
 
     private warehousePath = this.configuration.ServerWithApiUrl + '/warehouse';
-    private deliveryPath = this.configuration.ServerWithApiUrl + '/delivery';
-    private shipmentPath = this.configuration.ServerWithApiUrl + '/shipment';
+    private deliveryPath = this.configuration.ServerWithApiUrl + '/external/transfer';
+
 
     constructor(private httpService: HttpService, private configuration: Configuration) { }
 
@@ -20,6 +21,10 @@ export class WarehouseService {
 
     getAll(): Observable<WarehouseListElement[]> {
         return this.httpService.get<WarehouseListElement[]>(this.warehousePath);
+    }
+
+    getAllForTransfer(){
+        return this.httpService.get<WarehouseListElement[]>(this.warehousePath+'/transfer');
     }
 
     getAllForTransferRequest(id:number){
@@ -66,16 +71,34 @@ export class WarehouseService {
 
     //Deliveries
 
-    getAllDeliveries(): Observable<DeliveryListElement[]> {
-        return this.httpService.get<DeliveryListElement[]>(this.deliveryPath);
+    getAllDeliveries(): Observable<ExternalTransferListElement[]> {
+        return this.httpService.get<ExternalTransferListElement[]>(this.deliveryPath);
     }
 
-    getAllDeliveriesForCompany(id:number): Observable<DeliveryListElement[]> {
-        return this.httpService.get<DeliveryListElement[]>(this.deliveryPath+'/company/'+id);
+    getAllDeliveriesForCompany(id:number): Observable<ExternalTransferListElement[]> {
+        return this.httpService.get<ExternalTransferListElement[]>(this.deliveryPath+'/company/'+id);
     }
 
-    getAllDeliveriesForWarehouse(): Observable<DeliveryListElement[]> {
-        return this.httpService.get<DeliveryListElement[]>(this.deliveryPath+'/warehouseman');
+    getAllDeliveriesForWarehouse(): Observable<ExternalTransferListElement[]> {
+        return this.httpService.get<ExternalTransferListElement[]>(this.deliveryPath+'/warehouseman');
     }
 
+    confirmDelivery(id: number) {
+        return this.httpService.put<any>(this.deliveryPath+'/confirm/'+id,{})
+    }
+
+
+    //Warehouseman
+
+    getAllWarehouseUsers(id: string): Observable<UserListElement[]> {
+        return this.httpService.get<UserListElement[]>(this.warehousePath + '/users/' + id);
+    }
+
+    attachWarehouseUser(userId:number,warehouseId:number){
+        return this.httpService.post<any>(this.warehousePath+'/user/'+warehouseId+'/'+userId,{});
+    }
+
+    detachWarehouseUser(userId:number,warehouseId:number): Observable<any>{
+        return this.httpService.delete<any>(this.warehousePath+'/user/'+warehouseId+'/'+userId);
+    }
 }

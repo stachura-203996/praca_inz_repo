@@ -4,9 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.stachura.praca_inz.backend.model.*;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -17,16 +15,17 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+@Data
 @Entity
-@EnableAutoConfiguration
-@Table(name = "USER_", uniqueConstraints = {@UniqueConstraint(columnNames = {"USER_NAME"})})
 @Getter
 @Setter
+@EnableAutoConfiguration
+@Table(name = "USER_")
 @EqualsAndHashCode(of = "id")
 public class User implements UserDetails, Serializable {
 
     @Id
-    @SequenceGenerator(name = "UserGen", sequenceName = "user_id_seq", initialValue = 5, allocationSize = 1)
+    @SequenceGenerator(name = "UserGen", sequenceName = "user_id_seq", initialValue = 6, allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "UserGen")
     @Column(name = "ID", updatable = false, nullable = false)
     private Long id;
@@ -65,13 +64,21 @@ public class User implements UserDetails, Serializable {
     @JsonManagedReference
     private Set<Warehouse> warehouses = new HashSet<>();
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY, orphanRemoval = true)
+    @JsonManagedReference
+    private Set<Request> requests = new HashSet<>();
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY, orphanRemoval = true)
+    @JsonManagedReference
+    private Set<Transfer> transfers = new HashSet<>();
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "sender", fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonManagedReference
-    private Set<Report> reportsSender = new HashSet<>();
+    private Set<Confirmation> reportsSender = new HashSet<>();
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "reciever", fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonManagedReference
-    private Set<Report> reportsReciever = new HashSet<>();
+    private Set<Confirmation> reportsReciever = new HashSet<>();
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonManagedReference
@@ -101,13 +108,5 @@ public class User implements UserDetails, Serializable {
     @Override
     public boolean isCredentialsNonExpired() {
         return !isCredentialsExpired();
-    }
-
-    public User() {
-    }
-
-    public User(Long id, long version) {
-        this.id = id;
-        this.version = version;
     }
 }

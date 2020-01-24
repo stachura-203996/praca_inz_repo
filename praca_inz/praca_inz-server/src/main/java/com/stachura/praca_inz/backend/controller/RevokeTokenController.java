@@ -1,6 +1,6 @@
 package com.stachura.praca_inz.backend.controller;
 
-import com.stachura.praca_inz.backend.exception.base.AppBaseException;
+import com.stachura.praca_inz.backend.exception.base.SystemBaseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -17,19 +17,19 @@ import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/secured/revoke/token")
-@Transactional(propagation = Propagation.REQUIRES_NEW,rollbackFor = AppBaseException.class)
+@Transactional(propagation = Propagation.REQUIRES_NEW,rollbackFor = SystemBaseException.class)
 public class RevokeTokenController {
 
     @Autowired
-    private ConsumerTokenServices tokenServices;
+    private ConsumerTokenServices customerTokenService;
 
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public HttpStatus revokeToken(HttpServletRequest request) {
-        String authorization = request.getHeader("Authorization");
-        if (authorization != null && authorization.contains("Bearer")){
-            String tokenId = authorization.substring("Bearer".length()+1);
-            tokenServices.revokeToken(tokenId);
+        String token = request.getHeader("Authorization");
+        if (token != null && token.contains("Bearer")){
+            String tokenId = token.substring("Bearer".length()+1);
+            customerTokenService.revokeToken(tokenId);
             return HttpStatus.ACCEPTED;
         }
         return HttpStatus.BAD_REQUEST;

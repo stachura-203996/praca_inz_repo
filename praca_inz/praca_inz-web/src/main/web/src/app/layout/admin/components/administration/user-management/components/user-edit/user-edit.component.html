@@ -51,10 +51,10 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-xl-9 control-label" for="Address">{{'Address' | translate}}<span style="color:red">*</span></label>
                         <div class="col-xl-9 ">
                             <div id="Address" class="row">
                                 <div class="col-xl-4">
+                                    <div class="row"><label class="col-xl-9 control-label" for="City">{{'City' | translate}}<span style="color:red">*</span></label></div>
                                     <div class="input-group">
                                         <input id="City" [(ngModel)]="userEditElement.city" name="City" type="text"
                                                placeholder="{{'City'|translate}}" class="form-control input-xl"
@@ -64,10 +64,11 @@
                                     <div *ngIf="city.invalid && (city.touched || city.dirty)"
                                          class="alert alert-danger col-sm-12">
                                         <div *ngIf="city.hasError('required')">{{'City is required'|translate}}</div>
-                                        <div *ngIf="city.hasError('maxLength')">{{'City cannot be longer than 20 characters.'|translate}}</div>
+                                        <div *ngIf="city.hasError('maxLength')">{{'City cannot be longer than 20 characters.'|translate}}                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-xl-4">
+                                    <div class="row"><label class="col-xl-9 control-label" for="Street">{{'Street' | translate}}<span style="color:red">*</span></label></div>
                                     <div class="input-group">
                                         <input id="Street" [(ngModel)]="userEditElement.street" name="Street"
                                                type="text"
@@ -77,35 +78,41 @@
                                     </div>
                                     <div *ngIf="street.invalid && (street.touched || street.dirty)"
                                          class="alert alert-danger col-sm-12">
-                                        <div *ngIf="street.hasError('required')">{{'Street is required'|translate}}</div>
-                                        <div *ngIf="street.hasError('maxLength')">{{'Street cannot be longer than 20 characters.'|translate}}</div>
+                                        <div *ngIf="street.hasError('required')">{{'Street is required'|translate}}
+                                        </div>
+                                        <div *ngIf="street.hasError('maxLength')">{{'Street cannot be longer than 20 characters.'|translate}}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <br>
                             <div class="row">
-                                <div class="col-xl-2">
+                                <div class="col-xl-3">
+                                    <div class="row"><label class="col-xl-9 control-label" for="buildingNumber">{{'houseNumber' | translate}}<span style="color:red">*</span></label></div>
                                     <div class="input-group">
-                                        <input id="houseNumber" [(ngModel)]="userEditElement.houseNumber"
-                                               name="houseNumber" type="number"
-                                               placeholder="{{'houseNumber'|translate}}"
+                                        <input id="buildingNumber" [(ngModel)]="userEditElement.houseNumber"
+                                               name="buildingNumber" type="number" placeholder="{{'houseNumber'|translate}}"
                                                class="form-control input-xl"
                                                min="1"
                                                required
                                                appNotNegative
                                                appNotNaught
                                                appNotRealNumber
-                                               #house="ngModel">
+                                               #buildingNumber="ngModel">
                                     </div>
-                                    <div *ngIf="house.invalid && (house.touched || house.dirty)"
+                                    <div *ngIf="buildingNumber.invalid && (buildingNumber.touched || buildingNumber.dirty)"
                                          class="alert alert-danger col-sm-12">
-                                        <div *ngIf="house.hasError('required')">{{'House number is required'|translate}}
+                                        <div *ngIf="buildingNumber.hasError('required')">{{'Building number is required'|translate}}
                                         </div>
-                                        <div *ngIf="house.hasError('naught')">{{'House number cannot be zero!'|translate}}</div>
-                                        <div *ngIf="house.hasError('realNumber')">{{'House number must be positive integer!'|translate}}</div>
+                                        <div *ngIf="buildingNumber.hasError('naught')">{{'Building number can not be zero!'|translate}}
+                                        </div>
+                                        <div *ngIf="buildingNumber.hasError('realNumber')">{{'Building number must be positive integer!'|translate}}</div>
+                                        <div *ngIf="buildingNumber.hasError('negative')">{{'Building number can not be negative!'|translate}}
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-xl-2">
+                                <div class="col-xl-3">
+                                    <div class="row"><label class="col-xl-9 control-label" for="flatNumber">{{'flatNumber' | translate}}</label></div>
                                     <div class="input-group">
                                         <input id="flatNumber" [(ngModel)]="userEditElement.flatNumber"
                                                name="flatNumber" type="number" placeholder="{{'flatNumber'|translate}}"
@@ -117,8 +124,10 @@
                                     </div>
                                     <div *ngIf="flat.invalid && (flat.touched || flat.dirty)"
                                          class="alert alert-danger col-sm-12">
-                                        <div *ngIf="flat.hasError('negative')">{{'Flat number cannot be negative!'|translate}}</div>
-                                        <div *ngIf="flat.hasError('naught')">{{'Flat number cannot be zero!'|translate}}</div>
+                                        <div *ngIf="flat.hasError('negative')">{{'Flat number cannot be negative!'|translate}}
+                                        </div>
+                                        <div *ngIf="flat.hasError('naught')">{{'Flat number can not be zero!'|translate}}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -146,8 +155,8 @@
                         </div>
                     </div>
                     <div class="form-group col-xl-5">
-                        <label for="companySelect">{{'Office'|translate}}<span style="color:red">*</span></label>
-                        <select class="form-control" id="companySelect" [(ngModel)]="userEditElement.officeName" name="first"
+                        <label for="officeSelect">{{'Office'|translate}}<span style="color:red">*</span></label>
+                        <select class="form-control" id="officeSelect" [(ngModel)]="userEditElement.officeName" name="officeSelect"
                                 required #office="ngModel">
                             <option *ngFor="let office of offices|keyvalue" [value]="office.key">{{office.key}}</option>
                         </select>

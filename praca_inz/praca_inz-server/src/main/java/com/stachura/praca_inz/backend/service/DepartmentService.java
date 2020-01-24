@@ -1,7 +1,7 @@
 package com.stachura.praca_inz.backend.service;
 
 import com.stachura.praca_inz.backend.exception.EntityNotInDatabaseException;
-import com.stachura.praca_inz.backend.exception.base.AppBaseException;
+import com.stachura.praca_inz.backend.exception.base.SystemBaseException;
 import com.stachura.praca_inz.backend.model.Department;
 import com.stachura.praca_inz.backend.web.dto.company.CompanyStructureAddDto;
 import com.stachura.praca_inz.backend.web.dto.company.CompanyStructureEditDto;
@@ -11,17 +11,17 @@ import com.stachura.praca_inz.backend.web.dto.company.CompanyStructuresListEleme
 import java.util.List;
 
 public interface DepartmentService {
-    Department getDepartmentById(Long id) throws AppBaseException;
+    Department getDepartmentById(Long id) throws SystemBaseException;
 
-    List<CompanyStructuresListElementDto> getAllDepartments(String username) throws AppBaseException;
+    List<CompanyStructuresListElementDto> getAllDepartments(String username) throws SystemBaseException;
 
     List<CompanyStructuresListElementDto> getAllDepartmentsForCompany(Long id);
 
-    void createNewDepartment(CompanyStructureAddDto companyStructureAddDto) throws AppBaseException;
+    void createNewDepartment(CompanyStructureAddDto companyStructureAddDto) throws SystemBaseException;
 
-    void updateDepartment(CompanyStructureEditDto companyStructureEditDto) throws AppBaseException;
+    void updateDepartment(CompanyStructureEditDto companyStructureEditDto) throws SystemBaseException;
 
-    void deleteDepartmentById(Long id) throws AppBaseException;
+    void deleteDepartmentById(Long id) throws SystemBaseException;
 
     CompanyStructureViewDto getDepartmentView(Long id) throws EntityNotInDatabaseException;
 

@@ -1,7 +1,5 @@
 package com.stachura.praca_inz.backend.validation;
 
-
-
 import com.stachura.praca_inz.backend.web.dto.user.RegistrationDto;
 
 import javax.validation.ConstraintValidator;

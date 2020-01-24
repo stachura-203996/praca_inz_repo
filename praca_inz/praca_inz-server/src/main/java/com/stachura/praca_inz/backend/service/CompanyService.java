@@ -1,8 +1,7 @@
 package com.stachura.praca_inz.backend.service;
 
 import com.stachura.praca_inz.backend.exception.EntityNotInDatabaseException;
-import com.stachura.praca_inz.backend.exception.base.AppBaseException;
-import com.stachura.praca_inz.backend.model.Company;
+import com.stachura.praca_inz.backend.exception.base.SystemBaseException;
 import com.stachura.praca_inz.backend.web.dto.company.CompanyStructureAddDto;
 import com.stachura.praca_inz.backend.web.dto.company.CompanyStructureEditDto;
 import com.stachura.praca_inz.backend.web.dto.company.CompanyStructureViewDto;
@@ -18,10 +17,10 @@ public interface CompanyService {
 
     List<CompanyStructuresListElementDto> getAllCompanies();
 
-    void createNewCompany(CompanyStructureAddDto company) throws AppBaseException;
+    void createNewCompany(CompanyStructureAddDto company) throws SystemBaseException;
 
-    void updateCompany(CompanyStructureEditDto companyStructureEditDto) throws  AppBaseException;
+    void updateCompany(CompanyStructureEditDto companyStructureEditDto) throws SystemBaseException;
 
-    void deleteCompanyById(Long id) throws  AppBaseException;
+    void deleteCompanyById(Long id) throws SystemBaseException;
 
 }

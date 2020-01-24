@@ -24,18 +24,21 @@ import { WarehouseListComponent } from './components/structure-management/wareho
 import {WarehouseAddComponent} from "./components/structure-management/warehouse/warehouse-add/warehouse-add.component";
 import {WarehouseEditComponent} from "./components/structure-management/warehouse/warehouse-edit/warehouse-edit.component";
 import { RequestListComponent } from './components/structure-management/request/request-list/request-list.component';
-import { ReportListComponent } from './components/structure-management/report/report-list/report-list.component';
 import {DeviceModelListComponent} from "./components/structure-management/device/device-model-list/device-model-list.component";
 import {DeviceModelAddComponent} from "./components/structure-management/device/device-model-add/device-model-add.component";
 import {DeviceModelEditComponent} from "./components/structure-management/device/device-model-edit/device-model-edit.component";
 import { DeviceTypeListComponent } from './components/structure-management/device/device-type-list/device-type-list.component';
-import { DeliveryListComponent } from './components/structure-management/warehouse/delivery-list/delivery-list.component';
+
 import { SummaryComponent } from './components/structure-management/summary/summary.component';
 import { UserPasswordEditComponent } from './components/administration/user-management/components/user-password-edit/user-password-edit.component';
 import { DeviceTransferComponent } from './components/structure-management/device/device-transfer/device-transfer.component';
 import {SystemMessageAddComponent} from "./components/administration/system_messages/system-message-add/system-message-add.component";
 import {SystemMessageListComponent} from "./components/administration/system_messages/system-message-list/system-message-list.component";
 import {ShareModule} from "../../shared/modules/share/share.module";
+
+import { WarehouseUsersEditComponent } from './components/structure-management/warehouse/warehouse-users-edit/warehouse-users-edit.component';
+import {ExternalTransferListComponent} from "./components/structure-management/warehouse/external-transfer-list/external-transfer-list.component";
+import {ConfirmationListComponent} from "./components/structure-management/confirmation/confirmation-list/confirmation-list.component";
 
 @NgModule({
     imports: [
@@ -70,14 +73,15 @@ import {ShareModule} from "../../shared/modules/share/share.module";
         WarehouseAddComponent,
         WarehouseEditComponent,
         RequestListComponent,
-        ReportListComponent,
+        ConfirmationListComponent,
         SystemMessageAddComponent,
         SystemMessageListComponent,
         DeviceTypeListComponent,
-        DeliveryListComponent,
+        ExternalTransferListComponent,
         SummaryComponent,
         UserPasswordEditComponent,
-        DeviceTransferComponent
+        DeviceTransferComponent,
+        WarehouseUsersEditComponent
     ]
 })
 export class AdminModule {

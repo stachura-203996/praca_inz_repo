@@ -20,4 +20,5 @@ public class DeviceListElementDto {
     String status;
     String name;
     String userSurname;
+    String responsibleFor;
 }

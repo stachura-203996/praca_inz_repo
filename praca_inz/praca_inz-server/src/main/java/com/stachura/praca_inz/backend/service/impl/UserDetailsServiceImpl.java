@@ -27,7 +27,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         if (user != null) {
             return user;
         }
-
         throw new UsernameNotFoundException(username);
     }
 }

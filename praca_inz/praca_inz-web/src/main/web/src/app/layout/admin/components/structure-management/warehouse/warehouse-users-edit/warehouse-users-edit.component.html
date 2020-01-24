@@ -1,0 +1,60 @@
+<!--<div class="col-xl-10">-->
+    <h2>{{'List of warehouse keepers'|translate}}</h2>
+    <!--<hr/>-->
+    <div class="row">
+        <div class="col-xl-9">
+            <form #ParameterForm="ngForm" (ngSubmit)="attach()">
+                <div class="row">
+                    <div class="col-xl-7" *ngIf="roles.warehouseman">
+                        <select class="form-control" id="user" [(ngModel)]="selectedOption" name="user" required
+                                #user>
+                            <option *ngFor="let user of users|keyvalue" [value]="user.key">{{user.key}}</option>
+                        </select>
+                        <div *ngIf="user.invalid && (user.touched || user.dirty)"
+                             class="alert alert-danger col-sm-12">
+                            <div *ngIf="user.hasError('required')">{{'User is required!'|translate}}</div>
+                        </div>
+                    </div>
+                    <div class="col-xl-5">
+                        <button class="btn btn-primary float-right jh-create-entity" type="submit"
+                                [disabled]="!ParameterForm.form.valid">
+                            <i class="fa fa-plus"></i>&nbsp;
+                            <span>{{ 'Add warehouseman' | translate }}</span>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br>
+    <table class="table table-striped" >
+        <thead class="thead-inverse">
+        <tr>
+            <th>{{ 'Name' | translate }}</th>
+            <th>{{ 'Surname' | translate }}</th>
+            <th>{{ 'Username' | translate }}</th>
+            <th>{{ 'Email' | translate }}</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let user of warehousemen">
+            <td>{{user.name}}</td>
+            <td>{{user.surname}}</td>
+            <td>{{user.username}}</td>
+            <td>{{user.email}}</td>
+            <td class="text-right">
+                <div class="btn-group flex-btn-group-container">
+                    <button type="button" (click)="detach(user)"
+                            class="btn btn-danger btn-sm" >
+                        <i class="fa fa-times"></i>&nbsp;
+                        <span class="d-none d-md-inline">{{'Delete'|translate}}</span>
+                    </button>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+<!--</div>-->
+
+

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.stachura.praca_inz.backend.model.enums.RequestType;
 import com.stachura.praca_inz.backend.model.enums.Status;
 import com.stachura.praca_inz.backend.model.security.User;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -13,10 +14,12 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Collection;
 
-@Entity(name="REQUEST")
-@EnableAutoConfiguration
+@Data
+@Entity
 @Getter
 @Setter
+@Table(name="REQUEST")
+@EnableAutoConfiguration
 public class Request {
 
     @Id
@@ -77,11 +80,4 @@ public class Request {
     @JsonIgnore
     private Collection<Device> devices;
 
-    public Request() {
-    }
-
-    public Request(Long id, long version) {
-        this.id=id;
-        this.version = version;
-    }
 }
